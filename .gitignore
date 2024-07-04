@@ -5,10 +5,25 @@
 /partner
 **/vendor/
 
-#_lang directory files
-_lang/*
-!_lang/main/default/language.php
-!_lang/administration/default/language.php
+# Ignore all files in the _lang directory
+!/_lang
+/_lang/*
+
+# But not these specific files
+!/_lang/main
+/_lang/main/*
+
+!/_lang/main/default
+/_lang/main/default/*
+
+!/_lang/main/default/language.php
+
+!/_lang/administration
+/_lang/administration/*
+
+!/_lang/administration/default
+/_lang/administration/default/*
+!/_lang/administration/default/language.php
 
 #_frameworks files
 _frameworks/install/
@@ -35,12 +50,17 @@ _frameworks/main/whisprrz_Edge/lightbox/
 _frameworks/main/whisprrz_Edge/player/
 _frameworks/main/whisprrz_Edge/quill/
 
-!_frameworks/set_old.php
-!_frameworks/set_urban.php
+!/_frameworks/common
+/_frameworks/common/*
+
+!_frameworks/common/set_old.php
+!_frameworks/common/set_urban.php
 
 #_server directory
-_server/
+!/_server
+/_server/*
 !_server/widgets/
+!_server/.htaccess
 !_server/client.js
 !_server/gallery.js
 !_server/geo_ajax.php
@@ -51,7 +71,9 @@ _server/
 !_server/room_link.js
 !_server/server_edge.js
 !_server/server_impact.js
+!_server/server_mobile.js
 !_server/server.js
+!_server/server.php
 !_server/update_server_ajax_edge.php
 !_server/update_server_ajax_impact.php
 !_server/update_server_ajax.php

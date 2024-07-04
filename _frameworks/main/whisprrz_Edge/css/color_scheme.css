@@ -1,0 +1,35 @@
+/* General */
+.cover_button.disabled span .css_loader .spinnerw .spinner-blade{
+	background-color: var(--general_loader_color);
+}
+/* General */
+
+.cover_button{
+    background-color: var(--member_circular_menu_background_color);
+    color: var(--member_circular_menu_color);
+}
+
+.cover_button:hover{
+	background-color: var(--member_circular_menu_background_color_hover);
+	color: var(--member_circular_menu_color_hover);
+}
+
+.cover_button_bl .cover_upload_edit_caret{
+	border-top-color: var(--member_circular_menu_color);
+}
+
+.cover_button_bl:hover .cover_upload_edit_caret{
+	border-top-color: var(--member_circular_menu_color_hover);
+}
+
+.cover_button.disabled{
+	background-color: var(--member_circular_menu_background_color);
+	color: var(--member_circular_menu_color);
+}
+
+@media (max-width: 767px) {
+	.cover_button{
+		background-color: var(--member_circular_menu_color);
+		color: var(--member_circular_menu_background_color);
+	}
+}

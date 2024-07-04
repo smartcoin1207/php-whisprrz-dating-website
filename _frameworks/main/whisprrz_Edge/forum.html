@@ -1,0 +1,79 @@
+{header}
+	<link rel="stylesheet" href="{url_tmpl_main}css/forum.css{cache_version_param}" type="text/css" media="screen" />
+
+<div class="frame_content">
+
+<table cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center">
+	<tr>
+		<td width="100%">
+		<div class="navbar" style="margin-bottom: 0px; min-height: 10px;"><a class="txt_upper_header_color"
+			href="{url_main}forum.php" accesskey="1"><img class="inlineimg"
+			src="{url_tmpl_main}img/forum/navbits_start.png" alt="" border="0" /></a>
+		<strong>{l_forum}</strong></div>
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<!-- begin_forum_category -->
+<table class="tborder_header" width="100%">
+	<tr>
+		<td class="thead"><!-- <a href="{url_main}forum.php"> --><strong>{category_title}</strong><!-- </a> -->
+		<!-- begin_forum_category_admin --><strong>(<a
+			href="{url_main}forum_new_forum.php?category_id={category_id}">{l_add_new_forum}</a>,
+		<a href="{url_main}forum_edit_category.php?category_id={category_id}">{l_edit}</a>,
+		<a
+			href="{url_main}forum_admin.php?cmd=delete_category&category_id={category_id}"
+			onclick="return confirm('{l_category_delete_confirm}')">{l_delete}</a>)</strong><!-- end_forum_category_admin -->
+		</td>
+		<td class="thead" width="56"><strong>{l_threads}</strong></td>
+		<td class="thead" width="54"><strong>{l_replies}</strong></td>
+	</tr>
+</table>
+
+<!-- begin_forum_forum -->
+<table class="tborder" cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center">
+	<tbody id="collapseobj_forumbit_1" style="">
+
+		<tr align="center">
+
+			<td width="45" class="alt2"><img style="margin:8px 0 0 1px;"
+				src="{url_tmpl_main}img/forum/forum_item.gif" alt="" border="0"
+				id="forum_statusicon_2" /></td>
+			<td class="alt1Active" align="left">
+			<div class="smallfont font_title"><a
+				href="{url_main}forum_forum.php?forum_id={forum_id}">{forum_title}</a>
+			</div>
+			<div class="smallfont">{forum_description}
+			</div>
+			</td>
+			<td width="52" class="alt2" style="vertical-align: middle;">{forum_n_topics}</td>
+			<td width="52" class="alt1" style="vertical-align: middle;">{forum_n_messages}</td>
+
+		</tr>
+
+	</tbody>
+</table>
+<!-- end_forum_forum --> <!-- end_forum_category --> <!-- begin_admin_new_category -->
+
+<br />
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+		<tr>
+			<td align="center" colspan="5">
+			<div class="smallfont"><strong> [+<a
+				href="{url_main}forum_new_category.php" rel="nofollow">{l_add_new_category}</a>]
+			</strong></div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<!-- end_admin_new_category --> <br />
+
+    </div>
+
+{footer}

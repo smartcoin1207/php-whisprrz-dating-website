@@ -1,0 +1,34 @@
+<link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/vids.css{cache_version_param}" />
+<!--[if IE]><link rel="stylesheet" href="{url_tmpl_main}css/vids_ie.css{cache_version_param}" type="text/css" /><![endif]-->
+<script type="text/javascript">
+function selectText(){
+	var oTextBox = document.getElementById('someTextField');
+	oTextBox.focus();
+	oTextBox.select();
+}
+</script>
+
+<div class="vids_new">
+    <div class="vids_new_head">
+<!--         <table>
+            <tr>
+                <td class="td_l">&nbsp;</td>
+                <td class="td_c"> -->
+                <div class="vids_head_bl">
+
+                    <div class="vids_new_head_txt txt_upper_header_color">
+                        <strong><a href="{url_main}LookingGlass.php">{l_videos}</a> <span class="dot4">::</span> </strong> {total_vids_count} {l_uploaded}
+                    </div>
+<!--                         <div class="vids_input1 fl_right"><input type="button" value="{l_upload_video_header}" onclick="document.location='{url_main}vids_edit.php'"/></div> -->
+
+                    <a href="#" onclick="document.location='{url_main}glass_upload.php'; return false;" class="btn round upper_header_color fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_upload_video_header} <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+                </div>
+<!--                 </td>
+                <td class="td_r">&nbsp;</td>
+            </tr>
+        </table> -->
+        
+    </div>
+    <table class="tb_vids_new">
+        <tr>
+            <td class="td_main">

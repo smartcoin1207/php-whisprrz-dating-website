@@ -1,0 +1,311 @@
+{header}
+<div class="frame_content" id="oryx_content">
+
+<ul class="list_btn">
+	<li><input type="button" value="{l_all}" class="btn blue big" onclick="location='{url_main}adv.php';" title="{l_all}"></li>
+	<li><input type="button" value="{l_my_ads}" class="btn blue big" onclick="location='{url_main}adv_my.php';" title="{l_my_ads}"></li>
+</ul>
+
+<br><label style="float:left;" for="No Selling">{l_No_Selling}:</label></br>
+
+<div class="cl"></div>
+
+<!-- begin_add_title -->
+<h2 class="txt_lower_header_color">{l_add}</h2>
+<!-- end_add_title -->
+<!-- begin_edit_title -->
+<h2 class="txt_lower_header_color">{l_edit_advertisement}</h2>
+<!-- end_edit_title -->
+
+<script>
+$(document).ready(function() {
+	on_cat_select_change();
+});
+
+function on_cat_select_change()
+{
+	$(".cat_temporary").hide();
+
+	cat = $('[name=cat_id]').val();
+
+	$(".cat_"+cat).show()
+}
+
+function check_is_empty(name, error)
+{
+	control = $('[name='+name+']:visible');
+	if(control == null)
+		return false;
+
+	if(control.val() == '')
+	{
+		alert(error);
+		return true;
+	}
+
+	return false;
+}
+
+function check_adv_form()
+{
+	if(check_is_empty('subject', '{l_error_subject_required}'))
+		return false;
+
+	if(check_is_empty('rent', '{l_error_rent_required}'))
+		return false;
+
+	if(check_is_empty('age', '{l_error_age_required}'))
+		return false;
+
+	if(check_is_empty('price', '{l_error_price_required}'))
+		return false;
+
+	if(check_is_empty('body', '{l_error_body_required}'))
+		return false;
+
+    if(
+		document.forms.adv_form.image_1.value!="" ||
+		document.forms.adv_form.image_2.value!="" ||
+		document.forms.adv_form.image_3.value!="" ||
+		document.forms.adv_form.image_4.value!=""
+		) show_load_animation();
+	
+		confirm_policy();
+		return true;
+    
+}
+
+</script>
+
+
+<script type="text/javascript">
+
+$(function() {
+	initLightboxOldTemplate($('.image_gallery a'));
+});
+
+</script>
+
+<style>
+.adv-input-text {
+	width:626px;
+}
+
+html.gecko .adv-input-text {
+	width:628px;
+}
+html.webkit .adv-input-text {
+	width:626px;
+}
+html.ie .adv-input-text {
+	width:626px;
+}
+
+</style>
+
+
+                
+<!-- begin_popup_confirm_terms_policy -->
+<style type="text/css">
+    p {
+        margin-bottom: 0px;
+    }
+    .swal2-popup {
+        width: 500px;
+    }
+
+    .swal2-styled.swal2-confirm {
+        font-size: 16px;
+    }
+
+    .swal2-styled.swal2-cancel {
+        font-size: 16px;
+    }
+
+</style>
+<script>
+    function confirm_policy () {
+    
+        var popup_confirm_button = "{popup_confirm_button}";
+        var popup_decline_button = "{popup_decline_button}";
+        var popup_text = `{popup_text}`;
+        var popup_title = "{popup_title}";
+    
+        Swal.fire({
+			title: popup_title,
+            footer:` <div><div style="text-align: center;">` + popup_text +`</div><div style="text-align:center;border-top: 1px solid #746b6b; padding-top: 10px; font-size: 16px;">` + popup_title + `</div></div>`,
+            confirmButtonText: `<div style="border-radius: 5px;">` + popup_confirm_button +`<div>`,
+            confirmButtonColor:'#22b14c',
+            cancelButtonText: popup_decline_button,
+            cancelButtonColor: '#ed1c24',
+            focusConfirm: false,
+            backdrop: false,
+            showCancelButton: true,
+            preConfirm: () => {
+				
+				document.getElementById('adv_edit_form').submit();
+    
+            },
+            
+            
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+			if (result.dismiss === Swal.DismissReason.cancel) {
+				return false;
+	
+			} else if (result.isConfirmed) {
+			}
+		  });
+    }
+    
+    </script>
+    <!-- end_popup_confirm_terms_policy -->
+
+<form id="adv_edit_form" method="POST" action="adv_edit_done.php"  name="adv_form" enctype="multipart/form-data">
+<input type="hidden" name="orig_id" value="{orig_id}" />
+<input type="hidden" name="orig_cat_id" value="{orig_cat_id}" />
+<table width=100% id="adv_add">
+<tr><td width=70px><b>{l_section}</b></td><td><select onchange="on_cat_select_change()" name="cat_id" style="width:638px;">
+{cat_select}</select></td></tr>
+<tr><td width=70px><b>{l_subject}</b></td><td><input type="text" name="subject" class="adv-input-text" value="{adv_subject}"></td></tr>
+
+<tr class="cat_temporary cat_{cat_jobs_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_jobs_id}">{razd_select_jobs}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_music_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_music_id}">{razd_select_music}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_myspace_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_myspace_id}">{razd_select_myspace}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_housting_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_housting_id}">{razd_select_housting}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_services_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_services_id}">{razd_select_services}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_film_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_film_id}">{razd_select_film}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_casting_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_casting_id}">{razd_select_casting}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_personals_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_personals_id}">{razd_select_personals}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_sale_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_sale_id}">{razd_select_sale}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_cars_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_cars_id}">{razd_select_cars}</select>
+</td></tr>
+
+<tr class="cat_temporary cat_{cat_items_id}"><td><b>{l_category}</b></td><td>
+		<select style="width:638px;" name="razd_select_{cat_items_id}">{razd_select_items}</select>
+</td></tr>
+
+		<tr class="cat_temporary cat_{cat_jobs_id}"><td></td><td>
+		<ul class="list_ch">
+			<li>
+				<input type="checkbox" name="telecommute" id="telecommute" value="1" {adv_telecommute}>
+				<label for=telecommute class="dash">{l_telecommute}</label>
+			</li>
+			<li>
+				<input type="checkbox" name="contract" id="contract" value="1" {adv_contract}>
+				<label for=contract class="dash">{l_contract}</label>
+			</li>
+			<li>
+				<input type="checkbox" name="internship" id="internship" value="1" {adv_internship}>
+				<label for=internship class="dash">{l_internship}</label>
+			</li>
+			<li>
+				<input type="checkbox" name="part_time" id="part_time" value="1" {adv_part_time}>
+				<label for=part_time class="dash">{l_part_time}</label>
+			</li>
+			<li>
+				<input type="checkbox" name="non_profit" id="non_profit" value="1" {adv_non_profit}>
+				<label for=non_profit class="dash">{l_non_profit}</label>
+			</li>
+		</ul>
+		</td></tr>
+
+			<tr class="cat_temporary cat_{cat_housting_id}"><td>
+			<b>{l_rent}</b></td><td><input type="text" name="rent"  value="{adv_rent}" style="width:626px;">
+			</td></tr>
+			<tr class="cat_temporary cat_{cat_housting_id}"><td height="22">
+			<b>{l_br}</b></td><td>
+            <select name="br" style="width:638px;">
+            	{br_select_items}
+			</select>
+			</td></tr>
+
+		<tr class="cat_temporary cat_{cat_myspace_id} cat_{cat_casting_id} cat_{cat_personals_id}"><td>
+		<b>{l_age}</b></td><td><input type="text" name="age" style="width:626px;" value="{adv_age}" />
+		</td></tr>
+
+		<tr class="cat_temporary cat_{cat_services_id} cat_{cat_sale_id} cat_{cat_cars_id}"><td>
+		<b>{l_price}</b></td><td><input type="text" name="price" class="adv-input-text" value="{adv_price}" />
+		</td></tr>
+
+<tr><td valign=top><b>{l_body}</b></td><td>
+<div style="width:630px;">
+	<textarea name="body" style="height:105px; width:626px;">{adv_body}</textarea>
+</div>
+</td></tr>
+
+		<tr><td>
+		<b>{l_images}</b><br/>{l_images_note}</td><td>
+
+			<table width="638px;">
+				<tr style="height:47px;">
+					<td class="line_ch" style="width:146px; padding:12px 0px; height:12px; text-align:left;"><input type="file" name="image_1" style="width:108px;" /><input type="hidden" name="orig_image_id_1" value={orig_image_id_1} /></td>
+					<td class="line_ch" style="width:173px; padding:12px 0px; height:12px; text-align:center;"><input type="file" name="image_2" style="width:108px;" /><input type="hidden" name="orig_image_id_2" value={orig_image_id_2} /></td>
+					<td class="line_ch" style="width:173px; padding:12px 0px; height:12px; text-align:center;"><input type="file" name="image_3" style="width:108px;" /><input type="hidden" name="orig_image_id_3" value={orig_image_id_3} /></td>
+					<td class="line_ch" style="width:146px; padding:12px 0px; height:12px; text-align:right;"><input type="file" name="image_4" style="width:108px;" /><input type="hidden" name="orig_image_id_4" value={orig_image_id_4} /></td>
+				</tr>
+			</table>
+
+		</td></tr>
+
+		<tr><td>&nbsp;</td><td>
+			<table class="image_gallery" width="638px;" style="margin: 0 0 20px;">
+				<tr style="height:47px;">
+					<td class="line_ch" style="width:146px; text-align:left; padding:6px 0px;"><!-- begin_image_1 --><a href="{image_1_file}"><img height="72" width="110" alt="" src="{image_1_thumbnail}" /></a><!-- end_image_1 --><!-- begin_image_1_empty --><img height="72" width="110" alt="" src="{url_tmpl_main}images/adv_image_none_s.gif"/><!-- end_image_1_empty --></td>
+					<td class="line_ch" style="width:173px; text-align:center; padding:6px 0px;"><!-- begin_image_2 --><a href="{image_2_file}"><img height="72" width="110" alt="" src="{image_2_thumbnail}" /></a><!-- end_image_2 --><!-- begin_image_2_empty --><img height="72" width="110" alt="" src="{url_tmpl_main}/images/adv_image_none_s.gif"/><!-- end_image_2_empty --></td>
+					<td class="line_ch" style="width:173px; text-align:center; padding:6px 0px;"><!-- begin_image_3 --><a href="{image_3_file}"><img height="72" width="110" alt="" src="{image_3_thumbnail}" /></a><!-- end_image_3 --><!-- begin_image_3_empty --><img height="72" width="110" alt="" src="{url_tmpl_main}/images/adv_image_none_s.gif"/><!-- end_image_3_empty --></td>
+					<td class="line_ch" style="width:146px; text-align:right; padding:6px 0px;"><!-- begin_image_4 --><a href="{image_4_file}"><img height="72" width="110" alt="" src="{image_4_thumbnail}" /></a><!-- end_image_4 --><!-- begin_image_4_empty --><img height="72" width="110" alt="" src="{url_tmpl_main}/images/adv_image_none_s.gif"/><!-- end_image_4_empty --></td>
+				</tr>
+			</table>
+
+		</td></tr>
+
+<!-- begin_add_submit -->
+<tr>
+    <td align="right" colspan="2" >
+        <input style="float:right;" type="button" onclick="check_adv_form();" value="{l_add}" class="btn lower_header_color" />
+        <img style="margin-top:2px; margin-right: 5px; float:right; visibility:hidden;" id="load_animation" src="{url_tmpl_main}images/load_animation.gif">
+    </td>
+</tr>
+<!-- end_add_submit -->
+<!-- begin_edit_submit -->
+<tr>
+    <td align="right" colspan="2" >
+        <input style="float:right;" type="submit" value="{l_save}" class="btn lower_header_color" />
+        <img style="margin-top:2px; margin-right: 5px; float:right; visibility:hidden;" id="load_animation" src="{url_tmpl_main}images/load_animation.gif">
+    </td>
+</tr>
+<!-- end_edit_submit -->
+</table>
+</form>
+
+</div>
+{footer}

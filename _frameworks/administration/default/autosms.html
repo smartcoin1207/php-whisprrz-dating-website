@@ -1,0 +1,80 @@
+{header}
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/autosms.php">{l_sms_auto_mailer}</a></li>
+        <li><a href="{url_main}administration/sms_carriers.php">{l_carrier}</a></li>
+        <li><a href="{url_main}administration/masssms.php">{l_sms_mass_text}</a></li>
+        <!-- begin_language -->
+        <!-- begin_language_link -->
+        <!-- Rade 2023-9-28 delete -->
+        <!-- <li><a href="{url_page}?note={note_current}&lang={language_value}">{language_title}</a></li> -->
+        <!-- end_language_link -->
+
+        <!-- begin_language_active -->
+        <!-- Rade 2023-9-28 delete -->
+        <!-- <li class="active"><a href="{url_page}?note={note_current}&lang={language_value}">{language_title}</a></li> -->
+        <!-- end_language_active -->
+        <!-- end_language -->
+
+    </ul>
+</div>
+
+<div class="block_main">
+    <h2>{l_auto_sms}</h2>
+    <!-- begin_sms -->
+    <!-- begin_sms_on -->
+    {note_title}&nbsp;&nbsp;
+    <!-- end_sms_on -->
+    <!-- begin_sms_off -->
+    <a href="{url_page}?note={note}&lang={lang}">{note_title}</a>&nbsp;&nbsp;
+    <!-- end_sms_off -->
+    <!-- end_sms -->
+
+    <div class="bl_form">
+        <p>{message_auto}</p>
+
+        <!-- begin_autotranslator_header -->
+        <div>
+            {l_translate_from_capital} <select name="translate_from" id="translate_from">{translate_from}</select>
+            {l_translate_to} <select name="translate_to" id="translate_to">{translate_to}</select>
+
+            <a title="{l_google_translate_is_used}" class="translate_all_button" href="#"
+                onclick="adminLanguageTranslator.translateAll();">
+                <span class="status">{l_translate}</span>
+                <img class="translate_all_button_preloader" id="translate_all_button_preloader" style="display: none;"
+                    src="{url_tmpl_administration}images/loader.gif">
+            </a>
+            <div style="padding-top:7px; padding-bottom: 20px;"></div>
+        </div>
+        <!-- end_autotranslator_header -->
+
+        <form action="{url_page}?note={note_current}&lang={lang}" method="POST">
+            <input type="hidden" name="cmd" value="edit">
+            <input type="hidden" name="url" value="{url}">
+            <!-- begin_sms_msg_enabled -->
+            <!--<div class="bl_enabled">
+            <label for="enabled">{l_enabled}:</label>
+            <input id="enabled" style="width:16px;" type="checkbox" name="enabled" {checked}>
+        </div>-->
+            <!-- end_sms_msg_enabled -->
+            <label>{l_subject}:</label>
+            <input id="subject" type="text" name="subject" value="{subject}" class="translateable">
+            <label>{l_text}:</label>
+            <textarea name="text" class="config_textarea translateable">{text}</textarea>
+            <!-- begin_delete -->
+            <div class="btn fl_right"><a onclick="if(confirm('{l_are_you_sure}')) return true; else return false;"
+                    href="{url_page}?note={note_current}&lang={lang}&cmd=delete">{l_delete}</a>
+            </div>
+            <!-- end_delete -->
+            <div class="btn fl_left"><a href="#" class="submit">{l_save}</a>
+                <input type="submit" style="visibility:hidden;position:absolute;">
+            </div>
+        </form>
+    </div>
+
+    <!-- begin_sms_nomsg -->
+    <!-- end_sms_nomsg -->
+    <div class="empty"></div>
+</div>
+{footer}

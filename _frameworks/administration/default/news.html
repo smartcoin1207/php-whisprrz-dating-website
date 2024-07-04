@@ -1,0 +1,46 @@
+{header}
+<div class="block_narrow">
+	{langs}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+	{l_menu_news_edit}&nbsp;&nbsp;
+	<a href="{url_main}administration/news_add.php?lang={lang}">{l_menu_news_add}</a>&nbsp;&nbsp;
+	<a href="{url_main}administration/news_cats.php?lang={lang}">{l_menu_news_cats}</a>	
+	
+	<p></p>
+	
+    <div class="bl_form">
+        <!-- begin_news_pages -->
+        <div align="center">
+            <p>{num_total} {l_total}</p>
+            <!-- begin_news_prev_page --><a href="{url_page}?offset={offset}{params}&lang={lang}" >{l_prev}</a> | <!-- end_news_prev_page -->
+            <!-- begin_news_prev_page_off --><b>{l_prev}</b> | <!-- end_news_prev_page_off -->
+            <!-- begin_news_first_page --><a href="{url_page}?offset={offset}{params}&lang={lang}" >{l_page_1}</a><!-- end_news_first_page -->
+            <!-- begin_news_prev_pages --><a href="{url_page}?offset={offset}{params}&lang={lang}" >&lt;&lt;</a><!-- end_news_prev_pages -->
+            <!-- begin_news_page -->
+                <!-- begin_news_link_page --><a href="{url_page}?offset={offset}{params}&lang={lang}" >{page}</a><!-- end_news_link_page -->
+                <!-- begin_news_this_page --><b>{page}</b><!-- end_news_this_page -->
+            <!-- end_news_page -->
+            <!-- begin_news_next_pages --><a href="{url_page}?offset={offset}{params}&lang={lang}" >&gt;&gt;</a><!-- end_news_next_pages -->
+            <!-- begin_news_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}&lang={lang}" >{num_pages}</a><!-- end_news_last_page -->
+            <!-- begin_news_next_page --> | <a href="{url_page}?offset={offset}{params}&lang={lang}" >{l_next}</a><!-- end_news_next_page -->
+            <!-- begin_news_next_page_off --> | <b>{l_next}</b><!-- end_news_next_page_off -->
+        </div>
+        <!-- end_news_pages -->
+
+        <!-- begin_news_item -->
+        <h2>{title}</h2>
+        <p>{cat} {day}{dt}</p>
+        <p>{news_short}</p>
+        <div class="link fl_right"><a href="{url_page}?{params}&delete={id}&lang={lang}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a></div>
+        <div class="link fl_right"><a href="{url_page}?{params}&visible={id}&lang={lang}">{visible}</a></div>
+        <div class="link fl_right"><a href="{url_main}administration/news_edit.php?id={id}&lang={lang}">{l_edit}</a></div>
+        <div style="height:50px"></div>
+        <!-- end_news_item -->
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

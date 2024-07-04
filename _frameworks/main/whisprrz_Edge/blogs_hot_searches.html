@@ -1,0 +1,41 @@
+{header}
+{blogs_header}
+
+
+<div class="blogs_new_p pl_top">
+    <h1 class="blue">{l_blog_hot_searches}</h1>
+    <table class="blogs_new_tb_sub">
+        <col width="7px"/>
+        <col width="140px"/>
+		<col width="1px"/>
+        <col width="148px"/>
+		<col width="1px"/>
+        <tr>
+            <th class="th_t_l nb first">&nbsp;</th>
+            <th class="th_t_c"><span>{l_blog_search_term}</span></th>
+            <th class="th_t_b">&nbsp;</th>
+			<th class="th_t_c"><span> {l_blog_number_of_searches}</span></th>
+            <th class="th_t_b">&nbsp;</th>
+			<th class="th_t_c nb"><span>{l_blog_last_search}</span></th>
+            <th class="th_t_r nb first">&nbsp;</th>
+        </tr>
+        <!-- begin_hs -->
+        <tr>
+            <td colspan="2"><span class="text-overflow-eclipse"><a href="{url_main}blogs_results.php?q={hs_urltext}">{hs_text}</a></span></td>
+            <td class="b">&nbsp;</td>
+			<td><span>{hs_count}</span></td>
+            <td class="b">&nbsp;</td>
+			<td colspan="2" class="color nb"><span>{hs_dt_readable}</span></td>
+        </tr>
+        <!-- end_hs -->
+        <tr>
+            <th class="th_b_l nb">&nbsp;</th>
+            <th colspan="5" class="th_b_c nb">&nbsp;</th>
+            <th class="th_b_r nb">&nbsp;</th>
+        </tr>
+    </table>
+</div>
+{blogs_side}
+<ul class="blogs_new_paging">{pager}</ul>
+{blogs_footer}
+{footer}

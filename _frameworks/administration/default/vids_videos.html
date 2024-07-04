@@ -1,0 +1,60 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_noitems --><div align="center">{l_no_videos}</div><!-- end_noitems -->
+    <!-- begin_pages --><div>{itemsTotal} {l_videos}</div><div>{pager}</div><!-- end_pages -->
+    <!-- begin_items -->
+    <table class="tb">
+        <tr>
+            <th class="decor_l"></th>
+            <th class="right">{l_action}</th>
+            <th>{l_id}</th>
+            <th>{l_subject}</th>
+            <th>{l_user}</th>
+            <th class="last">{l_dt}</th>
+            <th class="decor_r"></th>
+        </tr>
+        <!-- begin_item -->
+        <tr class="{item_class}" id="item_{item_id}">
+            <td class="decor{item_decl}"></td>
+            <td class="right">
+                <script type='text/javascript'>
+                $(document).ready(function(){
+                    $("#delete_{item_id}").click(function() {
+                        if (confirm('{l_are_you_sure}')) {
+                            $.get('{url_main}administration/vids_video_delete_ajax.php?id={item_id}');
+                            $('#item_{item_id}').remove();
+                        }
+                        return false
+                    });
+                });
+                </script>
+                <a href="{url_main}administration/vids_video_edit.php?id={item_id}">{l_edit}</a>
+                | <a href="#" id="delete_{item_id}">{l_delete}</a>
+                <!-- begin_item_count_comments -->
+                | <a href="{url_main}administration/vids_video_comments.php?id={item_id}">{l_comments} {item_count_comments}</a>
+                <!-- end_item_count_comments -->
+                <!-- begin_item_not_count_comments -->
+                | {l_no_comments}
+                <!-- end_item_not_count_comments -->
+            </td>
+            <td>{item_id}</td>
+            <td>{item_subject}</td>
+            <td>
+                {item_user_name}:
+                <a href="{url_main}administration/vids_user_videos.php?id={item_user_id}">{l_videos}</a>
+            </td>
+            <td class="last">{item_dt_time}</td>
+            <td class="decor{item_decr}"></td>
+        </tr>
+        <!-- end_item -->
+    </table>
+    <!-- end_items -->
+
+    <div class="empty"></div>
+</div>
+{footer}

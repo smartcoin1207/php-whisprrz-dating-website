@@ -1,0 +1,85 @@
+{header}
+<div id="oryx_content">
+{ims}
+{complite}
+<div class="column_main frame_content">
+{profile_menu}
+<div class="cl"></div>
+<script Language="JavaScript" type="text/javascript">
+  var blockSubmission = false;
+  function removeSubmissionBlock() {
+    blockSubmission = false;
+  }
+  function isSubmissionAllowed() {
+    if(blockSubmission){
+       return false;
+    }
+    return;
+   }
+  document.onclick = isSubmissionAllowed;
+  document.onkeydown = isSubmissionAllowed;
+  function onValidateEditPhotoTextForm() {
+    var form = document.forms['EditPhotoTextForm'];
+
+    // "photo_description" field validation.
+    if (!(validateMaxLength(form['description'], '{l_photo_description}','{profile_photo_description_length}'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    return true;
+  }
+  function validateEditPhotoTextForm() {
+    blockSubmission = true;
+     if (typeof beforeEditPhotoTextFormValidation != 'undefined') {
+       beforeEditPhotoTextFormValidation();
+    }
+    var validated = onValidateEditPhotoTextForm();
+    if (validated && (typeof uponSuccessfulEditPhotoTextFormValidation != 'undefined')) {
+      validated = uponSuccessfulEditPhotoTextFormValidation();
+    }
+    else if (!validated && (typeof uponUnsuccessfulEditPhotoTextFormValidation != 'undefined')) {
+      uponUnsuccessfulEditPhotoTextFormValidation();
+    }
+    if (!validated) {
+      removeSubmissionBlock();
+    }
+    return validated;
+  }
+  function submitEditPhotoTextForm() {
+   if (validateEditPhotoTextForm()) document.EditPhotoTextForm.submit();
+    }
+</script>
+<form  name="EditPhotoTextForm" method="POST" action="{url_main}profile_photo_nsc_couple.php?cmd=update" onSubmit="return validateEditPhotoTextForm();" style="padding: 0px; margin: 0px;">
+<input type="hidden" name="id" value="{photo_id}" >
+			<h2 class="txt_lower_header_color">
+				{l_edit_photo_text}
+			</h2>
+			<div style="padding-top: 10px; padding-bottom: 10px;">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+					<td align="left" valign="top">
+						<img class=img_border border="0" src="{url_files}{photo}" name="LargePhoto">
+					</td>
+				</tr></table>
+			</div>
+			<div style="padding-bottom: 15px;">
+				<table width="254" cellpadding="0" cellspacing="0" border="0"><tr>
+					<td align="left" valign="top" style="padding-top:10px; font-weight:bold;">
+						<label for="PHOTO_DESCRIPTION">{l_photo_description}</label>
+					</td>
+				</tr><tr>
+					<td align="left" valign="top" style="padding-top:8px; font-weight:bold;">
+						<textarea  name="description" style="width: 444px; height: 70px;" tabindex="2" rows="5" wrap="virtual">{description}</textarea>
+					</td>
+				</tr><tr>
+					<td valign="top" style="padding-top:10px; font-weight:bold;">
+						<input type="button" value="{l_submit}" onClick=" submitEditPhotoTextForm();" class="btn lower_header_color big" title="{l_submit}" onMouseOver="window.status='{l_submit}'; return true;" onMouseOut="window.status=''; return true;">
+					</td>
+				</tr></table>
+			</div>
+</form>
+<script type="text/javascript">
+document.EditPhotoTextForm.photo_name.focus();
+</script>
+</div></div></div></div></div></div></div></div></div>
+</div>
+{footer}

@@ -1,0 +1,300 @@
+{header}
+<style>
+    .popup {
+        position: fixed;
+        z-index: 9;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none;
+    }
+
+    .popup-content {
+        background-color: white;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888888;
+        width: 30%;
+        font-weight: bolder;
+    }
+
+    .popup-content button {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .show {
+        display: block;
+    }
+
+    .mail_compose td {
+        padding: 5px;
+    }
+
+    #swal2-title {
+        border: none;
+    }
+</style>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li class="active"><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var m = "{message}";
+    if (m != "") {
+        alert("{message}");
+    }
+    $(document).ready(function () {
+        var CBoxNote = function (ch, chkbox) {
+            if (ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            } else {
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function () {
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+        $(".sendmail").click(function () {
+            var uid = $(this).data("id");
+            var uname = $(this).data("name");
+            $("#usermailpopup").find("#uid").val(uid);
+            $("#usermailpopup").find("#uname").html(uname);
+            $("#usermailpopup").addClass("show");
+            return false;
+        });
+        $("#closePopup").click(function () {
+            $("#usermailpopup").removeClass("show");
+            return false;
+        });
+
+        $("#send_message").click(function () {
+            if ($("#subject").val() == "") {
+                // Alert for enter subject
+                Swal.fire(
+                    '{l_error}!',
+                    '{l_enter_subject}',
+                    'error'
+                );
+            } else if ($("#textmsg").val() == "") {
+                // Alert for enter text
+                Swal.fire(
+                    '{l_error}!',
+                    '{l_enter_message}',
+                    'error'
+                );
+            } else {
+                // Call ajax to send mail
+                $.ajax({
+                    url: "{url_main}administration/ajax_custom.php",
+                    type: "post",
+                    dataType: "json",
+                    data: $("#sendmailform").serialize(),
+                    beforeSend: function () {
+                        $("#send_message").prop("disabled", true);
+                    },
+                    success: function (res) {
+                        if (res.status == "ok") {
+                            $("#send_message").prop("disabled", false);
+                            $("#usermailpopup").removeClass("show");
+                            $("#subject").val("");
+                            $("#textmsg").val("");
+                            Swal.fire(
+                                '{l_mail_sent}!',
+                                '{l_mail_sent_msg}',
+                                'success'
+                            );
+                        }
+                    }
+                });
+            }
+        });
+
+    });
+    function delete_tickets() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function () {
+            StrID += ($(this).attr("id").replace(/chk_/g, '') + ',')
+        })
+        var ticket = StrID.slice(0, -1);
+        window.location.href = '{url_page}?cmd=delete_ticket&ticket_id=' + ticket;
+    }
+</script>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_count_users}</div>
+    <div style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+        <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> |
+        <!-- end_main_prev_page -->
+        <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+        <!-- begin_main_first_page --><a
+            href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+        <!-- begin_main_prev_pages --><a
+            href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+        <!-- begin_main_page -->
+        <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+        <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+        <!-- end_main_page -->
+        <!-- begin_main_next_pages --><a
+            href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+        <!-- begin_main_last_page --><b>{l_of}</b> <a
+            href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+        <!-- begin_main_next_page --> | <a
+            href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+        <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+
+    <!-- begin_main_items -->
+    <table class="tb" style="max-width: 864px;">
+        <tr>
+            <th class="decor_l"></th>
+            <th class="right">
+                <input style="margin:0px; width: 12px;" type="checkbox" id="all">
+            </th>
+            <th>{l_action}</th>
+            <th>
+                <!-- begin_params_none_date --><a
+                    href="{url_page}?{params_current}">{l_date}</a><!-- end_params_none_date -->
+                <!-- begin_params_asc_date -->&uarr;<a
+                    href="{url_page}?{params_current}">{l_date}</a><!-- end_params_asc_date -->
+                <!-- begin_params_desc_date -->&darr;<a
+                    href="{url_page}?{params_current}">{l_date}</a><!-- end_params_desc_date -->
+            </th>
+            <th>
+                <!-- begin_params_none_name_from --><a
+                    href="{url_page}?{params_current}">{l_from}</a><!-- end_params_none_name_from -->
+                <!-- begin_params_asc_name_from -->&uarr;<a
+                    href="{url_page}?{params_current}">{l_from}</a><!-- end_params_asc_name_from -->
+                <!-- begin_params_desc_name_from -->&darr;<a
+                    href="{url_page}?{params_current}">{l_from}</a><!-- end_params_desc_name_from -->
+            </th>
+            <th>
+                {l_mail}
+            </th>
+            <th>
+                {l_priority}
+            </th>
+            <th>
+                {l_title_word}
+            </th>
+            <th>
+                {l_message}
+            </th>
+            <!-- <th>
+                {l_status}
+            </th> -->
+            <th>
+                {l_image}
+            </th>
+            <th class="last">
+                {l_conversations}
+            </th>
+            <th class="decor_r"></th>
+        </tr>
+
+        <!-- begin_main_item -->
+        <tr class="{class}">
+            <td class="decor{decl}"></td>
+            <td class="right" style="width: 12px;"><input style="margin:0px;" type="checkbox" id="chk_{id}"></td>
+            <td>
+                <a href="{url_page}?cmd=delete_ticket&ticket_id={id}"
+                    onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+            </td>
+            <td>{date}</td>
+            <td><a href="users_edit.php?id={user_from}">{name_from}</a></td>
+            <td><a href="" class="sendmail" data-id="{user_from}" data-name="{name_from}">{l_mail}</a></td>
+            <td>{priority}</td>
+            <td>{title}</td>
+            <td style="width:100%; white-space:normal; line-height: 17px; padding-top: 3px;">{msg}</td>
+            <!-- <td>{status}</td> -->
+            <td>{image_yes_no}</td>
+            <td class="last"><a href="ticket_reply.php?ticket_id={id}">{l_click_to_open}</a></td>
+            <td class="decor{decr}"></td>
+        </tr>
+        <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_reports}</div>
+    <!-- end_main_noitems -->
+    <!-- begin_no_delete -->
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) delete_tickets(); else return false; "
+            href="#">{l_delete_all_tickets}</a>
+    </div>
+    <!-- end_no_delete -->
+    <div class="empty"></div>
+</div>
+<div id="usermailpopup" class="popup">
+    <div class="popup-content">
+        <form id="sendmailform" name="sendmailform" method="POST" action="" style="padding: 0px; margin: 0px;">
+            <table class="mail_compose">
+                <tr>
+                    <td class="body_text" valign="top" align="right">{l_username}:</td>
+                    <td class="body_text" valign="top">
+                        <input type="hidden" name="uid" id="uid" value="">
+                        <input type="hidden" name="cmd" value="admin_send_mail">
+                        <div id="uname">
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="body_text" align="right"><b>{l_subject}:</b></td>
+                    <td><input class="inp" type="text" name="subject" id="subject" value="" tabindex="1"
+                            style="margin-bottom: 0;"></td>
+                </tr>
+                <tr>
+                    <td class="body_text" valign="top" align="right"><b>{l_message}:</b></td>
+                    <td><textarea id="textmsg" name="text" tabindex="2"></textarea></td>
+                </tr>
+                <!--<tr>
+                    <td>&nbsp;</td>
+                    <td align="left">
+                        <label for="save" class="chk_label"><input type="checkbox" name="save" id="save" value="1"
+                                checked style="width: auto; margin-bottom: 7px;"> &nbsp;<span
+                                class="dash">{l_save_mail}</span></label>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td></td>
+                    <td align="left" style="padding-top: 10px;">
+                        <input type="button" id="send_message" value="{l_send}" class="btn lower_header_color"
+                            tabindex="3" title="{l_send}">
+                        <input type="button" id="closePopup" class="btn lower_header_color" value="{l_close}"
+                            title="{l_close}">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+{footer}

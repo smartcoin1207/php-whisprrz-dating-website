@@ -1,0 +1,1027 @@
+{header}
+<style>
+    .user-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 0 0;
+    position:relative;
+}
+
+.user-row .user-card{
+    position: absolute;
+    background: grey;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 15px;
+    bottom: 35px;
+    left: 30px; 
+    height: auto;
+    width: 500px;
+}
+
+.user-row img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.user-row span {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+
+.user-distance {
+    font-weight: bold;
+    color: #333;
+}
+
+.allow-location-heading{
+    padding: 10px;
+    text-align: center;
+}
+
+.distance-dropdown{
+    padding: 10px;
+}
+
+.user-popup {
+        display: flex;
+        flex-direction:column;
+        gap:15px;
+    }
+
+.popup-row {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+}
+
+.w-100{
+    width:100%;
+}
+
+.popup-column {
+    
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+}
+
+.popup-column p{
+    width:50%;
+    text-align:center;
+    color:white;
+    font-size:18px;
+}
+    
+.user-popup-heading {
+    margin-bottom: 10px;
+    text-align:center;  
+    text-transform: capitalize;
+    color: white;
+    font-size: 24px;
+}
+
+.user-profile {
+    width: 100px; /* Adjust the size as needed */
+    height: 100px; /* Adjust the size as needed */
+    border-radius: 50%;
+}
+
+<!-- begin_column_count -->
+
+
+    .userlist-column {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two columns */
+      grid-auto-rows: auto; /* Automatically adjust the row height */
+    }
+
+    .child {
+      width: 100%; /* Each child takes up the full width of its grid cell */
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+<!-- end_column_count -->
+
+
+</style>
+
+<script>
+    var my_lat = "";
+    var my_long = "";
+    var city_id = "";
+    var show_me = "";
+    var map_pic_click_mode = "";
+    var advanced = "";
+    var TotalDuplicateList = [];
+
+    <!-- begin_variables -->
+        var l_levels = {l_levels};
+        var flip_items_title = {flip_items_title};
+        var relations = {relations};
+        var map_pic_size = {map_pic_size};
+        var pin_drop_size = {pin_drop_size};
+
+         map_pic_click_mode = "{map_pic_click_mode}";
+        var long_click_time = "{long_click_time}";
+        var map_users = {map_users};
+        var advanced = "{advanced}";
+        var map_droppin_initial_number = {map_droppin_initial_number};
+        var map_same_location_feet_range = {map_same_location_feet_range}
+    <!-- end_variables -->
+
+    <!-- begin_loggedin -->
+        var my_lat = "{geo_position_lat}";
+        var my_long = "{geo_position_long}";
+        var city_id = "{city_id}";
+        var show_me = "{show_me}";
+    <!-- end_loggedin -->
+
+</script>
+<p onload="getLocation()" id="demo"></p>
+
+<div id='denied' style="display: none;">
+    <div style="width:100%; height:500px;">
+            <h4 style="text-align: center; padding: 30px;">Please allow Maps to get your current location</h4>
+            <!-- <button style="btn button" onclick="allowGeo()">Allow Location</button> -->
+    </div>
+</div>
+<div id="granted" style="display: none">
+    <div class='distance-dropdown'>
+        <label for="nameSearch">Search by Name:</label>
+        <input type="text" id="nameSearch" placeholder="Enter name">
+        <label for="distanceSelect">Select Distance:</label>
+        <!-- begin_map_miles_options -->
+        <select id="distanceSelect">
+            {map_miles_options}
+        </select>
+        <!-- end_map_miles_options -->
+        <!-- begin_map_adv_search -->
+        <input type="button" value="Advanced Search" class="btn blue " style="margin-left: 10px;" onclick="location='./map_search_advanced.php';" title="map search advanced">
+        <input type="button" value="Clear" class="btn blue " style="margin-left: 10px;" onclick="location='./maps.php';" title="map page">
+        <!-- end_map_adv_search -->
+        <div class="map_gear" style="float: right;" >
+            <a class="icon_setting_gear" href="{url_main}profile_settings.php#set_my_map_anchor"></a>
+        </div>
+    </div>
+    <div id="mapCanvas" style="width: 100%; height: 500px;"></div>
+    <div id="userList" class="userlist-column" style="width: 100%; padding: 10px;">
+        <!-- User rows will be added here dynamically by the script -->
+    </div>
+    <div id="pindrop_users" ></div>
+</div>
+
+
+<!---->
+
+<!---->
+
+<script>
+
+    var x = document.getElementById("demo");
+    var granted = document.getElementById('granted');
+    var denied = document.getElementById('denied');
+    var loggedIn_latitude;
+    var loggedIn_longitude;
+    $('.userlist-column').css('grid-template-columns', 'repeat({column_count}, 1fr)');
+
+
+    function getLocation() {
+
+          if (navigator.geolocation) {
+               
+             navigator.geolocation.getCurrentPosition(showPosition, erorr, 
+            {
+             maximumAge: 2000, timeout: 10000, enableHighAccuracy: true 
+            });
+          } else { 
+                
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+    }
+
+ 
+    function showPosition(position) {
+        granted.style.display = "block";
+        denied.style.display = "none";
+       
+        loggedIn_latitude = position.coords.latitude;
+        loggedIn_longitude = position.coords.longitude;
+        if(my_lat && my_long) {
+            // loggedIn_latitude = my_lat;
+            // loggedIn_longitude = my_long;
+        }
+        initMap(loggedIn_latitude, loggedIn_longitude);
+        saveLocationToDatabase(loggedIn_latitude, loggedIn_longitude);
+
+    }
+
+    function erorr(err){
+        granted.style.display = "none";
+        denied.style.display = "block";
+    }
+        
+    function createUserListRow(user, distance, ismarker = false) {
+        // Create elements for the user row
+        var userRow = document.createElement('div');
+        userRow.className = 'user-row';
+        var userImage = document.createElement('img');
+        userImage.src = '_files/' + user.photo_url; // Replace with your image property
+        userImage.alt = user.name; // Replace with your name property
+        var userName = document.createElement('span');
+        userName.className = 'user-name';
+        userName.textContent = user.name; // Replace with your name property
+        var userDistance = document.createElement('span');
+        userDistance.textContent = distance.toFixed(1) + ' miles';
+
+        // Style the elements (You can move this to CSS)
+        userRow.style.display = 'flex';
+        userRow.style.alignItems = 'center';
+        userRow.style.justifyContent = 'space-between';
+        userRow.style.padding = '0 0';
+        userImage.style.width = '50px';
+        userImage.style.height = '50px';
+        userImage.style.borderRadius = '50%';
+        userImage.style.marginRight = '10px';
+        userName.style.flexGrow = '1';
+
+        var userIcon = document.createElement('div');
+        userIcon.appendChild(userImage);
+
+        if(ismarker) {
+            
+
+              if(map_pic_click_mode == 'single') {
+                    userIcon.addEventListener('click', function() {
+                location.href = "./" + user.name_seo ;
+                    });
+
+                } else if(map_pic_click_mode == 'long') {
+                    var clickTimer;
+                    userIcon.addEventListener('mousedown', function() {
+                            clickTimer = setInterval(function() {
+                            location.href = "./" + user.name_seo ;
+                        }, parseInt(long_click_time));
+                    });
+
+                    userIcon.addEventListener('mouseup', function() {
+                        clearInterval(clickTimer);
+                    });
+                }
+
+        } else {
+            // Show the popup card on image hover
+            userIcon.addEventListener('mousemove', function (event) {
+                show_face_jq('usr0' + user.user_id, event);
+            }); 
+
+            // Hide the popup card on image mouse leave
+            userIcon.addEventListener('mouseout', function () {
+                hide_face_jq('usr0' + user.user_id);
+            });
+        }
+        
+        // Append elements to the user row
+        userRow.appendChild(userIcon);
+        userRow.appendChild(userName);
+        userRow.appendChild(userDistance);
+
+        // Return the complete user row
+        return userRow;
+    }
+    
+    
+    function saveLocationToDatabase(latitude, longitude) {
+  // Define the URL of your server-side script that will handle the database operation
+      const url = './set_user_current_location.php'; // Replace with your actual URL
+    
+      // Create a JSON object with the location data
+      const locationData = {
+        latitude: latitude,
+        longitude: longitude
+      };
+      // Send a POST request to the server-side script
+
+        $.ajax({
+            type: 'POST',
+            url: './maps.php',
+            data: {
+                ajax: 'ajax',
+                latitude: latitude,
+                longitude: longitude
+            }
+        });
+                    
+
+      // fetch(url, {
+      //   method: 'POST',
+      //   // headers: {
+      //   //   'Content-Type': 'application/json'
+      //   // },
+      //   body: JSON.stringify(locationData)
+      // })
+      //   .then(response => {
+      //     if (response.ok) {
+      //       //console.log('Location data saved successfully.');
+      //     } else {
+      //       console.error('Failed to save location data.');
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.error('Error sending location data:', error);
+      //   });
+    }
+    
+    // Call getLocation() when the page is loaded
+    window.addEventListener('load', getLocation);
+    // Data: Array of markers with name, latitude, and longitude
+    
+    var markers = [];
+    var markersArray = [];
+    var mainMarker;
+
+    //request to search_results.php for advanced search in map. get users matching with filter.
+    function fetchUserData() {
+        var selectElement = document.getElementById('distanceSelect');
+        var d = selectElement.value;
+        var url = "./search_results.php?ajax=ajax&map=map";
+        if(d != 'all') {    
+            url += ("&lat=" + loggedIn_latitude + "&log=" + loggedIn_longitude + "&radius=" + d);
+        }
+
+        return fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                markers = data;
+                if(advanced) {
+                    markers = map_users;
+                    advanced = '';
+                }
+               
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }
+    
+    // Function to initialize the map
+    function initMap(loggedIn_latitude, loggedIn_longitude) {
+        fetchUserData(loggedIn_latitude, loggedIn_longitude).then(() => {
+                mainMarker = markers[0]; // Main marker coordinates
+                
+                var lat = parseFloat(loggedIn_latitude);
+                var long = parseFloat(loggedIn_longitude);
+                map = new google.maps.Map(document.getElementById('mapCanvas'), {
+                    zoom: 8,
+                    center: { lat: lat , lng: long },
+                });
+                createMarkers('all'); // Initialize markers with 'All' selected by default
+        });
+    }
+    
+    // Function to create markers on the map
+
+    // Function to move to profile page when click marker
+    function clickMarker(event, marker) {
+        if(map_pic_click_mode == 'single') {
+            event.addListener(marker, 'click', function() {
+                window.location.href = "./" + marker.name_seo;
+
+            })
+
+        } else if(map_pic_click_mode == 'long') {
+            var clickTimer;
+            event.addListener(marker, 'mousedown', function() {
+                    clickTimer = setInterval(function() {
+                    // Trigger the event after 2 seconds
+                    window.location.href = "./" + marker.name_seo;
+                }, parseInt(long_click_time));
+            });
+
+            event.addListener(marker, 'mouseup', function() {
+                clearInterval(clickTimer);
+            });
+        }
+        
+    }
+    
+    function createMarkers(distance, filterUsers = [], filter = false) {
+        TotalDuplicateList = [];
+        var currentMarkers = markers;
+        if(filter) currentMarkers = filterUsers;
+        clearMarkers(); // Your existing function to remove old markers
+        var userList = document.getElementById('userList');
+        userList.innerHTML = ''; // Clear the user list
+
+        if(show_me != '1' || currentMarkers.length == 0) {
+            // Create marker with circular icon
+            var marker = new google.maps.Marker({
+                position: { lat: parseFloat(loggedIn_latitude), lng: parseFloat(loggedIn_longitude) },
+                map: map,
+                });
+
+            markersArray.push(marker);
+                            
+            map.setCenter({ lat: parseFloat(loggedIn_latitude), lng: parseFloat(loggedIn_longitude) });
+        } else {
+            user = currentMarkers[0];
+            createCircularIcon('_files/' + user.photo_url, function(dataUrl) {
+                // Create marker with circular icon
+                var marker = new google.maps.Marker({
+                    position: { lat: loggedIn_latitude, lng: loggedIn_longitude },
+                    map: map,
+                    icon: {
+                        url: dataUrl,
+                        scaledSize: new google.maps.Size(map_pic_size, map_pic_size),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(25, 25)
+                        },
+                    title: user.name,
+                    name_seo: user.name_seo
+                    });
+
+                markersArray.push(marker);
+                
+                clickMarker(google.maps.event, marker);
+                    
+                });
+                currentMarkers.shift();
+        }
+
+        if(currentMarkers.length > 0) {
+            var users = [];
+            currentMarkers.forEach(user => {
+                var userDistance = calculateDistance(
+                    parseFloat(loggedIn_latitude),
+                    parseFloat(loggedIn_longitude),
+                    parseFloat(user.geo_position_lat),
+                    parseFloat(user.geo_position_long)
+                );
+                user.userDistance = userDistance;
+                users.push(user);
+            });
+            
+            users.sort(function(a, b) {
+                return a.userDistance - b.userDistance;
+            });
+
+            currentMarkers = users;
+        
+            currentMarkers.forEach(user => {
+                
+                var userDistance = user.userDistance;
+                var isAddedPin = false;
+
+
+                if(!isAddedDuplicated(user)){
+                    console.log(TotalDuplicateList);
+                    var duplicates = duplicateLocation(currentMarkers, user);
+                    
+                    if(duplicates['isduplicate']) {
+                    // console.log(duplicates);
+                        var duplicateLocationUsers = duplicates['sameDuplicateUsers'];
+                        
+                            createCircularIcon('_files/' + 'photo/pindrop.png', function(dataUrl) {
+                            // Create marker with circular icon
+                                var marker = new google.maps.Marker({
+                                    position: { lat: parseFloat(user.geo_position_lat), lng: parseFloat(user.geo_position_long) },
+                                    map: map,
+                                    icon: {
+                                        url: dataUrl,
+                                        scaledSize: new google.maps.Size(parseInt(pin_drop_size), parseInt(pin_drop_size)*1.5),
+                                        origin: new google.maps.Point(0, 0),
+                                        anchor: new google.maps.Point(25, 25)
+                                        },
+                                    /* title: user.name, */
+                                });
+
+                                
+                                var pindropUsersEl = document.createElement('div');
+                                pindropUsersEl.style.maxHeight =  parseInt(map_droppin_initial_number) * 51 + 'px';
+
+                                duplicateLocationUsers.forEach(duser => {
+                                    var duserRow = createUserListRow(duser, duser.userDistance, true);
+                                    pindropUsersEl.appendChild(duserRow);
+                                })
+                                var infowindow = new google.maps.InfoWindow({   
+                                    content: pindropUsersEl,
+                                    // pixelOffset: new google.maps.Size(30, 0)
+                                });
+                                
+                                var userRow = createUserListRow(user, userDistance);
+
+                                markersArray.push(marker);
+                                marker.addListener('click', function () {
+                                        infowindow.open(map, marker);
+                                });
+                                 // clickMarker(google.maps.event, marker); 
+
+                            });  
+
+                        isAddedPin = true;
+                    }
+
+                    else {
+                        // Process the image URL to create a circular icon
+                        createCircularIcon('_files/' + user.photo_url, function(dataUrl) {
+                            // Create marker with circular icon
+                            var marker = new google.maps.Marker({
+                                position: { lat: parseFloat(user.geo_position_lat), lng: parseFloat(user.geo_position_long) },
+                                map: map,
+                                icon: {
+                                    url: dataUrl,
+                                    scaledSize: new google.maps.Size(map_pic_size, map_pic_size),
+                                    origin: new google.maps.Point(0, 0),
+                                    anchor: new google.maps.Point(25, 25)
+                                    },
+                                title: user.name,
+                                name_seo : user.name_seo
+                            });
+                            markersArray.push(marker);
+                            clickMarker(google.maps.event, marker);
+
+                        });
+                        // Create and append the user list row (this code remains unchanged)
+                    }
+                }
+              
+                
+                var userRow = createUserListRow(user, userDistance);
+                var flipCard = parseFlipcard(user);
+                userList.appendChild(flipCard);
+                userList.appendChild(userRow);
+            });
+        }
+    
+    }
+    
+    // Function to create markers on the map
+function createMarkersForFilterUsers(distance, users) {
+    createMarkers('all', users, true);
+}
+
+    function duplicateLocation (users, user) {
+        
+        feet_range = parseInt(map_same_location_feet_range) ?  parseInt(map_same_location_feet_range) : 0;
+        var miletofeet = 5280;
+        var isDuplicateLocationUser = false;
+        var DuplicateLocationList = [];
+        // users.forEach(row => {
+        //     if((user.geo_position_lat == row.geo_position_lat) && (user.geo_position_long == row.geo_position_long)) {
+        //         DuplicateLocationList.push(row);
+        //         TotalDuplicateList.push(row);
+        //     }
+        // });
+
+        // var feetrangeLocationList = [];
+
+        users.forEach(row => {
+            if( Math.abs(parseFloat(user.userDistance) - parseFloat(row.userDistance)) *  miletofeet < feet_range ) {
+
+                if(calculateDistance(parseFloat(user.geo_position_lat), parseFloat(user.geo_position_long), parseFloat(row.geo_position_lat), parseFloat(row.geo_position_long)) * miletofeet < feet_range) {
+
+                    DuplicateLocationList.push(row);
+                    TotalDuplicateList.push(row);
+                }
+
+            }
+        });
+
+        if(DuplicateLocationList.length > 1) {
+            isDuplicateLocationUser = true;
+        };
+
+        var obj = {
+            isduplicate: isDuplicateLocationUser,
+            sameDuplicateUsers: DuplicateLocationList
+        };
+
+        return obj; 
+    }
+
+    function isAddedDuplicated(user) {
+        var dp = false;
+        TotalDuplicateList.forEach(tuser => {
+            if(tuser.user_id == user.user_id) {
+                dp = true;
+                return true;
+            }
+        })
+        return dp;
+    }
+    
+    
+    function createCircularIcon(url, callback) {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var image = new Image();
+                image.src = url; // Set the source of the image to be processed
+
+        image.crossOrigin = 'Anonymous'; // Needed if the image is hosted on a different domain
+        image.onload = function() {
+            // Set canvas size to match desired icon size
+            var size = 50;
+            canvas.width = size;
+            canvas.height = size;
+    
+            // Draw the circular clipped image
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.clip();
+    
+            ctx.drawImage(image, 0, 0, size, size);
+    
+            // Trigger the callback with the canvas data URL
+            callback(canvas.toDataURL());
+        };
+    }
+    
+    document.getElementById('nameSearch').addEventListener('input', function () {
+        var nameQuery = this.value.trim().toLowerCase();
+        filterUsersByName(nameQuery);
+    });
+
+    // Function to filter users by name and update the user list
+    function filterUsersByName(nameQuery) {
+        clearMarkers(); // Clear existing markers
+        
+        if(nameQuery == ''){
+            createMarkers('all');
+            return;
+        }
+        else{
+            var filteredUsers = markers.filter(function (user) {
+                return user.name.toLowerCase().includes(nameQuery);
+            });
+            createMarkers('all', filteredUsers, true);
+            /* createMarkersForFilterUsers('all', filteredUsers); */
+        }
+    }
+    
+    document.getElementById('userList').addEventListener('click', function (event) {
+        var clickedRow = event.target.closest('.user-row');
+        if (clickedRow) {
+            var userName = clickedRow.querySelector('.user-name').textContent;
+            var clickedUser = markers.find(function (user) {
+                return user.name === userName;
+            });
+
+            if (clickedUser) {
+                var userPosition = {
+                    lat: parseFloat(clickedUser.geo_position_lat),
+                    lng: parseFloat(clickedUser.geo_position_long)
+                };
+
+                map.setCenter(userPosition);
+            }
+        }
+    });
+    
+    // Function to calculate distance between two sets of latitude and longitude coordinates in miles
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        var earthRadius = 3958.756; // Earth's radius in miles
+        var lat1Rad = toRadians(lat1);
+        var lat2Rad = toRadians(lat2);
+        var deltaLat = toRadians(lat2 - lat1);
+        var deltaLon = toRadians(lon2 - lon1);
+
+        var a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+            Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+            Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        var distance = earthRadius * c;
+        
+        return distance;
+    }
+
+    // Function to convert degrees to radians
+    function toRadians(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+
+    // Function to clear markers from the map
+    function clearMarkers() {
+        for (var i = 0; i < markersArray.length; i++) {
+            markersArray[i].setMap(null);
+        }
+        markersArray = [];
+    }
+
+    
+
+    // Event listener for the distance dropdown
+    document.getElementById('distanceSelect').addEventListener('change', function () {
+        var selectedDistance = this.value;
+
+        initMap(loggedIn_latitude, loggedIn_longitude)
+        createMarkers(selectedDistance == 'all' ? selectedDistance : parseInt(selectedDistance));
+    });
+
+    //flipcard code by script 
+
+    function parseAboutRows(user) {
+
+        var filp_indexes_about = ["income", "status", "smoking", "drinking", "education", "height", "body", "hair", "eye"];
+        
+        var aboutRows = '';
+        filp_indexes_about.forEach(item => {
+            var field_key = item + '_title';
+            var field_value = user[field_key];
+            var field_title = flip_items_title[item];
+            var iconHtml = parseIcons(user, item);
+
+            var aboutRow = `
+                <tr>
+                    <td valign="top" class="body_text" style="padding-right: 4px; width: 70px;">`+ field_title + `:</td>
+                    <td align="left" valign="top" class="body_text"><b>` + field_value + `</b></td>
+                    <td style="width: 20px;">`
+                        + iconHtml + 
+                    `</td>
+
+                </tr>
+            `;
+            aboutRows += aboutRow ;
+        });
+
+        var aboutRowsHtml = `
+            <div class="about-row" style="height: 60%;">
+
+                <div class="flip-text-table" >
+                    <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed; width: 100%;">`
+                        + aboutRows + 
+                    `</table>
+                </div>
+                <div style="width: 40%; height: 100%;  float: left;">
+                    <img  src="./_files/${user.photo_url}" class="flip-img" 
+                            style="visibility: inherit !important; " />
+                </div>
+            </div>
+        `;
+        return aboutRowsHtml;
+    }
+
+    function parseIcons(user, item) {
+        var icon_limits = {
+            drinking : { limit: [2,3,4], path: './_files/icons/drinking.png'},
+            smoking: { limit: [1,2,4], path: './_files/icons/smoking.png'}
+        };
+
+        var iconHtml = '';
+
+        if(icon_limits[item] !== undefined) {
+            var icon_limit = icon_limits[item];
+
+            if(icon_limit.limit.includes(user[item])){
+                var icon_limit = icon_limits[item];
+                var personal_icon_style = "background-image: url('" + icon_limit.path + "')";
+                iconHtml += `<div class="personal-icon" style="` + personal_icon_style + `"></div>`;
+            }
+        }
+        
+        return iconHtml;
+    }
+
+    function parseSliders(user) {
+
+        var maskArray = [];
+        var x = user.relation;
+        var obj = {};
+        x.split(', ').forEach(function(pair) {
+        var parts = pair.split(':');
+        obj[parts[0]] = parseInt(parts[1]);
+        });
+        maskArray = obj;
+
+        var scale_back_colors = ['#e91720', '#f79122', '#f8eb10', '#92d14f', '#3ab34a'];
+        var levels = l_levels;
+
+        var scaleSliderItems = '';
+
+        relations.forEach(relation => {
+            var scale_value = 3;
+            levels.forEach(level => {
+                if(level.id == maskArray[relation.id]) {
+                    scale_value = parseInt(level.id);
+                    return;
+                }
+            });
+            
+            var scale_field_name = relation.title;
+            var scale_level_name = levels[scale_value-1]['title'];
+
+            var scale_length = scale_value * 21 - 3;
+            var scale_var_style = "background-color: " + scale_back_colors[scale_value - 1] + "; width: " + scale_length + "px;";
+            if(scale_value == 5) {
+                scale_length = scale_value * 21 - 5;
+                scale_var_style = "background-color: " + scale_back_colors[scale_value - 1] + "; width: " + scale_length + "px; border-top-right-radius: 7px; border-bottom-right-radius: 7px;";
+            }
+            var scale_bar_back_style = "background-color: " + scale_back_colors[scale_value - 1] + "; color: black;";
+            var back_item_style = "background-color: rgb(28, 27, 27)";
+
+            var scaleBackItemsHtml = '';
+            levels.forEach(level => {
+                var back_item_style = "background-color: rgb(28, 27, 27)";
+                var backItemHtml = `<div class="scale-back-item" style="` + back_item_style + `"></div>`;
+                scaleBackItemsHtml += backItemHtml;
+            });
+
+            var scaleItemHtml = `
+                <div class="scale-slider">
+                    <div class="scale-field-name">`
+                        + scale_field_name + 
+                    `</div>
+                    <div class="scale">
+                        <div class="scale-back">`
+                            + scaleBackItemsHtml + 
+                        `</div>
+                        <div class="scale-bar-back" style="` + scale_bar_back_style + `">
+                            <p class="scale-level-name" style="margin-top: -4px;">`
+                                + scale_level_name + 
+                            `</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            `;
+            
+            scaleSliderItems += scaleItemHtml;
+
+        });
+
+
+        scaleSliderHtml = `
+            <div class="scale-sliders">`
+                + scaleSliderItems + 
+            `</div>
+        `
+
+        return scaleSliderHtml;
+    }
+
+    function parseFlipFront(user) {
+        var flipFront = document.createElement('div');
+        flipFront.className = 'flip-box-front';
+        var aboutRowsHtml = parseAboutRows(user);
+        var scaleSliderHtml = parseSliders(user);
+        flipFront.innerHTML = `
+            <div class="pri_med_bold profcontent txt_lower_header_color" style="color: #ffffff;">{l_about} ${user.name} - ${user.c_orientation}</div>`
+            + aboutRowsHtml + scaleSliderHtml + 
+                `<div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+                    {l_flip_other_bottom_note}
+                </div>
+            </div>
+        `;
+
+        return flipFront;
+    }
+
+
+    function parseOtherRows(user) {
+
+        var filp_indexes_other = ["ethnicity", "first_date", "live_where", "living_with", "appearance", "age_preference", "humor", "can_you_host"];
+
+        var otherRows = '';
+        filp_indexes_other.forEach(item => {
+            var field_key = item + '_title';
+            var field_value = user[field_key];
+            var field_title = flip_items_title[item];
+
+            var otherRow = `
+                <tr>
+                    <td valign="top" class="body_text" style="padding-right: 4px;">`+ field_title +`:</td>
+                    <td align="left" valign="top" class="body_text"><b>`+ field_value +`</b></td>
+                </tr>
+            `;
+            otherRows += otherRow ;
+        });
+
+        var otherRowsHtml = `
+            <div class="profcontent light flip-text-table-back">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">`
+                    + otherRows +
+                `</table>
+            </div>
+        `;
+        return otherRowsHtml;
+    }
+
+    function parseFlipBanner(user) {
+        var events_items = user.events_items;
+        var banner_items_html = ''
+        if(events_items) {
+            events_items.forEach(event_item => {
+                var event_html = `
+                    <div class="first" id="event_list_event_{event_id}" style="vertical-align:top;">
+                        <div class="link_event_hotdates">
+                            <a class="foto" href="./events_event_show.php?event_id={event_id}"><img
+                                    src="${event_item.image}" width="40" height="40" alt="" /></a>
+                        </div>
+                        <div id="{event_id}" style="max-width:50px; padding:2px;">
+                            <a class="txt_upper_header_color text_length_limit"
+                                href="{url_main}events_event_show.php?event_id={event_id}" style="color: white; font-size:10px;">${event_item.title}</a>
+                        </div>
+                    </div>
+                `;
+                banner_items_html += event_html;
+            });
+        }
+
+        var hotdates_items = user.hotdates_items;
+        var hotdates_html = '';
+        if(hotdates_items) {
+            hotdates_items.forEach(hotdate_item => {
+                var hotdate_html = `
+                    <div class="first" id="hotdate_list_hotdate_{hotdate_id}" style="vertical-align:top;">
+                        <div class="link_event_hotdates">
+                            <a class="foto" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}"><img
+                                src="${hotdate_item.image}" width="40" height="40" alt="" /></a>
+                            </div>
+                        <div id="{hotdate_id}" style="max-width:50px; padding:2px;">
+                            <a class="txt_upper_header_color text_length_limit"
+                                href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}" style="color: white;  font-size:10px;">${hotdate_item.title}</a>
+                        </div>
+                    </div>
+                `;
+                banner_items_html += hotdate_html;
+            });
+        }
+
+        var partyhouz_items = user.partyhouz_items;
+        var partyhouz_html = '';
+        if(partyhouz_items) {
+            partyhouz_items.forEach(partyhou_item => {
+                var partyhou_html = `
+                    <div class="first" id="partyhou_list_partyhou_{partyhou_id}" style="vertical-align:top;">
+                        <div class="link_event_hotdates">
+                            <a class="foto" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}"><img
+                                src="${partyhou_item.image}" width="40" height="40" alt="" /></a>
+                            </div>
+                        <div id="{partyhou_id}" style="max-width:50px; padding:2px;">
+                            <a class="txt_upper_header_color text_length_limit"
+                                href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}" style="color: white;  font-size:10px;">${partyhou_item.title}</a>
+                        </div>
+                    </div>
+                `;
+                banner_items_html += partyhou_item;
+            });
+            
+        }
+
+        var bannerHtml = `<div class="pro_link"
+        style="display: inline-flex; width: 100%; flex-wrap: wrap; justify-content: space-evenly; color: white;">` + banner_items_html + `</div>`;
+        return bannerHtml;
+
+    }
+
+    function parseFlipBack(user) {
+        var flipBack = document.createElement('div');
+        flipBack.className = 'flip-box-back';
+        var otherRowsHtml = parseOtherRows(user);
+        var bannerHtml = parseFlipBanner(user);
+        flipBack.innerHTML = `
+            <div class="pri_med_bold profcontent txt_lower_header_color" style="color: white;">{l_other_information} ${user.name} - ${user.c_orientation}</div>`
+
+            + otherRowsHtml + bannerHtml + 
+            `<div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+                {l_flip_other_bottom_note}
+            </div>
+            <br /><br />
+
+        `;
+        return flipBack;
+    }
+
+    function parseFlipcard (user) {
+
+        var flipSpan = document.createElement('span');
+        flipSpan.className = 'flip-box popup-info';
+        flipSpan.id = "usr0" + user.user_id;
+
+        var flipInner = document.createElement('div');
+        flipInner.className = 'flip-box-inner';
+
+        var flipFront = parseFlipFront(user);
+        var flipBack = parseFlipBack(user);
+        flipInner.appendChild(flipFront)  ;
+        flipInner.appendChild(flipBack);
+        flipSpan.appendChild(flipInner);
+        
+        return flipSpan;
+    }   
+
+</script>
+
+ <!-- begin_map_api_key -->
+ <script src="https://maps.googleapis.com/maps/api/js?key={map_api_key}"></script>
+ <!-- end_map_api_key -->
+
+
+{footer}

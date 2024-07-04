@@ -1,0 +1,46 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/groups_groups.php">{l_menu_groups}</a></li>
+        <li><a href="{url_main}administration/groups_group_comments.php">{l_menu_group_comments}</a></li>
+        <li><a href="{url_main}administration/groups_forums.php">{l_menu_forums}</a></li>
+        <li class="active"><a href="{url_main}administration/groups_forum_comments.php">{l_menu_forum_comments}</a></li>
+        <li><a href="{url_main}administration/groups_categories.php">{l_menu_group_categories}</a></li>	
+        <li><a href="{url_main}administration/groups_category_add.php">{l_menu_group_categories_add}</a></li>		
+    </ul>
+</div>
+
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#place_edit_form").validate({
+        rules: {
+            comment_text: "required",
+        },
+        messages: {
+        	comment_text: "{l_please_enter_text}"
+        }
+    })
+});
+
+</script>
+
+<div class="block_main">
+    <h2>{l_title_current} - {forum_name}</h2>
+
+    <div class="bl_form">
+
+        <form method="POST" id="place_edit_form" action="{url_main}administration/groups_forum_comment_comment_edit.php?cmd=update&comment_id={comment_id}">
+ 
+        <label>{l_comment_text}:</label>
+        <textarea name="comment_text" id="comment_text" class="textarea_small">{comment_text}</textarea>
+        
+        <div style="height:20px"></div>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save_changes}</a></div> 
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

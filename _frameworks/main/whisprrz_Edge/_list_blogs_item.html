@@ -1,0 +1,99 @@
+<!-- begin_list_blog_posts_item_info_big -->
+<div class="col-lg-12">
+    <div class="cham-content-item  <!-- begin_list_blog_posts_item_info_big_right -->cham-img-right<!-- end_list_blog_posts_item_info_big_right -->">
+        <a href="#" onclick="return false;" class="cham-content-figure list_blog_posts_image_{list_blog_posts_item_id} to_hide">
+            <div <!-- begin_list_blog_posts_item_info_big_image_placeholder -->class="image_placeholder"<!-- end_list_blog_posts_item_info_big_image_placeholder --> style="background-image: url({list_blog_posts_item_image});"></div>
+            <script>onLoadImgFromList($('.list_blog_posts_image_{list_blog_posts_item_id}.to_hide'), '{list_blog_posts_item_image}');</script>
+        </a>
+        <div class="cham-content-description">
+            <h2>
+                <a title="{list_blog_posts_item_subject}" href="{list_blog_posts_item_url}">{list_blog_posts_item_subject}</a>
+            </h2>
+            <p>{list_blog_posts_item_text}</p>
+            <a href="{list_blog_posts_item_url}" class="btn btn-success btn-outline btn-md">{l_read_article}</a>
+        </div>
+    </div>
+</div>
+<!-- end_list_blog_posts_item_info_big -->
+<!-- begin_list_blog_posts_item_info_plain -->
+<div class="col-md-{list_blog_posts_item_number_row} col-sm-6">
+    <a href="{list_blog_posts_item_url}" class="link-block">
+        <figure class="list_blog_posts_image_{list_blog_posts_item_id} to_hide">
+            <div class="cham-overlay2"></div>
+            <div class="img <!-- begin_list_blog_posts_item_info_plain_image_placeholder -->image_placeholder<!-- end_list_blog_posts_item_info_plain_image_placeholder -->" style="background-image: url({list_blog_posts_item_image});"></div>
+            <script>onLoadImgFromList($('.list_blog_posts_image_{list_blog_posts_item_id}.to_hide'), '{list_blog_posts_item_image}');</script>
+        </figure>
+        <h3 title="{list_blog_posts_item_subject}">{list_blog_posts_item_subject}</h3>
+        <p><span class="cham-meta">{list_blog_posts_item_date}</span></p>
+    </a>
+</div>
+<!-- end_list_blog_posts_item_info_plain -->
+<!-- begin_list_blog_posts_item_info_small -->
+<div class="col-md-6">
+    <div class="cham-feature-item">
+        <a href="#" class="cham-content-figure list_blog_posts_image_{list_blog_posts_item_id} to_hide">
+            <div class="cham-feature-img <!-- begin_list_blog_posts_item_info_small_image_placeholder -->image_placeholder<!-- end_list_blog_posts_item_info_small_image_placeholder -->" style="background-image: url({list_blog_posts_item_image}); "></div>
+            <script>onLoadImgFromList($('.list_blog_posts_image_{list_blog_posts_item_id}.to_hide'), '{list_blog_posts_item_image}');</script>
+        </a>
+        <div class="cham-feature-text">
+            <h3 class="h2 cham-feature-title">
+                <a title="{list_blog_posts_item_subject}" href="{list_blog_posts_item_url}">{list_blog_posts_item_subject}</a>
+                <span class="cham-border"></span>
+            </h3>
+            <div class="blog_posts_item_text">{list_blog_posts_item_text}</div>
+            <p>
+                <a href="{list_blog_posts_item_url}" class="btn btn-success btn-sm">{l_read_article}</a>
+            </p>
+            <div class="user_information">
+                <a href="{url_main}{list_blog_posts_item_user_url}">{list_blog_posts_item_user_name}</a>
+                <span>, {list_blog_posts_item_user_city}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end_list_blog_posts_item_info_small -->
+
+
+<!-- begin_list_blog_posts_item_info -->
+<div class="col-md-{list_blog_posts_item_number_row} col-sm-6 item <!-- begin_list_blog_posts_item_info_hide -->to_hide<!-- end_list_blog_posts_item_info_hide --> blogs_post_item">
+        <div class="cham-post">
+            <div class="cham-post-link" onclick="goLinkBlog(event, $(this), '{list_blog_posts_item_url}'); return false;">
+                <div class="cham-post-image list_blog_posts_image_{list_blog_posts_item_id} to_hide">
+                    <div class="cham-overlay"></div>
+                    <div class="cham-category name">
+                        <!-- <a href="{url_main}{list_blog_posts_item_user_url}">
+                            {list_blog_posts_item_user_name}
+                        </a> -->
+                        <span class="name" onclick="goLinkUserBlogs($(this), '{list_blog_posts_item_user_url}'); return false;">
+                            <!-- begin_list_blog_posts_item_info_online -->
+                            <span class="icon_status online"></span>
+                            <!-- end_list_blog_posts_item_info_online-->
+                            {list_blog_posts_item_user_name}
+                        </span>
+                    </div>
+                    <div data-cl-loader="loader_list_blogs_info" class="pic rectangle <!-- begin_list_blog_posts_item_info_image_placeholder -->image_placeholder<!-- end_list_blog_posts_item_info_image_placeholder -->" style="background-image: url({list_blog_posts_item_image});"></div>
+                    <script>onLoadImgFromList($('.list_blog_posts_image_{list_blog_posts_item_id}.to_hide'), '{list_blog_posts_item_image}');</script>
+
+                    <span class="tag">
+                        <i class="fa fa-tags" aria-hidden="true"></i><a href="">sea</a>
+                        <a href="">nature</a><a href="">nature</a>
+                    </span>
+                </div>
+                <div class="cham-post-text">
+                    <h3 title="{list_blog_posts_item_subject}">{list_blog_posts_item_subject}</h3>
+                    <div class="post-text">
+                        <p>{list_blog_posts_item_text}</p>
+                    </div>
+                </div>
+                <div class="layer_blocked_item_list"></div>
+            </div>
+            <div class="cham-post-meta">
+                <div class="info">
+                    <span class="info_item comments"><i class="fa fa-comments" aria-hidden="true"></i>{list_blog_posts_item_count_comments}</span>
+                    <span class="info_item time"><i class="fa fa-clock-o" aria-hidden="true"></i>{list_blog_posts_item_time_ago}</span>
+                </div>
+            <div class="clearfix"></div>
+            </div>
+        </div>
+</div>
+<!-- end_list_blog_posts_item_info -->

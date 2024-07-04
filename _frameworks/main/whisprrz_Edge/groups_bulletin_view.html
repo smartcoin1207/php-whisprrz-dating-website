@@ -1,0 +1,33 @@
+{header}
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+<input style="width: 150px;" type="button" value="{l_view_all}" class="button" onclick="location='{url_main}groups_bulletin.php?gid={gid}';" title="{l_view_all}">
+<input style="width: 150px;" type="button" value="{l_all_groups}" class="button" onclick="location='{url_main}groups.php';" title="{l_all_groups}">
+<input style="width: 150px;" type="button" value="{l_my_groups}" class="button" onclick="location='{url_main}groups_my.php';" title="{l_my_groups}">
+<input style="width: 150px;" type="button" value="{l_create_group}" class="button" onclick="location='{url_main}groups_add.php?cat_id={cat_id}';" title="{l_create_group}">
+
+<br><br>
+
+<table width=100% border=0 cellpadding=0 cellspacing=6 class="gr_table">
+<tr>
+	<td class="gr_header" valign="top" width="75%">{subject}</td>
+	<td class="gr_header" valign="top">{l_date}</td>
+	<td class="gr_header" valign="top">{l_from}</td>
+</tr>
+<tr>
+	<td class="gr_cell">{body}</td>
+	<td class="gr_cell">{date}</td>
+	<td class="gr_image">
+	<a href="search_results.php?display=profile&name={from}"><img src="{url_files}{user_photo}" /></a>
+	<b><a href="search_results.php?display=profile&name={from}">{from}</a></b>
+	</td>
+</tr>
+</table>
+<br>
+<form action="mail_compose.php" method="GET" style="text-align:center;">
+<input type="hidden" name="id" value="{user_id}">
+<input type="submit" value="{l_reply}" class=button>
+</form>
+
+
+</div></div></div></div></div></div></div></div></div>
+{footer}

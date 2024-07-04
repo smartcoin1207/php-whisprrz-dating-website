@@ -1,0 +1,165 @@
+/* Display Flex */
+.flex {
+    display: flex;
+  }
+.inline-flex {
+    display: inline-flex;
+  }
+  
+  /* Flex Direction */
+  .flex-row {
+    flex-direction: row;
+  }
+  
+  .flex-col {
+    flex-direction: column;
+  }
+  
+  .flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+  
+  .flex-col-reverse {
+    flex-direction: column-reverse;
+  }
+  
+  /* Flex Justify Content */
+  .justify-start {
+    justify-content: flex-start;
+  }
+  
+  .justify-end {
+    justify-content: flex-end;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .justify-between {
+    justify-content: space-between;
+  }
+  
+  .justify-around {
+    justify-content: space-around;
+  }
+  
+  .justify-evenly {
+    justify-content: space-evenly;
+  }
+  
+  /* Flex Align Items */
+  .items-start {
+    align-items: flex-start;
+  }
+  
+  .items-end {
+    align-items: flex-end;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .items-baseline {
+    align-items: baseline;
+  }
+  
+  .items-stretch {
+    align-items: stretch;
+  }
+  
+  /* Flex Align Content */
+  .content-start {
+    align-content: flex-start;
+  }
+  
+  .content-end {
+    align-content: flex-end;
+  }
+  
+  .content-center {
+    align-content: center;
+  }
+  
+  .content-between {
+    align-content: space-between;
+  }
+  
+  .content-around {
+    align-content: space-around;
+  }
+  
+  .content-stretch {
+    align-content: stretch;
+  }
+  
+  /* Flex Items */
+  .self-auto {
+    align-self: auto;
+  }
+  
+  .self-start {
+    align-self: flex-start;
+  }
+  
+  .self-end {
+    align-self: flex-end;
+  }
+  
+  .self-center {
+    align-self: center;
+  }
+  
+  .self-baseline {
+    align-self: baseline;
+  }
+  
+  .self-stretch {
+    align-self: stretch;
+  }
+  
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .gap-1 {
+    gap: 4px;
+  }
+
+  .gap-2 {
+    gap: 8px;
+  }
+
+  .gap-3 {
+    gap: 12px;
+  }
+
+  .gap-4 {
+    gap: 16px;
+  }
+
+  .text-white {
+    color: #fff;
+  }
+
+  .text-xs {
+    font-size: 12px;
+  }
+
+  .text-sm {
+    font-size: 14px;
+  }
+  
+  .text-base {
+    font-size: 16px;
+  }
+
+  .font-medium {
+    font-weight: 500;
+  }
+
+  .mt-2 {
+    margin-top: 8px;
+  }

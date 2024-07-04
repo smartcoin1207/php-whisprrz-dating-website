@@ -1,0 +1,93 @@
+{header}
+<style>
+  tr.row1 {
+    background-color: #fff;
+    margin-top: 2px;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+  }
+
+  tr.row2 {
+    background-color: #fff;
+    margin-top: 2px;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+  }
+
+  tbody tr td {
+    padding: 8px 0 8px 4px
+  }
+</style>
+<div class="frame_content" id="oryx_content">
+  <div align="center">
+    <h2 class="txt_lower_header_color" style="text-align: left;">{l_my_certify} <a class="custom-button red right_pos" href="{url_main}profile_view.php"
+            title="{l_back}">{l_back}</a>
+    </h2>
+
+
+    <table cellpadding="0" cellspacing="0" border="0" class="light" style="margin-bottom:15px;" width="100%">
+      <thead>
+        <tr height="30" style="background-color: #F0F0F0;">
+          <th align="left" style="padding-left: 4px;">{l_action}</th>
+          <th align="left" style="padding-left: 4px;">
+            {l_from}
+          </th>
+          <th align="left" style="padding-left: 4px;">
+            {l_message}
+          </th>
+          <th align="left" style="padding-left: 4px;">
+            {l_date}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- begin_my_certify -->
+        <tr class="list_view1 row1">
+          <td style="padding: 0px 5px; vertical-align: middle!important; width: 175px;">
+            <a href="{url_page}?cmd=delete&id={id}"
+              onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+            |
+            <a href="{url_page}?cmd={approve}&id={id}"
+              onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{approve_text}</a>
+            |
+            <a href="{url_page}?cmd=wallpost&id={id}"
+              onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_add_to_wall}</a>
+          </td>
+          <td style=" width: 100px">{name_from}</td>
+          <td>{certify_text}</td>
+          <td style=" width: 80px">{submit_date}</td>
+        </tr>
+        <!-- end_my_certify -->
+      </tbody>
+    </table>
+
+  </div>
+  <script>
+    $(document).ready(function () {
+      if ("{deleted}" == "yes") {
+        Swal.fire(
+          'Deleted!',
+          '',
+          'success'
+        );
+      }
+
+      if ("{update}" == "yes") {
+        Swal.fire(
+          'Update!',
+          '',
+          'success'
+        );
+      }
+
+      if ("{wallpost}" == "yes") {
+        Swal.fire(
+          '{l_add_to_wall}!',
+          '',
+          'success'
+        );
+      }
+    });
+  </script>
+</div>
+  {footer}

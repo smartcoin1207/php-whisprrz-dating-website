@@ -1,0 +1,132 @@
+{header}
+
+
+    <div class="hotdates_new">
+
+		{hotdates_header}
+
+        <table class="tb_hotdates_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    <div class="hotdates_new_decor_l">
+                        <div class="pl_top ">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+
+                              <td><h1 class="txt_upper_header_color">{l_hotdates_upcoming_hotdates}</h1></td>
+                              <td>
+                              <div class="main_pl">
+                                  <div class="cont">
+                                      <div class="pic">
+                                          <img src="{url_tmpl_main}images/hotdates/ico_browse.png" width="34" height="34" alt=""/>
+                                      </div>
+                                      <ul class="list">
+                                          <li><a href="{url_main}hotdates_hotdate_list_upcoming.php">{l_hotdates_browse_all}</a></li>
+                                      </ul>
+                                  </div>
+
+                                  <div class="bg grey">
+                                      <ul class="lists">
+                                          <li><a href="{url_main}hotdates_my.php">{l_hotdates_my_hotdates}</a></li>
+                                      </ul>
+                                  </div>
+                              </div>
+
+                              </td>
+                            </tr>
+                          </table>
+
+                            </div>
+                            <!-- /bl_main_pl -->
+
+
+                              <div class="cl"></div>
+                              <!-- begin_hotdate -->
+                              <div class="hotdates_new_top_pl <!-- begin_hotdate_last -->last_top_pl<!-- end_hotdate_last -->">
+                                  <div class="hotdates_new_img_pink">
+                                      <a href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}"><img src="{image_thumbnail}" width="160" height="120" alt="{hotdate_title_full}"/></a>
+                                  </div>
+                                  <div class="hotdates_new_img_txt">
+                                      <strong><a href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}">{hotdate_title}</a></strong>
+                                      <span>{l_hotdates_guests}: {hotdate_n_guests} | {l_hotdates_comments}: {hotdate_n_comments}</span>
+                                      <span><a class="txt_upper_header_color" href="{url_main}hotdates_search.php?hotdate_place={hotdate_place_full}" title="{hotdate_place_full}">{hotdate_place}</a> | <a class="txt_upper_header_color" href="{url_main}hotdates_search.php?hotdate_datetime={hotdate_datetime_raw}">{hotdate_date}</a> | {hotdate_time}</span>
+                                  </div>
+                              </div>
+                              <!-- end_hotdate -->
+
+                        </div>
+                    </div>
+
+                    <div class="hotdates_new_shadow"></div>
+
+                    <div class="hotdates_new_p ">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+
+                              <td><h1 class="txt_lower_header_color">{l_hotdates_most_anticipated_hotdates}</h1></td>
+
+                              <td>
+                                <div class="main_pl">
+                                  <div class="cont darkgrey">
+                                      <div class="pic">
+                                          <img src="{url_tmpl_main}images/hotdates/ico_browse.png" width="34" height="34" alt=""/>
+                                      </div>
+                                      <ul class="list">
+                                          <li><a href="{url_main}hotdates_hotdate_list_most_anticipated.php">{l_hotdates_browse_all}</a></li>
+                                      </ul>
+                                  </div>
+
+                                  <div class="bg darkgrey"></div>
+                              </div>
+
+                              </td>
+                            </tr>
+                          </table>
+
+                            </div>
+
+                        <div class="cl"></div>
+
+                        {hotdates_hotdate_list}
+
+                    </div>
+
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+
+					{hotdates_sidebar}
+
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div>
+		<div class="foot_right"></div>
+
+
+    
+    </div>
+
+
+
+
+<br>
+
+
+{footer}

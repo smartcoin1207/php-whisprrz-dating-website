@@ -1,0 +1,26 @@
+{header}
+<style>
+    .btn.fl_right{position:relative};
+</style>
+<div class="block_narrow">
+{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+		{config_fields}
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+    <div class="empty"></div>
+</div>
+<!-- begin_upload_error -->
+<script language="javascript" type="text/javascript">
+    alert('{error}');
+</script>
+<!-- end_upload_error -->
+{footer}

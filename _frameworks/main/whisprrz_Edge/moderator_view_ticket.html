@@ -1,0 +1,169 @@
+{header}
+<style>
+    /* Dropdown Button */
+    .dropbtn {
+        background-color: #04AA6D;
+        color: white;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 3px;
+        border: none;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #04AA6D;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {
+        background-color: #006842;
+    }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+</style>
+<div class="frame_content" id="oryx_content">
+    <div class="cl"></div>
+    <h2 class="txt_lower_header_color">{subject}</h2>
+    <form id="support_ticket_reply_form" action="{url_page}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="cmd" value="reply_ticket">
+        <input type="hidden" name="id" value="{id}">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td class="img_sml_border">
+                    <div id="photo_info">
+                        <a href="search_results.php?display=profile&uid={id_user}"><img id="pic{id_user}" src="{photo}"
+                                class="img_border"></a>
+                    </div>
+                </td>
+                <td style="padding-left: 14px; vertical-align: top;">
+                    <div class="content_bgrnd" style="width: 402px;">
+                        <div class="body_text" style="margin: -2px 0 0; ">
+
+                            <b>{l_from}:</b> <a
+                                href="search_results.php?display=profile&name={user_from}">{user_from}</a><br>
+                            <b>{l_subject}:</b> {subject}<br>
+                            <b>{l_priority}:</b> {priority}<br>
+                            <b>{l_date}:</b> {date_sent}<br>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="fullprof_bot_border" style="border:none;">
+            <div class="body_text" style="padding: 0px; text-align: left; word-wrap:break-word; ">
+                {text}
+                <br>
+                <br>
+                {ticket_attachment}
+            </div>
+
+            <!-- begin_ticket_reply_list -->
+            <hr style="color: rgb(255, 255, 255);">
+            <br>
+            <strong>{reply_by} on {date}</strong>
+            <br>
+            <br>
+            {msg}
+            <br>
+            <br>
+            {tr_attachment}
+            <br>
+            <br>
+            <!-- end_ticket_reply_list -->
+        </div>
+        <br>
+        <br>
+        <h2 class="txt_lower_header_color">{l_reply}</h2>
+        <textarea name="ticket_reply" id="ticket_reply" class="custom-input-textarea" rows="8"></textarea>
+        <br>
+        <br>
+        <p style="font-size: 16px;">
+            <input type="file" name="attachment">
+        </p>
+        <br>
+        <br>
+        <input type="submit" class="custom-button" title="{l_send}" value="{l_send}" />
+
+        <div class="dropdown">
+            <button class="dropbtn">{l_assign_to}</button>
+            <div class="dropdown-content">
+                <!-- begin_upper_support_level_tier_2 -->
+                <a href="moderator.php?section=support_tickets&action=upper_tier&level=2&id={id}"
+                    title="{l_support_tier_2} 2">{l_support_tier_2}</a>
+                <!-- end_upper_support_level_tier_2 -->
+                <!-- begin_upper_support_level_tier_3 -->
+                <a href="moderator.php?section=support_tickets&action=upper_tier&level=3&id={id}"
+                    title="{l_support_tier_3}">{l_support_tier_3}</a>
+                <!-- end_upper_support_level_tier_3 -->
+                <!-- begin_lower_support_level_tier_1 -->
+                <a href="moderator.php?section=support_tickets&action=lower_tier&level=1&id={id}"
+                    title="{l_support_tier_1}">{l_support_tier_1}</a>
+                <!-- end_lower_support_level_tier_1 -->
+                <!-- begin_lower_support_level_tier_2 -->
+                <a href="moderator.php?section=support_tickets&action=lower_tier&level=2&id={id}"
+                    title="{l_support_tier_2}">{l_support_tier_2}</a>
+                <!-- end_lower_support_level_tier_2 -->
+            </div>
+        </div>
+        <a class="custom-button red" href="moderator.php?section=support_tickets" title="{l_back}">{l_back}</a>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $('a[data-lightbox]').lightBox({
+            imageLoading: '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+            imageBtnPrev: '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+            imageBtnNext: '{url_tmpl_administration}images/lightbox-btn-next.gif',
+            imageBtnClose: '{url_tmpl_administration}images/lightbox-btn-close.gif',
+            imageBlank: '{url_tmpl_administration}images/lightbox-blank.gif'
+        });
+
+        $("#support_ticket_reply_form").submit(function () {
+            if ($("#ticket_reply").val().split(" ").join("") == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{l_enter_ticket_reply_text}',
+                });
+                return false;
+            }
+            return true;
+        });
+        if ("{saved}" == "yes") {
+            Swal.fire(
+                'Saved!',
+                '',
+                'success'
+            );
+        }
+    });
+</script>
+{footer}

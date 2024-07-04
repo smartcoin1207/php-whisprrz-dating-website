@@ -1,0 +1,196 @@
+<!-- Rade 2023-09-28 add -->
+{header}
+
+<div class="block_narrow">
+	{menu_page}
+</div>
+
+<div class="block_main">
+	<!-- Rade 2023-09-28 add start -->
+    <ul class="group_page_title_menu">
+        <li id="sgroupssocial">
+            <a href="{url_main}administration/groups_social.php">{l_menu_groups_social}</a>
+        </li>
+        <li id="sgroupssocialvideos">
+            <a href="{url_main}administration/groups_social_vids_videos.php">{l_menu_groups_social_videos}</a>
+        </li>
+
+        <li id="sgroupssocialmusic" class="current">
+            <a href="{url_main}administration/groups_social_music_songs.php">{l_menu_groups_social_music}</a>
+        </li>
+    </ul>
+    <!-- Rade 2023-09-28 add end -->
+	<h2>{l_title_current}</h2>
+	<div class="alert alert-success border-0 alert-dismissible mb-2-1" role="alert">{l_changes_save}</div>
+	<div class="alert alert-danger alert-dismissible mb-2-1" role="alert">{l_changes_delete}</div>
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">{l_title_current}</h4>
+					<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+					<div class="heading-elements">
+						<ul class="list-inline mb-0">
+							<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="card-content collapse show">
+					<div class="card-body">
+						<!-- begin_musician_name -->
+						<h5>{musician_name}</h5>
+						<hr class="mb-2">
+						<!-- end_musician_name -->
+
+						<!-- begin_main_pages -->
+						<div class="total_pages">
+							<p class="num_total">{num_total} {l_songs}</p>
+
+							<ul class="pagination justify-content-center">
+
+								<!-- begin_main_first_page -->
+								<li class="page-item first">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_page_1}</a>
+								</li>
+								<!-- end_main_first_page -->
+								<!-- begin_main_prev_page -->
+								<li class="page-item prev">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_prev}</a>
+								</li>
+								<!-- end_main_prev_page -->
+								<!-- begin_main_prev_page_off -->
+								<li class="page-item prev disabled">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_prev}</a>
+								</li>
+								<!-- end_main_prev_page_off -->
+								<!-- begin_main_prev_pages -->
+								<li class="page-item">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">&lt;&lt;</a>
+								</li>
+								<!-- end_main_prev_pages -->
+								<!-- begin_main_page -->
+								<!-- begin_main_link_page -->
+								<li class="page-item">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{page}</a>
+								</li>
+								<!-- end_main_link_page -->
+								<!-- begin_main_this_page -->
+								<li class="page-item active">
+									<a href="" onclick="return false;" class="page-link">{page}</a>
+								</li>
+								<!-- end_main_this_page -->
+								<!-- end_main_page -->
+								<!-- begin_main_next_pages -->
+								<li class="page-item">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">&gt;&gt;</a>
+								</li>
+								<!-- end_main_next_pages -->
+								<!-- begin_main_next_page -->
+								<li class="page-item next">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_next}</a>
+								</li>
+								<!-- end_main_next_page -->
+								<!-- begin_main_next_page_off -->
+								<li class="page-item next disabled">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_next}</a>
+								</li>
+								<!-- end_main_next_page_off -->
+								<!-- begin_main_last_page -->
+								<li class="page-item last">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{num_pages}</a>
+								</li>
+								<!-- end_main_last_page -->
+							</ul>
+						</div>
+						<!-- end_main_pages -->
+
+						<!-- begin_main_items -->
+						<div class="table-responsive mb-2 mt-0">
+							<table class="tb">
+								<tr>
+									<th>{l_action}</th>
+									<th>
+										<!-- begin_params_none_song_id --><a
+											href="{url_page}?{params_current}">{l_id}</a><!-- end_params_none_song_id -->
+										<!-- begin_params_asc_song_id -->&uarr;<a
+											href="{url_page}?{params_current}">{l_id}</a><!-- end_params_asc_song_id -->
+										<!-- begin_params_desc_song_id -->&darr;<a
+											href="{url_page}?{params_current}">{l_id}</a><!-- end_params_desc_song_id -->
+									</th>
+									<th>
+										<!-- begin_params_none_song_title --><a
+											href="{url_page}?{params_current}">{l_song_title}</a><!-- end_params_none_song_title -->
+										<!-- begin_params_asc_song_title -->&uarr;<a
+											href="{url_page}?{params_current}">{l_song_title}</a><!-- end_params_asc_song_title -->
+										<!-- begin_params_desc_song_title -->&darr;<a
+											href="{url_page}?{params_current}">{l_song_title}</a><!-- end_params_desc_song_title -->
+									</th>
+									<th>
+										<!-- begin_params_none_user_id --><a
+											href="{url_page}?{params_current}">{l_user}</a><!-- end_params_none_user_id -->
+										<!-- begin_params_asc_user_id -->&uarr;<a
+											href="{url_page}?{params_current}">{l_user}</a><!-- end_params_asc_user_id -->
+										<!-- begin_params_desc_user_id -->&darr;<a
+											href="{url_page}?{params_current}">{l_user}</a><!-- end_params_desc_user_id -->
+									</th>
+									<th>
+										<!-- begin_params_none_song_n_plays --><a
+											href="{url_page}?{params_current}">{l_song_n_plays}</a><!-- end_params_none_song_n_plays -->
+										<!-- begin_params_asc_song_n_plays -->&uarr;<a
+											href="{url_page}?{params_current}">{l_song_n_plays}</a><!-- end_params_asc_song_n_plays -->
+										<!-- begin_params_desc_song_n_plays -->&darr;<a
+											href="{url_page}?{params_current}">{l_song_n_plays}</a><!-- end_params_desc_song_n_plays -->
+									</th>
+									<th>
+										<!-- begin_params_none_song_has_images --><a
+											href="{url_page}?{params_current}">{l_song_has_images}</a><!-- end_params_none_song_has_images -->
+										<!-- begin_params_asc_song_has_images -->&uarr;<a
+											href="{url_page}?{params_current}">{l_song_has_images}</a><!-- end_params_asc_song_has_images -->
+										<!-- begin_params_desc_song_has_images -->&darr;<a
+											href="{url_page}?{params_current}">{l_song_has_images}</a><!-- end_params_desc_song_has_images -->
+									</th>
+									<th>
+										<!-- begin_params_none_created_at --><a
+											href="{url_page}?{params_current}">{l_created_at}</a><!-- end_params_none_created_at -->
+										<!-- begin_params_asc_created_at -->&uarr;<a
+											href="{url_page}?{params_current}">{l_created_at}</a><!-- end_params_asc_created_at -->
+										<!-- begin_params_desc_created_at -->&darr;<a
+											href="{url_page}?{params_current}">{l_created_at}</a><!-- end_params_desc_created_at -->
+									</th>
+								</tr>
+									<!-- begin_main_item -->
+									<tr class="{class}">
+										<td>
+											<a
+												href="{url_main}administration/music_song_edit.php?song_id={song_id}">{l_edit}</a>
+											|
+											<a href="{url_main}administration/music_song_delete.php?song_id={song_id}"
+												onclick="confirmCustom('{j_are_you_sure}',function(){redirectUrl('{url_main}administration/music_song_delete.php?song_id={song_id}')}); return false;">{l_delete}</a>
+										</td>
+										<td>{song_id}</td>
+										<td>{song_title}</td>
+										<td>{user_id}</td>
+										<td>{song_n_plays}</td>
+										<td>{song_has_images}</td>
+										<td>{created_at}</td>
+									</tr>
+									<!-- end_main_item -->
+							</table>
+						</div>
+						<!-- end_main_items -->
+
+						<!-- begin_main_noitems -->
+						<div class="alert alert-light mb-2 alert-info-1" role="alert">
+							{l_no_places}
+						</div>
+						<!-- end_main_noitems -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{footer}

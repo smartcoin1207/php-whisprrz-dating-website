@@ -1,0 +1,24 @@
+{header}
+<div class="block_narrow">
+{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+        <form action="{url_page}" method="POST" id="form_smtp">
+			<input type="hidden" name="cmd" value="update">
+			{message_main}
+
+            <p>{l_the_formatting_options}</p>
+
+			{config_fields}
+
+			<div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+				<input type="submit" style="visibility:hidden;position:absolute;">
+			</div>
+        </form>
+    </div>
+
+</div>
+<div class="empty"></div>
+{footer}

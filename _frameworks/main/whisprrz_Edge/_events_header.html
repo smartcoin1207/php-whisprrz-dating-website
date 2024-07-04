@@ -1,0 +1,89 @@
+<div class="events_new_head">
+    <script type="text/javascript">
+        function events_header_search_on_submit() {
+            query = $("#events_header_search input[name='query']").val();
+
+            if ((query != '') && (query != '{l_events_default_search_query}')) {
+                return true;
+            }
+
+            alert('{l_blogs_please_enter_what_you_search}');
+
+            return false;
+        }
+    </script>
+    <div class="events_head_bl">
+        <div style="display: flex; flex-direction: column; gap: 10px; justify-content: start;">
+            <div style="display: flex; justify-content: space-between; gap: 10px; align-items: center;">
+                <div class="events_new_head_txt txt_upper_header_color">
+                    <strong><a href="{url_main}events.php" style="text-decoration:none">{l_events_events}</a></strong>
+                    <!-- begin_event_header_location -->
+                    <span class="dot4">::</span> {l_you_are_in} <span title="{location_full}">{location}</span>
+                    <!-- end_event_header_location -->
+                </div>
+
+                <div style="display: flex; justify-content: end; gap: 10px; align-items: center;">
+                    <form action="{url_main}events_event_edit.php<!--begin_event_date -->?date={event_date}<!--end_event_date -->"
+                        method="post">
+                        <a href="{url_main}events_event_edit.php<!--begin_event_date -->?date={event_date}<!--end_event_date -->"
+                            class="btn round blue fl_right" style="text-decoration:none;width: 150px; text-align: center;"><img class="btn_arrows_top"
+                                src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8"
+                                alt="" />{l_events_create_event}&nbsp;<img class="btn_arrows_right"
+                                src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+                    </form>
+                    <form
+                        action="{url_main}wowslider.php<!--begin_event_date -->?date={event_date}<!--end_event_date -->"
+                        method="post">
+                        <strong><a href="{url_main}wowslider.php" style="text-decoration:none;width: 150px; text-align: center;"
+                                class="btn round blue fl_left"><img class="btn_arrows_top"
+                                    src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8"
+                                    alt="" />{l_whisp_slider}<img class="btn_arrows_right"
+                                    src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5"
+                                    alt="" /></a></strong>
+                    </form>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: end; gap: 10px; align-items: center;">
+                <form id="events_header_search" autocomplete="off" action="{url_main}events_search.php" method="get"
+                    onsubmit="return events_header_search_on_submit();" style="display: flex; align-items: center; gap: 10px;">
+                    <div class="events_input_text1"><input class="no_abk" type="text" name="query" /></div>
+                    <input style="margin: 0 0 0 0;" class="btn round blue big fl_right" type="submit"
+                        value="{l_events} {l_events_search}" style="text-decoration:none;width: 150px; text-align: center;" />
+                </form>
+                <form
+                    action="{url_main}whisprrz.com/Whisprrz_Wevents/public/index.php/login<!--begin_event_date -->?date={event_date}<!--end_event_date -->"
+                    method="post">
+                    <strong><a href="{url_main}Whisprrz Wevents.php" style="text-decoration:none;width: 150px; text-align: center;"
+                            class="btn round blue fl_left" target="_blank"><img class="btn_arrows_top"
+                                src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_wevents}<img
+                                class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10"
+                                height="5" alt="" /></a></strong>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="events_new_menu_bg">
+        <ul class="events_new_menu fl_left">
+            <!-- begin_categories_item -->
+            <!-- begin_categories_item_active -->
+            <span class="txt_upper_header_color">{category_title}</span>
+            <!-- end_categories_item_active -->
+            <!-- begin_categories_item_not_active -->
+            <class="last"><a href="{url_main}events_settings_change.php?category_id={category_id}">{category_title}</a>
+                <!-- end_categories_item_not_active -->
+                <!-- end_categories_item -->
+        </ul>
+        <ul class="events_new_menu fl_right"style=" padding-right: 90px; font-size: 18px; font-weight:500 ;"></a>
+            <a href="{url_main}events_calendar.php">{l_events_my_calendar}</a>
+            <a href="{url_main}events_event_list_upcoming.php">{l_events_upcoming_events}</a>            
+            <a href="{url_main}events_my.php">{l_events_my_events}</a>  
+            <class="last">         
+            <a href="{url_main}main_calendar.php">{l_my_main_calendar}</a>
+                       
+                </li>
+
+        </ul>
+        <div class="justify"></div>
+    </div>
+</div>

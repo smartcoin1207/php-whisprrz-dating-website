@@ -1,0 +1,96 @@
+{header}
+
+<div class="frame_content">
+<ul class="list_btn">
+	<li><input type="button" value="{l_add}" class="btn blue" onclick="location='adv_edit.php?cat_id={cat_id}';" title="{l_add}"></li>
+	<li><input type="button" value="{l_all}" class="btn blue" onclick="location='{url_main}adv.php';" title="{l_all}"></li>
+	<li><input type="button" value="{l_my_ads}" class="btn blue" onclick="location='{url_main}adv_my.php';" title="{l_my_ads}"></li>
+</ul>
+
+<div class="cl"></div>
+
+<h2>{var_subject}</h2>
+
+<script type="text/javascript">
+
+$(function() {
+    initLightboxOldTemplate($('.adv_image a'));
+});
+
+</script>
+
+
+<!-- <span class="rtop"><span class="r1"></span><span class="r2"></span><span class="r3"></span><span class="r4"></span></span>
+ --><div class="adv_image">
+	<!-- begin_image_1 --><a href="{image_1_file}"><img height="107" width="160" alt="" src="{image_1_thumbnail}" /></a><!-- end_image_1 --><!-- begin_image_1_empty --><img height="107" width="160" alt="" src="{url_tmpl_main}images/adv_image_none.gif"/><!-- end_image_1_empty -->
+	<!-- begin_image_2 --><a href="{image_2_file}"><img height="107" width="160" alt="" src="{image_2_thumbnail}" /></a><!-- end_image_2 --><!-- begin_image_2_empty --><img height="107" width="160" alt="" src="{url_tmpl_main}/images/adv_image_none.gif"/><!-- end_image_2_empty -->
+	<!-- begin_image_3 --><a href="{image_3_file}"><img height="107" width="160" alt="" src="{image_3_thumbnail}" /></a><!-- end_image_3 --><!-- begin_image_3_empty --><img height="107" width="160" alt="" src="{url_tmpl_main}/images/adv_image_none.gif"/><!-- end_image_3_empty -->
+	<!-- begin_image_4 --><a href="{image_4_file}"><img height="107" width="160" alt="" src="{image_4_thumbnail}" /></a><!-- end_image_4 --><!-- begin_image_4_empty --><img height="107" width="160" alt="" src="{url_tmpl_main}/images/adv_image_none.gif"/><!-- end_image_4_empty -->
+</div>
+<!-- <span class="rbottom"><span class="r4"></span><span class="r3"></span><span class="r2"></span><span class="r1"></span></span>
+ -->
+<div class="adv_description">
+{var_body}
+</div>
+
+<div class="adv_details">
+	<div class="left">
+<!-- 		<span class="rtop"><span class="r1"></span><span class="r2"></span><span class="r3"></span><span class="r4"></span></span>
+ -->		<div>
+			<h4>{l_details}</h4><br/>
+			<b>{l_category}:</b> <a href="{url_main}adv_cat.php?cat_id={var_adv_cat_id}">{var_adv_cat_name}</a> / <a href="{url_main}adv_cat.php?cat_id={var_adv_cat_id}&razd_id={var_adv_razd_id}">{var_adv_razd_name}</a><br/>
+			{var_details}
+		</div>
+<!-- 		<span class="rbottom"><span class="r4"></span><span class="r3"></span><span class="r2"></span><span class="r1"></span></span>
+ -->	</div>
+	<div class="right">
+		<!-- <span class="rtop"><span class="r1"></span><span class="r2"></span><span class="r3"></span><span class="r4"></span></span>
+		 --><div>
+			<h4>{l_information}</h4><br/>
+			<table>
+		<tr>
+			<td><img style="border:1px solid;border-color:#337a8d;" src={url_files}{var_user_photo} border=0 width=62 height=70></td>
+			<td style="padding-left:8px;">
+				<b>{l_posted_by}:</b> <a href="{url_main}search_results.php?name={var_user_name}&display=profile">{var_user_name}</a><br/>
+				<b>{l_date_posted}:</b> {var_date_posted}<br/>
+
+
+					<table style="margin-top:22px;">
+					<tr>
+
+						<!-- begin_not_my_adv -->
+						<td>
+							<form action="mail_compose.php" method="POST">
+							<input type="hidden" name="id" value="{var_user_id}">
+							<input type="submit" value="{l_reply}" class="btn dblue" style="width: 120px;">
+							</form>
+						</td>
+						<!-- end_not_my_adv -->
+						<!-- begin_my_adv -->
+						<td>
+							<form action="adv_edit.php?cat={var_cat}&id={var_id}" method="POST">
+							<input type="hidden" name="cmd" value="edit">
+							<input type="submit" value="{l_edit}" class="btn dblue">
+							</form>
+						</td>
+						<td style="padding-left:5px;">
+							<form action="adv_good.php?cat={var_cat}&id={var_id}" method="POST" onsubmit="return confirm('{l_are_you_sure}')">
+							<input type="hidden" name="cmd" value="delete">
+							<input type="submit" value="{l_delete}" class="btn dblue">
+							</form>
+						</td>
+						<!-- end_my_adv -->
+
+					</tr>
+					</table>
+
+			</td>
+		</tr></table>
+		</div>
+	<!-- 	<span class="rbottom"><span class="r4"></span><span class="r3"></span><span class="r2"></span><span class="r1"></span></span>
+ -->	</div>
+</div>
+
+</div>
+
+{footer}

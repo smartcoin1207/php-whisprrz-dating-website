@@ -1,0 +1,219 @@
+<script>
+clStream.clearData();
+clStream.setData({lsId: '{ls_id}'*1, lsVideoId: '{ls_video_id}'*1, numberCommentsFrmShow:'{number_comments_frm_show}'*1});
+
+
+<!-- begin_set_url_image_live -->
+_lsCameraImageData='{set_url_image_live}';
+<!-- end_set_url_image_live -->
+
+<!-- begin_set_live_description -->
+_lsSetVideoTitle('{set_live_description}');
+<!-- end_set_live_description -->
+</script>
+
+<!-- begin_ls_module_action -->
+<script>
+    clStream.itemInfoSet('{ls_id}', '{ls_last_action_like}', '{ls_last_action_comment}', '{ls_comments_count}', '{ls_like_user_list}', '{ls_last_action_comment_like}');
+    clStream.setLikeLiveHeart('{ls_like_hidden}');
+</script>
+
+{list_viewers}
+
+{likes}
+
+<div class="like_comment_and_share">
+    <ul class="list">
+        <!-- begin_ls_like_module_like -->
+        <li id="ls_feed_like_action_{ls_like_id}" class="feed_btn_like {ls_like_hidden}">
+            <a href="#" title="{a_like}" onclick="clStream.likeAdd($(this)); return false;" class="feed_like_like">
+                <span class="glyphicon glyphicon-thumbs-up icon" data-cl-loader="icon_wall_loader" data-no-fade-in="true"></span>{l_like}
+            </a>
+            <a href="#" title="{a_unlike}" onclick="clStream.likeDelete($(this)); return false;" class="feed_like_unlike">
+                <span class="glyphicon glyphicon-thumbs-up icon" data-cl-loader="icon_wall_loader" data-no-fade-in="true"></span>{l_you_like_this}
+            </a>
+        </li>
+        <!-- end_ls_like_module_like -->
+		<!-- begin_ls_report_user -->
+		<li class="feed_btn_report comm_tick">
+			<a href="#" onclick="return false;" id="wall_item_report_link_v_{ls_report_video_id}" data-toggle="collapse" data-target="#wall_item_report_menu_v_{ls_report_video_id}" class="feed_btn_report_link">
+				<i class="fa fa-chevron-down icon" aria-hidden="true" data-cl-loader="icon_wall_loader" data-no-fade-in="true"></i>
+			</a>
+			<ul id="wall_item_report_menu_v_{ls_report_video_id}" class="more_menu_collapse more_menu_right collapse">
+				<li>
+					<a class="wall_post_report" href="#" onclick="clProfile.openReport('{ls_report_user_id}', 'v_{ls_report_video_id}', $(this), 0, 0, 'live'); return false;">
+						<span class="icon_fa"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+						<span>{l_report}</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<!-- end_ls_report_user -->
+    </ul>
+
+    <ul class="how_many_comments_shares">
+        <li id="ls_comments_count_{ls_id}" data-count="{ls_comments_count}" class="wall_item_comments_count <!-- begin_ls_comments_count_title_hide -->to_hide<!-- end_ls_comments_count_title_hide -->">
+            <i class="fa fa-comment-o" aria-hidden="true"></i>
+            <span class="comments_count">{ls_comments_count_title}</span>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+ </div>
+<!-- end_ls_module_action -->
+
+<!-- begin_ls_comments_enabled -->
+<div class="bl_wall bl_wall_ls bl_wall_blog_post">
+    <div id="ls_feed_comment_top" class="photo_and_field_comment" <!-- begin_ls_feed_comment_top_frm_show -->style="display: block;"<!-- end_ls_feed_comment_top_frm_show -->>
+        <div class="photo">
+            <a href="{comment_guid_url}" class="pic profile_photo_r_{comment_guid_uid} to_hide1" style="background-image:url({url_files}{comment_guid_photo});"></a>
+            <script>onLoadImgToShow('{url_files}{comment_guid_photo}','',function(){$('.profile_photo_r_{comment_guid_uid}.to_hide').removeClass('to_hide')})</script>
+        </div>
+        <div class="field_comment comment_container_textarea">
+
+			<div id="ls_feed_comment_top_textarea_{ls_id}" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_your_comment}" class="form-control textarea"></div>
+
+			<div class="comment_action">
+
+				<div id="ls_feed_comment_top_sticker" title="{a_stickers}" data-input="#ls_feed_comment_top_textarea_{ls_id}" onclick="stickerBlockShowWall(this)" class="comment_sticker_btn"></div>
+
+				<div id="ls_feed_comment_top_smile" title="{a_smilies}" data-input="#ls_feed_comment_top_textarea_{ls_id}" onclick="smileBlockShowWall(this)" class="wall_comment_smile_btn">
+					<i class="fa fa-smile-o" aria-hidden="true"></i>
+				</div>
+
+				<!-- begin_feed_comment_audio_top -->
+				<div class="im_audio_message_recorder">
+					<span class="audio_visualizer"></span>
+					<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl" title="{a_record_audio_message}" onclick="runAudioRecorder('#ls_feed_comment_top');">
+						<i class="fa fa-microphone" aria-hidden="true"></i>
+						<i class="fa fa-circle" aria-hidden="true"></i>
+					</span>
+				</div>
+				<!-- end_feed_comment_audio_top -->
+
+				<div id="ls_feed_comment_top_upload_img" class="comment_upload_img disabled">
+					<div id="ls_feed_comment_top_upload_img_loader" class="comment_upload_img_loader"></div>
+
+					<button id="ls_feed_comment_top_upload_img_edit" onclick="openEditorCommentUploadImage('ls_feed_comment_top_upload_img'); return false;" title="{a_edit_image}" class="btn btn-success comment_upload_img_editor">
+						<span class="btn_wrap">
+							<span class="icon_fa"  data-no-fade-in="true">
+								<svg height="24" width="24" viewBox="0 0 24 24">
+									<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+								</svg>
+							</span>
+						</span>
+					</button>
+					<script>initCommentUploadImageEditor($('#ls_feed_comment_top_upload_img_edit'));</script>
+
+					<i class="fa fa-camera" onclick="clearCommentUploadImage('ls_feed_comment_top_upload_img', true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+					<span class="count_upload_image">
+						<i class="fa fa-check" aria-hidden="true"></i>
+						<i class="fa fa-times" aria-hidden="true"></i>
+					</span>
+
+					<form id="ls_feed_comment_top_upload_img_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+						<input class="comment_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="ls_top_upload_img" onclick="clickCommentUploadImage($(this));" onChange="changeCommentUploadImage($(this));"/>
+						<input class="inp_hide" type="reset" value=""/>
+						<input class="inp_hide" type="submit" value=""/>
+					</form>
+					<script>initCommentUploadImage('ls_feed_comment_top_upload_img');</script>
+				</div>
+				<button class="wall_post_send">
+					<svg viewBox="0 0 24 24">
+						<path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+					</svg>
+				</button>
+			</div>
+			<script>clStream.initFeedComment('#ls_feed_comment_top_textarea_{ls_id}');</script>
+		</div>
+    </div>
+
+    <div id="ls_comments" data-lid="{ls_id}" class="bl_comments ls_comments">
+        <!-- begin_comment -->
+        {comments_list}
+        <!-- end_comment -->
+    </div>
+
+    <!--begin_ls_load_more_comments -->
+    <div id="ls_load_more_comments_bl_{ls_id}" class="like_comment_and_share_bl ls_like_comment_and_share_bl">
+        <div class="like_comment_and_share more">
+            <a href="#" class="comments_replies_load_link" onclick="clStream.loadMoreComments($(this),0); return false;">
+                <span data-no-fade-in="true" data-cl-loader="icon_wall_loader" class="glyphicon glyphicon-comment icon"></span>
+                <span class="comments_replies_load_title">{ls_load_more_comments_number_title}</span>
+            </a>
+            <div class="comm_to_comm_text_number <!-- begin_ls_load_more_comments_number -->to_show<!-- end_ls_load_more_comments_number -->">
+                {ls_load_more_comments_number}
+            </div>
+        </div>
+    </div>
+    <!--end_ls_load_more_comments -->
+
+    <div id="ls_feed_comment_bottom" class="photo_and_field_comment" <!-- begin_ls_feed_comment_bottom_frm_show -->style="display: block;"<!-- end_ls_feed_comment_bottom_frm_show -->>
+        <div class="photo">
+            <a href="{comment_guid_url}" class="pic profile_photo_r_{comment_guid_uid} to_hide" style="background-image:url({url_files}{comment_guid_photo});"></a>
+            <script>onLoadImgToShow('{url_files}{comment_guid_photo}','',function(){$('.profile_photo_r_{comment_guid_uid}.to_hide').removeClass('to_hide')})</script>
+        </div>
+
+		<div class="field_comment comment_container_textarea">
+
+			<div id="ls_feed_comment_bottom_textarea_{ls_id}" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_your_comment}" class="form-control textarea"></div>
+
+			<div class="comment_action">
+				<div id="ls_feed_comment_bottom_sticker" title="{a_stickers}" data-input="#ls_feed_comment_bottom_textarea_{ls_id}" onclick="stickerBlockShowWall(this)" class="comment_sticker_btn"></div>
+
+
+				<div id="ls_feed_comment_bottom_smile" title="{a_smilies}" data-input="#ls_feed_comment_bottom_textarea_{ls_id}" onclick="smileBlockShowWall(this)" class="wall_comment_smile_btn">
+					<i class="fa fa-smile-o" aria-hidden="true"></i>
+				</div>
+
+				<!-- begin_feed_comment_audio_bottom -->
+				<div class="im_audio_message_recorder">
+					<span class="audio_visualizer"></span>
+					<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl" title="{a_record_audio_message}" onclick="runAudioRecorder('#ls_feed_comment_bottom');">
+						<i class="fa fa-microphone" aria-hidden="true"></i>
+						<i class="fa fa-circle" aria-hidden="true"></i>
+					</span>
+				</div>
+				<!-- end_feed_comment_audio_bottom -->
+
+				<div id="ls_feed_comment_bottom_upload_img" class="comment_upload_img disabled">
+					<div id="ls_feed_comment_bottom_upload_img_loader" class="comment_upload_img_loader"></div>
+
+					<button id="ls_feed_comment_bottom_upload_img_edit" onclick="openEditorCommentUploadImage('ls_feed_comment_bottom_upload_img'); return false;" title="{a_edit_image}" class="btn btn-success comment_upload_img_editor">
+						<span class="btn_wrap">
+							<span class="icon_fa"  data-no-fade-in="true">
+								<svg height="24" width="24" viewBox="0 0 24 24">
+									<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+								</svg>
+							</span>
+						</span>
+					</button>
+					<script>initCommentUploadImageEditor($('#ls_feed_comment_bottom_upload_img_edit'));</script>
+
+					<i class="fa fa-camera" onclick="clearCommentUploadImage('ls_feed_comment_bottom_upload_img', true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+					<span class="count_upload_image">
+						<i class="fa fa-check" aria-hidden="true"></i>
+						<i class="fa fa-times" aria-hidden="true"></i>
+					</span>
+
+					<form id="ls_feed_comment_bottom_upload_img_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+						<input class="comment_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="ls_bottom_upload_img" onclick="clickCommentUploadImage($(this));" onChange="changeCommentUploadImage($(this));"/>
+						<input class="inp_hide" type="reset" value=""/>
+						<input class="inp_hide" type="submit" value=""/>
+					</form>
+					<script>initCommentUploadImage('ls_feed_comment_bottom_upload_img');</script>
+				</div>
+				<button class="wall_post_send">
+					<svg viewBox="0 0 24 24">
+						<path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+					</svg>
+				</button>
+			</div>
+			<script>clStream.initFeedComment('#ls_feed_comment_bottom_textarea_{ls_id}');</script>
+		</div>
+    </div>
+</div>
+<!-- end_ls_comments_enabled -->
+
+<script>
+clStream.init();
+</script>

@@ -1,0 +1,121 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current} - {user_name}</h2>
+
+<div><a href="{url_main}administration/users_edit.php?id={user_id}">{l_back}</a></div>
+<div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">&nbsp;
+	   <!-- begin_mail_list_pages -->
+
+        <!-- begin_mail_list_prev_page -->
+        <a href="{url_page}?offset={offset}{params}">{l_prev}</a> |
+        <!-- end_mail_list_prev_page -->
+        <!-- begin_mail_list_prev_page_off -->
+        <b>{l_prev}</b> |
+        <!-- end_mail_list_prev_page_off -->
+        <!-- begin_mail_list_first_page -->
+        <a href="{url_page}?offset={offset}{params}">{l_page_1}</a>
+        <!-- end_mail_list_first_page -->
+        <!-- begin_mail_list_prev_pages -->
+        <a href="{url_page}?offset={offset}{params}">&lt;&lt;</a>
+        <!-- end_mail_list_prev_pages -->
+        <!-- begin_mail_list_page -->
+        <!-- begin_mail_list_link_page -->
+        <a href="{url_page}?offset={offset}{params}">{page}</a>
+        <!-- end_mail_list_link_page -->
+        <!-- begin_mail_list_this_page -->
+        <b>{page}</b>
+        <!-- end_mail_list_this_page -->
+        <!-- end_mail_list_page -->
+        <!-- begin_mail_list_next_pages -->
+        <a href="{url_page}?offset={offset}{params}">&gt;&gt;</a>
+        <!-- end_mail_list_next_pages -->
+        <!-- begin_mail_list_last_page -->
+        <b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a>
+        <!-- end_mail_list_last_page -->
+        <!-- begin_mail_list_next_page -->
+        | <a href="{url_page}?offset={offset}{params}">{l_next}</a>
+        <!-- end_mail_list_next_page -->
+        <!-- begin_mail_list_next_page_off -->
+        | <b>{l_next}</b>
+        <!-- end_mail_list_next_page_off -->
+
+        <!-- end_mail_list_pages -->
+        &nbsp;</div>
+
+
+<!-- begin_mail_list -->
+    <!-- begin_mail_list_items -->
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right">{l_action}</th>
+        <th>
+            <!-- begin_params_none_date_sent --><a href="{url_page}?{params_current}">{l_dt}</a><!-- end_params_none_date_sent -->
+            <!-- begin_params_asc_date_sent -->&uarr;<a href="{url_page}?{params_current}">{l_dt}</a><!-- end_params_asc_date_sent -->
+            <!-- begin_params_desc_date_sent -->&darr;<a href="{url_page}?{params_current}">{l_dt}</a><!-- end_params_desc_date_sent -->
+        </th>
+
+        <th>
+            <!-- begin_params_none_u_from --><a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_none_u_from -->
+            <!-- begin_params_asc_u_from -->&uarr;<a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_asc_u_from -->
+            <!-- begin_params_desc_u_from -->&darr;<a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_desc_u_from -->
+        </th>
+
+		<th>
+            <!-- begin_params_none_u_to --><a href="{url_page}?{params_current}">{l_to}</a><!-- end_params_none_u_to -->
+            <!-- begin_params_asc_u_to -->&uarr;<a href="{url_page}?{params_current}">{l_to}</a><!-- end_params_asc_u_to -->
+            <!-- begin_params_desc_u_to -->&darr;<a href="{url_page}?{params_current}">{l_to}</a><!-- end_params_desc_u_to -->
+        </th>
+
+		<th>
+            <!-- begin_params_none_fname --><a href="{url_page}?{params_current}">{l_folder}</a><!-- end_params_none_fname -->
+            <!-- begin_params_asc_fname -->&uarr;<a href="{url_page}?{params_current}">{l_folder}</a><!-- end_params_asc_fname -->
+            <!-- begin_params_desc_fname -->&darr;<a href="{url_page}?{params_current}">{l_folder}</a><!-- end_params_desc_fname -->
+        </th>
+
+		<th>
+            <!-- begin_params_none_subject --><a href="{url_page}?{params_current}">{l_subject}</a><!-- end_params_none_subject -->
+            <!-- begin_params_asc_subject -->&uarr;<a href="{url_page}?{params_current}">{l_subject}</a><!-- end_params_asc_subject -->
+            <!-- begin_params_desc_subject -->&darr;<a href="{url_page}?{params_current}">{l_subject}</a><!-- end_params_desc_subject -->
+        </th>
+
+        <th class="last">
+            <!-- begin_params_none_text --><a href="{url_page}?{params_current}">{l_message}</a><!-- end_params_none_text -->
+            <!-- begin_params_asc_text -->&uarr;<a href="{url_page}?{params_current}">{l_message}</a><!-- end_params_asc_text -->
+            <!-- begin_params_desc_text -->&darr;<a href="{url_page}?{params_current}">{l_message}</a><!-- end_params_desc_text -->
+        </th>
+        <th class="decor_r"></th>
+    </tr>
+<!-- begin_mail_list_item -->
+    <tr class="{class2}" style="border-bottom:1px dashed #cfd7d9;">
+        <td class="decor{decl2}"></td>
+        <td class="right">
+            <a onclick="if (confirm('{l_are_you_sure}')) return true; else return false;" href="{url_main}administration/look_message_mail.php?user_id={user_id}&id={id}&action=delete">{l_delete}</a>
+        </td>
+
+        <td>{data}</td>
+        <td>{u_from}</td>
+        <td>{u_to}</td>
+        <td>{fname}</td>
+        <td>{subject}</td>
+        <td style="white-space:normal;" class="last">{text}</td>
+        <td class="decor{decr2}"></td>
+    </tr>
+	<!-- end_mail_list_item -->
+	</table>
+	<!-- end_mail_list_items -->
+<!-- end_mail_list -->
+
+
+    <div class="empty"></div>
+</div>
+{footer}

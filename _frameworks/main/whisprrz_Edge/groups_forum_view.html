@@ -1,0 +1,125 @@
+{header}
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+<input style="width: 100px;" type="button" value="{l_post_replay}" class="button" onclick="location='{url_main}groups_forum_post.php?fid={fid}';" title="{l_post_replay}">
+<input style="width: 100px;" type="button" value="{l_all_groups}" class="button" onclick="location='{url_main}groups.php';" title="{l_all_groups}">
+<input style="width: 100px;" type="button" value="{l_my_groups}" class="button" onclick="location='{url_main}groups_my.php';" title="{l_my_groups}">
+<input style="width: 100px;" type="button" value="{l_create_group}" class="button" onclick="location='{url_main}groups_add.php?cat_id={cat_id}';" title="{l_create_group}">
+<br><br>
+
+<table width=100% border=0 cellpadding=0 cellspacing=6 class="gr_table">
+<tr>
+	<td class="gr_header" valign="top" width="75%">{forum_name}</td>
+	<td class="gr_header" valign="top">{l_date}</td>
+	<td class="gr_header" valign="top">{l_from}</td>
+</tr>
+				<!-- begin_group_posts -->
+						<!-- begin_group_posts_item -->
+<tr>
+	<td class="gr_cell">{text}
+<!-- begin_admin_del -->
+<a href="groups_forum_view.php?fid={fid}&pid={pid}&action=del_post"><img src="{url_tmpl_main}img/delete.gif" alt="{l_delete}" align="absmiddle"></a>
+<!-- end_admin_del -->		
+	</td>
+	<td class="gr_cell">{date_add}</td>
+	<td class="gr_image">
+	<a href="search_results.php?display=profile&name={user_name}"><img src="{url_files}{user_photo}" /></a><br>
+	<b><a href="search_results.php?display=profile&name={user_name}">{user_name}</a></b>
+	</td>
+</tr>
+						<!-- end_group_posts_item -->
+				<!-- end_group_posts -->
+</table>
+
+<center><br>
+<input style="width: 100px;" type="button" value="{l_post_replay}" class="button" onclick="location='{url_main}groups_forum_post.php?fid={fid}';" title="{l_post_replay}">
+<br><br></center>
+
+	    <!-- begin_group_posts_pages -->
+
+			<div class="body_text" style="padding-bottom: 16px; text-align:center;">
+
+				<!-- begin_group_posts_prev_page -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+
+				<!-- end_group_posts_prev_page -->
+
+				<!-- begin_group_posts_prev_page_off -->
+
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+
+				<!-- end_group_posts_prev_page_off -->
+
+
+
+				<!-- begin_group_posts_first_page -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+
+				<!-- end_group_posts_first_page -->
+
+
+
+				<!-- begin_group_posts_prev_pages -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+
+				<!-- end_group_posts_prev_pages -->
+
+
+
+				<!-- begin_group_posts_page -->
+
+					<!-- begin_group_posts_link_page -->
+
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+
+					<!-- end_group_posts_link_page -->
+
+					<!-- begin_group_posts_this_page -->
+
+					<b>{page}</b>
+
+					<!-- end_group_posts_this_page -->
+
+				<!-- end_group_posts_page -->
+
+
+
+				<!-- begin_group_posts_next_pages -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+
+				<!-- end_group_posts_next_pages -->
+
+
+
+				<!-- begin_group_posts_last_page -->
+
+				<b>{l_of}</b> <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+
+				<!-- end_group_posts_last_page -->
+
+
+
+				<!-- begin_group_posts_next_page -->
+
+				&nbsp; | &nbsp;<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+
+				<!-- end_group_posts_next_page -->
+
+				<!-- begin_group_posts_next_page_off -->
+
+				&nbsp; | &nbsp;<b>{l_next}</b>
+
+				<!-- end_group_posts_next_page_off -->
+
+			</div>
+
+
+
+            <!-- end_group_posts_pages -->
+
+
+</div></div></div></div></div></div></div></div></div>
+{footer}

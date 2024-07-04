@@ -1,0 +1,257 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+
+        <!-- begin_language -->
+        <!-- begin_language_link -->
+        <li><a href="{url_page}?lang={language_value}">{language_title}</a></li>
+        <!-- end_language_link -->
+
+        <!-- begin_language_active -->
+        <li class="active"><a href="{url_page}?lang={language_value}">{language_title}</a></li>
+        <!-- end_language_active -->
+        <!-- end_language -->
+
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+
+        <style>
+            textarea {width:200px; height:100px}
+            .input {width:200px;}
+
+            .seo td {
+                vertical-align: top;
+                padding-right: 5px;
+            }
+
+            .button {
+                width: auto!important;
+            }
+
+            .default-options td {
+                padding-top: 10px;
+            }
+
+            .wrapper {
+                overflow: visible;
+            }
+        </style>
+
+        <table class="seo">
+            <tr class="h">
+                <td>{l_seo_url_description}</td>
+                <td>{l_seo_title}</td>
+                <td>{l_description}</td>
+                <td>{l_keywords}</td>
+            </tr>
+
+            <form action="{url_page}" method=post>
+                <input type="hidden" value="seo" name="cmd" >
+                <input type="hidden" value="{lang}" name="lang" >
+                <input type="hidden" value="1" name="not_delete" >
+                <tr class="default-options">
+                    <td><b>{l_default_for_all_languages}</b></td>
+                    <td><input style="width: 180px;" class="input" name="title" value="{seo_title}"></td>
+                    <td><textarea name="description">{seo_description}</textarea></td>
+                    <td>
+                        <textarea name="keywords">{seo_keywords}</textarea>
+                        <input style="margin: -4px 25px 0 0; float: right;" class="btn" class="button" type="submit" value="{l_save}" />
+                    </td>
+                </tr>
+            </form>
+
+            <form action="{url_page}" method=post>
+                <input type="hidden" value="default_lang" name="cmd" >
+                <input type="hidden" value="{lang}" name="lang" >
+                <input type="hidden" value="" name="url" >
+                <input type="hidden" value="{lang_seo_id}" name="id" >
+                <tr class="default-options">
+                    <td><b>{l_default_for_this_language}</b></td>
+                    <td><input style="width: 180px;" class="input" name="title" value="{lang_seo_title}"></td>
+                    <td><textarea name="description">{lang_seo_description}</textarea></td>
+                    <td>
+                        <textarea name="keywords">{lang_seo_keywords}</textarea>
+
+                        <input style="margin: -4px 25px 0 0; float: right;" class="btn" class="button" type="submit" value="{l_save}" />
+                        <div style="margin: 0 35px 20px 0; float: right;">
+                            <a href="{url_page}?cmd=delete&id={lang_seo_id}&lang={lang}" onclick="if (confirm('{l_are_you_sure}'))
+                                        return true;
+                                    else
+                                        return false;">{l_delete}</a>
+                        </div>
+                    </td>
+                </tr>
+            </form>
+
+            <form action="{url_page}" method=post>
+                <input type="hidden" value="seo_profile" name="cmd" >
+                <input type="hidden" value="{lang}" name="lang" >
+                <input type="hidden" value="1" name="not_delete" >
+                <tr class="default-options">
+                    <td><b>{l_profile_for_all_languages}</b></td>
+                    <td><input style="width: 180px;" class="input" name="title" value="{seo_profile_title}"></td>
+                    <td><textarea name="description">{seo_profile_description}</textarea></td>
+                    <td>
+                        <textarea name="keywords">{seo_profile_keywords}</textarea>
+                        <input style="margin: -4px 25px 0 0; float: right;" class="btn" class="button" type="submit" value="{l_save}" />
+                    </td>
+                </tr>
+            </form>
+
+
+            <form action="{url_page}" method=post>
+                <input type="hidden" value="default_lang" name="cmd" >
+                <input type="hidden" value="{lang}" name="lang" >
+                <input type="hidden" value="{lang_seo_profile_id}" name="id" >
+                <input type="hidden" value="profile" name="url" >
+                <tr class="default-options">
+                    <td><b>{l_profile_for_this_language}</b></td>
+                    <td><input style="width: 180px;" class="input" name="title" value="{lang_seo_profile_title}"></td>
+                    <td><textarea name="description">{lang_seo_profile_description}</textarea></td>
+                    <td>
+                        <textarea name="keywords">{lang_seo_profile_keywords}</textarea>
+
+                        <input style="margin: -4px 25px 0 0; float: right;" class="btn" class="button" type="submit" value="{l_save}" />
+                        <div style="margin: 0 35px 20px 0; float: right;">
+                            <a href="{url_page}?cmd=delete&id={lang_seo_profile_id}&lang={lang}" onclick="if (confirm('{l_are_you_sure}'))
+                                        return true;
+                                    else
+                                        return false;">{l_delete}</a>
+                        </div>
+                    </td>
+                </tr>
+            </form>
+
+
+
+            <!-- begin_group_seo -->
+            <form action="{url_page}" method=post>
+                <input type="hidden" value="seo_profile_group" name="cmd" >
+                <input type="hidden" value="{lang}" name="lang" >
+                <input type="hidden" value="1" name="not_delete" >
+                <tr class="default-options">
+                    <td><b>{l_profile_group_for_all_languages}</b></td>
+                    <td><input style="width: 180px;" class="input" name="title" value="{seo_profile_group_title}"></td>
+                    <td><textarea name="description">{seo_profile_group_description}</textarea></td>
+                    <td>
+                        <textarea name="keywords">{seo_profile_group_keywords}</textarea>
+                        <input style="margin: -4px 25px 0 0; float: right;" class="btn" class="button" type="submit" value="{l_save}" />
+                    </td>
+                </tr>
+            </form>
+
+            <form action="{url_page}" method=post>
+                <input type="hidden" value="default_lang" name="cmd" >
+                <input type="hidden" value="{lang}" name="lang" >
+                <input type="hidden" value="{lang_seo_profile_group_id}" name="id" >
+                <input type="hidden" value="profile_group" name="url" >
+                <tr class="default-options">
+                    <td><b>{l_profile_group_for_this_language}</b></td>
+                    <td><input style="width: 180px;" class="input" name="title" value="{lang_seo_profile_group_title}"></td>
+                    <td><textarea name="description">{lang_seo_profile_group_description}</textarea></td>
+                    <td>
+                        <textarea name="keywords">{lang_seo_profile_group_keywords}</textarea>
+
+                        <input style="margin: -4px 25px 0 0; float: right;" class="btn" class="button" type="submit" value="{l_save}" />
+                        <div style="margin: 0 35px 20px 0; float: right;">
+                            <a href="{url_page}?cmd=delete&id={lang_seo_profile_group_id}&lang={lang}" onclick="if (confirm('{l_are_you_sure}'))
+                                        return true;
+                                    else
+                                        return false;">{l_delete}</a>
+                        </div>
+                    </td>
+                </tr>
+            </form>
+            <!-- end_group_seo -->
+
+            <!-- begin_mail_list -->
+
+            <!-- begin_mail_list_item -->
+            <form action="{url_page}" method=post>
+                <input type="hidden" value={id} name=id >
+                <input type="hidden" value=update name=cmd >
+                <input type="hidden" value="{lang}" name="lang" >
+                <tr>
+                    <td><input class="input" name="url" value="{url}"></td>
+                    <td><input style="width: 180px;" class="input" name="title" value="{title}"></td>
+                    <td><textarea name="description">{description}</textarea></td>
+                    <td><textarea name="keywords">{keywords}</textarea>
+
+                        <input style="margin: -4px 25px 0 0; float: right;" class="btn" class="button" type="submit" value="{l_save}" />
+
+                        <div style="margin: 0 35px 20px 0; float: right;">
+                            <a href="{url_page}?cmd=delete&id={id}&lang={lang}" onclick="if (confirm('{l_are_you_sure}'))
+                                        return true;
+                                    else
+                                        return false;">{l_delete}</a>
+                        </div>
+
+                    </td>
+                </tr>
+            </form>
+            <!-- end_mail_list_item -->
+
+            <!-- end_mail_list -->
+
+            <form action="{url_page}" method="post">
+                <input type="hidden" value="add" name="cmd" >
+                <input type="hidden" value="{lang}" name="lang" >
+
+                <tr>
+                    <td><input class="input" name="url" value=""></td>
+                    <td><input style="width: 180px;" class="input" name="title" value=""></td>
+                    <td><textarea name="description"></textarea></td>
+                    <td><textarea name="keywords"></textarea>
+                        <input class="btn" style="float: right; margin: -4px 25px 0 0;" class="button" type="submit" value="{l_add}" />
+                    </td>
+                </tr>
+
+            </form>
+        </table>
+
+        <!-- begin_mail_list_pages -->
+        <div class="body_text" style="padding-bottom: 16px;">
+            <!-- begin_mail_list_prev_page -->
+            <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+            <!-- end_mail_list_prev_page -->
+            <!-- begin_mail_list_prev_page_off -->
+            <b>{l_prev}</b>&nbsp; | &nbsp;
+            <!-- end_mail_list_prev_page_off -->
+            <!-- begin_mail_list_first_page -->
+            <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+            <!-- end_mail_list_first_page -->
+            <!-- begin_mail_list_prev_pages -->
+            <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+            <!-- end_mail_list_prev_pages -->
+            <!-- begin_mail_list_page -->
+            <!-- begin_mail_list_link_page -->
+            <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+            <!-- end_mail_list_link_page -->
+            <!-- begin_mail_list_this_page -->
+            <b>{page}</b>
+            <!-- end_mail_list_this_page -->
+            <!-- end_mail_list_page -->
+            <!-- begin_mail_list_next_pages -->
+            <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+            <!-- end_mail_list_next_pages -->
+            <!-- begin_mail_list_last_page -->
+            <b>{l_of}</b> <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+            <!-- end_mail_list_last_page -->
+            <!-- begin_mail_list_next_page -->
+            &nbsp; | &nbsp;<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+            <!-- end_mail_list_next_page -->
+            <!-- begin_mail_list_next_page_off -->
+            &nbsp; | &nbsp;<b>{l_next}</b>
+            <!-- end_mail_list_next_page_off -->
+        </div>
+        <!-- end_mail_list_pages -->
+
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

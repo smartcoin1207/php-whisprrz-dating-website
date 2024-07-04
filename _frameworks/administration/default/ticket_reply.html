@@ -1,0 +1,141 @@
+{header}
+<style>
+    .custom-swal2-input {
+        box-sizing: border-box;
+        width: 95%;
+        transition: border-color .1s, box-shadow .1s;
+        border: 1px solid #d9d9d9;
+        border-radius: .1875em;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .06), 0 0 0 3px rgba(0, 0, 0, 0);
+        color: inherit;
+        font-size: 1.125em;
+        height: 2.625em;
+        padding: 0 .75em;
+        margin: 0.5em 0em 3px;
+    }
+</style>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li class="active"><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('a[data-lightbox]').lightBox({
+            imageLoading: '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+            imageBtnPrev: '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+            imageBtnNext: '{url_tmpl_administration}images/lightbox-btn-next.gif',
+            imageBtnClose: '{url_tmpl_administration}images/lightbox-btn-close.gif',
+            imageBlank: '{url_tmpl_administration}images/lightbox-blank.gif'
+        });
+
+        $("#support_ticket_reply_form").submit(function () {
+            if ($("#ticket_reply").val().split(" ").join("") == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{l_enter_ticket_reply_text}',
+                });
+                return false;
+            }
+            return true;
+        });
+        if ("{saved}" == "yes") {
+            Swal.fire(
+                'Saved!',
+                '',
+                'success'
+            );
+        }
+    });
+</script>
+<div class="block_main">
+    <h2>{subject}</h2>
+
+    <form id="support_ticket_reply_form" action="{url_page}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="cmd" value="reply_ticket">
+        <input type="hidden" name="id" value="{id}">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td class="img_sml_border">
+                    <div id="photo_info">
+                        <a href="search_results.php?display=profile&uid={id_user}"><img id="pic{id_user}" src="{photo}"
+                                class="img_border"></a>
+                    </div>
+                </td>
+                <td style="padding-left: 14px; vertical-align: top;">
+                    <div class="content_bgrnd" style="width: 402px;">
+                        <div class="body_text" style="margin: -2px 0 0; ">
+
+                            <b>{l_from}:</b> <a
+                                href="search_results.php?display=profile&name={user_from}">{user_from}</a><br>
+                            <b>{l_subject}:</b> {subject}<br>
+                            <b>{l_priority}:</b> {priority}<br>
+                            <b>{l_date}:</b> {date_sent}<br>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="fullprof_bot_border" style="border:none;">
+            <div class="body_text" style="padding: 10px 0; text-align: left; word-wrap:break-word; ">
+                {text}
+                <br>
+                <br>
+                {ticket_attachment}
+            </div>
+
+            <!-- begin_ticket_reply_list -->
+            <hr style="color: rgb(255, 255, 255);">
+            <br>
+            <strong>{reply_by} on {date}</strong>
+            <br>
+            <br>
+            {msg}
+            <br>
+            <br>
+            {tr_attachment}
+            <br>
+            <br>
+            <!-- end_ticket_reply_list -->
+        </div>
+        <br>
+        <br>
+        <h2 class="txt_lower_header_color">{l_reply}</h2>
+        <textarea name="ticket_reply" id="ticket_reply" class="custom-input-textarea" rows="8"></textarea>
+        <br>
+        <br>
+        <p style="font-size: 16px;">
+            <input type="file" name="attachment">
+        </p>
+        <br>
+        <br>
+        <div class="fl_left">
+            <input type="button" value="{l_back}" class="btn lower_header_color" title="{l_back}" onclick="window.location.href='support_tickets.php'">
+        </div>
+        <div class="fl_right">
+            <input type="submit" value="{l_send}" class="btn lower_header_color" title="{l_send}">
+        </div>
+        <div class="empty"></div>
+    </form>
+    <div class="empty"></div>
+</div>
+
+{footer}

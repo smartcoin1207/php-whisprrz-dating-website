@@ -1,0 +1,259 @@
+{header}
+
+<div class="frame_content">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="90%">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+	{friends_menu}
+</td></tr>
+<tr>
+<td>
+
+<h2 class="txt_lower_header_color"><img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {l_block_users}</h2>
+
+
+				<!-- begin_block_list -->
+<table width="100%" border="0" cellpadding="0" cellspacing="6" class="tbl_friend">
+<col width="80px" />	
+<col width="404px" />	
+<tr>
+	<td class="violet">{l_username}</td>
+	<td class="violet" >{l_block_list}</td>
+	<td class="violet">{l_edit}</td>
+</tr>
+
+
+
+						<!-- begin_block_list_item -->
+
+<tr>
+
+<td class="gr_image">
+
+	<a href="search_results.php?display=profile&name={user_name}"><img src="{url_files}{user_photo}" /></a><br>
+
+	<b><a href="search_results.php?display=profile&name={user_name}">{user_name}</a></b>
+
+	</td>
+
+	<td class="gr_cell"><table cellpadding="0" cellspacing="2">
+
+		<!-- begin_options -->
+		<!-- begin_option -->
+		<!-- begin_delimiter -->		
+		<!-- end_delimiter -->								
+		<tr>
+			<td align="left" width="130"><b>{option_title}:</b></td>
+			<td>{option_block}</td>
+		</tr>
+		<!-- end_option -->		
+		<!-- end_options -->	
+	
+		</table>
+	</td>
+
+	<td class="gr_image"><a href="user_block_edit.php?uid={user_id}">{l_edit}</a></td>
+
+	
+
+</tr>
+
+						<!-- end_block_list_item -->
+
+</table>
+
+
+
+<!-- end_block_list -->
+
+
+
+
+
+	    <!-- begin_block_list_pages -->
+
+
+
+			<div class="body_text" style="padding-bottom: 16px; text-align:center;">
+
+
+
+				<!-- begin_block_list_prev_page -->
+
+
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+
+
+
+				<!-- end_block_list_prev_page -->
+
+
+
+				<!-- begin_block_list_prev_page_off -->
+
+
+
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+
+
+
+				<!-- end_block_list_prev_page_off -->
+
+
+
+
+
+
+
+				<!-- begin_block_list_first_page -->
+
+
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+
+
+
+				<!-- end_block_list_first_page -->
+
+
+
+
+
+
+
+				<!-- begin_block_list_prev_pages -->
+
+
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+
+
+
+				<!-- end_block_list_prev_pages -->
+
+
+
+
+
+
+
+				<!-- begin_block_list_page -->
+
+
+
+					<!-- begin_block_list_link_page -->
+
+
+
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+
+
+
+					<!-- end_block_list_link_page -->
+
+
+
+					<!-- begin_block_list_this_page -->
+
+
+
+					<b>{page}</b>
+
+
+
+					<!-- end_block_list_this_page -->
+
+
+
+				<!-- end_block_list_page -->
+
+
+
+
+
+
+
+				<!-- begin_block_list_next_pages -->
+
+
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+
+
+
+				<!-- end_block_list_next_pages -->
+
+
+
+
+
+
+
+				<!-- begin_block_list_last_page -->
+
+
+
+				<b>{l_of}</b> <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+
+
+
+				<!-- end_block_list_last_page -->
+
+
+
+
+
+
+
+				<!-- begin_block_list_next_page -->
+
+
+
+				&nbsp; | &nbsp;<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+
+
+
+				<!-- end_block_list_next_page -->
+
+
+
+				<!-- begin_block_list_next_page_off -->
+
+
+
+				&nbsp; | &nbsp;<b>{l_next}</b>
+
+
+
+				<!-- end_block_list_next_page_off -->
+
+
+
+			</div>
+
+
+
+
+
+
+
+            <!-- end_block_list_pages -->
+
+
+</td>
+</tr>
+</table>
+</td>
+<td style="vertical-align:top;">
+	<!-- begin_banner_right_column -->	
+	<div style="float:right">
+		{banner_right_column}
+	</div>
+    <!-- end_banner_right_column -->
+</td></tr></table>
+
+</div>
+
+{footer}

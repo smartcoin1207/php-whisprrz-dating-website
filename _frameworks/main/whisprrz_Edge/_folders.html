@@ -1,0 +1,93 @@
+
+<script type="text/javascript">
+function emptyTrash()
+{
+	if (confirm("{l_to_trash}")) {
+		document.location = "{url_main}mail.php?cmd=empty_trash";
+	}
+
+}
+
+$(function () {
+		var col_fr = $('.column_main.frame_content');
+		var fr_col = $('.frame_content.column_main');
+		var search_el = $('#complite');
+
+		var left_block;
+		if(col_fr) {
+			left_block = col_fr;
+		} else {
+			left_block = fr_col;
+		}
+
+		if(search_el.height()<(left_block.height() + 20)) {
+			search_el.height(left_block.height() + 20);
+		} else {
+			left_block.height(search_el.height()-20);
+		}
+		
+	});
+</script>
+
+				<div id="complite" class="frame_content" style="padding: 15px 10px 10px; width: 140px;" >
+
+													<div class="in">
+		<!-- begin_banner_right_column -->
+            <div class="banner_right_column_folders">
+                {banner_right_column}
+            </div>
+        <!-- end_banner_right_column -->
+		<fieldset>
+		<h2>{l_message_folders}</h2>
+
+			<div  class="mail_folders">
+				<p class="bold">{l_folders}</p>
+
+				<ul class="list_folder">
+					<li><a href="{url_main}mail.php" class="icon_inbox">{l_inbox}</a></li>
+					<li>
+                        <a href="{url_main}mail.php?folder=2" class="icon_trash" style="display: inline;">{l_trash}</a>
+			            <!-- begin_trash_empty_on -->
+                        [<a href="#" onclick="emptyTrash(); return false;" style="display: inline; background: none; padding: 0px;">{l_empty}</a>]
+			            <!-- end_trash_empty_on -->
+					</li>
+					<li><a href="{url_main}mail.php?folder=3" class="icon_send_mail">{l_sent_mail}</a></li>
+				</ul>
+			</div>
+
+			<div  style="padding: 10px 10px 10px 0;">
+			<p class="bold">{l_my_folders}</p>
+
+				<ul id="bullet">
+					<!-- begin_myfolder -->
+					<li><a href="{url_main}mail.php?folder={id}" class="mail">{name}</a></li>
+					<!-- end_myfolder -->
+					<!-- begin_addfolder -->
+					<li><a href="{url_main}mail_folder_add.php" class="mail">{l_add_folder}</a></li>
+					<!-- end_addfolder -->
+                                        <li><a href="{url_main}mail_folder.php" class="pri_little">{l_edit_folders}</a></li>
+				</ul>
+
+			</div>
+
+
+			<div class="profile-right">
+				<div><b>{l_your_mailbox_is} {mc}% {l_full}</b></div>
+				<ul>
+					<li class="gr">
+						<div>
+							<table>
+								<tr>
+									<td width="{mc}%"></td>
+									<td width="{me}%" class="graph"></td>
+								</tr>
+							</table>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</fieldset>
+													</div>
+            
+
+				</div>

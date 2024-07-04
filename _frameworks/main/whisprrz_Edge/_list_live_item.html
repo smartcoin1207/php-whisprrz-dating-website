@@ -1,0 +1,53 @@
+<!-- begin_list_live_item_info -->
+<div class="col-md-{list_live_item_number_row} col-sm-6 item <!-- begin_list_live_item_info_hide -->to_hide<!-- end_list_live_item_info_hide -->">
+    <div class="cham-post">
+        <div class="cham-post-link" onclick="goToLive('{list_live_item_id}', '{list_live_item_url}'); return false;">
+            <div class="cham-post-image list_live_image_{list_live_item_id} to_hide">
+                <div id="list_image_layer_live_action_{list_live_item_id}" data-cl-loader="layer_action_list_loader" class="layer_action_list"></div>
+
+                <div id="list_live_description_bl_{list_live_item_id}" class="cham-category descripton <!-- begin_list_live_item_info_description -->to_show<!-- end_list_live_item_info_description -->">
+                    <span class="subject" title="{list_live_item_subject_attr}">
+                        <span class="icon_status <!-- begin_list_live_item_info_online_top -->online<!-- end_list_live_item_info_online_top-->"></span>
+
+                        <span class="overflow">{list_live_item_subject}</span>
+                    </span>
+                </div>
+
+                <div class="pic rectangle hover-brightness" style="background-image: url({list_live_item_image});"></div>
+
+                <figure class="video_camera">
+                    <svg viewBox="0 0 1792 1792">
+                        <path d="M1792 352v1088q0 42-39 59-13 5-25 5-27 0-45-19l-403-403v166q0 119-84.5 203.5t-203.5 84.5h-704q-119 0-203.5-84.5t-84.5-203.5v-704q0-119 84.5-203.5t203.5-84.5h704q119 0 203.5 84.5t84.5 203.5v165l403-402q18-19 45-19 12 0 25 5 39 17 39 59z"></path>
+                    </svg>
+                </figure>
+
+                <script>
+                    onLoadImgFromList($('.list_live_image_{list_live_item_id}.to_hide'), '{list_live_item_image}');
+                </script>
+
+            </div>
+        </div>
+        <div class="cham-post-meta list_live_information">
+            <div class="info">
+                <span class="info_item comments">
+                    <i class="fa fa-comments" aria-hidden="true"></i><span class="live_comments_count_{list_live_item_id}">{list_live_item_count_comments}</span>
+                </span>
+                <span class="info_item time">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>{list_live_item_time_ago}
+                </span>
+            </div>
+            <div class="info name">
+                <!-- begin_list_live_item_info_name -->
+                <span class="info_item user_name">
+                    <a title="{a_go_to_profile}" href="{url_main}{list_live_item_user_url}" class="name">
+                        <span class="icon_status <!-- begin_list_live_item_info_online -->online<!-- end_list_live_item_info_online-->"></span>
+                        {list_live_item_user_name}
+                    </a>
+                </span>
+                <!-- end_list_live_item_info_name -->
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end_list_live_item_info -->

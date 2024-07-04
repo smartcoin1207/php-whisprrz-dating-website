@@ -1,0 +1,142 @@
+{header}
+<script language="javascript" type="text/javascript">
+$(function() {
+    $('.location').keypress(function(e){
+        if (isKeyPressed(e, 13)) {
+            updateItem($(this).attr('id'));
+            return false;
+        };
+    }).blur(function(e){
+        updateItem($(this).attr('id'));
+    });
+
+    $('#language').change(function(){
+        window.location.href='{url_page}?mode={mode}&lang=' + $(this).val() + getParam();
+    });
+    <!-- begin_select_localization_js -->
+    $('.select_localization').change(function(){
+        window.location.href='{url_page}?mode={mode_js}&lang=' + $('#language').val() + getParam();
+    });
+    <!-- end_select_localization_js -->
+
+    $('#back_to_editor').click(function(){
+        var param = getParam('0');
+        if (param != '') {
+            param = '?' + param;
+        }
+        if ('{mode}' == 'fields' || '{mode}' == 'question') {
+            param += '#{table}';
+
+        }
+        window.location.href='users_fields{href}.php' + param;
+    })
+
+    function getParam(par) {
+        var par = par || '1',
+            select_country = $('#select_country'),
+            select_state = $('#select_state'),
+            param = '';
+        if (select_country.length) {
+            param = 'country_id='+select_country.val();
+        }
+        if (select_country.length && select_state.length) {
+            param = 'country_id='+select_country.val()+'&state_id='+select_state.val();
+        }
+        if ('{mode}' == 'fields' || '{mode}' == 'question') {
+            param = 'table={table}&fields={fields}';
+        }
+        if (par == '1') {
+            param = '&' + param;
+        }
+
+        return param;
+    }
+});
+
+
+function updateItem(id_item) {
+    var el = $('#'+id_item),
+        val = el.val(),
+        key = el.data('key');
+    if (val != el.data('current')) {
+        $('#preloader_'+id_item).show();
+        $.post('{url_page}', {ajax: 1, cmd: 'update', key: key, title: val, lang: '{lang}'}, function(data){
+            $('#preloader_'+id_item).hide();
+            if (data == 'updated') {
+                el.data('current', val);
+            } else {
+                alert(data);
+            }
+        });
+    }
+}
+</script>
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+
+<style>
+input {width:44%;}
+.link {width: 45%; margin-top:5px; }
+</style>
+        <p style="padding-left:28px;">{l_language_edit_instruction}</p>
+
+		<div class="btn fl_left" style="margin-left:18px; width:100%; margin-top: 0px;">
+			<a id="back_to_editor" class="submit" href="">Back to editor</a>
+		</div>
+
+        <form action="{url_page}" method="POST">
+        <!-- begin_fields -->
+        <h2 style="margin-left: 28px;">{table_title}</h2>
+        <!-- end_fields -->
+        <!-- begin_language -->
+        <p style="padding-left: 28px; font-size: 11px; padding-bottom: 0px;">
+            <b>{l_translation}:</b> <select id="language" style="margin:0px 0px 14px 6px;" name="language">
+            <!--<option value="edit_mode">{l_please_choose}</option>-->
+            {select_options_language}
+            </select>
+        </p>
+        <!-- end_language -->
+        <!-- begin_select_block_localization -->
+        <p style="padding-left: 28px; font-size: 11px; padding-bottom: 14px;">
+             <!-- begin_select_country -->
+            <b>{l_country}:</b>
+            <select class="select_localization" id="select_country" style="margin-left:4px;" name="country_id">
+                {geo_countries}
+            </select>
+            <!-- end_select_country -->
+            <!-- begin_select_state -->
+            <div class="cl"></div>
+            <b style="padding-left: 28px;">{l_state}:&nbsp;</b>
+            <select class="select_localization" id="select_state" style="margin-left:2px;" name="state_id">
+                {geo_states}
+            </select>
+            <!-- end_select_state -->
+        </p>
+        <!-- end_select_block_localization -->
+        <!-- begin_item -->
+        <div id="block_{id}">
+            <div style="display:inline-block; width: 22px; padding-right: 3px;">
+                <img style="display:none; margin-top:-14px; margin-left:-3px;" id="preloader_{id}" src="{url_tmpl_administration}images/loader.gif">
+            </div>
+            <div style="display:inline-block; width: 80%;">
+                <label for="{id}">{title}</label>
+                <input style="padding-left: 5px;" id="{id}" data-key="{key}" data-current="{title_lang}" class="location" type="text" name="name" value="{title_lang}">
+            </div>
+        </div>
+        <!-- end_item -->
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+<!-- begin_alert_message -->
+<script>
+    alert('{message}');
+</script>
+<!-- end_alert_message -->
+{footer}

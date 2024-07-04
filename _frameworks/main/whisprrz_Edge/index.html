@@ -1,0 +1,76 @@
+{header}
+
+<!-- begin_main_page_items -->
+
+<!-- begin_main_page_list_people -->
+<hr class="hr_main_page">
+<div class="bl_search people_wrap <!-- begin_main_page_list_people_info -->cham-blog-style-1<!-- end_main_page_list_people_info --><!-- begin_main_page_list_people_default -->cham-project-style-3<!-- end_main_page_list_people_default -->">
+    <div class="container">
+        <div class="row p-b">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <h2 class="cham-heading">{l_list_people}</h2>
+                <div class="signature">{l_check_out_our_new_members}</div>
+            </div>
+        </div>
+        <div class="row p-b">
+            <!-- begin_users_list_item -->
+            {list_people_item}
+            <!-- end_users_list_item -->
+        </div>
+        <!-- begin_main_page_list_people_browse_btn -->
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <a onclick="redirectUrlWithLoader($(this)); return false;" href="{url_main}{url_page_search_results}" class="btn btn-primary btn-lg">
+                    <span>{l_browse_people}</span>
+                </a>
+            </div>
+        </div>
+        <!-- end_main_page_list_people_browse_btn -->
+    </div>
+</div>
+<!-- end_main_page_list_people -->
+
+<!-- begin_main_page_log_in -->
+<hr class="hr_main_page">
+<div id="frm_login_page" class="bl_forms login_form_module">
+    {login_frm_index}
+</div>
+<!-- end_main_page_log_in -->
+
+<!-- begin_main_page_register_now -->
+<hr class="hr_main_page">
+<div id="frm_join_page" class="bl_forms {re_captcha_class} {orientation_class}">
+{register_frm_index}
+</div>
+<!-- end_main_page_register_now -->
+
+<!-- begin_main_page_our_app -->
+{our_app_index}
+<!-- end_main_page_our_app -->
+
+<!-- begin_main_page_info_block -->
+{info_block_index}
+<!-- end_main_page_info_block -->
+
+
+
+
+<!-- end_main_page_items -->
+<div class="bl_separator"></div>
+
+<!-- begin_demo -->
+<script>
+$(function(){
+    $('#frm_login_header_name, #frm_login_page_name').val('{login_user}');
+    $('#frm_login_header_pass, #frm_login_page_pass').val('{login_password}')
+});
+</script>
+<!-- end_demo -->
+<!-- begin_user_profile_delete_alert -->
+<script>
+$(function(){
+    setTimeout(function(){alertCustom('{j_thanks_for_being_with_us}', '{j_profile_deleted}')},2000);
+});
+</script>
+<!-- end_user_profile_delete_alert -->
+{footer}

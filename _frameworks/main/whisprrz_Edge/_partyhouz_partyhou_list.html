@@ -1,0 +1,342 @@
+<!-- begin_container_header -->
+<style>
+    
+</style>
+<script type="text/javascript">
+
+function partyhouz_partyhou_list_{upcoming}_load_page(page_n)
+{
+	$('#partyhouz_partyhou_list_{upcoming}_load_animation').css('visibility', 'visible');
+
+	$('#partyhouz_partyhou_list_{upcoming}_container').load(
+			'{url_main}partyhouz_partyhou_list_ajax.php?n_results_per_page={n_results_per_page}&partyhou_where_when={partyhou_where_when}&user_id={user_id}&list_type={list_type}&country_id={country_id}&category_id={category_id}&partyhou_datetime={partyhou_datetime}&query={query}&upcoming={upcoming}&partyhou_id={partyhou_id}&partyhou_place={partyhou_place}&partyhouz_partyhou_list_page=' + page_n);
+}
+
+function partyhouz_partyhou_list_{upcoming}_delete_partyhou(partyhou_id, page_n)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+        $('#partyhou_list_partyhou_' + partyhou_id).fadeOut(400, function() {
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}partyhouz_partyhou_delete_ajax.php',
+                    data: {
+                        partyhou_id: partyhou_id
+                        },
+                    success: function (data, textStatus, XMLHttpRequest)
+                        {
+                        	partyhouz_partyhou_list_{upcoming}_load_page(page_n);
+                        }
+                  });
+            });
+    }
+}
+
+
+</script>
+<div id="partyhouz_partyhou_list_{upcoming}_container">
+<!-- end_container_header -->
+
+<!-- begin_partyhouz -->
+<table class="partyhouz_new_tb_sub">
+    <!-- begin_partyhouz_where_when_title -->
+    <col width="7px"/>
+    <col width="32px"/>
+	<col width="0px"/>
+    <col width="75px"/>
+	<col width="0px"/>
+    <col width="80px"/>
+	<col width="0px"/>
+    <col width="70px"/>
+	<col width="0px"/>
+    <col width="110px"/>
+	<col width="0px"/>
+    <col width="40px"/>
+	<col width="0px"/>
+    <tr>
+        <th class="th_t_l nb first">&nbsp;</th>
+        <th class="th_t_c">{l_partyhouz_photo}</th>
+		<th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c"><span>{l_partyhouz_partyhou}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c"><span>{l_partyhouz_when}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c"><span>{l_partyhouz_guests}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c"><span>{l_partyhouz_allowed}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c nb"><span>{l_partyhouz_comments}</span></th>
+        <th class="th_t_r nb first">&nbsp;</th>
+    </tr>
+    <!-- end_partyhouz_where_when_title -->
+    <!-- begin_partyhouz_when_guests_comments_title -->
+    <col width="7px"/>
+    <col width="32px"/>
+	<col width="0px"/>
+    <col width="75px"/>
+	<col width="0px"/>
+    <col width="80px"/>
+	<col width="0px"/>
+    <col width="70px"/>
+	<col width="0px"/>
+    <col width="110px"/>
+	<col width="0px"/>
+    <col width="40px"/>
+	<col width="0px"/>
+    <tr>
+        <th class="th_t_l nb first">&nbsp;</th>
+        <th class="th_t_c">{l_partyhouz_photo}</th>
+		<th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c"><span>{l_partyhouz_partyhou}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c"><span>{l_partyhouz_when}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c"><span>{l_partyhouz_guests}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c"><span>{l_partyhouz_allowed}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c nb"><span>{l_partyhouz_comments}</span></th>
+        <th class="th_t_r nb first">&nbsp;</th>
+    </tr>
+    <!-- end_partyhouz_when_guests_comments_title -->
+
+    <!-- begin_partyhou1 -->
+    <tr id="partyhou_list_partyhou_{partyhou_id}" style="border-bottom: 1px solid black;">
+        <td class="first" colspan="2"><a class="foto" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}"><img style="position:absolute; margin-top:-15px;" src="{image_thumbnail}" width="39" height="29" alt=""/></a></td>
+        <td class="b">&nbsp;</td>
+		<td><span><a class="green" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}">{partyhou_title}</a></span></td>
+        <td class="b">&nbsp;</td>
+		<!-- begin_partyhou_where_when_rows -->
+        <td style="display: flex; flex-direction: column;" onmousemove="show_face_jq('usr0host{partyhou_host_id}', event)"
+        onmouseout="hide_face_jq('usr0host{partyhou_host_id}')">
+            <span><a style="color:black;" class="txt_upper_header_color" href="{url_main}search_results.php?display=profile&uid={partyhou_host_id}" title="{partyhou_host_name}"
+                >{partyhou_host_name}</a></span>
+            <span style="color:black;"><a style="color:black;" class="txt_upper_header_color" href="{url_main}partyhouz_search.php?partyhou_datetime={partyhou_datetime_raw}">{partyhou_date}</a></span>
+            <span style="color:black;" title="{partyhou_time}">{partyhou_time}</span>
+        </td>
+        <td class="b">&nbsp;</td>
+		<td style="display: flex; flex-direction: column;align-items: center;">
+            <span style="color:black;">{partyhou_n_guests}</span>
+            <span style="color:black;" class="count" data-sign="{sign}">{formattedDifference}</span>
+        </td>
+        <td class="b">&nbsp;</td>
+        <td style="display: flex; flex-direction:column;">
+            <span style="color:black;">{locked_string}</span>
+            <span style="color:black;">{cum_string}</span>
+            <span style="color:black;">{lookin_string}</span>
+        </td>
+        <td class="b">&nbsp;</td>
+		<td class="nb play" colspan="2">
+            <span><a target="_blank" style="color:black;" href="{url_main}partyhouz_partyhou_room.php?partyhou_id={partyhou_id}">Join</a></span>
+        </td>
+        <!-- end_partyhou_where_when_rows -->
+        <!-- begin_partyhou_when_guests_comments_rows -->
+        <td style="display: flex; flex-direction: column;" onmousemove="show_face_jq('usr0host{partyhou_host_id}', event)"
+        onmouseout="hide_face_jq('usr0host{partyhou_host_id}')">
+            <span><a style="color:black;" class="txt_upper_header_color" href="{url_main}search_results.php?display=profile&uid={partyhou_host_id}" title="{partyhou_host_name}"
+                >{partyhou_host_name}</a></span>
+            <span style="color:black;"><a style="color:black;" class="txt_upper_header_color" href="{url_main}partyhouz_search.php?partyhou_datetime={partyhou_datetime_raw}">{partyhou_date}</a></span>
+            <span style="color:black;" title="{partyhou_time}">{partyhou_time}</span>
+        </td>
+        <td class="b">&nbsp;</td>
+		<td style="display: flex; flex-direction: column;align-items: center;">
+            <span style="color:black;">{partyhou_n_guests}</span>
+            <span style="color:black;" class="count" data-sign="{sign}">{formattedDifference}</span>
+        </td>
+        <td class="b">&nbsp;</td>
+        <td style="display: flex; flex-direction:column;">
+            <span style="color:black;">{locked_string}</span>
+            <span style="color:black;">{cum_string}</span>
+            <span style="color:black;">{lookin_string}</span>
+        </td>
+        <td class="b">&nbsp;</td>
+		<td class="nb play" colspan="2">
+            <span><a target="_blank" style="color:black;" href="{url_main}partyhouz_partyhou_room.php?partyhou_id={partyhou_id}">Join</a></span>
+        </td>
+        <!-- end_partyhou_when_guests_comments_rows -->
+    </tr>
+    <!-- end_partyhou1 -->
+
+    <tr>
+        <th class="th_b_l nb">&nbsp;</th>
+    <!-- begin_partyhouz_where_when_footer -->
+        <th colspan="11" class="th_b_c nb">&nbsp;</th>
+    <!-- end_partyhouz_where_when_footer -->
+    <!-- begin_partyhouz_when_guests_comments_footer -->
+        <th colspan="11" class="th_b_c nb">&nbsp;</th>
+    <!-- end_partyhouz_when_guests_comments_footer -->
+        <th class="th_b_r nb">&nbsp;</th>
+    </tr>
+</table>
+
+
+
+<!-- begin_pager -->
+<div class="fl_right"><ul class="partyhouz_new_paging">
+    <li><img style="visibility:hidden;" id="partyhouz_partyhou_list_{upcoming}_load_animation" src="{url_tmpl_main}images/load_animation.gif"></li>
+    <!-- begin_pager_prev --><li><a href="javascript:partyhouz_partyhou_list_{upcoming}_load_page({page_n});">{l_pager_prev}</a></li>
+    <li>|&nbsp;&nbsp;</li><!-- end_pager_prev -->
+    <!-- begin_pager_link --><!-- begin_pager_link_active --><li class="active">{page_n}</li><!-- end_pager_link_active --><!-- begin_pager_link_not_active --><li><a href="javascript:partyhouz_partyhou_list_{upcoming}_load_page({page_n});">{page_n}</a></li><!-- end_pager_link_not_active --><!-- end_pager_link -->
+    <!-- begin_pager_next --><li>&nbsp;&nbsp;|</li>
+    <li><a href="javascript:partyhouz_partyhou_list_{upcoming}_load_page({page_n});">{l_pager_next}</a></li><!-- end_pager_next -->
+</ul></div><!-- end_pager -->
+<!-- end_partyhouz -->
+
+<!-- begin_no_partyhouz -->
+<div class="partyhouz_new_comments">
+    <!-- begin_no_partyhouz_message --><center>{l_partyhouz_no_partyhouz}</center><!-- end_no_partyhouz_message -->
+</div>
+<!-- end_no_partyhouz -->
+
+<!-- begin_container_footer -->
+</div>
+<!-- end_container_footer -->
+
+<!-- begin_users_new_item2 -->
+<span class="flip-box popup-info" id="usr0{members_num}">
+	<div class="flip-box-inner">
+
+        <!-- begin_fields_about -->
+        <div class="flip-box-front">
+            <div class="pri_med_bold profcontent txt_lower_header_color" style="color: #ffffff;">{l_about} {name_short}{members_orientation}</div>
+            <div class="about-row" style="height: 60%;">
+                <div class="flip-text-table" >
+                    <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed; width: 100%;">
+                        <!-- begin_fields_about_row -->
+                        <tr>
+                            <td valign="top" class="body_text" style="padding-right: 4px; width: 70px;">{field}:</td>
+                            <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                            <td style="width: 20px;">
+
+                            <!-- begin_icon_item -->
+                                    <div class="personal-icon" style="{personal_icon_style}"></div>
+                            <!-- end_icon_item -->
+                        </td>
+
+                        </tr>
+                        <!-- end_fields_about_row -->
+
+                    </table>
+
+
+                </div>
+                <div style="width: 40%; height: 100%;  float: left;">
+                    <img  src="{url_files}{members_photo}" class="flip-img" 
+                        style="visibility: inherit !important; " />
+                    <div style=" float: left; margin-left: 20px;">
+                        <div class="flip-looking-for">
+                            <!-- begin_flip_looking_for_item -->
+                            <div class="looking-for-item">
+                                <div class="field">{looking_for_field}</div>
+                                <div class="flip-progress">
+                                    <div class="flip-bar" style="{flip_bar_style}"></div>
+                                </div>
+                            </div>
+                            <!-- end_flip_looking_for_item -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+                <!-- begin_what_looking_sliders -->
+                <div class="scale-sliders">
+                    <!-- begin_scale_slider -->
+                    <div class="scale-slider">
+                        <div class="scale-field-name">
+                            {scale_field_name}
+                        </div>
+                        <div class="scale">
+                            <div class="scale-back">
+                                <!-- begin_scale_back_item -->
+                                <div class="scale-back-item" style="{back_item_style}">
+
+                                </div>
+                                <!-- end_scale_back_item -->
+
+                            </div>
+                            <div class="scale-bar-back" style="{scale_bar_back_style}">
+                                <p class="scale-level-name" style="margin-top: -4px;">
+                                    {scale_level_name}
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- end_scale_slider -->
+                </div>
+                <!-- end_what_looking_sliders -->
+                
+                <div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+                    {l_flip_other_bottom_note}
+                </div>
+            </div>
+        </div>
+        <!-- end_fields_about -->
+
+        <!-- begin_fields_other -->
+        <div class="flip-box-back" >
+
+            <div class="pri_med_bold profcontent txt_lower_header_color" style="color: white;">{l_other_information}  {name_short}  {members_orientation}</div>
+            <div class="profcontent light flip-text-table-back">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <!-- begin_fields_other_row -->
+                    <tr>
+                        <td valign="top" class="body_text" style="padding-right: 4px;">{field}:</td>
+                        <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                    </tr>
+                    <!-- end_fields_other_row -->
+
+                </table>
+            </div>
+                <!--popcorn modified at 8/5/2023-->
+        <div class="pro_link"
+        style="display: inline-flex; width: 100%; flex-wrap: wrap; justify-content: space-evenly; color: white;">
+        <!-- begin_event -->
+        <div class="first" id="event_list_event_{event_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}events_event_show.php?event_id={event_id}"><img
+                        src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+            </div>
+            <div id="{event_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}events_event_show.php?event_id={event_id}" style="color: white; font-size:10px;">{event_title}</a>
+            </div>
+        </div>
+        <!-- end_event -->
+        <!-- begin_hotdate -->
+        <div class="first" id="hotdate_list_hotdate_{hotdate_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}"><img
+                    src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+                </div>
+            <div id="{hotdate_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}" style="color: white;  font-size:10px;">{hotdate_title}</a>
+            </div>
+        </div>
+        <!-- end_hotdate -->
+        <!-- begin_partyhou -->
+        <div class="first" id="partyhou_list_partyhou_{partyhou_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}"><img
+                    src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+                </div>
+            <div id="{partyhou_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}" style="color: white;  font-size:10px;">{partyhou_title}</a>
+            </div>
+        </div>
+        <!-- end_partyhou -->
+    </div>
+            <div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+                {l_flip_other_bottom_note}
+            </div>
+            <br /><br />
+        </div>
+
+        <!-- end_fields_other -->
+
+	</div>
+</span>
+<!-- end_users_new_item2 -->

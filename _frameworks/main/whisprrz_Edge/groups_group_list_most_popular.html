@@ -1,0 +1,54 @@
+{header}
+
+
+<script type="text/javascript">
+function groups_main_search_on_submit()
+{
+    value = $("#groups_main_search input[name='query']").val();
+    
+    if(value != '')
+        return true;
+
+    alert('{l_groups_please_enter_what_you_search}');
+    
+    return false;
+}
+</script>
+
+    <div class="groups">
+
+		{groups_header}
+
+        <table class="tb_groups">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                
+                    <div class="groups_p pl_top">
+                        <h1 class="txt_upper_header_color">{l_groups_most_popular}</h1>
+                        
+                        {groups_group_list}
+
+                    </div>
+                    <div class="groups_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+	
+					{groups_sidebar}
+				
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+{footer}

@@ -1,0 +1,121 @@
+{header}
+<script type='text/javascript' src='{url_tmpl_main}js/general_chat.js{cache_version_param}'></script>
+<script type="text/javascript" src="{url_tmpl_main}js/script_chatting.js{cache_version_param}"></script>
+
+<link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/style_chat.css"/>
+    
+<style>
+.scrollbarY{ }
+.scrollbarY .viewport{ height: 530px; overflow: hidden; position: relative; }
+.chat.chat_online .scrollbarY .viewport{ height: 533px; }
+.scrollbarY .overview{ width: 100%; list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
+.scrollbarY .scrollbar{ position: relative; background-position: 0 0; float: right; width: 15px; }
+.scrollbarY .track{ height: 100%; width: 13px; position: relative; padding: 0 1px; }
+.scrollbarY .thumb{ background: #dadada; border-radius: 5px; height: 20px; width: 7px; cursor: pointer; overflow: hidden; position: absolute; top: 0; left: 0; min-height: 3px; }
+.scrollbarY .disable{ display: none; }
+#header{display:none;}
+#menu{display:none;}
+#menu-s{display:none;}
+.bl_nav_js{display:none;}
+.bg_fon{display:none !important;}
+#content .inn{width:550px;}
+#wrapper{width:550px;}
+#footer{
+    display: none;
+}
+.draggable  {
+    display: none !important;
+}
+</style>
+<script>
+            $('.banner_header').remove();
+
+    GeneralChat = new CGeneralChat('{user_id}', '{current_room}');
+</script>
+<div class="column_main nnsscc_public_chat">
+<div class="col_center col_general_chat">
+    <div class="head icon_head_general_chat head_line" style="width:480px;">
+        <span>{l_column_narrow_general_chat}</span>
+        <!-- begin_rooms -->
+        <div id="rooms" class="module_change_room">
+            <strong>{l_chat_rooms}</strong> <span class="arrow" id="rooms_item_show">{room_name_selected}</span>
+            <div class="pp_small_decor_r_search" id="rooms_item">
+                <ul class="pp_small_decor_r_show">
+                    <!-- begin_room -->
+                    <li><a class="room_item <!-- begin_room_selected -->selected<!-- end_room_selected -->" href="" onclick="GeneralChat.changeRoom($(this), {room_id}); return false;"><span>{room_name}</span></a></li>
+                    <!-- end_room -->
+                </ul>
+            </div>
+        </div>
+        <!-- end_rooms -->
+    </div>
+
+    <div id="bl_cont" class="cont" style="opacity:0;width:536px;">
+        <div id="message_list_scroll"  class="scrollbarY message_chat_scroll" style="width:405px;">
+            <div class="scrollbar"><div class="track"><div id="scrollbarY_thumb" class="thumb"></div></div></div>
+            <div id="bl_viewport" class="viewport">
+                <div id="bl_overview" class="overview">
+                    <div class="message_chat" style="width:405px;">
+                        <div class="chat_cont">
+                            {list_messages}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="message_list_users_scroll" class="scrollbarY message_list_users_scroll">
+            <div class="scrollbar"><div class="track"><div id="scrollbarY_thumb_list_users" class="thumb"></div></div></div>
+            <div id="bl_viewport_list_users" class="viewport">
+                <div id="bl_overview_list_users" class="overview">
+                    {list_users}
+                </div>
+            </div>
+        </div>
+
+        <div class="message_field_chat" style="width:505px;">
+            <textarea id="msg_text" class="placeholder" placeholder="{a_enter_your_message}" style="width:94%;"></textarea>
+        </div>
+        <div class="cl"></div>
+
+        <!-- begin_message_tmpl -->
+        <div id="tmpl_message" style="display:none;">
+            <div id="general_chat_msg_" data-room="" data-send="" class="msg_item">
+            <div class="item answer">
+            <div class="data">
+                <span class="date_msg">{l_just_now}</span>
+            </div>
+            <div class="msg">
+                <div class="info"></div>
+                <div class="pic" onclick="redirectUrl('{url_main}{message_profile_link}')" title="{message_user_name}">
+                    <button style="background-image: url({message_user_photo});"></button>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <!-- end_message_tmpl -->
+        <div id="general_chat_ajax" style="display:none;"></div>
+    </div>
+    <div id="loader_layer" class="loader_layer">
+        <div class="frame_loader_search_list to_hide">
+            <div class="css_loader loader_search_list">
+                <div class="spinner center">
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{footer}

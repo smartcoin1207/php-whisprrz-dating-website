@@ -1,0 +1,50 @@
+<!-- begin_item -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.vrate{item_id}').rating();
+    });
+</script>
+<div class="fl_left">
+    <div class="vids_new_img ">
+        <a href="{url_main}vids_watch.php?id={item_id}"><img class="video_type_{item_video_type}" src="{item_image}"  height="120" alt=""/></a> <!-- width="160" -->
+    </div>
+</div>
+<div class="vids_new_foto vids_new_foto_l">
+    <ul>
+        <li class="pad">
+            <a href="{url_main}vids_watch.php?id={item_id}">{item_subject}</a>
+            <br />
+            <!-- begin_item_is_my -->
+            <span class="add_f" style="padding-left: 0px;">
+                <a href="{url_main}vids_edit.php?id={item_id}">{l_edit}</a>
+            </span>
+            <!-- end_item_is_my -->
+            <!-- begin_item_unsubscribe -->
+            <span class="add_f">
+                <a class="areyousure" href="{url_main}vids_unsubscribe_redirect.php?id={item_user_id}">{l_unsubscribe}</a>
+            </span>
+            <!-- end_item_unsubscribe -->
+        </li>
+        <li>
+            <input name="rating{item_id}" type="radio" value="1" title="1" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_1} />
+            <input name="rating{item_id}" type="radio" value="2" title="2" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_2} />
+            <input name="rating{item_id}" type="radio" value="3" title="3" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_3} />
+            <input name="rating{item_id}" type="radio" value="4" title="4" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_4} />
+            <input name="rating{item_id}" type="radio" value="5" title="5" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_5} />
+            <input name="rating{item_id}" type="radio" value="6" title="6" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_6} />
+            <input name="rating{item_id}" type="radio" value="7" title="7" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_7} />
+            <input name="rating{item_id}" type="radio" value="8" title="8" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_8} />
+            <input name="rating{item_id}" type="radio" value="9" title="9" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_9} />
+            <input name="rating{item_id}" type="radio" value="10" title="10" class="video_rating vrate{item_id} {split:2, readOnly:true}" {item_rating_check_10} />
+			<br />
+        </li>
+        <li class="inf">{l_plays}  {item_count_views} | {l_comments} {item_count_comments}</li>
+    </ul>
+    <div class="list_bg_violet">
+      <p>{item_text_short}</p>
+    </div>
+</div>
+<!-- begin_item_not_last -->
+<div class="line_dashed line_w" style="margin:0 0 20px !important;"></div>
+<!-- end_item_not_last -->
+<!-- end_item -->

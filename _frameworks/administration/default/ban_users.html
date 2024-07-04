@@ -1,0 +1,136 @@
+{header}
+<div class="block_narrow">
+    <!--{menu_page} -->
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li  class="active"><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var m = "{message}";
+    if (m != "") { alert("{message}"); }
+    $(document).ready(function () {
+        var CBoxNote = function (ch, chkbox) {
+            if (ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            } else {
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function () {
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+    });
+    function action_user(type) {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function () {
+            StrID += ($(this).attr("id").replace(/chk_/g, '') + ',')
+        })
+        var user = StrID.slice(0, -1);
+
+        window.location.href = '{url_page}?' + type + '=' + user;//delete release
+    }
+</script>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_count_users}</div>
+    <div style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+        <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> |
+        <!-- end_main_prev_page -->
+        <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+        <!-- begin_main_first_page --><a
+            href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+        <!-- begin_main_prev_pages --><a
+            href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+        <!-- begin_main_page -->
+        <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+        <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+        <!-- end_main_page -->
+        <!-- begin_main_next_pages --><a
+            href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+        <!-- begin_main_last_page --><b>{l_of}</b> <a
+            href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+        <!-- begin_main_next_page --> | <a
+            href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+        <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+
+    <!-- begin_main_items -->
+    <table class="tb" style="width: 640px;">
+        <tr>
+            <th class="decor_l"></th>
+            <th style="width: 16px;" class="right">
+                <input style="margin:0px; width: 12px;" type="checkbox" id="all">
+            </th>
+            <th style="text-align: center; width: 130px;">{l_ban_time}</th>
+            <th style="text-align: center;">{l_username}</th>
+            <th style="border: none; padding-left: 8px; width: 95px; text-align: center;">{l_action}</th>
+            <th class="decor_r"></th>
+        </tr>
+
+        <!-- begin_main_item -->
+        <tr class="{class}">
+            <td class="decor{decl}"></td>
+            <td class="right">
+                <input style="margin:0px;" type="checkbox" id="chk_{user_id}">
+            </td>
+            <td style="padding-left: 8px;">
+                {ban_time}
+            </td>
+            <td style="padding-left: 8px;">
+                <a href="{url_main}administration/users_edit.php?id={user_id}">{name}</a>
+                <!-- begin_main_item_list_mail -->
+                <a
+                    href="{url_main}administration/look_message_mail.php?user_id={main_item_list_mail_user_id}">{l_mails}</a>
+                <!-- end_main_item_list_mail -->
+            </td>
+            <td style="border: none; padding-left:20px; text-align: center;">
+                <a href="{url_page}?release={user_id}">{l_release_ban}</a>
+                |
+                <a href="{url_page}?delete={user_id}"
+                    onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+            </td>
+            <td class="decor{decr}"></td>
+        </tr>
+        <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_users}</div>
+    <!-- end_main_noitems -->
+    <!-- begin_delete_all -->
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) action_user('release'); else return false; "
+            href="#">{l_release}</a>
+    </div>
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) action_user('delete'); else return false; "
+            href="#">{l_delete}</a>
+    </div>
+    <!-- end_delete_all -->
+    <div class="empty"></div>
+</div>
+{footer}

@@ -1,0 +1,49 @@
+<script type="text/javascript">
+
+$(document).ready(function() {
+	initLightboxOldTemplate($('.image_gallery a'));
+});
+
+function on_left(shift)
+{
+	load_images(shift-1);
+}
+
+function on_right(shift)
+{
+	load_images(shift+1);
+}
+
+function load_images(shift)
+{
+	$('#place_images_list').load('{url_main}places_place_image_list_ajax.php?id={place_id}&images_shift=' + shift + '&show_add_button={show_add_button}');
+}
+
+</script>
+
+
+<!-- carusel -->
+<ul class="places_new_carusel">
+    <!-- begin_left_active --><li class="l"><a href="javascript:on_left({shift});"><img class="png" src="{url_tmpl_main}images/ico_play_violet_l.png" width="26" height="27" alt=""/></a></li><!-- end_left_active -->
+    <!-- begin_left_inactive --><li class="l"><img class="png" src="{url_tmpl_main}images/ico_play_violet_l.png" width="26" height="27" alt=""/></li><!-- end_left_inactive -->
+    <!-- begin_image -->
+    <li class="image_gallery">
+        <div class="places_new_img">
+            <a href="{image_file}"><img src="{image_thumbnail}" width="80" height="80" alt="{place_name}" title="{place_name}"/></a>
+        </div>
+    </li>
+    <!-- end_image -->
+    <!-- begin_no_image -->
+    <li>
+        <div class="places_new_img">
+            <img src="{url_tmpl_main}images/places_foto_small.gif" width="80" height="80" alt=""/>
+        </div>
+    </li>
+    <!-- end_no_image -->
+    <li class="r">
+        <!-- begin_right_active --><a href="javascript:on_right({shift});"><img class="png" src="{url_tmpl_main}images/ico_play_violet_r.png" width="26" height="27" alt=""/></a><!-- end_right_active -->
+        <!-- begin_right_inactive --><img class="png" src="{url_tmpl_main}images/ico_play_violet_r.png" width="26" height="27" alt=""/><!-- end_right_inactive -->
+        <!-- begin_add_button --><a class="ico_add" href="{url_main}places_place_add_photos.php?id={place_id}#upl_img"><img src="{url_tmpl_main}images/ico_add.gif" width="15" height="15" alt=""/></a><!-- end_add_button -->
+    </li>
+</ul>
+<!-- /carusel -->

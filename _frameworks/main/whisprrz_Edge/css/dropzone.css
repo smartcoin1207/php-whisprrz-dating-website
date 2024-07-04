@@ -1,0 +1,873 @@
+/* .pp_file_upload .modal-dialog.modal-sm{
+    width: 396px;
+    margin: auto;
+} */
+
+.pp_file_upload .modal-dialog.modal-md{
+    min-width: 557px;
+    max-width: 879px;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.pp_file_upload.pp_video_upload .modal-dialog.modal-md{
+    /* max-width: 710px; */
+    width: 710px;
+}
+
+/* .pp_file_upload.pp_photo_upload .modal-dialog.modal-sm{
+    min-width: 396px;
+    max-width: 879px;
+    margin: auto;
+    width: -moz-fit-content;
+    width: fit-content;
+    transition: width .5s;
+} */
+
+.pp_file_upload .modal-dialog .modal-content{
+    border: none;
+    overflow: hidden;
+}
+
+.pp_file_upload .modal-dialog .modal-body{
+    padding: 15px;
+}
+
+.pp_file_upload .modal-dialog .modal-footer{
+    border-top: 1px solid #d6d3d3;
+    padding: 15px;
+    text-align: right;
+}
+
+.pp_file_upload .modal-dialog .modal-footer .btn{
+    margin: 0;
+}
+
+.pp_file_upload .dropzone{
+    /* border: 2px dashed #d6d3d3; */
+    border: none;
+    overflow: hidden;
+    min-height: 366px;
+}
+
+@media screen and (max-width: 768px) {
+    .pp_file_upload .modal-dialog.modal-md{
+        /* min-width: 100%; */
+        max-width: 100%;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .pp_file_upload .modal-dialog .modal-content{
+        margin: 0 15px;
+    }
+
+    .pp_file_upload .modal-dialog.modal-sm,
+    .pp_file_upload .modal-dialog.modal-md{
+        width: auto;
+        min-width: auto;
+    }
+
+    .pp_file_upload .dropzone.dz-clickable,
+    .pp_file_upload .dropzone.dz-clickable-bl{
+        text-align: center;
+    }
+
+    .pp_file_upload .dropzone{
+        min-height: initial;
+    }
+}
+
+.pp_file_upload.pp_video_upload .dropzone .dz-preview .dz-image{
+    width: 286px;
+    height: 161px;
+}
+
+.pp_file_upload.pp_video_upload .dropzone .dz-preview .dz-details{
+    display: none;
+}
+
+@media screen and (max-width: 480px) {
+    .pp_file_upload.pp_video_upload .dropzone .dz-preview{
+        margin: 16px 0;
+    }
+
+    .pp_file_upload.pp_video_upload .dropzone .dz-preview .dz-image{
+        width: 232px;
+        /* width: 202px; */
+        height: 134px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .pp_file_upload.pp_video_upload .dropzone .dz-preview .dz-image{
+        width: 190px;
+    }
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-image .fa.fa-pencil{
+    width: 16px;
+    display: inline-block;
+    color: #808080;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-image input.dz-desc{
+    position: relative;
+    font-size: 14px;
+    line-height: 14px;
+    width: calc(100% - 16px);
+    border: 0;
+    outline: 0;
+    margin: 10px 0 9px;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-image input.dz-desc:focus{
+    outline: 0;
+}
+
+.pp_file_upload .dropzone .dz-preview.dz-error .dz-image input.dz-desc{
+    visibility: hidden;
+}
+
+.pp_file_upload .dropzone .dz-preview.dz-error .dz-image .fa.fa-pencil{
+    visibility: hidden;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-cancel{
+    top: 0;
+    right: 0;
+    height: 24px;
+    width: 24px;
+    background-color: rgba(0, 0, 0, .5);
+    text-align: center;
+    transition: all .5s;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-cancel .fa{
+    color: rgba(255, 255, 255, .5);
+    line-height: 0;
+    font-size: 0;
+    height: 24px;
+    width: 24px;
+    background-image: url(../images/icons/icon_remove.svg);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-cancel:hover{
+    background-color: rgb(201, 4, 4, .5);
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-details{
+    line-height: inherit;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-details .dz-filename span,
+.pp_file_upload .dropzone .dz-preview .dz-details .dz-size span{
+    background-color: transparent;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-progress{
+    height: 2px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #eee;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-progress .dz-upload{
+    background: #2ecc71;
+}
+
+.pp_file_upload .modal-dialog .modal-footer .btn + .btn{
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 480px) {
+    .pp_file_upload .modal-footer .double{
+        white-space: nowrap;
+    }
+
+    .pp_file_upload .modal-footer .double .btn{
+        width: calc(50% - 5px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .pp_file_upload .modal-footer .double .btn:first-child{
+        margin: 0 5px 15px 0;
+    }
+
+      .pp_file_upload .modal-footer .double .btn:last-child{
+        margin: 0 0 15px 5px;
+    }
+
+    .pp_file_upload .modal-dialog .modal-footer .btn + .btn{
+        margin-left: 0;
+    }
+}
+
+/* -- pp_photo_upload -- */
+.pp_file_upload.pp_photo_upload .dropzone .dz-preview{
+    margin-bottom: 86px;
+}
+
+.pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image .dz-cover-song{
+    overflow: hidden;
+    width: 100%;
+    height: 28px;
+    position: relative;
+}
+
+.pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image .tooltip_error .tooltip-inner{
+    width: 129px;
+    min-width: 129px;
+    font-size: 11px;
+    line-height: 12px;
+    min-height: 24px;
+    padding: 5px 5px 5px 23px;
+    word-break: break-all;
+}
+
+.pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image .dz-cover-song input[type="file"]{
+    font-size: 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+input[type=file], /* FF, IE7+, chrome (except button) */
+input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
+    cursor: pointer;
+}
+
+input[type=file][disabled],
+input[type=file][disabled]::-webkit-file-upload-button {
+    display: none;
+}
+
+.pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image .dz-cover-song input[type="reset"]{
+    display: none;
+}
+
+.pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image .dz-cover-song .btn{
+    width: 100%;
+    font-size: 14px;
+    padding: 0 8px;
+    height: 28px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 320px){
+    .pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image .dz-cover-song .btn{
+        padding: 0 6px;
+    }
+}
+
+.pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image .dz-cover-song.wrong .btn{
+    background-color: #fd7b84!important;
+    border-color: #fd7b84!important;
+}
+
+
+.pp_file_upload.pp_photo_upload .dropzone .dz-preview .dz-image,
+.pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image{
+    width: 129px;
+    height: 129px;
+    position: relative;
+}
+
+.pp_file_upload.pp_photo_upload .dropzone .dz-preview .dz-details,
+.pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-details{
+    margin: 2.8em 0 0;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    color: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+.pp_file_upload.pp_photo_upload .dropzone .dz-preview.dz-complete-full .dz-converting-complete,
+.pp_file_upload.pp_song_upload .dropzone .dz-preview.dz-complete-full .dz-converting-complete,
+.pp_file_upload.pp_video_upload .dropzone .dz-preview.dz-complete-full .dz-converting-complete{
+    /* display: none; */
+    top: auto;
+    bottom: 0;
+    left: 0;
+    text-align: left;
+    color: #d5f959;
+}
+
+.pp_file_upload.pp_photo_upload .dropzone .dz-preview.dz-processing .dz-converting-complete .fa,
+.pp_file_upload.pp_song_upload .dropzone .dz-preview.dz-processing .dz-converting-complete .fa,
+.pp_file_upload.pp_video_upload .dropzone .dz-preview.dz-processing .dz-converting-complete .fa{
+    top: 0;
+    left: 0;
+}
+
+.pp_file_upload.pp_photo_upload .dropzone .dz-preview.dz-file-preview .dz-image,
+.pp_file_upload.pp_song_upload .dropzone .dz-preview.dz-file-preview .dz-image{
+    border-radius: 0;
+}
+/* -- /pp_photo_upload -- */
+
+.dropzone, .dropzone * {
+    box-sizing: border-box;
+}
+
+.dropzone {
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    background: #fff;
+    padding: 20px 20px;
+}
+
+.dropzone.dz-clickable
+/*, .dropzone.dz-clickable-bl*/{
+    cursor: pointer;
+}
+
+.dropzone.dz-clickable *
+/*, .dropzone.dz-clickable-bl */{
+    cursor: default;
+}
+
+.dropzone.dz-clickable .dz-message,
+.dropzone.dz-clickable .dz-message *,
+.dropzone.dz-clickable-bl .dz-message,
+.dropzone.dz-clickable-bl .dz-message *{
+    cursor: pointer;
+    font-size: 14px;
+    color: #808080;
+}
+
+.pp_file_upload .dropzone.dz-clickable .dz-message span,
+.pp_file_upload .dropzone.dz-clickable-bl .dz-message span{
+    position: relative;
+    z-index: 1;
+    padding: 125px 0 0;
+}
+
+.pp_file_upload .dropzone.dz-clickable .dz-message svg,
+.pp_file_upload .dropzone.dz-clickable-bl .dz-message svg{
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100px;
+    fill: #888;
+    transition: fill .5s ease;
+}
+
+.pp_file_upload .dropzone.dz-clickable:hover .dz-message svg,
+.pp_file_upload .dropzone.dz-clickable-bl:hover .dz-message svg{
+    fill: #0477f4;
+}
+
+.pp_file_upload .dropzone .dz-message{
+    /* margin: 3.6em 0 0.4em; */
+    margin: 15.2em 0 5em;
+}
+
+.dropzone.dz-started .dz-message {
+    display: none;
+}
+
+.dropzone .dz-upload-zone-custom{
+    display: none;
+    height: 129px;
+    width: 129px;
+    cursor: pointer;
+}
+
+.dropzone.dz-started .dz-upload-zone-custom {
+    margin: 16px;
+    display: inline-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+}
+
+.dropzone.dz-started .dz-upload-zone-custom.video_upload_zone {
+    width: 283px;
+    height: 161px;
+}
+
+.dropzone.dz-started .dz-upload-zone-custom.video_upload_zone svg{
+    width: 283px;
+    height: 60%;
+}
+
+.dropzone.dz-started .dz-upload-zone-custom svg{
+    height: 70%;
+}
+
+.dropzone.dz-started .dz-upload-zone-custom svg path{
+    fill: #cdd7df;
+    transition: fill .5s ease;
+}
+
+.dropzone.dz-started .dz-upload-zone-custom:hover svg path{
+    fill: #6c7a86;
+}
+
+@media screen and (max-width: 480px) {
+    .pp_file_upload .dropzone.dz-clickable .dz-message span,
+    .pp_file_upload .dropzone.dz-clickable-bl .dz-message span{
+        padding: 100px 0 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .pp_file_upload .dropzone.dz-clickable .dz-message .svg_wrap,
+    .pp_file_upload .dropzone.dz-clickable .dz-message .none_select,
+    .pp_file_upload .dropzone.dz-clickable-bl .dz-message .svg_wrap,
+    .pp_file_upload .dropzone.dz-clickable-bl .dz-message .none_select{
+        padding: 0;
+    }
+
+    .pp_file_upload .dropzone.dz-clickable .dz-message svg,
+    .pp_file_upload .dropzone.dz-clickable-bl .dz-message svg{
+        width: 85px;
+    }
+
+    .pp_file_upload .dropzone .dz-message{
+        /* margin: 9em 0 1.5em; */
+        margin: 1.5em 0;
+    }
+
+    .pp_file_upload.pp_photo_upload .dropzone.dz-clickable,
+    .pp_file_upload.pp_song_upload .dropzone.dz-clickable,
+    .pp_file_upload.pp_photo_upload .dropzone.dz-clickable-bl,
+    .pp_file_upload.pp_song_upload .dropzone.dz-clickable-bl{
+        text-align: left;
+    }
+
+    .pp_file_upload.pp_photo_upload .dropzone .dz-preview .dz-image,
+    .pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image{
+        width: 96px;
+        height: 96px;
+    }
+
+    .pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image .tooltip_error .tooltip-inner {
+        width: 97px;
+        min-width: 97px;
+        line-height: 11px;
+    }
+
+    .dropzone .dz-upload-zone-custom{
+        width: 93px;
+        height: 93px;
+    }
+
+    .dropzone.dz-started .dz-upload-zone-custom.video_upload_zone {
+        width: 229px;
+        height: 134px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .pp_file_upload.pp_photo_upload .dropzone .dz-preview .dz-image,
+    .pp_file_upload.pp_song_upload .dropzone .dz-preview .dz-image{
+        width: 76px;
+        height: 76px;
+    }
+
+    .dropzone .dz-upload-zone-custom{
+        width: 73px;
+        height: 73px;
+    }
+}
+
+.dropzone.dz-drag-hover {
+    /* border-style: solid; */
+    border: none;
+}
+
+.dropzone.dz-drag-hover .dz-message {
+    opacity: 0.5;
+}
+
+.dropzone .dz-message {
+    text-align: center;
+    margin: 2em 0;
+}
+
+.dropzone .dz-preview {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 16px;
+}
+
+.pp_song_upload .dropzone .dz-preview {
+    margin-bottom: 65px;
+}
+
+.dropzone .dz-preview.dz-file-preview .dz-image {
+    border-radius: 0;
+    background: #e0e6eb;
+}
+
+.dropzone .dz-preview .dz-details {
+    z-index: 9;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    font-size: 12px;
+    min-width: 100%;
+    max-width: 100%;
+    padding: 3.2em 1em;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.9);
+    line-height: 150%;
+}
+
+.dropzone .dz-preview .dz-details .dz-size {
+    margin-bottom: 2em;
+    font-size: 16px;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename {
+    white-space: nowrap;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.dropzone .dz-preview .dz-details .dz-filename span {
+    border: 1px solid transparent;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename span,
+.dropzone .dz-preview .dz-details .dz-size span {
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 0 0.4em;
+    border-radius: 3px;
+}
+
+.dropzone .dz-preview .dz-image {
+    border-radius: 20px;
+    /*overflow: hidden;*/
+    width: 160px;
+    height: 120px;
+    position: relative;
+    display: block;
+    z-index: 8;
+}
+
+.dropzone .dz-preview .dz-image img {
+    opacity: 0;
+}
+
+.dropzone .dz-preview.dz-complete-full .dz-image img {
+    opacity: 1;
+    transition: opacity .25s linear;
+}
+
+.dropzone .dz-preview .dz-progress {
+    opacity: 1;
+    z-index: 10;
+    pointer-events: none;
+    position: absolute;
+    height: 16px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 60%;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.dropzone .dz-preview.dz-processing .dz-progress {
+    opacity: 1;
+    -webkit-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+.dropzone .dz-preview:not(.dz-processing) .dz-progress {
+    -webkit-animation: pulse 2.5s ease infinite;
+    animation: pulse 2.5s ease infinite;
+}
+
+.dropzone .dz-preview .dz-progress .dz-upload {
+    background: #333;
+    background: linear-gradient(to bottom, #666, #444);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    -webkit-transition: width 300ms ease-in-out;
+    transition: width 300ms ease-in-out;
+}
+
+.pp_file_upload .dropzone .dz-preview.dz-error .dz-error-message {
+    display: table;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dropzone .dz-preview .dz-error-message{
+    pointer-events: none;
+    z-index: 11;
+    position: absolute;
+    display: table;
+    opacity: 0;
+    -webkit-transition: opacity 0.25s linear;
+    transition: opacity 0.25s linear;
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.dropzone .dz-preview .dz-error-message .dz-error-wrap{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.dropzone .dz-preview .dz-error-message .dz-error-wrap span{
+    background: #be2626;
+    padding: 0.5em 1.2em;
+    /* border-radius: 8px; */
+    font-size: 12px;
+    line-height: 16px;
+    max-width: 200px;
+    color: #fff;
+    display: inline-block;
+}
+
+.pp_file_upload .dropzone .dz-preview .dz-error-message .dz-error-wrap span{
+    background-image: url(../images/icons/icon_warning_white.svg);
+    background-position: 10px 50%;
+    background-repeat: no-repeat;
+    background-size: 16px auto;
+    padding: 0.5em 10px 0.5em 30px;
+}
+
+.dropzone .dz-preview.dz-error .dz-error-message{
+    opacity: 1;
+    -webkit-transition: opacity 0.25s .25s linear;
+    transition: opacity 0.25s .25s linear;
+}
+
+/* Used css */
+.dropzone .dz-preview.dz-progress-full .dz-progress {
+    opacity: 0;
+    transition: opacity .3s linear;
+}
+
+.dropzone .dz-preview .dz-cancel{
+    top: -1px;
+    right: 3px;
+    position: absolute;
+    transition: opacity .25s linear, visibility 0s .25s;
+    /*visibility: hidden;*/
+    opacity: 1;
+    z-index: 11;
+}
+
+.dropzone .dz-preview .dz-cancel .fa{
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.dropzone .dz-preview .dz-converting,
+.dropzone .dz-preview .dz-converting-complete{
+    display:none;
+}
+
+.dropzone .dz-preview.dz-processing .dz-converting,
+.dropzone .dz-preview.dz-processing .dz-converting-complete{
+    opacity:0;
+    display:block;
+    z-index: 10;
+    font-size: 12px;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    margin-top: -14px;
+    transform: scale(1);
+    width: 100%;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.dropzone .dz-preview.dz-processing .dz-converting{
+    margin-top: 2px;
+}
+
+.dropzone .dz-preview.dz-processing .dz-converting .fa{
+    position: absolute;
+    top: -26px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 26px;
+    width: 26px;
+    /* color: #ccc; */
+    color: #fff;
+}
+
+.dropzone .dz-preview.dz-processing .dz-converting-complete .fa{
+    position: relative;
+    top: -9px;
+    left: 2px;
+    font-size: 16px;
+}
+
+.dropzone .dz-preview.dz-processing .dz-converting-complete .icon_check{
+    background-image: url(../images/icons/icon_check_upload.svg);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    width: 23px;
+    height: 23px;
+    margin: 0 0 10px;
+    float: right;
+}
+
+.dropzone .dz-preview.dz-progress-full .dz-converting{
+    opacity:1;
+    transition: opacity .25s .1s linear;
+}
+
+.dropzone .dz-preview.dz-complete-full .dz-converting{
+    opacity:0;
+    transition: opacity .25s linear;
+}
+
+.dropzone .dz-preview.dz-complete-full .dz-converting-complete{
+    opacity: 1;
+    transition: opacity .25s linear;
+}
+
+.dropzone .dz-preview.dz-processing .dz-converting span,
+.dropzone .dz-preview.dz-processing .dz-converting-complete span{
+    position: relative;
+    max-width: calc(100% - 23px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.dropzone .dz-preview.dz-processing .dz-converting .dz-progress-loader{
+    top: -3px;
+    left: 4px;
+    position: relative;
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+}
+
+.dropzone .dz-preview.dz-error .dz-info,
+.dropzone .dz-preview.dz-error .dz-details,
+.dropzone .dz-preview.dz-error .dz-image img,
+.dropzone .dz-preview.dz-error .dz-progress,
+.dropzone .dz-preview.dz-error .dz-converting,
+.dropzone .dz-preview.dz-error .dz-converting-complete{
+    opacity: 0!important;
+    transition: opacity .25s linear, visibility 0s .25s;
+    visibility: hidden;
+}
+
+.dz-caption-frm, .dz-tag-frm{
+    display: none;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(.9);
+    transform: scale(.9); }
+  50% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2); }
+  100% {
+    -webkit-transform: scale(.9);
+    transform: scale(.9); }
+}
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(.9);
+    transform: scale(.9); }
+  50% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2); }
+  100% {
+    -webkit-transform: scale(.9);
+    transform: scale(.9); }
+}
+
+.pp_file_upload .scrollbarY .viewport{
+    min-height: 366px;
+    height: 100%;
+    max-height: 80vh;
+    border: 1px solid #d6d3d3;
+}
+
+@media screen and (max-width: 480px) {
+    .pp_file_upload .scrollbarY .viewport{
+        min-height: 126px;
+    }
+}
+
+.pp_file_upload .scrollbarY .disable{
+    display: block;
+    opacity: 0;
+}
+
+.pp_file_upload .scrollbarY .scrollbar{
+    position: absolute;
+    right: 24px;
+    z-index: 1;
+    transition: opacity .2s linear;
+}
+
+.pp_file_upload .scrollbarY .overview{
+    transition: top .2s;
+    position: relative;
+}
+
+.pp_file_upload .scrollbarY .thumb{
+    left: -3px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 6px solid #fff;
+    width: 18px;
+    transition: top .2s;
+    border-radius: 10px;
+}

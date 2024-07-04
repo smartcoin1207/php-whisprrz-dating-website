@@ -1,0 +1,198 @@
+{header}
+<script>
+    $(function(){
+        $('.frm_pay').submit(function(){
+            var isEmpty=true;
+            $(this).find('input[type="text"]:not(".2co")').each(function(){
+                var inp=$(this),val=$.trim(inp.val());
+                if(val==''){
+                    alert('{l_field_is_required}');
+                    inp.focus();
+                    isEmpty=false;
+                    return false;
+                }else{inp.val(val)}
+            });
+            return isEmpty;
+        });
+
+        $('.radio').change(function(){
+            var type=$(this).data('type');
+            $('[data-type='+type+']').prop('checked',false);
+            $(this).prop('checked',true);
+            $('.default_plan_'+type).val($(this).val());
+        })
+    })
+</script>
+<div class="block_narrow">
+    {menu_page}
+</div>
+
+<!-- <div class="block_main">
+    <!-- begin_trial_items  -->
+    <h2>{title_trial_plans}</h2>
+
+        <!-- begin_trial_item -->
+        <form class="frm_pay" action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="{cmd_value}">
+        <input type="hidden" name="item" value="{item}">
+        <input type="hidden" name="type" value="{type}">
+
+        <h2>{item_name_title}</h2>
+
+        <label>{l_item_name}:</label>
+        <input type="text" name="item_name" value="{item_name}"/>
+
+        <label>{trial_days_label}:</label>
+        <input  type="text" name="gold_days" value="{trial_days}"/>
+
+        <div class="btn fl_left" style="margin-left: -8px; margin-top: -6px;">
+            <a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+
+        <!-- begin_delete_btn -->
+        <div class="btn fl_right" style="margin-right:8px; margin-top: -6px;">
+            <a onclick="if(confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?cmd=delete&item={item}">{l_delete}</a>
+        </div>
+        <!-- end_delete_btn -->
+
+
+
+        <div style="height:44px"></div>
+        </form>
+        <!-- end_trial_item -->
+
+        <!-- end_trial_items  -->
+    <div class="empty"></div>
+</div> -->
+
+<div class="block_main">
+    <!-- begin_items  -->
+    <h2>{title_plans}</h2>
+
+    <div class="bl_form">
+        <!-- begin_item  -->
+        <form class="frm_pay" action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <input type="hidden" name="item" value="{item}">
+        <input class="default_plan_{type}" type="hidden" name="default_plan" value="{default_item}">
+        <h2>{item_name_title}</h2>
+
+        <label>{l_item_name}:</label>
+        <input type="text" name="item_name" value="{item_name}"/>
+
+        <label>{l_amount}:</label>
+        <input type="text" name="amount" value="{amount}"/>
+
+        <!-- begin_item_amount_old -->
+        <label>{l_amount_old}:</label>
+        <input type="text" name="amount_old" value="{amount_old}"/>
+        <!-- end_item_amount_old -->
+
+        <label>{gold_days_label}:</label>
+        <input maxlength="{paid_days_length}" type="text" name="gold_days" value="{gold_days}"/>
+
+        <label>{l_payment_2co_id}:</label>
+        <input class="2co" type="text" name="co_id" value="{co_id}"/>
+
+        <label>{l_fortumo_service_id}:</label>
+        <input class="2co" type="text" name="fortumo_service_id" value="{fortumo_service_id}"/>
+
+        <label>{l_fortumo_secret}:</label>
+        <input class="2co" type="text" name="fortumo_secret" value="{fortumo_secret}"/>
+
+        <label>{l_zombaio_pricing_id}:</label>
+        <input class="2co" type="text" name="zombaio_pricing_id" value="{zombaio_pricing_id}"/>
+
+        <!-- begin_item_default -->
+        <label for="radio_{item}">{l_default_payment_plan}:</label>
+        <input data-type="{type}" class="radio" style="margin:0px 0px 15px 0px;" type="radio" id="radio_{item}" value="{item}" name="default" {checked} >
+        <!-- end_item_default -->
+
+        <!-- begin_pay_item -->
+        <br/><input class="check" type="checkbox" value="{pay_key}" name="pay[{pay_key}]" {pay_checked}>
+        <label style="display:inline;margin-left:10px;line-height:20px;">{pay_title}</label>
+        <!-- end_pay_item -->
+
+        <!-- begin_item_type -->
+        <label>{l_type}:</label>
+        <select class="input" name="type" style="width: 170px;">{select_type}</select>
+        <!-- end_item_type -->
+        <!-- begin_item_type_const -->
+        <input type="hidden" name="type" value="{type}">
+        <!-- end_item_type_const -->
+        <div class="cl"></div>
+        <div style="margin-top:20px;"></div>
+        <div class="btn fl_left" style="margin-left: -8px; margin-top: -6px;">
+            <a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        <div class="btn fl_right" style="margin-right:8px; margin-top: -6px;">
+            <a onclick="if(confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?cmd=delete&item={item}">{l_delete}</a>
+		</div>
+        <div style="height:44px"></div>
+        </form>
+        <!-- end_item -->
+        <form class="frm_pay" action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="add">
+        <input class="default_plan_{type}" type="hidden" name="default_plan" value="{default_item}">
+        <h2>{new_plan}</h2>
+
+        <label>{l_item_name}:</label>
+        <input type="text" name="item_name" value=""/>
+
+        <label>{l_amount}:</label>
+        <input type="text" name="amount" value=""/>
+        <!-- begin_item_amount_old_add -->
+        <label>{l_amount_old}:</label>
+        <input type="text" name="amount_old" value=""/>
+        <!-- end_item_amount_old_add -->
+
+        <label>{gold_days_label}:</label>
+        <input maxlength="{paid_days_length}" type="text" name="gold_days" value=""/>
+
+        <label>{l_payment_2co_id}:</label>
+        <input class="2co" type="text" name="co_id" value=""/>
+
+        <label>{l_fortumo_service_id}:</label>
+        <input class="2co" type="text" name="fortumo_service_id" value=""/>
+
+        <label>{l_fortumo_secret}:</label>
+        <input class="2co" type="text" name="fortumo_secret" value=""/>
+
+        <label>{l_zombaio_pricing_id}:</label>
+        <input class="2co" type="text" name="zombaio_pricing_id" value=""/>
+
+        <!-- begin_item_default_add -->
+        <label for="radio_{item}">{l_default_payment_plan}:</label>
+        <input data-type="{type}" class="radio" style="margin:0px 0px 15px 0px;" type="radio" id="radio_{item}" value="add" name="default" >
+        <!-- end_item_default_add -->
+
+        <!-- begin_pay_item_add -->
+        <br/><input class="check" type="checkbox" value="{pay_key}" name="pay[{pay_key}]" {pay_checked}>
+        <label style="display:inline;margin-left:10px;line-height:20px;">{pay_title}</label>
+        <!-- end_pay_item_add -->
+
+
+
+        <!-- begin_item_type_add -->
+        <label>{l_type}:</label>
+        <select style="width: 170px;" name="type" class="input">
+        {add_select_type}
+        </select>
+        <!-- end_item_type_add -->
+        <!-- begin_item_type_add_const -->
+        <input type="hidden" name="type" value="{type}">
+        <!-- end_item_type_add_const -->
+        <div class="input"></div>
+
+        <div class="btn fl_right" style="margin-right:8px;">
+            <a href="#" class="submit">{l_save}</a>
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+    <!-- end_items  -->
+    <div class="empty"></div>
+</div>
+{footer}

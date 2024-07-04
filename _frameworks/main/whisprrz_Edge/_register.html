@@ -1,0 +1,288 @@
+<script>
+    isIosApp = '{is_ios}'*1;
+    usersAge='{users_age}'*1;
+    passwordLengthMin='{password_length_min}'*1;
+    passwordLengthMax='{password_length_max}'*1;
+    nameLengthMin='{username_length_min}'*1;
+    nameLengthMax='{username_length}'*1;
+    isDisabledBirthday='{birthday_disabled}'*1;
+    var joinLangParts = {
+        incorrect_password_length : '{max_min_length_password}',
+        incorrect_name_length : '{max_min_length_username}'
+    };
+    <!-- begin_re_captcha_js -->
+    isJoiniRecaptcha=true;
+    joinRecaptchaKey='{re_captcha_sitekey}',
+    joinRecaptchaTheme='{re_captcha_theme}';
+    <!-- end_re_captcha_js -->
+</script>
+<center>
+    <h2 class="cham-heading">{l_register_now}</h2>
+    <p class="signature">{l_register_now_description}</p>
+</center>
+<!-- User info -->
+<div class="section field_icon mobile visible-xs visible-sm visible-md">
+    <div class="container">
+        <div class="row">
+            <div class="cham-icon text-center">
+                <i class="fa fa-user"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section fields">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 hidden-md hidden-sm hidden-xs text-right">
+                <div class="cham-icon">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+            <div class="col-lg-2 field">
+                <input id="join_email" data-error="{a_incorrect_email}"  type="text" class="form-control placeholder_black" placeholder="{l_email}" value="{email}" name="email">
+            </div>
+            <div class="col-lg-2 field">
+                <input id="join_name" type="text" class="form-control placeholder_black" placeholder="{l_username}" value="{join_handle}" name="join_handle" maxlength="{username_length}">
+            </div>
+            <div class="col-lg-2 field">
+                <input id="join_password" type="password" class="form-control placeholder_black" placeholder="{l_password}" value="{join_password}" name="join_password">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /User info -->
+
+<!-- Location -->
+<!-- begin_join_location_default -->
+<input type="hidden" class="not_frm location_default" name="country" value="{country_id}">
+<input type="hidden" class="not_frm location_default" name="state" value="{state_id}">
+<input type="hidden" class="not_frm location_default" name="city" value="{city_id}">
+<!-- end_join_location_default -->
+<!-- begin_join_location_show -->
+<div class="section field_icon mobile visible-md visible-sm visible-xs field_step_2">
+    <div class="container">
+        <div class="row">
+            <div class="cham-icon text-center">
+                <i class="fa fa-map-marker"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section fields field_step_2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 hidden-md hidden-sm hidden-xs text-right">
+                <div class="cham-icon">
+                    <i class="fa fa-map-marker"></i>
+                </div>
+            </div>
+            <div class="col-lg-2 field field_geo">
+                <select id="country"  data-location="geo_states" name="country" class="selectpicker geo show-tick" data-live-search="true">
+                    {country_options}
+                </select>
+            </div>
+            <div class="col-lg-2 field field_geo" data-cl-loader="loader_settings_location" data-no-fade-in="true">
+                <select id="state" data-location="geo_cities" name="state" class="geo_btn selectpicker geo show-tick" data-live-search="true">
+                    {state_options}
+                </select>
+            </div>
+            <div class="col-lg-2 field field_geo" data-cl-loader="loader_settings_location" data-no-fade-in="true">
+                <select name="city" id="city" class="geo_btn selectpicker show-tick" data-live-search="true">
+                    {city_options}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end_join_location_show -->
+<!-- /Location -->
+
+<!-- begin_join_birthday -->
+<div class="section field_icon mobile visible-md visible-sm visible-xs field_step_3">
+    <div class="container">
+        <div class="row">
+            <div class="cham-icon text-center">
+                <i class="fa fa-calendar"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section fields field_step_3">
+    <div class="container">
+        <div class="row">
+            <form name="frm_date" action="" autocomplete="off">
+                <div class="col-lg-3 hidden-md hidden-sm hidden-xs text-right">
+                    <div class="cham-icon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+                <div class="col-lg-2 field">
+                    <!--
+                    noneSelectedText : 'Nothing selected',
+                    noneResultsText : 'No results match',
+                    countSelectedText: '{0} of {1} selected'
+                    data-size="8"
+                    -->
+                    <select id="join_day" name="day" class="birthday selectpicker show-tick not_frm" data-live-search="true">
+                        {day_options}
+                    </select>
+                </div>
+                <div class="col-lg-2 field">
+                    <select id="join_month" name="month" class="birthday selectpicker show-tick not_frm" data-live-search="true">
+                        {month_options}
+                    </select>
+                </div>
+                <div class="col-lg-2 field">
+                    <select id="join_year" name="year" class="birthday selectpicker show-tick not_frm" data-live-search="true">
+                        {year_options}
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end_join_birthday -->
+
+<div class="section fields field_step_4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 hidden-md hidden-sm hidden-xs text-right"></div>
+
+            <!-- hide this block if show recaptcha without orientation -->
+            <div class="col-lg-2 field orientation_bl_hide">
+                <!-- begin_field_orientation -->
+                <div style="height: 43px;">
+                    <select name="orientation" id="orientation" class="selectpicker show-tick" title="{l_i_am}">
+                        {orientation_options}
+                    </select>
+                </div>
+                <!-- end_field_orientation -->
+
+                <!-- show this block if show recaptcha with orientation field -->
+                <!-- begin_register_now_social_1 -->
+                <div class="bl_social text-center hidden-md hidden-sm hidden-xs recaptcha_bl_hide bl_social_frm" style="margin-top: 16px;">
+                    <!-- begin_register_now_social_1_item -->
+                    <a href="{register_now_social_1_item_url}"><i class="fa fa-{register_now_social_1_item_type}"></i></a>
+                    <!-- end_register_now_social_1_item -->
+                </div>
+                <!-- end_register_now_social_1 -->
+                <!-- /show this block if show recaptcha with orientation field -->
+
+            </div>
+            <!-- hide this block if show recaptcha without orientation -->
+
+            <!-- begin_default_captcha -->
+            <div class="col-lg-2 field">
+                <input id="join_captcha" name="captcha" data-error="{a_incorrect_captcha}" type="text" class="form-control placeholder_black" placeholder="{l_enter_code}">
+            </div>
+            <div class="col-lg-2 field text-center">
+                <img id="join_img_captcha" title="{a_show_another_code}" class="img_captcha" src="{url_main}_server/securimage/securimage_show_custom.php?sid={sid}">
+            </div>
+            <!-- end_default_captcha -->
+            <!-- begin_re_captcha -->
+            <div class="col-lg-4 field recaptcha">
+                <div id="join_recaptcha" class="join_recaptcha"></div>
+            </div>
+            <!-- end_re_captcha -->
+
+            <div class="col-lg-2 field join_agree_3">
+                <div class="field_checkbox_terms join_agree_bl">
+                    <input id="join_agree_2" class="join_agree" value="1"  type="checkbox">
+                    <label for="join_agree_2">
+                        {l_i_agree_to_the}
+                        <a href="#null" onclick="ppTermsShow(); return false;">{l_terms}</a>
+                        {l_and}
+                        <a href="#null" onclick="ppTermsShow('priv_policy'); return false;">{l_privacy_policy}</a>
+                    </label>
+                </div>
+            </div>
+            <!-- show this block if show recaptcha without orientation -->
+            <div class="col-lg-2 field mobile orientation_bl_show">
+
+                <!-- begin_register_now_social_3 -->
+                <div class="bl_social text-center hidden-md hidden-sm hidden-xs bl_social_frm" style="margin-top: 13px; margin-bottom: 10px;">
+                    <!-- begin_register_now_social_3_item -->
+                    <a href="{register_now_social_3_item_url}"><i class="fa fa-{register_now_social_3_item_type}"></i></a>
+                    <!-- end_register_now_social_3_item -->
+                </div>
+                <!-- end_register_now_social_3 -->
+
+                <div class="field_checkbox_terms join_agree_bl">
+                    <input id="join_agree_1" class="join_agree" value="1"  type="checkbox">
+                    <label for="join_agree_1">
+                        {l_i_agree_to_the}
+                        <a href="#null" onclick="ppTermsShow(); return false;">{l_terms}</a>
+                        {l_and}
+                        <a href="#null" onclick="ppTermsShow('priv_policy'); return false;">{l_privacy_policy}</a>
+                    </label>
+                </div>
+
+            </div>
+            <!-- /show this block if show recaptcha without orientation -->
+        </div>
+    </div>
+</div>
+
+<div class="section fields field_step_4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>
+
+            <!-- hide this block if show recaptcha & orientation field -->
+            <!-- begin_register_now_social_2 -->
+            <div class="col-lg-2 field bl_social text-center hidden-md hidden-sm hidden-xs bl_social_frm">
+                <div class="recaptcha_bl_show">
+                    <!-- begin_register_now_social_2_item -->
+                    <a href="{register_now_social_2_item_url}"><i class="fa fa-{register_now_social_2_item_type}"></i></a>
+                    <!-- end_register_now_social_2_item -->
+                </div>
+            </div>
+            <!-- end_register_now_social_2 -->
+            <!-- /hide this block if show recaptcha & orientation field -->
+
+            <div class="col-lg-2 field mobile hidden-md hidden-sm hidden-xs">
+                <!-- hide this block if show recaptcha without orientation -->
+                <div class="field_checkbox_terms orientation_bl_hide join_agree_bl">
+                    <input id="join_agree" class="join_agree" value="1"  type="checkbox">
+                    <label for="join_agree">
+                        {l_i_agree_to_the}
+                        <a href="#null" onclick="ppTermsShow(); return false;">{l_terms}</a>
+                        {l_and}
+                        <a href="#null" onclick="ppTermsShow('priv_policy'); return false;">{l_privacy_policy}</a>
+                    </label>
+                </div>
+                <!-- /hide this block if show recaptcha without orientation -->
+            </div>
+
+            <!-- begin_register_now_social_no_class -->
+            <!-- <div class="col-lg-2 field bl_social text-center hidden-md hidden-sm hidden-xs">
+            </div> -->
+            <!-- end_register_now_social_no_class -->
+
+            <div class="col-lg-2 field">
+                <button id="join_submit" data-no-fade-in="true" class="btn btn-block btn-success"><span>{l_register_now}</span></button>
+            </div>
+
+            <!-- begin_register_now_mobile_social -->
+            <div class="ol-lg-2 field mobile bl_social text-center hidden-lg bl_social_frm">
+                <!-- begin_register_now_mobile_social_item -->
+                <a href="{register_now_mobile_social_item_url}"><i class="fa fa-{register_now_mobile_social_item_type}"></i></a>
+                <!-- end_register_now_mobile_social_item -->
+            </div>
+            <!-- end_register_now_mobile_social -->
+
+        </div>
+    </div>
+</div>
+<!-- begin_re_captcha_script -->
+<script src="//www.google.com/recaptcha/api.js?onload=onloadJoinRecaptchaCallback&render=explicit&hl={re_captcha_lang}" async defer></script>
+<!-- end_re_captcha_script -->
+<!-- begin_wait_approval -->
+<script>
+$(function(){
+    setTimeout(function(){
+        confirmCustom('{j_no_confirmation_account}', redirectToLoginPage, '{j_attention}', true, false, false, true);
+    },1000)
+});
+</script>
+<!-- end_wait_approval -->

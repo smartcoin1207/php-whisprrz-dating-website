@@ -1,0 +1,81 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <!-- Rade 2023-09-28 add start -->
+    <ul class="group_page_title_menu">
+        <li id="sgroupssocial">
+            <a href="{url_main}administration/groups_social.php">{l_menu_groups_social}</a>
+        </li>
+        <li id="sgroupssocialvideos" class="current">
+            <a href="{url_main}administration/groups_social_vids_videos.php">{l_menu_groups_social_videos}</a>
+        </li>
+
+        <li id="sgroupssocialmusic">
+            <a href="{url_main}administration/groups_social_music_songs.php">{l_menu_groups_social_music}</a>
+        </li>
+    </ul>
+    <!-- Rade 2023-09-28 add end -->
+
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_noitems --><div align="center">{l_no_videos}</div><!-- end_noitems -->
+    <!-- begin_pages -->
+    <div class="wrap_bl_pagin">
+        <div class="wrap_bl_total">{itemsTotal} {l_videos}</div>
+        <div class="wrap_bl_pager">{pager}</div>
+    </div>
+    <!-- end_pages -->
+    <!-- begin_items -->
+    <table class="tb">
+        <tr>
+            <th class="decor_l"></th>
+            <th class="center">{l_action}</th>
+            <th>{l_id}</th>
+            <th>{l_subject}</th>
+            <th>{l_user}</th>
+            <th class="last">{l_dt}</th>
+            <th class="decor_r"></th>
+        </tr>
+        <!-- begin_item -->
+        <tr class="{item_class}" id="item_{item_id}">
+            <td class="decor{item_decl}"></td>
+            <td class="left">
+                <script type='text/javascript'>
+                $(document).ready(function(){
+                    $("#delete_{item_id}").click(function() {
+                        if (confirm('{l_are_you_sure}')) {
+                            $.get('{url_main}administration/vids_video_delete_ajax.php?id={item_id}');
+                            $('#item_{item_id}').remove();
+                        }
+                        return false
+                    });
+                });
+                </script>
+                <a href="{url_main}administration/vids_video_edit.php?id={item_id}">{l_edit}</a>
+                | <a href="#" id="delete_{item_id}">{l_delete}</a>
+                <!-- begin_item_count_comments -->
+                | <a href="{url_main}administration/groups_social_vids_groups_comments.php?id={item_id}">{l_comments} {item_count_comments}</a>
+                <!-- end_item_count_comments -->
+                <!-- begin_item_not_count_comments -->
+                | {l_no_comments}
+                <!-- end_item_not_count_comments -->
+            </td>
+            <td>{item_id}</td>
+            <td>{item_subject}</td>
+            <td>
+                {item_user_name}:
+                
+                <a href="{url_main}administration/groups_social_vids_groups_videos.php?id={item_group_id}">{l_videos}</a>
+            </td>
+            <td class="last">{item_dt_time}</td>
+            <td class="decor{item_decr}"></td>
+        </tr>
+        <!-- end_item -->
+    </table>
+    <!-- end_items -->
+
+    <div class="empty"></div>
+</div>
+{footer}

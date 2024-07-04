@@ -1,0 +1,70 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/partner.php">{l_menu_partners}</a></li>
+        <li><a href="{url_main}administration/partner_baners.php">{l_menu_partners_banners}</a></li>
+        <li><a href="{url_main}administration/contact_partner.php">{l_menu_from_partners}</a></li>
+        <li><a href="{url_main}administration/partner_main.php">{l_main_page}</a></li>
+        <li><a href="{url_main}administration/partner_tips.php">{l_page_tips}</a></li>
+        <li><a href="{url_main}administration/partner_faq.php">{l_page_faq}</a></li>
+        <li><a href="{url_main}administration/partner_terms.php">{l_page_terms}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+        <form action="{url_main}administration/partner_bank.php?cmd=edit&id={partner_id}" method="POST">
+
+        <label>{l_bank_name}:</label>
+        <input type="text" name="bank_name" value="{bank_name}"/>
+
+        <label>{l_bank_phone}:</label>
+        <input type="text" name="bank_phone" value="{bank_phone}"/>
+
+        <label>{l_bank_address_1}:</label>
+        <input type="text" name="bank_adress1" value="{bank_adress1}"/>
+
+        <label>{l_bank_address_2}:</label>
+        <input type="text" name="bank_adress2" value="{bank_adress2}"/>
+
+        <label>{l_bank_city}:</label>
+        <input type="text" name="bank_city" value="{bank_city}"/>
+
+        <label>{l_bank_state}:</label>
+        <input type="text" name="bank_state" value="{bank_state}"/>
+
+        <label>{l_bank_zipcode}:</label>
+        <input type="text" name="bank_zip" value="{bank_zip}"/>
+
+        <label>{l_bank_country}:</label>
+        <input type="text" name="bank_country" value="{bank_country}"/>
+
+        <label>{l_bank_account_number}:</label>
+        <input type="text" name="bank_account" value="{bank_account}"/>
+
+        <label>{l_aba_routing_code}:</label>
+        <input type="text" name="bank_aba" value="{bank_aba}"/>
+
+        <label>{l_bank_swift_code}:</label>
+        <input type="text" name="bank_swift" value="{bank_swift}"/>
+
+        <label>{l_bank_account_type}:</label>
+        <input type="text" name="bank_type" value="{bank_type}"/>
+
+        <label>{l_make_payment}:</label>
+        <input type="text" name="bank_to" value="{bank_to}"/>
+
+        <label>{l_paypal}:</label>
+        <input type="text" name="paypal" value="{paypal}"/>
+
+        <label>{l_other_information}:</label>
+        <textarea name="other" class="textarea_small">{other}</textarea>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a></div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

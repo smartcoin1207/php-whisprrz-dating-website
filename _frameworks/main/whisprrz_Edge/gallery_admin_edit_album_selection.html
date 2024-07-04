@@ -1,0 +1,44 @@
+{header}
+{gallery_menu}
+<script language="javascript" type="text/javascript">
+	var l_del_album = "{l_del_album}";
+	var l_del_album2 = "{l_del_album2}";
+</script>
+
+	<h2 class="txt_upper_header_color">{l_edit_gallery}</h2>
+
+	<!--<p>{l_intro_text}</p>-->
+		<table class="bordered" style="margin-bottom:30px;">
+          <tr>
+            <th style="width: 55px; ">{l_thumb}</th>
+            <th>{l_edit_this_album}</th>
+			<th></th>
+          </tr>
+          <tr>
+          <td colspan="3">
+          <div id="albumList" class="albumList">
+            <!-- begin_album -->
+            <div id="id_{album_id}">
+            <table cellspacing="0" width="100%">
+              <tr>
+                <td align="left" width="20">
+                <a href="gallery_admin_edit_album.php?album_id={album_id}" title="{l_edit_this_album} {album_title}"><img class=img_border height="40" width="40" src="{album_thumb}" /></a>
+                </td>
+                <td> <a href="gallery_admin_edit_album.php?album_id={album_id}" title="{l_edit_this_album} {album_title}">{album_title}</a> ({img_count})
+                </td>
+
+                <td width="20" align="right">
+                  <a class="delete" href="javascript: confirmDeleteAlbum('?page=edit&action=deletealbum&album_id={album_id}');" title="{l_delete_the_album} {album_title}"><img src="{url_tmpl_main}img/delete.gif" style="border: 0px;" alt="x" /></a>
+                </td>
+
+              </tr>
+            </table>
+            </div>
+            <!-- end_album -->
+          </div>
+          </td>
+          </tr>
+        </table>
+
+</div>
+{footer}

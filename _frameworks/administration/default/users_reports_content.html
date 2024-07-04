@@ -1,0 +1,130 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+    alert("{message}");
+    }
+    $(document).ready(function(){
+        var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            }else{
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function(){
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+    });
+    function delete_reports() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var reports = StrID.slice(0, -1);
+        window.location.href='{url_page}?cmd=delete_report&report_id='+reports;
+    }
+</script>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_count_users}</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+
+    <!-- begin_main_items -->
+    <table class="tb" style="max-width: 864px;">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right">
+            <input style="margin:0px; width: 12px;" type="checkbox" id="all">
+        </th>
+        <th>{l_action}</th>
+        <th>
+            <!-- begin_params_none_date --><a href="{url_page}?{params_current}">{l_date}</a><!-- end_params_none_date -->
+            <!-- begin_params_asc_date -->&uarr;<a href="{url_page}?{params_current}">{l_date}</a><!-- end_params_asc_date -->
+            <!-- begin_params_desc_date -->&darr;<a href="{url_page}?{params_current}">{l_date}</a><!-- end_params_desc_date -->
+        </th>
+        <th>
+            <!-- begin_params_none_name_from --><a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_none_name_from -->
+            <!-- begin_params_asc_name_from -->&uarr;<a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_asc_name_from -->
+            <!-- begin_params_desc_name_from -->&darr;<a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_desc_name_from -->
+        </th>
+        <th>
+            <!-- begin_params_none_name_to --><a href="{url_page}?{params_current}">{l_about}</a><!-- end_params_none_name_to -->
+            <!-- begin_params_asc_name_to -->&uarr;<a href="{url_page}?{params_current}">{l_about}</a><!-- end_params_asc_name_to -->
+            <!-- begin_params_desc_name_to -->&darr;<a href="{url_page}?{params_current}">{l_about}</a><!-- end_params_desc_name_to -->
+        </th>
+        <th class="last">
+            {l_content}
+        </th>
+        <th class="last">
+            {l_message}
+        </th>
+        <th class="decor_r"></th>
+    </tr>
+
+    <!-- begin_main_item -->
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right" style="width: 12px;"><input style="margin:0px;" type="checkbox" id="chk_{id}"></td>
+        <td>
+            <a href="{url_page}?cmd=delete_report&report_id={id}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete_report}</a>
+            |
+            <a href="{url_page}?cmd={cmd}&photo_id={photo_id}&user_id={user_to}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete_content}</a>
+            |
+			<a href="{url_page}?cmd=ban&user_id={user_to}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{ban_to}</a>
+        </td>
+        <td>{date}</td>
+        <td><a href="users_edit.php?id={user_from}">{name_from}</a></td>
+        <td><a href="users_edit.php?id={user_to}">{name_to}</a></td>
+        <td style="padding-top: 4px; padding-bottom: 4px;">
+            <!-- begin_photo_url -->
+            <img src="{url_files}{photo_url}">
+            <!-- end_photo_url -->
+            <!-- begin_no_photo_url -->
+            <div style="margin-top: -4px;">{l_no_photo}</div>
+            <!-- end_no_photo_url -->
+            <!-- begin_video_url -->
+            <a href="vids_video_edit.php?id={video_id}" target="_blank"><img src="{url_files}{video_url}"></a>
+            <!-- end_video_url -->
+        </td>
+        <td style="width:100%; white-space:normal; line-height: 17px; padding-top: 3px;" class="last">{msg}</td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_reports}</div>
+    <!-- end_main_noitems -->
+    <!-- begin_no_delete -->
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) delete_reports(); else return false; " href="#">{l_delete_all_reports}</a>
+    </div>
+    <!-- end_no_delete -->
+    <div class="empty"></div>
+</div>
+{footer}

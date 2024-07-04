@@ -1,0 +1,153 @@
+{header}
+<div id="oryx_content">
+<script language="javascript" type="text/javascript">
+$(function(){
+<!-- begin_image_edit -->
+   $('#DescEditable_{image_id}').editable({lAdd: '{l_add_desc}',
+                                 lEdit: '{l_edit_desc}',
+                                 lSave: '{l_saving}',
+                                 type: 'image',
+                                 classInput: 'album_desc gallery_image_editable_input',
+                                 classHover: 'gallery_image_editable_hov',
+                                 inputLength:1000});
+<!-- end_image_edit -->
+    var img = new Image();
+    $(img).load(function() {
+        $('#load_image').hide().attr('src', '{image_src}').fadeTo(500, 1);
+    });
+    img.src = '{image_src}';
+});
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('body').on('click','.comment_del',function(){
+            if (confirm('{l_are_you_sure}')) {
+                var comment_id = $(this).attr('comment_id');
+                var photo_id = $(this).attr('photo_id');
+                $('#comment_' + comment_id).remove();
+                $('#comments_count').html(Math.floor($('#comments_count').html()) - 1);
+                $.post("{url_main}gallery_comment_del_ajax.php", { id: comment_id, pid: photo_id });
+            }
+            return false;
+        });
+    });
+</script>
+
+      <div class="frame_content">
+
+      <div id="gallery">
+
+      <div class="bl_title_gallery">
+
+        <div class="my_pic">
+          <a class="link_back" href="javascript:history.back()">{l_back}</a> <span>|</span>
+          <a href="{url_main}<!-- begin_edit_on -->gallery_admin_edit_album.php?album_id={album_id}">{l_edit}<!-- end_edit_on --><!-- begin_edit_off -->gallery_admin.php">{l_add_photos}<!-- end_edit_off --></a>
+        </div>
+
+                          <div class="image_title" id="DescEditable_{image_id}" title="{image_description}" style="{ttl_cursor}">
+                              {image_description}
+  			</div>
+      <div class="cl"></div>
+      </div>
+
+            <div class="image" style="padding-bottom:20px; height:{image_height}px; width:100%; display:table;">
+                <div style="display:table-cell; vertical-align:middle;">
+                <!-- begin_link--><a href="{url_main}gallery_image.php?img_id={next_id}"><!-- end_link-->
+                <img id="load_image" src="{url_tmpl_main}images/svg/loading-spin-oryx.svg" alt="{alt}" style="width: 100%;" />
+                <!-- begin_link2--></a><!-- end_link2-->
+                </div>
+            </div>
+
+			<div class="next_prev">
+            <!-- begin_yes_pagination -->
+  			<input type="button" value="{l_prev}" class="btn lower_header_color big" onclick="location='{url_main}gallery_image.php?img_id={prev_id}';" title="{l_prev}"  />&nbsp;&nbsp;
+  			<input type="button" value="{l_next}" class="btn lower_header_color big" onclick="location='{url_main}gallery_image.php?img_id={next_id}';" title="{l_next}"  />&nbsp;&nbsp;
+  			|&nbsp;&nbsp;
+            <!-- end_yes_pagination -->
+  			<a href="{url_main}gallery_album.php?album_id={album_id}">{album}</a>
+			</div>
+
+			<div class="uploaded_by">{l_uploaded_by} <a href="{url_main}search_results.php?display=profile&name={name_prof}">{name_prof}</a> {uploaded_time_ago}</div>
+
+
+        </div>
+
+	  <div id="narrow">
+    <div class="cl"></div>
+		<div id="gallery_comments">
+
+		      <h3 class="txt_upper_header_color">{l_comments} <span>(<span id="comments_count">{num_comments}</span>)</span></h3>
+
+          <ul class="comment">
+		  <!-- begin_comment -->
+          <li id="comment_{comment_id}">
+              <div class="body">
+              <table>
+                  <tr>
+                      <td class="photo">
+                        <a onmousemove="show_face_jq('usr0{num}', event)" onmouseout="hide_face_jq('usr0{num}')" href="search_results.php?display=profile&name={user_name}"><img id="pic{num}" src="{url_files}{photo}" class="img" /></a>
+                      </td>
+                      <td>
+						<a name="{cid}" href="search_results.php?display=profile&name={user_name}" class="name">{user_name}</a>&nbsp;&nbsp;<span>{date}</span><!-- begin_delete_comment --> <a href="#" comment_id='{comment_id}' photo_id='{pid}' class='comment_del'>{l_delete}</a> <!-- end_delete_comment -->
+                        <p>{comment_text}</p>
+                      </td>
+                  </tr>
+              </table>
+              </div>
+              <div class="bottom"></div>
+          </li>
+		  <!-- end_comment -->
+          </ul>
+		  <!-- begin_error -->
+		  <div class="error" style="margin-bottom:10px;color: #C33;font-weight: bold;">{l_error}</div>
+  		  <!-- end_error -->
+
+		  <script language="javascript" type="text/javascript">
+		  function submitHandler()
+		  {
+		  	document.getElementById('make_comment').value='1';
+		  }
+		  </script>
+			<!-- If comments are on for this image AND album... -->
+
+       <ul class="comment">
+          <li>
+            <div class="head" style="font-weight:bold; margin: 0 0 10px; ">{l_leave_comment}:</div>
+
+			<div class="body">
+
+                        <form id="commentform" action="#" method="post" onsubmit="javascript:submitHandler();">
+
+                            <input id="make_comment" type="hidden" name="make_comment" value="0" />
+
+                            <textarea name="comment" style="width:690px;"></textarea>
+							<br />
+							<br />
+
+								<input type="submit" value="{l_add_comment}" class="btn lower_header_color big" />
+
+                        </form>
+
+              </div>
+              <div class="bottom"></div>
+          </li>
+          </ul>
+
+
+		  </div>
+
+
+	  </div>
+	</div>
+</div>
+
+
+{footer}
+
+<!-- begin_show_info -->
+<span class="popup-info" id="usr0{num}">
+    <span class="dx">{l_nick}: <strong>{user_name}</strong>
+    <br>{l_age}: <strong>{user_age}</strong>
+    <br>{l_from}: <strong>{user_country_sub}</strong></span>
+</span>
+<!-- end_show_info -->

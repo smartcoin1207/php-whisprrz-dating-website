@@ -1,0 +1,124 @@
+{header}
+<div class="block_narrow">
+	<!--{menu_page}-->
+	<ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+	</ul>
+</div>
+<div class="block_main">
+	<h2>{l_title_current}</h2>
+
+
+	<div class="bl_form">
+
+		<table>
+			<form action="{url_page}" method="post">
+				<input type="hidden" name="cmd" value="url">
+
+				<tr>
+					<td valign="top" colspan="2" nowrap>{l_redirect_to}:&nbsp;<input style="width:86%; margin: 0px;"
+							type="text" name="url" value="{url}"></td>
+					<td width="10"></td>
+					<td><input class="button" type="submit" value="{l_save}"></td>
+				</tr>
+			</form>
+
+
+			<tr>
+				<td>{l_ip}</td>
+				<td>{l_description_ipblock}</td>
+				<td width="10"></td>
+				<td>{l_action}</td>
+			</tr>
+
+			<!-- begin_mail_list -->
+
+			<!-- begin_mail_list_item -->
+			<form action="{url_page}" method="post">
+				<input type="hidden" value="{id}" name="id">
+				<input type="hidden" value="update" name="cmd">
+				<tr>
+					<td><input name="ip" value="{ip}"></td>
+					<td><input name="description" value="{description}"></td>
+					<td width="10"></td>
+					<td nowrap>
+						<input class="button" type="submit" value="{l_save}"> <a href="{url_page}?cmd=delete&id={id}"
+							onClick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+					</td>
+				</tr>
+			</form>
+			<!-- end_mail_list_item -->
+
+			<!-- end_mail_list -->
+
+			<form action="{url_page}" method="post">
+				<input type="hidden" value="add" name="cmd">
+				<tr>
+					<td><input name="ip" value=""></td>
+					<td><input name="description" value=""></td>
+					<td width="10"></td>
+					<td><input class="button" type="submit" value="{l_add}"></td>
+				</tr>
+			</form>
+		</table>
+
+
+		<!-- begin_mail_list_pages -->
+		<div class="body_text" style="padding-bottom: 16px;">
+			<!-- begin_mail_list_prev_page -->
+			<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+			<!-- end_mail_list_prev_page -->
+			<!-- begin_mail_list_prev_page_off -->
+			<b>{l_prev}</b>&nbsp; | &nbsp;
+			<!-- end_mail_list_prev_page_off -->
+			<!-- begin_mail_list_first_page -->
+			<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+			<!-- end_mail_list_first_page -->
+			<!-- begin_mail_list_prev_pages -->
+			<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+			<!-- end_mail_list_prev_pages -->
+			<!-- begin_mail_list_page -->
+			<!-- begin_mail_list_link_page -->
+			<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+			<!-- end_mail_list_link_page -->
+			<!-- begin_mail_list_this_page -->
+			<b>{page}</b>
+			<!-- end_mail_list_this_page -->
+			<!-- end_mail_list_page -->
+			<!-- begin_mail_list_next_pages -->
+			<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+			<!-- end_mail_list_next_pages -->
+			<!-- begin_mail_list_last_page -->
+			<b>{l_of}</b> <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+			<!-- end_mail_list_last_page -->
+			<!-- begin_mail_list_next_page -->
+			&nbsp; | &nbsp;<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+			<!-- end_mail_list_next_page -->
+			<!-- begin_mail_list_next_page_off -->
+			&nbsp; | &nbsp;<b>{l_next}</b>
+			<!-- end_mail_list_next_page_off -->
+		</div>
+		<!-- end_mail_list_pages -->
+
+
+	</div>
+
+	<div class="empty"></div>
+</div>
+{footer}

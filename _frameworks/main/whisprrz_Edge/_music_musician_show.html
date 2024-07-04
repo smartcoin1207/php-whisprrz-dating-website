@@ -1,0 +1,109 @@
+<!-- new_mods_decor -->
+<script type="text/javascript">
+var active = 0;
+var shift = 0;
+$(document).ready(function() {
+    initLightboxOldTemplate($('.image_gallery a'));
+
+    var desc = $('#musician_description'),
+        curHeightDefault,
+        link = '',
+        current,
+        isCollapse;
+
+    if ($.trim(desc.text()) == '') {
+        desc.html('{l_music_musician_about_empty}');
+    } else {
+        if ('{about_collapse}' == '1') {
+            link = ' <a id="show_description" href="">{l_show_all}</a>';
+        }
+        current = desc.data('desc-short');
+        desc.html(desc.data('desc-short')+link);
+        curHeightDefault = desc.height();
+    }
+    $('body').on('click', '#show_description', function(){
+        var curHeight = desc.height();
+            desc.css('height', curHeight+'px');
+        if (current == desc.data('desc-short')) {
+            current = desc.data('desc');
+            isCollapse = false;
+        } else {
+            current = desc.data('desc-short');
+            isCollapse = true;
+        }
+        if (curHeight >= curHeightDefault && isCollapse) {
+            desc.animate({height: curHeightDefault+'px'}, 200, function() {
+                $(this).html(current+' <a id="show_description" href="">{l_show_all}</a>');
+            });
+        } else {
+            desc.html(current+' <a id="show_description" href="">{l_collapse}</a>');
+            var autoHeight = desc.css('height', 'auto').height();
+            desc.height(curHeight).animate({height: autoHeight}, 200);
+        }
+
+        return false;
+    });
+});
+
+function set_main_image(thumbnail, image, n)
+{
+    $('.image_gallery a').attr('href', image);
+    $('.image_gallery a img').attr('src', thumbnail);
+    $('#image_list li').attr('class','');
+    $('#image_list li:eq('+n+')').attr('class','active');
+    active = n+shift;
+}
+
+</script>
+<div class="music_new_decor_l">
+    <div class="pl_top">
+          <!-- begin_musician_upload_song_button -->
+          <div class="fl_right" style="margin: 4px 0 0;">
+<!-- 		 <a class="music_new_upload" href="{url_main}music_song_edit.php?musician_id={musician_id}#music_uplodad_id">{l_music_upload_song}<a/> -->
+                    <a href="{url_main}music_song_edit.php?musician_id={musician_id}#music_uplodad_id" class="btn round upper_header_color fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />{l_music_upload_song} <img class="btn_arrows_right" src="{url_tmpl_main}images/blogs/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+		  </div>
+
+          <!-- end_musician_upload_song_button -->
+          <a href="{url_main}music_musician_show.php?musician_id={musician_id}" style="text-decoration:none;"><h1 class="txt_upper_header_color" title="{musician_name_full}">{musician_name}</h1></a>
+
+          <div class="fl_left">
+              <div class="image_gallery music_new_img_green music_new_margin0">
+                  <!-- begin_image --><a href="{image_file}"><img src="{image_thumbnail_b}" width="160" height="120" title="{musician_name_full}" alt="{musician_name_full}"/></a><!-- end_image -->
+                  <!-- begin_no_image --><img src="{url_tmpl_main}images/music/foto_02_l.jpg" width="160" height="120" alt=""/><!-- end_no_image -->
+              </div>
+
+              <!-- carusel -->
+              <div id="music_musician_image_list">
+              {music_musician_image_list}
+              </div>
+              <!-- /carusel -->
+
+              <!-- begin_musician_functions -->
+              <div class="music_new_img_txt">
+                  <span class="black"><a href="{url_main}music_musician_add_photos.php?musician_id={musician_id}">{l_music_add_images}</a><!-- begin_musician_edit --> | <a href="{url_main}music_musician_edit.php?musician_id={musician_id}">{l_music_edit_musician}</a><!-- end_musician_edit --></span>
+              </div>
+              <!-- end_musician_functions -->
+          </div>
+
+          <div class="music_new_bl_green">
+              <div class="list_bg_violet">
+                <!-- begin_musician_info --><ul class="list_bg">
+                    <li><strong>{l_music_country}:</strong> <a title="{country_title_full}" href="{url_main}music_search.php?country_id={country_id}">{country_title}</a> | <strong>{l_music_genre}:</strong> <a title="{category_title_full}" href="{url_main}music_search.php?category_id={category_id}">{category_title}</a></li>
+                    <li><strong>{l_music_year_founded}:</strong> <a href="{url_main}music_search.php?musician_founded={musician_founded}">{musician_founded}</a></li>
+                    <li><strong>{l_music_leader}:</strong> {musician_leader}</li>
+                </ul><!-- end_musician_info -->
+                <!-- begin_musician_no_info --><ul class="list_bg">
+                    <li><strong>{l_music_country}:</strong> {l_music_add_below} | <strong>{l_music_genre}:</strong> {l_music_add_below}</li>
+                    <li><strong>{l_music_year_founded}:</strong> {l_music_add_below}</li>
+                    <li><strong>{l_music_leader}:</strong> {l_music_add_below}</li>
+                </ul><!-- end_musician_no_info -->
+              </div>
+              <div id ='musician_description' style="padding-bottom: 10px; padding-left: 10px;"  data-desc='{musician_about_full}' data-desc-short='{musician_about}'>
+                  {musician_about}
+              </div>
+          </div>
+
+    </div>
+    <div class="cl"></div>
+</div>
+<!-- /new_mods_decor -->

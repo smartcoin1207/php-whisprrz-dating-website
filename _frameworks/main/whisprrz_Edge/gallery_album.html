@@ -1,0 +1,127 @@
+{header}
+
+<style>
+
+/*#gallery ul.alb {top:-1px;margin:0 0 -1px;}
+*/
+</style>
+
+<!-- begin_album_edit -->
+<script language="javascript" type="text/javascript">//classHover: 'album_title',classHover: 'album_desc',
+$(function(){
+	$('#DescEditable_{album_id}').editable({
+		lAdd: '{l_add_desc}', 
+		lEdit: '{l_edit_desc}',
+		lSave: '{l_saving}',
+		classInput: 'gallery_album_editable_input',
+		classHover: 'gallery_album_editable_hov',
+		inputLength:1000//{gallery_album_description_length}
+	});
+	$('#TitleEditable_{album_id}').editable({
+		lAdd: '{l_add_title}', 
+		lEdit: '{l_edit_title}',
+		lSave: '{l_saving}',
+		typeData: 'title',
+		classInput: 'gallery_album_editable_input',
+		inputLength:1000//{gallery_album_title_length}
+	});
+});
+</script>
+<!-- end_album_edit -->
+
+<div class="frame_content">
+
+        <div id="gallery">
+
+            <div class="my_pic"><a href="{url_main}gallery_admin_upload.php?id_album={album_id}" style="font-weight:normal">{l_add_photos}</a></div>
+			<div class="album_title" style="{ttl_cursor}" id="TitleEditable_{album_id}" >
+				{album_name}
+				<!-- gallery_album_editable header_editable -->
+			</div>
+			<div class="album_description">
+				<span>{l_by} <a href="search_results.php?display=profile&name={name}">{name}</a><!-- begin_delimiter--><!-- &nbsp;|&nbsp; --><!-- end_delimiter--></span>
+				
+			</div>
+            <!-- begin_albim_description_oryx -->
+			<div class="album_description" >
+				<div style="margin-bottom: 0 !important;" id="DescEditable_{album_id}" style="{ttl_cursor}" class="album_desc gallery_album_editable">{album_desc}</div>
+			</div>
+            <!-- end_albim_description_oryx -->
+            <ul class="alb">
+            <!-- begin_images -->
+            <li>
+                <div class="trans">
+                <a href="gallery_image.php?img_id={img_id}" class="name">{img_desc}</a>
+                </div>
+                <a href="gallery_image.php?img_id={img_id}"><img src="{url_files}{img_thumb_path}" width="100" height="100" /></a>
+            </li>
+            <!-- end_images -->
+			<!-- begin_no_images -->
+			<li>
+                <div style="height:84px; width:99px; border-left:1px solid #585858;"></div>
+                <div class="trans">
+                </div>
+            </li>
+			<!-- end_no_images -->
+            </ul>
+
+			<!-- begin_images_on -->
+
+				<!-- begin_gallery_albums_all_pages -->
+			<div>
+				<!-- begin_gallery_albums_all_prev_page -->
+				<a href="./{url_page}?offset={offset}{params}">{l_prev}</a>&nbsp; | &nbsp;
+				<!-- end_gallery_albums_all_prev_page -->
+
+				<!-- begin_gallery_albums_all_prev_page_off -->
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+				<!-- end_gallery_albums_all_prev_page_off -->
+
+				<!-- begin_gallery_albums_all_first_page -->
+				<a href="./{url_page}?offset={offset}{params}">{l_page_1}</a>&nbsp;
+				<!-- end_gallery_albums_all_first_page -->
+
+				<!-- begin_gallery_albums_all_prev_pages -->
+				<a href="./{url_page}?offset={offset}{params}">&lt;&lt;</a>&nbsp;
+				<!-- end_gallery_albums_all_prev_pages -->
+
+				<!-- begin_gallery_albums_all_page -->
+					<!-- begin_gallery_albums_all_link_page -->
+					<a href="./{url_page}?offset={offset}{params}">{page}</a>&nbsp;
+					<!-- end_gallery_albums_all_link_page -->
+
+					<!-- begin_gallery_albums_all_this_page -->
+					<b>{page}</b>
+					<!-- end_gallery_albums_all_this_page -->
+				<!-- end_gallery_albums_all_page -->
+
+				<!-- begin_gallery_albums_all_next_pages -->
+				<a href="./{url_page}?offset={offset}{params}">&gt;&gt;</a>&nbsp;
+				<!-- end_gallery_albums_all_next_pages -->
+
+				<!-- begin_gallery_albums_all_last_page -->
+				<b>{l_of}</b> <a href="./{url_page}?offset={offset}{params}">{num_pages}</a>&nbsp;
+				<!-- end_gallery_albums_all_last_page -->
+
+				<!-- begin_gallery_albums_all_next_page -->
+				&nbsp; | &nbsp;<a href="./{url_page}?offset={offset}{params}">{l_next}</a>
+				<!-- end_gallery_albums_all_next_page -->
+
+				<!-- begin_gallery_albums_all_next_page_off -->
+				&nbsp; | &nbsp;<b>{l_next}</b>
+				<!-- end_gallery_albums_all_next_page_off -->
+			</div>
+		<!-- end_gallery_albums_all_pages -->
+
+		<!-- end_images_on -->
+
+            <div class="fl_left">
+<!--               <input type="button" value="{l_back}" class="button_small" onclick="location='javascript:history.back()';" title="{l_back}" />
+ -->              <input type="button" value="{l_back}" class="btn lower_header_color big " onclick="location='javascript:history.back()';" title="{l_back}" />
+            </div>
+
+
+        </div>
+</div>
+
+{footer}

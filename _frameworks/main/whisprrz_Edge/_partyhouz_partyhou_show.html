@@ -1,0 +1,222 @@
+<script type="text/javascript">
+var active = 0;
+var shift = 0;
+var mainPid = '{photo_id}';
+$(function(){
+    // initLightboxOldTemplate($('.image_gallery a'));
+
+    var desc = $('#partyhou_description'),
+        curHeightDefault = desc.height(),
+        current,
+        isCollapse;
+    if ('{description_collapse}'*1) {
+        $('#show_description').show();
+    }
+    current = desc.data('desc-short');
+    $('body').on('click', '#show_description', function(){
+        var curHeight = desc.height();
+            desc.css('height', curHeight+'px');
+        if (current == desc.data('desc-short')) {
+            current = desc.data('desc');
+            isCollapse = false;
+        } else {
+            current = desc.data('desc-short');
+            isCollapse = true;
+        }
+        if (curHeight >= curHeightDefault && isCollapse) {
+            desc.animate({height: curHeightDefault+'px'}, 200, function() {
+                $(this).html(current+' <a id="show_description" href="">{l_show_all}</a>');
+            });
+        } else {
+            desc.html(current+' <a id="show_description" href="">{l_collapse}</a>');
+            var autoHeight = desc.css('height', 'auto').height();
+            desc.height(curHeight).animate({height: autoHeight}, 200);
+        }
+
+        return false;
+    });
+});
+
+function set_main_image(thumbnail, image, n, pid)
+{
+    $('.image_gallery div').attr('href', image);
+    $('.image_gallery div img').attr('src', thumbnail);
+    $('#image_list li').attr('class','');
+    $('#image_list li:eq('+n+')').attr('class','active');
+    active = n+shift;
+    mainPid = pid;
+}
+
+</script>
+<!-- begin_partyhou -->
+<div class="partyhouz_new_decor_l">
+
+    <div class="pl_top">
+        <div style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 5px; ">
+          <h1 class="txt_lower_header_color" title="{partyhou_title_full}" style="margin: 0; height: unset;">{partyhou_title} <!-- begin_partyhou_finished --><span class="green">[</span><span class="white">{l_partyhouz_finished_partyhou}</span><span class="green">]</span><!-- end_partyhou_finished --></h1>
+            <div class="txt_lower_header_color " style="margin-left: 20px; display: flex; align-items: center; width: 240px;"> 
+                <a href="{url_main}{name_seo}" data-cl-loader1="wall_profile_info_name_loader" onclick="clWall.goToProfileFromPhoto($(this)); return false;" class="pic wall_profile_photo_user_{user_id}" style="background-image:url('{url_files}{photo}'); 
+                    display: block;
+                    width: 35px;
+                    height: 35px;
+                    background-size: cover;
+                    background-position: center top;
+                    border-radius: 50%;
+                    background-color: #f2f4f6;">
+                </a>
+                <a href="{url_main}{name_seo}" style="font-size: 20px; margin-left: 10px;">Host {user_name}</a>
+            </div>
+        </div>
+
+          <div style="display: flex; gap: 10px; justify-content: start;">
+            <div>
+                <div class="image_gallery partyhouz_new_img_pink partyhouz_new_margin0"  onclick="openGalleryList(event, mainPid)">
+                    <!-- begin_image --> <div style="width: 160px; height: 120px;"><img src="{image_thumbnail_b}" width="160" height="120" title="{partyhou_title_full}" alt="{partyhou_title_full}"/></div><!--end_image -->
+                    <!-- begin_no_image --> <img src="{image_thumbnail_b}" width="160" height="120" title="{partyhou_title_full}" alt="{partyhou_title_full}"/><!--end_no_image -->
+                </div>
+  
+                <div id="partyhouz_partyhou_image_list">
+                {partyhouz_partyhou_image_list}
+                </div>
+  
+                <!-- begin_partyhou_functions -->
+                <div class="partyhouz_new_img_txt">
+                    <span class="pink"><a href="{url_main}partyhouz_partyhou_add_photos.php?partyhou_id={partyhou_id}">{l_partyhouz_add_images}</a><!-- begin_partyhou_edit --> | <a href="{url_main}partyhouz_partyhou_edit.php?partyhou_id={partyhou_id}">{l_partyhouz_edit_partyhou}</a><!-- end_partyhou_edit --></span>
+                </div>
+                <!-- end_partyhou_functions -->
+            </div>
+  
+            <div class="partyhouz_new_bl_green">
+                <div style="display: flex; justify-content: start; gap: 25px; align-items: center; margin-bottom: 10px;">
+                   <!--  <div style="display: flex; flex-direction: column">
+                        <img src="{user_photo}" style="width: 50px; height: 50px;"/>
+                        <a style="color: white;" href="{url_main}search_results.php?display=profile&uid={user_id}">{user_name}</a>
+                    </div> -->
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <p style="margin:0!important">{locked_string}</p>
+                        <p style="margin:0!important">{cum_string}</p>
+                        <p style="margin:0!important">{lookin_string}</p>
+                    </div>
+                </div>
+                <div class="list_bg_violet">
+                  <ul class="list_bg fl_left">
+                      <li><strong>{l_partyhouz_category}:</strong> <a href="{url_main}partyhouz_search.php?category_id={category_id}" title="{category_title_full}">{category_title}</a></li>
+                      <li><span>{l_partyhouz_guests}:</span> {partyhou_n_guests}</li>
+                  </ul>
+                  <ul class="list_bg fl_left">
+                      <li><strong class="white">{partyhou_date}</strong></li>
+                      <li><strong class="white">{partyhou_time}</strong></li>
+                      <li><span style="color:red; background-color: rgba(255,255,255,0.7); border-radius: 12px; padding: 2px 6px;" id="partyhou_countdown" data-sign="{sign}">{formattedDifference}</span></li>
+                  </ul>
+                </div>
+            </div>
+          </div>
+    </div>
+
+</div>
+<script>
+    function updateDifference($element) {
+        const sign = $element.data("sign");
+        const formattedDifference = $element.text();
+        const timeParts = formattedDifference.split(":");
+        let days = parseInt(timeParts[0]);
+        let hours = parseInt(timeParts[1]);
+        let minutes = parseInt(timeParts[2]);
+
+        if (sign === "+") {
+            minutes -= 1;
+            if (minutes < 0) {
+                hours -= 1;
+                minutes += 60;
+            }
+            if (hours < 0) {
+                days -= 1;
+                hours += 24;
+            }
+
+            if (hours == 0 && days == 0 && minutes == 0) {
+                $element.data("sign", "-");
+            }
+        } else if (sign === "-") {
+            minutes += 1;
+            if (minutes >= 60) {
+                hours += 1;
+                minutes -= 60;
+            }
+            if (hours >= 24) {
+                days += 1;
+                hours -= 24;
+            }
+        }
+
+        if ($element.data("sign") === "+") {
+            $element.css("color", "green");
+        } else {
+            $element.css("color", "red");
+        }
+
+        const updatedFormattedDifference = days + ":" + hours + ":" + minutes;
+        return updatedFormattedDifference;
+    }
+
+    function refreshTimeSpan() {
+        const updatedText = updateDifference($("#partyhou_countdown"));
+        $("#partyhou_countdown").text(updatedText);
+    }
+
+    $(document).ready(function() {
+        refreshTimeSpan();
+        setInterval(refreshTimeSpan, 60 * 1000); // Update every 1 minute (60,000 milliseconds)
+    });
+</script>
+<!-- end_partyhou -->
+
+<!-- begin_partyhou_private -->
+<script language="javascript" type="text/javascript">//classHover: 'album_title',classHover: 'album_desc',
+$(function(){
+	$('#partyhouDescription_{partyhou_id}').editable({
+		lAdd: '{l_add_desc_partyhou_private}',
+		lEdit: '{l_edit_desc_partyhou_private}',
+		lSave: '{l_saving}',
+        type: 'partyhou_private_desc',
+        typeData: 'partyhou_description',
+		classInput: 'partyhou_private_editable_input',
+		classHover: 'partyhou_private_editable_hov',
+		inputLength:1000//{gallery_album_description_length}
+	});
+});
+</script>
+<div class="partyhouz_new_p">
+
+	<div class="partyhouz_new_decor_no pl_top">
+	      <h1 class="txt_lower_header_color" title="{partyhou_title_full}">{partyhou_title_full}</h1>
+        <div class="line" style="margin: 0 0 15px;" ></div>
+	      <div class="fl_left">
+		          <div class="image_gallery partyhouz_new_img_pink partyhouz_new_margin0">
+	                  <a href="{image_file}" style="display: block; width: 160px; height: 120px;"><img src="{image_thumbnail_b}" width="160" height="120" title="{partyhou_title_full}" alt="{partyhou_title_full}"/></a>
+		          </div>
+
+		          <div id="partyhouz_partyhou_image_list">
+		          {partyhouz_partyhou_image_list}
+		          </div>
+
+	              <!-- begin_partyhou_private_functions -->
+	              <div class="partyhouz_new_img_txt">
+	                  <span><a href="{url_main}partyhouz_partyhou_add_photos.php?partyhou_id={partyhou_id}">{l_partyhouz_add_images}</a> | <a href="{url_main}partyhouz_partyhou_edit.php?partyhou_id={partyhou_id}">{l_partyhouz_edit_entry}</a> | <a class="areyousure" href="{url_main}partyhouz_partyhou_delete.php?partyhou_id={partyhou_id}">{l_partyhouz_delete}</a></span>
+	              </div>
+	              <!-- end_partyhou_private_functions -->
+	          </div>
+
+	          <div class="partyhouz_new_bl_green">
+	              <h2>
+	                    <span class="txt_lower_header_color">{partyhou_date}</span> | {partyhou_time}
+	              </h2>
+                  <div id="partyhouDescription_{partyhou_id}">{partyhou_description_full}</div>
+	          </div>
+
+	    </div>
+
+	</div>
+
+</div>
+<!-- end_partyhou_private -->

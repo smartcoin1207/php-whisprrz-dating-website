@@ -1,0 +1,49 @@
+{header}
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+
+	<!-- begin_language -->
+		<!-- begin_language_link -->
+		<li><a href="{url_page}?page={page_current}&lang={language_value}">{language_title}</a></li>
+		<!-- end_language_link -->
+
+		<!-- begin_language_active -->
+		<li class="active"><a href="{url_page}?page={page_current}&lang={language_value}">{language_title}</a></li>
+		<!-- end_language_active -->
+	<!-- end_language -->
+
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+        <!-- begin_mail -->
+        <!-- begin_mail_on -->
+        {page_title_link}&nbsp;&nbsp;
+        <!-- end_mail_on -->
+        <!-- begin_mail_off -->
+        <a href="{url_page}?page={page}&lang={lang}">{page_title_link}</a>&nbsp;&nbsp;
+        <!-- end_mail_off -->
+        <!-- end_mail -->
+
+
+
+    <div class="bl_form">
+		<p>{message_auto}</p>
+		<form action="{url_page}?page={page_current}&lang={lang}" method="POST">
+		<input type="hidden" name="cmd" value="edit">
+        <label>{l_subject}:</label>
+        <input type="text" name="title" value="{page_title}">
+        <label>{l_text}:</label>
+        <textarea id="popup_textedit" name="text" class="textarea_big">{page_text}</textarea>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+    <br clear="all">
+    <div class="empty"></div>
+</div>
+
+{footer}

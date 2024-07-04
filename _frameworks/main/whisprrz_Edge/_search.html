@@ -1,0 +1,233 @@
+<script type="text/javascript">
+  var blockSubmission = false;
+  function removeSubmissionBlock() {
+    blockSubmission = false;
+  }
+  function isSubmissionAllowed() {
+    if(blockSubmission){
+       return false;
+    }
+    return;
+   }
+  document.onclick = isSubmissionAllowed;
+  document.onkeydown = isSubmissionAllowed;
+
+  function onValidatebasicsearch() {
+    var form = document.forms['basicsearch'];
+    <!-- begin_search_saved_js -->
+    // "search_name" field validation.
+    if (!(validateMaxLength(form['search_name'], '{l_search_name}','50'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    // "search_name" field validation.
+    if (!(nonEmptyDependency(form['save_search'], '{l_save_search}', form['search_name'], '{l_search_name}', "{l_save_search_empty}"))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    <!-- end_search_saved_js -->
+    return true;
+  }
+  function validatebasicsearch() {
+    blockSubmission = true;
+     if (typeof beforebasicsearchValidation != 'undefined') {
+       beforebasicsearchValidation();
+    }
+    var validated = onValidatebasicsearch();
+    if (validated && (typeof uponSuccessfulbasicsearchValidation != 'undefined')) {
+      validated = uponSuccessfulbasicsearchValidation();
+    }
+    else if (!validated && (typeof uponUnsuccessfulbasicsearchValidation != 'undefined')) {
+      uponUnsuccessfulbasicsearchValidation();
+    }
+    if (!validated) {
+      removeSubmissionBlock();
+    }
+    return validated;
+  }
+  function submitbasicsearch() {
+   if (validatebasicsearch()) {
+      if ($('#save_search').prop('checked')) {
+                $.post('ajax.php', {cmd: 'save_search', name: $('#search_name').val()},
+                        function(response){
+                            if (response > 0) {
+                                if (confirm('{l_have_saved_search}')) {
+                                   document.basicsearch.submit();
+                                } else {
+                                   $('#search_name').focus();
+                                }
+                            } else {
+                                document.basicsearch.submit();
+                            }
+               });
+               removeSubmissionBlock();
+               return false;
+        } else {
+              document.basicsearch.submit();
+        }
+    }
+  }
+
+  	$(function () {
+		var col_fr = $('.column_main.frame_content');
+		var fr_col = $('.frame_content.column_main');
+		var search_el = $('#searchn');
+
+		var left_block;
+		if(col_fr) {
+			left_block = col_fr;
+		} else {
+			left_block = fr_col;
+		}
+
+		var currentUrl = window.location.href;
+
+
+		if(left_block && !currentUrl.includes('home.php')) {
+
+			if(search_el.height() < (left_block.height() + 20)) {
+				search_el.height(left_block.height() + 20);
+			} else {
+				left_block.height(search_el.height()-20);
+			}
+		}
+
+		
+	});
+</script>
+<!-- <div id="searchn" class="box">
+					<div class="bbt">
+						<div class="bbb">
+							<div class="bbl">
+								<div class="bbr">
+									<div class="bbtl">
+										<div class="bbtr">
+											<div class="bbbl"> -->
+												<div id="searchn" class="frame_content" style="padding: 15px 8px 8px; width: 150px; line-height: 16px; ">
+													<!-- begin_banner_right_column -->
+													<div class="banner_right_column_search">
+														{banner_right_column}
+													</div>
+													<!-- end_banner_right_column -->
+													<div class="in">
+														<ul id="personal-stat">
+															<!-- begin_mail_on -->
+															<li><img width="16" height="15" src="{url_tmpl_main}img/icon-mail.gif" alt="" /> {l_new_mail}: <a style="font-size: 11px;"
+																	href="{url_main}mail.php">{new_mails}</a></li>
+															<!-- end_mail_on -->
+															<!-- begin_wink_on -->
+															<li><img width="16" height="15" src="{url_tmpl_main}img/icon-interests.gif" alt="" /> {l_new_interests}: <a style="font-size: 11px;"
+																	href="{url_main}mail_whos_interest.php">{new_interest}</a></li>
+															<!-- end_wink_on -->
+															<li><img width="16" height="15" src="{url_tmpl_main}img/icon-newmem.gif" alt="" /> {l_new_members}: <a style="font-size: 11px;"
+																	href="{url_main}users_new.php">{users_new}</a></li>
+															<!-- begin_new_near -->
+															<li><img width="16" height="15" src="{url_tmpl_main}img/icon-newmemny.gif" alt="" /> {l_new_members_near}: <a style="font-size: 11px;"
+																	href="{url_main}search_results.php?<!-- begin_p_orientation -->p_orientation%5B%5D={p_orientation}&<!-- end_p_orientation -->&country={country}&state={state}&city={city}&status=new">{users_new_near}</a>
+															</li>
+															<!-- end_new_near -->
+															<!-- begin_viewed_me -->
+															<li><img width="16" height="15" src="{url_tmpl_main}img/icon-views.gif" alt="" /> {l_new_views}: <a style="font-size: 11px;"
+																	href="{url_main}users_viewed_me.php">{users_view_new}</a></li>
+															<li><img width="16" height="15" src="{url_tmpl_main}img/icon-totalviews.gif" alt="" /> {l_total_views}: <a style="font-size: 11px;"
+																	href="{url_main}users_viewed_me.php">{users_view_total}</a></li>
+															<!-- end_viewed_me -->
+															<!-- begin_biorythm -->
+															<li><img width="16" height="16" src="{url_tmpl_main}img/agt_runit.png" class="png_behavior" alt=""> <a style="font-size: 10px;"
+																	href="{url_main}biorythm.php?id={user_id}">{l_my_biorythm}</a></li>
+															<!-- end_biorythm -->
+														</ul>	
+													<h2>{l_search_now}<!-- <img src="{url_main}tmpl_img_loader.php?tmpl={tmpl_loaded}&dirs=img&file=title-search.gif&lang={lang_loaded}" alt="{l_search_search}" /> --></h2>
+													<form class="search_form"  name="basicsearch"  method="GET" action="{url_main}search_results.php">
+													<p>
+														<!-- begin_p_orientation1 -->
+														<input type="hidden" name="p_orientation[]" value="{p_orientation}">
+														<!-- end_p_orientation1 -->
+														<!-- {l_search_ages}<br /> -->
+														<select name="p_age_from" class="no_abk" style="width: 59px;">{p_age_from_options}</select>
+														{l_to}
+														<select class="no_abk fl_right" name="p_age_to" style="width:59px; ">{p_age_to_options}</select>
+													</p>
+													<!-- nnsscc-diamond20200304-start -->
+                                                    <!-- begin_relation -->
+													<p>
+														<span class="bold">{l_sexuality}</span>
+														<table class="rel-type">
+															<!-- begin_p_relation -->
+                                                            <tr>
+																<td>
+																	<div style="float:left;"><input name="p_income[]" type="checkbox" value="{id}" id="rel_{id}" {checked}>&nbsp;
+																	<label for="rel_{id}" class="dash">{title}</label></div>
+
+																</td>
+                                                            </tr>
+															<!-- begin_p_relation_column -->
+															<!-- end_p_relation_column -->
+															<!-- end_p_relation -->
+														</table>
+													</p>
+                                                    <!-- end_relation -->
+													<!-- begin_orientation -->
+													<p>
+														<span class="bold">{l_status}</span>
+														<table class="rel-type">
+															<!-- begin_p_orientation_status -->
+                                <tr>
+																<td>	
+																	<div style="float:left;"><input name="p_orientation[]" type="checkbox" value="{id}" id="rel1_{id}" {checked}>&nbsp;
+																	<label for="rel1_{id}" class="dash">{title}</label></div>
+
+																</td>
+                                </tr>
+															<!-- end_p_orientation_status -->
+														</table>
+													</p>
+                          <!-- end_orientation -->
+													<!-- nnsscc-diamond20200304-end -->
+													<p>
+														<label class="bold" for="keyword">{l_search_keyword}</label>
+														<input style="width:128px;" type="text" class="no_abk" id="keyword" name="keyword" maxlength="200" id="other">
+													</p>
+													<!-- begin_search_field_user_status_enabled -->
+
+
+													<p>
+														<label class="bold" for="member-status">{l_search_mem_status}</label>
+														<select style="width:139px;" class="no_abk" name="status" id="member-status">
+															{status_options}
+														</select>
+													</p>
+													<!-- end_search_field_user_status_enabled -->
+													<!-- begin_with_photo -->
+                                                    <p>
+														<input type="checkbox" id="with-photo" name="photo" {checks_photo} value="1">&nbsp;<label for="with-photo" class="dash">{l_search_photo_req}</label></br>
+													</p>
+													<!-- end_with_photo -->
+                                                    <!-- begin_search_saved -->
+													<p>
+														<input type="checkbox" value="1" name="save_search" id="save_search">&nbsp;<label for="save_search" class="dash">{l_search_save_as}</label>
+
+														<input style="width:128px;" type="text" class="no_abk placeholder" id="search_name" name="search_name" placeholder="{l_my_search}" size="12">
+													</p>
+													<p>
+														<a href="{url_main}search_save.php">{l_search_manage_saved}</a><br/>
+													</p>
+                                                    <!-- end_search_saved -->
+													<p>
+						<!-- 								<input type="image" alt="{l_find_now}" src="{url_main}tmpl_img_loader.php?tmpl={tmpl_loaded}&dirs=img&file=button-find.gif&lang={lang_loaded}" style="border:0px; float:right;" /> -->
+
+														<input type="submit" alt="{l_find_now}" title="{l_find_now}" onclick="submitbasicsearch(); return false;" style="padding: 0 7px; line-height: 20px;" class="btn lower_header_color fl_right" value="{l_find_now}">
+													</p>
+													</form>
+													</div>
+<!-- 												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+
+            
+</div><!-- searchn end -->

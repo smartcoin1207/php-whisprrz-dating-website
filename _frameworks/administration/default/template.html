@@ -1,0 +1,63 @@
+{header}
+<style type="text/css">
+tr.active td {font-weight: bold;}
+</style>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_page}?part={part}">{l_tmpls_list}</a></li>
+        <!-- begin_mtmpl -->
+        <li><a href="{url_main}administration/{mtmpl_edit_url}?part={part}&tmpl={tmpl_this}">{title}</a></li>
+        <!-- end_mtmpl -->
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <table class="tb">
+    <tr>
+        <th class="decor_l">&nbsp;</th>
+        <th class="right">{l_name}</th>
+        <th >{l_edit}</th>
+        <th >{l_active}</th>
+        <th class="last">{l_delete}</th>
+        <th class="decor_r">&nbsp;</th>
+    </tr>
+    <!-- begin_tmpl -->
+    <tr class="{class} {class_active}">
+        <td class="decor{decl}">&nbsp;</td>
+        <td class="right">{title}</td>
+        <td><a href="{url_main}administration/{tmpl_edit_url}?part={part}&tmpl={template}">{l_edit}</a></td>
+        <!-- begin_tmpl_off -->
+        <td><a href="{url_page}?part={part}&set={template}">{l_set}</a></td>
+        <td class="last"><a onclick="if(!confirm('{l_are_you_sure}')) return false;" href="{url_page}?part={part}&del={template}">{l_delete}</a></td>
+        <!-- end_tmpl_off -->
+        <!-- begin_tmpl_on -->
+        <td>{l_active}</td>
+        <td class="last">
+        <!-- begin_delete_on -->
+        <a onclick="if(!confirm('{l_are_you_sure}')) return false;" href="{url_page}?part={part}&del={template}">{l_delete}</a>
+        <!-- end_delete_on -->
+        </td>
+        <!-- end_tmpl_on -->
+        <td class="decor{decr}">&nbsp;</td>
+    </tr>
+    <!-- end_tmpl -->
+    </table>
+
+    <div class="bl_form">
+        <h2>{l_new_template}</h2>
+
+        <form action="{url_page}?part={part}" method="POST">
+        <input type="hidden" name="cmd" value="add_tmpl">
+        <p>{message_template}</p>
+        <label>{l_new_title}:</label>
+        <input type="text" name="add_title" value="{add_title}">
+        <div class="btn fl_right"><a href="#" class="submit">{l_create}</a>
+					<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

@@ -1,0 +1,249 @@
+<center>
+    <h2 class="cham-heading">{l_login}</h2>
+    <p class="signature">{l_you_can_use_your_username_or_email}</p>
+    <!-- begin_bl_link_join -->
+    <div class="bl_login_go_to_join">
+        <span>{l_header_visitor_text}</span> <a href="{url_main}{url_page_join}">{l_header_visitor_register}</a>
+    </div>
+    <!-- end_bl_link_join -->
+</center>
+<div class="section field_icon mobile visible-xs visible-sm visible-md">
+    <div class="container">
+        <div class="row">
+            <div class="cham-icon text-center">
+                <i id="frm_login_page_icon" class="fa fa-user"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section fields">
+    <div class="container">
+        <div class="row frm_login">
+            <div class="col-lg-3 hidden-md hidden-sm hidden-xs text-right">
+                <div class="cham-icon">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+
+
+            <form method="post" action="{url_main}join.php?cmd=login" id="login-f" class="clearfix  joinForm">
+
+            <div class="col-lg-2 field">
+                <input data-toggle="tooltip" data-placement="top" title="" id="frm_login_page_name" type="text" name="user" class="form-control" placeholder="{l_email_name}" autocomplete="off">
+            </div>
+            <div class="col-lg-2 field">
+                <input id="frm_login_page_pass" type="password" name="password" class="form-control" placeholder="{l_password}" autocomplete="off">
+            </div>
+
+            <input id="login_type_field" type="text" name="login_type" value="5" hidden/>
+            <input id="eighteen_type_field" type="text" name="eighteen_type" value="0" hidden/>
+
+
+            <div class="col-lg-2 field mobile text-center hidden-lg">
+                <a onclick="showForgotFrm(); return false;" class="link_forgot_password" href="">{l_forgot_password}</a>
+            </div>
+            <div class="col-lg-2 field mobile text-center hidden-lg">
+                <div class="field_checkbox_remember">
+                    <input id="remember_me_lg" name="remember_lg" value="1" checked="checked" type="checkbox">
+                    <label for="remember_me_lg">{l_remember_me}</label>
+                </div>
+            </div>
+
+            <div class="col-lg-2 field">
+                <button class="btn btn-block btn-info" onclick="loginIn($(this)); return false;">
+                    <span>{l_login}</span>
+                </button>
+            </div>
+            </form>
+        </div>
+
+        <div>
+            <input type="checkbox" id="swal2-checkbox" hidden /> 
+        </div> 
+
+
+        <style>
+            
+            
+            h1 {
+                text-align: center;
+                font-family: Tahoma, Arial, sans-serif;
+                color: #06D85F;
+                margin: 80px 0;
+            }
+            
+            .box {
+                width: 40%;
+                margin: 0 auto;
+                background: rgba(255,255,255,0.2);
+                padding: 35px;
+                border: 2px solid #fff;
+                border-radius: 20px/50px;
+                background-clip: padding-box;
+                text-align: center;
+            }
+            
+            .button {
+                font-size: 1em;
+                padding: 10px;
+                color: #fff;
+                border: 2px solid #06D85F;
+                border-radius: 20px/50px;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.3s ease-out;
+            }
+            .button:hover {
+                background: #06D85F;
+            }
+            
+            .overlay {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.7);
+                transition: opacity 500ms;
+                visibility: hidden;
+                opacity: 0;
+            }
+            .overlay.show {
+                visibility: visible;
+                opacity: 1;
+            }
+            
+            .popup {
+                margin: 70px auto;
+                padding: 20px;
+                background: #fff;
+                border-radius: 5px;
+                width: 30%;
+                position: relative;
+                transition: all 5s ease-in-out;
+            }
+            
+            .popup h2 {
+                margin-top: 0;
+                color: #333;
+                font-family: Tahoma, Arial, sans-serif;
+            }
+            .popup .close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                transition: all 200ms;
+                font-size: 30px;
+                font-weight: bold;
+                text-decoration: none;
+                color: #333;
+            }
+            .popup .close:hover {
+                color: #06D85F;
+            }
+            .popup .content {
+                max-height: 30%;
+                overflow: auto;
+            }
+            
+            @media screen and (max-width: 700px){
+                .box{
+                width: 70%;
+                }
+                .popup{
+                width: 70%;
+                }
+            }
+
+            p {
+                margin-bottom: 0px;
+            }
+            .swal2-popup {
+                width: 500px;
+            }
+
+            .swal2-styled.swal2-confirm {
+                font-size: 16px;
+            }
+
+            .swal2-title {
+                font-size: 26px;
+            }
+
+            .swal2-styled.swal2-cancel {
+                font-size: 16px;
+            }
+            .swal2-container a {
+                    text-decoration: underline;
+            }
+             .swal2-html-container label{
+                font-size: 15px;
+            }   
+        </style>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script  src="{url_tmpl_main}js/sweetalert2.js{cache_version_param}"></script><!--Divyesh-21072023-->
+        <script>
+                var l_login_type = '{l_login_type}';
+                var l_login_instructions = '{l_login_instructions}';
+                var l_login_terms_and_condition = '{l_login_terms_and_condition}';
+                var l_is_eighteen_terms = '{l_is_eighteen_terms}';
+                var l_not_eighteen_terms = '{l_not_eighteen_terms}';
+                var l_login_couple = '{l_login_couple}';
+
+                
+    function doLogin111(){
+
+    var user_name = $("#frm_login_page_name").val();
+    var password = $("#password").val();
+
+    var encodedString = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(password));
+    localStorage.setItem('crypt', encodedString);
+
+
+    $("#login-f").submit();
+
+    }
+    </script>
+    </div>
+</div>
+<div class="section fields">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>
+            <div class="col-lg-2 field mobile bl_social login bl_social_frm"> <!-- text-center -->
+                <!-- begin_log_in_social -->
+                <!-- begin_log_in_social_item -->
+                <a onclick="return pwaSocialLogin(this);" href="{log_in_social_item_url}"><i class="fa fa-{log_in_social_item_type}"></i></a>
+                <!-- end_log_in_social_item -->
+                <!-- end_log_in_social -->
+                <!-- begin_log_in_social_no_class -->
+                <!-- end_log_in_social_no_class -->
+            </div>
+            <div class="col-lg-2 field hidden-md hidden-sm hidden-xs"> <!-- text-center -->
+                <a onclick="showForgotFrm(); return false;" class="link_forgot_password" href="">{l_forgot_password}</a>
+            </div>
+            <div class="col-lg-2 field text-center hidden-md hidden-sm hidden-xs">
+                <div class="field_checkbox_remember">
+                    <input id="remember_me1" name="remember" value="1" checked="checked" type="checkbox">
+                    <label for="remember_me1">{l_remember_me}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- begin_demo -->
+
+
+
+<script>
+
+
+
+$(function(){
+    $('#frm_login_header_name, #frm_login_page_name').val('{login_user}');
+    $('#frm_login_header_pass, #frm_login_page_pass').val('{login_password}')
+});
+</script>
+<!-- end_demo -->

@@ -1,0 +1,100 @@
+<div class="events_new_head">
+<script type="text/javascript">
+    function events_header_search_on_submit()
+    {
+        query = $("#events_header_search input[name='query']").val();
+        
+        if((query != '')&&(query != '{l_events_default_search_query}'))
+        {
+            return true;
+        }
+
+        alert('{l_blogs_please_enter_what_you_search}');
+        
+        return false;
+    }
+</script>
+<script type="text/javascript">
+    function hotdates_header_search_on_submit()
+    {
+        query = $("#hotdates_header_search input[name='query']").val();
+        
+        if((query != '')&&(query != '{l_hotdates_default_search_query}'))
+        {
+            return true;
+        }
+
+        alert('{l_blogs_please_enter_what_you_search}');
+        
+        return false;
+    }
+</script>
+<script type="text/javascript">
+    function partyhouz_header_search_on_submit()
+    {
+        query = $("#partyhouz_header_search input[name='query']").val();
+        
+        if((query != '')&&(query != '{l_partyhouz_default_search_query}'))
+        {
+            return true;
+        }
+
+        alert('{l_blogs_please_enter_what_you_search}');
+        
+        return false;
+    }
+</script>
+        <div class="events_head_bl" style="display: flex; flex-direction: column; gap: 10px; justify-content: start;">
+            <div style="display: flex; justify-content: start; gap: 10px;">
+				<div class="events_new_head_txt txt_upper_header_color" style="flex: 1;">
+					<strong><a href="{url_main}events.php" style="text-decoration:none; color:#7935df;">{l_events_events}</a></strong>
+					<strong><a href="{url_main}hotdates.php" style="text-decoration:none; color:#7935df;">{l_hotdates_hotdates}</a></strong>
+						<strong><a href="{url_main}events.php" style="text-decoration:none; color:#7935df;">{l_partyhouz_partyhouz}</a></strong>
+					<!-- begin_event_header_location --> <span class="dot4">::</span>  {l_you_are_in} <span title="{location_full}">{location}</span><!-- end_event_header_location -->
+				</div>
+				<div style="flex: 0.8; display: flex; justify-content: space-between; align-items:center;">
+						<form action="{url_main}partyhouz_partyhou_edit.php<!--begin_partyhou_date -->?date={partyhou_date}<!--end_partyhou_date -->" method="post">
+							<a href="{url_main}partyhouz_partyhou_edit.php<!--begin_partyhou_date -->?date={partyhou_date}<!--end_partyhou_date -->" style="margin-right:15px;" class="btn round blue fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_partyhou_create_partyhou}&nbsp;<img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+						</form>
+						<form action="{url_main}hotdates_hotdate_edit.php<!--begin_hotdate_date -->?date={hotdate_date}<!--end_hotdate_date -->" method="post">
+							<a href="{url_main}hotdates_hotdate_edit.php<!--begin_hotdate_date -->?date={hotdate_date}<!--end_hotdate_date -->" style="margin-right:15px;" class="btn round blue fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_hotdates_create_hotdate}&nbsp;<img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+						</form>
+						<form action="{url_main}events_event_edit.php<!--begin_event_date -->?date={event_date}<!--end_event_date -->" method="post">
+							<a href="{url_main}events_event_edit.php<!--begin_event_date -->?date={event_date}<!--end_event_date -->" class="btn round blue fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_events_create_event}&nbsp;<img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+						</form>
+				</div>
+			</div>
+			<div style="display: flex; justify-content: space-between; gap: 10px; align-items: center;">
+				<form style="display: flex; justify-content: space-between; align-items: center;" id="partyhouz_header_search" autocomplete="off" action="{url_main}partyhouz_search.php" method="get" onsubmit="return hotdates_header_search_on_submit();">
+					<div class="events_input_text1" style="width: 100px;"><input class="no_abk" type="text" name="query" /></div>
+					<input style="margin: 0 15px 0 0;" class="btn round blue big" type="submit" value="{l_hotdates} {l_partyhouz_search}" />
+				</form>
+				<form style="display: flex; justify-content: space-between; align-items: center;" id="hotdates_header_search" autocomplete="off" action="{url_main}hotdates_search.php" method="get" onsubmit="return hotdates_header_search_on_submit();">
+					<div class="events_input_text1" style="width: 100px;"><input class="no_abk" type="text" name="query" /></div>
+					<input style="margin: 0 15px 0 0;" class="btn round blue big" type="submit" value="{l_hotdates} {l_hotdates_search}" />
+				</form>
+				<form style="display: flex; justify-content: space-between; align-items: center;" id="events_header_search" autocomplete="off" action="{url_main}events_search.php" method="get" onsubmit="return events_header_search_on_submit();">
+					<div class="events_input_text1" style="width: 100px;"><input class="no_abk" type="text" name="query" /></div>
+					<input style="margin: 0 15px 0 0;" class="btn round blue big" type="submit" value="{l_events} {l_events_search}" />
+				</form>
+			</div> 
+		</div>             
+
+    <div class="events_new_menu_bg">
+        <ul class="events_new_menu fl_left">
+            <!-- begin_categories_item --><!-- begin_categories_item_active --><class="last"><span class="txt_upper_header_color">{category_title}</span></class><!-- end_categories_item_active --><!-- begin_categories_item_not_active --><class="last"><a href="{url_main}events_settings_change.php?category_id={category_id}" style="margin-right: 5px;">{category_title}</a></class><!-- end_categories_item_not_active --><!-- end_categories_item -->
+        </ul>
+        <ul class="events_new_menu fl_right">
+        	<class="last"><a href="{url_main}partyhouz_my.php">{l_partyhouz_my_partyhouz}</a></class>
+            <class="last"><a href="{url_main}hotdates_my.php">{l_hotdates_my_hotdates}</a></class>
+			<class="last"><a href="{url_main}events_my.php">{l_events_my_events}</a></class>
+            <class="last"><a href="{url_main}partyhouz_calendar.php">{l_partyhouz_my_calendar}</a></class>
+            <class="last"><a href="{url_main}hotdates_calendar.php">{l_hotdates_my_calendar}</a></class>
+            <class="last"><a href="{url_main}events_calendar.php">{l_events_my_calendar}</a></class>
+            <class="last"><a href="{url_main}events_event_edit.php?event_private=1<!--begin_private_event_date -->&date={event_date}<!--end_private_event_date -->">{l_events_new_entry_to_calendar}</a></class>
+
+        </ul>
+
+    <div class="justify"></div>
+    </div>
+</div>

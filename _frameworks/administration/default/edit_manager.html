@@ -1,0 +1,58 @@
+{header}
+
+<!-- begin_admin_page -->
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="" ><a href="{url_main}administration/add_manager.php">{l_add_manager}</a></li>
+        <li class="active" ><a href="{url_main}administration/edit_manager.php" style="pointer-events: none; cursor: default;">{l_edit_manager}</a></li>
+        <li class="" ><a href="{url_main}administration/managers.php">{l_managers}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_enter_manager_information}</h2>
+
+    <div class="bl_form">
+        <form action="{url_page}" method="POST" id="edit_manager" name="edit_manager">
+            <input type="hidden" name="cmd" value="edit_manager">
+            <input type="hidden" name="m_user_id" value="{m_user_id}"/>
+            <label>{l_manager_name}:</label>
+            <input type="text" id="name" name="name" value="{m_username}"/>
+
+            <label>{l_manager_password}:</label>
+            <input type="password" id="password" name="password" value="{m_password}"/>
+            
+            <label>{l_available_menu_select}:</label>
+
+            <!-- begin_manage_checkbox -->
+                <!-- begin_manage_checkbox_item -->
+                <div class="bl_label">
+                    <label class="fl_left" style="cursor: pointer;">{checkbox_label}</label>
+                    <div class="fl_right"><input class="check" for="add_manager" type="checkbox" name="{checkbox_name}" id="{checkbox_name}" value="1" {m_checked}></div>
+                    <div class="justify"></div>
+                </div> 
+                <!-- end_manage_checkbox_item -->
+            <!-- end_manage_checkbox -->
+
+           
+
+            <div class="btn fl_right"><a href="#" id="edit_manager" class="submit">{l_edit_manager}</a>
+			<input type="submit" style="visibility:hidden; position:relative;" id="edit_manager">
+
+			</div>
+        </form>
+
+    <span id="add_manager_results"></span>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    </div>
+</div>
+
+<!-- end_admin_page -->
+
+<!-- begin_admin_page_auth -->
+<script type='text/javascript'>document.location.href = '{url}';</script>
+<!-- end_admin_page_auth -->
+
+{footer}

@@ -1,0 +1,392 @@
+{header}
+
+<div class="frame_content">
+
+			<script Language="JavaScript" type="text/javascript">
+
+var jqTransformDaySelect = true;
+			  function onValidateJoinPage2Form() {
+			    var form = document.forms['JoinPage2Form'];
+			    // if (!(validateRequiredSelect(form['state'],'{l_state}','-1'))) {
+			    //   return false;
+			    // }
+			    // if (!(validateRequiredSelect(form['city'],'{l_city}','-1'))) {
+			    //   return false;
+			    // }
+                <!--begin_age_range_js-->
+                if (!(validateRequiredSelect(form['partner_age_from'],'{l_age_from}','00'))) {
+                  return false;
+                }
+                if (!(validateRequiredSelect(form['partner_age_to'], '{l_age_to}', '00'))) {
+                  return false;
+                }
+                <!--end_age_range_js-->
+                <!-- begin_const_js -->
+                if (!(validateRequiredSelect(form['{name}'],'{field_js}','00')))
+                {
+                  return false;
+                }
+                <!-- end_const_js -->
+                <!-- begin_int_1_js -->
+			    if (!(validateRequiredSelect(form['{name}'],'{field_js}','00')))
+			    {
+			      return false;
+			    }
+			    <!-- end_int_1_js -->
+
+                <!-- begin_int_2_js -->
+			    if (!(validateRequiredSelect(form['{name}'],'{field_js}','00')))
+			    {
+			      return false;
+			    }
+			    <!-- end_int_2_js -->
+
+                <!-- begin_int_3_js -->
+			    if (!(validateRequiredSelect(form['{name}'],'{field_js}','00')))
+			    {
+			      return false;
+			    }
+			    <!-- end_int_3_js -->
+
+				<!-- begin_text_js -->
+			    if (!(validateRequiredField(form['{name}'], '{field_js}', '')))
+			    {
+			      return false;
+			    }
+			    if (!(validateMaxLength(form['{name}'], '{field_js}','{maxlen}')))
+			    {
+			      return false;
+			    }
+			    if (!(validateMaxLength(form['{name}'], '{field_js}','{maxlen}')))
+			    {
+			      return false;
+			    }
+			    <!-- end_text_js -->
+
+				<!-- begin_textarea_js -->
+			    if (!(validateRequiredField(form['{name}'], '{field_js}', '')))
+			    {
+			      return false;
+			    }
+			    if (!(validateMaxLength(form['{name}'], '{field_js}','{maxlen}')))
+			    {
+			      return false;
+			    }
+			    if (!(validateMaxLength(form['{name}'], '{field_js}','{maxlen}')))
+			    {
+			      return false;
+			    }
+			    <!-- end_textarea_js -->
+
+			    return true;
+			  }
+			  function validateJoinPage2Form() {
+			     if (typeof beforeJoinPage2FormValidation != 'undefined') {
+			       beforeJoinPage2FormValidation();
+			    }
+			    var validated = onValidateJoinPage2Form();
+			    if (validated && (typeof uponSuccessfulJoinPage2FormValidation != 'undefined')) {
+			      validated = uponSuccessfulJoinPage2FormValidation();
+			    }
+			    else if (!validated && (typeof uponUnsuccessfulJoinPage2FormValidation != 'undefined')) {
+			      uponUnsuccessfulJoinPage2FormValidation();
+			    }
+			    return validated;
+			  }
+			  function submitJoinPage2Form() {
+			   if (validateJoinPage2Form()) document.JoinPage2Form.submit();
+			    }
+			</script>
+
+	<div align="center"  style="padding-top: 20px; padding-bottom: 20px;">
+		<div align="left" style="width: 631px;">			
+			<!-- begin_new_single_join -->
+			<h2>{l_step_2}</h2>
+			<!-- end_new_single_join -->
+			<h2>{couple_profile_title}</h2>
+			<form class="" name="JoinPage2Form" method="POST" action="{url_main}join2.php?cmd=action" onSubmit="return validateJoinPage2Form();" style="padding: 0px; margin: 0px;">
+			
+
+					<div>{join_message}</div><br>
+						<div  class="header_small">{l_partner_2}</div>
+						<!-- begin_nsc_couple_profile_type -->
+
+						<table class="jc" style="position: relative;">
+							<tr>
+								<td class="jc_left"><label for="month">{nsc_nickname_label}:</label></td>
+								<td class="jc_right">
+
+											<div class="module_change_nickname">
+												<a class="module_change_nickname_current" onclick="return false;" href="">{nickname_current}</a>
+												<div id="module_change_nickname_item">
+													<ul>
+														<!-- begin_nickname -->
+													 
+															<li><a onclick="return false;" href=""><span class="{nickname_checked}" data-type="{nickname_id}">{nickname_title}</span></a></li>
+														<!-- end_nickname -->
+													</ul>
+												</div>
+											</div>
+											
+										   
+											<input type="text" name="nsc_couple_type" id="nsc_couple_type_id" value="" hidden>
+									
+								</td>
+							</tr>							
+						</table>
+						<!-- end_nsc_couple_profile_type -->
+
+						<!-- begin_born -->
+						<div  class="header_small">{l_born_on}</div>
+						<table class="jc">
+							<tr>
+								<td class="jc_left"><label for="month">{l_born_on}:</label></td>
+								<td class="jc_right">
+									<div style="float:left;margin-right:6px;">
+									<select name="month" id="month" class="no_abk" onchange="updateDay('month','JoinForm','year','month','day')" style="width:82px;">
+										{month_options}
+									</select></div>
+									<div style="float:left;margin-right:6px;"><select class="no_abk" name="day" id="select_day" style="width:53px;">
+										{day_options}
+									</select></div>
+									<div style="float:left;"><select class="no_abk" name="year" id="year" onchange="updateDay('year','JoinForm','year','month','day')" style="width:62px;">
+										{year_options}
+									</select></div>
+								</td>
+							</tr>							
+						</table>
+						<!-- end_born -->
+
+						<!-- begin_where_live -->
+						
+						<div  class="header_small">{l_where_live}</div>
+						<table class="jc">
+							<tr>
+								<td class="jc_left"><label for="STATE">{l_state}</label></td>
+								<td class="jc_right"><select class="no_abk" name="state" tabindex="1" id="state" onchange="xajax_cities(state.value, 0)" style="width: 120px;">
+										<option value="-1">- {l_state} -</option>
+										{state_options}
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="jc_left"><label for="CITY">{l_city}</label></td>
+								<td class="jc_right"><select class="no_abk" name="city" id="city" tabindex="2" onchange="{city_change}" style="width: 120px;">
+									<option selected value="-1">- {l_city} -</option>
+										{city_options}
+									</select>
+								</td>
+							</tr>
+						</table>
+						<!-- end_where_live -->
+						<!-- begin_relation_age_fields -->
+						<div  class="header_small">{l_what_kind}</div>
+						<table class="jc">
+                            <!-- begin_partner_on -->
+                            <!-- begin_age_range-->
+							<tr>
+								<td class="jc_left">{l_age_from_text}</td>
+								<td class="jc_right"><select class="no_abk" name="partner_age_from" tabindex="3"  style="width: 120px;">
+										<option selected value="00">{l_please_choose}</option>
+										{p_age_from_options}
+									</select> {l_age_and}
+									<select name="partner_age_to" class="no_abk" tabindex="4"  style="width: 120px;">
+										<option selected value="00">{l_please_choose}</option>
+										{p_age_to_options}
+									</select>
+								</td>
+							</tr>
+                            <!-- end_age_range -->
+                            <!-- end_partner_on -->
+                            <!-- begin_const -->
+							<tr>
+								<td class="jc_left">{l_friendship_type}</td>
+								<td class="jc_right"><select class="no_abk" name="relation" tabindex="6"  style="width: 120px;">
+										<option selected value="00">{l_please_choose}</option>
+										{options}
+									</select>
+								</td>
+							</tr>
+                            <!-- end_const -->
+							<tr>
+								<td class="jc_left"></td>
+								<td class="jc_right"></td>
+							</tr>
+						</table>
+<!-- end_relation_age_fields -->
+<!-- begin_partner_fields -->
+						<div  class="header_small">{l_what_unique}</div>
+						<table class="jc">
+
+
+							<!-- begin_join_fields_1 -->
+							<!-- begin_int_1 -->
+							<tr>
+								<td class="jc_left"><label for="{name}">{field}</label></td>
+								<td class="jc_right"><select class="no_abk" name="{name}" tabindex="20" style="width: 270px;">
+									<option selected value="00">{l_please_choose}</option>
+									{options}
+								</select></td>
+							</tr>
+							<!-- end_int_1 -->
+                            <!-- end_join_fields_1 -->
+                            <!-- begin_join_fields_2 -->
+							<!-- begin_int_2 -->
+							<tr>
+								<td class="jc_left"><label for="{name}">{field}</label></td>
+								<td class="jc_right"><select class="no_abk" name="{name}" tabindex="20" style="width: 270px;">
+									<option selected value="00">{l_please_choose}</option>
+									{options}
+								</select></td>
+							</tr>
+							<!-- end_int_2 -->
+                            <!-- end_join_fields_2 -->
+                            <!-- begin_join_fields_3 -->
+							<!-- begin_int_3 -->
+							<tr>
+								<td class="jc_left"><label for="{name}">{field}</label></td>
+								<td class="jc_right"><select class="no_abk" name="{name}" tabindex="20" style="width: 270px;">
+									<option selected value="00">{l_please_choose}</option>
+									{options}
+								</select></td>
+							</tr>
+							<!-- end_int_3 -->
+                            <!-- end_join_fields_3 -->
+						</table>
+<!-- end_partner_fields -->
+<!-- begin_basic_fields_text -->
+					<div  class="header_small">{l_what_know}</div>
+						<!-- begin_fields_text -->
+						<!-- begin_text -->
+								<script type="text/javascript">
+									function init{name}Counter() {
+										characterCounter('{name}', {maxlen}, '{name}Counter');
+									}
+									addOnload(init{name}Counter);
+									function clear{name}({name}Field)
+									{
+										if ({name}Field.value == "") {name}Field.value = '';
+									}
+								</script>
+						<table class="jc">
+							<tr>
+								<td valign="top" class="jc_left"><label style="padding: 26px 0 0; display: block;" for="{name}">{field}</label></td>
+								<td class="jc_right">
+									<center>(<b><span id="{name}Counter">0</span></b> / {maxlen} {l_characters_used})</center><br>
+									<input class="no_abk" type="text" name="{name}" id="{name}" value="{value}" maxlength="{maxlen}" style="width: 260px;" tabindex="23" onFocus="clear{name}(this); characterCounter('{name}', 100, '{name}Counter');" onKeyUp="characterCounter('{name}', 100, '{name}Counter');">
+								</td>
+							</tr>
+						</table>
+						<!-- end_text -->
+						<!-- begin_textarea -->
+								<script type="text/javascript">
+									function init{name}Counter() {
+										characterCounter('{name}', {maxlen}, '{name}Counter');
+									}
+									addOnload(init{name}Counter);
+									function clear{name}({name}Field) {
+										if ({name}Field.value == "") {name}Field.value = '';
+									}
+								</script>
+						<table class="jc">
+							<tr>
+								<td valign="top" class="jc_left"><label style="padding: 26px 0 0; display: block;" for="{name}">{field}</label></td>
+								<td class="jc_right">
+									<center>(<b><span id="{name}Counter">0</span></b> / {maxlen} {l_characters_used})</center><br>
+									<textarea  name="{name}" id="{name}" style="width: 260px; height: 81px; " tabindex="24" onFocus="clear{name}(this); characterCounter('{name}', {maxlen}, '{name}Counter');" onKeyUp="characterCounter('{name}', {maxlen}, '{name}Counter');">{value}</textarea>
+								</td>
+							</tr>
+						</table>
+						<!-- end_textarea -->
+                        <!-- end_fields_text -->
+						<table style="margin: 0 0 10px;" cellpadding=0 cellspacing=0 border=0><tr>
+							<!-- begin_essays1_text -->
+                            <td width=50% class="body_tiny" style="padding: 12px 12px 12px 18px; line-height: 1.8;">
+								<div>{l_essays_are_audited}</div>
+								<div style="padding-top: 10px;">{l_approval_24_hours}</div>
+							</td>
+							<!-- end_essays1_text -->
+                            <td width=50% valign=top style="padding: 12px 12px 12px 18px;">
+								<table cellpadding=0 cellspacing=0 border=0><tr>
+									<td colspan=4 class="body_tiny" style="line-height: 1.8; padding-bottom: 10px;">{l_do_not_include}</td>
+								</tr><tr>
+									<td width=4%><img src="{url_tmpl_main}img/bullet-header.gif" border=0 width=4 height=4></td>
+									<td class="body_tiny" width=48%>{l_email_adress}</td>
+									<td width=4%><img src="{url_tmpl_main}img/bullet-header.gif" border=0 width=4 height=4></td>
+									<td class="body_tiny" width=48%>{l_coarse_language}</td>
+								</tr><tr>
+									<td width=4%><img src="{url_tmpl_main}img/bullet-header.gif" border=0 width=4 height=4></td>
+									<td class="body_tiny" width=48%>{l_im_handles}</td>
+									<td width=4%><img src="{url_tmpl_main}img/bullet-header.gif" border=0 width=4 height=4></td>
+									<td class="body_tiny" width=48%>{l_urls}</td>
+								</tr><tr>
+									<td width=4%><img src="{url_tmpl_main}img/bullet-header.gif" border=0 width=4 height=4></td>
+									<td class="body_tiny" width=48%>{l_phones}</td>
+									<td width=4%><img src="{url_tmpl_main}img/bullet-header.gif" border=0 width=4 height=4></td>
+									<td class="body_tiny" width=48%>{l_adress}</td>
+								</tr></table>
+							</td>
+						</tr></table>
+<!-- end_basic_fields_text -->
+				<div align="right"><input type="button" value="{l_to_step_3}" onClick="submitJoinPage2Form();" class="btn lower_header_color big" tabindex="26" title="{l_to_step_3}" onMouseOver="window.status='{l_to_step_3}'; return true;" onMouseOut="window.status=''; return true;"></div>
+			</form>
+
+		</div>
+	</div>
+
+	<script>
+		
+		var $changeLanguage=$('.module_change_nickname'), notShowLang=false;
+		if ($changeLanguage[0]) {
+			$changeLanguage.find('ul').autocolumnlist({columns: 8, clickEmpty:function(){
+				notShowLang=true;
+				$('#module_change_nickname_item').stop().animate({height:'toggle'},300, function(){
+					setTimeout(function(){notShowLang=false},100);
+				})
+			}});
+			$changeLanguage.hover(function(){
+				if(notShowLang)return;
+	            var width = $('#module_change_nickname_item').width();
+			   var left = (-1)*(95+(width-750)/2);
+				$('#module_change_nickname_item').css({left: left+'px', top: '20px'}).stop().animate({height: "toggle"}, 300);
+	
+			})
+		}
+	  
+		var moduleNicknameChange = document.querySelector('.module_change_nickname_current');
+		
+	   
+		
+		var nicknameChangeItem = document.getElementById('module_change_nickname_item');
+		
+		// Get all the li elements within the element
+		var liElements = nicknameChangeItem.querySelectorAll('li');
+		
+		liElements.forEach(function(li) {
+			// Add an event listener to the li element
+			li.addEventListener('click', function() {
+			  // Do something when the li element is clicked, for example:
+			  moduleNicknameChange.innerHTML = li.querySelector('span').textContent;
+			  $('#nsc_couple_type_id').val(li.querySelector('span').dataset.type);
+	
+		   $('#module_change_nickname_item li span.selected').removeClass('selected');
+	
+			
+			   var spanElement1 = li.querySelector('span');
+			   spanElement1.classList.add('selected');
+	
+	
+	
+			   var width = $('#module_change_nickname_item').width();
+			   var left = (-1)*(95+(width-750)/2);
+				 
+			   //$('#module_change_nickname_item').css({left: (width + 35)+'px', top: '20px'});
+			   $('#module_change_nickname_item').css({left: left+'px', top: '20px'});
+	
+			});
+		  });
+	
+	
+	</script>
+</div>
+{footer}

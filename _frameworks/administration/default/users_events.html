@@ -1,0 +1,240 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li  class="active"><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+
+<div class="block_main">
+    <h2>{l_moderator_event_title}</h2>
+        <form method="post" action="{url_page}">
+            <input type="hidden" name="action" value="save">
+            <input type="hidden" name="section" value="{cmd}">
+
+        <!-- begin_moderator_section -->
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+                    create_gallery()
+                });
+
+                function create_gallery() {
+                    $('.edit_image_gallery').lightBox({
+                        imageLoading: '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+                        imageBtnPrev: '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+                        imageBtnNext: '{url_tmpl_administration}images/lightbox-btn-next.gif',
+                        imageBtnClose: '{url_tmpl_administration}images/lightbox-btn-close.gif',
+                        imageBlank: '{url_tmpl_administration}images/lightbox-blank.gif'
+                    });
+                }
+
+                function edit_delete_image(image_id) {
+                    if (confirm('{l_confirm_delete_image}')) {
+                        $('#edit_image_' + image_id).fadeOut(400, function () {
+                            $('#edit_image_' + image_id).remove();
+                            create_gallery();
+                            $.ajax({
+                                type: 'POST',
+                                url: '{url_main}{delete_img_ajax_php}?photo_cmd=event_photos',
+                                data: {
+                                    image_id: image_id,
+                                    ajax: 1,
+                                    '{obj_id_type}': 1,
+
+                                }
+                            });
+                        });
+                    }
+                }
+
+                function delete_moderator_obj(obj_id, cat_name='') {
+                    if (confirm('{confirm_delete_action}')) {
+                        $('#moderator_obj_' + obj_id+cat_name).fadeOut(400, function () {
+                            $('#moderator_obj_' + obj_id+cat_name).remove();
+                            $.ajax({
+                                type: 'POST',
+                                url: '{url_main}{delete_moderator_object_url}',
+                                data: {
+                                    '{obj_id_type}': obj_id,
+                                    ajax: 1,
+                                    cat_name: cat_name
+                                }
+                            });
+                        });
+                    }
+                }
+
+                function approve_moderator_obj(obj_id, cat_name='') {
+                    if (confirm('{confirm_approve_action}')) {
+                        $('#moderator_obj_' + obj_id+cat_name).fadeOut(400, function () {
+                            $('#moderator_obj_' + obj_id+cat_name).remove();
+                            $.ajax({
+                                type: 'POST',
+                                url: '{url_main}{approve_moderator_object_url}',
+                                data: {
+                                    '{obj_id_type}': obj_id,
+                                    ajax: 1,
+                                    cat_name: cat_name
+                                }
+                            });
+                        });
+                    }
+                }
+
+                function approve_all() {
+                    const elements = document.querySelectorAll('[id*="moderator_obj_"]');
+                    const idArray = [];
+
+                    elements.forEach(element => {
+                    const id = element.id;
+                    const modifiedId = id.replace('moderator_obj_', '');
+                    idArray.push(modifiedId);
+                    });
+
+                    if (confirm('{confirm_approve_all_action}')) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '{url_main}{approve_moderator_object_url}',
+                            data: {
+                                '{obj_id_type}': idArray,
+                                ajax: 1,
+                                isAll: true
+                            },
+                            success: function(response) {
+
+                                elements.forEach(function(element){
+                                    element.remove();
+                                });
+                                redirectUrl('{url_main}{redirect_url}');
+
+
+                            },
+                              error: function(xhr, status, error) {
+                                console.log('AJAX request failed');
+                                console.log(xhr.responseText);
+                              },
+                        });
+                    }
+                }
+
+            </script>
+
+                <!-- begin_moderator_item -->
+
+                <div class="bl_form" id="moderator_obj_{obj_id}{var_adv_cat_name_eng}" style="border: 1px solid rgb(118, 118, 118); padding: 5px; margin-bottom: 5px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+                        <tr>
+                            <td>
+                                <label style="display: block; padding-bottom: 10px;"><b>{l_moderator_username}:</b><h3 style="display:inline; padding:0px 0px 10px 10px;"><a
+                                    href='{url_main}search_results.php?display=profile&uid={user_id}'
+                                    target="_blank">{user_name}</a></h3></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><b>{l_moderator_title}:</b></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input style="margin: 10px 0px; width: 97%; " type="text" value="{field_title}" readonly>
+                            </td>
+                        </tr>
+                        <!-- begin_category -->
+                        <tr>
+                            <td>
+                                <label style="display: block; padding-bottom:10px;">
+                                    <b>{l_moderator_category}:</b> <a href="{url_main}adv_cat.php?cat_id={var_adv_cat_id}">{var_adv_cat_name}</a> / <a href="{url_main}adv_cat.php?cat_id={var_adv_cat_id}&razd_id={var_adv_razd_id}">{var_adv_razd_name}</a><br/>
+                                </label>
+                            </td>
+                        </tr>
+                        <!-- end_category -->
+                      
+                        <!-- begin_price -->
+                        <tr>
+                            <td>
+                                <label style="display: block; padding-bottom: 10px;">
+                                    <b>{l_moderator_price}:  {price}</b>
+                                </label>
+                            </td>
+                        </tr>
+                        <!-- end_price -->
+                        <tr>
+                            <td>
+                                <label><b>{l_moderator_description}:</b></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea style=" margin: 10px 0px;resize: none; width: 97%; height: 100%;"
+                                    class="textarea" readonly>{description}</textarea>
+                            </td>
+                        </tr>
+                        <!-- begin_image -->
+                        <tr>
+                            <td>
+                                {l_moderator_edit_photo}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="imgs" style="border-bottom: 1px solid rgb(118, 118, 118); padding-bottom: 5px;">
+
+                                    <!-- begin_moderator_img_item -->
+                                    <div style="width:24%;float: left; padding-top: 10px;" id="edit_image_{image_id}">
+
+                                        <a class="edit_image_gallery"  alt="img" href="{image_file}">
+                                            <img src="{image_thumbnail}" style="width: 60px; height: 60px;">
+                                        </a>
+
+                                        <p><a style="cursor: pointer; padding-left: 10px;" onClick="return edit_delete_image({image_id});">{l_delete}</a></p>
+                                    </div>
+                                    <!-- end_moderator_img_item -->
+
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- end_image -->
+                        <tr>
+                            <td>
+                                <div style="padding:10px; float: right">
+                                    <input class="btn lower_header_color round big moderator_button_save" onclick="approve_moderator_obj('{obj_id}', '{var_adv_cat_name_eng}')" type="button" value="{l_moderator_approve}">
+
+                                    <input class="btn lower_header_color round big moderator_button_save" onclick="delete_moderator_obj('{obj_id}', '{var_adv_cat_name_eng}')" type="button" value="{l_moderator_delete}">
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- end_moderator_item -->
+                
+            <!-- end_moderator_section -->
+  <input class="btn lower_header_color round big moderator_button_save" type="button" onclick="approve_all()"
+            value="{l_approve}">
+    </form>
+
+</div>
+{footer}

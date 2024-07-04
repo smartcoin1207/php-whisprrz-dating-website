@@ -1,0 +1,219 @@
+{header}
+<div id="oryx_content">
+
+	<script>
+		$(function(){
+			var col_fr = $('.column_main.frame_content');
+			var fr_col = $('.frame_content.column_main');
+			var search_el = $('.frame_content.fl_right');
+
+			var left_block;
+			if(col_fr) {
+				left_block = col_fr;
+			} else {
+				left_block = fr_col;
+			}
+
+			if(left_block && search_el) {
+				if(search_el.height() < (left_block.height() + 5)) {
+					search_el.height(left_block.height() + 5);
+				} else {
+					left_block.height(search_el.height() - 5);
+				}
+			}
+		})
+
+		</script>
+<!-- <div id="searchn" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr"> -->
+<div class="frame_content fl_right" style="padding: 15px 10px 10px; width: 140px;">
+	<h2>{l_search}</h2>
+	<form method="GET" >
+	<input style="width: 120px; margin: 0 0 5px; height: 16px;" type="text" value="" name="find_str"><br>
+	<input type="hidden" value="{cat_id}" name="cat_id">
+	<input type="hidden" value="{razd_id}" name="razd_id">
+
+
+	<!-- begin_jobs -->
+		<ul class="list_jobs">
+			<li>
+				<input type="checkbox" name="telecommute" id="telecommute"> 
+				<label for=telecommute class="dash">{l_telecommute}</label>				
+			</li>
+			<li>
+				<input type="checkbox" name="contract" id="contract"> <label for=contract class="dash">{l_contract}</label>
+			</li>
+			<li>
+				<input type="checkbox" name="internship" id="internship">  <label for=internship class="dash">{l_internship}</label>
+			</li>
+			<li>
+				<input type="checkbox" name="part_time" id="part_time">  <label for=part_time class="dash">{l_part_time}</label>
+			</li>
+			<li>
+				<input type="checkbox" name="non_profit" id="non_profit">  <label for=non_profit class="dash">{l_non_profit}</label>
+			</li>
+		</ul>
+
+		
+	<!-- end_jobs -->
+
+	<!-- begin_housting -->
+			<div style="margin: 0 0 5px;">
+			{l_rent} 
+			</div>
+
+			<div style="margin: 0 0 5px;"  style="text-align: center;">
+			<input type="text" name="rent_from" style="width: 35px; height: 16px;"> 
+			{l_and}
+			<input type="text" name="rent_to" style="width: 35px; height: 16px;">
+			</div>
+
+			<div style="margin: 0">
+			{l_br} <select name="br" style="width: 50px;">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			</select>
+			</div>
+			
+			
+		<!-- end_housting -->
+
+		<!-- begin_age -->
+		{l_age} <input type="text" name="age_from" style="width: 35px;"> {l_and}
+					<input type="text" name="age_to" style="width: 35px;">	<br>
+		<!-- end_age -->
+
+		<!-- begin_price -->
+		{l_price}<br><input type="text" name="price_from" style="width: 35px;"> {l_and}
+					<input type="text" name="price_to" style="width: 35px;">	<br>
+		<!-- end_price -->
+		<br>
+	<input class="btn upper_header_color fl_right" type="submit" alt="{l_find_now}" value="{l_find_now}"/>
+	</form>
+</div><!-- </div></div></div></div></div></div></div></div> --><!-- searchn end -->
+
+
+<div class="column_main frame_content">
+
+<ul class="list_btn">
+	<li><input  type="button" value="{l_add}" class="btn upper_header_color big" onclick="location='{url_main}adv_edit.php?cat_id={cat_id}&razd_id={razd_id}';" title="{l_add}"></li>
+	<li><input  type="button" value="{l_all}" class="btn upper_header_color big" onclick="location='{url_main}adv.php';" title="{l_all}"></li>
+	<li><input  type="button" value="{l_my_ads}" class="btn upper_header_color big" onclick="location='{url_main}adv_my.php';" title="{l_my_ads}"></li>
+</ul>
+
+<br><label style="float:left;">{l_No_Selling}:</label></br>
+
+<div class="cl"></div>
+
+<table border="0" width="100%" class="adv_lst">
+				<!-- begin_adv_list -->
+						<!-- begin_adv_list_item -->
+
+<tr><td>
+
+<b><a href="adv_good.php?cat={var_eng}&id={id}">{subject}</a> </b>
+</td><td width=130px>
+{l_by} <a href="search_results.php?display=profile&name={login}">{login}</a>
+</td><td width=70px>
+{date_add}
+</td></tr>
+						<!-- end_adv_list_item -->
+				<!-- end_adv_list -->
+</table>
+
+
+<br />
+
+
+	    <!-- begin_adv_list_pages -->
+
+			<div class="body_text" style="padding-bottom: 16px;">
+
+				<!-- begin_adv_list_prev_page -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+
+				<!-- end_adv_list_prev_page -->
+
+				<!-- begin_adv_list_prev_page_off -->
+
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+
+				<!-- end_adv_list_prev_page_off -->
+
+
+
+				<!-- begin_adv_list_first_page -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+
+				<!-- end_adv_list_first_page -->
+
+
+
+				<!-- begin_adv_list_prev_pages -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+
+				<!-- end_adv_list_prev_pages -->
+
+
+
+				<!-- begin_adv_list_page -->
+
+					<!-- begin_adv_list_link_page -->
+
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+
+					<!-- end_adv_list_link_page -->
+
+					<!-- begin_adv_list_this_page -->
+
+					<b>{page}</b>
+
+					<!-- end_adv_list_this_page -->
+
+				<!-- end_adv_list_page -->
+
+
+
+				<!-- begin_adv_list_next_pages -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+
+				<!-- end_adv_list_next_pages -->
+
+
+
+				<!-- begin_adv_list_last_page -->
+
+				<b>{l_of}</b> <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+
+				<!-- end_adv_list_last_page -->
+
+
+
+				<!-- begin_adv_list_next_page -->
+
+				&nbsp; | &nbsp;<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+
+				<!-- end_adv_list_next_page -->
+
+				<!-- begin_adv_list_next_page_off -->
+
+				&nbsp; | &nbsp;<b>{l_next}</b>
+
+				<!-- end_adv_list_next_page_off -->
+
+			</div>
+
+
+
+            <!-- end_adv_list_pages -->
+
+</div>
+</div>
+{footer}

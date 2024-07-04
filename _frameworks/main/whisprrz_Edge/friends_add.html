@@ -1,0 +1,89 @@
+{header}
+{ims}
+{search}
+
+<div class="frame_content">
+
+		{friends_menu}
+
+<div class="page_friend_add">
+		<div id="gallery">
+			 <div class="gallery_top">
+<!-- 				<div class="buck">
+ -->					<h2 class="noback">{l_add_friend}</h2>
+<!-- 				</div>
+ -->			</div>
+			<div class="favorite">
+				<div class="left">
+					<h3>{add_name_to_friends}</h3>
+
+
+						<form name="add_form" method="POST" action="{url_main}friends_add.php?cmd=add"  style="padding: 0px; margin: 0px;">
+							<input type="hidden" name="page_from" value="{page_from}">
+							<b>{message}</b><br />
+							<!-- begin_add_id -->
+							<input type="hidden" name="uid" value="{friend_user_id}">
+							<!-- end_add_id -->
+							<table width="100%">
+							<!-- begin_add_name -->
+								<tr><td align="right" width="145px"><b style="font-size:11px">{l_name}&nbsp;</b></td>
+								<td align="left"><input type="text" name="name" value="{name}" style="width: 200px;" tabindex="1"></td></tr>
+							<!-- end_add_name -->
+								<tr><td align="right" width="145px"><b style="font-size:11px">{l_message}&nbsp;</b></td>
+								<td align="left"><input id="friend_message" type="text" name="comment" style="width: 200px; color: black;" tabindex="2"></td></tr>
+							</table>
+
+
+							<table style="margin-top:10px;" width="100%">
+								<tr>
+                                <td width="142">&nbsp;</td>
+									<td align="center" width="226">
+
+
+                                   <table>
+		     						<tr>
+                                     <td>
+										<div class="button_black" style="float:right;">
+											<input type="submit" value="{l_add}" class="green" title="{l_add}" onMouseOver="window.status='{l_add}'; return true;" onMouseOut="window.status=''; return true;">
+										</div>
+									</td>
+									<td>
+										<div class="button_black" style="float:left;">
+											<input type="button" value="{l_cancel}" onClick="history.back();" class="orange" title="{l_cancel}" onMouseOver="window.status='{l_cancel}'; return true;" onMouseOut="window.status=''; return true;">
+										</div>
+                                        </td>
+                                       </tr>
+                                      </table>
+
+
+									</td>
+                                    <td>&nbsp;</td>
+								</tr>
+							</table>
+
+						</form>
+				</div>
+				<div class="right">
+					<ul>
+						<li><a href="{url_main}my_friends.php?show=all">{l_my_friends}</a></li>
+						<li><a href="{url_main}my_friends.php?show=recently">{l_recently}</a></li>
+						<li class="green"><a href="{url_main}my_friends.php?show=birthdays">{l_bd}</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="gallery_bottom lbc ">
+		        <div class="rbc">
+        		    <div class="friend_bot">
+
+            		</div>
+		        </div>
+		    </div>
+
+		</div>
+</div>
+
+
+</div>
+
+{footer}

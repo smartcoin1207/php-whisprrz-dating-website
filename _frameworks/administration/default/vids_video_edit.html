@@ -1,0 +1,81 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <style>
+        .video-js, video { width: 640px!important; height: 360px!important; }
+    </style>
+
+    <p>
+        <a href="{url_main}administration/vids_user_videos.php?id={video_user_id}">{l_videos_by}</a> {video_user_name}
+        <!-- begin_comments -->
+        <a href="{url_main}administration/vids_video_comments.php?id={video_id}">{l_comments} {video_count_comments}</a>
+        <!-- end_comments -->
+        <!-- begin_nocomments -->
+        {l_no_comments}
+        <!-- end_nocomments -->
+    </p>
+    <div <!-- begin_player_custom -->class="player_custom"<!-- end_player_custom -->>
+    {video_html_code}
+    </div>
+
+    <div class="bl_form">
+        <form method="POST" id="" action="{url_main}administration/vids_video_edit.php?cmd=update&id={video_id}" enctype="multipart/form-data">
+        <input type="hidden" name="cmd" value="update">
+        <label>{l_subject}:</label>
+        <input type="text" name="subject" value="{video_subject}">
+
+        <!-- begin_details -->
+        <!-- Divyesh - 17-07-2024 <label>{l_text}:</label>
+        <textarea name="text">{video_text}</textarea>
+
+        <label>{l_vids_tags}:</label>
+        <input type="text" name="tags" value="{video_tags}">
+
+
+        <label>{l_vids_categories}:</label> <br> -->
+
+        <!-- begin_cat -->
+            <!-- <div class="bl_label" >
+                <label class="fl_left" style="cursor: pointer;" for="rb{i}">{cat_name}</label>
+                <div class="fl_right">
+                    <input class="check" id="rb{i}" type="checkbox" name="cat[]" value="{cat_name2}" {checked}/>
+                </div>
+            </div>
+            <div class="cl"></div> -->
+    	<!-- end_cat -->
+
+            <!-- <label>{l_visibility}:</label><br> -->
+            <div class="bl_label" >
+                <label class="fl_left" style="cursor: pointer;" for="r1">{l_vids_public}</label>
+                <div class="fl_right">
+                    <input id="r1" name="private" value="0" type="radio" class="check" {check_public}/>
+                </div>
+            </div>
+            <div class="cl"></div>
+            <div class="bl_label" >
+                <label class="fl_left" style="cursor: pointer;" for="r2">{l_vids_private}</label>
+                <div class="fl_right">
+                    <input id="r2" name="private" value="1" type="radio" class="check" {check_private}/>
+                </div>
+            </div>
+            <div class="cl"></div>
+
+        <!-- end_details -->
+
+        <div class="clear" style="height:40px"></div>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+		<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+        <div class="btn fl_right"><a href="{url_page}?cmd=delete&id={video_id}" onClick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a></div>
+
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

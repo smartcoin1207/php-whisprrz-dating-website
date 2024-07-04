@@ -1,0 +1,239 @@
+<style id="ls_custom_style"></style>
+<script>
+var mediaServer = '{media_server}',
+    clientID = '{client_id}',
+    clientGuid = '{client_guid}',
+
+    _lsRoomID = '{client_id}',
+    _lsRoomIDDemoSession = '{client_id_session_demo}',
+    _lsIsUserPresenter = '{user_presenter}'*1,
+
+    _lsIsAutoConnectViewer = '{auto_connect}'*1,
+    _notInitLoadLiveStreaming = true,
+    tmplMediaChat = 'edge',
+    typeMediaChat = 'urban',
+    typeMediaChatData = 'video',
+    isMobileDetect = '{is_mobile}'*1,
+    _lsDemoViewerUrl = '{ls_demo_viewer_url}';
+    _lsDemoLiveId = '{ls_demo_viewer_live_id}';
+    _lsLiveId = 0,
+    _lsLiveIdEnd = 0,
+    _initLoadLiveStreaming = true,
+
+	_lsPayPrice ='{ls_pay_price}'*1;
+
+var lConnect = '{start_striming_j}',
+    lNotAvailable = '{start_striming_j}',
+    lDisconnect = '{stop_striming_j}';
+</script>
+
+<script type="text/javascript" src="{url_main}_server/js/webrtc/media_utils_adapter.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/js/webrtc/media_live_streaming.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/js/webrtc/media_utils.js{cache_version_param}"></script>
+
+<script type="text/javascript" src="{url_tmpl_main}js/live_streaming.js{cache_version_param}"></script>
+
+<script>
+    var clStream = new CLiveStreaming('{ls_guid}');
+    clStream.initLoad();
+</script>
+<!-- begin_no_live_streaming_js -->
+<script>
+    var _initLoadLiveStreaming = false;
+    $(function(){
+		console.log('initMediaLiveStreamingStart');
+        initMediaLiveStreamingStart();
+
+        var msg='{no_live_streaming_js_msg}'||'{j_live_streaming_not_available}';
+        _lsHideLoaderTemplate($('#make-call'));
+        $('.bl_title', '#make-call').removeAttr('style');
+        alertCustom(msg);
+    })
+</script>
+<!-- end_no_live_streaming_js -->
+
+<!-- begin_live_streaming_webrtc_js -->
+<script>
+	var isViewer = true;
+
+    <!-- begin_presenter_start_js -->
+	console.log('Start Streamer');
+
+	isViewer = false;
+
+	// Fix for mobile app
+	// use alert from mobile version language
+	siteLangParts['live_streaming.php']['app_does_not_have_permissions_to_access_the_camera_and_the_microphone'] = '{app_does_not_have_permissions_to_access_the_camera_and_the_microphone}';
+
+	function initMediaChat() {
+		_lsPresenterShowPpStart();
+		initMediaLiveStreaming();
+	}
+	function showAlert(message) {
+		alertCustom(message);
+	}
+	// Fix for mobile app
+
+	$(function(){
+		initMediaLiveStreamingMobileVersion();
+		if(!isMobileApp()) {
+			_lsPresenterShowPpStart();
+		}
+	})
+
+    <!-- end_presenter_start_js -->
+
+	if(isViewer) {
+		console.log('Start Viewer');
+		$(function(){
+			console.log('Viewer initMediaLiveStreaming');
+			initMediaLiveStreaming();
+		});
+	}
+
+</script>
+<!-- end_live_streaming_webrtc_js -->
+
+<!-- begin_viewer_auto_connect_js -->
+<script>
+_lsSetPageUrl('{page_url_start}');
+</script>
+<!-- end_viewer_auto_connect_js -->
+
+<canvas id="live_streaming_canvas" style="display:none;"></canvas>
+<div id="module_live_bg" class="chat_bg module_live_bg <!-- begin_module_hide_btn_connect_bl -->module_hide_btn_connect_bl<!-- end_module_hide_btn_connect_bl -->">
+    <div class="block_videochat module_live_streaming">
+        <div class="module_media_chat module_videochat">
+            <div id="video-container">
+                <div class="their-video-container">
+                    <video id="their-video" class="no_response" autoplay playsinline muted="true" oncontextmenu="return false;"></video>
+                    <!--<div id="ls_video_title" class="ls_video_title"></div>-->
+
+                    <div id="call_user_photo" data-cl-loader="loader_stream_start" data-no-fade-in="true" class="call_photo_default no_transparent">
+                        <div id="waiting_connect" class="info_connect blink_media"></div>
+                    </div>
+
+                    <div id="ls_icons_bl" class="icons">
+                        <div class="icon sound on"></div>
+                        <div class="icon sound off"></div>
+                        <div id="ls_icon_full" class="icon fullscreen"></div>
+                    </div>
+
+                    <div id="ls_icons_search_live_bl" class="icons search_next_live">
+                        <div class="icon arrow back" title="{a_previous_stream}" onclick="clStream.prevLive($(this));">
+                            <svg viewBox="0 0 32 32">
+                                <path d="M13,26a1,1,0,0,1-.71-.29l-9-9a1,1,0,0,1,0-1.42l9-9a1,1,0,1,1,1.42,1.42L5.41,16l8.3,8.29a1,1,0,0,1,0,1.42A1,1,0,0,1,13,26Z"/>
+                                <path d="M28,17H4a1,1,0,0,1,0-2H28a1,1,0,0,1,0,2Z"/>
+                                <g id="frame"><rect fill="none" height="32" width="32"/></g>
+                            </svg>
+                        </div>
+                        <div class="icon arrow next" title="{a_next_stream}" onclick="clStream.nextLive($(this));">
+                            <svg viewBox="0 0 32 32">
+                                <path d="M19,26a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42L26.59,16l-8.3-8.29a1,1,0,0,1,1.42-1.42l9,9a1,1,0,0,1,0,1.42l-9,9A1,1,0,0,1,19,26Z"/>
+                                <path d="M28,17H4a1,1,0,0,1,0-2H28a1,1,0,0,1,0,2Z"/>
+                                <g id="frame"><rect fill="none" height="32" width="32"/></g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div id="ls_video_like" class="ls_video_like">
+                        <input id="toggle-heart" type="checkbox" onclick="return false;"/>
+                        <label for="toggle-heart" aria-label="like" onclick="clStream.likeAddLiveHeart();">❤</label>
+                    </div>
+
+                    <script>_lsInitVideoControls();</script>
+                </div>
+                <div id="interface_bl" class="interface video <!-- begin_module_hide_btn_connect -->module_hide_btn_connect<!-- end_module_hide_btn_connect -->">
+                    <div class="bl">
+                        <div class="chat_action video processing">
+                            <button id="make-call" data-cl-loader="loader_media" data-no-fade-in="true" data-action="disabled" type="button" disabled>
+                                <span class="bl_title" style="opacity:0;">
+                                    <i class="fa fa-video-camera" aria-hidden="true"></i>
+                                    <i class="fa fa-square" aria-hidden="true"></i>
+                                    <span class="btn_name">{start_striming}</span>
+                                </span>
+                            </button>
+                            <script>_lsShowLoaderTemplate($('#make-call'));</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <video id="video_test" autoplay playsinline class="hide_al"></video>
+</div>
+
+<!--<a href="#" onclick="clStream.lsStartCommentsShow1(); return false;">Hide</a> |
+<a href="#" onclick="clStream.lsStartCommentsHideQueue(); return false;">Show</a>
+<br><br>
+<script>
+    setTimeout(function(){
+        clStream.lsStartCommentsShow1();
+        clStream.lsStartCommentsShow1();
+        clStream.lsStartCommentsShow1();
+        clStream.lsStartCommentsShow1();
+    },5000)
+</script>-->
+<div id="ls_content" class="col-lg-12 wall_post_item ls_content">
+
+    <div id="template_bl_comment" class="ls_content_template_bl_comment">
+        <div class="like_comment_and_share">
+            <ul class="list">
+                <li class="feed_btn_like">
+                    <a href="#" title="{a_like}" onclick="return false;" class="feed_like_like disabled">
+                        <span class="glyphicon glyphicon-thumbs-up icon"></span>{l_like}
+                    </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="bl_wall bl_wall_ls">
+            <div class="photo_and_field_comment" style="display: block;">
+                <div class="photo">
+                    <a href="{user_client_url}" class="pic profile_photo_r_{user_client_uid} to_hide" style="background-image:url({url_files}{user_client_photo});"></a>
+                    <script>onLoadImgToShow('{url_files}{user_client_photo}','',function(){$('.profile_photo_r_{user_client_uid}.to_hide').removeClass('to_hide')})</script>
+                </div>
+                <div class="field_comment comment_container_textarea">
+
+
+					<div tabindex="0" role="textbox" aria-multiline="true" contenteditable="false" data-placeholder="{a_write_your_comment}" class="form-control textarea"></div>
+
+					<!--<textarea placeholder="{a_write_a_comment}" disabled class="form-control wall_comment_area wall_comment_area_top"></textarea>
+					-->
+
+					<div class="comment_action">
+						<div onclick="return false;" class="comment_sticker_btn disabled"></div>
+
+						<div onclick="return false;" class="wall_comment_smile_btn disabled">
+							<i class="fa fa-smile-o" aria-hidden="true"></i>
+						</div>
+
+						<!-- begin_feed_comment_audio_top -->
+						<div class="im_audio_message_recorder disabled">
+							<span class="audio_visualizer"></span>
+							<span class="im_audio_message_recorder_icon_bl" onclick="return false;">
+								<i class="fa fa-microphone" aria-hidden="true"></i>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+						<!-- end_feed_comment_audio_top -->
+
+						<div class="comment_upload_img disabled no_init">
+							<i class="fa fa-camera" onclick="return false;" aria-hidden="true"></i>
+						</div>
+						<button class="wall_post_send">
+							<svg viewBox="0 0 24 24">
+								<path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+							</svg>
+						</button>
+					</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {content1}
+</div>

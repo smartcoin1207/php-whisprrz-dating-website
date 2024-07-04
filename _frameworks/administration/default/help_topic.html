@@ -1,0 +1,33 @@
+{header}
+<div class="block_narrow">
+	{langs}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+        <!-- begin_question -->
+        <form action="{url_page}?lang={lang}" method="POST">
+        <input name="cmd" value="edit" type="hidden">
+        <input name="id" value="{id}" type="hidden">
+        <label>{l_title_word}:</label>
+        <input type="text" name="name" value="{name}">
+        <div class="link fl_right"><a href="#" class="submit">{l_save}</a> | <a href="{url_page}?cmd=delete&id={id}&lang={lang}" onClick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a> | <a href="{url_main}administration/help_answer.php?t={id}&lang={lang}">{l_questions}</a></div>
+        </form>
+        <div style="height:30px"></div>
+        <!-- end_question -->
+
+        <h2>{l_add}</h2>
+        <form action="{url_page}?lang={lang}" method="POST">
+        <input name="cmd" value="add" type="hidden">
+        <label>{l_title_word}:</label>
+        <input type="text" name="name" value="">
+        <div class="btn fl_right"><a href="#" class="submit">{l_add}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

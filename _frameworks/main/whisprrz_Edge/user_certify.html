@@ -1,0 +1,51 @@
+{header}
+
+<div class="frame_content">
+
+  <div align="center">
+    <h2 class="txt_lower_header_color" style="text-align: left;">{l_user_certify} <span
+        style="color: #059919;">{l_submit_certification} {username}</span></h2>{l_only_certification} {username} {l_actually_met} {username} {l_attached_profile}
+    <div class="g-box-in{row}" style="width:100%; float:left; padding:0px; margin:0px;">
+      <form class="" id="user_certify_form" action="{url_page}" method="POST">
+        <input type="hidden" name="uid" value="{user_id}">
+        <input type="hidden" name="cmd" value="submit_certify">
+        <p>{l_user_certify_info}</p>
+        
+        <textarea name="certify_text" id="certify_text" class="custom-input-textarea" rows="8"></textarea>
+        <br><br>
+        <a class="custom-button red" href="{url_main}search_results.php?display=profile&uid={user_id}"
+          title="{l_back}">{l_back}</a>
+        <input type="submit" class="custom-button" title="{l_submit}" value="{l_submit}" />
+        
+
+      </form>
+
+
+    </div>
+
+  </div>
+</div>
+  <script>
+    $(document).ready(function () {
+      $("#user_certify_form").submit(function () {
+        if ($("#certify_text").val().split(" ").join("") == "") {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{l_enter_certify_text}',
+          });
+          return false;
+        }
+        return true;
+      });
+    });
+
+    if ("{saved}" == "yes") {
+      Swal.fire(
+        'Saved!',
+        '',
+        'success'
+      );
+    }
+  </script>
+  {footer}

@@ -1,0 +1,111 @@
+    <script type="text/javascript">
+    function events_sidebar_search_on_submit()
+    {
+        value = $("#events_sidebar_search input[name='query']").val();
+
+        if((value != '')&&(value != '{l_events_default_search_query}'))
+        {
+            return true;
+        }
+
+        alert('{l_events_please_enter_what_you_search}');
+
+        return false;
+    }
+    </script>
+	<!-- begin_banner_right_column -->	
+	<div class="banner_right_column_main">
+		{banner_right_column}
+	</div>
+    <!-- end_banner_right_column -->
+    <!-- begin_block_1 -->
+    <h1 class="txt_lower_header_color">{block_title}</h1>
+
+    <!-- begin_event_1 -->
+    <div class="events_new_foto" >
+        <div class="events_new_img">
+            <a href="{url_main}events_event_show.php?event_id={event_id}"><img src="{image_thumbnail}" width="85" height="64" alt="{event_title_full}"/></a>
+        </div>
+
+        <ul>
+            <li><strong><a href="{url_main}events_event_show.php?event_id={event_id}">{event_title}</a></strong></li>
+            <li>{l_events_guests}: {event_n_guests}</li>
+            <li>{l_events_comments}: {event_n_comments}</li>
+            <li><a class="txt_upper_header_color" href="{url_main}events_search.php?event_place={event_place_full}" title="{event_place_full}">{event_place}</a></li>
+            <li class="data"><a class="txt_upper_header_color" href="{url_main}events_search.php?event_datetime={event_datetime_raw}">{event_date}</a> | {event_time}</li>
+        </ul>
+    <div class="justify"></div>
+    </div>
+
+    <!-- begin_event_1_not_last --><div class="line_dashed"></div><!-- end_event_1_not_last -->
+    <!-- end_event_1 -->
+
+    <!-- narrow_pl -->
+    <div class="narrow_pl">
+        <div class="cont">
+            <div class="pic">
+                <img src="{url_tmpl_main}images/events/ico_browse.png" width="34" height="34" alt=""/>
+            </div>
+            <ul class="list">
+                <li><a href="{url_main}events_event_list_{block_type}.php">{l_events_browse_all}</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /narrow_pl -->
+
+    <!-- end_block_1 -->
+
+    <!-- begin_block_2 -->
+    <div class="cl"></div>
+    <h1 class="txt_lower_header_color">{block_title}</h1>
+
+    <!-- begin_event_2 -->
+    <div class="events_new_foto" >
+        <div class="events_new_img">
+            <a href="{url_main}events_event_show.php?event_id={event_id}"><img src="{image_thumbnail}" width="85" height="64" alt="{event_title_full}"/></a>
+        </div>
+
+        <ul>
+            <li><strong><a href="{url_main}events_event_show.php?event_id={event_id}">{event_title}</a></strong></li>
+            <li>{l_events_guests}: {event_n_guests}</li>
+            <li>{l_events_comments}: {event_n_comments}</li>
+            <li><a class="txt_upper_header_color" href="{url_main}events_search.php?event_place={event_place_full}" title="{event_place_full}">{event_place}</a></li>
+            <li class="data"><a class="txt_upper_header_color" href="{url_main}events_search.php?event_datetime={event_datetime_raw}">{event_date}</a> | {event_time}</li>
+        </ul>
+    <div class="justify"></div>
+    </div>
+
+    <!-- begin_event_2_not_last --><div class="line_dashed"></div><!-- end_event_2_not_last -->
+    <!-- end_event_2 -->
+
+    <!-- narrow_pl -->
+    <div class="narrow_pl">
+        <div class="cont">
+            <div class="pic">
+                <img src="{url_tmpl_main}images/events/ico_browse.png" width="34" height="34" alt=""/>
+            </div>
+            <ul class="list">
+                <li><a href="{url_main}events_event_list_{block_type}.php{browse_all_params}">{l_browse_all}</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /narrow_pl -->
+
+    <!-- end_block_2 -->
+	<div class="events_new_search">
+        <div class="bl_search">
+            <form id="events_sidebar_search" action="{url_main}events_search.php" method="get" onsubmit="return events_sidebar_search_on_submit();">
+				<div class="events_input_text1 fl_left">
+					<input class="no_abk" name="query" type="text" /> <!--value="{l_events_default_search_query}"  onblur="javascript:if(this.value=='')this.value='{l_events_default_search_query}'"      onFocus="this.value=''"-->
+				</div>
+<!--              <div class="events_input1 fl_left" style="margin-left:10px;"><input type="submit" value="{l_events_search}"/></div> -->
+
+<input class="btn upper_header_color round big" type="submit" value="{l_events_search}"/>
+            </form>
+</div>
+	</div>
+</td>
+
+</tr>
+
+

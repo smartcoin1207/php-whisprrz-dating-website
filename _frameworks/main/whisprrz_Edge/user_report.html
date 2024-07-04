@@ -1,0 +1,81 @@
+{header}
+
+<div class="frame_content" id="">
+
+  <div align="center">
+    <h2 class="txt_lower_header_color" style="text-align: left;">{l_user_report} <span
+        style="color: #059919;">{username}</span></h2>
+    <div class="g-box-in{row}" style="width:100%; float:left; padding:0px; margin:0px;">
+      <form class="" id="user_report_form" action="{url_page}" method="POST">
+        <input type="hidden" name="uid" value="{user_id}">
+        <input type="hidden" name="cmd" value="submit_report">
+        <p>{l_user_report_info_1}</p>
+        <p>{l_user_report_info_2}</p>
+        <p>{l_user_report_info_3}</p>
+        <p style="font-size: 16px;">
+          <strong>{l_report_subject}</strong> :
+          <input list="report_title_list" class="custom-input-textarea" name="report_title">
+        </p>
+        <p style="font-size: 16px;">
+          <strong>{l_priority}</strong> :
+          <label style="margin-right: 25px; color: #726458;"><input type="radio" name="priority" value="low"checked> Low</label>  
+          <label style="margin-right: 25px; color: #8B8000 ;"><input type="radio" name="priority" value="medium">Med</label>
+          <label style="color: #c20505;"><input type="radio" name="priority" value="high">High</label>
+        </p>
+        <textarea name="report_text" id="report_text" class="custom-input-textarea" rows="8"></textarea>
+        <br><br>
+        <a class="custom-button red" href="{url_main}search_results.php?display=profile&uid={user_id}"
+          title="{l_back}">{l_back}</a>
+        <input type="submit" class="custom-button" title="{l_submit_report}" value="{l_submit_report}" />
+        <br /><br />
+        <p>{l_user_report_info_4}</p>
+
+
+      </form>
+
+
+    </div>
+
+  </div>
+</div>
+  <datalist id="report_title_list">
+    <option value="{l_fake_profile}">
+    <option value="{l_profile_issue}">
+    <option value="{l_harassment}">
+    <option value="{l_threats_of_violence}">
+    <option value="{l_hate_speech}">
+    <option value="{l_spam}">
+    <option value="{l_promotion}">
+    <option value="{l_solicitation}">
+    <option value="{l_prostitution}">
+    <option value="{l_scamming}">
+    <option value="{l_impersonation}">
+    <option value="{l_slander}">
+    <option value="{l_child_image}">
+    <option value="{l_beastiality}">
+    <option value="{l_other}">
+  </datalist>
+  <script>
+    $(document).ready(function () {
+      $("#user_report_form").submit(function () {
+        if ($("#report_text").val().split(" ").join("") == "") {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{l_enter_report_text}',
+          });
+          return false;
+        }
+        return true;
+      });
+    });
+
+    if ("{saved}" == "yes") {
+      Swal.fire(
+        'Saved!',
+        '',
+        'success'
+      );
+    }
+  </script>
+  {footer}

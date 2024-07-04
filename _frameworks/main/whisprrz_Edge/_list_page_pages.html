@@ -1,0 +1,28 @@
+<nav class="pagination-container">
+    <div class="pagination">
+        <!-- begin_pager -->
+		<!-- begin_pager_prev -->
+        <a class="pagination-newer go" href="{url_main}{pager_url_seo}{page_n_seo}" data-value="{page_n}">&larr;</a>
+		<!-- end_pager_prev -->
+		<!-- begin_pager_prev_disabled -->
+        <a class="pagination-newer disabled" onclick="return false;" href="">&larr;</a>
+		<!-- end_pager_prev_disabled -->
+		<span class="pagination-inner">
+		<!-- begin_pager_link -->
+			<!-- begin_pager_link_active -->
+			<a class="pagination-active" onclick="return false;" href="">{page_n}</a>
+			<!-- end_pager_link_active -->
+			<!-- begin_pager_link_not_active -->
+			<a class="go" href="{url_main}{pager_url_seo}{page_n_seo}" data-value="{page_n}">{page_n}</a>
+			<!-- end_pager_link_not_active -->
+		<!-- end_pager_link -->
+		</span>
+		<!-- begin_pager_next -->
+        <a class="pagination-older go" href="{url_main}{pager_url_seo}{page_n_seo}" data-value="{page_n}">&rarr;</a>
+		<!-- end_pager_next -->
+		<!-- begin_pager_next_disabled -->
+        <a class="pagination-older disabled" onclick="return false;" href="">&rarr;</a>
+		<!-- end_pager_next_disabled -->
+        <!-- end_pager -->
+    </div>
+</nav>

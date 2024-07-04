@@ -1,0 +1,102 @@
+{header}
+<script>
+$(function() {
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+        }
+    });
+
+    $('#all').change(function(){
+        choiceChkbox($(this), $('[id ^= chk_]'))
+    });
+});
+
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+</script>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/events_events.php">{l_menu_events}</a></li>
+        <li><a href="{url_main}administration/events_event_comments.php">{l_menu_event_comments}</a></li>
+        <li class="active"><a href="{url_main}administration/events_categories.php">{l_menu_categories}</a></li>
+        <li><a href="{url_main}administration/events_category_add.php">{l_menu_categories_add}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <!-- begin_main_items -->
+    <form action="{url_page}" method="POST">
+    <input type="hidden" name="cmd" value="update">
+    <table class="tb_fields" id="sortable" style="width: 100%;">
+        <thead>
+            <tr id="no_sortable" >
+                <th class="decor_l"></th>
+                <th class="right"><input style="margin:0px; width: 20px;" type="checkbox" id="all"></th>
+                <th style="width:120px; text-align:center;">{l_action}</th>
+                <th style="text-align: center; width:30px;">
+                    <!-- begin_params_none_category_id --><a href="{url_page}?{params_current}">{l_category_id}</a><!-- end_params_none_category_id -->
+                    <!-- begin_params_asc_category_id -->&uarr;<a href="{url_page}?{params_current}">{l_category_id}</a><!-- end_params_asc_category_id -->
+                    <!-- begin_params_desc_category_id -->&darr;<a href="{url_page}?{params_current}">{l_category_id}</a><!-- end_params_desc_category_id -->
+                </th>
+                <th class="last" style="padding-left: 5px;">
+                    <!-- begin_params_none_category_title --><a href="{url_page}?{params_current}">{l_category_title}</a><!-- end_params_none_category_title -->
+                    <!-- begin_params_asc_category_title -->&uarr;<a href="{url_page}?{params_current}">{l_category_title}</a><!-- end_params_asc_category_title -->
+                    <!-- begin_params_desc_category_title -->&darr;<a href="{url_page}?{params_current}">{l_category_title}</a><!-- end_params_desc_category_title -->
+                </th>
+
+                <th class="decor_r"></th>
+            </tr>
+        </thead>
+
+        <!-- begin_main_item -->
+        <tr class="color" style="cursor:move;">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+            <td class="right" style="margin:0px; width: 20px;">
+                <input style="margin:0px 0px 0px 10px; padding:0px; width: 20px;" type="checkbox" id="chk_{category_id}">
+            </td>
+            <td style="text-align: center;">
+                <a href="{url_main}administration/events_category_edit.php?category_id={category_id}">{l_edit}</a>
+                |
+                <a href="{url_main}administration/{url_page}?cmd=delete&item={category_id}" onclick="if (confirm('{l_are_you_sure_category}')) return true; else return false;">{l_delete}</a>
+            </td>
+            <td style="text-align: center;">{category_id}</td>
+            <td class="last" style="text-align: left; padding-left: 5px;">
+                <input type="hidden" name="events[]" value="{category_id}">{category_title}
+            </td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_main_item -->
+    </table>
+    <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+        <input type="submit" style="visibility:hidden;position:absolute;">
+    </div>
+    </form>
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) actionChecked('{url_page}'); return false;" href="#">{l_delete}</a>
+    </div>
+    <!-- end_main_items -->
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_results}</div>
+    <!-- end_main_noitems -->
+    <div class="empty"></div>
+    </div>
+{footer}

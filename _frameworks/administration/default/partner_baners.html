@@ -1,0 +1,88 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/partner.php">{l_menu_partners}</a></li>
+        <li class="active"><a href="{url_main}administration/partner_baners.php">{l_menu_partners_banners}</a></li>
+        <li><a href="{url_main}administration/contact_partner.php">{l_menu_from_partners}</a></li>
+        <li><a href="{url_main}administration/partner_main.php">{l_main_page}</a></li>
+        <li><a href="{url_main}administration/partner_tips.php">{l_page_tips}</a></li>
+        <li><a href="{url_main}administration/partner_faq.php">{l_page_faq}</a></li>
+        <li><a href="{url_main}administration/partner_terms.php">{l_page_terms}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+	<p class="error"><b>{message}</b></p>
+	
+    <div class="bl_form">
+	 
+        <!-- begin_baner -->
+        <!-- begin_img --><p><img src="{url_files}partner/{file}" /></p><!-- end_img -->
+
+        <form action="{url_main}administration/partner_baners.php?id={id}" method="POST">
+        <input name="cmd" value="edit" type="hidden">
+        
+        <label>{l_size}:</label>
+        <input type="text" name="size" value="{size}" maxlength="100">
+        <label>{l_title_word}:</label>
+        <input type="text" name="name" value="{name}" maxlength="100">
+        <label>{l_code}:</label>
+        <textarea name="code" class="textarea_small">{code}</textarea><br>
+		
+		<label>{l_language}:</label>
+			<select name="lang" class="input">{language_opts}</select>		
+
+        <div class="btn fl_right" style="margin: -5px 0 0 0;"><a href="{url_main}administration/partner_baners.php?cmd=delete&id={id}" onClick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a></div>
+        <div class="link fl_right" style="margin: 7px 3px 0 0;"><a href="#" class="submit">{l_save}</a></div>
+        </form>
+        <div style="height:50px"></div>
+
+        <form action="{url_main}administration/partner_baners.php?id={id}" method="POST" enctype="multipart/form-data">
+        <input name="cmd" value="img" type="hidden">
+        <label>{l_other_picture}:</label>
+        <div class="fl_left">
+            <input class="upload" size="45" type="file" name='fimg'/>
+        </div>
+        <div class="btn fl_right"><a href="#" class="submit">{l_upload}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+        <div style="height:50px"></div>
+        <!-- end_baner -->
+
+        <h2>{l_add_banner}</h2>
+        <form action="{url_main}administration/partner_baners.php" method="POST" enctype="multipart/form-data">
+        <input name="cmd" value="add" type="hidden">
+        <label>{l_size}:</label>
+        <input type="text" name="size" value="" maxlength="100">
+        <label>{l_title_word}:</label>
+        <input type="text" name="name" value="" maxlength="100">
+        <textarea name="code" class="textarea_small">{add_baner}</textarea>
+		<label>{l_language}:</label>
+			<select name="lang" class="input">{language_opts}</select>		
+        <label>{l_picture}:</label>
+        <div class="fl_left">
+            <input class="upload" size="45" type="file" name='fimg'/>
+        </div>
+        <div class="btn fl_right"><a href="#" class="submit">{l_upload}</a></div>
+        </form>
+        <div style="height:50px"></div>
+
+        <h2>{l_add_text}</h2>
+        <form action="{url_main}administration/partner_baners.php" method="POST" enctype="multipart/form-data">
+        <input name="cmd" value="add" type="hidden">
+        <input type="hidden" name="size" value="Text Link">
+        <label>{l_title_word}:</label>
+        <input type="text" name="name" value="" maxlength="100">
+        <label>{l_code}:</label>
+        <textarea name="code" class="textarea_small">{add_text}</textarea>
+		<label>{l_language}:</label>
+			<select name="lang" class="input">{language_opts}</select>		
+        <div class="btn fl_right"><a href="#" class="submit">{l_add}</a></div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

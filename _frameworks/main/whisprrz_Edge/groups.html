@@ -1,0 +1,125 @@
+{header}
+
+
+<script type="text/javascript">
+function groups_main_search_on_submit()
+{
+    value = $("#groups_main_search input[name='query']").val();
+
+    if((value != '')&&(value != '{l_groups_default_search_query}'))
+        return true;
+
+    alert('{l_groups_please_enter_search_term}');
+
+    return false;
+}
+</script>
+
+    <div class="groups">
+
+		{groups_header}
+
+        <table class="tb_groups">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    <div class="groups_decor_l">
+
+                        <div class="pl_top ">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+
+                              <td><h1 class="txt_upper_header_color">{l_groups_most_popular}</h1></td>
+                              <td>
+                              <div class="main_pl">
+                                    <div class="cont">
+                                        <div class="pic">
+                                                <img src="{url_tmpl_main}images/groups/ico_browse.png" width="34" height="34" alt=""/>
+                                        </div>
+                                        <ul class="list">
+                                                <li><a href="{url_main}groups_group_list_most_popular.php">{l_groups_browse_all}</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="bg">
+                                        <ul class="lists">
+                                          <li><a href="{url_main}groups_my.php">{l_groups_my_groups}</a></li>
+                                        </ul>
+                                    </div>
+                              </div>
+                              </td>
+                            </tr>
+                          </table>
+                            </div>
+                            <!-- /bl_main_pl -->
+
+                               <div class="cl"></div>
+                              <!-- begin_group -->
+                              <div class="groups_top_pl <!-- begin_group_last -->last_top_pl<!-- end_group_last -->">
+                                  <div class="groups_img_yellow">
+                                      <a <!-- begin_group_link_img --> href="{url_main}groups_group_show.php?group_id={group_id}" <!-- end_group_link_img --><!-- begin_private_group_alert --> style = "cursor:pointer;" onClick="alert('{l_events_private_group_alert}')" <!-- end_private_group_alert -->> <img src="{image_thumbnail}" width="160" height="120" alt="{group_title_full}"/></a>
+                                  </div>
+                                  <div class="groups_img_txt">
+                                      <strong><a <!-- begin_group_link --> href="{url_main}groups_group_show.php?group_id={group_id}"<!-- end_group_link --> <!-- begin_private_group_alert --> style = "cursor:pointer;" onClick="alert('{l_events_private_group_alert}')" <!-- end_private_group_alert -->>{group_title}</a></strong>
+                                      <span class="slogan">{group_description}</span>
+                                      <span>{l_groups_members}: {group_n_members} | {l_groups_posts}: {group_n_posts}</span>
+                                  </div>
+                              </div>
+                              <!-- end_group -->
+                        <div class="cl"></div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="groups_shadow"></div>
+
+                    <div class="groups_p">
+                        <div class="fl_left bl_overflow bl_overflow_w200">
+                            <h1 class="txt_lower_header_color">{l_groups_latest_talks}</h1>
+                        </div>
+
+                        <div class="groups_search_head">
+				            <form id="groups_main_search" action="{url_main}groups_search.php" method="get" onsubmit="return groups_main_search_on_submit();">
+				                <div class="groups_input_text1 fl_left"><input class="no_abk" name="query" type="text" /></div>
+ <!--                        <div class="groups_input2 fl_right"><input type="submit" value="{l_groups_search}"/></div> -->
+				                <input class="btn upper_header_color round" type="submit" value="{l_groups_search}"/>
+				            </form>
+                        </div>
+
+                        <div class="cl"></div>
+
+                        {groups_message_list}
+
+                    </div>
+                    <div class="groups_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+
+					{groups_sidebar}
+
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_all"></div>
+<!--         <div class="foot_left"></div>
+        <div class="foot_right"></div> -->
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+
+{footer}

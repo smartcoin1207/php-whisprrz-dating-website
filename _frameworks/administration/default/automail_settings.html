@@ -1,0 +1,143 @@
+{header}
+
+<script type="text/javascript" src="{url_tmpl_administration}js/language_translator.js{cache_version_param}"></script>
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+
+	<!-- begin_language -->
+		<!-- begin_language_link -->
+		<li><a href="{url_main}administration/automail.php?lang={language_value}">{language_title}</a></li>
+		<!-- end_language_link -->
+
+		<!-- begin_language_active -->
+		<li><a href="{url_main}administration/automail.php?lang={language_value}">{language_title}</a></li>
+		<!-- end_language_active -->
+	<!-- end_language -->
+	<li class="active"><a href="{url_main}administration/automail_settings.php?lang={lang}">{l_settings}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_logo}</h2>
+    <div class="bl_form" style="height: 120px;">
+    <script>
+    $(function() {
+        var $img,${block}Frm=$('#{block}_form'),
+            ${block}File=${block}Frm.find('input.upload'),
+            ${block}Sbm=${block}Frm.find('#update');
+            ${block}Delete=${block}Frm.find('#delete');
+            ${block}Cmd=${block}Frm.find('#cmd{block}');
+
+            ${block}File.change(function(){
+                ${block}Sbm.text('{l_upload}')
+            });
+
+            ${block}Frm.ajaxForm({
+            beforeSubmit: function(a,f,o) {
+                if (${block}Cmd.val() != 'delete_{block}'){
+                    if(!trim(${block}File.val())){
+                        return false;
+                    }
+                }
+                $img=$('#{block}_output').find('img');
+                $('#{block}_output').html('{l_submitting}');
+            },
+            success: function(data) {
+				var url = '{url_logo}';
+				try {
+					var obj = jQuery.parseJSON(data),$out = $('#{block}_output');
+					if (obj.status == 0 || obj.url == '') {
+                        $out.html('').append($img);
+						alert(obj.msg);
+					} else {
+                        url = obj.url;
+                        var $imgNew=$('<img src="'+url+'?' + Math.random() + '" alt=""/>').fadeTo(1,0).load(function(){
+                            $(this).fadeTo(100,1);
+                        });
+                        $out.html('').append($imgNew);
+                        if (${block}Cmd.val() != 'delete_{block}'){
+                            if (typeof obj.width != 'undefined' && typeof obj.height != 'undefined') {
+                                $('#{block}_form').find('.logo_width').val(obj.width).end()
+                                                  .find('.logo_height').val(obj.height);
+                            }
+                            ${block}Sbm.text('{l_update_size}');
+                        }
+                    }
+				} catch (err) {
+					alert('{l_file_type_is_incorrect}');
+				}
+            }
+        });
+    });
+    </script>
+    <form id="{block}_form"  action="{url_page}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" id ="cmd{block}" name="cmd" value="update_{block}">
+
+        <div id="{block}_output" class="block_logo">
+            <img src="{url_logo}?rand={rand}" alt=""/>
+        </div>
+        <!-- begin_logo_block_params -->
+        <div class="block_logo_params">
+            <table>
+                <tr>
+                    <td class="label"><span>{l_width}:</span></td>
+                    <td style="width: 40px;"><input class="logo_width" type="text" maxlength="3" name="{block}_width" value="{logo_width}" ></td>
+                    <td class="px"><span>{l_px}</span></td>
+                </tr>
+                <tr>
+                    <td class="label"><span>{l_height}:</span></td>
+                    <td style="width: 40px;"><input class="logo_height" type="text" maxlength="3" name="{block}_height" value="{logo_height}" ></td>
+                    <td class="px"><span>{l_px}</span></td>
+                </tr>
+            </table>
+        </div>
+        <!-- end_logo_block_params -->
+
+        <div class="fl_left">
+            <input class="upload" type="file" name='logo'/>
+        </div>
+        <!-- begin_delete -->
+        <div class="btn fl_right">
+            <a href="#" id="delete" onClick="if (confirm('{l_are_you_sure}')) { $('#cmd{block}').val('delete_{block}'); return true; } else return false;"  class="submit">{l_delete}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+        <!-- end_delete -->
+        <div class="btn fl_right"><a href="#" id="update" onClick="$('#cmd{block}').val('update_{block}');" class="submit">{l_upload}</a>
+
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+    </form>
+    </div>
+    <br>
+
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+        <p>{message_auto}</p>
+		<form action="{url_page}?lang={lang}" method="POST">
+		<input type="hidden" name="cmd" value="edit">
+
+        <!-- begin_autotranslator_header -->
+        <div>
+            {l_translate_from_capital} <select name="translate_from" id="translate_from">{translate_from}</select> {l_translate_to} <select name="translate_to" id="translate_to">{translate_to}</select>
+
+            <a title="{l_google_translate_is_used}" class="translate_all_button" href="#" onclick="adminLanguageTranslator.translateAll();">
+                <span class="status">{l_translate}</span>
+                <img class="translate_all_button_preloader" id="translate_all_button_preloader" style="display: none;" src="{url_tmpl_administration}images/loader.gif">
+            </a>
+            <div style="padding-top:7px; padding-bottom: 20px;"></div>
+        </div>
+        <!-- end_autotranslator_header -->
+
+        <label>{l_signature}:</label>
+        <input type="text" name="option[{lang}]" value="{signature}" class="translateable" id="signature">
+        <label>{l_template}:</label>
+        <textarea name="option[template]" class="config_textarea" style="height: 280px;" >{template}</textarea>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+		<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

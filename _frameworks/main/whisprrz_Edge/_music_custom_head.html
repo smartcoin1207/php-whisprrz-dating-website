@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="{url_tmpl_main}css/music.css{cache_version_param}" type="text/css" media="screen">
+<!--[if IE]><link rel="stylesheet" href="{url_tmpl_main}css/music_ie.css{cache_version_param}" type="text/css"><![endif]-->
+<link rel="stylesheet" type="text/css" media="all" href="{url_tmpl_main}abkstyle/abkstyle.css{cache_version_param}" />
+<script language="javascript" src="{url_tmpl_main}abkstyle/abkstyle.js{cache_version_param}"></script>
+<script type="text/javascript">
+
+function getFlexApp(appName) {
+  if (navigator.appName.indexOf ("Microsoft") !=-1) {
+    return window[appName];
+  } else {
+    return document[appName];
+  } 
+}
+
+var music_player_plaing_n = null;
+
+function PlayerEventCallback(event, params) {
+    if (event == "played") {
+
+        if(music_player_plaing_n && music_player_plaing_n != params)
+        {
+            getFlexApp('music_flash_player_' + music_player_plaing_n).audiopause(parseInt(music_player_plaing_n));
+        }
+
+    	music_player_plaing_n = params;
+
+    	player = $('#music_flash_player_' + music_player_plaing_n);
+    	if(!player.attr('logged'))
+    	{
+    	    song_id = player.attr('song_id');
+            $.ajax({
+                type: 'POST',
+                url: '{url_main}music_song_on_playing_ajax.php',
+                data: {
+                    song_id: song_id 
+                    },
+                success: function (data, textStatus, XMLHttpRequest)
+                    {
+                    	player.attr('logged', 'yes');
+                    }
+              });
+    	}
+        
+    } else if (event == "stopped") {
+
+    } else if (event == "paused") {
+
+    } else if (event == "finished") {
+
+    	if(music_player_plaing_n)
+        {
+    	    players = $('.music_flash_player');
+            current_player_n = players.index($('#music_flash_player_' + music_player_plaing_n));
+            
+            if(current_player_n >= players.size() - 1)
+            {
+                next_player = players.eq(0);
+            }
+            else
+            {
+            	next_player = players.eq(current_player_n + 1);
+            }
+
+            getFlexApp(next_player.attr('id')).audioplay(parseInt(next_player.attr('song_index')));
+        }
+        
+    } else if (event == "position") {
+
+    } else if (event == "volume") {
+
+    }
+};
+
+</script>

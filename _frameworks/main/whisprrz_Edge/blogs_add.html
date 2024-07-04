@@ -1,0 +1,187 @@
+{header}
+
+<script type="text/javascript" src="{url_tmpl_main}quill/quill.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_tmpl_main}quill/quill-image.blot.js{cache_version_param}"></script>
+<!--<script type="text/javascript" src="{url_tmpl_main}quill/quill-blot-formatter.min.js{cache_version_param}"></script>-->
+
+<style id="blog_custom_style"></style>
+<div id="bl_page_columns" class="wall_wrapper">
+    <script>hideRightColumnWall();</script>
+    {profile_column_left}
+    {profile_column_right}
+    <div class="wall <!--begin_one_column-->one_column<!--end_one_column-->">
+        <script>
+            showRightColumnWall();
+            clBlogs.setData({
+                blogId: '{post_id}'
+            })
+        </script>
+
+        <div id="bl_post_add_frm" class="bl_forms settings">
+            <div class="item">
+                <div class="col-md-12">
+                    <h3 class="cham-heading">{l_page_title}</h3>
+                    <div class="clearfix"></div>
+                    <hr>
+                </div>
+
+                <div class="editor">
+                    <div class="col-lg-12">
+                        <div class="head">
+                            <div class="title">
+                                <input id="blog_subject" placeholder="{a_enter_a_title}" type="text" maxlength="255" value="{post_subject_req}">
+                            </div>
+
+                            <div class="editor_icons">
+                                <div id="editor_toolbar" class="editor_toolbar ql-toolbar">
+                                    <ul>
+                                        <li>
+                                            <button title="{a_heading}" value="3" class="ql-header">
+                                                <i class="fa fa-header" aria-hidden="true"></i>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button title="{a_format_bold}" class="ql-bold">
+                                                <i class="fa fa-bold" aria-hidden="true"></i>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button title="{a_format_hyperlink}" class="ql-link">
+                                                <i class="fa fa-link" aria-hidden="true"></i>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button title="{a_format_image}" class="ql-image">
+                                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                            </button>
+                                        </li>
+
+                                        <li>
+                                            <button title="{a_format_video}" class="ql-video">
+                                                <i class="fa fa-film" aria-hidden="true"></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="blog_text" class="cont editable">{post_text_readable}</div>
+
+                        <script>clBlogs.initStyle();</script>
+
+                        <div class="foot">
+                            <div class="tag_field">
+                                <input id="blog_tags" class="form-control placeholder" type="text" value="{post_tags_value}" placeholder="{l_add_tags}">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="item">
+                <!--<div class="col-md-12">
+                    <h3 class="cham-heading">
+                        {l_post_picture_title}
+                    </h3>
+                    <div class="clearfix"></div>
+                    <hr>
+                </div>-->
+
+                <div class=""> <!-- wrap_fields -->
+                    <!--<div class="section fields line">
+                    <div class="container">
+                    <div class="row">
+                        <div id="blog_photo_upload_bl" class="col-lg-12 field field_auto bl_photo_update blog_photo_upload_field">
+                            <div class="group_photo_upload_img">
+                                <img id="blog_photo_upload_img" src="{blog_image}" alt="" />
+                            </div>
+                            <div class="group_photo_upload_bl first">
+                                <form onsubmit="clBlogs.submitUploadPhoto($(this)); return false;" method="post" enctype="multipart/form-data" action="{url_main}ajax.php">
+                                    <input id="blog_photo_upload_id" type="hidden" value="0"/>
+                                    <button id="blog_photo_upload"  class="btn btn-block btn-info btn_upload_group_image {group_photo_btn_upload_refresh}">
+                                        <span class="icon_fa" data-cl-loader="header_menu_loader_more">
+                                            <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="btn_title">{blog_photo_btn_upload}</span>
+                                    </button>
+                                    <input id="blog_photo_file" class="group_photo_file" accept="image/*" onclick="clBlogs.clickUploadPhoto($(this));" onChange="clBlogs.changeUploadPhoto($(this));" type="file" title="" name="blog_image_file" />
+                                    <input type="reset" value="" class="btn_hidden"/>
+                                    <input type="submit" value="" class="btn_hidden"/>
+                                </form>
+                            </div>
+                            <!-- begin_bl_photo_delete -->
+                            <!--<div class="group_photo_upload_bl last">
+                                <button id="blog_photo_upload_delete"  onclick="clBlogs.deleteUploadPhoto(); return false;" class="btn btn-block btn-secondary">
+                                    <span class="icon_fa" data-cl-loader="header_menu_loader_more">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </span>
+                                    <span>{l_delete}</span>
+                                </button>
+                            </div>
+                            <!-- end_bl_photo_delete -->
+                            <!--<div class="clearfix"></div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>-->
+
+                    <div class="section fields">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <button id="blog_post_submit" class="btn btn-block btn-success btn_save <!-- begin_btn_post_disabled -->disabled<!-- end_btn_post_disabled -->">
+                                        <span class="icon_fa">
+                                        <svg viewBox="0 0 32 32">
+                                            <g><rect fill="none" height="32" width="32"/></g>
+                                            <g>
+                                                <path d="M26,8H8v2h18V8z M26,12H8v2h15h3V12z M30,17.35V2H2l0,28h2.414l6.002-6h3.643c0.498,4.498,4.309,7.998,8.941,8   c4.97-0.002,8.998-4.03,9-9C31.999,20.858,31.248,18.895,30,17.35z M14.059,22H9.584L4,27.583V4h24v11.518   C26.569,14.56,24.851,14,23,14c-2.143,0-4.106,0.751-5.652,2H8v2h7.517C14.735,19.169,14.221,20.531,14.059,22z M23,29.882   c-3.801-0.008-6.876-3.083-6.884-6.882c0.008-3.801,3.083-6.876,6.884-6.885c3.799,0.009,6.874,3.084,6.882,6.885   C29.874,26.799,26.799,29.874,23,29.882z"/><g><polygon points="28,22 24.002,22 24.002,18 22,18 22,22 18,22 18,24 22,24 22,28 24.002,28 24.002,24 28,24   "/>
+                                            </g>
+                                        </svg>
+                                        </span>
+                                        <span>{blog_btn_create}</span>
+                                    </button>
+
+                                    <div class="field_checkbox_comment">
+                                        <input id="blog_allowed_comments" class="input_remember_me" name="blogs_allowed_comments" checked="checked" type="checkbox">
+                                        <label for="blog_allowed_comments" class="nobold">{l_users_can_leave_comments}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="section fields">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 field height_fix">
+                                    <button id="blog_post_submit" class="btn btn-block btn-success btn_save disabled">
+                                        <span class="icon_fa">
+                                        <svg viewBox="0 0 32 32">
+                                            <g><rect fill="none" height="32" width="32"/></g>
+                                            <g>
+                                                <path d="M26,8H8v2h18V8z M26,12H8v2h15h3V12z M30,17.35V2H2l0,28h2.414l6.002-6h3.643c0.498,4.498,4.309,7.998,8.941,8   c4.97-0.002,8.998-4.03,9-9C31.999,20.858,31.248,18.895,30,17.35z M14.059,22H9.584L4,27.583V4h24v11.518   C26.569,14.56,24.851,14,23,14c-2.143,0-4.106,0.751-5.652,2H8v2h7.517C14.735,19.169,14.221,20.531,14.059,22z M23,29.882   c-3.801-0.008-6.876-3.083-6.884-6.882c0.008-3.801,3.083-6.876,6.884-6.885c3.799,0.009,6.874,3.084,6.882,6.885   C29.874,26.799,26.799,29.874,23,29.882z"/><g><polygon points="28,22 24.002,22 24.002,18 22,18 22,22 18,22 18,24 22,24 22,28 24.002,28 24.002,24 28,24   "/>
+                                            </g>
+                                        </svg>
+                                        </span>
+                                        <span>{blog_btn_create}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            clBlogs.initEditor();
+        </script>
+
+    </div>
+</div>
+{footer}

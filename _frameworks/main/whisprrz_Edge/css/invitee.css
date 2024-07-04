@@ -1,0 +1,199 @@
+#invitee-popup-container {
+    position: fixed;
+    width: 304px;
+    z-index: 100;
+    left: 400px;
+    top: 27px;
+    opacity: 1;
+    visibility: visible;
+}
+
+#invitee-popup-upcoming-container {
+    position: fixed;
+    width: 317px;
+    z-index: 100;
+    left: 400px;
+    top: 27px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.invitee-popup-header {
+    height: 30px;
+    background: url(../images/im/im_top.png) 0 0 no-repeat transparent;
+    padding: 10px 0 0 12px;
+}
+
+.invitee-popup-header img {
+    vertical-align: baseline;
+}
+
+.invitee-popup-header div {
+    width: 240px;
+    height: 14px;
+    font: bold 10px Tahoma, sans-serif;
+    color: #fff;
+    text-align: left;
+    padding: 2px 8px;
+    float: left;
+}
+
+#invitee-popup-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px 12px;
+    background: url(../images/im/im_bg.png) 0 0 repeat-y transparent;
+    overflow-y: scroll;
+    max-height: 388px;
+    margin-right: 13px;
+}
+
+#invitee-popup-body .partyhou_item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0px 10px;
+}
+
+#invitee-popup-body .partyhou_item h1 {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 0px;
+}
+
+#invitee-popup-body .partyhou_item .partyhou_item_content {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+#invitee-popup-body .partyhou_item .partyhou_item_content .partyhou_item_left_content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#invitee-popup-body .partyhou_item .partyhou_item_content .partyhou_item_right_content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1.6;
+}
+
+#invitee-popup-body .partyhou_item .partyhou_item_left_content img {
+    width: 100%;
+    height: 100px;
+}
+
+#invitee-popup-body .partyhou_item .partyhou_item_left_content .image_container {
+    background: #e648d8;
+    padding: 2px;
+}
+
+#invitee-popup-body .partyhou_item .partyhou_item_left_content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#invitee-popup-upcoming-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px 12px;
+    background: url(../images/im/im_bg.png) 0 0 repeat-y transparent;
+    overflow-y: scroll;
+    max-height: 388px;
+    margin-right: 13px;
+}
+
+#invitee-popup-upcoming-body .partyhou_item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0px 10px;
+}
+
+#invitee-popup-upcoming-body .partyhou_item h1 {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 0px;
+}
+
+#invitee-popup-upcoming-body .partyhou_item .partyhou_item_content {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+#invitee-popup-upcoming-body .partyhou_item .partyhou_item_content .partyhou_item_left_content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#invitee-popup-upcoming-body .partyhou_item .partyhou_item_content .partyhou_item_right_content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1.6;
+}
+
+#invitee-popup-upcoming-body .partyhou_item .partyhou_item_left_content img {
+    width: 100%;
+    height: 100px;
+}
+
+#invitee-popup-upcoming-body .partyhou_item .partyhou_item_left_content .image_container {
+    background: #e648d8;
+    padding: 2px;
+}
+
+#invitee-popup-upcoming-body .partyhou_item .partyhou_item_left_content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.partyhou_info {
+    width: 100%;
+}
+
+.partyhou_info_left {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.partyhou_info_item strong {
+    color: #cbff4a;
+}
+
+.partyhou_action {
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.partyhou_action button {
+    width: 60px;
+    font-size: 11px;
+    padding: 5px 0px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+}
+
+.partyhou_action .partyhou_accept {
+    background-color: #cbff4a;
+}
+
+.partyhou_action .partyhou_decline {
+    background-color: crimson;
+}

@@ -1,0 +1,93 @@
+{header}
+<div id="bl_page_columns" class="wall_wrapper">
+<script>hideRightColumnWall();</script>
+{profile_column_left}
+{profile_column_right}
+<div class="wall">
+    <div class="wrap_static_page wrapper-one-article">
+        <div class="col-md-12">
+            <script>showRightColumnWall();</script>
+            <h2 class="cham-heading">
+                {post_subject_req}
+                <hr>
+            </h2>
+
+            <div class="user_information">
+                <a class="pic" href="{blogger_url}" style="background-image:url({blogger_photo});"></a>
+                <div class="cham-meta">
+                    <a href="{blogger_url}">
+                        <span class="status <!-- begin_blogger_online -->online<!-- end_blogger_online -->"></span>
+                        <b>{blogger_name}</b>
+                    </a>
+                    <span class="blog_edit_post">{post_dt_readable}</span>
+
+                    <!-- begin_post_link -->
+                    <span class="blog_meta_link">
+                    <!-- begin_post_edit -->
+                    <span class="blog_edit_post">
+                        <a href="{page_edit_url}">
+                            <figure>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M19.607,18.746c0,0.881-0.716,1.624-1.597,1.624H5.231c-0.881,0-1.597-0.743-1.597-1.624V5.967  c0-0.881,0.716-1.571,1.597-1.571h7.454V3.332H5.231c-1.468,0-2.662,1.168-2.662,2.636v12.778c0,1.468,1.194,2.688,2.662,2.688  h12.778c1.468,0,2.662-1.221,2.662-2.688v-7.428h-1.065V18.746z"/>
+                                    <path d="M20.807,3.17c-0.804-0.805-2.207-0.805-3.012,0l-7.143,7.143c-0.068,0.068-0.117,0.154-0.14,0.247L9.76,13.571  c-0.045,0.181,0.008,0.373,0.14,0.506c0.101,0.101,0.237,0.156,0.376,0.156c0.043,0,0.086-0.005,0.129-0.016l3.012-0.753  c0.094-0.023,0.179-0.072,0.247-0.14l7.143-7.143c0.402-0.402,0.624-0.937,0.624-1.506S21.21,3.572,20.807,3.17z M13.016,12.467  l-2.008,0.502l0.502-2.008l5.909-5.909l1.506,1.506L13.016,12.467z M20.054,5.428l-0.376,0.376l-1.506-1.506l0.376-0.376  c0.402-0.402,1.104-0.402,1.506,0c0.201,0.201,0.312,0.468,0.312,0.753C20.366,4.96,20.255,5.227,20.054,5.428z"/>
+                                </svg>
+                            </figure>
+
+                            {l_blog_edit_post}
+                        </a>
+                    </span>
+                    <span class="blog_edit_post">
+                        <a data-cl-loader="btn_action_loader_blogs" href="{url_main}blogs_blog.php?del={post_id}" onclick="clBlogs.confirmDeleteBlog($(this)); return false;">
+                            <figure>
+                                <svg viewBox="0 0 32 32">
+                                    <path d="M24,31H8a3,3,0,0,1-3-3V9A1,1,0,0,1,7,9V28a1,1,0,0,0,1,1H24a1,1,0,0,0,1-1V9a1,1,0,0,1,2,0V28A3,3,0,0,1,24,31Z"/>
+                                    <path d="M28,7H4A1,1,0,0,1,4,5H28a1,1,0,0,1,0,2Z"/>
+                                    <path d="M20,7a1,1,0,0,1-1-1V3H13V6a1,1,0,0,1-2,0V2a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V6A1,1,0,0,1,20,7Z"/>
+                                    <path d="M16,26a1,1,0,0,1-1-1V11a1,1,0,0,1,2,0V25A1,1,0,0,1,16,26Z"/>
+                                    <path d="M21,24a1,1,0,0,1-1-1V13a1,1,0,0,1,2,0V23A1,1,0,0,1,21,24Z"/>
+                                    <path d="M11,24a1,1,0,0,1-1-1V13a1,1,0,0,1,2,0V23A1,1,0,0,1,11,24Z"/>
+                                </svg>
+                            </figure>
+
+                            {l_blog_delete_post}
+                        </a>
+                    </span>
+                    <!-- end_post_edit -->
+
+                    <!-- begin_post_all -->
+                    <span class="blog_edit_post">
+                        <a href="{post_all_link}">
+                            <figure>
+                                <svg viewBox="0 0 32 32">
+                                        <g><rect fill="none" height="32" width="32"/></g>
+                                        <g>
+                                            <path d="M30,2v22H10.416l-6.002,6H2l0,0L2,2 M9.583,22H28V4H4v23.583L9.583,22z"/>
+                                            <rect height="2" width="18" x="8" y="8"/>
+                                            <rect height="2" width="18" x="8" y="12"/>
+                                            <rect height="2" width="12" x="8" y="16"/>
+                                        </g>
+                                </svg>
+                            </figure>
+                            {l_all_blogs}
+                        </a>
+                    </span>
+                    <!-- end_post_all -->
+                    </span>
+                    <!-- end_post_link -->
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap_static one-article wall_post_item">
+            <style id="blog_custom_style"></style>
+            <div id="blogs_post_content" class="col-md-12">
+                <script>clBlogs.initStyle();</script>
+                {blogs_post}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+</div>
+{footer}

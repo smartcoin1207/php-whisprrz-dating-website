@@ -1,0 +1,119 @@
+{header}
+<div class="frame_content">
+
+<script Language="JavaScript" type="text/javascript">
+    var captcha = '';
+    <!-- begin_re_captcha_js -->
+    var verifyCallback = function(response) {
+        captcha = grecaptcha.getResponse(recaptchaWd);
+    };
+    var onloadCallback = function() {
+        recaptchaWd = grecaptcha.render('recaptcha', {
+            'sitekey' : '{re_captcha_sitekey}',
+            'callback' : verifyCallback,
+            'theme' : '{re_captcha_theme}'
+        });
+    };
+    <!-- end_re_captcha_js -->
+
+	function skipPhotoUpload(){
+        var form = document.forms['UploadPhotoForm'];
+        location.href = 'join3.php?cmd=skip';
+        return false;
+	}
+
+  function onValidateUploadPhotoForm() {
+    var form = document.forms['UploadPhotoForm'];
+    if (!(validateRequiredField(form['photo_file'], '{l_file_location}'))) {
+      return false;
+    }
+    if (!(validateMaxLength(form['description'], '{l_photo_description}','{profile_photo_description_length}'))) {
+      return false;
+    }
+    return true;
+  }
+  function validateUploadPhotoForm() {
+    blockSubmission = true;
+     if (typeof beforeUploadPhotoFormValidation != 'undefined') {
+       beforeUploadPhotoFormValidation();
+    }
+    var validated = onValidateUploadPhotoForm();
+    if (validated && (typeof uponSuccessfulUploadPhotoFormValidation != 'undefined')) {
+      validated = uponSuccessfulUploadPhotoFormValidation();
+    }
+    else if (!validated && (typeof uponUnsuccessfulUploadPhotoFormValidation != 'undefined')) {
+      uponUnsuccessfulUploadPhotoFormValidation();
+    }
+    return validated;
+  }
+  function submitUploadPhotoForm() {
+   if (validateUploadPhotoForm()) document.UploadPhotoForm.submit();
+    }
+</script>
+
+	<h2>{join_message}</h2>
+
+<form class=""  name="UploadPhotoForm" method="POST" enctype="multipart/form-data" action="{url_main}join3.php?cmd=photo" onSubmit="return validateUploadPhotoForm();" style="padding: 0px; margin: 0px;">
+
+<script language="JavaScript" type="text/javascript">
+addOnload(setPostAlertFocus);
+function setPostAlertFocus()
+{
+setFocus('UploadPhotoForm','photo_file');
+}
+</script>
+
+			<div class="bl_join3">
+
+				<h2>{l_people_with_pictures}</h2>
+
+				<p>{l_you_listen_on_top}</p>
+				<p class="bigm">{l_recieve_10x}</p>
+
+				<h2>{l_upload_photo}</h2>
+				<p class="bigm">{l_click_browse}</p>
+
+                <div class="bl_upload">
+
+                    <div class="upload">
+                        <div class="pic">
+                            <img src="{url_files}oryx_nophoto_m.jpg" alt="" />
+                            <div>
+                                <a href="#" onclick="javascript:OpenWindow('{url_main}info.php?page=photo_tips&lang={lang_loaded}','650','400');">{l_photo_dos}</a>
+                            </div>
+                        </div>
+                        <div class="pic_info">
+                            <div class="bl">
+                                <strong>{l_file_location}:</strong>
+                                <input id="photo_file" name="photo_file" class="file" type="file" accept="image/gif,image/jpeg,image/png,image/jpg">
+                                <span>{l_gif_jpg_jpeg_png}</span>
+                            </div>
+                            <div class="bl">
+                                <strong>{l_photo_description}:</strong>
+                                <input class="no_abk" type="text" name="description" size="40" />
+                                <span>({l_max_100})</span>
+                            </div>
+                        <div class="cl"></div>
+                        </div>
+                    <div class="cl"></div>
+                    </div>
+
+                    <div class="bl_captcha">
+                       
+                        <div class="cl"></div>
+                        <div>
+                            <input type="button" value="{l_upload_photo}" onClick=" submitUploadPhotoForm();" class="btn lower_header_color big" title="{l_upload_photo}" onMouseOver="window.status='{l_upload_photo}'; return true;" onMouseOut="window.status=''; return true;">
+                            <!-- begin_skip_button -->
+                            <input type="button" value="{l_skip_step}" onClick="skipPhotoUpload();" class="btn lower_header_color big " title="{l_skip_step}" onMouseOver="window.status='{l_skip_step}'; return true;" onMouseOut="window.status=''; return true;">
+                            <!-- end_skip_button -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+		</div>
+</form>
+</div>
+
+{footer}

@@ -1,0 +1,19 @@
+/* Tiny Scrollbar */
+.scrollbarY{ }
+.scrollbarY .viewport{ height: 330px; overflow: hidden; position: relative; }
+.chat.chat_online .scrollbarY .viewport{ height: 333px; }
+.scrollbarY .overview{ width: 100%; list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
+.scrollbarY .scrollbar{ position: relative; background-position: 0 0; float: right; width: 25px; }
+.scrollbarY .track{ height: 100%; width: 23px; position: relative; padding: 0 1px; }
+.scrollbarY .thumb{ background: #dadada; border-radius: 5px; height: 20px; width: 7px; cursor: pointer; overflow: hidden; position: absolute; top: 0; left: 0; min-height: 3px; }
+.scrollbarY .disable{ display: none; }
+
+/*#scrollbarX { width: 293px;  }
+#scrollbarX .viewport { width: 273px; height: 298px; overflow: hidden; position: relative; }
+#scrollbarX .overview { list-style: none; width: 1416px; padding: 0; margin: 0; position: absolute; left: 0; top: 0;  }
+#scrollbarX .overview img{ float: left; }
+#scrollbarX .scrollbar{  position: relative; margin: 0 0 5px; clear: both; height: 15px; }
+#scrollbarX .track {  width: 100%; height:15px; position: relative; }
+#scrollbarX .thumb { background: transparent url(../images/bg-scrollbar-thumb-x.png) no-repeat 100% 50%; height: 25px; cursor: pointer; overflow: hidden; position: absolute; left: 0; top: -5px;}
+#scrollbarX .thumb .end{ background: transparent url(../images/bg-scrollbar-thumb-x.png) no-repeat 0 50%; overflow: hidden; height: 25px; width: 5px;}
+#scrollbarX .disable { display: none; }*/

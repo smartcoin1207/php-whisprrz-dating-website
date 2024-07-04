@@ -1,0 +1,111 @@
+{header}
+<script>
+$(function() {
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+        }
+    });
+    $('#all').change(function(){
+        choiceChkbox($(this), $('[id ^= chk_]'))
+    });
+});
+
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+</script>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/forum_categories.php">{l_menu_forum_categories}</a></li>
+        <li><a href="{url_main}administration/forum_category_add.php">{l_menu_forum_categories_add}</a></li>
+        <li><a href="{url_main}administration/forum_forums.php">{l_menu_forum_forums}</a></li>
+        <li><a href="{url_main}administration/forum_forum_add.php">{l_menu_forum_forums_add}</a></li>
+        <li><a href="{url_main}administration/forum_topics.php">{l_menu_forum_topics}</a></li>
+        <li><a href="{url_main}administration/forum_messages.php">{l_menu_forum_messages}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <!-- begin_main_items -->
+    <form action="{url_page}" method="POST">
+    <input type="hidden" name="cmd" value="update">
+
+    <table class="tb_fields" id="sortable" style="width: 100%;">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right"><input style="margin:0px; width: 20px;" type="checkbox" id="all"></th>
+        <th style="width:140px; text-align:center;">{l_action}</th>
+        <th style="text-align: center; width:30px;">
+            <!-- begin_params_none_id --><a href="{url_page}?{params_current}">{l_category_id}</a><!-- end_params_none_id -->
+            <!-- begin_params_asc_id -->&uarr;<a href="{url_page}?{params_current}">{l_category_id}</a><!-- end_params_asc_id -->
+            <!-- begin_params_desc_id -->&darr;<a href="{url_page}?{params_current}">{l_category_id}</a><!-- end_params_desc_id -->
+        </th>
+        <th style="padding-left: 5px;" class="last">
+            <!-- begin_params_none_title --><a href="{url_page}?{params_current}">{l_category_title}</a><!-- end_params_none_title -->
+            <!-- begin_params_asc_title -->&uarr;<a href="{url_page}?{params_current}">{l_category_title}</a><!-- end_params_asc_title -->
+            <!-- begin_params_desc_title -->&darr;<a href="{url_page}?{params_current}">{l_category_title}</a><!-- end_params_desc_title -->
+        </th>
+        <!--<th>{l_order}</th>-->
+        <th class="decor_r"></th>
+    </tr>
+
+    <!-- begin_main_item -->
+    <tr class="color" style="cursor:move;">
+        <td id ="decor_l" class="decor_l"></td>
+        <td class="right" style="margin:0px; width: 20px;">
+            <input style="margin:0px 0px 0px 10px; padding:0px; width: 20px;" type="checkbox" id="chk_{id}">
+        </td>
+        <td style="text-align: center;">
+            <a href="{url_main}administration/forum_category_edit.php?id={id}">{l_edit}</a>
+            |
+            <a href="{url_main}administration/{url_page}?cmd=delete&item={id}" onclick="if (confirm('{l_are_you_sure_category}')) return true; else return false;">{l_delete}</a>
+            |
+            <a href="{url_main}administration/forum_forums.php?category_id={id}">{l_forums}</a>
+        </td>
+        <td style="text-align: center;">{id}</td>
+        <td class="last" style="text-align: left; padding-left: 5px;">
+            <input type="hidden" name="category[]" value="{id}">{category_title}
+            {title}
+        </td>
+        <!--<td class="last">
+            <a href="{url_main}administration/forum_category_order.php?id={id}&move=up">{l_up}</a>
+            |
+            <a href="{url_main}administration/forum_category_order.php?id={id}&move=down">{l_down}</a>
+        </td>-->
+        <td id ="decor_r" class="decor_r"></td>
+    </tr>
+    <!-- end_main_item -->
+    </table>
+    <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+        <input type="submit" style="visibility:hidden;position:absolute;">
+    </div>
+    </form>
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) actionChecked('{url_page}'); return false;" href="#">{l_delete}</a>
+    </div>
+    <!-- end_main_items -->
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_results}</div>
+    <!-- end_main_noitems -->
+
+    <div class="empty"></div>
+</div>
+{footer}

@@ -1,0 +1,193 @@
+{header}
+{blogs_header}
+
+
+<script type='text/javascript'>
+function addtag(tag)
+{
+    var tArea = document.form_val.text;
+    var isIE = (document.all)? true : false;
+    var open = '<' + tag + '>';
+    var end = '</' + tag + '>';
+
+    if (isIE) {
+        tArea.focus();
+        var curSelect = document.selection.createRange();
+        if (arguments[2]) {
+            curSelect.text = open + arguments[2] + ">" + curSelect.text + end;
+        } else {
+            curSelect.text = open + curSelect.text + end;
+        }
+    } else if (!isIE && typeof tArea.selectionStart != "undefined") {
+        var selStart = tArea.value.substr(0, tArea.selectionStart);
+        var selEnd = tArea.value.substr(tArea.selectionEnd, tArea.value.length);
+        var curSelection = tArea.value.replace(selStart, '').replace(selEnd, '');
+        if (arguments[2]) {
+            tArea.value = selStart + open + arguments[2] + ">" + curSelection + end + selEnd;
+        } else {
+            tArea.value = selStart + open + curSelection + end + selEnd;
+        }
+    } else {
+        tArea.value += (arguments[2])? open + arguments[2] + ">" + end : open + end;
+    }
+}
+
+$(document).ready(function(){
+
+    $("#imgs_uploads_add").click(function() {
+        $("#imgs_uploads").append('<div class="blog_inp_file">'+document.getElementById('input_template').innerHTML+'</div>');
+    });
+    $(".post_del_img").click(function() {
+        if (confirm('{j_are_you_sure}')) {
+            $.get('{url_main}blogs_ajax.php?cmd=img_del&post_id={post_id}&img_id=' + $(this).attr('imgId'));
+            $("#post_img_" + $(this).attr('imgId')).remove();
+        }
+        return false;
+    });
+    $("#text_b").mousedown(function() { addtag('b'); });
+    $("#text_i").mousedown(function() { addtag('i'); });
+    $("#text_u").mousedown(function() { addtag('u'); });
+    $("#text_s").mousedown(function() { addtag('s'); });
+});
+function on_form_submit()
+{
+    if($('#text').val()=='')
+    {
+        alert('{j_please_enter_post_text}');
+        return false;
+    }
+
+    var files = $("input[name='img[]']");
+
+    for(i=0;i<files.length;i++)
+    {
+
+       file = $("input[name='img[]']:eq("+i+")");
+        if((file.val()!='')&&(file.val().indexOf('.jpg')==-1)&&(file.val().indexOf('.jpeg')==-1)&&(file.val().indexOf('.gif')==-1)&&(file.val().indexOf('.png')==-1)&&(file.val().indexOf('.JPG')==-1)&&(file.val().indexOf('.JPEG')==-1)&&(file.val().indexOf('.GIF')==-1)&&(file.val().indexOf('.PNG')==-1))
+        {
+            alert("{j_please_choose_only_image_files}");
+            return false;
+        }
+    }
+
+    $('#load_animation').css('visibility', 'visible');
+    return true;
+
+}
+$('body').on('change','[id ^= file]', function(){
+    var id = $(this).attr('id');
+    $('#' + id + '_title').html($(this).val());
+});
+
+function addInputFile(){
+    var ln = $('input:file').length + 1;
+    if (ln > {max_file}) return;
+    $('#place').before("<div class='blog_inp_file'>\n\
+                            <div class='jq-file file' style='display: inline-block; position: relative; overflow: hidden'>\n\
+                                    <div id='file" + ln + "_title' class='jq-file__name'>{j_file_input_no_file_selected}</div>\n\
+                                    <div class='jq-file__browse'>{j_file_input_browse}</div>\n\
+                                    <input id='file" + ln + "' class='file' type='file' name='img[]' style='position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; opacity: 0;'></input>\n\
+                            </div>\n\
+                        </div>");
+
+}
+
+function form_submit()
+{
+    if (on_form_submit())
+        document.getElementById('form_val').submit();
+}
+</script>
+
+<div class="blogs_new_p pl_top">
+    <div>
+        <h1 class="txt_upper_header_color fl_left">
+            <a href=""><img class="blue" src="{my_photo}" width="26" height="29" alt=""/></a>
+            <!-- begin_write -->{l_blogs_write_to_blog}<!-- end_write -->
+            <!-- begin_edit -->{l_blogs_edit_blog_post}<!-- end_edit -->
+        </h1>
+
+        <div class="fl_right header_btn">
+<!--             <input class="btn_red_arrow_left js_back" type="button" value="{l_back}" onclick="history.back()"/> -->
+                     <a href="" onclick="history.back(); return false;" class="btn round blue fl_right" onclick="document.location='{url_main}blogs_write.php'"><img class="btn_arrows_left" src="{url_tmpl_main}images/blogs/btn_arrows_left.png" width="10" height="5" alt="" /> {l_back} </a>
+        </div>
+    <div class="justify"></div>
+    </div>
+    <table class="blogs_new_tb_sub">
+        <col width="7px"/>
+        <col width="430px"/>
+        <tr>
+            <th class="th_t_l nb first">&nbsp;</th>
+            <th class="th_t_c nb"><span>{l_title_message_and_images}</span></th>
+            <th class="th_t_r nb first">&nbsp;</th>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="nb nobg_img">
+            <div class="bl_blogs_new_frm">
+                <form id="form_val" name="form_val" action="{url_main}blogs_write.php?id={post_id}" method="post" enctype="multipart/form-data">
+
+                    <label><strong>{l_title}</strong> {l_optional_brackets}</label>
+                     <div class="blog_input_box3"><input name="subject" class="no_abk" type="text" value="{post_subject}" /></div>
+
+                    <label><strong>{l_blog_text}</strong> {l_you_may_use_links_to_images_or_video_embed_codes}</label><div class="blogs_write_textarea">
+                    <div class="blog_textarea_box1"><textarea id="text" name="text" class="no_abk">{post_text}</textarea></div></div>
+<!--                     <a id="text_s">{l_blogs_write_text_symbol}</a>
+                    <a id="text_u">{l_blogs_write_text_symbol}</a>
+					<a id="text_i">{l_blogs_write_text_symbol}</a>
+					<a id="text_b">{l_blogs_write_text_symbol}</a> -->
+
+                    <div id="imgs_uploads" >
+						<label><strong>{l_images}</strong> {l_optional_brackets}</label>
+						<div id="input_template" class="blog_inp_file"><input class="file" type="file" id = "img" name="img[]"/></div>
+						<div class="blog_inp_file"><input class="file" type="file"  name="img[]"/></div>
+						<div class="blog_inp_file"><input class="file" type="file"  name="img[]"/></div>
+						<div id="place" style="display: none;"></div><!-- New boxes get inserted before this -->
+
+                    </div>
+                    <!--javascript:addUploadBoxes('place','input_template',1)-->
+                    <a href="javascript:addInputFile()" >[+] {l_add_more_images}</a>
+
+                    <!--<a id="imgs_uploads_add" addHtml='<input class="no_abk" type="file" name="img[]"/><br />'></a>-->
+					<br />
+                    <div class="line_dashed"></div>
+
+                    <!-- begin_imgs -->
+                    <div>
+                        <!-- begin_img -->
+                        <div class="blogs_new_img" id="post_img_{img_i}">
+                            <a href="#"><img src="{img_url}" width="85" height="64" alt=""/></a>
+                            <div class="blogs_new_delete"><a class="post_del_img" imgId="{img_i}" href="#"><img src="{url_tmpl_main}images/blogs/ico_delete.png" width="15" height="17" alt=""/></a></div>
+                        </div>
+                        <!-- end_img -->
+                    <div class="justify"></div>
+                    </div>
+                    <div class="line_dashed"></div>
+                    <!-- end_imgs -->
+                    <!-- begin_delete -->
+                    <a style="font-size:11px;" onclick="return confirm('{j_delete_confirm}')" href="{url_main}blogs_blog.php?del={post_id}">{l_delete}</a>
+                    <!-- end_delete -->
+                    <div class="fl_right" style="margin-bottom:20px;">
+
+                    <a href="#" onclick="form_submit(); return false;" class="btn round blue fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />{l_save_blog} <img class="btn_arrows_right" src="{url_tmpl_main}images/blogs/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+                            <img class="vishide" style="position:relative; margin: 1px 5px 0; visibility:hidden; float: right;" id="load_animation" src="{url_tmpl_main}images/load_animation.gif">
+                    </div>
+                </form>
+            </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th class="th_b_l nb">&nbsp;</th>
+            <th class="th_b_c nb">&nbsp;</th>
+            <th class="th_b_r nb">&nbsp;</th>
+        </tr>
+
+    </table>
+
+</div>
+
+
+{blogs_side}
+{blogs_footer}
+{footer}

@@ -1,0 +1,34 @@
+   var DIR = '';
+
+    var nodes = null;
+    var edges = null;
+    var graph = null;
+
+    function draw() {
+      // create people
+      nodes = [
+        <!-- begin_friends_item -->
+        {delimiter_friends}{id: {user_id}, label: '{user_name}', image: '{url_files}{user_photo}', shape: 'image', fontSize: 12, fontFace:'Tahoma,Verdana,sans-serif'}
+        <!-- end_friends_item -->
+      ];
+
+      edges = [
+        <!-- begin_relations_item -->
+        {delimiter_relations}{from: {from_user_id}, to: {to_user_id}, value: {activity}, color: {color:'{color}', highlight:'{color_set}'}}
+        <!-- end_relations_item -->
+      ];
+
+      // create a graph
+      var container = document.getElementById('mygraph');
+	  var data = {
+        nodes: nodes,
+        edges: edges,
+      };
+      var options = {width: '748px',
+                     height:'700px',
+                     physics: {barnesHut: {enabled: false},
+                     repulsion: {nodeDistance: 47, springLength: 162, springConstant: 0.00022, damping: 1}}
+                    };
+	  clustering: true;
+      graph = new vis.Network(container, data, options);
+    }

@@ -1,0 +1,161 @@
+{header}
+
+<div class="frame_content">
+{menu_help}
+<div class="cl"></div>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="content_bgrnd"  style="padding-left: 20px; padding-top: 5px;">
+<tr>
+        <td height="10">
+        &nbsp;
+        </td>
+</tr>
+<tr>
+        <td class="banner" >
+        <h2 class="txt_upper_header_color"><img src="{url_tmpl_main}img/info.png" class="png_behavior" align="absmiddle" alt="" width="48" height="48"> {l_site_info}</h2>
+        </td>
+</tr>
+
+<tr>
+<td>
+ &nbsp;
+</center>
+
+ <table border="0" width="100%" cellspacing="0" cellpadding="6">
+<tr>
+  <td width="180" valign=top style="border-right: 1px dotted #000000;"><table border="0" width=93% cellspacing="0" cellpadding="0">
+ <tr>
+
+<td width="100%" style="padding-left:10px;" height="26" class=light>
+<div class="header_small txt_upper_header_color">{l_navigation}</div>
+</td>
+</tr>
+
+<tr>
+<td width="100%">
+&nbsp;
+</td>
+</tr>
+
+
+<!-- begin_cats -->
+<!-- begin_cat -->
+<tr>
+<td width="100%" style="padding-left: 10px; padding-bottom: 2px;">
+<!-- begin_cat_other -->
+<a href="{url_main}news.php?cat={id}" style="text-decoration: none;">{title_cat}</a>
+<!-- end_cat_other -->
+<!-- begin_cat_this -->
+<a href="{url_main}news.php?cat={id}" style="text-decoration: none; color: #999" class="light">{title_cat}</a>
+<!-- end_cat_this -->
+</td>
+</tr>
+<!-- end_cat -->
+<!-- begin_news_cat -->
+<tr>
+<td width="100%" style="padding-left: 10px; padding-bottom: 2px;">
+<!-- begin_cat_news -->
+<a href="{url_main}news.php?view={id}" style="text-decoration: none;">{title_news}</a>
+<!-- end_cat_news -->
+<!-- begin_cat_news_this -->
+<a href="{url_main}news.php?view={id}" style="text-decoration: none; color: #999" class="light">{title_news}</a>
+<!-- end_cat_news_this -->
+</td>
+</tr>
+<!-- end_news_cat -->
+<!-- end_cats -->
+
+<td width="100%">
+&nbsp;
+</td>
+</tr>
+
+<tr>
+<td width="100%" style="padding-left:10px;" height="26" class=light>
+<div class="header_small txt_upper_header_color">{l_quick_search}</div>
+</td>
+</tr>
+
+<tr>
+<td width="100%">
+</td>
+</tr>
+
+<tr>
+
+<td width="100%" style="padding-left: 3px; padding-bottom: 0px;">
+<form method="post" action="{url_page}" class="info_form">
+<input type="text" name="keyword" class="text"><br />
+<input type="submit" class="btn lower_header_color big" title="{l_search}" value="{l_search}">
+</form>
+</td>
+
+</tr>
+
+<tr>
+<td width="100%">
+&nbsp;
+</td>
+</tr>
+</table>
+
+  </td>
+  <td width="520" valign="top" style="padding-left:10px;">
+
+<table border="0" width="453" cellspacing="1" cellpadding="3">
+<tr>
+<td width="441">
+
+	<!-- begin_news -->
+		<!-- begin_news_item -->
+			<div style="position:relative;top:-65px;">
+				<div class="header_small txt_upper_header_color fl_left"><a href="{url_page}?view={id}">{title}</a></div>
+				<div class="fl_right" align="right"><b>{date}</b></div>
+				<div class="cl"></div>
+				<br>
+				{news_short}<br>
+			</div>
+		<!-- end_news_item -->
+		<!-- begin_news_pages -->
+			<div align="center" style=" width: 280px;">
+				<!-- begin_news_prev_page --><a href="{url_page}?offset={offset}{params}" class="link">{l_prev}</a>&nbsp; | &nbsp;<!-- end_news_prev_page -->
+				<!-- begin_news_prev_page_off --><b>{l_prev}</b>&nbsp; | &nbsp;<!-- end_news_prev_page_off -->
+				<!-- begin_news_first_page --><a href="{url_page}?offset={offset}{params}" class="link">{l_page_1}</a>&nbsp;<!-- end_news_first_page -->
+				<!-- begin_news_prev_pages --><a href="{url_page}?offset={offset}{params}" class="link">&lt;&lt;</a>&nbsp;<!-- end_news_prev_pages -->
+				<!-- begin_news_page -->
+					<!-- begin_news_link_page --><a href="{url_page}?offset={offset}{params}" class="link">{page}</a>&nbsp;<!-- end_news_link_page -->
+					<!-- begin_news_this_page --><b>{page}</b><!-- end_news_this_page -->
+				<!-- end_news_page -->
+				<!-- begin_news_next_pages --><a href="{url_page}?offset={offset}{params}" class="link">&gt;&gt;</a>&nbsp;<!-- end_news_next_pages -->
+				<!-- begin_news_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}" class="link">{num_pages}</a>&nbsp;<!-- end_news_last_page -->
+				<!-- begin_news_next_page -->&nbsp; | &nbsp;<a href="{url_page}?offset={offset}{params}" class="link">{l_next}</a><!-- end_news_next_page -->
+				<!-- begin_news_next_page_off -->&nbsp; | &nbsp;<b>{l_next}</b><!-- end_news_next_page_off -->
+			</div>
+		<!-- end_news_pages -->
+	<!-- end_news -->
+	<!-- begin_news_view -->
+		<div  style="position:relative;top:-65px;">
+			<div class="header_small txt_upper_header_color fl_left">{title}</div>
+			<div class="fl_right"><b>{date}</b></div>
+			<div class="cl"></div>
+			<br>
+			{news_long}
+			<br><br>
+		</div>
+	<!-- end_news_view -->
+
+</td>
+</tr>
+</table>
+
+ </td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+
+</table>
+
+</div>
+
+{footer}

@@ -1,0 +1,71 @@
+{header}
+
+<div class="frame_content">
+
+<table width=100% border=0 cellpadding=0 cellspacing=0>
+<tr>
+<td>
+	{friends_menu}
+</td></tr>
+<tr>
+<td>
+
+<h2 class="txt_lower_header_color"><img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {l_block_users}</h2>
+
+<form method="POST">
+
+<input type="hidden" name="uid" value="{user_id}" />
+
+<input type="hidden" name="action" value="update" />
+
+
+
+
+
+<table width="100%" border=0 cellpadding=0 cellspacing=6 class="tbl_friend">
+
+<tr>
+
+	<td class="violet" colspan=2>{l_block} {user_name}</td>
+
+</tr>
+
+<!-- begin_options -->
+<!-- begin_option -->
+<!-- begin_delimiter -->
+<!-- end_delimiter -->
+<tr>
+	<td width="95%" class="gr_cell">{option_title}</td>
+	<td class="gr_cell"><input type="checkbox" name="block_option_{option}" value="1" {option_checked} /></td>
+</tr>
+<!-- end_option -->					
+<!-- end_options -->
+
+</table>
+
+<br>
+<center>
+<input type="submit" value="{l_edit}" class="btn lower_header_color big"/>&nbsp;&nbsp;&nbsp;
+
+<input type="button" value="{l_back}" onclick="location='{url_main}user_block_list.php';" class="btn lower_header_color big"/>
+
+</center>
+
+</form>
+
+</td>
+</tr>
+</table>
+
+</div>
+
+
+
+{footer}
+
+
+
+
+
+
+

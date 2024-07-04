@@ -1,0 +1,120 @@
+{header}
+{ims}
+{folders}
+
+<div class="column_main frame_content">
+
+{mail_menu}
+<div class="cl"></div>
+
+
+<script type="text/javascript">
+function submitMailFolderForm(action) {
+	var form = document.forms['MailFolderForm'];
+
+	if(action == "delete") 	{
+		if (!isChecked(form)) 		{
+			alert("{l_nothing}");
+			return;
+		}
+		if (!confirm("{l_are_sure_folders}")) {
+			return;
+		}
+		form.action = "{url_main}mail_folder.php";
+		form.cmd.value = "delete";
+		form.submit();
+	} else if(action == "edit") {
+		if (!isChecked(form['folder_id[]'])) {
+			alert("{l_nothing}");
+			return;
+		}
+		if (!isOneChecked(form['folder_id[]'])) {
+			alert("{l_please_select_only_one}");
+			return;
+		}
+		form.action = "{url_main}mail_folder_edit.php";
+		form.submit();
+	} else if(action == "empty_trash") {
+		if (!confirm("{l_are_sure_trash}")) {
+			return;
+		}
+		window.location = "{url_main}mail.php?cmd=empty_trash";
+	}
+}
+</script>
+			<h2 class="txt_lower_header_color">{l_folders}</h2>
+
+
+				<form name="MailFolderForm" method="get" action="{url_main}mail_folder.php" style="padding: 0px; margin: 0px;">
+				<input type="hidden" name="cmd" value="">
+
+					<div class="list_button">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td height="22" width="348" class="list_button_text" align="left"><span style="padding-left: 42px;">{l_folder_name}</span></td>
+								<td width="1" class="list_button_light"></td>
+								<td width="1" class="list_button_dark"></td>
+								<td width="56" align="center" class="list_button_text">{l_total}</td>
+								<td width="1" class="list_button_light"></td>
+								<td width="1" class="list_button_dark"></td>
+								<td width="60" align="center" class="list_button_text">{l_unread}</td>
+							</tr>
+						</table>
+					</div>
+					<div>
+						<table cellpadding="0" cellspacing="0" border="0" class="body_little">
+							<tr id="folderInbox" class="list_view1" style="height: 44px;">
+								<td width="23" style="padding-left: 12px; height: 44px;"><img src="{url_tmpl_main}img/ark2.png" class="png_behavior" alt="{l_inbox}" title="{l_inbox}" border="0"></td>
+								<td width="337" style="padding-left: 8px; height: 44px;" class="body_little" align="left"><a href="{url_main}mail.php" class="sec_text_bold">{l_inbox}</a><br>{l_inbox_text}</td>
+								<td width="58" align="center">{count_msg_inbox}</td>
+								<td width="62" align="center">{count_msg_new_inbox}</td>
+							</tr>
+							<tr id="folderTrash" class="list_view2" style="height: 44px;">
+								<td width="23" style="padding-left: 12px; height: 44px;"><img src="{url_tmpl_main}img/ark.png" class="png_behavior" alt="{l_trash}" title="{l_trash}" border="0"></td>
+								<td width="337" style="padding-left: 8px; height: 44px;" class="body_little" align="left"><a href="{url_main}mail.php?folder=2" class="sec_text_bold">{l_trash}</a><br>{l_trash_text}</td>
+								<td width="58" align="center">{count_msg_trash}</td>
+								<td width="62" align="center">{count_msg_new_trash}</td>
+							</tr>
+							<tr id="folderSent" class="list_view1" style="height: 44px;">
+								<td width="23" style="padding-left: 12px; height: 44px;"><img src="{url_tmpl_main}img/xfmail.png" class="png_behavior" alt="{l_sent_mail}" title="{l_sent_mail}" border="0"></td>
+								<td width="337" style="padding-left: 8px; height: 44px;" class="body_little" align="left"><a href="{url_main}mail.php?folder=3" class="sec_text_bold">{l_sent_mail}</a><br>{l_sent_mail_text}</td>
+								<td width="58" align="center">{count_msg_sent_mail}</td>
+								<td width="62" align="center">{count_msg_new_sent_mail}</td>
+							</tr>
+							<!-- begin_folders_item -->
+							<tr id="row4" class="list_view2" style="height: 30px;">
+								<td width="23" style="padding-left: 9px; height: 30px;"><input name="folder_id[]" type="checkbox" value="{id}"></td>
+								<td width="337" style="padding-left: 8px;" class="body_little" align="left"><a href="{url_main}mail.php?folder={id}" class="pri_text_bold">{name}</a></td>
+								<td width="58" align="center">{count_msg}</td>
+								<td width="62" align="center">{count_msg_new}</td>
+							</tr>
+							<!-- end_folders_item -->
+							<!-- begin_folders_add-->
+							<tr id="addFolder" class="list_view2" style="height: 30px;">
+								<td width="23" style="padding-left: 9px; height: 30px;"></td>
+								<td width="337" style="padding-left: 8px;" class="body_little" align="left"><a href="{url_main}mail_folder_add.php" class="pri_text_bold">{l_add_folder}</a></td>
+								<td width="58" align="center">-</td>
+								<td width="62" align="center">-</td>
+							</tr>
+							<!-- end_folders_add-->
+						</table>
+					</div>
+
+				<div style="padding-top: 8px; padding-bottom: 18px; padding-left:10px;">
+					<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2"><input type="button" value="{l_edit}" onClick="submitMailFolderForm('edit'); return false;" class="btn lower_header_color" title="{l_edit}" onMouseOver="window.status='{l_edit}'; return true;" onMouseOut="window.status=''; return true;"></div></td></tr></table></td>
+							<td style="padding-left: 5px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td>
+							<div class="button_border_2"><input type="button" value="{l_delete}" onClick="submitMailFolderForm('delete'); return false;" class="btn lower_header_color" title="{l_delete}" onMouseOver="window.status='{l_delete}'; return true;" onMouseOut="window.status=''; return true;"></div></td></tr></table></td>
+							<td style="padding-left: 5px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2"><input type="button" value="{l_empty_trash}" onClick="submitMailFolderForm('empty_trash'); return false;" class="btn lower_header_color" title="{l_empty_trash}" onMouseOver="window.status='{l_empty_trash}'; return true;" onMouseOut="window.status=''; return true;"></div></td></tr></table></td>
+							<td align="right" class="body_little" width="100%">{l_note}</td>
+						</tr>
+					</table>
+				</div>
+				</form>
+
+</div>
+
+{footer}
+
+

@@ -1,0 +1,107 @@
+{header}
+<div class="block_narrow">
+{menu_page}
+</div>
+<div class="block_main">
+
+    {l_changes_save}
+
+    <div class="bl_form">
+        <form action="{url_page}" enctype="multipart/form-data" method="POST">
+        <input type="hidden" name="cmd" value="update">
+
+        {config_fields}
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+                    <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+        </form>
+    </div>
+    <script>
+          var sectionTitle = {
+                    field_edge_color_scheme_member_member_navbar_menu_short_color : '{j_field_member_navbar_menu_short_color_section}',
+                    field_edge_color_scheme_member_member_circular_menu_background_color : '{j_field_member_circular_menu_background_color_section}',
+                    field_edge_color_scheme_member_member_videochat_btn_background_color : '{j_field_member_videochat_btn_background_color_section}',
+                    field_edge_color_scheme_visitor_main_page_info_block_background_color : '{j_field_main_page_info_block_section}',
+                    field_edge_color_scheme_visitor_main_page_download_apps_block_background_color : '{j_field_main_page_download_apps_block_section}',
+                    field_edge_color_scheme_general_footer_background_color : '{j_field_footer_background_color_section}',
+                    field_edge_color_scheme_general_modal_dialog_background_color : '{j_field_modal_dialog_background_color_section}',
+                    field_edge_color_scheme_general_banner_background_color : '{j_field_banner_section}',
+                    field_edge_color_scheme_general_pagination_background_color : '{j_field_pagination_section}',
+                    field_edge_color_scheme_member_member_navbar_menu_text_color : '{j_field_member_navbar_menu_section}',
+                    field_edge_color_scheme_member_member_navbar_menu_mobile_background_color : '{j_field_member_navbar_menu_mobile_section}',
+                    field_edge_color_scheme_visitor_main_page_header_login_frm_icon_color : '{j_field_main_page_header_login_frm_icon_color_section}',
+                    field_edge_color_scheme_visitor_main_page_content_background_color : '{j_field_main_page_color_sheme_extended_section}',
+                    field_edge_color_scheme_visitor_visitor_content_background_color : '{j_field_visitor_color_scheme_extended_section}',
+                    field_edge_color_scheme_member_member_content_background_color : '{j_field_member_content_section}',
+                    field_member_message_text_color_member_message_text_color : '{j_field_member_message_section}',
+                    field_edge_main_page_settings_info_block_header_show : '{j_field_info_block_section}',
+                    field_edge_member_settings_show_your_photo_browse_photos : '{j_field_show_your_content_section}',
+                    field_edge_color_scheme_member_member_message_text_color : '{j_field_member_message_section}'
+                }
+                $('#label_edge_general_settings_list_blog_posts_type_order, #label_edge_general_settings_list_videos_type_order,'+
+                  '#label_edge_main_page_settings_list_blog_posts_type_order, #label_edge_main_page_settings_list_videos_type_search, #label_edge_main_page_settings_list_people_type_order,'+
+                  '.field_edge_color_scheme_general_modal_dialog_background_color, .field_edge_color_scheme_general_pagination_background_color,'+
+                  '.field_edge_color_scheme_general_btn_success_background_color, .field_edge_color_scheme_general_banner_background_color, #bl_label_edge_member_settings_show_columns_inner_pages,'+
+                  '.field_edge_color_scheme_visitor_main_page_info_block_background_color, .field_edge_color_scheme_general_btn_secondary_background_color, .field_edge_color_scheme_general_btn_primary_background_color,'+
+                  '.field_edge_color_scheme_visitor_main_page_download_apps_block_background_color,'+
+                  '#label_edge_general_settings_list_photos_type_order, .field_edge_color_scheme_member_member_navbar_menu_short_color, .field_edge_color_scheme_member_member_navbar_menu_color,'+
+                  '.field_edge_color_scheme_member_member_navbar_menu_text_color,.field_edge_color_scheme_member_member_navbar_menu_mobile_background_color,.field_edge_color_scheme_member_member_navbar_menu_counter_background_color'+
+                  '.field_edge_color_scheme_member_member_navbar_menu_more_background_color, .field_edge_color_scheme_member_member_circular_menu_background_color,'+
+                  '#label_edge_member_settings_number_photos_left_column, #bl_label_edge_member_settings_show_your_photo_browse_photos, .field_edge_color_scheme_general_color_1,'+
+                  '.field_edge_color_scheme_general_3dcity_background_color, #bl_label_edge_general_settings_mobile_3dcity_on_tablet, #label_edge_member_settings_number_friends_right_column,'+
+                  '.field_edge_color_scheme_member_member_bl_wall_post_color, .field_edge_color_scheme_member_member_videochat_btn_background_color, #label_wall_play_video_wall,'+
+                  '#label_edge_member_settings_number_show_notif_events, .field_edge_color_scheme_general_cookie_popup_background_color, #bl_label_edge_gallery_settings_gallery_show_download_original,'+
+                  '.field_edge_color_scheme_general_footer_background_color, .field_edge_color_scheme_general_banner_background_color, .field_edge_color_scheme_visitor_main_page_content_background_color, '+
+                  '.field_edge_color_scheme_visitor_visitor_content_background_color, .field_edge_color_scheme_visitor_main_page_header_login_frm_icon_color, .field_edge_color_scheme_member_member_content_background_color,'+
+                  '.field_edge_color_scheme_member_member_message_text_color, #label_edge_general_settings_list_groups_type_order, #label_edge_main_page_settings_list_pages_type_order, #bl_label_edge_main_page_settings_info_block_header_show').each(function(){
+                    var $el=$(this),
+                        $bl=$el.before('<div class="decor_empty">'),
+                        cl=$el.attr('class');
+                    if (cl) {
+                        cl=trim($el.attr('class').replace(/bl_label/g,"").replace(/color_choose/g,""));
+                        if(!cl){
+                            cl='field'+trim($el.attr('id').replace(/bl_label/g,"").replace(/color_choose/g,""));
+                        }
+                        if (sectionTitle[cl]!=undefined) {
+
+                            var $blDecor=$bl.prev('.decor_empty');
+                            $blDecor.addClass(cl+'_decor').after('<div class="template_section_description">'+sectionTitle[cl]+'</div>')
+                        }
+                    }
+                })
+
+                $('#input_gallery_show_comments_replies_load').each(function(){
+                    $(this).after('<div class="decor_empty">');
+                })
+
+                $(function(){
+                    $('#form_template_settings').css({opacity:1, transition:'opacity .3s linear'});
+
+                    var $additionMenu=$('.member_user_additional_menu');//, .member_groups_additional_menu
+                    if($additionMenu[0]){
+                        var $option=$additionMenu.find('form input[type=checkbox]');
+                        $option.change(function(){
+                            if($option.filter(':checked').length>6){
+                                $(this).prop('checked',false);
+                                alert('{j_a_maximum_of_6_items_can_be_selected}');
+                            }
+                        })
+                    }
+                })
+                $('#list_blog_posts_display_type').change(function(){
+                    var is=this.value=='info_big'||this.value=='info_small';
+                    $('#label_list_blog_posts_number_row, #list_blog_posts_number_row')[is?'hide':'show']();
+                }).change();
+
+                main_page_header_background_type();
+    </script>
+    </script>
+    <div class="empty"></div>
+</div>
+<!-- begin_upload_error -->
+<script language="javascript" type="text/javascript">
+    alert('{error}');
+</script>
+<!-- end_upload_error -->
+{footer}

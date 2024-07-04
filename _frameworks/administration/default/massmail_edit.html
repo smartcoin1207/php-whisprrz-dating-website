@@ -1,0 +1,136 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/massmail.php">{l_menu_mass_send}</a></li>
+        <li class="active"><a href="{url_main}administration/massmail_edit.php">{l_menu_mass_add}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+		<p>{message_massmail}</p>
+
+		<!-- begin_mails -->
+		<div align="center" style="height:30px">
+        <!-- begin_like -->
+        <a href="{url_page}?like={like}{params}">{like_title}</a>
+        <!-- end_like -->
+		</div>
+
+		<!-- begin_mails_pages -->
+        <div align="center" style="height:50px">
+        {num_total} {l_count_mails}
+        <!-- begin_mails_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_mails_prev_page -->
+        <!-- begin_mails_prev_page_off --><b>{l_prev}</b> | <!-- end_mails_prev_page_off -->
+        <!-- begin_mails_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_mails_first_page -->
+        <!-- begin_mails_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_mails_prev_pages -->
+        <!-- begin_mails_page -->
+            <!-- begin_mails_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_mails_link_page -->
+            <!-- begin_mails_this_page --><b>{page}</b><!-- end_mails_this_page -->
+        <!-- end_mails_page -->
+        <!-- begin_mails_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_mails_next_pages -->
+        <!-- begin_mails_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_mails_last_page -->
+        <!-- begin_mails_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_mails_next_page -->
+        <!-- begin_mails_next_page_off --> | <b>{l_next}</b><!-- end_mails_next_page_off -->
+        </div>
+		<!-- end_mails_pages -->
+
+		<!-- begin_mails_items -->
+        <table class="tb">
+		<tr>
+            <th class="decor_l">&nbsp;</th>
+            <th class="right" >{l_action}</th>
+			<th>
+				<!-- begin_params_none_id --><a href="{url_page}?{params_current}">{l_id}</a><!-- end_params_none_id -->
+				<!-- begin_params_asc_id --><b>&darr;</b><a href="{url_page}?{params_current}">{l_id}</a><!-- end_params_asc_id -->
+				<!-- begin_params_desc_id --><b>&uarr;</b><a href="{url_page}?{params_current}">{l_id}</a><!-- end_params_desc_id -->
+
+			</th>
+			<th>
+                <!-- begin_params_none_mail --><a href="{url_page}?{params_current}">{l_email}</a><!-- end_params_none_mail -->
+				<!-- begin_params_asc_mail --><b>&darr;</b><a href="{url_page}?{params_current}">{l_email}</a><!-- end_params_asc_mail -->
+				<!-- begin_params_desc_mail --><b>&uarr;</b><a href="{url_page}?{params_current}">{l_email}</a><!-- end_params_desc_mail -->
+			</th>
+			<th class="last">{l_user}</th>
+            <th class="decor_r">&nbsp;</th>
+		</tr>
+		<!-- begin_mails_item -->
+		<tr class="{class}">
+            <td class="decor{decl}">&nbsp;</td>
+			<td class="right">
+				<a href="{url_page}?offset={offset}{params}&cmd=delete_id&id={id}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+			</td>
+			<td>{id}</td>
+			<td><a href="{url_main}administration/massmail.php?to={mail}">{mail}</a></td>
+			<td class="last">
+				<!-- begin_user -->
+					<a href="{url_main}administration/users_edit.php?id={user_id}">{user_name}</a>
+				<!-- end_user -->
+				<!-- begin_nouser -->{l_nouser}<!-- end_nouser -->
+			</td>
+            <td class="decor{decr}">&nbsp;</td>
+		</tr>
+		<!-- end_mails_item -->
+		</table>
+		<!-- end_mails_items -->
+
+		<!-- begin_mails_noitems -->
+		<div align="center" style="height:50px">{l_no_mails}</div>
+		<!-- end_mails_noitems -->
+
+        <form action="{url_page}" method="GET">
+        <label>{l_domain_or_zone}:</label>
+        <input type="text" name="d" maxlength="100">
+        <div class="btn fl_right"><a href="#" class="submit">{l_search}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+        <div style="height:100px"></div>
+		<!-- end_mails -->
+
+        <h2>{l_title_current}</h2>
+
+        <form action="{url_page}" method="POST">
+		<input type="hidden" name="cmd" value="add">
+        <label>{l_add_mail}:</label>
+        <input type="text" name="mail">
+        <div class="btn fl_right"><a href="#" class="submit">{l_add}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+        <div style="height:50px"></div>
+
+        <form action="{url_page}" method="POST">
+		<input type="hidden" name="cmd" value="delete">
+        <label>{l_delete_mail}:</label>
+        <input type="text" name="mail">
+        <div class="btn fl_right"><a href="#" class="submit">{l_delete}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+        <div style="height:50px"></div>
+
+        <form action="{url_page}" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="cmd" value="add_file">
+        <label>{l_add_file}:</label>
+        <div class="fl_left">
+            <input class="upload" size="45" type="file" name='file'/>
+        </div>
+        <div class="btn fl_right"><a href="#" class="submit">{l_add}</a></div>
+        </form>
+        <div style="height:50px"></div>
+
+        <form action="{url_page}" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="cmd" value="delete_file">
+        <label>{l_delete_file}:</label>
+        <div class="fl_left">
+            <input class="upload" size="45" type="file" name='file'/>
+        </div>
+        <div class="btn fl_right"><a href="#" class="submit">{l_delete}</a></div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

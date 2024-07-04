@@ -1,0 +1,44 @@
+{header}
+
+
+    <div class="music_new">
+
+		{music_header}
+
+        <table class="tb_music_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    <div class="music_new_p pl_top">
+                        <!-- begin_musician_list -->
+                        <h1 class="pink">{l_music_musicians_search_result}</h1>
+                        
+                        {music_musician_list}
+                        <!-- end_musician_list -->
+                        
+                        <!-- begin_song_list -->
+                        <!-- begin_song_list_search_title --><h1 class="lgreen">{l_music_song_search_result}</h1><!-- end_song_list_search_title -->
+                        <!-- begin_song_list_not_found_title --><h1 class="txt_upper_header_color">{l_music_search_nothing_found_try_these}</h1><!-- end_song_list_not_found_title -->
+                        <!-- begin_song_list_from_my_title --><h1 class="lgreen">{l_music_you_have_not_uploaded_songs_yet}</h1><!-- end_song_list_from_my_title -->
+
+                        {music_song_list}
+                        <!-- end_song_list -->
+
+                    </div>
+                    <div class="music_new_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+				{music_sidebar}
+				
+            </tr>
+        </table>
+
+        <div class="foot_left"></div>
+		<div class="foot_right"></div>
+
+    
+    </div>
+
+{footer}

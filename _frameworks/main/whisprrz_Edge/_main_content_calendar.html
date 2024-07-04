@@ -1,0 +1,168 @@
+<!-- begin_container_header -->
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.tooltip.js{cache_version_param}"></script>
+<script type="text/javascript">
+
+function events_calendar_load(month, year)
+{
+    $('#events_calendar_load_animation').css('visibility', 'visible');
+
+    $('#events_calendar').load(
+            '{url_main}main_calendar_ajax.php?calendar_month=' + month + '&calendar_year=' + year);
+
+    return false;
+}
+
+function events_calendar_day_load(day_time, page_n)
+{
+    $.get(
+            '{url_main}main_calendar_ajax.php?day_time=' + day_time + '&event_calendar_day_page=' + page_n,
+            function (data, textStatus, XMLHttpRequest) {
+                $("#calendar_day_" + day_time).replaceWith(data);
+            });;
+
+    return false;
+}
+
+
+
+</script>
+
+<div id="events_calendar" class="events_new_p pl_top">
+<!-- end_container_header -->
+<script type="text/javascript">
+$(function(){
+    $('.empty_to_search').tooltip({effect: 'show', duration: 3, txt:'{l_add_entry}'});
+    $('.full_to_search').tooltip({effect: 'show', duration: 3, txt:'{l_show_all}'});
+    $('.one_to_search').tooltip({effect: 'show', duration: 3, txt:'{l_show_one}'});
+
+    var calendar_day = [];
+    <!-- begin_set_day -->
+    calendar_day['{calendar_datetime}'] = '{calendar_day_value}';
+    <!-- end_set_day -->
+
+    $('body').on('click', '[class *= to_search]', function(e){
+        e.stopPropagation();
+        var cl = $(this).attr('class').split(' '),
+            type = cl[0].split('_'),
+            page,
+            id = $(this).attr('id');
+        if (type[0] == 'empty') {
+            page = 'events_event_edit.php?event_private=1&date=';
+        } else if (type[0] == 'one') {
+            id = calendar_day[id];
+            page = '{url_main}events_event_show.php?event_id=';
+        } else {
+            page = 'all_search.php?datetime=';
+        }
+        window.location.href = page + id;
+    })
+    $('body').on('mousemove', '.not_title', function(){
+        $('.tooltip').stop().hide();
+    });
+});
+</script>
+<!-- begin_table_header -->
+<a href="#" onclick="return events_calendar_load({calendar_month} - 1, {calendar_year})" class="month_arrow_left"></a>
+<h1 class="fl_left">{calendar_month_title}</h1>
+<a href="#" onclick="return events_calendar_load({calendar_month} + 1, {calendar_year})" class="month_arrow_right"></a>
+<a href="#" onclick="return events_calendar_load({calendar_month}, {calendar_year} - 1)" class="year_arrow_left"></a>
+<h1 class="txt_upper_header_color fl_left">{calendar_year}</h1>
+<a href="#" onclick="return events_calendar_load({calendar_month}, {calendar_year} + 1)" class="year_arrow_right"></a>
+<img style="visibility:hidden; margin: 3px 0 0 3px; float:left;" id="events_calendar_load_animation" src="{url_tmpl_main}images/load_animation.gif">
+<table class="events_new_tb_sub">
+    <col width="7px"/>
+    <col width="53px"/>
+    <col width="385px"/>
+    <tr>
+        <th class="th_t_l nb first">&nbsp;</th>
+        <th class="th_t_c">{l_events_day}</th>
+        <th class="th_t_c"><span>{l_events_events_and_calendar_entries}</span></th>
+<!--         <th class="th_t_c nb">&nbsp;</th>
+        <th class="th_t_r nb first">&nbsp;</th>
+ -->    </tr>
+<!-- end_table_header -->
+<!-- begin_day -->
+    <tr id="calendar_day_{day_time}">
+        <!-- begin_holiday --><td class="{empty}to_search calendar_num_holiday " id="{calendar_datetime}" style="cursor: pointer;" colspan="2">
+        <!-- begin_holiday_today -->
+            <div id="{calendar_datetime}" class="calendar_today" >
+                <a class="calendar_today_img" href="#" onclick="return false;"></a>
+            </div>
+            <div class="{empty}to_search" id="{calendar_datetime}" style="cursor: pointer;">{calendar_day}</div> <sup>{calendar_day_title}</sup></td>
+        <td id="{calendar_datetime}" class="{empty}to_search calendar_c_decor_holiday" style="cursor: pointer;" colspan="3" >
+        <!-- end_holiday_today -->
+        <!-- begin_holiday_not_today -->
+            <div class="{empty}to_search" id="{calendar_datetime}" style="cursor: pointer;">{calendar_day}</div> <sup>{calendar_day_title}</sup></td>
+        <td class="{empty}to_search calendar_c_holiday " id="{calendar_datetime}" style="cursor: pointer;">
+        <!-- end_holiday_not_today -->
+        <!-- end_holiday -->
+        <!-- begin_not_holiday --><td class="{empty}to_search calendar_num " id="{calendar_datetime}" style="cursor: pointer;" colspan="2">
+        <!-- begin_today -->
+            <div id="{calendar_datetime}" class="calendar_today" >
+                <a class="calendar_today_img" href="#" onclick="return false;"></a>
+            </div>
+            <div class="{empty}to_search" id="{calendar_datetime}" style="cursor: pointer;">{calendar_day}</div> <sup>{calendar_day_title}</sup></td>
+        <td class="{empty}to_search calendar_c_decor" id="{calendar_datetime}" style="cursor: pointer;">
+        <!-- end_today -->
+        <!-- begin_not_today -->
+            <div class="{empty}to_search" id="{calendar_datetime}" style="cursor: pointer;">{calendar_day}</div> <sup>{calendar_day_title}</sup></td>
+        <td class="{empty}to_search calendar_c" id="{calendar_datetime}" style="cursor: pointer;">
+        <!-- end_not_today -->
+        <!-- end_not_holiday -->
+            <!-- begin_event -->
+            <div class="{empty}to_search calendar_foto not_title" id="{calendar_datetime}" style="cursor: pointer;">
+                <a class="foto" href="{url_main}events_event_show.php?event_id={event_id}"><img src="{image_thumbnail}" width="39" height="29" alt=""/></a>
+                <div id="{calendar_datetime}">
+                    <a class="txt_upper_header_color" href="{url_main}events_event_show.php?event_id={event_id}">{event_title}</a><br />
+                    {event_time}<!-- begin_guests -->  | {event_n_guests} {l_events_guests} <!-- end_guests -->
+                </div>
+            </div>
+            <!-- end_event -->
+            <!-- begin_block_events_num -->
+            <div class="{empty}to_search not_title" id="{calendar_datetime}"
+                 style="cursor: pointer; font-size: 18pt; line-height: 26px; color: #000; font-family: Tahoma;">
+                +{events_num}
+            </div>
+            <!-- end_block_events_num -->
+			<!-- begin_hotdate -->
+            <div class="{empty}to_search calendar_foto not_title" id="{calendar_datetime}" style="cursor: pointer;">
+                <a class="foto" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}"><img src="{image_thumbnail}" width="39" height="29" alt=""/></a>
+                <div id="{calendar_datetime}">
+                    <a class="txt_upper_header_color" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}">{hotdate_title}</a><br />
+                    {hotdate_time}<!-- begin_guests -->  | {hotdate_n_guests} {l_hotdates_guests} <!-- end_guests -->
+                </div>
+            </div>
+            <!-- end_hotdate -->
+            <!-- begin_block_hotdates_num -->
+            <div class="{empty}to_search not_title" id="{calendar_datetime}"
+                 style="cursor: pointer; font-size: 18pt; line-height: 26px; color: #000; font-family: Tahoma;">
+                +{hotdates_num}
+            </div>
+            <!-- end_block_hotdates_num -->
+            <!-- begin_partyhou -->
+            <div class="{empty}to_search calendar_foto not_title" id="{calendar_datetime}" style="cursor: pointer;">
+                <a class="foto" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}"><img src="{image_thumbnail}" width="39" height="29" alt=""/></a>
+                <div id="{calendar_datetime}">
+                    <a class="txt_upper_header_color" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}">{partyhou_title}</a><br />
+                    {partyhou_time}<!-- begin_guests -->  | {partyhou_n_guests} {l_partyhouz_guests} <!-- end_guests -->
+                </div>
+            </div>
+            <!-- end_partyhou -->
+            <!-- begin_block_partyhouz_num -->
+            <div class="{empty}to_search not_title" id="{calendar_datetime}"
+                 style="cursor: pointer; font-size: 18pt; line-height: 26px; color: #000; font-family: Tahoma;">
+                +{partyhouz_num}
+            </div>
+            <!-- end_block_partyhouz_num -->
+        </td>
+
+    </tr>
+<!-- end_day -->
+<!-- begin_table_footer -->
+
+
+</table>
+<!-- end_table_footer -->
+<!-- begin_container_footer -->
+</div>
+<!-- end_container_footer -->

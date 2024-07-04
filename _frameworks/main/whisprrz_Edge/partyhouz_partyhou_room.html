@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      type="text/javascript"
+      src="./_server/jquery/jquery-last.js?v=408"
+    ></script>
+  </head>
+
+  <body>
+    <div id="meet"></div>
+
+    <div>
+      <span id="count-down"> </span>
+    </div>
+    <script src="https://meet.partyhouz.com/external_api.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
+    <script type="text/javascript">
+      var header = {
+        alg: "HS256",
+        typ: "JWT",
+      };
+
+      let now = new Date();
+
+      let expTime = new Date(now.getTime() + 1 * 60 * 60 * 1000);
+      let expTimestamp = Math.floor(expTime.getTime() / 1000);
+
+      let nbfTime = new Date(now.getTime() - 0.5 * 60 * 60 * 1000);
+      let nbfTimestamp = Math.floor(nbfTime.getTime() / 1000);
+
+      var payload = {
+        context: {
+          user: {
+            name: "{user_name}",
+            email: "{user_mail}",
+          },
+        },
+        moderator: true,
+        aud: "jitsi",
+        iss: "partyhouz",
+        sub: "meet.partyhouz.com",
+        room: "{room_name}",
+        exp: expTimestamp,
+        nbf: nbfTimestamp,
+        privateKey: `-----BEGIN RSA PRIVATE KEY-----
+        MIIEowIBAAKCAQEAnNnzGmorBG29m0PcOL7AsgOmOA9+btiWoN3d7zvsGEVIfruM
+        4V3eZ3/zgs8W6khauHw5Jghe0CSVvzZ4ekqXbpVH1wp9zcFWNPsZO3Y2JpK+ykqs
+        ZzPDE2irFmfx/WvqFb1TtKAZ02h5CysQ1URz+xOVRMijGheFFfAyNx1Hs1j1+Bh4
+        B37/aGMxi9UJzOWThz5bslBc1jAf+c0UzIg+Sj2Jcf8pRcPLoFajAHonqbgdYsEd
+        yd2sYiboT0siXWzOnzkXQUrbiFl7iTslEnyq1s9Ypof/i2RsM2EJfOOAR++ZyI0e
+        5pCoPA0ghIMkBSFdEjznSEbcHp7WNEXmQgvi/wIDAQABAoIBAFxFFm6uj/m9+PFS
+        nUVAaakO3oRSEQVyIkIl4n3umTe54iizee/FwaTPL1f/LTLLN5sZcKEAAY6eRv1C
+        NONz59tks+s7v7//gRAPussxAi/02Ym1HfBkEdjkFOlMYp27EuyRAKHcIPUtmy9H
+        uVJMP5Iu9fuNr+0UcvTx5QhpEBnfSoGPq5hcxHcUFN5uRt80USkHiITwGWS2NKlz
+        bhhFpdwR/qajmOTYIX5TyELjbH/MJQ3DNx4vv5wrhD6Nn+R6wPHhjy8TXlwZ/M72
+        +faMTGbhbMg2XfQYYneYGOcmpAw681VcM5waM+EnIADcsxzbP71gmwQt1bxArbOV
+        RMPrD6kCgYEAz69gGIT1mJcueDy5WRY9LRpRqefI48SGjsC6uazMvFY9EC8JPAyk
+        OpdUq0qLxlToM4zeE1P3LQ9X4dsZvLo8haiwM0kfMCQv1KdP6+d+cFBio/O2kXzc
+        GFw6/vGHCNVyO+YxVx3k+Jn2/OHTOaafxBAn4wqJuBiagyQxGLzptOMCgYEAwVcw
+        JDnUpk4msYX2Q5kv829G+k/3fAMJYg2cZUkTe57ISTxAnLiP4imHk/hjc39YVmdO
+        QSWKnIp6t+ZVF4IQHfTxwkeH2/l8RRzEC+sGtV/aUWqf7sR8PRPzAgRGmw89Dyfk
+        KEA1fY6Vizq//CeTdmiSScP91+7JZJWn6hJb0DUCgYA6y0IgDtvcI8hi/4XVI4eU
+        EiRWPijP2h3hocv6rmGTW7KTt00c89M2RwsQJt1k+zp1BYcE37tUxUgyxy0FEY/6
+        oqOnESdEIKptwCPO+8z+jLMwCNmBXGCOgOWusL9yj8J0FJmZOPxOKIAUXPXIF1SZ
+        U52HF7+fH0/2mjNP9oMO0wKBgHCFCnp6wZyL7Q7x1NGgjHyTbW5uLa0Zo1NScour
+        zM/sJ8ofa8cJzosj+kiOjWqBWWrnsm5Np+7U1PjD7w/AXRriG/UiZhoKh109kYcS
+        IBRclZU+hZeS+G8fdhTdYi4J31I7uBgIzlilK7kc1vCsI7EMyN5vVwNdcA2+3ztl
+        tdNlAoGBAKzvQULDzAHwwcxYcNyF0m/FNmeNvbFOOYizhbzNpp+84QGLDIE5rBBx
+        +DVI+PJoMtix4aIlUT27EeMFBBxQSu0Zf01NC2MsaPHlPYuNX9huBlNt9Hj7Fhjm
+        k0DzzbxBIvJOzZq4AIrJEwX/2XG6Js2MI2PWhPaL/ZwGt/we6/sm
+        -----END RSA PRIVATE KEY-----
+        `,
+      };
+
+      var secret = "1AxqIVoFDXrYmRBd";
+
+      function base64url(source) {
+        encodedSource = CryptoJS.enc.Base64.stringify(source);
+        encodedSource = encodedSource.replace(/=+$/, "");
+        encodedSource = encodedSource.replace(/\+/g, "-");
+        encodedSource = encodedSource.replace(/\//g, "_");
+
+        return encodedSource;
+      }
+
+      var stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+      var encodedHeader = base64url(stringifiedHeader);
+
+      var stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(payload));
+      var encodedData = base64url(stringifiedData);
+
+      var signature = encodedHeader + "." + encodedData;
+      signature = CryptoJS.HmacSHA256(signature, secret);
+      signature = base64url(signature);
+
+      token = encodedHeader + "." + encodedData + "." + signature;
+
+      var user_name = "{user_name}";
+      var room_name = "{room_name}";
+      var user_mail = "{user_mail}";
+      const domain = "meet.partyhouz.com";
+      const options = {
+        roomName: room_name,
+        width: "100%",
+        height: window.innerHeight,
+        parentNode: document.querySelector("#meet"),
+        lang: "en",
+        userInfo: {
+          email: user_mail,
+          displayName: user_name,
+        },
+        privateKey: payload.privateKey,
+        jwt: token,
+      };
+      const api = new JitsiMeetExternalAPI(domain, options);
+
+      var pwd = "1234";
+
+      setTimeout(() => {
+        // when local user is trying to enter in a locked room
+        api.addEventListener("passwordRequired", () => {
+          api.executeCommand("password", pwd);
+        });
+
+        // when local user has joined the video conference
+        api.addEventListener("videoConferenceJoined", (response) => {
+          api.executeCommand("password", pwd);
+        });
+      }, 10);
+    </script>
+  </body>
+</html>

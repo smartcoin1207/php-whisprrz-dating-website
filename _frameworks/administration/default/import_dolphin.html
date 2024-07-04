@@ -1,0 +1,45 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/import_dolphin.php">{l_menu_dolphin}</a></li>
+        <li><a href="{url_main}administration/home.php">{l_home}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_form -->
+    <div class="bl_form">
+        <form method="POST" action="{url_page}">
+        <input name="start" type="hidden" value="Y" />
+        <label>{l_dir_photos}:</label>
+        <input name="dir" type="text" />
+        <label>{l_user_table}:</label>
+        <input name="user_table" type="text" value="profiles" />
+        <label>{l_media_table}:</label>
+        <input name="media_table" type="text" value="media" />
+
+        <div class="bl_label" >
+            <label class="fl_left" for = "extra" style="cursor: pointer;">{l_extra_pars}</label>
+            <div class="fl_right"><input class = "check" name="addon" id ="extra" type="checkbox" value="Y" checked /></div>
+            <div class="justify"></div>
+        </div>
+
+
+        <div class="bl_label" >
+            <label class="fl_left" for = "trunc" style="cursor: pointer;">{l_truncate}</label>
+            <div class="fl_right"><input name="addon" class = "check" id = "trunc" type="checkbox" value="Y" checked /></div>
+            <div class="justify"></div>
+        </div>
+        <div class="btn fl_right"><a href="#" class="submit">{l_start}</a>
+					<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+        <div style="height:80px"></div>
+    </div>
+    <!-- end_form -->
+    <!-- begin_success --><p>{success_text}</p><!-- end_success -->
+    <!-- begin_error --><p>{l_error}</p><!-- end_error -->
+    <div class="empty"></div>
+</div>
+{footer}

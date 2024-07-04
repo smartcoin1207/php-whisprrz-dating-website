@@ -1,0 +1,223 @@
+<!-- begin_wall_history -->
+<script>clWall.itemsHistoryLoad();</script>
+<!-- end_wall_history -->
+<style>
+       [data-placeholder]::placeholder {
+    color: grey;
+    /* Add any other styles you want to apply */
+  }
+    
+</style>
+<!-- begin_wall_header -->
+
+<style>
+    .btn.dropdown-toggle {
+        height: 43px;
+    }
+    .wall-header-var {
+        float: right; 
+        display: inline-flex; 
+        width: 100%; justify-content: space-between; 
+        align-items: center; margin-top: 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-top: 1px solid #8080808c;
+        border-bottom: 1px solid #8080808c;
+    }
+
+ 
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#filter_wall_distance_select").change(function() {
+            var selectedValue = $(this).val();
+            location.href = "./wall?radius=" + selectedValue;
+        });
+    });
+</script>
+
+<div class="feed_head_txt">
+
+<div class="fl_left txt_upper_header_color">
+    <strong><a href="{url_main}wall.php?uid={wall_user_id}"><!-- begin_wall_title_my -->{l_wall_friends_news_feed}<!-- end_wall_title_my --><!-- begin_wall_title_other -->{wall_name_news_feed}<!-- end_wall_title_other --></a> <span class="dot4">::</span> {l_wall_see_whats_going_on}
+    </strong>
+</div>
+
+<div  class="wall-header-var">
+        <!-- begin_wall_filter_distance -->
+        <div style="width: 250px; display: flex; align-items: center;">
+            <div><a>{l_distance}</a></div>
+            <div style="width: 120px; margin-left: 10px;">
+                <select id="filter_wall_distance_select" style="width; 200px;" name="type_order" class="selectpicker show-tick" data-wall-search="false">
+                    {wall_filter_distance_options}
+                </select>    
+            </div>
+        </div>
+        
+        <!-- end_wall_filter_distance -->
+        <!-- begin_wall_add_friend -->
+        <a class="icon_add_to_friends" href="{url_main}friends_add.php?uid={wall_user_id}">{l_add_to_friends}</a>
+        &nbsp;
+        <!-- end_wall_add_friend -->
+        <!-- begin_wall_im -->
+        <a class="icon_talk_chat" href="#" onclick="sendMessages('{wall_user_id}'); return false;" title="{l_im_chat_now}">{l_im_chat_now}</a> 
+        <!-- end_wall_im -->
+
+        <!-- begin_wall_go_lives -->
+        <a class="icon_go_live" style=" padding-right: 10px;" href="live_streaming.php" title="live streaming">{l_menu_live}</a>
+        <!-- end_wall_go_lives -->
+
+        <!-- begin_wall_public_swingbook_link -->
+        <a class="icon_public" style="padding-right: 10px;" href="wall.php" title="Swingbook">{l_public_wall}</a>
+        <!-- end_wall_public_swingbook_link -->
+
+        <!-- begin_wall_profile_swingbook_link -->
+        <a class="icon_profile" href="search_results.php?offset=1&amp;display=wall&amp;uid={user_id}" title="Swingbook">{l_profile_wall}</a>
+        <!-- end_wall_profile_swingbook_link -->
+
+
+        <a class="icon_profile" href="{url_main}{url_profile}"><!-- begin_wall_my -->{l_wall_my_profile}<!-- end_wall_my --><!-- begin_wall_other -->{l_wall_view_profile}<!-- end_wall_other --></a>
+
+        <!-- begin_wall_header_dropbox -->
+          <div class="dropdown">
+            <a class="btn dropdown-toggle icon_extended_menu"  data-toggle="dropdown"></a>
+            <ul class="dropdown-menu">
+                <li><a href="photos">Albums</a></li>
+                <li><a href="songs">Music</a></li>
+                <li><a href="vids">Videos</a></li>
+                <li><a href="forum.php">Forms</a></li>
+                <li><a href="blogs">Blogs</a></li>
+                <li><a href="groups">Groups</a></li>
+                <li><a href="places.php">Places</a></li>
+                <li><a href="Pages.php">Pages</a></li>
+            </ul>
+          </div>
+
+
+        <!-- end_wall_header_dropbox -->
+
+
+
+    <!-- begin_wall_unfriend -->
+    <div class="bl_post_popup" style=" padding-right: 10px;" onclick="return false;">
+        <a href="" class="feed_del"></a>
+        <div class="post_popup" style="display: none;">
+            <ul>
+                <li><a href="" onclick="if(confirm('{l_are_you_sure}')) { Wall.unfriend({wall_user_id});} return false;"><img src="{url_tmpl_main}images/wall/icon_post_list_unfriend.png" width="15" height="14" alt="" />{l_wall_unfriend}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--<a class="icon_unfriend" onclick="return confirm('{l_are_you_sure}');" href="{url_main}friends_requests.php?action=remove&user_id={wall_user_id}">{l_unfriend}</a>-->
+    <!-- end_wall_unfriend -->
+
+    <div style="float: right;" >
+        <a class="icon_setting_gear" href="{url_main}profile_settings.php"></a>
+    </div>
+</div>
+
+<div class="cl"></div>
+</div>
+
+<!-- end_wall_header -->
+
+<!-- begin_wall_item_add_field -->
+<div id="bl_post_wall" class="bl_post_wall add_shadow <!-- begin_wall_add_comment -->to_show<!-- end_wall_add_comment --> bl_post_wall_{wall_user_id}">
+    <div class="container">
+        <div class="photo">
+            <a href="{url_guid}" class="pic profile_photo_r_{guid}_{group_id_guid} to_hide" style="background-image:url({url_files}{photo_guid});"></a>
+            <script>onLoadImgToShow('{url_files}{photo_guid}','',function(){$('.profile_photo_r_{guid}_{group_id_guid}.to_hide').removeClass('to_hide')})</script>
+        </div>
+        <div class="field_comment">
+            <div class="wrap">
+                <div id="wall_item_add" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_a_comment}" class="form-control textarea"></div>
+                <!--<textarea  class="form-control" placeholder="{a_post_something}" style="border: none; padding-right: 15px;" ></textarea>
+                -->
+                <div class="message_action">
+
+                    <div id="wall_comment_smile_item_add" data-input="#wall_item_add" onclick="smileBlockShowWall(this)" class="wall_comment_smile_btn">
+                        <i class="fa fa-smile-o" aria-hidden="true"></i>
+                    </div>
+
+                    <div id="wall_item_add_upload_img" class="comment_upload_img disabled">
+                        <div id="wall_item_add_upload_img_loader" class="comment_upload_img_loader"></div>
+
+                        <button id="wall_item_add_upload_img_edit" onclick="openEditorCommentUploadImage('wall_item_add_upload_img', true); return false;" title="{a_edit_image}" class="btn btn-success comment_upload_img_editor">
+                            <span class="btn_wrap">
+                            <span class="icon_fa"  data-no-fade-in="true">
+                                <svg height="24" width="24" viewBox="0 0 24 24">
+                                    <path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+                                </svg>
+                            </span>
+                            <span>{l_edit_image}</span>
+                        </span>
+                        </button>
+                        <script>initPostUploadImageEditor($('#wall_item_add_upload_img_edit'));</script>
+
+                        <i id="wall_item_add_upload_img_camera" class="fa fa-camera" onclick="clearCommentUploadImage('wall_item_add_upload_img', true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+
+                        <span class="count_upload_image">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+
+                        <form id="wall_item_add_upload_img_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+                            <input class="comment_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="file_add_wall_item_add" onclick="clickCommentUploadImage($(this));" onChange="changeCommentUploadImage($(this));"/>
+                            <input class="inp_hide" type="reset" value=""/>
+                            <input class="inp_hide" type="submit" value=""/>
+                        </form>
+                        <script>initCommentUploadImage('wall_item_add_upload_img', true);</script>
+                    </div>
+
+                    <button onclick="clWall.itemAdd()" class="wall_post_send wall_post_top_btn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+<div class="clearfix"></div>
+</div>
+<!-- end_wall_item_add_field -->
+
+<div class="container container_wall_items">
+    <div class="bl_wall">
+        <div id="wall_items" class="bl_post_wall_items">
+            <script>clWall.initStyle();</script>
+            {wall_items}
+        </div>
+
+        <div id="wall_no_items" class="wall_no_items <!-- begin_wall_no_items -->to_show<!-- end_wall_no_items -->">
+            <i class="fa fa-list" aria-hidden="true"></i>
+            <span>{l_no_posts_yet}</span>
+        </div>
+    </div>
+</div>
+
+
+<!-- begin_wall_load_old_items -->
+<script>clWall.oldItemsExists = true;</script>
+<div class="wall_load_old_items">
+    <div id="load_animation" class="css_loader wall_load_loader">
+        <div class="spinner spinnerw center">
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+        </div>
+    </div>
+</div>
+<!-- end_wall_load_old_items -->

@@ -1,0 +1,93 @@
+{header}
+<div class="block_narrow">
+{menu_page}
+</div>
+<script>
+$(function(){
+	var $input=$('.platform'),isError=false;
+	$('#frm_platform').submit(function(){
+		isError=0;
+		$input.each(function(){
+			var val=parseInt(this.value, 10);
+			if(val!=this.value){
+				isError=true;
+				$(this).focus();
+				alert('{j_the_number_of_users_should_be_more}');
+			}else if(val<1){
+				isError=true;
+				$(this).focus();
+				alert('{j_the_number_of_users_should_be_more}');
+			}else if(val>10){
+                isError=true;
+                $(this).focus();
+                alert('{j_the_number_of_users_should_be_more}');
+            }
+		})
+        if (!isError && !$('.pl_activated:checked')[0]) {
+            alert('{j_please_activate_at_least_one_platform}');
+            isError=true;
+        }
+		if (isError) {
+			return false;
+		}
+	})
+})
+</script>
+<style>
+    .bl_pl{
+        width:200px; display:inline-block; margin-right: 13px;
+        padding-bottom: 20px;
+    }
+    /*label:not(.active){display:none;}*/
+    .active{
+        margin-bottom: -5px;
+        margin-top: -5px;
+    }
+    .active input{
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        margin-left: 5px;
+        margin-top: 10px;
+    }
+    .active span{
+        position: relative;
+        top: -2px;
+    }
+</style>
+<div class="block_main">
+	<h2>{l_street_chat_options}</h2>
+	<div class="bl_form">
+        <form action="{url_page}" method="POST">
+			<input type="hidden" name="cmd" value="update">
+			{config_fields}
+			<div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+				<input type="submit" style="visibility:hidden;position:absolute;">
+			</div>
+        </form>
+    </div>
+    <div class="empty"></div>
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+		<form id="frm_platform" action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update_platform">
+
+		<!-- begin_item -->
+		<div class="bl_pl">
+		<img style="margin-bottom: 10px; width:200px;"  src="{url_main}_server/city_js/tmpl/common/platform/pl_{id}.png"/>
+        <label class="active"><span>{l_active}</span><input class="pl_activated" type="checkbox" name="activated[{id}]" {checked}></label>
+
+		<input class="input platform" style="margi:0px 10px; width:200px;" type="number" min="1" max="10" name="platform[{id}]" value="{num}">
+		</div>
+		<!-- end_item -->
+		<div class="cl"></div>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+</div>
+<div class="empty"></div>
+{footer}

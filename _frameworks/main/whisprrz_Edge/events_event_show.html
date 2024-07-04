@@ -1,0 +1,99 @@
+{header}
+<script language="javascript" type="text/javascript">
+$(function(){
+    var box = $("#narrow_box"),
+        hide_box = $("#hide_narrow_box"),
+        box_object = $('.events_video');
+    if (box.css('display') == 'none') {
+        hide_box.attr('title', '{l_narrow_box_expand}');
+    } else {
+        hide_box.attr('title', '{l_narrow_box_collapse}');
+    }
+    prepareVideoResize(box_object);
+    videoResize(box_object);
+    hide_box.click(function(){
+        var outside_images = $('[id ^= outside_img_]');
+        imageResize(box, outside_images, '{url_files}outside_images', 'orig.jpg');
+        videoResizeStepEvent();
+        box.stop().animate(
+                {width: 'toggle'},
+                {duration: 350,
+                 complete: function() {
+                    var isState;
+                    imageResize(box, outside_images, '{url_files}outside_images', 'th.jpg');
+                    if ($(this).css('display') == 'none') {
+                        hide_box.attr('title', '{l_narrow_box_expand}');
+                        $('#bl_show_narrow_box').css('display', 'block');
+                        $('#bl_hide_narrow_box').css('display', 'none');
+                        isState = 0;
+                    } else {
+                        hide_box.attr('title', '{l_narrow_box_collapse}');
+                        $('#bl_hide_narrow_box').css('display', 'block');
+                        $('#bl_show_narrow_box').css('display', 'none');
+                        isState = 1;
+                    }
+                    $.post('{url_main}ajax.php', {cmd: 'save_state_narrow_box',
+                                                  type: 'events',
+                                                  state: isState}
+                    );
+                    cancelAnimationFrame(globalID);
+                    videoResize($('.events_video'));
+               }
+        });
+        return false;
+    });
+});
+
+function videoResizeStepEvent() {
+    globalID = requestAnimationFrame(videoResizeStepEvent);
+    videoResize($('.events_video'));
+}
+</script>
+
+    <div class="events_new">
+
+		{events_header}
+        <a id="hide_narrow_box" href="" title="" style="position:absolute; margin-top:10px; right:0;">
+            <div id="bl_hide_narrow_box" class="bl_hide_narrow_box lower_header_color" style="display: {hide_narrow_box}"></div>
+            <div id="bl_show_narrow_box" class="bl_show_narrow_box upper_header_color" style="display: {show_narrow_box}"></div>
+        </a>
+        <table class="tb_events_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    {events_event_show}
+
+                    <!-- begin_comments_title -->
+                    <div class="events_new_shadow"></div>
+
+                    <div class="events_new_p">
+
+                        <h1 class="txt_upper_header_color">{l_events_comments}</h1>
+
+                        {events_event_comment_list}
+
+                    </div>
+                    <!-- end_comments_title -->
+
+                </td>
+                <!-- /td_main -->
+
+                <td id="narrow_box" class="td_narrow" style="display: {display}">
+
+					{events_event_guest_list}
+					{events_sidebar}
+
+				</td>
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+{footer}

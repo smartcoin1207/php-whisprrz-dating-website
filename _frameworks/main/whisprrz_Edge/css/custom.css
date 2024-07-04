@@ -1,0 +1,230 @@
+
+	.flip-box {
+		background-color: transparent;
+		width: 450px;
+		height: 320px;
+		border: 0px solid #ffffff;
+		perspective: 1000px;
+		z-index: 999;
+	}
+
+	.flip-box * {
+		box-sizing: border-box;
+	}
+
+
+	.flip-box-inner {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: 10px 10px 10px 10px;
+		text-align: center;
+		transition: transform 0.4s;
+		transform-style: preserve-3d;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+	}
+
+	.flip-box:hover .flip-box-inner {
+		transform: rotateX(180deg);
+	}
+	.flip-box-hover .flip-box-inner {
+		transform: rotateX(180deg);
+
+	} 
+
+
+	.flip-box-front,
+	.flip-box-back {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: 10px 10px 10px 10px;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+	}
+
+	.flip-box-front {
+		background-color: #666666;
+		color: whitesmoke;
+		display: flex;
+		flex-direction: column;
+		_behavior: url("./_frameworks/main/oryx/css/iepngfix.htc");
+	}
+
+	.flip-box-back {
+		background-color: #003782;
+		color: whitesmoke;
+		transform: rotateX(180deg);
+		_behavior: url("./_frameworks/main/oryx/css/iepngfix.htc");
+	}
+
+	.about-row {
+		flex: 1;
+	}
+
+	.flip-img {
+		visibility: inherit !important;
+		height: 150px;
+	}
+
+	.flip-text-table {
+		overflow: auto;
+		overflow-y: hidden;
+		overflow-x: hidden;
+		width: 60%;
+		height: 60%;
+		float: left;
+	}
+
+	.flip-text-table-back {
+		overflow: auto;
+		overflow-y: hidden;
+		overflow-x: hidden;
+		width: 87%;
+		height: 54%;
+		float: left;
+	}
+
+
+	.flip-looking-for {}
+
+	.flip-looking-for .looking-for-item {
+		float: left;
+	}
+
+	.flip-looking-for .field {
+		float: left;
+	}
+
+
+	.flip-progress {
+		width: 30px;
+		background-color: #ddd;
+		border: 1px black solid;
+		border-radius: 5px;
+		float: left;
+	}
+
+	.flip-bar {
+		width: 30%;
+		height: 15px;
+		background-color: #04AA6D;
+		text-align: center;
+		line-height: 15px;
+		color: white;
+		border-radius: 5px 0px 0px 5px;
+	}
+
+
+	.scale-sliders .scale {
+		position: relative;
+		margin: auto;
+		width: 99px;
+	}
+
+	.scale-sliders {
+		display: flex;
+		position: absolute;
+		bottom: 10px;
+		flex-wrap: wrap;
+		width: 100%;
+		margin-bottom: 10px;
+		padding-left: 5px;
+		box-sizing: border-box;
+		line-height: 15px;	
+		text-align: center;
+	}
+
+	.scale-sliders * {
+		box-sizing: unset;
+	}
+
+	.scale-slider {
+		flex: 25%;
+		margin-bottom: 3px;
+
+	}
+
+	.scale-sliders .scale-back {
+		display: flex;
+		position: relative;
+	}
+
+	.scale-sliders .scale-back-item {
+		width: 18px;
+		height: 14px;
+		margin-right: 2px;
+	}
+
+    
+
+	.scale-back-item:first-child {
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+	}
+
+	.scale-back-item:last-child {
+	    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-right: 0px;
+	}
+
+	.scale-sliders .scale-back {
+		position: relative;
+	}
+
+	.scale-sliders .scale-bar {
+		position: absolute;
+		width: 102px;
+		height: 12px;
+		top: 2px;
+		left: 2px;
+		border-radius: 7px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+	}
+
+	.scale-bar-back {
+		position: absolute;
+		width: 96px;
+		border-radius: 9px;
+		/* border: 2px solid rgb(28 27 27); */
+		top: 1px;
+		left: 1px;
+		height: 12px;
+	
+	}
+
+	.scale-sliders .scale-level-name {
+		margin-top: -4px;
+		text-align: center;
+	}
+
+	.personal-icon {
+		width: 20px;
+		height: 20px;
+		background-repeat: no-repeat;
+		background-size: 20px 20px;
+	}
+
+	.text_length_limit {
+		display: inline-block; /* Ensures the text-overflow property works */
+		width: 10ch; /* Limits the width of the element to 10 characters */
+		white-space: nowrap; /* Prevents text from wrapping */
+		overflow: hidden; /* Hides any overflow */
+		text-overflow: ellipsis; /* Adds an ellipsis at the end of the text */
+	  }
+
+	.newm_status  {
+	line-height: 15px;
+	display: inline-block; /* Ensures the text-overflow property works */
+	width: 15ch; /* Limits the width of the element to 10 characters */
+	white-space: nowrap; /* Prevents text from wrapping */
+	overflow: hidden; /* Hides any overflow */
+	text-overflow: ellipsis; /* Adds an ellipsis at the end of the text */
+	}
+
+	.profile_editable {
+		line-height: 15px;
+	}

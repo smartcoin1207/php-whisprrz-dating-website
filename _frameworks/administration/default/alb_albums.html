@@ -1,0 +1,55 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/alb_albums.php">{l_menu_right_alb_albums}</a></li>
+        <li><a href="{url_main}administration/alb_albums_show.php">{l_menu_right_alb_images}</a></li>
+        <li><a href="{url_main}administration/alb_comments.php">{l_menu_right_alb_comments}</a></li>
+        <li><a href="{url_main}administration/alb_users.php">{l_menu_right_alb_users}</a>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div  style="position: relative; padding: 0px 0px; top: -5px;">
+        <!-- begin_noitems --><div align="center">{l_no_albums}</div><!-- end_noitems -->
+        <!-- begin_pages --><div  align="center">{itemsTotal} {l_albums}</div><div align="center">{pager}</div><!-- end_pages -->
+    </div>
+    <!-- begin_items -->
+    <table class="tb">
+        <tr>
+            <th class="decor_l"></th>
+            <th class="right">{l_action}</th>
+            <th>{l_id}</th>
+            <th>{l_title_album}</th>
+            <th class="last">{l_user}</th>
+            <th class="decor_r"></th>
+        </tr>
+        <!-- begin_item -->
+        <tr class="{item_class}" id="item_{item_id}">
+            <td class="decor{item_decl}"></td>
+            <td class="right">
+                <script type='text/javascript'>
+                    $(document).ready(function () {
+                        $("#delete_{item_id}").click(function () {
+                            if (confirm('{l_are_you_sure}')) {
+                                $.get('{url_main}administration/alb_albums_delete_ajax.php?id={item_id}&uid={item_user_id}');
+                                $('#item_{item_id}').remove();
+                            }
+                            return false
+                        });
+                    });
+                </script>
+                <a href="{url_main}administration/alb_albums_edit.php?id={item_id}">{l_edit}</a>
+                | <a href="#" id="delete_{item_id}">{l_delete}</a>
+            </td>
+            <td>{item_id}</td>
+            <td><a href="{url_main}administration/alb_albums_show.php?id={item_id}">{item_title}</a></td>
+            <td class="last"><a href="{url_main}administration/alb_albums.php?id={item_user_id}">{item_user_name}</a></td>
+            <td class="decor{item_decr}"></td>
+        </tr>
+        <!-- end_item -->
+    </table>
+    <!-- end_items -->
+
+    <div class="empty"></div>
+</div>
+{footer}

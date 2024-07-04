@@ -1,0 +1,115 @@
+{header}
+
+
+<script Language="JavaScript" type="text/javascript">
+
+function on_form_submit()
+{
+    if(($('input[name="image_1"]').val() == "") && ($('input[name="image_2"]').val() == "") && 
+    	    ($('input[name="image_3"]').val() == "") && ($('input[name="image_4"]').val() == ""))
+    {
+        alert('{l_please_select_a_photos}');
+        return false;
+    }
+
+    for(var i = 1; i <= 4; i++)
+    {
+        var ext = $('input[name="image_'+i+'"]').val();
+        if(ext != "")
+        {
+	        ext = ext.substring(ext.length-4,ext.length);
+	    	ext = ext.toLowerCase();
+	    	if(ext != '.jpg' && ext != '.gif' && ext != '.png' && ext != 'jpeg') {
+	    		alert('{l_wrong_photo_types}');
+	    	    return false; 
+	    	}
+        }
+    }
+
+	$('#load_animation1').css('visibility', 'visible');
+
+    return true;
+}
+function form_submit()
+{
+    if (on_form_submit()) 
+        document.getElementById('song_edit_form').submit();  
+}
+</script>
+
+    <div class="music_new">
+
+		{music_header}
+
+        <table class="tb_music_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    {music_song_show}
+
+                    <div class="music_new_shadow"></div>
+
+                    <form id="song_edit_form" method="POST" action="{url_main}music_song_add_photos.php?cmd=save&song_id={song_id}" enctype="multipart/form-data">
+                    
+                    <div class="music_new_p pl_top_m">
+                        <h1 class="txt_lower_header_color">{l_add_images_to} {song_title}</h1>
+
+                        <div class="bl_music_new_frm music_inp_file ">
+                        <table class="tb_music_new_frm">
+                            <tr>
+                                <th>{l_files}:</th>
+                                <td>
+                                    <div class="music_inp"> <input size="3"  class="file" type="file" name="image_1"/></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <input size="3" class="file" type="file" name="image_2"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <input size="3" class="file" type="file" name="image_3"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <input size="3" class="file" type="file" name="image_4"/>
+                                </td>
+                            </tr>
+
+                        </table>
+                        </div>
+                        <div class="music_new_shadow"></div>
+
+                        <div class="music_new_p_btn fl_right">
+                            <a href="#" onclick="form_submit(); return false;" class="btn round upper_header_color fl_right" ><img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />{l_upload_pics} <img class="btn_arrows_right" src="{url_tmpl_main}images/blogs/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+                            <img style="visibility:hidden;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif"><!-- <div class="music_input3 fl_right"><input  type="submit" value="{l_upload_pics}"/></div> -->
+                        </div>
+
+                    </div>
+
+                    <div class="music_new_empty"></div>
+                    
+                    </form>
+
+                </td>
+                <!-- /td_main -->
+
+				{music_sidebar}
+				
+            </tr>
+        </table>
+
+        <div class="foot_left"></div>
+		<div class="foot_right"></div>
+
+    
+    </div>
+
+
+{footer}

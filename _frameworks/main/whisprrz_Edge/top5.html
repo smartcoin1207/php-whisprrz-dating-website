@@ -1,0 +1,35 @@
+{header}
+<div id="oryx_content">
+{ims}
+{search}
+<div class="column_main frame_content">
+
+        <h2 class="txt_lower_header_color">
+            <img src="{url_tmpl_main}img/kchart.png" class="png_behavior" align="absmiddle" alt="">
+            {l_top5}
+        </h2>
+
+        <!-- begin_top5 -->
+        <script type="text/javascript" src="{url_main}_server/top5/wz_jsgraphics.js{cache_version_param}"></script>
+        <script type="text/javascript" src="{url_main}_server/top5/pie.js{cache_version_param}"></script>
+
+        <div id="pieCanvas" style="overflow: hidden; position:relative; height:400px; width:460px; margin-left: 45px; background: url('{url_tmpl_main}img/stars.png')  37px 37px no-repeat;"></div>
+
+        <script type="text/javascript">
+            var p = new pie();
+            p.add("<a href='{url_main}search_results.php?name={name_1}&display=profile' style='color:#ccd40f; font-family:tahoma; font-size:12px;'><img src={url_files}{photo_1} style='border: 3px #ccd40f solid'><br><center>{name_1}</center></a>", {rating_1});
+            p.add("<a href='{url_main}search_results.php?name={name_2}&display=profile' style='color:#e4a719; font-family:tahoma; font-size:12px;'><img src={url_files}{photo_2}  style='border: 3px #e4a719 solid'><br><center>{name_2}</center></a>", {rating_2});
+            p.add("<a href='{url_main}search_results.php?name={name_3}&display=profile' style='color:#e55b1c; font-family:tahoma; font-size:12px;'><img src={url_files}{photo_3}  style='border: 3px #e55b1c solid'><br><center>{name_3}</center></a>", {rating_3});
+            p.add("<a href='{url_main}search_results.php?name={name_4}&display=profile' style='color:#c33e71; font-family:tahoma; font-size:12px;'><img src={url_files}{photo_4} style='border: 3px #c33e71 solid'><br><center>{name_4}</center></a>", {rating_4});
+            p.add("<a href='{url_main}search_results.php?name={name_5}&display=profile' style='color:#69921a; font-family:tahoma; font-size:12px;'><img src={url_files}{photo_5}  style='border: 3px #69921a solid'><br><center>{name_5}</center></a>", {rating_5});
+            p.render("pieCanvas", "Pie Graph")
+        </script>
+        <!-- end_top5 -->
+
+        <!-- begin_notop5 -->
+        <div class="txt_lower_header_color">{l_top5_no_users}</div>
+        <!-- end_notop5 -->
+
+</div>
+</div>
+{footer}

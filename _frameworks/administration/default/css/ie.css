@@ -1,0 +1,6 @@
+﻿.main { width:expression(((document.documentElement.clientWidth ||document.body.clientWidth) < 1002) ? '1002px' : ((document.body.clientWidth > 1128) ? '1128px' : '100%')); }
+.block_main{ _height:expression(((document.documentElement.clientHeight || document.body.clientHeight) < 500)? "500" : "60%"); }
+input{ padding: 0; height: 23px; line-height: 23px; }
+input.check{ _margin: -2px -1px 0 0; }
+
+

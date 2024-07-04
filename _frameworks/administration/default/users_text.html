@@ -1,0 +1,55 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li  class="active"><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+<!-- begin_texts_yes -->
+    <div class="bl_form">
+		<form action="{url_main}administration/users_text.php" method="POST">
+
+		<!-- begin_texts -->
+		<h3><a href='{url_main}administration/users_edit.php?id={user_id}'>{user_name}</a></h3>
+        <!-- begin_text -->
+        <label>{field_title}:</label>
+        <input type="text" name="{name_input}[{id}]" value="{value}">
+        <!-- end_text -->
+        <!-- begin_textarea -->
+        <label>{field_title}:</label>
+        <textarea class="config_textarea" name="{name_input}[{id}]">{value}</textarea>
+        <!-- end_textarea -->
+        <input type="hidden" name="user_id[{id}]" value="{user_id}">
+        <div style="padding-top:10px;">
+            <label class="approve_list"><input type="radio" name="do[{id}]" value="add" class="check" checked="checked"> {l_add}</label>
+            <label class="approve_list"><input type="radio" name="do[{id}]" value="del" class="check"> {l_delete}</label>
+        </div>
+		<!-- end_texts -->
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a></div>
+		</form>
+    </div>
+<!-- end_texts_yes -->
+<!--begin_msg-->
+<div class = "msg">{l_no_text}</div>
+<!--end_msg-->
+    <div class="empty"></div>
+</div>
+{footer}

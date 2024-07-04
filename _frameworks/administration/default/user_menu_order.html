@@ -1,0 +1,135 @@
+{header}
+<div class="block_narrow">
+{menu_page}
+</div>
+<style>#additional_menu_profile_view{display:none;}</style>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <table class="tb_fields" id="sortable" style="width: 410px;">
+        <thead>
+                <tr id="no_sortable" >
+                    <th class="decor_l">&nbsp;</th>
+                    <th class="right" style="">{l_table_name}</th>
+                    <th style="text-align: center; width:30px;">{l_table_status}</th>
+                    <!-- begin_additional_menu -->
+                    <th style="text-align: center; width:40px; ">{l_profile_page_menu}</th>
+                    <!-- end_additional_menu -->
+                    <th class="left last" style="width:40px; ">{l_mobile_home_page}</th>
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+        </thead>
+        <!-- begin_order_profile -->
+        <tr class="color" id="no_sortable" style="cursor:pointer;">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+                <td class="right" style="">
+                    <input type="hidden" name="order[]" value="profile">{l_profile}
+                </td>
+                <td  class="" style="text-align: center; width:30px; padding-left: 3px;">
+                </td>
+                <td class="last" style="text-align: center; width:40px; padding-left: 3px;">
+                    <input style="text-align: center; width:40px; padding-left: 3px; margin:0;" type="radio" name="set_home_page_mobile" value="profile">
+                </td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_order_profile -->
+        <!-- begin_order_item -->
+        <tr class="color" style="cursor:move;">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+                <td class="right" style="width:100px;">
+                    <input type="hidden" name="order[]" value="{name_block_field}">{name_block}
+                </td>
+                <td  class="" style="text-align: center; width:30px; padding-left: 3px;">
+                    <input class="order_check" data-name="{name_block_field}" type="checkbox" name="order_status[{name_block_field}]" {checked} style="margin:0px; padding:0px; width: 20px;">
+                </td>
+                <!-- begin_additional_menu_item -->
+                <td  class="" style="text-align: center; width:40px; padding-left: 3px;">
+                    <input id="additional_menu_{name_block_field}" class="additional_check" data-name="{name_block_field}" type="checkbox" name="additional[{name_block_field}]" {additional_checked} style="margin:0px; padding:0px; width: 20px;">
+                </td>
+                <!-- end_additional_menu_item -->
+                <td  class="last" style="text-align: center; width:40px; padding-left: 3px;">
+                    <!-- begin_order_item_set_home_page -->
+                    <input style="text-align: center; width:40px; padding-left: 3px; margin:0;" type="radio" name="set_home_page_mobile" value="{name_block_field}">
+                    <!-- end_order_item_set_home_page -->
+                </td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_order_item -->
+		</table>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+</div>
+<script>
+    var radio = '';
+
+$(function() {
+    $('.order_check').change(function(){
+        var $el=$(this),$ad=$('.additional_check[data-name="'+$el.data('name')+'"]');
+        if(!$el.prop('checked')&&$ad[0]){
+            $ad.prop('checked', false);
+        }
+    })
+
+    $('.additional_check').change(function(){
+        var $el=$(this),$or=$('.order_check[data-name="'+$el.data('name')+'"]');
+        if(!$or.prop('checked')){
+            $el.prop('checked', false);
+            return false;
+        }
+        if($('.additional_check:checked').length>9){
+            $el.prop('checked', false);
+            alert('{j_there_can_be_no_more_than_items_in_this_menu}');
+        }
+    })
+
+    $('input:radio[name=set_home_page_mobile]').filter('[value={current_checked}]').prop('checked',true);
+    $('input:radio[name=set_home_page_mobile]').filter('[value={current_checked}]').addClass('active');
+
+    $('input[name=set_home_page_mobile]').on('click',function(){
+        if($(this).hasClass('active')){
+            $(this).prop('checked',false);
+            $(this).removeClass('active');
+        } else {
+            $('input[name=set_home_page_mobile]').removeClass('active');
+            $(this).addClass('active');
+        }
+    });
+
+
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+            var myradio = $('input:radio[name=set_home_page_mobile]');
+            myradio.filter('[value='+radio+']').prop('checked', true);
+        }
+    });
+});
+
+var fixHelperModified = function(e, tr) {
+    radio = $('input[name=set_home_page_mobile]:checked').val();
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+</script>
+{footer}

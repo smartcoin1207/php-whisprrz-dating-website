@@ -1,0 +1,82 @@
+<script>
+var mediaServer = '{media_server}',
+    clientID = '{client_id}',
+    callID = '{call_to_id}',
+    tmplMediaChat = 'edge',
+    typeMediaChat = 'urban',
+    typeMediaChatData = 'audio';
+
+var lNoWebrtcSupport = '{j_the_browser_has_no_webrtc_support}',
+    lDeviceNotAvailable = '{j_microphone_is_not_available}',
+    lConnect = '{j_connect}',
+    lAnswer = '{j_icoming_call_accept}',
+    lDisconnect = '{j_disconnect}',
+    lNotAvailable = '{j_connect}',//'{j_not_available}',
+    lSomethingWentWrong = '{j_something_went_wrong_please_reload_the_page}',
+    lErrorLicense = '{j_this_license_is_not_valid_please_contact_support}',
+    lWaitingCoonect = '{j_waiting_for_the_other_user_to_connect}',
+    lEstablishingConnection = '{j_establishing_connection}',
+    lConnectionLoading = '{j_connection_established_loading}',
+    lWaitingOffLine = '{j_the_user_is_not_available_yet_please_wait}',
+    lNeedsSSL = '{j_your_browser_needs_ssl_certificate_to_run_video_chat}',
+    lNotSupport = '{j_your_browser_does_not_support_video_chat}';
+    lUserHasLeft = '{j_the_user_has_left_the_chat}';
+
+var notInitMediaChat = true;
+</script>
+
+<script type="text/javascript" src="{url_main}_server/js/webrtc/media_utils_adapter.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/js/webrtc/media_chat.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/js/webrtc/media_utils.js{cache_version_param}"></script>
+
+<!-- begin_audio_chat_webrtc_js -->
+<script>
+    $(function(){
+        initMediaChatMobileVersion();
+    })
+</script>
+<!-- end_audio_chat_webrtc_js -->
+
+<div class="chat_bg">
+    <div class="block_videochat type_{type_chat}">
+        <div class="module_media_chat module_videochat type_{type_chat}">
+            <div id="video-container" class="audio_container">
+                <div class="their-video-container">
+                    <div id="their_audio_bl" oncontextmenu="return false;">
+                        <a target="_blank" href="{url_main}{call_user_url}">
+                            <img onload="$(this).fadeTo(600,1)" <!-- begin_plug_photos -->class="plug_photos"<!-- end_plug_photos --> title="{user_title}" alt="{user_title}" src="{call_user_photo}" />
+                            <div id="waiting_connect" class="info_connect">{l_waiting_for_the_other_user_to_connect}</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="client_photo_default_audio" style="background-image: url('{client_user_photo}');"></div>
+                <audio id="their-audio" autoplay></audio>
+
+                <div class="interface">
+                    <div class="bl">
+                        <div class="chat_action audio processing">
+                            <button id="make-call" data-cl-loader="loader_media" data-no-fade-in="true" class="make-call" data-action="disabled" type="button" disabled>
+                                <span class="bl_title" style="opacity:0;">
+                                    <i class="fa fa-microphone" aria-hidden="true"></i>
+                                    <i class="fa fa-microphone-slash" aria-hidden="true"></i>
+                                    <span class="btn_name">{l_connect}</span>
+                                </span>
+                            </button>
+                            <script>mcShowLoaderTemplate($('#make-call'));</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- begin_alert_js -->
+<script>
+    $(function(){
+        mcHideLoaderTemplate($('#make-call'));
+        $('.bl_title', '#make-call').removeAttr('style');
+        alertCustom('{j_the_user_is_offline_now_please_try_later}');
+    })
+</script>
+<!-- end_alert_js -->

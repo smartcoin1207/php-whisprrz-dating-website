@@ -1,0 +1,174 @@
+{header}
+	<link rel="stylesheet" href="{url_tmpl_main}css/forum.css{cache_version_param}" type="text/css" media="screen" />
+     <div  class="frame_content">
+
+    <div class="content">
+
+<table cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center">
+	<tr>
+		<td width="100%">
+
+		<table class="navbar_bulit_color" cellpadding="0" cellspacing="0" border="0">
+			<tr valign="bottom">
+				<td><a href="#" onclick="history.back(1); return false;"><img
+					src="{url_tmpl_main}img/forum/navbits_start.png" alt="{l_go_back}"
+					border="0" /></a></td>
+				<td>&nbsp;</td>
+				<td width="100%"><span class="navbar"><a
+					href="{url_main}forum.php" accesskey="1">{l_forum}</a></span> &gt; <span
+					class="navbar"><a href="{url_main}forum.php">{category_title}</a></span>
+				<!-- begin_navbar_level -->&gt; <span class="navbar"><a
+					href="{url_main}forum_forum.php?forum_id={subforum_id}">{subforum_title}</a></span><!-- end_navbar_level -->
+				</td>
+			</tr>
+			<tr>
+				<td class="navbar txt_lower_header_color" style="font-size: 10pt; padding: 3px 0 0 7px;" colspan="3"><a href="{url_main}forum_forum.php?forum_id={forum_id}"><img
+					class="inlineimg" src="{url_tmpl_main}img/forum/navbits_finallink_ltr.png"
+					alt="{l_reload_this_page}" border="0" /></a> <strong style="display: inline-block; vertical-align: bottom;">{l_post_new_thread}</strong></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<table class="tborder_header" width="100%" border="0" cellpadding="0"
+	cellspacing="0" background="{url_tmpl_main}img/forum/cat_head_bg.gif">
+	<tr>
+		<td class="thead">
+			<div class="fl_left">{l_post_new_thread}</div>
+			<div class="fl_right">
+			<span ><strong>{l_forum}</strong>:
+				<a class="txt_upper_header_color" href="{url_main}forum_forum.php?forum_id={forum_id}">{forum_title}</a>
+			</span>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<table class="tborder forum_replay" cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center">
+	<tr>
+		<td class="panelsurround" align="center">
+
+		<form class="" action="forum_new_topic.php?cmd=post&forum_id={forum_id}"
+			method="post">
+
+		<div class="panel">
+		<div style="width: 640px" align="left"><!-- title field -->
+		<table cellpadding="0" cellspacing="0" border="0" class="fieldset">
+			<tr>
+				<td class="smallfont" colspan="4">{l_title}*:</td>
+			</tr>
+			<tr>
+				<td><input type="text" class="bginput" name="thread_title"
+					value="{thread_title}" size="63" maxlength="85" tabindex="1" /></td>
+				<td>&nbsp;&nbsp;</td>
+				<td><img id="display_position"
+					src="{url_tmpl_main}img/forum/clear.gif" alt="" /></td>
+			</tr>
+			<tr>
+				<td><span class="forum_error">{thread_title_error}&nbsp;</span></td>
+			</tr>
+		</table>
+		<!-- / title field --> <!-- subject field -->
+
+		<!-- / subject field --> <script>
+
+function insertAtCaret(areaId,text) { var txtarea = document.getElementById(areaId); var scrollPos = txtarea.scrollTop; var strPos = 0; var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ? "ff" : (document.selection ? "ie" : false ) ); if (br == "ie") { txtarea.focus(); var range = document.selection.createRange(); range.moveStart ('character', -txtarea.value.length); strPos = range.text.length; } else if (br == "ff") strPos = txtarea.selectionStart; var front = (txtarea.value).substring(0,strPos); var back = (txtarea.value).substring(strPos,txtarea.value.length); txtarea.value=front+text+back; strPos = strPos + text.length; if (br == "ie") { txtarea.focus(); var range = document.selection.createRange(); range.moveStart ('character', -txtarea.value.length); range.moveStart ('character', strPos); range.moveEnd ('character', 0); range.select(); } else if (br == "ff") { txtarea.selectionStart = strPos; txtarea.selectionEnd = strPos; txtarea.focus(); } txtarea.scrollTop = scrollPos; }
+
+</script> <!-- message field -->
+		<table cellpadding="0" cellspacing="0" border="0" class="fieldset">
+			<tr>
+				<td class="smallfont" colspan="4">{l_message}*:</td>
+			</tr>
+			<tr>
+				<td>
+				<div>
+
+							<img border="0" class="inlineimg" title="Big Grin"
+								alt=":D" onclick="insertAtCaret('thread_message',':D');" id="_3"
+								src="{url_tmpl_main}img/forum/smilies/biggrin.gif"
+								style="cursor: pointer;" />
+							<img border="0" class="inlineimg" title="Embarrassment"
+								alt=":o" onclick="insertAtCaret('thread_message',':o');" id="_2"
+								src="{url_tmpl_main}img/forum/smilies/redface.gif"
+								style="cursor: pointer; margin: 2px;" />
+							<img border="0" class="inlineimg" title="Smile" alt=":)"
+								onclick="insertAtCaret('thread_message',':)');" id="_1"
+								src="{url_tmpl_main}img/forum/smilies/smile.gif"
+								style="cursor: pointer; margin: 2px;" />
+
+							<img border="0" class="inlineimg" title="Frown" alt=":("
+								onclick="insertAtCaret('thread_message',':(');" id="_11"
+								src="{url_tmpl_main}img/forum/smilies/frown.gif"
+								style="cursor: pointer; margin: 2px;" />
+							<img border="0" class="inlineimg" title="Confused"
+								alt=":confused:"
+								onclick="insertAtCaret('thread_message',':confused:');" id="_10"
+								src="{url_tmpl_main}img/forum/smilies/confused.gif"
+								style="cursor: pointer; margin: 2px;" />
+							<img border="0" class="inlineimg" title="Mad"
+								alt=":mad:" onclick="insertAtCaret('thread_message',':mad:');"
+								id="_8" src="{url_tmpl_main}img/forum/smilies/mad.gif"
+								style="cursor: pointer; margin: 2px;" />
+
+
+							<img border="0" class="inlineimg"
+								title="Stick Out Tongue" alt=":p"
+								onclick="insertAtCaret('thread_message',':p');" id="_5"
+								src="{url_tmpl_main}img/forum/smilies/tongue.gif"
+								style="cursor: pointer; margin: 2px;" />
+							<img border="0" class="inlineimg" title="Wink" alt=";)"
+								onclick="insertAtCaret('thread_message',';)');" id="_4"
+								src="{url_tmpl_main}img/forum/smilies/wink.gif"
+								style="cursor: pointer; margin: 2px;" />
+							<img border="0" class="inlineimg"
+								title="Roll Eyes (Sarcastic)" alt=":rolleyes:"
+								onclick="insertAtCaret('thread_message',':rolleyes:');" id="_7"
+								src="{url_tmpl_main}img/forum/smilies/rolleyes.gif"
+								style="cursor: pointer; margin: 2px;" />
+
+							<img border="0" class="inlineimg" title="Cool"
+								alt=":cool:" onclick="insertAtCaret('thread_message',':cool:');"
+								id="_6" src="{url_tmpl_main}img/forum/smilies/cool.gif"
+								style="cursor: pointer; margin: 2px;" />
+							<img border="0" class="inlineimg" title="EEK!"
+								alt=":eek:" onclick="insertAtCaret('thread_message',':eek:');"
+								id="_9" src="{url_tmpl_main}img/forum/smilies/eek.gif"
+								style="cursor: pointer; margin: 2px;" />
+
+
+
+				</div>
+
+				<textarea class="bginput" rows="10"  id="thread_message"
+					name="thread_message" style="width:630px;">{thread_message}</textarea></td>
+				<td>&nbsp;&nbsp;</td>
+				<td><img id="display_position"
+					src="{url_tmpl_main}img/forum/clear.gif" alt="" /></td>
+			</tr>
+			<tr>
+				<td><span class="forum_error">{thread_message_error}&nbsp;</span></td>
+			</tr>
+		</table>
+		<!-- / message field --></div>
+
+		<div style="margin-top: 6px">
+			<input type="submit" class="btn lower_header_color big" name="submit" value="{l_submit_new_thread}"
+			accesskey="s" tabindex="1" /></div>
+		</div>
+
+		</form>
+
+		</td>
+	</tr>
+</table>
+
+
+
+    </div>
+
+</div> {footer}

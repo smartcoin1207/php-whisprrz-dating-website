@@ -1,0 +1,171 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+        alert("{message}");
+    }
+    $(document).ready(function(){
+        var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            }else{
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function(){
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+        $('#language').change(function(){
+            if(this.value){
+                window.location.href='?lang='+this.value;
+            }else{
+                window.location.href='{url_page}';
+            }
+        })
+
+    });
+    function delete_interests() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var int = StrID.slice(0, -1);
+        window.location.href='{url_page}?cmd=delete&delete='+int+'{params}';
+    }
+</script>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_list_category -->
+    <!-- begin_list_category_on -->
+    {list_category_title}&nbsp;&nbsp;
+    <!-- end_list_category_on -->
+    <!-- begin_list_category_off -->
+    <a href="{url_page}?{params}&category={list_category_id}">{list_category_title}</a>&nbsp;&nbsp;
+    <!-- end_list_category_off -->
+    <!-- end_list_category -->
+    <div style="padding-bottom: 20px; width: 100%;"></div>
+
+
+    <p style="font-size: 11px; padding-bottom: 0px;"><b>{l_lang}:</b>
+        <select id="language" style="margin:5px 0px 19px 6px;" name="language">
+            {select_options_language_list}
+        </select>
+    </p>
+
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_count_ineters}</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+
+    <!-- begin_main_items -->
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right" style="width:12px;">
+            <input style="margin:0px; width: 12px;" type="checkbox" id="all">
+        </th>
+        <th>
+            <!-- begin_params_none_id --><a href="{url_page}?{params_current}">{l_id}</a><!-- end_params_none_id -->
+            <!-- begin_params_asc_id -->&uarr;<a href="{url_page}?{params_current}">{l_id}</a><!-- end_params_asc_id -->
+            <!-- begin_params_desc_id -->&darr;<a href="{url_page}?{params_current}">{l_id}</a><!-- end_params_desc_id -->
+        </th>
+        <th>{l_action}</th>
+        <th>
+            <!-- begin_params_none_interest --><a href="{url_page}?{params_current}">{l_interests}</a><!-- end_params_none_interest -->
+            <!-- begin_params_asc_interest -->&uarr;<a href="{url_page}?{params_current}">{l_interests}</a><!-- end_params_asc_interest -->
+            <!-- begin_params_desc_interest -->&darr;<a href="{url_page}?{params_current}">{l_interests}</a><!-- end_params_desc_interest -->
+        </th>
+        <th>
+            <!-- begin_params_none_category --><a href="{url_page}?{params_current}">{l_category}</a><!-- end_params_none_category -->
+            <!-- begin_params_asc_category -->&uarr;<a href="{url_page}?{params_current}">{l_category}</a><!-- end_params_asc_category -->
+            <!-- begin_params_desc_category -->&darr;<a href="{url_page}?{params_current}">{l_category}</a><!-- end_params_desc_category -->
+        </th>
+        <th>
+            <!-- begin_params_none_counter --><a href="{url_page}?{params_current}">{l_counter}</a><!-- end_params_none_counter -->
+            <!-- begin_params_asc_counter -->&uarr;<a href="{url_page}?{params_current}">{l_counter}</a><!-- end_params_asc_counter -->
+            <!-- begin_params_desc_counter -->&darr;<a href="{url_page}?{params_current}">{l_counter}</a><!-- end_params_desc_counter -->
+        </th>
+        <th>
+            <!-- begin_params_none_user_id --><a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_none_user_id -->
+            <!-- begin_params_asc_user_id -->&uarr;<a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_asc_user_id -->
+            <!-- begin_params_desc_user_id -->&darr;<a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_desc_user_id -->
+        </th>
+        <th class="last">
+            <!-- begin_params_none_lang --><a href="{url_page}?{params_current}">{l_lang}</a><!-- end_params_none_lang -->
+            <!-- begin_params_asc_lang -->&uarr;<a href="{url_page}?{params_current}">{l_lang}</a><!-- end_params_asc_lang -->
+            <!-- begin_params_desc_lang -->&darr;<a href="{url_page}?{params_current}">{l_lang}</a><!-- end_params_desc_lang -->
+        </th>
+        <th class="decor_r"></th>
+    </tr>
+
+    <!-- begin_main_item -->
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right"><input style="margin:0px;" type="checkbox" id="chk_{id}"></td>
+        <td>{id}</td>
+        <td>
+            <a href="{url_main}administration/users_fields_interest_edit.php?id={id}{params}">{l_edit}</a>
+            |
+            <a href="{url_page}?cmd=delete&delete={id}{params}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+        </td>
+        <td>{interest}</td>
+        <td>{title_category}</td>
+        <td>{counter}</td>
+        <td><a href="{url_main}administration/users_edit.php?id={user_id}{params}">{user_name}</a></td>
+        <td class="last">{lang}</td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_interest}</div>
+    <!-- end_main_noitems -->
+    <!-- begin_no_delete -->
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) delete_interests(); else return false; " href="#">{l_delete}</a>
+    </div>
+    <!-- end_no_delete -->
+    <div class="empty"></div>
+
+    <form name="add_interest" action="{url_page}" method="POST">
+		<input type="hidden" name="cmd" value="add">
+
+        <h2 class="edit_field">{l_add_interest}</h2>
+        <label>{l_lang}:</label>
+        <select class="input" name="lang">
+            {select_options_language_add_interest}
+        </select>
+        <label>{l_category}:</label>
+        <select name="category" class="input">
+            {select_options_category_add_interest}
+        </select>
+        <label>{l_interests}:</label>
+        <input type="text" name="interests" value="">
+        <div class="btn fl_right"><a href="" class="submit">{l_save}</a></div>
+        <div class="empty"></div>
+    </form>
+</div>
+{footer}

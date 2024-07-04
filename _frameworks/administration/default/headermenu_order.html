@@ -1,0 +1,102 @@
+{header}
+<!-- begin_custom_style -->
+<style>
+    .home_page_menu, #status_header_menu_moderator,
+    #status_header_menu_sign_out, #status_header_menu_credits_balans{display:none;}
+    .status_menu{border-right:none!important;}
+</style>
+<!-- end_custom_style -->
+<div class="block_narrow">
+{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+        <form action="{url_page}?action=saved" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <table class="tb_fields" id="sortable" style="width: 200px;">
+        <thead>
+                <tr id="no_sortable" >
+                    <th class="decor_l">&nbsp;</th>
+                    <th class="right" >{l_table_name}</th>
+                    <th class="status_menu" style="text-align: center; width:40px; padding-left: 10px;">{l_table_active}</th>
+                    <th class="left last home_page_menu">{l_home_page}</th>
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+        </thead>
+        <!-- begin_order_item -->
+        <tr class="color" style="cursor:move;">
+                <td id ="decor_l" class="decor_l">&nbsp;</td>
+                <td class="right">
+                    <input type="hidden" name="order[]" value="{menu_key}">{menu_title}
+                </td>
+                <td  class="status_menu" style="text-align: center; width:40px; padding-left: 10px;">
+                    <input id="status_{menu_key}" type="checkbox" name="status[{menu_key}]" {checked} style="margin:0px; padding:0px; width: 20px;">
+
+                </td>
+                <td class="left last home_page_menu">
+                    <input style="text-align: center; width:40px; padding-left: 3px; margin:0;" type="radio" name="set_home_page_urban" value="{menu_key}">
+                </td>
+                <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_order_item -->
+		</table>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+</div>
+<script>
+var radio = '';
+$(function() {
+
+    $('input:radio[name=set_home_page_urban]').filter('[value=header_menu_messages]').hide();
+
+    $('input:radio[name=set_home_page_urban]').filter('[value={current_checked}]').prop('checked',true);
+    $('input:radio[name=set_home_page_urban]').filter('[value={current_checked}]').addClass('active');
+
+    $('input[name=set_home_page_urban]').on('click',function(){
+        if($(this).hasClass('active')){
+            $(this).prop('checked',false);
+            $(this).removeClass('active');
+        } else {
+            $('input[name=set_home_page_urban]').removeClass('active');
+            $(this).addClass('active');
+        }
+    });
+
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+            var myradio = $('input:radio[name=set_home_page_urban]');
+            myradio.filter('[value='+radio+']').prop('checked', true);
+        }
+    });
+	//$("#sortable").sortable();
+	//$("#sortable").disableSelection();
+});
+
+var fixHelperModified = function(e, tr) {
+    radio = $('input[name=set_home_page_urban]:checked').val();
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+</script>
+{footer}

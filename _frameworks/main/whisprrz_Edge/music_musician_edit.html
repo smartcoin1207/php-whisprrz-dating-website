@@ -1,0 +1,250 @@
+{header}
+
+
+    <div class="music_new">
+
+		{music_header}
+
+        <table class="tb_music_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    {music_musician_show}
+
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#musician_edit_form").validate({
+        rules: {
+            musician_name: "required",
+            country_id: "required",
+            musician_founded: "required",
+            musician_leader: "required",
+            musician_about: "required",
+            category_id: "required"
+        },
+        messages: {
+            musician_name: "",
+            country_id: "",
+            musician_founded: "",
+            musician_leader: "",
+            musician_about: "",
+            category_id: ""
+        }
+    })
+});
+
+function on_form_submit()
+{
+    <!-- begin_create_images_js -->
+    for(var i = 1; i <= 4; i++)
+    {
+        var ext = $('input[name="image_'+i+'"]').val();
+        if(ext != "")
+        {
+            ext = ext.substring(ext.length-4,ext.length);
+            ext = ext.toLowerCase();
+            if(ext != '.jpg' && ext != '.gif' && ext != '.png' && ext != 'jpeg') {
+                alert('{l_wrong_photo_types}');
+                return false;
+            }
+        }
+    }
+    <!-- end_create_images_js -->
+
+	if($("#musician_edit_form").valid())
+        $('#load_animation1').css('visibility', 'visible');
+    else
+    	alert('{l_please_fill_in_all_the_fields}');
+
+    return true;
+}
+
+</script>
+
+                    <div class="music_new_shadow"></div>
+
+                    <form id="musician_edit_form" method="POST" action="{url_main}music_musician_edit.php?cmd=save&musician_id={musician_id}" enctype="multipart/form-data" onsubmit="return on_form_submit()">
+
+                    <div class="music_new_p pl_top_m">
+                        <!-- begin_create_title --><h1 class="txt_color">{l_add} "{musician_name}" {l_details}</h1><!-- end_create_title -->
+                        <!-- begin_edit_title --><h1 class="txt_color">{l_edit} "{musician_name}"</h1><!-- end_edit_title -->
+
+                        <table class="tb_music_new_frm">
+                            <tr>
+                                <th>{l_name}:</th>
+                                <td>
+                                   <div class="music_input_text2"> <input name="musician_name" class="no_abk" type="text" value="{musician_name}"/></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{l_country}:</th>
+                                <td>
+									<div class="music_select">
+                                    <select name="country_id" >
+                                        {country_options}
+                                    </select>
+									</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{l_founded}:</th>
+                                <td>
+									<div class="music_select">
+                                    <select name="musician_founded">
+                                        {musician_founded_options}
+                                    </select>
+									</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{l_leader}:</th>
+                                <td>
+                                    <div class="music_input_text2"><input name="musician_leader" class="no_abk" type="text" value="{musician_leader}"/></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{l_about}:</th>
+                                <td>
+
+                                   <div class="music_textarea1"> <textarea name="musician_about" class="no_abk">{musician_about}</textarea></div>
+
+								</td>
+                            </tr>
+                            <tr>
+                                <th>{l_genre}:</th>
+                                <td>
+									<div class="music_select">
+                                    <select name="category_id">
+                                        {category_options}
+                                    </select>
+									</div>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <!-- begin_create_images -->
+                        <div class="bl_music_new_frm">
+                        <table class="tb_music_new_frm">
+                            <tr>
+                                <th>{l_photos}:</th>
+                                <td class="music_inp_file">
+                                    <input size="3" class="file" type="file" name="image_1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td class="music_inp_file">
+                                    <input size="3" class="file" type="file" name="image_2"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td class="music_inp_file">
+                                    <input size="3" class="file" type="file" name="image_3"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td class="music_inp_file">
+                                    <input size="3" class="file" type="file" name="image_4"/>
+                                </td>
+                            </tr>
+
+                        </table>
+                        </div>
+                        <div class="music_new_shadow"></div>
+
+                        <div class="music_new_p_btn fl_right">
+                            <img style="visibility:hidden;float:left;margin-top:1px;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif"><!-- <div class="music_input8 fl_right"><input type="submit" value="{l_save}"/></div> -->
+                            <div class="fl_right"><input class="btn lower_header_color round big" type="submit" value="{l_save}"/></div>
+                        </div>
+                        <!-- end_create_images -->
+
+                        <!-- begin_edit_images -->
+                        <div class="line_dashed"></div>
+
+                        <!-- begin_images -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    create_gallery()
+});
+
+function create_gallery()
+{
+    initLightboxOldTemplate($('.edit_image_gallery'));
+}
+
+function edit_delete_image(image_id)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+        $('#edit_image_' + image_id).fadeOut(400, function() {
+            $('#edit_image_' + image_id).remove();
+            create_gallery();
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}music_musician_image_delete_ajax.php',
+                    data: {
+                        image_id: image_id
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+
+
+                        <table class="tb_music_new_frm">
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <!-- begin_image -->
+                                    <div id="edit_image_{image_id}" class="music_new_img">
+                                        <a class="edit_image_gallery" href="{image_file}"><img src="{image_thumbnail}" width="85" height="64" alt=""/></a>
+                                        <div class="music_new_delete"><a title="{l_music_delete_image}" href="javascript:edit_delete_image({image_id})"><img class="png" src="{url_tmpl_main}images/music/ico_delete.png" width="15" height="17" alt=""/></a></div>
+                                    </div>
+                                    <!-- end_image -->
+
+                                    <div class="cl"></div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="line_dashed"></div>
+
+                        <!-- end_images -->
+
+                        <div class="fl_right">
+                            <img style="visibility:hidden;margin-top:1px;float:left;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif"><!-- <div class="music_input8 fl_right"><input  type="submit" value="{l_save}"/></div> -->
+                            <div class="fl_right"><input class="btn lower_header_color round big" type="submit" value="{l_save}"/></div>
+                        </div>
+                        <!-- end_edit_images -->
+
+                    </div>
+
+                    </form>
+
+                    <div class="music_new_empty"></div>
+
+                </td>
+                <!-- /td_main -->
+
+				{music_sidebar}
+
+            </tr>
+        </table>
+
+        <div class="foot_left"></div>
+		<div class="foot_right"></div>
+
+
+    </div>
+
+
+{footer}

@@ -1,0 +1,202 @@
+
+<script type="text/javascript">
+function submitInterestsForm(action) {
+	var form = document.forms['InterestsForm'];
+	if(action == "add")
+	{
+		if (!isChecked(form['id[]'])) {
+			alert("{l_nothing}");
+			return;
+		}
+		if (!isOneChecked(form['id[]'])) {
+			alert("{l_select_one}");
+			return;
+		}
+		form.action = "{url_main}mail_favorite_add.php";
+		form.submit();
+	}
+	else if(action == "delete")
+	{
+		if (!isChecked(form['id[]'])) {
+			alert("{l_nothing}");
+			return;
+		}
+		if (!confirm("{l_are_sure}")) {
+			return;
+		}
+		form.action = "{url_main}{url_page}";
+		form.cmd.value = "delete";
+		form.submit();
+	}
+}
+</script>
+<h2 class="txt_lower_header_color">{folder}</h2>
+<div class="cl"></div>
+<table border="0" cellpadding="0" cellspacing="0"><tr><td></td></tr></table>
+
+<div>
+<form name="InterestsForm" method="get" action="{url_main}{url_page}" style="padding: 0px; margin: 0px;">
+<input type="hidden" name="cmd" value="">
+	<div style="padding: 8px 0;">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" cellspacing="0"><tr><td>
+					<div class="button_border_2">
+					<input type="button" value="{l_add_to_favorites}" onclick="submitInterestsForm('add'); return false;" class="btn lower_header_color"  title="{l_add_to_favorites}" onmouseover="window.status='{l_add_to_favorites}'; return true;" onmouseout="window.status=''; return true;">
+					</div>
+					</td></tr></table>
+				</td>
+				<td style="padding-left: 5px;">
+					<table border="0" cellpadding="0" cellspacing="0"><tr><td>
+					<div class="button_border_2">
+					<input type="button" value="{l_delete}" onclick="submitInterestsForm('delete'); return false;" class="btn lower_header_color"  title="{l_delete}" onmouseover="window.status='{l_delete}'; return true;" onmouseout="window.status=''; return true;">
+					</div>
+					</td></tr></table>
+				</td>
+				<td align="right" class="body_little" width="100%">
+					<!-- begin_users_list_pages -->
+					<b>
+					<!-- begin_users_list_first_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_first} | </a>&nbsp;
+					<!-- end_users_list_first_page -->
+					<!-- begin_users_list_prev_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a> |
+					<!-- end_users_list_prev_page -->
+					<!-- begin_users_list_prev_page_off -->
+					{l_prev} |
+					<!-- end_users_list_prev_page_off -->
+					<!-- begin_users_list_next_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+					<!-- end_users_list_next_page -->
+					<!-- begin_users_list_next_page_off -->
+					{l_next}
+					<!-- end_users_list_next_page_off -->
+					<!-- begin_users_list_last_page -->
+					 | <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_last}</a>
+					<!-- end_users_list_last_page -->
+					</b>
+					<!-- end_users_list_pages -->
+				</td>
+			</tr>
+		</table>
+	</div>
+
+<table class="tb_mail" >
+<col width="25px" />
+<col width="100px" />
+<col width="255px" />
+<col width="100px" />
+<col width="65px" />
+    <tr>
+      <th>
+        <input type="checkbox" style="{width=20px;}" onclick="
+			if (this.checked)
+		    {
+		    	for(i=0; i<document.InterestsForm.length; i++)
+		    	{
+		        	if (document.InterestsForm.elements[i].type=='checkbox')
+		        	{
+		        	    document.InterestsForm.elements[i].checked = true;
+		        	}
+		    	}
+		    }
+		    else
+		    	{
+		    	for(i=0; i<document.InterestsForm.length; i++)
+		    	{
+		        	if (document.InterestsForm.elements[i].type=='checkbox')
+		        	{
+		        	    document.InterestsForm.elements[i].checked = false;
+		        	}
+		    	}
+		    }
+		">
+      </th>
+      <th>
+     	<!-- begin_params_none_name --><a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_username}</b></a><!-- end_params_none_name -->
+      	<!-- begin_params_asc_name -->&darr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_username}</b></a><!-- end_params_asc_name -->
+      	<!-- begin_params_desc_name -->&uarr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_username}</b></a><!-- end_params_desc_name -->
+      </th>
+      <th>
+     	<!-- begin_params_none_city --><a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_location}</b></a><!-- end_params_none_city -->
+      	<!-- begin_params_asc_city -->&darr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_location}</b></a><!-- end_params_asc_city -->
+      	<!-- begin_params_desc_city -->&uarr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_location}</b></a><!-- end_params_desc_city -->
+      </th>
+      <th>
+     	<!-- begin_params_none_last_visit --><a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_last_activity}</b></a><!-- end_params_none_last_visit -->
+      	<!-- begin_params_asc_last_visit -->&darr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_last_activity}</b></a><!-- end_params_asc_last_visit -->
+      	<!-- begin_params_desc_last_visit -->&uarr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_last_activity}</b></a><!-- end_params_desc_last_visit -->
+      </th>
+      <th>
+     	<!-- begin_params_none_age --><a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_age}</b></a><!-- end_params_none_age -->
+      	<!-- begin_params_asc_age -->&darr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_age}</b></a><!-- end_params_asc_age -->
+      	<!-- begin_params_desc_age -->&uarr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold"><b>{l_age}</b></a><!-- end_params_desc_age -->
+      </th>
+    </tr>
+  <!-- begin_users_list_item -->
+  <tr id="row" class="light">
+    <td align="center"><input name="id[]" type="checkbox" value="{user_id}"></td>
+    <td><a href="{url_main}{url_page}?offset={offset}&display=profile{params}" class="body_little" title="{name}">
+    	    <span title="{name}">{name}</span>
+	    </a>
+    </td>
+    <td>
+        <span title="{city}, {state}, {country}">
+            {city}{location_delimiter_one}{state}{location_delimiter_second}{country}
+        </span>
+    </td>
+    <td><span title="{last_visit}">{last_visit}</span></td>
+    <td><span title="{age}">{age}</span></td>
+  </tr>
+  <!-- end_users_list_item -->
+  </table>
+
+	<div style="padding-top: 8px; padding-bottom: 18px;">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" cellspacing="0"><tr><td>
+					<div class="button_border_2">
+					<input type="button" value="{l_add_to_favorites}" onclick="submitInterestsForm('add'); return false;" class="btn lower_header_color"  title="{l_add_to_favorites}" onmouseover="window.status='{l_add_to_favorites}'; return true;" onmouseout="window.status=''; return true;">
+					</div>
+					</td></tr></table>
+				</td>
+				<td style="padding-left: 5px;">
+					<table border="0" cellpadding="0" cellspacing="0"><tr><td>
+					<div class="button_border_2">
+					<input type="button" value="{l_delete}" onclick="submitInterestsForm('delete'); return false;" class="btn lower_header_color" title="{l_delete}" onmouseover="window.status='{l_delete}'; return true;" onmouseout="window.status=''; return true;">
+					</div>
+					</td></tr></table>
+				</td>
+				<td align="right" class="body_little" width="100%">
+					<!-- begin_users_list_pages -->
+					<b>
+					<!-- begin_users_list_first_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_first} | </a>&nbsp;
+					<!-- end_users_list_first_page -->
+					<!-- begin_users_list_prev_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a> |
+					<!-- end_users_list_prev_page -->
+					<!-- begin_users_list_prev_page_off -->
+					{l_prev} |
+					<!-- end_users_list_prev_page_off -->
+					<!-- begin_users_list_next_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+					<!-- end_users_list_next_page -->
+					<!-- begin_users_list_next_page_off -->
+					{l_next}
+					<!-- end_users_list_next_page_off -->
+					<!-- begin_users_list_last_page -->
+					 | <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_last}</a>
+					<!-- end_users_list_last_page -->
+					</b>
+					<!-- end_users_list_pages -->
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</div>
+</div>
+<div class="userinfo-links">

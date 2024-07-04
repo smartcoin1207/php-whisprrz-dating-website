@@ -1,0 +1,135 @@
+<!-- begin_container_header -->
+<script type="text/javascript">
+
+function events_event_list_{upcoming}_load_page(page_n)
+{
+	$('#events_event_list_{upcoming}_load_animation').css('visibility', 'visible');
+
+	$('#events_event_list_{upcoming}_container').load(
+			'{url_main}events_event_list_ajax.php?n_results_per_page={n_results_per_page}&event_where_when={event_where_when}&user_id={user_id}&list_type={list_type}&country_id={country_id}&category_id={category_id}&event_datetime={event_datetime}&query={query}&upcoming={upcoming}&event_id={event_id}&event_place={event_place}&events_event_list_page=' + page_n);
+}
+
+function events_event_list_{upcoming}_delete_event(event_id, page_n)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+        $('#event_list_event_' + event_id).fadeOut(400, function() {
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}events_event_delete_ajax.php',
+                    data: {
+                        event_id: event_id
+                        },
+                    success: function (data, textStatus, XMLHttpRequest)
+                        {
+                        	events_event_list_{upcoming}_load_page(page_n);
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+<div id="events_event_list_{upcoming}_container">
+<!-- end_container_header -->
+
+<!-- begin_events -->
+<table class="events_new_tb_sub">
+    <!-- begin_events_where_when_title -->
+    <col width="7px"/>
+    <col width="32px"/>
+	<col width="0px"/>
+    <col width="175px"/>
+	<col width="0px"/>
+    <col width="120px"/>
+	<col width="0px"/>
+    <tr>
+        <th class="th_t_l nb first">&nbsp;</th>
+        <th class="th_t_c">{l_events_photo}</th>
+		<th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c"><span>{l_events_event}</span></th>
+		<th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c"><span>{l_events_where}</span></th>
+		<th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c nb"><span>{l_events_when}</span></th>
+        <th class="th_t_r nb first">&nbsp;</th>
+    </tr>
+    <!-- end_events_where_when_title -->
+    <!-- begin_events_when_guests_comments_title -->
+    <col width="7px"/>
+    <col width="32px"/>
+	<col width="0px"/>
+    <col width="145px"/>
+	<col width="0px"/>
+    <col width="140px"/>
+	<col width="0px"/>
+    <col width="50px"/>
+	<col width="0px"/>
+    <tr>
+        <th class="th_t_l nb first">&nbsp;</th>
+        <th class="th_t_c">{l_events_photo}</th>
+		<th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c"><span>{l_events_event}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c"><span>{l_events_when}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c"><span>{l_events_guests}</span></th>
+        <th class="th_t_b">&nbsp;</th>
+		<th class="th_t_c nb"><span>{l_events_comments}</span></th>
+        <th class="th_t_r nb first">&nbsp;</th>
+    </tr>
+    <!-- end_events_when_guests_comments_title -->
+
+    <!-- begin_event -->
+    <tr id="event_list_event_{event_id}">
+        <td class="first" colspan="2"><a class="foto" href="{url_main}events_event_show.php?event_id={event_id}"><img style="position:absolute; margin-top:-15px;" src="{image_thumbnail}" width="39" height="29" alt=""/></a></td>
+        <td class="b">&nbsp;</td>
+		<td><span><a class="green" href="{url_main}events_event_show.php?event_id={event_id}">{event_title}</a></span></td>
+        <td class="b">&nbsp;</td>
+		<!-- begin_event_where_when_rows -->
+        <td><span><a class="txt_upper_header_color" href="{url_main}events_search.php?event_place={event_place_full}" title="{event_place_full}">{event_place}</a></span></td>
+        <td class="b">&nbsp;</td>
+		<td class="nb play" colspan="2"><span><a class="txt_upper_header_color" href="{url_main}events_search.php?event_datetime={event_datetime_raw}">{event_date}</a> | {event_time}</span></td>
+        <!-- end_event_where_when_rows -->
+        <!-- begin_event_when_guests_comments_rows -->
+        <td><span><a class="txt_upper_header_color" href="{url_main}events_search.php?event_datetime={event_datetime_raw}">{event_date}</a> | {event_time}</span></td>
+        <td class="b">&nbsp;</td>
+		<td><span>{event_n_guests}</span></td>
+        <td class="b">&nbsp;</td>
+		<td class="nb play" colspan="2"><span>{event_n_comments}</span></td>
+        <!-- end_event_when_guests_comments_rows -->
+    </tr>
+    <!-- end_event -->
+
+    <tr>
+        <th class="th_b_l nb">&nbsp;</th>
+    <!-- begin_events_where_when_footer -->
+        <th colspan="7" class="th_b_c nb">&nbsp;</th>
+    <!-- end_events_where_when_footer -->
+    <!-- begin_events_when_guests_comments_footer -->
+        <th colspan="9" class="th_b_c nb">&nbsp;</th>
+    <!-- end_events_when_guests_comments_footer -->
+        <th class="th_b_r nb">&nbsp;</th>
+    </tr>
+</table>
+
+<!-- begin_pager -->
+<div class="fl_right"><ul class="events_new_paging">
+    <li><img style="visibility:hidden;" id="events_event_list_{upcoming}_load_animation" src="{url_tmpl_main}images/load_animation.gif"></li>
+    <!-- begin_pager_prev --><li><a href="javascript:events_event_list_{upcoming}_load_page({page_n});">{l_pager_prev}</a></li>
+    <li>|&nbsp;&nbsp;</li><!-- end_pager_prev -->
+    <!-- begin_pager_link --><!-- begin_pager_link_active --><li class="active">{page_n}</li><!-- end_pager_link_active --><!-- begin_pager_link_not_active --><li><a href="javascript:events_event_list_{upcoming}_load_page({page_n});">{page_n}</a></li><!-- end_pager_link_not_active --><!-- end_pager_link -->
+    <!-- begin_pager_next --><li>&nbsp;&nbsp;|</li>
+    <li><a href="javascript:events_event_list_{upcoming}_load_page({page_n});">{l_pager_next}</a></li><!-- end_pager_next -->
+</ul></div><!-- end_pager -->
+<!-- end_events -->
+
+<!-- begin_no_events -->
+<div class="events_new_comments">
+    <!-- begin_no_events_message --><center>{l_events_no_events}</center><!-- end_no_events_message -->
+</div>
+<!-- end_no_events -->
+
+<!-- begin_container_footer -->
+</div>
+<!-- end_container_footer -->

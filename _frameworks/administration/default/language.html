@@ -1,0 +1,159 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/language.php?part={part}">{l_langs_list}</a></li>
+        <!-- begin_mlang -->
+        <li><a href="{url_main}administration/language_edit.php?part={part}&lang={language}">{title}</a></li>
+        <!-- end_mlang -->
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+        <input type="hidden" name="part" id="part" value="{part}">
+
+    <table class="tb" id="sortable">
+    <tr  id="no_sortable">
+        <th class="decor_l">&nbsp;</th>
+        <th class="right" >{l_name}</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <!-- begin_lang_rtl_title -->
+        <th></th>
+        <!-- end_lang_rtl_title -->
+        <th class="last"></th>
+
+        <th class="decor_r">&nbsp;</th>
+    </tr>
+    <!-- begin_lang -->
+    <tr class="{class}" style="cursor:move;">
+        <td class="decor{decl}">&nbsp;</td>
+        <td class="right">{title}
+		<input type="hidden" name="order_lang[]" value="{language}">{name_block}
+		</td>
+
+        <!-- begin_lang_off -->
+        <td><a href="{url_page}?part={part}&set={language}">{l_set}</a></td>
+        <!-- end_lang_off -->
+        <!-- begin_lang_on -->
+        <td>{l_default}</td>
+        <!-- end_lang_on -->
+
+        <td><a href="{url_main}administration/language_edit.php?part={part}&lang={language}">{l_edit}</a></td>
+
+        <td>
+        <!-- begin_lang_def_on -->
+        <a onclick="if(!confirm('{l_are_you_sure}')) return false;" href="{url_main}administration/language.php?part={part}&cmd=verify">{l_copy_all_phrases_from_this_language_to_all_other_languages}</a>
+        <!-- end_lang_def_on -->
+        <!-- begin_lang_def_off -->
+        <a onclick="if(!confirm('{l_are_you_sure}')) return false;" href="{url_page}?part={part}&del={language}">{l_delete}</a>
+        <!-- end_lang_def_off -->
+        </td>
+
+        <td>
+            <!-- begin_lang_hide_on -->
+            <a  href="{url_page}?part={part}&cmd=hide&hide={language}">{l_show}</a>
+            <!-- end_lang_hide_on -->
+            <!-- begin_lang_hide_off -->
+            <a  href="{url_page}?part={part}&cmd=hide&hide={language}">{l_hide}</a>
+            <!-- end_lang_hide_off -->
+        </td>
+
+        <!-- begin_lang_rtl -->
+        <td>
+            <!-- begin_lang_rtl_on -->
+            <a  href="{url_page}?part={part}&cmd=rtl&rtl={language}">{l_rtl_on}</a>
+            <!-- end_lang_rtl_on -->
+            <!-- begin_lang_rtl_off -->
+            <a  href="{url_page}?part={part}&cmd=rtl&rtl={language}">{l_rtl_off}</a>
+            <!-- end_lang_rtl_off -->
+        </td>
+        <!-- end_lang_rtl -->
+
+        <td class="last">
+            <!-- begin_lang_restore -->
+            <a onclick="if(!confirm('{l_are_you_sure}')) return false;" href="{url_page}?part={part}&cmd=restore&lang={language}">{l_restore}</a>
+            <!-- end_lang_restore -->
+        </td>
+
+
+        <td class="decor{decr}">&nbsp;</td>
+    </tr>
+    <!-- end_lang -->
+    </table>
+
+    <div class="bl_form">
+        <h2>{l_new_language}</h2>
+
+        <form action="{url_page}?part={part}" method="POST">
+        <input type="hidden" name="cmd" value="add_lang">
+        <p>{message_lang}</p>
+        <label>{l_new_title}:</label>
+        <input type="text" name="add_title" value="{add_title}">
+        <div class="btn fl_right"><a href="#" class="submit">{l_create}</a>
+					<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+
+<script>
+$(function() {
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            updateLanguagesOrder();
+		   $('#sortable tbody tr[id != no_sortable]').removeClass('color');
+		   $('#sortable tbody tr[id != no_sortable]:odd').addClass('color');
+		   $('#sortable tbody tr[id != no_sortable] td').removeClass('decor_l');
+		   $('#sortable tbody tr[id != no_sortable] td').removeClass('decor_r');
+		   $('#sortable tbody tr[id != no_sortable] td').removeClass('decor');
+		   $('#sortable tbody tr[id != no_sortable]:odd').each(function(index, element){
+                $(element).children('td:first').addClass('decor_l');
+                $(element).children('td:last').addClass('decor_r');
+		   });
+		   $('#sortable tbody tr[id != no_sortable]:even').each(function(index, element){
+                $(element).children('td:first').addClass('decor');
+                $(element).children('td:last').addClass('decor');
+		   });
+        }
+    });
+    $('#sortable tbody th').each(function(index, element){
+        w=$(element).width();
+        $(element).attr('width',w);
+    });
+});
+
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+
+function updateLanguagesOrder()
+{
+    var m_data=[];
+    $('input[name="order_lang[]"]').each(function(index,element){
+        m_data.push($(element).val());
+    })
+    $.post('ajax.php',{cmd:'set_languages_order',order_lang:m_data,part:$('#part').val()},function(res){});
+}
+</script>
+
+
+{footer}

@@ -1,0 +1,139 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+        alert("{message}");
+    }
+    $(document).ready(function(){
+        var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            }else{
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function(){
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+    });
+    function delete_groups() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var groups = StrID.slice(0, -1);
+        window.location.href='{url_page}?delete='+groups+'&offset={offset}';
+    }
+
+    function one_delete(gid) {
+        window.location.href='{url_page}?delete='+gid+'&offset={offset}';
+    }
+
+    function ban(gid) {
+        window.location.href='{url_page}?ban='+gid+'&offset={offset}';
+    }
+
+</script>
+<div class="block_main">
+    <!-- Rade 2023-09-28 add start -->
+    <ul class="group_page_title_menu">
+        <li id="sgroupssocial" class="current">
+            <a href="{url_main}administration/groups_social.php">{l_menu_groups_social}</a>
+        </li>
+        <li id="sgroupssocialvideos">
+            <a href="{url_main}administration/groups_social_vids_videos.php">{l_menu_groups_social_videos}</a>
+        </li>
+
+        <li id="sgroupssocialmusic">
+            <a href="{url_main}administration/groups_social_music_songs.php">{l_menu_groups_social_music}</a>
+        </li>
+    </ul>
+    <!-- Rade 2023-09-28 add end -->
+
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_count_places}</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+
+    <!-- begin_main_items -->
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right">
+            <input style="margin:0px; width: 12px;" type="checkbox" id="all">
+        </th>
+        <th>{l_action}</th>
+        <th>
+            <!-- begin_params_none_title --><a href="{url_page}?{params_current}">{l_group_title}</a><!-- end_params_none_title -->
+            <!-- begin_params_asc_title -->&uarr;<a href="{url_page}?{params_current}">{l_group_title}</a><!-- end_params_asc_title -->
+            <!-- begin_params_desc_title -->&darr;<a href="{url_page}?{params_current}">{l_group_title}</a><!-- end_params_desc_title -->
+        </th>
+        <th>
+            <!-- begin_params_none_user_name --><a href="{url_page}?{params_current}">{l_group_owner}</a><!-- end_params_none_user_name -->
+            <!-- begin_params_asc_user_name -->&uarr;<a href="{url_page}?{params_current}">{l_group_owner}</a><!-- end_params_asc_user_name -->
+            <!-- begin_params_desc_user_name -->&darr;<a href="{url_page}?{params_current}">{l_group_owner}</a><!-- end_params_desc_user_name -->
+        </th>
+        <th class="last">
+            <!-- begin_params_none_date --><a href="{url_page}?{params_current}">{l_group_date}</a><!-- end_params_none_date -->
+            <!-- begin_params_asc_date -->&uarr;<a href="{url_page}?{params_current}">{l_group_date}</a><!-- end_params_asc_date -->
+            <!-- begin_params_desc_date -->&darr;<a href="{url_page}?{params_current}">{l_group_date}</a><!-- end_params_desc_date -->
+        </th>
+        <th class="decor_r"></th>
+    </tr>
+
+    <!-- begin_main_item -->
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right"><input style="margin:0px; width: 12px;" type="checkbox" id="chk_{group_id}"></td>
+        <td>
+            <a href="{url_main}administration/groups_social_edit.php?group_id={group_id}">{l_edit}</a>
+            |
+            <a href="" onclick="if (confirm('{l_are_you_sure}')) {one_delete('{group_id}'); return false;} else return false;">{l_delete}</a>
+            |
+            <a href="{url_main}administration/groups_group_comments.php?group_id={group_id}">{l_comments}</a>
+            |
+            <a href="" onclick="if (confirm('{l_are_you_sure}')) {ban('{group_id}'); return false;} else return false;">{ban_global}</a>
+        </td>
+        <td><a href="../{group_url}" target="_blank">{title}</a></td>
+        <td><a href="../{user_url}" target="_blank">{user_name}</a></td>
+        <td class="last">{date}</td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_items}</div>
+    <!-- end_main_noitems -->
+
+    <!-- begin_no_delete -->
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) delete_groups(); else return false; " href="#">{l_delete}</a>
+    </div>
+    <!-- end_no_delete -->
+    <div class="empty"></div>
+</div>
+{footer}

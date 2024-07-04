@@ -1,0 +1,311 @@
+{header}
+
+<div class="frame_content">
+
+{search}
+
+<div class="cl"></div>
+
+<table cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td width="400" align="left" valign="top">
+
+		<script Language="JavaScript" type="text/javascript">
+			var blockSubmission = false;
+            jqTransformDaySelect = true;
+			function removeSubmissionBlock()
+			{
+				blockSubmission = false;
+			}
+
+			function isSubmissionAllowed()
+			{
+				if(blockSubmission)
+				{
+					return false;
+				}
+				return;
+			}
+
+			document.onclick = isSubmissionAllowed;  document.onkeydown = isSubmissionAllowed;
+
+			function onValidatebasicsearch()
+			{
+				var form = document.forms['basicsearch'];
+				// "search_name" field validation.
+                <!-- begin_search_save_checked_js -->
+				if (!(validateMaxLength(form['search_name'], '{l_search_name}','{search_max_length}')))
+				{
+					removeSubmissionBlock();
+					return false;
+				}
+                <!-- end_search_save_checked_js -->
+				return true;
+			}
+
+			function validatebasicsearch()
+			{
+				blockSubmission = true;
+				if (typeof beforebasicsearchValidation != 'undefined')
+				{
+					beforebasicsearchValidation();
+				}
+				var validated = onValidatebasicsearch();
+				if (validated && (typeof uponSuccessfulbasicsearchValidation != 'undefined'))
+				{
+					validated = uponSuccessfulbasicsearchValidation();
+				}
+				else if (!validated && (typeof uponUnsuccessfulbasicsearchValidation != 'undefined'))
+				{
+					uponUnsuccessfulbasicsearchValidation();
+				}
+				if (!validated)
+				{
+					removeSubmissionBlock();
+				}
+				return validated;
+			}
+
+			function submitbasicsearch()
+			{
+                if (validatebasicsearch()) {
+                    if ($('#save_search').prop('checked')) {
+                        $.post('ajax.php', {cmd: 'save_search', name: $('#search_name').val()},
+                                    function(response){
+                                        if (response > 0) {
+                                            if (confirm('{l_have_saved_search}')) {
+                                                document.basicsearch.submit();
+                                            } else {
+                                                $('#search_name').focus();
+                                            }
+                                        } else {
+                                            document.basicsearch.submit();
+                                        }
+                                    });
+                        removeSubmissionBlock();
+                        return false;
+                    } else {
+                        document.basicsearch.submit();
+                    }
+                }
+			}
+            function locationredirect() {
+                submitForm(document.basicsearch, '');
+            }
+            function resetLocation(){
+                document.basicsearch.city.disabled = 'true';
+                document.basicsearch.state.disabled = 'true';
+                document.basicsearch.country.disabled = 'true';
+                document.basicsearch.cmd.value = 'location';
+                submitForm(document.basicsearch, '');
+            }
+		</script>
+<script language="JavaScript" type="text/javascript">
+</script>
+
+		<form class="basicsearch" name="basicsearch" method="GET" action="{url_main}search_results.php"  style="padding: 0px; margin: 0px;">
+			<!-- begin_orientation -->
+            <input type="hidden" name="p_orientation[]" value="{orientation_search}">
+            <!-- end_orientation -->
+			<input type="hidden" name="cmd" value="">
+			<h2 class="txt_lower_header_color">
+				<img src="{url_tmpl_main}img/kdvi.png" width="30" height="30" alt="" /> {l_basic_search}
+			</h2>
+			<div style="padding-top:10px; padding-bottom: 10px;">{l_search_by}</div>
+            <div style="padding-top:10px; padding-bottom: 10px;">
+                <b>{l_age_range}</b>&nbsp;&nbsp;
+				{l_from}&nbsp;
+				<select style="width:46px;" name="p_age_from">{p_age_from_options}</select>
+				&nbsp;{l_to}&nbsp;
+				<select style="width:46px;" name="p_age_to">{p_age_to_options}</select>
+				&nbsp;{l_years_old}
+			</div>
+			<div style="padding-top:10px; padding-bottom:10px;">
+				<table border='0' cellpadding='0' cellspacing='0'>
+					<tr>
+						<td>
+							<b>{l_location}:</b>
+						</td>
+						<td align='right'>
+							<a style="display: inline-block; margin: 0 20px 0 0;" href='javascript:resetLocation();' class='pri_little_bold'>{l_reset_to_my}</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2' style='padding-top: 5px;'>
+							<select style="width: 250px;" name="country" onchange="show_load_animation(1); xajax_states(country.value)">
+								<option value="0">{l_select_all}</option>
+									{country_options}
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2'>
+							<select name="state" id="state"  onchange="show_load_animation(2); xajax_cities(state.value)" style="width: 250px;">
+								<option value="0">{l_select_all}</option>
+								{state_options}
+							</select>&nbsp;<img id="load_animation1" style="visibility:hidden;" src="{url_tmpl_main}images/load_animation.gif">
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2'>
+							<select name="city" id="city" style="width: 250px;">
+								<option value="0">{l_select_all}</option>
+								{city_options}
+							</select>&nbsp;<img id="load_animation2" style="visibility:hidden;" src="{url_tmpl_main}images/load_animation.gif">
+						</td>
+					</tr>
+
+				</table>
+			</div>
+         
+
+
+ 		<!-- begin_relation-->
+            <div style="padding-top:10px; padding-bottom:10px;">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td width="80" class="body_text" valign="top" rowspan="2" style="padding-top: 2px;">
+							<b><label for="SRCH_REL_TYPE">{l_relationship}</label></b>
+						</td>
+						<td>
+							<!-- begin_p_relations -->
+							<table cellpadding=0 cellspacing=0 border=0>
+								<tr>
+									<!-- begin_p_relation -->
+									<td width=22 class="body_text">
+										<input name="p_income[]" type="checkbox" value="{id}" {checked}>
+									</td>
+									<td width="100" class="body_text">{title}</td>
+									<td width=22 class="body_text">
+									<!-- begin_p_relation_column -->
+								</tr>
+								<tr>
+									<!-- end_p_relation_column -->
+									<!-- end_p_relation -->
+								</tr>
+							</table>
+							<!-- end_p_relations -->
+						</td>
+					</tr>
+				</table>
+			</div>
+            <!-- end_relation-->
+
+
+			<div style="padding-top:10px; padding-bottom:10px;">
+				<b><label for="KEYWORD">{l_keyword}</label></b>	<br>
+				<input type="text" name="keyword" value="{keyword_value}" class="input_text" maxlength="200">
+				<div>
+                    <!-- begin_tab_enabled -->
+					<div  style="padding-top:10px; padding-bottom:10px;">
+						<b><label for="MEM_STATUS">{l_status}</label></b>	<br>
+						<select name="status" style="width: 250px;">	{status_options} </select>
+					</div>
+                    <!-- end_tab_enabled -->
+                    <!-- begin_search_save_checked -->
+					<div style="padding-top:10px; padding-bottom:10px;">
+						<div style="float:left; "><input type="checkbox"  value="1" name="save_search" id="save_search" {save_checked}/></div>&nbsp;<label for="save_search" class="chk_label">{l_save_as}</label>	<br style="clear:both;" />
+						<input id="search_name" type="text" name="search_name" placeholder="{search_name}"  class="input_text" maxlength="{search_max_length}"/>
+					</div>
+                    <!-- end_search_save_checked -->
+					<!-- begin_with_photo -->
+					<div  style="padding-top:10px; padding-bottom:10px;">
+						<div style="float:left;"><input type="checkbox" {checks_photo} name="photo" id="photo" value="1"/></div>&nbsp;<label for="photo" class="chk_label">{l_with_photo}</label>
+					</div>
+					<!-- end_with_photo -->
+					<div  style="padding-top:10px; padding-bottom:10px;">
+						<input type="button" value="{l_start_searching}" onClick=" submitbasicsearch(); return false;" class="btn lower_header_color" title="{l_start_searching}" onMouseOver="window.status='{l_start_searching}'; return true;" onMouseOut="window.status=''; return true;"/>
+					</div>
+				</form>
+			</td>
+		<td width="350" valign="top" align="left" style="padding-left:30px;">
+            <!-- begin_quick_search_container -->
+                <h2 class="txt_lower_header_color">
+                    <img src="{url_tmpl_main}img/kdvi.png" width="30" height="30" alt="" /> {l_quick_search}
+                </h2>
+                <div style="margin: 0 0 15px;">{l_more_ways}</div>
+                <ul class="list_search">
+                    <!-- begin_quick_search -->
+                        <!-- begin_quick_search_whos_online_item -->
+                            <li><a href="{url_main}users_online.php" class="pri_little_bold"><strong>{l_whos_online}</strong></a> - {l_whos_online_text}</li>
+                        <!-- end_quick_search_whos_online_item -->
+                        <!-- begin_quick_search_whos_new_item -->
+                            <li><a href="{url_main}users_new.php" class="pri_little_bold"><strong>{l_whos_new}</strong></a> - {l_whos_new_text}</li>
+                        <!-- end_quick_search_whos_new_item -->
+                        <!-- begin_quick_search_birthdays_item -->
+                            <li><a href="{url_main}users_birthdays.php" class="pri_little_bold"><strong>{l_birthdays}</strong></a> - {l_birthdays_text}</li>
+                        <!-- end_quick_search_birthdays_item -->
+                        <!-- begin_quick_search_menu_users_featured_item -->
+                            <li><a href="{url_main}users_featured.php" class="pri_little_bold"><b>{l_menu_users_featured}</b></a> - {l_featured_text}</li>
+                        <!-- end_quick_search_menu_users_featured_item -->
+                        <!-- begin_quick_search_i_viewed_item -->
+                            <!-- begin_i_viewed -->
+                            <li><a href="{url_main}users_i_viewed.php" class="pri_little_bold"><strong>{l_i_viewed}</strong></a> - {l_i_viewed_text}</li>
+                            <!-- end_i_viewed -->
+                        <!-- end_quick_search_i_viewed_item -->
+                        <!-- begin_quick_search_viewed_me_item -->
+                            <!-- begin_viewed_me -->
+                            <li><a href="{url_main}users_viewed_me.php" class="pri_little_bold"><strong>{l_viewed_me}</strong></a> - {l_viewed_me_text}</li>
+                            <!-- end_viewed_me -->
+                        <!-- end_quick_search_viewed_me_item -->
+                    <!-- end_quick_search -->
+                </ul>
+            <!-- end_quick_search_container -->
+			<div>
+				<!--<a href="{url_main}users_featured.php" class="pri_little_bold"><b>{l_featured}</b></a> - {l_featured_text}<br>-->
+			</div>
+            <!-- begin_search_saved -->
+			<h2 class="txt_lower_header_color">
+				<img src="{url_tmpl_main}img/kdvi.png" width="30" height="30" alt="" /> {l_saved_searches}
+			</h2>
+			<div style="margin: 0 0 20px;">{l_save_your_search}</div>
+			<div style="margin: 0 0 20px;">
+				<table width="100%" cellpadding="0" border="0">
+					<!-- begin_search_save -->
+					<tr>
+						<td width="165" style="padding-bottom: 3px;">
+							<a href="{url_main}search_results.php?{query}" class="pri_little_bold"><b>{name}</b></a>
+						</td>
+						<td class="body_little" style="padding-bottom: 3px;">
+							<a href="{url_main}{url_search}?{query}" class="body_little">{l_edit}</a> &nbsp;
+                            <b>&middot;</b>&nbsp; <a href="{url_main}search.php?cmd=delete&id={id}" class="body_little">{l_delete}</a>
+						</td>
+					</tr>
+					<!-- end_search_save -->
+				</table>
+			</div>
+            <!-- end_search_saved -->
+			<form  name="idsearch" method="GET" action="{url_main}search_results.php" style="padding: 0px; margin: 0px;">
+				<h2 class="txt_lower_header_color">
+					<img src="{url_tmpl_main}img/kdvi.png" width="30" height="30" alt="" /> {l_username_search}
+				</h2>
+				<div>{l_search_by_username}</div>
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td class="body_little" style="padding-right: 6px; padding-top:10px;">
+								<b><label for="SEARCH_HANDLE">{l_username}</label></b>
+							</td>
+							<td style="padding-right: 4px; padding-top:10px;">
+								<input type="text" name="name_key"  size="26">
+							</td>
+							<td style="padding-top:10px;">
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<div class="button_border_1">
+												<input type="submit" value="{l_go}" class="btn lower_header_color" title="{l_go}" onMouseOver="window.status='{l_go}'; return true;" onMouseOut="window.status=''; return true;">
+											</div>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</td>
+		</tr>
+	</table>
+
+</div>
+
+{footer}

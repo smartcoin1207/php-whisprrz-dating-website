@@ -1,0 +1,275 @@
+{header}
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        console.log("this is called!!!!!!!!!!!!!");
+        $.ajax({
+            url: '{url_main}administration/ajax_custom.php',
+            type: 'post',
+            dataType: 'json',
+            data: { cmd: 'fetch_country' },
+            success: function (res) {
+                $(".auto_fill_country").html(res.option);
+                $(".auto_fill_country").each(function () {
+                    var selected = $(this).data("selected");
+                    $(this).val(selected);
+                });
+
+                $("#add_carrier_cnt_box").trigger("change");
+            }
+        });
+
+        var selected_cnty = [];
+        $(".auto_fill_country").each(function(){
+            var newItem = $(this).data('selected');
+            if (selected_cnty.indexOf(newItem) === -1){
+                selected_cnty.push(newItem);
+            }
+        });
+        
+        $.ajax({
+            url: '{url_main}administration/ajax_custom.php',
+            type: 'post',
+            dataType: 'json',
+            data: { cmd: 'fetch_country_regions', country: selected_cnty.join(",")},
+            success: function (res) {
+                $(".fill_state").each(function () {
+                    var cnt_id = $(this).data("country-selected");
+                    var selected = $(this).data("selected");
+
+                    $(this).html(res.options[cnt_id]);
+                    $(this).val(selected);
+                });
+
+            }
+        });
+
+        $(".auto_fill_country").change(function () {
+            var cnt_id = $(this).val();
+            var state_box_id = $(this).data('state-id');
+            $.ajax({
+                url: '{url_main}administration/ajax_custom.php',
+                type: 'post',
+                dataType: 'json',
+                data: { cmd: 'fetch_country_region', country: cnt_id },
+                success: function (res) {
+                    $("#carrier_state_" + state_box_id).attr("data-country-selected", cnt_id);
+                    var selected = $("#carrier_state_" + state_box_id).data("selected");
+
+                    $("#carrier_state_" + state_box_id).html(res.option);
+                    $("#carrier_state_" + state_box_id).val(selected);
+                }
+            });
+        });
+
+        $(".save_carrier").click(function () {
+            var form_id = $(this).data("form");
+            $.ajax({
+                url: '{url_main}administration/ajax_custom.php',
+                type: 'post',
+                dataType: 'json',
+                data: $("#form_" + form_id).serialize(),
+                beforeSend: function () {
+                    $("#block_" + form_id).find(".save_loading").show();
+                },
+                success: function (res) {
+                    $("#block_" + form_id).find(".save_loading").hide();
+                }
+            });
+            return false;
+        });
+    });
+
+    function carrierDeleteItem(id) {
+        $.ajax({
+            url: '{url_main}administration/ajax_custom.php',
+            type: 'post',
+            dataType: 'json',
+            data: { cmd: 'delete_carrier', id: id },
+            beforeSend: function () {
+                $("#block_" + id).find(".save_loading").show();
+            },
+            success: function (res) {
+                $("#block_" + id).remove();
+            }
+        });
+    }
+
+</script>
+<style>
+    .carrier_row {
+        position: relative;
+    }
+
+    .save_loading {
+        display: none;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.13);
+        width: 100%;
+        height: 100%;
+        z-index: 98;
+    }
+
+    .save_loading img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99;
+    }
+</style>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/autosms.php">{l_sms_auto_mailer}</a></li>
+        <li class="active"><a href="{url_main}administration/sms_carriers.php">{l_carrier}</a></li>
+        <li><a href="{url_main}administration/masssms.php">{l_sms_mass_text}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_import_carrier_csv}</h2>
+    <form method="post" action="{url_page}" enctype="multipart/form-data">
+        <input type="hidden" name="cmd" value="import">
+        <input type="file" name="carrier_file">
+        <div class="btn fl_left">
+            <a href="{url_page}?cmd=export" class="">{l_export}</a>
+        </div>
+        <div class="btn fl_right">
+            <a href="#" class="submit">{l_upload}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+        <div class="empty"></div>
+    </form>
+    
+    <div class="bl_form">
+        <!-- begin_main_items -->
+        <table class="tb">
+            <tr>
+                <th class="decor_l"></th>
+                <th width="40px">
+                    <!-- begin_params_none_id --><a
+                        href="{url_page}?{params_current}">{l_id}</a><!-- end_params_none_id -->
+                    <!-- begin_params_asc_id -->&uarr;<a
+                        href="{url_page}?{params_current}">{l_id}</a><!-- end_params_asc_id -->
+                    <!-- begin_params_desc_id -->&darr;<a
+                        href="{url_page}?{params_current}">{l_id}</a><!-- end_params_desc_id -->
+                </th>
+                <th width="160px">
+                    <!-- begin_params_none_country_id --><a
+                        href="{url_page}?{params_current}">{l_country}</a><!-- end_params_none_country_id -->
+                    <!-- begin_params_asc_country_id -->&uarr;<a
+                        href="{url_page}?{params_current}">{l_country}</a><!-- end_params_asc_country_id -->
+                    <!-- begin_params_desc_country_id -->&darr;<a
+                        href="{url_page}?{params_current}">{l_country}</a><!-- end_params_desc_country_id -->
+                </th>
+                <th width="160px">
+                    <!-- begin_params_none_state_id --><a
+                        href="{url_page}?{params_current}">{l_state_province}</a><!-- end_params_none_state_id -->
+                    <!-- begin_params_asc_state_id -->&uarr;<a
+                        href="{url_page}?{params_current}">{l_state_province}</a><!-- end_params_asc_state_id -->
+                    <!-- begin_params_desc_state_id -->&darr;<a
+                        href="{url_page}?{params_current}">{l_state_province}</a><!-- end_params_desc_state_id -->
+                </th>
+                <th width="155px">
+                    <!-- begin_params_none_name --><a
+                        href="{url_page}?{params_current}">{l_name}</a><!-- end_params_none_name -->
+                    <!-- begin_params_asc_name -->&uarr;<a
+                        href="{url_page}?{params_current}">{l_name}</a><!-- end_params_asc_name -->
+                    <!-- begin_params_desc_name -->&darr;<a
+                        href="{url_page}?{params_current}">{l_name}</a><!-- end_params_desc_name -->
+                </th>
+                <th width="155px">
+                    <!-- begin_params_none_email --><a
+                        href="{url_page}?{params_current}">{l_provider}</a><!-- end_params_none_email -->
+                    <!-- begin_params_asc_email -->&uarr;<a
+                        href="{url_page}?{params_current}">{l_provider}</a><!-- end_params_asc_email -->
+                    <!-- begin_params_desc_email -->&darr;<a
+                        href="{url_page}?{params_current}">{l_provider}</a><!-- end_params_desc_email -->
+                </th>
+                <th width="70px" class="last" align="center">
+                    {l_action}
+                </th>
+                <th class="decor_r"></th>
+            </tr>
+        </table>
+        <div id="block_{id}" class="carrier_row">
+            <form id="form_{id}" method="POST">
+                <input type="hidden" name="carrier_id" value="{id}">
+                <input type="hidden" name="cmd" value="save_carrier">
+                <div class="save_loading">
+                    <img src="{url_tmpl_administration}images/loader.gif">
+                </div>
+                <table class="tb">
+                    <!-- begin_main_item -->
+                    <tr class="{class}">
+                        <td class="decor{decl}"></td>
+                        <td width="40px">{id}</td>
+                        <td width="160px">
+                            <select name="country_id" class="auto_fill_country" data-state-id="{id}"
+                                data-selected="{country_id}" style="max-width: 150px;"></select>
+                        </td>
+                        <td width="160px">
+                            <select id="carrier_state_{id}" name="state_id" class="fill_state"
+                                data-country-selected="{country_id}" data-selected="{state_id}"
+                                style="max-width: 150px;"></select>
+                        </td>
+                        <td width="155px">
+                            <input style="padding-left: 5px;" type="text" name="name" value="{name}">
+                        </td>
+                        <td width="155px">
+                            <input style="padding-left: 5px;" type="text" name="email" value="{email}">
+                        </td>
+                        <td width="70px" class="last">
+                            <a href="#" data-form="{id}" class="save_carrier">{l_save}</a> |
+                            <a onClick="if (confirm('{l_are_you_sure}')) carrierDeleteItem({id}); return false;"
+                                href="#">{l_delete}</a>
+                        </td>
+                        <td class="decor{decr}"></td>
+                    </tr>
+                    <!-- end_main_item -->
+                </table>
+            </form>
+        </div>
+        <!-- end_main_items -->
+        <!-- begin_main_pages -->
+    <div>{num_total} {l_count_carriers}</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+        <div class="cl"></div>
+
+        <h2>{l_add}</h2>
+        <form action="{url_page}" method="POST">
+            <input type="hidden" name="cmd" value="add">
+
+            <label>{l_country}</label>
+            <select name="country_id" class="auto_fill_country" id="add_carrier_cnt_box" data-state-id="add"
+                style="margin-bottom: 10px;"></select>
+            <label>{l_state_province}</label>
+            <select id="carrier_state_add" name="state_id" class="fill_state" style="margin-bottom: 10px;"></select>
+            <label>{l_name}</label>
+            <input style="padding-left: 5px;" type="text" name="name" value="" required>
+            <label>{l_provider}</label>
+            <input style="padding-left: 5px;" type="text" name="email" value="" required>
+
+
+            <div class="btn fl_right" style="margin:0; margin-top: -1px;"><a href="#" class="submit">{l_add}</a>
+                <input type="submit" style="visibility:hidden;position:absolute;">
+            </div>
+
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

@@ -1,0 +1,151 @@
+<!-- begin_message_list -->
+<div id="pp_message_list_message_{user_to_id}_{users_to_group_id}" data-uid="{user_to_id}" data-group-id="{users_to_group_id}" data-from-group-id="{users_to_from_group_id}" data-to-group-id="{users_to_to_group_id}" class="pp_message_user_list_message scrollbarY">
+    <div class="scrollbar"><div class="track"><div id="im_thumb_{user_to_id}" class="thumb im_trans_{user_to_id}_{users_to_group_id}"></div></div></div>
+    <div id="im_viewport_{user_to_id}_{users_to_group_id}" class="viewport">
+        <div id="im_overview_{user_to_id}_{users_to_group_id}" data-uid="{user_to_id}" class="overview im_trans_{user_to_id}_{users_to_group_id}">
+
+        <!-- begin_message -->
+            <!-- begin_message_answer -->
+            <div id="pp_message_msg_{message_id}" data-block-list="{message_block_list}" data-msg="{message_notif}" data-send="{message_send}" data-id="{message_id}" data-group-id="{message_group_id}" data-from-group-id="{message_from_group_id}" data-to-group-id="{message_to_group_id}" data-to-user-id="{message_to_user_id}" data-msg-user-id="{message_user_id}" data-audio-message-id="{message_audio_id}" class="pp_message_msg_item replies {message_sticker_bl}">
+                <!-- begin_message_answer_info -->
+                <button class="pp_message_profile_pic pp_message_profile_pic_{message_answer_info_user_id} to_hide" onclick="redirectUrl('{message_answer_info_profile_url}');" style="background-image: url({url_files}{message_answer_info_photo_url})"></button>
+                <script>clMessages.showPic('{url_files}{message_answer_info_photo_url}',{message_answer_info_user_id});</script>
+                <!-- end_message_answer_info -->
+                <div class="msg">
+                    <div class="text" data-tooltip-data="true" title="{message_date}">
+                        <!-- begin_message_answer_audio -->
+						<span class="im_audio_message">
+							<span id="pp_messages_audio_{message_id}" class="im_audio_message_loader" data-audio-message-file="{message_answer_audio_message_file}" >
+								<i class="fa fa-play" aria-hidden="true"></i>
+							</span>
+							<span class="im_audio_message_process"></span>
+							<span class="im_audio_message_process_play"></span>
+						</span>
+						<div class="cl"></div>
+						<!-- end_message_answer_audio -->
+						<span class="im_message">{message}</span>
+                        <!-- begin_message_block -->
+                        {l_you_are_in_block_list}
+                        <!-- end_message_block -->
+                    </div>
+
+                    <div class="message_extension">
+                        <div class="message_more_menu dropdown">
+                            <div class="ellipsis">
+                                <span></span>
+                            </div>
+                            <ul id="#pp_message_msg_menu_{message_id}" class="more_menu_collapse collapse more_msg_menu">
+                                <li>
+                                    <a href="#" onclick="clMessages.removeMsgFromChat('{message_id}', true); return false;">
+                                        <span class="icon_fa" data-cl-loader="msg_loader_menu_more"><i class="fa fa-times" aria-hidden="true"></i></span>{l_delete_for_me}
+                                    </a>
+                                </li>
+                                <!-- begin_message_answer_report -->
+                                <li>
+                                    <a href="#" onclick="clMessages.removeMsgFromChat('{message_id}'); return false;">
+                                        <span class="icon_fa" data-cl-loader="msg_loader_menu_more"><i class="fa fa-trash" aria-hidden="true"></i></span>{l_delete_for_everyone}
+                                    </a>
+                                </li>
+                                <!-- end_message_answer_report -->
+                            </ul>
+                        </div>
+
+                        <div id="msg_read_{message_id}" data-mid="{message_id}" class="icon_check_msg <!-- begin_read_hide -->to_hide<!-- end_read_hide -->"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- end_message_answer-->
+
+            <!-- begin_message_responder -->
+            <div id="pp_message_msg_{message_id}" data-msg="{message_notif}" data-send="{message_send}" data-id="{message_id}" data-group-id="{message_group_id}" data-from-group-id="{message_from_group_id}" data-to-group-id="{message_to_group_id}" data-to-user-id="{message_to_user_id}" data-msg-user-id="{message_user_id}" data-audio-message-id="{message_audio_id}" class="pp_message_msg_item sent <!-- begin_message_to_new-->to_new<!-- end_message_to_new-->  {message_sticker_bl}">
+                <!-- begin_message_responder_info -->
+                <button class="pp_message_profile_pic pp_message_profile_pic_{message_responder_info_user_id} to_hide" title="{message_responder_info_name}, {message_responder_info_age}" onclick="redirectUrl('{message_responder_info_profile_url}');" style="background-image: url({url_files}{message_responder_info_photo_url});"></button>
+                <script>clMessages.showPic('{url_files}{message_responder_info_photo_url}',{message_responder_info_user_id});</script>
+                <!-- end_message_responder_info -->
+                <div class="msg">
+                    <div class="text" data-tooltip-data="true" title="{message_date}">
+						<!-- begin_message_responder_audio -->
+						<span class="im_audio_message">
+							<span id="pp_messages_audio_{message_id}" data-mid="{message_responder_msg_id}" data-from-user-id="{message_to_user_id}" class="im_audio_message_loader" data-audio-message-file="{message_responder_audio_message_file}">
+								<i class="fa fa-play" aria-hidden="true"></i>
+							</span>
+							<span class="im_audio_message_process"></span>
+							<span class="im_audio_message_process_play"></span>
+						</span>
+						<div class="cl"></div>
+						<!-- end_message_responder_audio -->
+						<span class="im_message">{message}</span>
+					</div>
+                    <div class="message_extension">
+                        <!-- message_more_menu -->
+                        <div class="message_more_menu">
+                            <div class="ellipsis">
+                                <span></span>
+                            </div>
+                            <ul id="pp_message_msg_menu_{message_id}" class="more_menu_collapse collapse more_msg_menu">
+                                <li>
+                                    <a href="#" onclick="clMessages.removeMsgFromChat('{message_id}', true); return false;">
+                                        <span class="icon_fa" data-cl-loader="msg_loader_menu_more"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                        {l_delete_for_me}
+                                    </a>
+                                </li>
+                                <!-- begin_message_responder_report -->
+                                <li>
+                                    <a href="#" onclick="clProfile.openReport({message_to_user_id}, 0); clMessages.closeMsgMenu(); return false;">
+                                        <span class="icon_fa" data-cl-loader="msg_loader_menu_more"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                                        {l_report}
+                                    </a>
+                                </li>
+                                <!-- end_message_responder_report -->
+                            </ul>
+                        </div>
+                        <!-- /message_more_menu -->
+                    </div>
+
+                    <!-- begin_message_original_text -->
+                    <div class="bl_original_message">
+                        <div>[{l_the_message_was_autotranslated}</div>
+                        <div class="show_original_message" onclick="clMessages.showOriginalMessage($(this));">{l_show_original_message}<span class="show_original_message_sep">]</span></div>
+                        <div class="original_message">{message_original}]</div>
+                    </div>
+                    <!-- end_message_original_text -->
+                </div>
+
+            </div>
+            <!-- end_message_responder -->
+        <!-- end_message -->
+        </div>
+    </div>
+    <script>clMessages.initUserChat({user_to_id}, {users_to_group_id});</script>
+</div>
+<!-- end_message_list -->
+
+<script class="script_update_before">
+<!-- begin_update_messages -->
+<!-- begin_sound -->
+clMessages.notifNewMsg();
+<!-- end_sound -->
+<!-- begin_show_read_marks -->
+clMessages.showReadMsg({show_read_marks});
+<!-- end_show_read_marks -->
+<!-- begin_show_read_audio_marks -->
+clMessages.showReadAudioMsg({show_read_audio_marks});
+<!-- end_show_read_audio_marks -->
+<!-- end_update_messages -->
+
+<!-- begin_update_users_status -->
+clMessages.updateOnlineUsers({update_users_status});
+<!-- end_update_users_status -->
+<!-- begin_messages_existing_ajax -->
+clMessages.checkExistenceMessages('{existing_messages}');
+<!-- end_messages_existing_ajax -->
+</script>
+
+<script class="script_update_after">
+<!-- begin_update_writing_users -->
+clMessages.updateWritingUsers({update_writing_users});
+<!-- end_update_writing_users -->
+<!-- begin_delete_writing_users -->
+clMessages.deleteWritingUsers({delete_writing_users});
+<!-- end_delete_writing_users -->
+</script>

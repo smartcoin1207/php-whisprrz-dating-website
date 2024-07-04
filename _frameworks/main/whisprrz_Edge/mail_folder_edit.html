@@ -1,0 +1,99 @@
+{header}
+<div id="oryx_content">
+  {folders}
+
+  <div class="column_main frame_content">
+    {ims}
+    
+    <div id="profile" class="box">
+      <!-- <div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr"> -->
+    
+    {mail_menu}
+    
+    <script type="text/javascript">
+      function validateMailFolderField(field,name) {
+        var folder = field.value.toLowerCase();
+        if(folder == 'inbox' || folder == 'trash' || folder == 'sent mail' ) {
+          alert('{l_incorrect_folder_name}');
+          field.focus();
+          return false;
+        }
+        return true;
+      }
+    
+      var blockSubmission = false;
+      function removeSubmissionBlock() {
+        blockSubmission = false;
+      }
+      function isSubmissionAllowed() {
+        if(blockSubmission){
+           return false;
+        }
+        return;
+       }
+      document.onclick = isSubmissionAllowed;
+      document.onkeydown = isSubmissionAllowed;
+    
+      function onValidateMailFolderForm() {
+        var form = document.forms['MailFolderForm'];
+        // "folder_name" field validation.
+        if (!(validateRequiredField(form['folder_name'], '{l_folder_name}'))) {
+          removeSubmissionBlock();
+          return false;
+        }
+        // "folder_name" field validation.
+        if (!(validateMaxLength(form['folder_name'], '{l_folder_name}','15'))) {
+          removeSubmissionBlock();
+          return false;
+        }
+        // "folder_name" field validation.
+        if (!(validateMailFolderField(form['folder_name'],'{l_folder_name}'))) {
+          removeSubmissionBlock();
+          return false;
+        }
+        return true;
+      }
+      function validateMailFolderForm() {
+        blockSubmission = true;
+         if (typeof beforeMailFolderFormValidation != 'undefined') {
+           beforeMailFolderFormValidation();
+        }
+        var validated = onValidateMailFolderForm();
+        if (validated && (typeof uponSuccessfulMailFolderFormValidation != 'undefined')) {
+          validated = uponSuccessfulMailFolderFormValidation();
+        }
+        else if (!validated && (typeof uponUnsuccessfulMailFolderFormValidation != 'undefined')) {
+          uponUnsuccessfulMailFolderFormValidation();
+        }
+        if (!validated) {
+          removeSubmissionBlock();
+        }
+        return validated;
+      }
+      function submitMailFolderForm() {
+       if (validateMailFolderForm()) document.MailFolderForm.submit();
+        }
+    </script>
+    <div class=header_big style="padding-bottom: 20px; padding-top: 30px; text-align: center;">{l_edit_folder} {name}</div>
+    <form  style="margin-bottom:70px;" name="MailFolderForm" method="GET" action="{url_main}mail_folder_edit.php" onSubmit="return validateMailFolderForm();" style="padding: 0px; margin: 0px;">
+            <input type="hidden" name="cmd" value="edit">
+            <input type="hidden" name="id" value="{id}">
+            <div align="left">&nbsp;<b>{message}</b></div>
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td class="body_text" style="white-space: nowrap"><label for="FOLDER_NAME">{l_folder_name}</label></td>
+                <td><input type="text" name="folder_name"value="{name}" style="width: 240px; margin-left: 5px;" tabindex="1"></td>
+                <td style="padding-left: 5px;"><input type="button" value="{l_edit}" onClick=" submitMailFolderForm();" class="button" style=" padding-left: 5px; padding-right: 5px; cursor: pointer; cursor: hand;" tabindex="2" title="{l_edit}" onMouseOver="window.status='{l_edit}'; return true;" onMouseOut="window.status=''; return true;"></td>
+                <td style="padding-left: 5px;"><input type="button" value="{l_cancel}" onClick=" location.href='{page_from}';" class="button" style=" padding-left: 5px; padding-right: 5px; cursor: pointer; cursor: hand;" tabindex="3" title="{l_cancel}" onMouseOver="window.status='{l_cancel}'; return true;" onMouseOut="window.status=''; return true;"></td>
+              </tr>
+            </table>
+            <script type="text/javascript">setFocus('MailFolderForm','folder_name');</script>
+    </form>
+    
+    <!-- </div></div></div></div></div></div></div></div> -->
+    </div>
+  </div>
+
+</div>
+{footer}
+

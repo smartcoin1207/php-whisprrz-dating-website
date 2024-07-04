@@ -1,0 +1,23 @@
+<div id="pp_gallery_comments">
+    <!--begin_load_more_comments -->
+    <div id="pp_gallery_load_more_comments_bl" class="like_comment_and_share_bl">
+        <div class="like_comment_and_share more">
+            <a href="#" class="comments_replies_load_link" onclick="clProfilePhoto.loadMoreComments(0,$(this)); return false;">
+                <span data-no-fade-in="true" data-cl-loader="icon_wall_loader" class="glyphicon glyphicon-comment icon"></span>
+                <span class="comments_replies_load_title">{load_more_comments_number_title}</span>
+            </a>
+            <div class="comm_to_comm_text_number <!-- begin_load_more_comments_number -->to_show<!-- end_load_more_comments_number -->">
+                {load_more_comments_number}
+            </div>
+        </div>
+    </div>
+    <!--end_load_more_comments -->
+    <div class="bl_comments">
+        <!-- begin_comment -->
+        {comment_item}
+        <!-- end_comment -->
+    </div>
+</div>
+<script class="init_gallery">
+    clProfilePhoto.initShowGallery('{cur_photo}', {photos_info}, '{count}', '{count_profile}','{count_profile_title}', '{photo_default}', '{is_delete}', '{page_preload_stop}', '{page_preload_update}', {page_preload_limit});
+</script>

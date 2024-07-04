@@ -1,0 +1,67 @@
+<div class="bl_modal_body">
+    <div class="modal-body">
+        <div class="bl_forms">
+            <div class="section fields">
+            <!-- begin_contact_email -->
+            <div class="col-lg-12 col-md-12 field">
+                <input name="contact_email" type="text" class="form-control placeholder" placeholder="{l_email}">
+            </div>
+            <!-- end_contact_email -->
+            <!-- begin_contact_username -->
+            <div class="col-lg-12 col-md-12 field">
+                <input name="contact_username" type="text" class="form-control placeholder" placeholder="{l_username}">
+            </div>
+            <!-- end_contact_username -->
+
+            <div class="col-lg-12 col-md-12 field_textarea">
+                <textarea name="contact_comment" class="form-control placeholder" placeholder="{l_type_your_message_here}"></textarea>
+            </div>
+            <!-- begin_contact_captcha -->
+            <!-- begin_default_captcha -->
+            <div class="col-lg-12 col-md-12 field">
+                <img id="pp_contact_captcha" class="captcha" title="{a_show_another_code}" onclick="refreshCaptcha(); return false;" src="{url_main}_server/securimage/securimage_show_custom.php?sid={sid}"/>
+            </div>
+            <div class="col-lg-12 col-md-12 field">
+                <input name="contact_captcha" type="text" class="form-control placeholder" placeholder="{l_enter_code}"/>
+            </div>
+            <!-- end_default_captcha -->
+            <!-- begin_re_captcha -->
+            <div class="col-lg-12 col-md-12 field bl_contact_recaptcha">
+                <div id="contact_recaptcha"  class="contact_recaptcha"></div>
+            </div>
+            <!-- end_re_captcha -->
+            <!-- end_contact_captcha -->
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-lg-12 col-md-12">
+            <button type="button" class="btn btn-success contact_submit">
+                <span class="icon message"></span><span>{l_send}</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+    var responseRecaptchaContact='', isRecaptchaContact=false, captchaContact='';
+    <!-- begin_re_captcha_js -->
+    isRecaptchaContact=true;
+    var recaptchaWdContact,
+    verifyCallbackContact = function(response) {
+        captchaContact = grecaptcha.getResponse(recaptchaWdContact);
+        hideError('#contact_recaptcha');
+    },
+    onloadCallbackContact = function() {
+        recaptchaWdContact = grecaptcha.render('contact_recaptcha', {
+            'sitekey' : '{re_captcha_sitekey}',
+            'callback' : verifyCallbackContact,
+            'theme' : '{re_captcha_theme}'
+        });
+    };
+    <!-- end_re_captcha_js -->
+    </script>
+    <!-- begin_re_captcha_script -->
+    <script src="//www.google.com/recaptcha/api.js?onload=onloadCallbackContact&render=explicit&hl={re_captcha_lang}" async defer></script>
+    <!-- end_re_captcha_script -->
+</div>

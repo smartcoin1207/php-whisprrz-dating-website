@@ -1,0 +1,50 @@
+{header}
+
+<div class="frame_content">
+<div id="gallery">		
+            <div class="my_pic" style="padding: 5px 0 0;">
+                <a style="background: none; padding-right:10px;" href="{url_main}gallery_admin_upload.php" style="font-weight: normal">{l_add_photos}</a>
+                <span>|</span>
+                <a href="{url_main}gallery_admin.php" style="font-weight: normal">{l_your_gallery}</a>
+            </div>	    
+			<h2 class="txt_lower_header_color"><a class="txt_lower_header_color" href="gallery_albums_all.php?sort=views">{l_popular_albums}</a></h2><br/>
+			<ul class="alb">
+            <!-- begin_albums_popular -->
+                <li>
+                    <div class="trans">
+                    <a href="gallery_album.php?album_id={album_id}" class="name">{album_name}</a>
+                    <span class="txt_upper_header_color"> <a class="txt_upper_header_color" target="_blank" href="search_results.php?display=profile&name={user_name}">{user_name}</a></span>
+                    </div>
+                    <a href="gallery_album.php?album_id={album_id}"><img src="{url_files}{gallery_thumb_path}" width="100" height="100" /></a>                    
+                </li>
+            <!-- end_albums_popular -->
+			<!-- begin_no_albums_popular -->
+			<li>
+                <div class="trans"></div>
+            </li>
+			<!-- end_no_albums_popular -->			
+            </ul>
+			<br /><br />
+			<h2 class="txt_lower_header_color"><a class="txt_lower_header_color" href="gallery_albums_all.php?sort=date">{l_new_albums}</a></h2><br/>
+			
+			<ul class="alb">
+            <!-- begin_albums_new -->
+            <li>
+                <div class="trans">
+                <a href="gallery_album.php?album_id={album_id}" class="name">{album_name}</a>
+                <a target="_blank" class="txt_upper_header_color" href="search_results.php?display=profile&name={user_name}">{user_name}</a>
+                </div>
+                <a href="gallery_album.php?album_id={album_id}"><img src="{url_files}{gallery_thumb_path}" width="100" height="100" /></a>                
+            </li>
+            <!-- end_albums_new -->
+			<!-- begin_no_albums_new -->
+			<li>
+                <div class="trans"></div>
+            </li>
+			<!-- end_no_albums_new -->
+            </ul>
+
+</div>
+</div>
+       
+{footer}

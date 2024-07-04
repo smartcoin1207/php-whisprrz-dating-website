@@ -1,0 +1,89 @@
+<!-- begin_container_header -->
+<script type="text/javascript">
+
+var current_page_n = {page};
+
+function song_comment_list_load_page(page_n)
+{
+    $('#song_comment_list_load_animation').css('visibility', 'visible');
+
+    $('#song_comment_list_container').load(
+            '{url_main}music_song_comment_list_ajax.php?song_id={song_id}&song_comment_list_page=' + page_n, 
+            null,
+            function(responseText, textStatus, XMLHttpRequest) {
+                current_page_n = page_n;     
+            });
+}
+
+function song_comment_delete(comment_id)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+	    $('#song_comment_' + comment_id).fadeOut(400, function() {
+		        $.ajax({
+		            type: 'POST',
+		            url: '{url_main}music_song_comment_delete_ajax.php',
+		            data: {
+		                comment_id: comment_id
+		                },
+		            success: function (data, textStatus, XMLHttpRequest)
+		                {
+		                    song_comment_list_load_page(current_page_n);
+		                }
+		          });
+	        });
+    }
+}
+
+</script>
+<div id="song_comment_list_container">
+<!-- end_container_header -->
+
+<!-- begin_comments -->
+<!-- new_mods_comments -->
+<!-- begin_comment -->
+<div class="music_new_comments" id="song_comment_{comment_id}">
+    <div class="music_new_comments_head">
+        <div class="music_new_comments_txt">
+            <a href="{url_main}search_results.php?display=profile&name={user_name_full}" title="{user_name_full}">{user_name}</a> ({comment_created_at})
+        </div>
+        <!-- begin_delete_button -->
+        <div class="fl_right">
+            <a href="javascript:song_comment_delete({comment_id});"><img class="png" src="{url_tmpl_main}images/music/ico_delete.png" width="15" height="17" alt=""/></a>
+        </div>
+        <!-- end_delete_button -->
+    </div>
+    <div class="music_new_comments_c violet">
+        <a href="{url_main}search_results.php?display=profile&name={user_name_full}" title="{user_name_full}"><img src="{user_photo}" width="62" height="70" alt=""/></a>
+
+        <p>
+            {comment_text}
+        </p>
+
+    <div class="justify"></div>
+    </div>
+    <div class="music_new_comments_bot violet_bot"></div>
+</div>
+<!-- end_comment -->
+<!-- /new_mods_comments -->
+
+<!-- begin_pager -->
+<ul class="music_new_paging music_new_paging_green">
+    <li><img style="visibility:hidden;" id="song_comment_list_load_animation" src="{url_tmpl_main}images/load_animation.gif"></li>
+    <!-- begin_pager_prev --><li><a href="javascript:song_comment_list_load_page({page_n});">{l_pager_prev}</a></li>
+    <li>|&nbsp;&nbsp;</li><!-- end_pager_prev -->
+    <!-- begin_pager_link --><!-- begin_pager_link_active --><li class="active">{page_n}</li><!-- end_pager_link_active --><!-- begin_pager_link_not_active --><li><a href="javascript:song_comment_list_load_page({page_n});">{page_n}</a></li><!-- end_pager_link_not_active --><!-- end_pager_link -->
+    <!-- begin_pager_next --><li>&nbsp;&nbsp;|</li>
+    <li><a href="javascript:song_comment_list_load_page({page_n});">{l_pager_next}</a></li><!-- end_pager_next -->
+</ul><!-- end_pager -->
+
+<!-- end_comments -->
+<!-- begin_no_comments -->
+<div class="music_new_comments">
+    <center></center>
+</div>
+<!-- end_no_comments -->
+
+<!-- begin_container_footer -->
+</div>
+<!-- end_container_footer -->

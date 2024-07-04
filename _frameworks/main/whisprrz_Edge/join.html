@@ -1,0 +1,516 @@
+<!--Gregory Mann modified at 7/7/2023 11:12 am.-->
+{header}
+<style>
+html > body .box .bbbr {
+overflow:visible;
+}
+
+#content {
+overflow:visible;
+}
+
+</style>
+
+<div class="frame_content">
+			<script language="JavaScript" type="text/javascript">
+			  function onValidateJoinForm() {
+			    var form = document.forms['JoinForm'];
+
+                if (!(validateUserName(form['join_handle'], '{l_username}', '{username_length_min}', '{username_length}'))) {
+			      return false;
+			    }
+
+			    if (!(validateRequiredField(form['join_password'], '{l_password}'))) {
+			      return false;
+			    }
+			    if (!(validateMinLength(form['join_password'], '{l_password}','8'))) {
+			      return false;
+			    }
+			    if (!(validateMaxLength(form['join_password'], '{l_password}','{password_length_max}'))) {
+			      return false;
+			    }
+			    if (!(validateAlphaNumeric(form['join_password'], '{l_password}'))) {
+			      return false;
+			    }
+
+			    if (!(validateRequiredField(form['email'], '{l_email_address}'))) {
+			      return false;
+			    }
+			    if (!(validateMaxLength(form['email'], '{l_email_address}','{mail_length_max}'))) {
+			      return false;
+			    }
+			    if (!(validateEmailField(form['email'], '{l_email_address}'))) {
+			      return false;
+			    }
+                <!-- begin_field_orientation_js -->
+			    if (!(validateRequiredSelect(form['orientation'],'{l_orientation}','0'))) {
+			      return false;
+			    }
+			    if (!(validateRequiredField(form['orientation'], '{l_orientation}', '0'))) {
+			      return false;
+			    }
+                <!-- end_field_orientation_js -->
+			    if (!(validateRequiredSelect(form['country'],'{l_country}','-1'))) {
+			      return false;
+			    }
+			    if (!(validateRequiredField(form['country'], '{l_country}', '-1'))) {
+			      return false;
+			    }
+			    /*
+				if (!(validateRequiredField(form['month'], '{l_month}'))) {
+			      return false;
+			    }
+			    if (!(validateRequiredField(form['day'], '{l_day}'))) {
+			      return false;
+			    }
+			    if (!(validateRequiredField(form['year'], '{l_year}'))) {
+			      return false;
+			    }
+				*/
+			    if (!(validateRequiredCheckbox(form['privacy_policy'],'','{l_agree_privete_policy}'))) {
+			      return false;
+			    }
+				//start-nnsscc-diamond-20200209
+				if (!(validateRequiredCheckbox(form['nsc_sex_privacy_policy'],'','{l_nsc_sex_agree_privete_policy}'))) {
+			      return false;
+			    }
+				//end-nnsscc-diamond-20200209
+			    return true;
+			  }
+
+			  function validateJoinForm() {
+			    blockSubmission = true;
+			     if (typeof beforeJoinFormValidation != 'undefined') {
+			       beforeJoinFormValidation();
+			    }
+			    var validated = onValidateJoinForm();
+			    if (validated && (typeof uponSuccessfulJoinFormValidation != 'undefined')) {
+			      validated = uponSuccessfulJoinFormValidation();
+			    }
+			    else if (!validated && (typeof uponUnsuccessfulJoinFormValidation != 'undefined')) {
+			      uponUnsuccessfulJoinFormValidation();
+			    }
+			    if (!validated) {
+
+			    }
+			    return validated;
+			  }
+			  
+			  
+			//Gregory input 7/5/2023 12:40 pm
+			  function submitJoinForm() {
+			   if (validateJoinForm()){
+			       
+    				var weventInterval = setInterval(function() {
+    				    
+    				var payload = {
+                        type: "signup",
+                        username: $("#username").val(),
+                        email: $("#create-email").val(),
+                        password: $("#create-password").val(),
+                        password_repeat: $("#create-password").val(),
+                    }
+        		    var radioIframe = document.getElementById("radio_signupframe");
+        		  //  alert("coers no");
+
+
+    			    var iframe = $('#event_signup');
+    				$('#first_name', iframe.contents()).val($("#username").val());
+    				$('#email', iframe.contents()).val($("#create-email").val());
+    				$('#password', iframe.contents()).val($("#create-password").val());
+    				$('#password_confirmation', iframe.contents()).val($("#create-password").val());
+
+    				if($('#first_name', iframe.contents()).val()  !=="" && radioIframe && payload.email){
+    				    clearInterval(weventInterval); 
+                       
+                        radioIframe.contentWindow.postMessage(payload,"*");
+    				    $('form', iframe.contents()).submit();
+
+    				   setTimeout(function(){
+    			            document.JoinForm.submit();
+    				   }, 2000);
+
+    				   
+    				}
+    				
+				},500);
+
+			   }
+			   else return false;
+			  }
+			</script>
+
+            <table width="100%"><tr><td width="40%" align="right" valign="top">
+                <div  class="header_big" style="padding-bottom: 10px; padding-top: 20px; text-align: right;"><h2 class="txt_color">{l_login_this}</h2></div>
+                <form method="post" action="{url_main}join.php?cmd=login" id="login-f" class="clearfix  joinForm">
+                    <div id="join">
+                    {login_message}<br />
+
+					<!-- begin_facebook_login -->
+					<div><a class="fb_button_join" href="{facebook_login_url}"><strong>{l_login_with_facebook}</strong></a></div>
+					<!-- end_facebook_login -->
+
+                    <label style="float:left;" for="username">{l_username}:</label><input class="no_abk join-field" autocomplete="off" name="user" type="text" id="login" tabindex="1" /><br />
+                    <label style="float:left;" for="password">{l_password}:</label><input class="no_abk join-field" autocomplete="off" name="password" type="password" id="password" tabindex="2" /><br />
+                    </div><br />
+					<input id="login_type_field" type="text" name="login_type" value="5" hidden/>
+					<input id="eighteen_type_field" type="text" name="eighteen_type" value="0" hidden/>
+
+
+<!--  					<input type="submit" value="{l_login_this}" class="button_small no_abk nostyle" />
+						<input type="submit" value="{l_login_this}" class="btn lower_header_color big" />
+ --> 					<input type="button" onclick="doLogin();" value="{l_login_this}" class="btn lower_header_color big" />
+                   <div style="padding: 10px 0 0 78px; text-align: left; white-space: nowrap; ">
+
+	                   <input style="float:left; margin: 1px 5px 0 0;" name="remember" type="checkbox" id="remember" class="chk" value="1" type="checkbox" checked="checked">
+
+	                   <label for="remember">{l_remember_me}</label> | <a href="{url_main}forget_password.php?">{l_forgot_password}</a>
+                   </div>
+                </form>
+
+					<div>
+        <style>
+            
+            
+            h1 {
+                text-align: center;
+                font-family: Tahoma, Arial, sans-serif;
+                color: #06D85F;
+                margin: 80px 0;
+            }
+            
+            .box {
+                width: 40%;
+                margin: 0 auto;
+                background: rgba(255,255,255,0.2);
+                padding: 35px;
+                border: 2px solid #fff;
+                border-radius: 20px/50px;
+                background-clip: padding-box;
+                text-align: center;
+            }
+            
+            .button {
+                font-size: 1em;
+                padding: 10px;
+                color: #fff;
+                border: 2px solid #06D85F;
+                border-radius: 20px/50px;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.3s ease-out;
+            }
+            .button:hover {
+                background: #06D85F;
+            }
+            
+            .overlay {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.7);
+                transition: opacity 500ms;
+                visibility: hidden;
+                opacity: 0;
+            }
+            .overlay.show {
+                visibility: visible;
+                opacity: 1;
+            }
+            
+            .popup {
+                margin: 70px auto;
+                padding: 20px;
+                background: #fff;
+                border-radius: 5px;
+                width: 30%;
+                position: relative;
+                transition: all 5s ease-in-out;
+            }
+            
+            .popup h2 {
+                margin-top: 0;
+                color: #333;
+                font-family: Tahoma, Arial, sans-serif;
+            }
+            .popup .close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                transition: all 200ms;
+                font-size: 30px;
+                font-weight: bold;
+                text-decoration: none;
+                color: #333;
+            }
+            .popup .close:hover {
+                color: #06D85F;
+            }
+            .popup .content {
+                max-height: 30%;
+                overflow: auto;
+            }
+            
+            @media screen and (max-width: 700px){
+                .box{
+                width: 70%;
+                }
+                .popup{
+                width: 70%;
+                }
+            }
+        </style>
+					<div id="popup1" class="overlay" style="text-align: left; display:none;">
+
+									<label id="first_user_label" for="lg_type_1">Single Male</label>
+									<label id="second_user_label" for="lg_type_2">Single Female</label>
+
+					</div>
+				  
+
+				<iframe src="https://whisprrz.com/Whisprrz_Wevents/public/login" id="event_login" style="display:none;"></iframe> 
+            </td><td width="60%" align="right" valign="top" style="padding-right:20px;">
+                    <!-- begin_join -->
+					<!-- method="post" action="{url_main}join.php?cmd=register" -->
+					<form class=" joinForm" name="JoinForm" method="post" action="{url_main}join.php?cmd=register" onsubmit="return validateJoinForm();">
+                        <div  class="header_big" style="padding-bottom: 10px; padding-top: 20px; text-align: right;"><h2 class="txt_color">{l_join_this}</h2></div>
+                        <div id="join" style="width:330px; padding: 0 0 8px;">
+                        {join_message}<br />
+						<label for="username" style="float:left;">{l_username}:</label>
+							<input class="no_abk join-field" autocomplete="off" type="text" id="username" name="join_handle" value="{join_handle}" /><br />
+						<label for="create-password" style="float:left;">{l_create_password}:</label>
+							<input class="no_abk join-field" autocomplete="off" type="password" id="create-password" name="join_password" value="{join_password}" /><br />
+						<label for="email" style="float:left;">{l_email}:</label>
+							<input class="no_abk join-field" autocomplete="off" type="text" id="create-email" name="email" value="{email}" /><br />
+                        <!-- begin_field_orientation -->
+						<label for="iam" style="float:left;">{l_i_am}:</label>
+							<select name="orientation" class="no_abk" id="iam" style="width:210px; float: right;">
+								 {orientation_options}
+							</select>
+						<div class="cl"></div>
+                        <!-- end_field_orientation -->
+						<label for="from" style="float:left;">{l_from}:</label>
+							<select name="country" id="from" class="no_abk" style="width:210px; float: right;">
+								 <option value="-1" selected="selected">{l_country_select}</option>
+								 {country_options}
+							</select>
+						<div class="cl"></div>
+						<!-- start-nnsscc-diamond-20200209 -->
+						<input name="nsc_sex_privacy_policy" style="vertical-align: top; margin: 1px 0 0;" type="checkbox" value="true" id="nsc_sex_agree" /> <label for="nsc_sex_agree"> {l_i_nsc_sex_agree} </label>
+						<!--
+						<label for="month" style="float:left;">{l_born_on}:</label>
+						<div style="float:right;width:210px;">
+						<div style="float:left;margin-right:6px;"><select name="month" id="month" class="no_abk" onchange="updateDay('month','JoinForm','year','month','day')" style="width:82px;">
+								{month_options}
+							</select></div>
+							<div style="float:left;margin-right:6px;"><select class="no_abk" name="day" id="select_day" style="width:53px;">
+								{day_options}
+							</select></div>
+							<div style="float:left;"><select class="no_abk" name="year" id="year" onchange="updateDay('year','JoinForm','year','month','day')" style="width:62px;">
+								{year_options}
+							</select></div></div>
+							<br />
+						-->
+                        </div>
+						
+						<!-- end-nnsscc-diamond-20200209 -->
+                        <br/>
+<!-- 						<input class="no_abk button_small nostyle" type="button" value="{l_join_now}" onclick="submitJoinForm();"  /> -->
+						<input type="button" class="btn lower_header_color big" onclick="submitJoinForm();" value = "{l_join_now}">
+						<!-- <input class="btn lower_header_color big" type="button" value="{l_join_now}" onclick="submitJoinForm();"  /> -->
+						<br/>
+						<br/>
+						<div id="terms"><input name="privacy_policy" style="vertical-align: top; margin: 1px 0 0;" type="checkbox" value="true" id="agree" /> <label for="agree"> {l_i_agree} <a href="#" onclick="javascript:OpenWindow('{url_main}info.php?page=posting_terms&lang={lang_loaded}','650','400');">{l_terms_and_conditions}</a> {l_and} <a href="#" onclick="javascript:OpenWindow('{url_main}info.php?page=priv_policy&lang={lang_loaded}','650','400','yes');">{l_privacy_policy}</a></label></div>
+					</form>
+						<iframe src="https://radio.whisprrz.com/userAuth?do=signup" id="radio_signupframe" style="display:none;"></iframe>
+
+					<iframe src="https://whisprrz.com/Whisprrz_Wevents/public/signup" id="event_signup" style="display:none;"></iframe>
+				
+					<!-- end_join -->
+            </td></tr></table>
+</div>
+
+{footer}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script  src="{url_tmpl_main}js/sweetalert2.js{cache_version_param}"></script><!--Divyesh-21072023-->
+
+
+<script language="javascript" type="text/javascript">
+<!-- begin_wait_approval -->
+    alert('{j_no_confirmation_account}');
+<!-- end_wait_approval -->
+<!-- begin_exists_email -->
+    alert('{j_exists_email}');
+<!-- end_exists_email -->
+<!-- begin_demo -->
+$(document).ready(function() {
+    $('#login').val('{login_user}');
+    $('#password').val('{login_password}');
+});
+<!-- end_demo -->
+</script>
+<script>
+
+
+
+	
+    function doLogin(){
+
+        var dataAjax = {
+            ajax_login: 'true',
+            user_name: $("#login").val(),
+            password: $("#password").val()
+        };
+    
+        $.post("https://www.whisprrz.com/join.php", dataAjax, function(res){
+            if(res) {
+				if(res.state ==false){
+					alert('no matching username and password');
+					return;
+				}
+                if(res.status) {
+
+                    document.getElementById("first_user_label").innerHTML = res.partner_type1;
+                    document.getElementById("second_user_label").innerHTML = res.partner_type2;
+
+                    Swal.fire({
+                        title: '{l_login_type}',
+                        width: '600px',
+                        html: `  
+                        <div>
+                            <div style="float: left; text-align:left; margin: auto; padding:20px 0px 0px 8px;  width: 34%;">
+                                <div style = "padding-bottom: 10px;">
+                                    <input type="radio" id="lg_type_1" name="lg_type" value="1" style="scale: 2; margin-right: 20px;" />
+                                    <label id="first_user_label" for="lg_type_1">`+ res.partner_type1 +`</label>
+                                </div>
+                                <div style = "padding-bottom: 10px;">
+                                    <input type="radio" id="lg_type_2" name="lg_type" value="2" style="scale: 2; margin-right: 20px;" />
+                                    <label id="second_user_label" for="lg_type_2">`+ res.partner_type2 +`</label>
+                                </div>
+                                <div style = "padding-bottom: 10px;">
+                                    <input type="radio" id="lg_type_5" name="lg_type" value="5" checked style="scale: 2; margin-right:20px;" />
+                                    <label for="lg_type_5">{l_login_couple}</label>
+                                </div>
+                            </div >
+                            <div style="float: right; text-align:center; margin: auto; padding-top: 20px; width: 58%;">
+                                <div style = "padding-bottom: 10px; display:flex; align-items: baseline;">
+                                    <input type="radio" id="eighteen_type_1" name="eighteen_type" value="yes" style="scale: 2; margin-right: 20px;"  />
+                                    <label id="first_user_label" for="eighteen_type_1">{l_is_eighteen_terms}</label>
+                                </div>
+                                <div style = "padding-bottom: 10px; display:flex; align-items: baseline;">
+                                    <input type="radio" id="eighteen_type_2" name="eighteen_type" value="no" style="scale: 2; margin-right: 20px;" checked />
+                                    <label id="second_user_label" for="eighteen_type_2">{l_not_eighteen_terms}</label>
+                                </div>
+                                <a href="#" onclick="javascript:OpenWindow('./info.php?page=posting_terms&lang=default','650','400');" style="color:#3368f9; float: right; padding-top: 10px; font-size: 16px;" >{l_login_terms_and_condition}</a>
+                            </div>
+                        </div>
+                        
+						`,
+						footer: '<div style="font-size: 12px; text-align:center;">{l_login_instructions}</div>',
+                        confirmButtonText: 'OK',
+                        focusConfirm: false,
+                        backdrop: false,
+                        showCancelButton: true,
+                        preConfirm: () => {
+                            var radios = document.querySelectorAll('input[name=lg_type][type="radio"]');
+                            for (var i = 0; i < radios.length; i++) {
+                                if (radios[i].checked) {
+                                    $("#login_type_field").val(radios[i].value);
+                    
+                                    radios[i].checked = false;
+                                    break;
+                                } 
+                            }
+
+							var radios1 = document.querySelectorAll('input[name=eighteen_type][type="radio"]');
+                            for (var i = 0; i < radios1.length; i++) {
+                                if (radios1[i].checked) {
+                                    $("#eighteen_type_field").val(radios1[i].value);
+                    
+                                    radios1[i].checked = false;
+                                    break;
+                                } 
+                            }
+
+							doLogin111();
+
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    })
+
+                } else {
+
+
+					document.getElementById("first_user_label").innerHTML = res.partner_type1;
+                    document.getElementById("second_user_label").innerHTML = res.partner_type2;
+
+                    Swal.fire({
+                        title: '{l_login_type}',
+                        width: '500px',
+                        html: `  
+                        <div>
+                            <div style="float: right; text-align:center; margin: auto; padding: 20px 0px 0px 10px;">
+                                <div style = "padding-bottom: 10px; display:flex; align-items: baseline; text-align:left;">
+                                    <input type="radio" id="eighteen_type_1" name="eighteen_type" value="yes" style="scale: 2; margin-right: 20px;"  />
+                                    <label id="first_user_label" for="eighteen_type_1">{l_is_eighteen_terms}</label>
+                                </div>
+                                <div style = "padding-bottom: 10px; display:flex; align-items: baseline;">
+                                    <input type="radio" id="eighteen_type_2" name="eighteen_type" value="no" style="scale: 2; margin-right: 20px;" checked />
+                                    <label id="second_user_label" for="eighteen_type_2">{l_not_eighteen_terms}</label>
+                                </div>
+                                <a href="#" onclick="javascript:OpenWindow('./info.php?page=posting_terms&lang=default','650','400');" style="color:#3368f9; float: right; padding-top: 10px; font-size: 16px;" >{l_login_terms_and_condition}</a>
+                            </div>
+                        </div>
+                        
+						`,
+						footer: '<div style="font-size: 12px; text-align:center;">{l_login_instructions}</div>',
+                        confirmButtonText: 'OK',
+                        focusConfirm: false,
+                        backdrop: false,
+                        showCancelButton: true,
+                        preConfirm: () => {
+
+							var radios1 = document.querySelectorAll('input[name=eighteen_type][type="radio"]');
+                            for (var i = 0; i < radios1.length; i++) {
+                                if (radios1[i].checked) {
+                                    $("#eighteen_type_field").val(radios1[i].value);
+									$("#login_type_field").val("");
+
+                                    radios1[i].checked = false;
+                                    break;
+                                } 
+                            }
+
+							doLogin111();
+
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    })
+
+
+                }
+            }
+        });
+    }
+
+
+
+	function doLogin111(){
+
+        var iframe = $('#event_login');
+        var user_name = $("#email").val();
+        var password = $("#password").val();
+        
+        var encodedString = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(password));
+        localStorage.setItem('crypt', encodedString);
+
+
+        $("#login-f").submit();
+        
+    }
+
+</script>

@@ -1,0 +1,555 @@
+### Support Ticket :: 10-10-2023 ###
+1. Add language keyword: 
+    support ticket: Support Ticket
+    enter ticket text: Please enter your text.
+    create new ticket: Create New Ticket
+    support ticket info: Support Ticket Information text
+    ticket subject: Ticket Subject
+    submit ticket: Submit Ticket
+    enter ticket text: Please enter your text
+    general support: General Support
+    billing: Billing
+    bugs technical issue: Bugs / Technical Issues
+    feedback features requests: Feedback / Features Requests
+    clubs events: Clubs / Events
+    mobile app payments: Mobile App - Payments
+    mobile app bugs: Mobile App - Bugs / Technical Issues
+    support tier: Support tier
+    select: Select
+    support tier 1: Support tier 1
+    support tier 2: Support tier 2
+    support tier 3: Support tier 3
+    support tickets list: Support Tickets List
+    add ticket: Add Ticket
+    reply: Reply
+    click to open: Click to Open
+    enter ticket reply text: Please enter ticket reply text
+    moderator support tickets: Support tickets
+    assign to upper tier : Assign to Upper Level
+    assign to lower tier : Assign to Lower Level
+    assign to : Assign To
+
+    // Admin language
+    menu ticket : Support Tickets
+    conversations: Conversations
+    delete all tickets: Delete Tickets
+
+2.  _frameworks\main\oryx2_1\_menu_help.html
+        <li><input type="button" class="btn upper_header_color big" onclick="location='{url_main}support_tickets.php';"  title="{l_support_ticket}" value="{l_support_ticket}"></li> <!-- Added By Divyesh : 10-10-2023 -->
+    _frameworks\main\oryx2_1\_mail_menu.html
+        <li><input type="button" class="btn upper_header_color big" onclick="location='{url_main}support_tickets.php';"  title="{l_support_ticket}" value="{l_support_ticket}"></li><!-- Added By Divyesh : 18-10-2023 -->
+
+3. Created new files: 
+    - support_ticket.php 
+    - support_tickets.php
+    - view_ticket.php
+	- moderator_view_ticket.php
+    - _frameworks\main\oryx2_1\support_ticket.html
+    - _frameworks\main\oryx2_1\support_tickets.html
+    - _frameworks\main\oryx2_1\view_ticket.html
+	- _frameworks\main\oryx2_1\moderator_view_ticket.html
+
+4. Create database tables: support_tickets, ticket_replies
+    CREATE TABLE `support_tickets` (
+	  `id` int(11) NOT NULL,
+	  `user_from` int(11) NOT NULL DEFAULT '0',
+	  `assign_to` int(11) NOT NULL DEFAULT '0',
+	  `priority` enum('high','medium','low') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'low',
+	  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+	  `msg` text COLLATE utf8_unicode_ci NOT NULL,
+	  `attachment` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+	  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	  `status` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1' COMMENT '0 = close, 1 = open',
+	  `last_reply` int(11) NOT NULL
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+	
+	ALTER TABLE `support_tickets`
+	  ADD PRIMARY KEY (`id`),
+	  ADD KEY `from_user` (`user_from`),
+	  ADD KEY `to_user` (`assign_to`);
+	  
+	ALTER TABLE `support_tickets`
+		MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+		
+	CREATE TABLE `ticket_replies` (
+	  `id` int(11) NOT NULL,
+	  `ticket_id` int(11) NOT NULL,
+	  `user_id` int(11) NOT NULL,
+	  `msg` text NOT NULL,
+	  `attachment` varchar(255) NOT NULL,
+      `user_read` ENUM('0','1') NOT NULL DEFAULT '0',  
+      `support_read` ENUM('0','1') NOT NULL DEFAULT '0',
+	  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+	) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+	ALTER TABLE `ticket_replies`
+	  ADD PRIMARY KEY (`id`);
+
+	ALTER TABLE `ticket_replies`
+	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+    
+5. Add field in user table
+	ALTER TABLE `user` ADD `moderator_support_tickets` TINYINT(1) NOT NULL AFTER `moderator_users_reports`;
+    ALTER TABLE `user` ADD `support_tier` ENUM('','1','2','3') NOT NULL AFTER `live_now_status`;
+
+6. Update in administration\users_edit.php
+	Line - 81
+	$support_tier = get_param('support_tier', ''); // Added by divyesh - 13-10-2023
+
+    Line - 127
+    moderator_support_tickets = ' . to_sql(get_param('moderator_support_tickets'), 'Number') . ',
+	
+	Line - 131
+	type = ' . to_sql($type) . ',
+		 support_tier = ' . to_sql($support_tier);
+
+    Line - 310
+	// Added by Divyesh - 11-10-2023
+    if ($g_user['moderator_support_tickets']) {
+        $html->setvar("moderator_support_tickets", $checked);
+    }
+
+    Line - 318
+    // Added by Divyesh - 11-10-2023
+	$html->setvar("moderator_support_tier_{$g_user['support_tier']}", "selected");
+
+7. Update in _frameworks\administration\default\users_edit.html
+    Line - 118
+    <label><input style="width:auto; margin:0px;" type="checkbox" name="moderator_support_tickets" value="1"
+                        {moderator_support_tickets}> {l_moderator_support_tickets}</label>
+
+    Line - 124
+     <!-- Added by Divyesh 11-10-2023 -->
+	<label>{l_support_tier}:</label>
+	<select name="support_tier" class="input">
+		<option value="">{l_select}</option>
+		<option value="1" {moderator_support_tier_1}>{l_support_tier_1}</option>
+		<option value="2" {moderator_support_tier_2}>{l_support_tier_2}</option>
+		<option value="3" {moderator_support_tier_3}>{l_support_tier_3}</option>
+	</select>
+	<!-- Added by Divyesh 11-10-2023 -->
+
+8. Added function in _include\lib\lib.php
+    /* Added by Divyesh - 11-10-2023 */
+	function get_tier_user($tier){
+		$tier_1_users = DB::all("SELECT u.user_id, COUNT(st.id) AS tickets
+		FROM user as u
+		LEFT JOIN support_tickets as st ON u.user_id = st.assign_to 
+		where u.support_tier='{$tier}'
+		GROUP BY u.user_id");
+
+		$user_array = array();
+
+		foreach ($tier_1_users as $user){
+			$user_array[$user['user_id']] = $user['tickets'];
+		}
+		
+		if (count($user_array) == 0){
+			$user_array[1] = 0;
+		}
+		
+		$minValue = min($user_array);  // Get the minimum value from the array
+		$keysWithMinValue = array_keys($user_array, $minValue);  // Get keys with the minimum value
+
+		// Get the minimum value in the array
+		$minValue = min($user_array);
+
+		// Get all keys that have the minimum value
+		$minKeys = array_keys($user_array, $minValue);
+
+		// If there is more than one key with the minimum value, select randomly
+		if (count($minKeys) > 1) {
+			$randomKey = $minKeys[array_rand($minKeys)];
+			return $randomKey;
+		}
+
+		// If there is only one key with the minimum value, return it
+		return $minKeys[0];
+	}
+
+9. Edit moderator.php
+    Line - 94
+    else if ($cmd == "support_tickets") { /* Added by divyesh 13-10-2023 */
+		$action = get_param('action');
+		if ($action == "delete_ticket") {
+			$ticketId = get_param('id');
+			$where = 'id = ' . to_sql($ticketId);
+			$ticket = DB::one('support_tickets', $where);
+
+			if ($ticket && !empty($ticket['attachment'])) {
+				$patch = Common::getOption('url_files', 'path');
+				$patch . "support_ticket/" . $ticket['attachment'];
+				unlink($patch . "support_ticket/" . $ticket['attachment']);
+			}
+
+			$ticket_replies = DB::select('ticket_replies', 'ticket_id =' . to_sql($ticketId));
+			foreach ($ticket_replies as $ticket_replie) {
+				if ($ticket_replie && !empty($ticket_replie['attachment'])) {
+					$patch = Common::getOption('url_files', 'path');
+					$patch . "support_ticket/" . $ticket_replie['attachment'];
+					unlink($patch . "support_ticket/" . $ticket_replie['attachment']);
+				}
+				DB::delete('ticket_replies', 'id =' . to_sql($ticket_replie['id']));
+			}
+			DB::delete('support_tickets', $where);
+			$cmd = "support_tickets";
+			$redirect = true;
+		}else if ($action == "upper_tier") {
+			$tier = intval($g_user['support_tier']) + 1;
+			$assign_to = get_tier_user($tier);
+			$id=get_param('id');
+			DB::update('support_tickets', array("assign_to" => $assign_to), "id=" . $id);
+			set_session("saved", "yes");
+			$cmd = "support_tickets";
+			$redirect = true;
+		}else if ($action == "lower_tier") {
+            $tier = intval($g_user['support_tier']) - 1;
+            $assign_to = get_tier_user($tier);
+            $id=get_param('id');
+            DB::update('support_tickets', array("assign_to" => $assign_to), "id=" . $id);
+            set_session("saved", "yes");
+            $cmd = "support_tickets";
+            $redirect = true;
+        }
+	}
+	
+	Line - 301
+	global $g_user; /* Added by divyesh - 13-10-2023 */
+
+    Line - 443
+    elseif ($cmd == "support_tickets") {  /* Added by Divyesh - 13-10-2023 */
+		$this->m_field['id'] = array("id", null);
+		$this->m_field['user_from'] = array("user_from", null);
+		$this->m_field['assign_to'] = array("assign_to", null);
+		$this->m_field['priority'] = array("priority", null);
+		$this->m_field['title'] = array("title", null);
+		$this->m_field['msg'] = array("msg", null);
+		$this->m_field['attachment'] = array("attachment", null);
+		$this->m_field['status'] = array("status", null);
+
+		$this->m_field['date'] = array("date", null);
+
+		$this->m_sql_order = "id desc";
+
+		$sql = "SELECT * FROM `support_tickets`";
+		$sqlCount = "SELECT count(*) FROM `support_tickets`";
+
+		$this->m_sql = $sql;
+		$this->m_sql_where = "assign_to = " . $g_user['user_id'] . " AND `status`='1'";
+		$this->m_sql_count = $sqlCount;
+	}
+	
+	Line - 530
+	global $g_user; /* Added by Divyesh - 13-10-2023 */
+
+    Line - 911
+    elseif ($cmd == "support_tickets") { /* Added by Divyesh - 13-10-2023 */
+		DB::query("SELECT * FROM support_tickets WHERE assign_to = " . $g_user['user_id'] . " ORDER BY priority", 2);
+		$num = DB::num_rows(2);
+		while ($row = DB::fetch_row(2)) {
+			$row['from_user_name'] = User::getInfoBasic($row['user_from'], 'name');
+			$row['user_profile_link'] = User::url($row['user_from']);
+			$row['msg'] = nl2br($row['msg']);
+			$row['priority'] = ucfirst($row['priority']);
+			$row['date'] = date("d M, Y", strtotime($row['date']));
+			
+			$row['status_dropdown'] = "<select class='ticket_status' data-id='{$row['id']}'>
+			<option value='1' ".($row['status'] == '1' ? 'selected' : '').">".ucfirst(l('open'))."</option>
+			<option value='0' ".($row['status'] == '0' ? 'selected' : '').">".ucfirst(l('close'))."</option>
+			</select>";
+			
+			if ($row['attachment'] != '') {
+				$patch = Common::getOption('url_files', 'path');
+				$attached_file = $patch . "support_ticket/" . $row['attachment'];
+				$row['attachment'] = '<a href="' . $attached_file . '" data-lightbox="attachment_' . $row['id'] . '">' . l('click_to_open') . '</a>';
+			}
+			foreach ($row as $k => $v) {
+				$html->setvar($k, $v);
+			}
+
+			$html->parse('support_tickets', true);
+		}
+
+		$saved = get_session("saved");
+		$html->setvar("saved", $saved);
+		delses("saved");
+
+		$html->setvar('redirect_url', 'moderator.php?section=support_tickets');
+		$html->parse('moderator_support_tickets', true);
+		$html->parse('sections', true);
+	}
+
+10. Edit _include\core\x.php
+    Line - 629
+    10 => array('title' => l('moderator_support_tickets'), 'section' => 'support_tickets')
+
+    Line - 690
+    case 'support_tickets':
+        DB::query("SELECT * FROM support_tickets where assign_to={$g_user['user_id']}", 2);
+        $num = DB::num_rows(2);
+    break;
+
+    Line - 723
+    10 => array('title' => l('moderator_support_tickets'), 'section' => 'support_tickets')
+
+    Line - 807
+    case 'support_tickets': /* Added by Divyesh on 13-10-2023 */
+        DB::query("SELECT * FROM support_tickets WHERE assign_to={$g_user['user_id']}", 2);
+        $num = DB::num_rows(2);
+    
+    break; 
+
+
+    Line - 816
+    if ((isset($g_user['moderator_' . $v['section']]) && $g_user['moderator_' . $v['section']] == 1)) {
+
+11. Edit - _frameworks\main\oryx2_1\moderator.html
+    Line - 710
+    <!-- begin_moderator_support_tickets -->
+    <style>
+        tr.color {
+            background-color: #cfcfcf;
+        }
+
+        .table-moderator {
+            margin-bottom: 15px;
+        }
+
+        .table-moderator tr.table-moderator-header {
+            background-color: #F0F0F0;
+            height: 30px;
+        }
+
+        .table-moderator tr.table-moderator-header th {
+            padding-left: 4px;
+        }
+
+        .table-moderator tr.table-moderator-header th a {
+            color: #000;
+        }
+
+        tr.row1 {
+            background-color: #fff;
+            border-bottom: 1px solid #c0c0c0;
+            border-top: 1px solid #c0c0c0;
+            margin-top: 2px;
+        }
+
+        .table-moderator td {
+            padding: 8px 0 8px 4px;
+        }
+
+        /*#lightbox-container-image-box {
+            max-width: 80%;
+            height: auto !important;
+        }
+
+        #lightbox-container-image img {
+            max-width: 100%;
+        }
+
+        #lightbox-container-image-data-box {
+            max-width: 80%;
+            margin-bottom: 50px;
+        }*/
+    </style>
+    <table cellpadding="0" cellspacing="0" border="0" class="light table-moderator" width="100%">
+        <thead>
+            <tr class="table-moderator-header">
+                <th>{l_action}</th>
+                <th>
+                    {l_date}
+                </th>
+                <th>
+                    {l_from}
+                </th>
+                <th>
+                    {l_mail}
+                </th>
+                <th>
+                    {l_status}
+                </th>
+                <th>
+                    {l_priority}
+                </th>
+                <th>
+                    {l_title}
+                </th>
+                <th>
+                    {l_image}
+                </th>
+            </tr>
+
+            <!-- begin_support_tickets -->
+            <tr class="row1">
+                <td style="padding: 0px 5px; vertical-align: middle!important;">
+                    <a href="{url_page}?section=support_tickets&action=delete_ticket&id={id}"
+                        onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a> |
+                    <a href="moderator_view_ticket.php?id={id}">{l_reply}</a>
+                </td>
+                <td>{date}</td>
+                <td>{from_user_name}</td>
+                <td><a href="" class="sendmail" data-id="{user_from}" data-name="{from_user_name}">{l_mail}</a></td>
+                <td>{status_dropdown}</td>
+                <td>{priority}</td>
+                <td>{title}</td>
+                <td>{attachment}</td>
+            </tr>
+            <!-- end_support_tickets -->
+    </table>
+    <div id="usermailpopup" class="popup">
+        <div class="popup-content">
+            <form id="sendmailform" name="sendmailform" method="POST" action="" style="padding: 0px; margin: 0px;">
+                <p style="font-size: 16px;">
+                    <strong>{l_username}:</strong>
+                    <input type="hidden" name="uid" id="uid" value="">
+                    <input type="hidden" name="cmd" value="admin_send_mail">
+                    <span id="uname">
+
+                    </span>
+                </p>
+                <p style="font-size: 16px;">
+                    <strong>{l_subject}:</strong>
+                    <input class="custom-input-textarea" type="text" name="subject" id="subject" value="" tabindex="1">
+                </p>
+                <p style="font-size: 16px;">
+                    <strong>{l_message}:</strong>
+                    <textarea id="textmsg" name="text" class="custom-input-textarea" tabindex="2"></textarea>
+                </p>
+                <input type="button" id="send_message" value="{l_send}" class="custom-button" tabindex="3"
+                    title="{l_send}">
+                <input type="button" id="closePopup" class="custom-button red" value="{l_close}" title="{l_close}">
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[data-lightbox]').lightBox({
+                imageLoading: '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+                imageBtnPrev: '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+                imageBtnNext: '{url_tmpl_administration}images/lightbox-btn-next.gif',
+                imageBtnClose: '{url_tmpl_administration}images/lightbox-btn-close.gif',
+                imageBlank: '{url_tmpl_administration}images/lightbox-blank.gif',
+            });
+
+            $(".ticket_status").change(function () {
+                var status = $(this).val();
+                var tId = $(this).attr("data-id");
+                $.ajax({
+                    url: "{url_main}/ajax_custom.php",
+                    type: "post",
+                    dataType: "json",
+                    data: "cmd=ticket_status&status=" + status + "&tid=" + tId,
+                    beforeSend: function () {
+
+                    },
+                    success: function (res) {
+                        if (res.res == "ok") {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Saved',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    }
+                });
+            });
+            if ("{saved}" == "yes") {
+                Swal.fire(
+                    'Saved!',
+                    '',
+                    'success'
+                );
+            }
+
+            $(".sendmail").click(function () {
+                var uid = $(this).data("id");
+                var uname = $(this).data("name");
+                $("#usermailpopup").find("#uid").val(uid);
+                $("#usermailpopup").find("#uname").html(uname);
+                $("#usermailpopup").addClass("show");
+                return false;
+            });
+            $("#closePopup").click(function () {
+                $("#usermailpopup").removeClass("show");
+                return false;
+            });
+
+            $("#send_message").click(function () {
+                if ($("#subject").val() == "") {
+                    // Alert for enter subject
+                    Swal.fire(
+                        '{l_error}!',
+                        '{l_enter_subject}',
+                        'error'
+                    );
+                } else if ($("#textmsg").val() == "") {
+                    // Alert for enter text
+                    Swal.fire(
+                        '{l_error}!',
+                        '{l_enter_message}',
+                        'error'
+                    );
+                } else {
+                    // Call ajax to send mail
+                    $.ajax({
+                        url: "{url_main}/ajax_custom.php",
+                        type: "post",
+                        dataType: "json",
+                        data: $("#sendmailform").serialize(),
+                        beforeSend: function () {
+                            $("#send_message").prop("disabled", true);
+                        },
+                        success: function (res) {
+                            if (res.status == "ok") {
+                                $("#send_message").prop("disabled", false);
+                                $("#usermailpopup").removeClass("show");
+                                $("#subject").val("");
+                                $("#textmsg").val("");
+                                Swal.fire(
+                                    '{l_mail_sent}!',
+                                    '{l_mail_sent_msg}',
+                                    'success'
+                                );
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- end_moderator_support_tickets -->
+
+12. Edit ajax_custom.php
+    Line - 115
+    /* Added by Divyesh on 14-10-2023 */
+	if ($cmd == "ticket_status"){
+		$status = get_param('status');
+		$tid = get_param('tid');
+		$res = "error";
+		if (DB::update('support_tickets', array('status' => $status), "id={$tid}"))
+			$res = "ok";
+
+		echo json_encode(array("res" => $res));
+	}
+
+
+13. Create new files
+    - administration\support_tickets.php
+    - administration\ticket_reply.php
+    - _frameworks\administration\default\support_tickets.html
+    - _frameworks\administration\default\ticket_reply.html
+
+14. Add left side menu in files
+    - _frameworks\administration\default\users_filter.html
+    - _frameworks\administration\default\users_approval.html
+    - _frameworks\administration\default\users_results.html
+    - _frameworks\administration\default\users_search.html
+    - _frameworks\administration\default\users_text.html
+    - _frameworks\administration\default\users_video.html
+    - _frameworks\administration\default\ban_users.html
+    - _frameworks\administration\default\ipblock.html
+    

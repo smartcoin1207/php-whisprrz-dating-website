@@ -1,0 +1,195 @@
+{header}
+
+
+<script type="text/javascript">
+
+function on_form_submit()
+{
+	if($("#review_create_form").valid())
+		$('#load_animation2').css('visibility', 'visible');
+	else
+		alert('{l_please_fill_in_all_the_fields}');
+
+	return true;
+}
+
+$(document).ready(function(){
+	$("#review_create_form").validate({
+		rules: {
+			title: "required",
+			text: "required"
+		}, messages: {
+			title: "{l_please_enter_title}",
+			text: "{l_please_enter_text}"
+		}
+	})
+});
+
+$(function(){
+	$('.auto-submit-star').rating({
+		callback: function(value, link){
+			$('#load_animation1').css('visibility', 'visible');
+			$.get('{url_main}places_place_vote_do.php?id={place_id}&rating=' + value,
+			    function(data) {
+					$('#load_animation1').css('visibility', 'hidden');
+				});
+		}
+	});
+});
+
+</script>
+
+    <div id="oryx_content">
+    <div class="places_new">
+
+		{places_header}
+
+        <table class="tb_places_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+					{places_place_show}
+
+                    <div class="places_new_dark">
+
+                        <div class="line_dashed"></div>
+                        <h1 class=""><!-- begin_create_title -->{l_your_review_for}<!-- end_create_title --><!-- begin_edit_title -->{l_edit_review_for}<!-- end_edit_title --> {place_name}: </h1>
+
+
+
+	                    <form id="review_create_form" method="POST" action="{url_main}places_review_edit.php?cmd=save&id={place_id}" onsubmit="return on_form_submit();" enctype="multipart/form-data">
+
+                        <table class="tb_places_new_frm">
+                            <col width="45px"/>
+                            <col width="181px"/>
+                            <col width="217px"/>
+                            <tr>
+                                <th>{l_title}: </th>
+                                <td width="176"><div class="place_inp"><input class="inp_lviolet" type="text" name="title" value="{review_title}"/></div></td>
+                                <td>  <div style="overflow:hidden; height:16px; margin-top:1px" class="fl_right">
+								        <img style="visibility:hidden; float:left; top:0; margin: 0 5px 0 0;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif">
+                                        <span style="display:block; float:left">{l_your_rating}:&nbsp;</span>
+										<span>
+											<input name="place_rating" type="radio" value="1" title="{l_place_rating_1}" {place_rating_1_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="2" title="{l_place_rating_2}" {place_rating_2_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="3" title="{l_place_rating_3}" {place_rating_3_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="4" title="{l_place_rating_4}" {place_rating_4_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="5" title="{l_place_rating_5}" {place_rating_5_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="6" title="{l_place_rating_6}" {place_rating_6_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="7" title="{l_place_rating_7}" {place_rating_7_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="8" title="{l_place_rating_8}" {place_rating_8_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="9" title="{l_place_rating_9}" {place_rating_9_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+											<input name="place_rating" type="radio" value="10" title="{l_place_rating_10}" {place_rating_10_checked} class="place_rating auto-submit-star {split:2, required:true}"/>
+										</span>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{l_text}:</th>
+                                <td colspan="2" style="padding-bottom:13px;">
+                                    <div class="place_textarea" style="width:396px"><textarea name="text" class="textarea_lviolet">{review_text}</textarea></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="padding-top:0px">{l_pics}:</th>
+                                <td colspan="2">
+                                    <table style="height:35px;">
+                                        <tr>
+                                            <td>
+                                                <div class="place_inp_file"><input size="21" name="image_1" class="file" type="file"/></div>
+                                            </td>
+                                            <td style="padding-left:10px">
+                                                <div class="place_inp_file"><input size="21" name="image_2" class="file" type="file"/></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="height:35px;">
+                                        <tr>
+                                            <td>
+                                                <div class="place_inp_file"><input size="21" name="image_3" class="file" type="file"/></div>
+                                            </td>
+                                            <td style="padding-left:10px">
+                                                <div class="place_inp_file"><input size="21" name="image_4" class="file" type="file"/></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    create_gallery()
+});
+
+function create_gallery()
+{
+    initLightboxOldTemplate($('.edit_image_gallery'));
+}
+
+function edit_delete_image(image_id)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+        $('#edit_image_' + image_id).fadeOut(400, function() {
+            $('#edit_image_' + image_id).remove();
+            create_gallery();
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}places_place_image_delete_ajax.php',
+                    data: {
+                        image_id: image_id
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+
+                        <!-- carusel -->
+                        <div class="places_new_carusel_pos">
+                        <ul class="places_new_carusel">
+                            <!-- begin_image --><li id="edit_image_{image_id}">
+								<a class="places_new_delete_img" href="javascript:edit_delete_image({image_id})"><img src="{url_tmpl_main}images/cross_photo.png" width=15 height=14 border=0 /></a>
+                                <div class="places_new_img">
+                                    <a href="{image_file}" class="edit_image_gallery"><img src="{image_thumbnail}" width="80" height="80" title="{place_name}" alt="{place_name}"/></a>
+                                </div>
+
+                            </li><!-- end_image -->
+                        </ul>
+                        </div>
+                        <!-- /carusel -->
+
+
+                        <div class="line_dashed"></div>
+
+
+<!-- 						<div class="places_input3 fl_right"><input  type="submit" value="{l_save}"/></div> -->
+                            <input class="btn round upper_header_color big fl_right"  type="submit" value="{l_save}"/>
+
+                            <img style="visibility:hidden;position:relative;top:1px; float: right; margin: 0 5px 0 0;" id="load_animation2" src="{url_tmpl_main}images/load_animation.gif">
+
+		                </form>
+
+                    <div class="justify"></div>
+                    </div>
+
+
+                </td>
+                <!-- /td_main -->
+
+				{places_sidebar}
+
+            </tr>
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+    </div>
+</div>
+
+{footer}

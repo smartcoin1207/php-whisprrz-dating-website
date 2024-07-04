@@ -1,0 +1,165 @@
+{header}
+{gallery_menu}
+    <script type="text/javascript">
+        window.totalinputs = 5;
+        // Array of album names for javascript functions.
+        var albumArray = new Array (<!-- begin_array -->'{album_folder}'{coma}<!-- end_array -->);
+    </script>
+
+    <h2 class="txt_upper_header_color">{l_upload_photos}</h2>
+
+    <p>{l_accepts_formats}: <acronym title="Joint Picture Expert's Group">JPEG</acronym>,
+    <acronym title="Portable Network Graphics">PNG</acronym> {l_and} <acronym title="Graphics Interchange Format">GIF</acronym>.
+    </p>
+
+    <p>{l_the_maximum_size} <strong>{max_filesize} MB</strong>.</p>
+    <p>{l_the_number_of_simultaneously_uploaded_files} <strong>50</strong>.</p>
+    <div id="errorbox" class="errorbox" style="display: none;">
+        <h2 style="padding-bottom: 0px; margin-bottom: 10px; padding-top: 10px;">{l_something_wrong}</h2>
+        <span id="error"></span>
+    </div>
+
+
+<link rel="stylesheet" href="{url_main}_server/js/fileapi/css/main.css{cache_version_param}" type="text/css">
+<link rel="stylesheet" href="{url_main}_server/js/fileapi/jcrop/jquery.Jcrop.min.css{cache_version_param}" type="text/css">
+
+<script>
+    window.FileAPI = {
+          debug: false // debug mode
+        , staticPath: '{url_main}_server/js/fileapi/'
+    };
+</script>
+
+<script type="text/javascript" src="{url_main}_server/js/fileapi/FileAPI.min.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/js/fileapi/plugins/FileAPI.exif.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/js/fileapi/jquery.fileapi.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/js/fileapi/jcrop/jquery.Jcrop.min.js{cache_version_param}"></script>
+
+<div id="multiupload">
+<form class="b-upload b-upload_multi" action="{url_main}/gallery_admin_upload_ajax.php" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="folder" id="folder" value="" />
+    <input type="hidden" name="time" id="time" value="" />
+    <input type="hidden" name="action" id="action" value="upload" />
+         <div style="padding-top: 5px; padding-bottom: 17px;">
+          <table>
+          <tr>
+              <td>{l_upload_to}:&nbsp;</td>
+          <td>
+            <select id="albumselect" style="width:300px;" name="albumselect" onChange="albumSwitch(this)">
+                <option value="" selected="true">{l_a_new_album} +</option>
+                <!-- begin_album -->
+                <option {selected} value="{album_folder}">{album_title}</option>
+                <!-- end_album -->
+            </select>
+          </td>
+          <td>
+            <span id="albumtext">
+                &nbsp;{l_called}:&nbsp;
+            </span>
+          </td>
+          <td>
+            <div id="albumtext2" >
+                <input id="albumtitle" style="width:200px; height: 16px;" type="text" value="{l_untitled}" onblur="if(trim(this.value) == '') { this.value = '{l_untitled}'}" onFocus="if(trim(this.value) == '{l_untitled}') { this.value = ''; }" name="albumtitle" />
+            </div>
+          </td>
+          </tr>
+          </table>
+        </div>
+
+        <div id="info_blink_first" style="padding-bottom: 10px;"><b>{l_add_files_to_the_queue}</b></div>
+        <div id="info_blink" class="blink" style="padding-bottom: 10px; display: none;">{l_saving_images}</div>
+<!--<img  class="vishide" style="float:right;visibility:visible; margin-right: 5px; margin-top: 1px;" id="load_animation" src="{url_tmpl_main}images/load_animation.gif" style="position:relative;top:1px; float:right; margin-right:10px;">-->
+        <div id="box" style="display: none; padding-bottom: 5px;" class="js-files b-upload__files">
+            <div class="js-file-tpl b-thumb" data-id="<%=uid%>" title="<%-name%>, <%-sizeText%>" style="margin-right: 6px;">
+               <div data-fileapi="file.remove" class="b-thumb__del">✖</div>
+               <div class="b-thumb__preview">
+                  <div class="b-thumb__preview__pic"></div>
+               </div>
+               <% if( /^image/.test(type) ){ %>
+               <div data-fileapi="file.rotate.cw" class="b-thumb__rotate"></div>
+                <% } %>
+               <div class="b-thumb__progress progress progress-small"><div class="bar"></div></div>
+                <!--<div class="b-thumb__name"><%-name%></div>-->
+            </div>
+        </div>
+        <div id="btn_add" class="btn btn-success btn-small js-fileapi-wrapper upper_header_color">
+            <span>{l_add}</span>
+            <input type="file" name="filedata" />
+        </div>
+        <div id="upload_btn" style="display: none;" class="js-upload btn btn-success btn-small upper_header_color">
+            <span>{l_upload}</span>
+        </div>
+</form>
+</div>
+<script>
+getFolder();
+$(function () {
+    $('#box').css('display', 'block');
+    $('#upload_btn').css('display', 'inline-block');
+    $('#multiupload').fileapi({
+        multiple: true,
+        accept: 'image/*',//'image/jpeg,image/png,image/gif'
+        maxFiles : 50,
+        maxSize: {max_filesize} * FileAPI.MB,
+        elements: {
+            ctrl: {upload: '.js-upload'},
+            empty: {show: '.b-upload__hint'},
+            emptyQueue: {hide: '.js-upload'},
+            //imageSize:{ minWidth: 130, minHeight: 130, maxWidth: 3840, maxHeight: 2160 },
+            list: '.js-files',
+            file: {tpl: '.js-file-tpl',
+                   preview: {el: '.b-thumb__preview', width: 100, height: 100},
+                   upload: { show: '.progress', hide: '.b-thumb__rotate' },
+                   complete: { hide: '.progress' },
+                   progress: '.progress .bar'
+                  }
+	},
+        onSelect: function (evt, data){
+
+            data.all; // All files
+            data.files; // Correct filesdata.other[0].size
+            if (data.other.length){
+                var errors = data.other[0].errors;
+                if (errors){
+                    var info_error = '';
+                    if (errors.maxSize) {
+                        info_error = '{l_some_files_are_bigger_than_the_allowed_size}';
+                    }
+                    if (errors.maxFiles) {
+                        info_error = info_error + '{l_the_limit_of_the_maximum_number}';
+                    }
+                    if (info_error != '') {
+                        $('#error').html(info_error);
+                        $('#errorbox').css('display', 'block');
+                    }
+                }
+            }
+        },
+        onBeforeUpload: function (evt, uiEvt){
+            var files = uiEvt.files;
+            if (files.length > 0) {
+
+                //$.post('{url_main}/gallery_admin_upload_ajax.php',
+                    //{albumselect: $('select#albumselect').val(), action: 'creat_folder'});
+                $('#info_blink_first').hide();
+                $('#info_blink').show();
+            } else {
+                return false;
+            }
+        },
+        onComplete: function (evt, uiEvt){
+            $('#btn_add').hide();
+            var error = uiEvt.error,
+                result = uiEvt.result;
+            if (error == false) {
+                $.post('{url_main}/gallery_admin_upload_ajax.php',
+                        {action: 'success_upload'}, function(){
+                            window.location.href = 'gallery_admin_edit_album.php?album_id=' + result.id;
+                        });
+            }
+        }
+    });
+});
+</script>
+</div>
+{footer}

@@ -1,0 +1,84 @@
+<!-- begin_wall_item_like -->
+<div id="feed_like_result_{id}" class="who_liked">
+    <div class="who_liked_bl">
+    <!-- begin_link_unlike -->
+    <span id="feed_like_hand_{id}" class="who_liked_link" data-no-fade-in="true" data-cl-loader="loader_like_hand" onclick="clWall.likeDelete({id});" title="{a_unlike}">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+    </span>
+    <!-- end_link_unlike -->
+    <!-- begin_icon_like -->
+    <span id="feed_like_hand_{id}" class="who_liked_link" data-no-fade-in="true" data-cl-loader="loader_like_hand" onclick="clWall.likeAdd({id});" title="{a_like}">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+    </span>
+    <!-- end_icon_like -->
+
+    <!-- begin_wall_like_one -->
+    {wall_like_one}
+    <!-- end_wall_like_one -->
+
+    <!-- begin_wall_like_you -->{l_wall_you}<!-- end_wall_like_you --><!-- begin_wall_like_user -->{wall_like_delimiter}<a href="{wall_like_user_url}">{wall_like_name}</a><!-- end_wall_like_user -->
+
+    <!-- begin_wall_like_more -->
+    {wall_and_more_people_like_this}
+    <!-- end_wall_like_more -->
+
+    <!-- begin_wall_like_names -->
+    {l_wall_several_people_like_this}
+    <!-- end_wall_like_names -->
+    </div>
+</div>
+<script>clWall.itemLikeSet('{id}', '{wall_last_action_like}', '{wall_like_user_list}');</script>
+<!-- end_wall_item_like -->
+<!-- begin_wall_like_media_item_script -->
+<script>clProfilePhoto.updatePhotoLikeData('{wall_like_media_item_id}', {wall_like_media_item_data});</script>
+<!-- end_wall_like_media_item_script -->
+
+<!-- begin_wall_items_delete_script -->
+<script>
+<!-- begin_wall_item_delete_script -->
+clWall.itemExists({wall_item_id_delete}, 'not_exists');
+<!-- end_wall_item_delete_script -->
+</script>
+<!-- end_wall_items_delete_script -->
+
+<!-- begin_wall_item_comments_replies_count -->
+<script class="update_item_info_set">
+clWall.updateRepliesLoadMoreStatus('{wall_item_comments_replies_count_cid}', '{wall_item_comments_replies_count_count}');
+</script>
+<!-- end_wall_item_comments_replies_count -->
+
+<!-- begin_wall_item_comments_delete_script -->
+<script>
+<!-- begin_wall_item_comment_delete_script -->
+clWall.commentDeleteFromPage('{id}', '{wall_item_comment_id_delete}', '{wall_item_comment_reply_id_delete}');
+<!-- end_wall_item_comment_delete_script -->
+clWall.itemInfoSet('{id}', '', '{wall_last_action_comment}', '{wall_comments_count}');
+</script>
+<!-- end_wall_item_comments_delete_script -->
+
+<!-- begin_comments_reply_start -->
+<div class="comments_reply_add">
+<!-- end_comments_reply_start -->
+{wall_comments}
+<!-- begin_comments_reply_end -->
+</div>
+<!-- end_comments_reply_end -->
+
+<script>clWall.isFriendResponse = 1;/*'{is_friend}'*1;*/</script>
+
+<!-- begin_wall_item_info_script -->
+<!-- begin_wall_item_info -->
+<script class="update_item_info_set">
+clWall.itemInfoSet('{id}', '{wall_last_action_like}', '{wall_last_action_comment}', '{wall_comments_count}', '{wall_item_comment_is_viewed}', false, false, '{wall_last_action_shares}', '{wall_item_shares_count}', '', '{wall_item_my_shared}');
+</script>
+<!-- end_wall_item_info -->
+<!-- end_wall_item_info_script -->
+
+<!-- begin_update_counter_posts -->
+<script>clWall.updateCounter('{counter_posts}');</script>
+<!-- end_update_counter_posts -->
+
+<!-- begin_wall_update_like_comments -->
+<script>clWall.updateLikeComments({wall_update_like_comments});</script>
+<!-- end_wall_update_like_comments -->
+{wall_js}

@@ -1,0 +1,81 @@
+{header}
+<script>
+$(function(){
+    var n=$('.room_city').length;
+    $('.room_city').change(function(){
+        if(!$('.room_city:checked')[0]){
+            $(this).prop('checked',true);
+            alert('{l_it_must_be_selected_at_least_one_room}');
+        }
+    })
+})
+</script>
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+        <form action="{url_page}?action=saved" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <table class="tb_fields" id="sortable" style="width: 250px;">
+        <thead>
+                <tr id="no_sortable" >
+                    <th class="decor_l">&nbsp;</th>
+                    <th class="left" style="border:none;">{l_table_name}</th>
+                    <th class="last" style="text-align: center; width:30px; padding-left: 10px;">{l_table_status}</th>
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+        </thead>
+        <!-- begin_order_item -->
+        <tr class="color" style="cursor:move;">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+                <td class="left">
+                    <input type="hidden" name="order[]" value="{id_block}">{name_block}
+                </td>
+                <td  class="last" style="text-align: center; width:30px; padding-left: 3px;">
+                    <input class="room_city" type="checkbox" name="order_status[{id_block}]" {checked} style="margin:0px; padding:0px; width: 20px;">
+                </td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_order_item -->
+		</table>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+</div>
+<script>
+$(function() {
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+        }
+    });
+	//$("#sortable").sortable();
+	//$("#sortable").disableSelection();
+});
+
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+</script>
+{footer}

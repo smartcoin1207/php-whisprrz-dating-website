@@ -1,0 +1,90 @@
+{header}
+{gallery_menu}
+<script language="javascript" type="text/javascript" src="_server/jquery/jquery.hint.js{cache_version_param}" ></script>
+<script language="javascript" type="text/javascript">
+var l_del_image = "{l_del_image}";
+$(document).ready(function () {
+$("[id ^= img_desc_]").hint({hint:'{l_description}'});
+});
+</script>
+
+
+
+	<h2 class="txt_upper_header_color">{l_edit_album}</h2>
+
+	<form name="albumedit" action="?action=save" method="post" style="margin-bottom:30px;">
+          <input type="hidden" name="album_id" value="{album_id}" />
+
+          <div class="box" style="padding: 0 15px 15px 0; border-bottom-width: 1px; margin-bottom:5px;">
+            <div class="header_small txt_upper_header_color">{l_editing} "{album_title}"</div>
+			<br />
+            <table class="gallery_album_edit">
+              <tr><td valign="top" width=110px>{l_album_title}: </td> <td><input type="text" name="albumtitle" style="width:560px;" value="{album_title}" /></td></tr>
+              <tr><td valign="top">{l_album_desc}: </td> <td><textarea name="albumdesc"  rows="6" style="width:560px;">{album_desc}</textarea></td></tr>
+              <tr><td valign="top">{l_thumb}: </td>
+                <td>
+                  <select id="thumbselect" class="thumbselect" name="thumb" onchange="updateThumbPreview(this)" style="width:572px;">
+					<!-- begin_thumb -->
+                    <option class="thumboption" value="{img_filename}" {selected}>{img_title} ({img_filename})</option>
+					<!-- end_thumb -->
+                  </select>
+                  <script type="text/javascript">updateThumbPreview(document.getElementById('thumbselect'));</script>
+                </td>
+              </tr>
+
+              <tr><td valign="top">{l_access}: </td>
+                <td>
+                  <select  class="thumbselect" name="access"  style="width:572px;">
+					{set_access}
+                  </select>
+                </td>
+              </tr>
+
+            </table>
+          </div>
+
+          <input type="hidden" name="totalimages" value="{num_images}" />
+
+          <p class="album_edit"><input type="submit" value="{l_save}" class="btn lower_header_color big"/></p>
+          <br />
+
+          <div class="box" style="padding: 0 15px 15px 0;border-bottom-width: 1px; margin-bottom:5px;">
+
+
+          <table id="edittable">
+            <!-- begin_image -->
+			<input type="hidden" name="{current_image}-id" value="{image_id}" />
+            <tr id="">
+              <td valign="top" width=110px>
+                <img class=img_border id="thumb-{current_image}" src="{img_fullpath}" alt="{img_filename}"  />
+              </td>
+
+              <td valign="top">
+
+                <div class="bl_edit_album_cmt">
+                  <input type="hidden" name="{current_image}-filename" value="{img_filename}" />
+                  <textarea id="img_desc_{image_id}" name="{current_image}-desc" style="width:560px; height: 98px;">{img_desc}</textarea>
+                </div>
+
+
+              </td>
+
+              <td style="padding:15px 0 0 3px; vertical-align:top;">
+                <a href="javascript: confirmDeleteImage('./gallery_admin_edit_album.php?action=deleteimage&album_id={album_id}&image_id={image_id}');" title="{l_delete_the_image} {img_filename}"><img src="{url_tmpl_main}img/delete.gif" style="border: 0px;" alt="x" /></a>
+              </td>
+
+
+            </tr>
+           <!-- end_image -->
+
+          </table>
+          </div>
+
+          <p class="album_edit"><input type="submit" value="{l_save}" class="btn lower_header_color big" /></p>
+
+		  <br />
+          <p class="album_edit"><a href="gallery_admin_edit_album_selection.php">&laquo; {l_back}</a></p>
+        </form>
+
+</div>
+{footer}

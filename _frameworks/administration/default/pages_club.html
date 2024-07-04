@@ -1,0 +1,155 @@
+{header}
+<div class="block_narrow">
+{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+    <!-- begin_items -->
+    <h2>{title_section}</h2>
+    <table class="tb_fields" id="sortable_{section}" style="">
+        <thead>
+        <tr id="no_sortable" >
+            <th class="decor_l">&nbsp;</th>
+            <th style="width:120px; text-align:center;">{l_action}</th>
+            <th class="right" style="text-align: center; width:30px; padding-left: 10px;">{l_table_status}</th>
+            <th class="right" style="text-align: center; width:30px; padding-left: 10px;">{l_hide_from_guests}</th>
+            <th class="last" style="padding-left: 10px;" >{l_pages}</th>
+            <th class="decor_r">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody data-section="{section}">
+
+        <tr id="no"><td></td><td></td><td></td><td></td><td></td><tr>
+        <!-- begin_item -->
+        <tr id="{id}" data-alias="{alias}" data-system="{system}" class="color" style="cursor:move;">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+            <td style="width:120px; text-align:center;">
+                <!-- begin_item_edit -->
+                <a href="{url_main}administration/pages_edit_club.php?lang=default&page={id}">{l_edit}</a>
+                |
+                <a href="{url_main}administration/{url_page}?cmd=delete&page={id}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+                <!-- end_item_edit -->
+                <!-- begin_item_no_edit -->
+                <a href="{url_main}administration/pages_edit_club.php?lang=default&page={id}">{l_edit}</a><span style="color: #666"> | {l_delete}</span>
+                <!-- end_item_no_edit -->
+            </td>
+            <td  class="last" style="text-align: center; width:30px; padding-left: 3px;">
+                <input class="status" data-id="{id}" type="checkbox" name="status[{id}]" {checked} style="margin:0px; padding:0px; width: 20px;">
+            </td>
+
+            <td  class="last" style="text-align: center; width:30px; padding-left: 3px;">
+                <!-- begin_item_hide -->
+                <input class="hide_page" data-id="{id}" type="checkbox" name="hide[{id}]" {hide_checked} style="margin:0px; padding:0px; width: 20px;">
+                <!-- end_item_hide -->
+                <!-- begin_item_no_hide -->
+                {l_system}
+                <!-- end_item_no_hide -->
+            </td>
+
+            <td class="right" style="padding-left: 10px; text-align: left;">
+                {menu_title}
+            </td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_item -->
+        <tbody>
+	</table>
+    <script>
+    $(function() {
+        var tmplName = '{template_name}',
+            startSection;
+        $('#sortable_{section} tbody').sortable( {
+            connectWith : '[id ^= sortable] tbody',
+            tolerance: 'pointer',
+            opacity: 0.5,
+            axis: 'y',
+            cancel: '#no_sortable',
+            cursor: 'pointer',
+            items: 'tr[id != no_sortable]',
+            helper: fixHelperModified,
+            update: function(e, ui){
+                setColorClass(ui.item)
+            },
+            start: function(event, ui) {
+                var tr = ui.item;
+                setClass = (tr.attr('class') == 'color') ? true : false;
+                startSection = tr.parent().data('section')
+            },
+            stop: function(event, ui) {
+                var tr = ui.item;
+                if (tr.data('system') && tmplName == 'edge') {
+                    var section=tr.parent().data('section');
+                    if ((startSection == 'bottom' && section != 'bottom')
+                         || (startSection == 'not_in_menu' && section != 'not_in_menu')) {
+                        $(this).sortable('cancel');
+                        setSelColorClass(setClass, tr);
+                    }
+                } else if (tr.data('system') && tr.data('alias') !== 'column_narrow_invite') {
+                    if (tr.parent().data('section')=='not_in_menu') {
+                        $(this).sortable('cancel');
+                        setSelColorClass(setClass, tr);
+                    }else if(tr.parent().data('section')=='bottom') {
+                        if(~tr.data('alias').indexOf('column_narrow_')){
+                            $(this).sortable('cancel');
+                            setSelColorClass(setClass, tr);
+                        }
+                    }else if(tr.parent().data('section')=='narrow') {
+                        if(~tr.data('alias').indexOf('menu_bottom_')){
+                            $(this).sortable('cancel');
+                            setSelColorClass(setClass, tr);
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
+    <!-- end_items -->
+
+    <div class="btn fl_right">
+        <a href="" class="submit" onclick="update(); return false;">{l_save}</a>
+    </div>
+
+    </div>
+</div>
+<script>
+var setClass;
+
+function getParams(sel)
+{
+    sel=sel||'.status';
+    var el,params={};
+    $(sel).each(function(){
+        el=$(this);
+        params[el.data('id')]=el.prop('checked')*1;
+    })
+    return params;
+}
+
+function update()
+{
+    var val,
+        pages={<!-- begin_items_sortable_js -->'{section}':$('#sortable_{section} tbody').sortable('toArray'),<!-- end_items_sortable_js -->'0':[]};
+        delete pages[0];
+    for (var section in pages) {
+        for (var id in pages[section]) {
+            val=pages[section][id];
+            if (val===''||val==='no') delete pages[section][id];
+        }
+    }
+
+    console.log(status);
+    $.ajax({type: 'POST',
+            url: location.href.split('?')[0],
+            data: {'cmd':'update',
+                   'pages': pages,
+                   'status': getParams(),
+                   'hide' : getParams('.hide_page')},
+            success: function(){
+                window.location.href='pages_nsc.php?action=saved';
+            }
+    })
+}
+</script>
+{footer}

@@ -1,0 +1,193 @@
+
+
+                </td>
+                <!-- /td_main -->
+
+                <!-- td_narrow -->
+                <td id="narrow_box" class="td_narrow" style="display: {display}">
+				<!-- begin_banner_right_column -->	
+				<div class="banner_right_column_blogs">
+					{banner_right_column}
+				</div>
+				<!-- end_banner_right_column -->	
+                <!-- begin_popular_blogs -->
+                    <h1 class="txt_lower_header_color">{l_popular_bloggers}</h1>
+
+                    <div class="pl_top">
+
+                        <table class="blogs_new_tb_sub blogs_new_tb_sub_r">
+                            <col width="7px"/>
+                            <col width="170px"/>
+							<col width="1px"/>
+                            <tr>
+                                <th class="th_t_l nb first" >&nbsp;</th>
+                                <th class="th_t_c" >{l_blog_last_post}</th>
+                                <th class="th_t_b">&nbsp;</th>
+								<th class="th_t_c nb"><span>{l_blog_blogger}</span></th>
+                                <th class="th_t_r nb first">&nbsp;</th>
+                            </tr>
+
+                            <!-- begin_sidepop -->
+                            <tr>
+                                <td colspan="2"><span><a href="{url_main}blogs_post.php?id={sidepop_post_id}">{sidepop_post_subject_short}</a></span></td>
+                                <td class="b">&nbsp;</td>
+								<td class="nb"><span><a class="txt_upper_header_color" href="{url_main}search_results.php?uid={sidepop_user_id}">{sidepop_name_short}</a></span></td>
+                                <td class="nb">&nbsp;</td>
+                            </tr>
+                            <!-- end_sidepop -->
+
+                            <tr>
+                                <th class="th_b_l nb">&nbsp;</th>
+                                <th colspan="3" class="th_b_c nb">&nbsp;</th>
+                                <th class="th_b_r nb">&nbsp;</th>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- narrow_pl -->
+                    <div class="narrow_pl">
+                        <div class="cont">
+                            <div class="pic">
+                                <img src="{url_tmpl_main}images/blogs/ico_browse.png" width="33" height="34" alt=""/>
+                            </div>
+                            <ul class="list">
+                                <li><a href="{url_main}blogs_popular.php">{l_browse_all}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /narrow_pl -->
+
+                    <div class="cl"></div>
+                <!-- end_popular_blogs -->
+
+
+                <!-- begin_new_blogs -->
+                    <h1 class="txt_lower_header_color">{l_new_blogs}</h1>
+
+
+
+                        <table class="blogs_new_tb_sub blogs_new_tb_sub_r">
+                            <col width="7px"/>
+                            <col width="170px"/>
+							<col width="1px"/>
+                            <tr>
+                                <th class="th_t_l nb first">&nbsp;</th>
+                                <th class="th_t_c">{l_blog_title}</th>
+                                <th class="th_t_b">&nbsp;</th>
+								<th class="th_t_c nb"><span>{l_blog_post}</span></th>
+                                <th class="th_t_r nb first">&nbsp;</th>
+                            </tr>
+                            <!-- begin_sidenew -->
+                            <tr>
+                                <td colspan="2"><span><a href="{url_main}blogs_post.php?id={sidenew_id}">{sidenew_subject_short}</a></span></td>
+                                <td class="b">&nbsp;</td>
+								<td class="nb"><span><a class="txt_upper_header_color" href="{url_main}search_results.php?uid={sidenew_user_id}">{sidenew_user_name_short}</a></span></td>
+                                <td class="nb">&nbsp;</td>
+                            </tr>
+                            <!-- end_sidenew -->
+                            <tr>
+                                <th class="th_b_l nb">&nbsp;</th>
+                                <th colspan="3" class="th_b_c nb">&nbsp;</th>
+                                <th class="th_b_r nb">&nbsp;</th>
+                            </tr>
+                        </table>
+
+
+                    <!-- narrow_pl -->
+                    <div class="narrow_pl">
+                        <div class="cont">
+                            <div class="pic">
+                                <img src="{url_tmpl_main}images/blogs/ico_browse.png" width="33" height="34" alt=""/>
+                            </div>
+                            <ul class="list">
+                                <li><a href="{url_main}blogs_new.php">{l_browse_all}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /narrow_pl -->
+
+                    <div class="cl"></div>
+                <!-- end_new_blogs -->
+
+                <!-- begin_hot_searches -->
+                    <h1 class="txt_lower_header_color">{l_blog_hot_searches}</h1>
+
+                    <table  class="blogs_new_tb_sub blogs_new_tb_sub_r" >
+                        <col width="7px"/>
+						<col width="128px"/>
+						<col width="1px"/>
+                        <tr>
+                            <th class="th_t_l nb first">&nbsp;</th>
+                            <th colspan="3" class="th_t_c nb" >{l_blog_search_term}</th>
+                            <th class="th_t_r nb first">&nbsp;</th>
+                        </tr>
+                        <!-- begin_hs -->
+                        <!-- begin_hs_odd -->
+                        <tr>
+                            <td colspan="2" class="r"><span style="width:120px;" class="text-overflow-eclipse"><a href="{url_main}blogs_results.php?q={hs_urltext}">{hs_text}</a></span></td>
+							<td class="b">&nbsp;</td>
+                        <!-- end_hs_odd -->
+                        <!-- begin_hs_even -->
+                            <td class="nb"><span style="width:120px;" class="text-overflow-eclipse"><a class="txt_upper_header_color" href="{url_main}blogs_results.php?q={hs_urltext}">{hs_text}</a></span></td>
+                            <td class="nb">&nbsp;</td>
+                        </tr>
+                        <!-- end_hs_even -->
+                        <!-- end_hs -->
+                        <tr>
+                            <th class="th_b_l nb">&nbsp;</th>
+                            <th colspan="3" class="th_b_c nb">&nbsp;</th>
+                            <th class="th_b_r nb">&nbsp;</th>
+                        </tr>
+
+                    </table>
+
+                    <!-- narrow_pl -->
+                    <div class="narrow_pl">
+                        <div class="cont">
+                            <div class="pic">
+                                <img src="{url_tmpl_main}images/blogs/ico_browse.png" width="33" height="34" alt=""/>
+                            </div>
+                            <ul class="list">
+                                <li><a href="{url_main}blogs_hot_searches.php">{l_browse_all}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /narrow_pl -->
+
+                <!-- end_hot_searches -->
+                <div class="blogs_new_search">
+
+                <script type="text/javascript">
+                    function blogs_side_search_on_submit()
+                    {
+                        query = $("#blogs_side_search input[name='q']").val();
+
+                        if((query != '')&&(query != '{l_blogs_search_text}'))
+                        {
+                             return true;
+                        }
+
+                        alert('{l_events_please_enter_what_you_search}');
+
+                        return false;
+                    }
+                </script>
+
+                            <form id="blogs_side_search" action="{url_main}blogs_results.php" method="get" onsubmit="return blogs_side_search_on_submit();">
+                            <div class="bl_search">
+                               <div class="blog_input_text_box2 fl_left" style="margin: 0 10px 0 0;"> <input class="inp_blue no_abk" type="text" name="q" value = "{l_blogs_search_text}" onblur="javascript:if(this.value=='')this.value='{l_blogs_search_text}'" onFocus="if(this.value=='{l_blogs_search_text}') this.value=''"/></div>
+<!--                                 <div class="blog_input_box2 fl_left" style="margin-left:10px;">
+                                <input class="btn_blue" type="submit" value="{l_search}"/></div> -->
+                                <input class="btn upper_header_color round big" type="submit" value="{l_search}" />
+                            </div>
+                            </form>
+
+                        </div>
+                </td>
+                <!-- /td_narrow -->
+
+
+
+            </tr>
+        </table>
+

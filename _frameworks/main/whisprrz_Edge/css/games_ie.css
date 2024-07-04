@@ -1,0 +1,9 @@
+* html .games_bg_green{ margin: -37px 0 0; }
+* html .games_bg{ position: relative; }
+* html .png , div.games img,div.games_decor_bot  { _behavior: url("./_frameworks/main/oryx/css/iepngfix.htc");}
+* html div.green_balloon { background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/games/green_balloon.png', sizingMethod='crop'); }
+* html div.games_shadow {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/games/shadow_foto.png', sizingMethod='crop'); }
+* html div.games_head td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/games/head_l.png', sizingMethod='crop'); }
+* html div.games_head td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/games/head_r.png', sizingMethod='crop'); }
+* html div.games_foot td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/games/foot_l.png', sizingMethod='crop'); }
+* html div.games_foot td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/games/foot_r.png', sizingMethod='crop'); }

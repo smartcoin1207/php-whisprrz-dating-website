@@ -1,0 +1,73 @@
+{header}
+<div class="block_narrow">
+	{langs}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+	<a href="{url_main}administration/news.php?lang={lang}">{l_menu_news_edit}</a>&nbsp;&nbsp;
+	<a href="{url_main}administration/news_add.php?lang={lang}">{l_menu_news_add}</a>&nbsp;&nbsp;
+	{l_menu_news_cats}
+<p></p>	
+	
+    <div class="bl_form">
+        <!-- begin_question -->
+        <h2>{title}</h2>
+        <form action="{url_main}administration/news_cats.php?id={id}&lang={lang}" method="POST">
+        <input name="cmd" value="edit" type="hidden">
+        <label>{l_title_word}:</label>		
+        <input type="text" name="title" value="{title}" maxlength="255">
+		
+		<!-- begin_root_page -->
+		<div class="bl_label">
+			<input type="hidden" name="root" value="0">
+			<label class="fl_left" for="root_{id}" style="cursor: pointer;">{l_use_as_root_page}</label>
+			<div class="fl_right"><input class="check" type="checkbox" id="root_{id}" name="root" value="1" {root} ></div>	
+		<div class="justify"></div>
+		</div>			
+		<!-- end_root_page -->
+		
+		<!-- begin_root_pages -->
+		<label>{l_analog_in_the_english_variant}:</label>
+		<select class="input" name="root_id">
+		{root_pages_options}
+		</select>
+		<!-- end_root_pages -->		
+		
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a></div>
+        <div class="btn fl_right"><a href="{url_main}administration/news_cats.php?cmd=delete&id={id}&lang={lang}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a></div>
+        </form>
+        <div style="height:90px"></div>
+        <!-- end_question -->
+
+        <h2>{l_add}:</h2>
+        <form action="{url_main}administration/news_cats.php?lang={lang}" method="POST" name="Admin">
+        <input name="cmd" value="add" type="hidden">
+        <label>{l_title_word}:</label>
+        <input type="text" name="title" value="" maxlength="255">
+		
+		<!-- begin_root_page_add -->
+		<div class="bl_label">
+			<input type="hidden" name="root" value="0">
+			<label class="fl_left" for="root_0" style="cursor: pointer;">{l_use_as_root_page}</label>
+			<div class="fl_right"><input class="check" type="checkbox" id="root_0" name="root" value="1" ></div>	
+		<div class="justify"></div>
+		</div>			
+		<!-- end_root_page_add -->
+		
+		<!-- begin_root_pages_add -->		
+		<label>{l_analog_in_the_english_variant}:</label>
+		<select class="input" name="root_id">
+		{root_pages_add_options}
+		</select>
+		<!-- end_root_pages_add -->
+		
+        <div class="btn fl_right"><a href="#" class="submit">{l_add}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

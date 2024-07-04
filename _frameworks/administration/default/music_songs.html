@@ -1,0 +1,118 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/music_musicians.php">{l_menu_musicians}</a></li>
+        <li><a href="{url_main}administration/music_musician_comments.php">{l_menu_musician_comments}</a></li>
+        <li class="active"><a href="{url_main}administration/music_songs.php">{l_menu_songs}</a></li>
+        <li><a href="{url_main}administration/music_song_comments.php">{l_menu_song_comments}</a></li>
+        <li><a href="{url_main}administration/music_categories.php">{l_menu_categories}</a></li>
+        <li><a href="{url_main}administration/music_category_add.php">{l_menu_categories_add}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_songs}</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+
+    <!-- begin_main_items -->
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right">{l_action}</th>
+        <th>
+            <!-- begin_params_none_song_id --><a href="{url_page}?{params_current}">{l_song_id}</a><!-- end_params_none_song_id -->
+            <!-- begin_params_asc_song_id -->&uarr;<a href="{url_page}?{params_current}">{l_song_id}</a><!-- end_params_asc_song_id -->
+            <!-- begin_params_desc_song_id -->&darr;<a href="{url_page}?{params_current}">{l_song_id}</a><!-- end_params_desc_song_id -->
+        </th>
+        <th>
+            <!-- begin_params_none_musician_id --><a href="{url_page}?{params_current}">{l_musician_id}</a><!-- end_params_none_musician_id -->
+            <!-- begin_params_asc_musician_id -->&uarr;<a href="{url_page}?{params_current}">{l_musician_id}</a><!-- end_params_asc_musician_id -->
+            <!-- begin_params_desc_musician_id -->&darr;<a href="{url_page}?{params_current}">{l_musician_id}</a><!-- end_params_desc_musician_id -->
+        </th>
+        <th>
+            <!-- begin_params_none_song_title --><a href="{url_page}?{params_current}">{l_song_title}</a><!-- end_params_none_song_title -->
+            <!-- begin_params_asc_song_title -->&uarr;<a href="{url_page}?{params_current}">{l_song_title}</a><!-- end_params_asc_song_title -->
+            <!-- begin_params_desc_song_title -->&darr;<a href="{url_page}?{params_current}">{l_song_title}</a><!-- end_params_desc_song_title -->
+        </th>
+        <th>
+            <!-- begin_params_none_user_id --><a href="{url_page}?{params_current}">{l_user}</a><!-- end_params_none_user_id -->
+            <!-- begin_params_asc_user_id -->&uarr;<a href="{url_page}?{params_current}">{l_user}</a><!-- end_params_asc_user_id -->
+            <!-- begin_params_desc_user_id -->&darr;<a href="{url_page}?{params_current}">{l_user}</a><!-- end_params_desc_user_id -->
+        </th>
+        <th>
+            <!-- begin_params_none_song_n_plays --><a href="{url_page}?{params_current}">{l_song_n_plays}</a><!-- end_params_none_song_n_plays -->
+            <!-- begin_params_asc_song_n_plays -->&uarr;<a href="{url_page}?{params_current}">{l_song_n_plays}</a><!-- end_params_asc_song_n_plays -->
+            <!-- begin_params_desc_song_n_plays -->&darr;<a href="{url_page}?{params_current}">{l_song_n_plays}</a><!-- end_params_desc_song_n_plays -->
+        </th>
+        <th>
+            <!-- begin_params_none_song_rating --><a href="{url_page}?{params_current}">{l_song_rating}</a><!-- end_params_none_song_rating -->
+            <!-- begin_params_asc_song_rating -->&uarr;<a href="{url_page}?{params_current}">{l_song_rating}</a><!-- end_params_asc_song_rating -->
+            <!-- begin_params_desc_song_rating -->&darr;<a href="{url_page}?{params_current}">{l_song_rating}</a><!-- end_params_desc_song_rating -->
+        </th>
+        <th>
+            <!-- begin_params_none_song_has_images --><a href="{url_page}?{params_current}">{l_song_has_images}</a><!-- end_params_none_song_has_images -->
+            <!-- begin_params_asc_song_has_images -->&uarr;<a href="{url_page}?{params_current}">{l_song_has_images}</a><!-- end_params_asc_song_has_images -->
+            <!-- begin_params_desc_song_has_images -->&darr;<a href="{url_page}?{params_current}">{l_song_has_images}</a><!-- end_params_desc_song_has_images -->
+        </th>
+        <th class="last">
+            <!-- begin_params_none_created_at --><a href="{url_page}?{params_current}">{l_created_at}</a><!-- end_params_none_created_at -->
+            <!-- begin_params_asc_created_at -->&uarr;<a href="{url_page}?{params_current}">{l_created_at}</a><!-- end_params_asc_created_at -->
+            <!-- begin_params_desc_created_at -->&darr;<a href="{url_page}?{params_current}">{l_created_at}</a><!-- end_params_desc_created_at -->
+        </th>
+        <th class="decor_r"></th>
+    </tr>
+
+    <!-- begin_main_item -->
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right">
+            <a href="{url_main}administration/music_song_edit.php?song_id={song_id}">{l_edit}</a>
+            |
+            <a href="{url_main}administration/music_song_delete.php?song_id={song_id}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+            |
+            <a href="{url_main}administration/music_song_comments.php?song_id={song_id}">{l_comments}</a>
+        </td>
+        <!--td>
+            < bbegin_main_photo ->
+            <img src="{url_tmpl_administration}img/icon_photo.gif" border="0">
+            <!- end_main_photo >
+        </td-->
+        <td>{song_id}</td>
+        <td>{musician_id}</td>
+        <td>{song_title}</td>
+        <td>{user_id}</td>
+        <td>{song_n_plays}</td>
+        <td>{song_rating}</td>
+        <td>{song_has_images}</td>
+        <td class="last">{created_at}</td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_places}</div>
+    <!-- end_main_noitems -->
+
+    <div class="empty"></div>
+</div>
+{footer}

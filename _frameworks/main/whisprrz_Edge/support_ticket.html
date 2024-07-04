@@ -1,0 +1,73 @@
+{header}
+
+<div class="frame_content" id="oryx_content1">
+
+  <div align="center">
+    <h2 class="txt_lower_header_color" style="text-align: left;">{l_create_new_ticket}</h2>
+    <div class="g-box-in{row}" style="width:100%; float:left; padding:0px; margin:0px;">
+      <form class="" id="support_ticket_form" action="{url_page}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="cmd" value="submit_ticket">
+        <p>{l_support_ticket_info}</p>
+        <p style="font-size: 16px;">
+          <strong>{l_ticket_subject}</strong> :
+          <select class="custom-input-textarea" name="ticket_title">
+            <option>{l_general_support}</option>
+            <option>{l_billing}</option>
+            <option>{l_bugs_technical_issue}</option>
+            <option>{l_feedback_features_requests}</option>
+            <option>{l_photos}</option>
+            <option>{l_clubs_events}</option>
+            <option>{l_mobile_app_payments}</option>
+            <option>{l_mobile_app_bugs}</option>
+          </select>
+
+        </p>
+        <p style="font-size: 16px;">
+          <strong>{l_priority}</strong> :
+          <label style="margin-right: 25px; color: #726458;"><input type="radio" name="priority" value="low"checked> Low</label>  
+          <label style="margin-right: 25px; color: #8B8000 ;"><input type="radio" name="priority" value="medium">Med</label>
+          <label style="color: #c20505;"><input type="radio" name="priority" value="high">High</label>
+        </p>
+        <textarea name="ticket_text" id="ticket_text" class="custom-input-textarea" rows="8"></textarea>
+        <br>
+        <br>
+        <p style="font-size: 16px;">
+          <input type="file" name="attachment" >
+
+        </p>
+        <br><br>
+        <a class="custom-button red" href="support_tickets.php"
+          title="{l_back}">{l_back}</a>
+        <input type="submit" class="custom-button" title="{l_submit_ticket}" value="{l_submit_ticket}" />
+        
+      </form>
+
+
+    </div>
+
+  </div>
+  <script>
+    $(document).ready(function () {
+      $("#support_ticket_form").submit(function () {
+        if ($("#ticket_text").val().split(" ").join("") == "") {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{l_enter_ticket_text}',
+          });
+          return false;
+        }
+        return true;
+      });
+    });
+
+    if ("{saved}" == "yes") {
+      Swal.fire(
+        'Saved!',
+        '',
+        'success'
+      );
+    }
+  </script>
+</div>
+  {footer}

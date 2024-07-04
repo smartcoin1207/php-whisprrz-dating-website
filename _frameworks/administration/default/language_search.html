@@ -1,0 +1,54 @@
+<script>
+    $(document).ready(function(){
+        $('.textarea').autosize({append : ""});
+    });
+    fields = [];
+</script>
+<ul class="alphabet" id="alphabet">
+    <!-- begin_alphabet -->
+    <!-- begin_yes_value -->
+    <li id="li_{id_abc}" class="{class_separator} <!--begin_li_all -->active<!--end_li_all -->"><a href="" id="href_row_{id_abc}" title="{title_abc}">{abc}</a></li>
+    <!-- end_yes_value -->
+    <!-- begin_no_value -->
+    <li class="{class_separator}"><span class="no_value_language">{abc}</span></li>
+    <!-- end_no_value -->
+    <!-- end_alphabet -->
+</ul>
+<h2 style="border: none;">{l_search_results}</h2>
+
+<!-- begin_results -->
+<table width="100%">
+	<!-- begin_section -->
+	<tr id="section_key_search_row_{letter}_{lang_page_this_id}_{field}">
+		<td height="40"><a href="{url_main}administration/language_edit.php?part={part}&lang={lang_this}&lang_page={lang_page_this}&from_template={from_template}"><b>{section_title}</b></a></td>
+		<td></td>
+	</tr>
+	<!-- begin_result2 -->
+	<tr>
+		<td style="width: 242px;" valign="top"><a href="{url_main}administration/language_edit.php?part={part}&lang={lang_this}&lang_page={lang_page_this}&from_template={from_template}#{field_key}">{field_title}</a>:</td>
+		<td>{value}</td>
+	</tr>
+	<!-- end_result2 -->
+
+	<!-- begin_field -->
+
+	<tr class="row_{lang_page_this_id}_{field}" id="key_search_row_{letter}_{lang_page_this_id}_{field}">
+		<td style="width: 222px;" valign="top">{field_title}:</td>
+		<td valign="top" style="width: 30px;"><img style="display: none;" id="preloader_{lang_page_this_id}_{field}" class="preloader_{lang_page_this_id}_{field}" src="{url_tmpl_administration}images/loader.gif"></td>
+        <td style="padding-bottom: 14px;">  <textarea data-language-section="{lang_page_this}" data-language-item-key="{field}" data="{lang_page_this}" data-id="{field}"  onclick="selectField('{field}');" onfocus="addItemValueCache('{field}', '{lang_page_this}');" onblur="updateItem('{field}', '{lang_page_this}');" class="lang {class_field} {not_translated_class}" type="text" id="{lang_page_this_id}_{field}" name="{field}" style="height:20px; width:98.2%; overflow:hidden; resize:none; padding: 0px 4px;">{value}</textarea></td>
+
+        <td class="language_action_buttons" valign="top">
+            <a class="{autotranslator_hide_item_class}" onclick="adminLanguageTranslator.translateItem('{field}', '{lang_page_this}'); return false;" href="#">{l_translate_with_google}</a><span class="{autotranslator_hide_item_class}" id="delete_delimiter_{lang_page_this_id}_{field}" style="{delete_style}"> | </span><a style="{delete_style};" id="delete_{lang_page_this_id}_{field}" onclick="deleteWord('{field}', '{lang_page_this}'); return false;" href="#">{l_delete}</a>
+        </td>
+
+	</tr>
+	<!-- end_field -->
+
+
+	<!-- end_section -->
+</table>
+<p>&nbsp;</p>
+<!-- end_results -->
+<!-- begin_message -->
+<p><b>{message}</b></p>
+<!-- end_message -->

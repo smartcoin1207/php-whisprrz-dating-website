@@ -1,0 +1,87 @@
+/* Rade 2023-09-22 add */
+body{
+    background-color: #4A7296;
+}
+.carousel-inner.vertical > .item {
+    -webkit-transition: .10s ease-in-out bottom;
+    -moz-transition: .10s ease-in-out bottom;
+    -o-transition: .10s ease-in-out bottom;
+    transition: .10s ease-in-out bottom;
+}
+@media all and (transform-3d),
+(-webkit-transform-3d) {
+.carousel-inner.vertical > .item {
+    -webkit-transition:-webkit-transform .6s ease-in-out;
+    -moz-transition:-webkit-transform .6s ease-in-out;
+    -o-transition:-o-transform .6s ease-in-out;
+    transition:transform .6s ease-in-out;
+    -webkit-backface-visibility:hidden;
+    -moz-backface-visibility:hidden;
+    backface-visibility:hidden;
+    -webkit-perspective:1000;
+    -moz-perspective:1000;
+}
+.carousel-inner.vertical > .item.next,
+.carousel-inner.vertical > .item.active.right {
+    -webkit-transform: translate3d(0, 20%, 0);
+    -moz-transform: translate3d(0, 20%, 0);
+    transform: translate3d(0, 20%, 0);
+    top:0px;
+}
+.carousel-inner.vertical > .item.prev,
+.carousel-inner.vertical > .item.active.left {
+    -webkit-transform: translate3d(0, -20%, 0);
+    -moz-transform: translate3d(0, -20%, 0);
+    transform: translate3d(0, -20%, 0);
+    top: 0px;
+}
+.carousel-inner.vertical > .item.next.left,
+.carousel-inner.vertical > .item.prev.right,
+.carousel-inner.vertical > .item.active {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    top:0px;
+  }
+}
+.carousel-inner.vertical > .next,
+.carousel-inner.vertical > .prev {
+    height: 100%;
+    width: auto;
+}
+#carousel-pager .carousel-control.left,#carousel-pager .carousel-control.right{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    background:#FFF;
+    opacity: 1;
+    position: absolute;
+    top:-65px;
+    left:50%;
+    transform: translateX(-50%);
+}
+#carousel-pager .carousel-control.right {
+    top:unset;
+    bottom: -65px;
+    left:50%;
+    transform: translateX(-50%);
+}
+.left .glyphicon,.right .glyphicon{
+    position:absolute;
+    top:13px;
+    left:16px;
+    color:#004C70;
+}
+.right .glyphicon{
+    top:16px;
+    left:15px;
+}
+.item img{
+    border:1px solid #e2e2e2;
+    padding: 5px;
+    border-radius:5px;
+    margin:5px;
+}
+.carousel{
+    margin-top:80px;
+}

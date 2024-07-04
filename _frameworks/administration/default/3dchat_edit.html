@@ -1,0 +1,76 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li <!-- begin_edit_rooms --> class="active" <!-- end_edit_rooms -->><a href="{url_main}administration/3dchat_rooms.php">{l_menu_flashchat_rooms}</a></li>
+        <li <!-- begin_add_rooms --> class="active" <!-- end_add_rooms -->><a href="{url_main}administration/3dchat_edit.php">{l_menu_flashchat_rooms_edit}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2><!-- begin_add_rooms_title -->{l_title_current}<!-- end_add_rooms_title --><!-- begin_edit_rooms_title -->{l_editing_room} - {name}<!-- end_edit_rooms_title --></h2>
+    <!-- begin_upload_rooms_bg_js -->
+    <script>
+    $(function() {
+        $('#bg_form').ajaxForm({
+            beforeSubmit: function(a,f,o) {
+                $('#bg_output').html('{l_submitting}');
+            },
+            success: function(data) {
+                var obj = jQuery.parseJSON(data),
+                    url = '{url_files}3dchat/{id}.jpg';
+                if (typeof obj.url != 'undefined') {
+                    url = obj.url;
+                }
+                $('#bg_output').html('<img src="'+url+'?' + Math.random() + '" alt=""/>');
+                if (obj.status == 0) {
+                    alert(obj.msg);
+                }
+            }
+        });
+    });
+    </script>
+    <!-- end_upload_rooms_bg_js -->
+    <div class="bl_form">
+        <form id="form" action="{url_page}" enctype="multipart/form-data" method="POST">
+        <!-- begin_edit_form -->
+        <input type="hidden" name="cmd" value="edit">
+        <input type="hidden" name="id" value="{id}">
+        <!-- end_edit_form -->
+        <label>{l_name}:</label>
+        <input type="text" name="name" value="{name}" maxlength="18">
+
+        <!-- begin_add_form -->
+        <input type="hidden" name="cmd" value="add">
+        <label>{l_background_room}:</label>
+        <input class="" type="file" name='bg'/>
+        <!-- end_add_form -->
+
+        <div class="btn fl_right"><a href="" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+        </form>
+        <!-- begin_upload_rooms_bg -->
+        <div class="empty"></div>
+        <form id="bg_form" action="{url_page}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="cmd" value="update_bg">
+        <input type="hidden" name="id" value="{id}">
+        <div id="bg_output" class="block_logo" style="width: 746px; height: 426px; padding: 0px;">
+            <img id="bg_output_img" src="{url_files}3dchat/{id}.jpg?rand={rand}" alt=""/>
+        </div>
+
+        <div class="fl_left">
+            <input class="upload" type="file" name='bg'/>
+        </div>
+        <div class="btn fl_right"><a href="#" class="submit">{l_upload}</a>
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+        <!-- end_upload_rooms_bg -->
+    </div>
+    <div class="empty"></div>
+</div>
+{footer}
+<!-- begin_error -->
+<script>
+    alert('{error}');
+</script>
+<!-- end_error -->

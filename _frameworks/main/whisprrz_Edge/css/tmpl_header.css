@@ -1,0 +1,23 @@
+<!-- begin_member_settings -->
+/* Photo gallery */
+.wrap_one_item .cham-post.photo_one .photo_one_bl{
+    height: calc({gallery_image_height}vh - 50px);
+}
+
+.wrap_one_item .cham-post.photo_one .one_item .cham-post-image img{
+    /* min-height: calc({gallery_image_height}vh - 50px); */
+    max-height: calc({gallery_image_height}vh - 50px);
+}
+
+@media (max-width: 480px){
+    .wrap_one_item .cham-post.photo_one .photo_one_bl{
+        height: calc({gallery_image_height_mobile}vh - 50px);
+    }
+
+    .wrap_one_item .cham-post.photo_one .one_item .cham-post-image img{
+        max-height: calc({gallery_image_height_mobile}vh - 50px);
+        min-height: auto;
+    }
+}
+/* Photo gallery */
+<!-- end_member_settings -->

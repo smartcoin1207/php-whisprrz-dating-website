@@ -1,0 +1,131 @@
+{header}
+<script>
+$(function() {
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+        tolerance: 'pointer',
+        opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+        }
+    });
+
+    $('#all').change(function(){
+        choiceChkbox($(this), $('[id ^= chk_]'))
+    });
+
+
+    $('#frm_set_credits').submit(function(){
+        var credits=$('#set_credits'),price=credits.val()*1;
+        if (Math.max(0,price)!==price||Math.ceil(price)!==price) {
+            alert('{j_error_credits}');
+            credits.focus();
+            return false;
+        }
+    })
+
+});
+
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+</script>
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_list_set -->
+    <!-- begin_list_set_on -->
+    {list_set_title}&nbsp;&nbsp;
+    <!-- end_list_set_on -->
+    <!-- begin_list_set_off -->
+    <a href="{url_page}?set={list_set_id}">{list_set_title}</a>&nbsp;&nbsp;
+    <!-- end_list_set_off -->
+    <!-- end_list_set -->
+    <div style="padding-bottom: 15px; width: 100%;"></div>
+    <form id="frm_set_credits" action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="set_credits">
+        <input type="hidden" name="set" value="{set}">
+        <label style="float:left;">{l_change_all_gifts_prices_at_once}:</label>
+        <input id="set_credits" type="text" name="credits" value="{price_credits}" style="width:100px; margin-left: 8px; margin-top:-4px; display: inline-block;">
+        <div class="btn" style="margin:-4px 0px -4px -8px;"><a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+    </form>
+    <div style="padding-bottom: 15px; width: 100%;"></div>
+    <div class="bl_form">
+        <!-- begin_gifts -->
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <input type="hidden" name="set" value="{set}">
+        <table class="tb_fields" id="sortable" style="width:470px;">
+        <thead>
+                <tr id="no_sortable" >
+                    <th class="decor_l">&nbsp;</th>
+                    <th class="right"><input style="margin:0px; width: 20px;" type="checkbox" id="all"></th>
+                    <th style="width:40px; text-align: center;">{l_id}</th>
+                    <th style="width:75px; text-align: center;">{l_sent}</th>
+                    <th style="width:120px; text-align:center;">{l_action}</th>
+                    <th style="width:60px; text-align: center;">{l_credits}</th>
+                    <th class="last" style="text-align: center;">{l_image}</th>
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+        </thead>
+        <!-- begin_gifts_item -->
+        <tr class="color" style="cursor:move;">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+                <td class="right" style="margin:0px; width: 20px;">
+                    <input style="margin:0px 0px 0px 10px; padding:0px; width: 20px;" type="checkbox" id="chk_{id}">
+                </td>
+                <td style="text-align: center;">
+                    {id}
+                </td>
+                <td style="text-align: center;">
+                    {sent}
+                </td>
+                <td style="text-align: center;">
+                    <a href="{url_main}administration/gifts.php?cmd=delete&item={id}&set={set}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a> |
+                    <a href="{url_main}administration/gifts_edit.php?action=edit_gift&id={id}">{l_edit}</a>
+                </td>
+                <td style="text-align: center;">
+                    {credits}
+                </td>
+                <td class="last" style="text-align: center;">
+                    <input type="hidden" name="order[]" value="{id}">{name_block}
+                    <img style="max-width: 25px; max-height: 25px;" src="{url_gift}">
+                </td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_gifts_item -->
+        </table>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+        </form>
+        <div class="btn fl_left" style="margin-left: -7px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) actionChecked('{url_page}', 'delete', '&set={set}'); return false;" href="#">{l_delete}</a>
+        </div>
+        <!-- end_gifts -->
+        <!-- begin_no_gifts -->
+        <div align="center">{l_no_results}</div>
+        <!-- end_no_gifts -->
+    </div>
+    <div class="empty"></div>
+</div>
+{footer}

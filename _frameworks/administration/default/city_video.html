@@ -1,0 +1,130 @@
+{header}
+<style>
+    .btn.fl_right{position:relative};
+</style>
+<script>
+$(function(){
+    var isSubmit=0,
+    $sbm=$('.submit'),isAllowSubmit=0,
+    $frm=$sbm.parents('form').submit(function(){
+        if(isAllowSubmit){
+            isAllowSubmit=0;
+        }else{
+            chekVideo();
+            return false;
+        }
+    })
+
+    function chekVideo(){
+        $sbm.before(loaderBtn);
+        if(isSubmit)return false;
+        isSubmit=1;
+        customHideAllTip();
+        var $cinemaCodes=$('input[type="text"]'),l=$cinemaCodes.length,
+            i=0,j=0,isError=0,codes=[],pos={};
+        $('input[type="text"], select').prop('disabled',true);
+        $cinemaCodes.each(function(){
+            var $el=$(this),val=trim($el.val());
+            if(val){
+                var yCode=(val.match(/(?:^|\/|v=)([\w\-]{11,11})(?:\?|&|#|$)/) || [])[1];
+                var yCodeSite=(val.split('#site_video:')||[])[1];
+                if (yCodeSite) {
+                    yCodeSite='site_video:'+yCodeSite;
+                }
+                yCode=yCode||yCodeSite;
+                if (!yCode) {
+                    isError=1;
+                    $el.focus();
+                    customShowTip($el,'{j_video_id_not_correct}');
+                }else{
+                    codes[j]=yCode;
+                    pos[j]=i;
+                    j++;
+                }
+            }
+            i++;
+            if(i==l){
+                if (!isError) {
+                    if(!codes.length){
+                        $('input[type="text"], select').prop('disabled',false);
+                        isAllowSubmit=1;
+                        $sbm.parents('form').submit();
+                        return ;
+                    }
+                    i=0;
+                    $.post('ajax.php',{cmd: 'check_code_youtube', codes: codes}, function(res){
+                        res=res.split('&');
+                        l=res.length;
+                        for (var key in res) {
+                            if (typeof res[key]!= 'function') {
+                                if (res[key]=='error') {
+                                    alert('{j_error_while_checking_video}');
+                                }else if (res[key]!='available') {
+                                    isError=1;
+                                    var error=res[key],$el=$cinemaCodes.eq(pos[key]);
+                                    if($el[0]){
+                                        if(error=='error_code')error='{j_error_upload_file_19}';
+                                        customShowTip($el,error);
+                                    }
+                                }
+                            }
+                            i++;
+                            if (i==l) {
+                                $('input[type="text"], select').prop('disabled',false);
+                                if (!isError) {
+                                    isAllowSubmit=1;
+                                    $sbm.parents('form').submit();
+                                }
+                            }
+                        }
+                        resetFrm();
+                    })
+                } else {
+                    resetFrm();
+                }
+            }else if(isError){
+                resetFrm();
+            }
+        });
+    }
+
+    function resetFrm(){
+        isSubmit=0;
+        $('.loader_btn').remove();
+        $('input[type="text"], select').prop('disabled',false);
+    }
+
+    $('#location').change(function(){
+        window.location.href='?loc='+this.value;
+    })
+})
+</script>
+<div class="block_narrow">
+{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <!-- begin_video -->
+    <p style="font-size: 11px; padding-bottom: 0px;"><b>{l_room}:</b>
+        <select id="location" style="margin:5px 0px 19px 6px;" name="location">
+            {select_location}
+        </select>
+    </p>
+    <div class="bl_form">
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <input type="hidden" name="location" value="{cur_location}">
+		{config_fields}
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+    <!-- end_video -->
+    <!-- begin_no_video -->
+    <div align="center">{l_no_video}</div>
+    <!-- end_no_video -->
+    <div class="empty"></div>
+</div>
+
+{footer}

@@ -1,0 +1,42 @@
+<!--popcorn modified 7/4/2023-->
+{header}
+<div id="oryx_content">
+
+{ims}
+{complite}
+
+
+
+	<div class="widgets" >
+		<div class="gallery_top">
+            <h2 class="noback">{l_widgets_title}</h2>
+        </div>
+			
+		<ul class="widgets_list">
+			<!-- begin_widget -->
+			<li class="row{row}" id="row_{widget}">
+				<table>
+					<tr>
+						<td width="140"><img class="png" src="{url_tmpl_main}images/widget_{widget}.png"></td>
+						<td style="padding-left:8px;">
+							<h3>{widget_title}</h3>
+							<p>{widget_description}</p>
+							<div class="widget_panel">
+							<input onclick="widget_site({widget})" type="radio" name="widget_button_{widget}" id="widget_{widget}_on" value="on" {status_on}> <label for="widget_{widget}_on"><b>{l_on}</b> {l_whole_site}</label>&nbsp;&nbsp;
+							<input onclick="widget_home({widget})" type="radio" name="widget_button_{widget}" id="widget_{widget}_home" value="home" {status_home}> <label for="widget_{widget}_home"><b>{l_on}</b> {l_home_page}</label>&nbsp;&nbsp;
+							<input type="radio" name="widget_button_{widget}" id="widget_{widget}_off" value="off" {status_off} onclick="widget_close({widget})"> <label for="widget_{widget}_off"><b>{l_off}</b></label>				
+							</div>
+						</td>
+					</tr>
+				</table>
+
+			</li>
+			<!-- end_widget -->
+		</ul>
+	
+		<div class="gallery_bottom">
+
+        </div>
+	</div>
+</div>
+{footer}

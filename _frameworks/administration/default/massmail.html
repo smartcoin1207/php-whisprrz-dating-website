@@ -1,0 +1,185 @@
+{header}
+<script type="text/javascript" src="{url_tmpl_administration}js/tinymce/tinymce.min.js{cache_version_param}"></script>
+<script type="text/javascript">
+tinymce.init({
+        selector: "#mail_content",
+        language : '{lang_vw}',
+        width : '98%',
+
+        fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
+        plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste textcolor colorpicker textpattern"
+        ],
+
+        toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+        menubar: false,
+        toolbar_items_size: 'small',
+
+        style_formats: [
+                {title: 'Line spacing 10', inline: 'span', styles: {lineHeight:'10px'}},
+                {title: 'Line spacing 12', inline: 'span', styles: {lineHeight:'12px'}},
+                {title: 'Line spacing 14', inline: 'span', styles: {lineHeight:'14px'}},
+                {title: 'Line spacing 16', inline: 'span', styles: {lineHeight:'16px'}},
+                {title: 'Line spacing 18', inline: 'span', styles: {lineHeight:'18px'}},
+                {title: 'Line spacing 20', inline: 'span', styles: {lineHeight:'20px'}},
+                {title: 'Line spacing 22', inline: 'span', styles: {lineHeight:'22px'}},
+                {title: 'Line spacing 24', inline: 'span', styles: {lineHeight:'24px'}},
+                {title: 'Line spacing 26', inline: 'span', styles: {lineHeight:'26px'}},
+                {title: 'Line spacing 28', inline: 'span', styles: {lineHeight:'28px'}},
+                {title: 'Line spacing 30', inline: 'span', styles: {lineHeight:'30px'}},
+                {title: 'Line spacing 32', inline: 'span', styles: {lineHeight:'32px'}},
+                {title: 'Line spacing 34', inline: 'span', styles: {lineHeight:'34px'}},
+                {title: 'Line spacing 36', inline: 'span', styles: {lineHeight:'36px'}},
+                {title: 'Line spacing 38', inline: 'span', styles: {lineHeight:'38px'}},
+                {title: 'Line spacing 40', inline: 'span', styles: {lineHeight:'40px'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Example 3', inline: 'span', classes: 'example3'},
+                {title: 'Example 4', inline: 'span', classes: 'example4'},
+                {title: 'Example 5', inline: 'span', classes: 'example5'}
+        ],
+
+        templates: [
+                {title: 'Test template 1', content: 'Test 1'},
+                {title: 'Test template 2', content: 'Test 2'}
+        ],
+        convert_urls: false
+});</script>
+
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/massmail.php">{l_menu_mass_send}</a></li>
+        <li><a href="{url_main}administration/massmail_edit.php">{l_menu_mass_add}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+
+        <form action="{url_page}" method="POST">
+            <input type="hidden" name="cmd" value="update">
+
+            {config_fields}
+
+            <!-- begin_field -->
+            <label>{l_field}:</label>
+            <input type="text" name="{key}" value="{value}"/>
+            <!-- end_field -->
+            <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+                        <input type="submit" style="visibility:hidden;position:absolute;">
+            </div>
+        </form>
+
+        <div style="clear: both;"></div>
+
+		<p>{message_send}</p>
+        <form name="massmail" action="{url_page}" method="POST">
+		<input type="hidden" name="cmd" value="send">
+        <label>{l_subject}:</label>
+        <input name="subject" class="" value="{massmail_subject}">
+        <label>{l_text_mail}:</label>
+        <textarea name="text" id="mail_content" class="textarea_small">{massmail_text}</textarea>
+        <div style="margin: 0 0 15px; clear: both;"></div>
+        <label>{l_specific}:</label>
+        <input type="text" name="to" value="{to}">
+        <div class="bl_label">
+            <label class="fl_left" for="usrs" style="cursor: pointer;">{l_users}</label>
+            <div class="fl_right"><input class="check" type="checkbox" name="users" id="usrs" value="1"></div>
+            <div class="justify"></div>
+        </div>
+        <div class="bl_label">
+            <label class="fl_left" for = "other" style="cursor: pointer;">{l_other}</label>
+            <div class="fl_right"><input class="check" type="checkbox" name="other" id ="other" value="1"></div>
+            <div class="justify"></div>
+        </div>
+        <div class="bl_label">
+            <label class="fl_left" for = "partners" style="cursor: pointer;">{l_partners}</label>
+            <div class="fl_right"><input class="check" type="checkbox" name="partners" id ="partners" value="1"></div>
+            <div class="justify"></div>
+        </div>
+
+
+		<p><b>{l_send_to_these_languages_speakers}</b></p>
+		<!-- begin_language -->
+        <div class="bl_label">
+            <label class="fl_left" for="language_{language_value}" style="cursor: pointer;">{language_title}</label>
+            <div class="fl_right"><input class="check" type="checkbox" name="language[{language_value}]" id="language_{language_value}" value="1" {language_checked}></div>
+            <div class="justify"></div>
+        </div>
+		<!-- end_language -->
+
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_send}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        <div class="btn fl_right"><a href="#" onclick="document.forms.massmail.to.value='';document.forms.massmail.text.value='';">{l_reset}</a></div>
+        </form>
+
+        <!-- begin_massmail_items -->
+        <table class="tb">
+            <tr>
+                <th class="decor_l"></th>
+                <th>{l_action}</th>
+                <th>{l_subject}</th>
+                <th>{l_status}</th>
+                <th>{l_date}</th>
+                <th>{l_for}</th>
+                <th class="last">{l_language}</th>
+
+                <th class="decor_r"></th>
+            </tr>
+
+            <!-- begin_massmail_item -->
+            <tr class="{class}">
+                <td class="decor{decl}"></td>
+
+<td>
+                    <!-- begin_stop --><a onclick="if (confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?cmd=stop&id={id}">{l_stop}</a><!-- end_stop -->
+                    <!-- begin_start --><a onclick="if (confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?cmd=start&id={id}">{l_start}</a><!-- end_start -->
+                    |
+                    <a onclick="if (confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?cmd=delete&id={id}">{l_delete}</a></td>
+                <td><a href="{url_page}?cmd=view&id={id}">{subject}</a></td>
+                <td>{status}</td>
+                <td>{date}</td>
+                <td>{for}</td>
+                <td class="last">{languages}</td>
+                <td class="decor{decr}"></td>
+            </tr>
+            <!-- end_massmail_item -->
+
+
+        </table>
+        <!-- end_massmail_items -->
+
+
+        <!-- begin_massmail_pages -->
+        <div  style="position: relative; padding: 0px 0px; top: -14px; width: 100%; text-align: center; ">
+            {num_total} {l_count_users}
+            <br />
+            <!-- begin_massmail_prev_page --><a href="{url_page}?offset={offset}{params}" class="link">{l_prev}</a>&nbsp; | &nbsp;<!-- end_massmail_prev_page -->
+            <!-- begin_massmail_prev_page_off --><b>{l_prev}</b>&nbsp; | &nbsp;<!-- end_massmail_prev_page_off -->
+            <!-- begin_massmail_first_page --><a href="{url_page}?offset={offset}{params}" class="link">{l_page_1}</a>&nbsp;<!-- end_massmail_first_page -->
+            <!-- begin_massmail_prev_pages --><a href="{url_page}?offset={offset}{params}" class="link">&lt;&lt;</a>&nbsp;<!-- end_massmail_prev_pages -->
+            <!-- begin_massmail_page -->
+            <!-- begin_massmail_link_page --><a href="{url_page}?offset={offset}{params}" class="link">{page}</a>&nbsp;<!-- end_massmail_link_page -->
+            <!-- begin_massmail_this_page --><b>{page}</b><!-- end_massmail_this_page -->
+            <!-- end_massmail_page -->
+            <!-- begin_massmail_next_pages --><a href="{url_page}?offset={offset}{params}" class="link">&gt;&gt;</a>&nbsp;<!-- end_massmail_next_pages -->
+            <!-- begin_massmail_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}" class="link">{num_pages}</a>&nbsp;<!-- end_massmail_last_page -->
+            <!-- begin_massmail_next_page -->&nbsp; | &nbsp;<a href="{url_page}?offset={offset}{params}" class="link">{l_next}</a><!-- end_massmail_next_page -->
+            <!-- begin_massmail_next_page_off -->&nbsp; | &nbsp;<b>{l_next}</b><!-- end_massmail_next_page_off -->
+        </div>
+        <!-- end_massmail_pages -->
+
+    </div>
+
+    <div class="empty" style="clear: both;"></div>
+</div>
+{footer}

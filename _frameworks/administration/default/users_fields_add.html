@@ -1,0 +1,117 @@
+{header}
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+		<form action="{url_page}" method="POST">
+
+        <!-- begin_select_type -->
+        <label>{l_select_type}:</label>
+        <select name="type" class="input">
+            <option value="text">{l_text}</option>
+            <option value="textarea">{l_textarea}</option>
+            <option value="select">{l_selectbox}</option>
+            <option value="select_and_partner_checks">{l_select_and_partner_checks}</option>
+            <option value="select_and_partner_interval">{l_select_and_partner_interval}</option>
+            <!-- begin_select_type_item_urban -->
+            <option value="checkbox">{l_checkbox}</option>
+            <!-- end_select_type_item_urban -->
+        </select>
+        <!-- end_select_type -->
+
+        <!-- begin_finish -->
+        <p>{l_field_with_the_same_name_already_exists}</p>
+        <!-- end_finish -->
+
+        <!-- begin_error_empty_field_name -->
+        <p class="error">{l_error_empty_field_name}</p>
+        <!-- end_error_empty_field_name -->
+
+        <!-- begin_text -->
+        <input type="hidden" name="cmd" value="text">
+        <h3>{l_text}</h3>
+        <label>{l_name_of_field}:</label>
+        <input type="text" name="name">
+        <label>{l_maxlen_of_text_field}:</label>
+        <input type="text" name="maxlen">
+        <!-- begin_text_section_urban -->
+        <label>{l_group}:</label>
+        <select name="group" class="input">
+            <option value="0">{l_fields_section_0}</option>
+            <option value="1">{l_fields_section_1}</option>
+        </select>
+        <!-- end_text_section_urban -->
+        <!-- end_text -->
+
+        <!-- begin_textarea -->
+        <input type="hidden" name="cmd" value="textarea">
+        <h3>{l_textarea}</h3>
+        <label>{l_name_of_field}:</label>
+        <input type="text" name="name">
+        <label>{l_maxlen_of_textarea_field}:</label>
+        <input type="text" name="maxlen">
+        <!-- end_textarea -->
+
+        <!-- begin_checkbox -->
+        <input type="hidden" name="cmd" value="checkbox">
+        <h3>{l_checkbox}</h3>
+        <label>{l_name_of_field}:</label>
+        <input type="text" name="name">
+        <!-- end_checkbox -->
+
+        <!-- begin_select -->
+        <input type="hidden" name="cmd" value="select">
+        <h3>{l_select}</h3>
+        <label>{l_name_of_field}:</label>
+        <input type="text" name="name">
+        <label>{l_group}:</label>
+        <select name="group" class="input">
+            {options_select_group}
+        </select>
+        <!-- end_select -->
+
+        <!-- begin_select_and_partner_checks -->
+        <input type="hidden" name="cmd" value="select_and_partner_checks">
+        <h3>{l_select_and_partner_checks}</h3>
+        <label>{l_name_of_field}:</label>
+        <input type="text" name="name">
+        <label>{l_group}:</label>
+        <select name="group" class="input">
+            {options_select_group}
+        </select>
+        <!-- end_select_and_partner_checks -->
+
+        <!-- begin_select_and_partner_interval -->
+        <input type="hidden" name="cmd" value="select_and_partner_interval">
+        <h3>{l_select_and_partner_interval}</h3>
+        <label>{l_name_of_field}:</label>
+        <input type="text" name="name">
+        <label>{l_group}:</label>
+        <select name="group" class="input">
+            {options_select_group}
+        </select>
+        <!-- end_select_and_partner_interval -->
+
+        <script>
+
+            $(document).ready(function () {
+                $('input[name="name"]').attr({ maxLength : 60 });
+                //$('input[name="name"]').bind('keyup blur',function(){
+                    //var field = $(this);
+                    //field.val(field.val().replace(/[^_-a-zA-Z0-9\s]/g,''));
+                //});
+            });
+
+        </script>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_add}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+		</form>
+    </div>
+    <div class="empty"></div>
+</div>
+{footer}

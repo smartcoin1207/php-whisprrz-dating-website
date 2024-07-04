@@ -1,0 +1,37 @@
+{header}
+<script>
+    $(function(){
+        $('.frm_pay').submit(function(){
+            var isEmpty=true;
+            $(this).find('input[type="text"]').each(function(){
+                var inp=$(this),val=$.trim(inp.val());
+                if(val==''){
+                    alert('{l_field_is_required}');
+                    inp.focus();
+                    isEmpty=false;
+                    return false;
+                }else{inp.val(val)}
+            });
+            return isEmpty;
+        });
+    })
+</script>
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <form class="frm_pay" action="{url_page}?{params}" method="POST">
+    <div class="bl_form">
+        <input type="hidden" name="cmd" value="update">
+        <input type="hidden" name="id" value="{id}">
+        <input type="text" name="interest" value="{interest}"/>
+        <div class="btn fl_right" style="margin-right:8px;">
+            <a href="#" class="submit">{l_save}</a>
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+    </div>
+    </form>
+    <div class="empty"></div>
+</div>
+{footer}

@@ -1,0 +1,132 @@
+{header}
+
+
+    <div class="events_new">
+
+		{events_header}
+
+        <table class="tb_events_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    <div class="events_new_decor_l" style="padding:0 10px 15px 10px;">
+                        <div class="pl_top ">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+
+                              <td><h1 class="txt_upper_header_color">{l_events_upcoming_events}</h1></td>
+                              <td>
+                              <div class="main_pl">
+                                  <div class="cont">
+                                      <div class="pic">
+                                          <img src="{url_tmpl_main}images/events/ico_browse.png" width="34" height="34" alt=""/>
+                                      </div>
+                                      <ul class="list">
+                                          <li><a href="{url_main}events_event_list_upcoming.php">{l_events_browse_all}</a></li>
+                                      </ul>
+                                  </div>
+
+                                  <div class="bg grey">
+                                      <ul class="lists">
+                                          <li><a href="{url_main}events_my.php">{l_events_my_events}</a></li>
+                                      </ul>
+                                  </div>
+                              </div>
+
+                              </td>
+                            </tr>
+                          </table>
+
+                            </div>
+                            <!-- /bl_main_pl -->
+
+
+                              <div class="cl"></div>
+                              <!-- begin_event -->
+                              <div class="events_new_top_pl <!-- begin_event_last -->last_top_pl<!-- end_event_last -->">
+                                  <div class="events_new_img_pink">
+                                      <a href="{url_main}events_event_show.php?event_id={event_id}"><img src="{image_thumbnail}" width="160" height="120" alt="{event_title_full}"/></a>
+                                  </div>
+                                  <div class="events_new_img_txt">
+                                      <strong><a href="{url_main}events_event_show.php?event_id={event_id}">{event_title}</a></strong>
+                                      <span>{l_events_guests}: {event_n_guests} | {l_events_comments}: {event_n_comments}</span>
+                                      <span><a class="txt_upper_header_color" href="{url_main}events_search.php?event_place={event_place_full}" title="{event_place_full}">{event_place}</a> | <a class="txt_upper_header_color" href="{url_main}events_search.php?event_datetime={event_datetime_raw}">{event_date}</a> | {event_time}</span>
+                                  </div>
+                              </div>
+                              <!-- end_event -->
+
+                        </div>
+                    </div>
+
+                    <div class="events_new_shadow"></div>
+
+                    <div class="events_new_p">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+
+                              <td><h1 class="txt_lower_header_color">{l_events_most_anticipated_events}</h1></td>
+
+                              <td>
+                                <div class="main_pl">
+                                  <div class="cont darkgrey">
+                                      <div class="pic">
+                                          <img src="{url_tmpl_main}images/events/ico_browse.png" width="34" height="34" alt=""/>
+                                      </div>
+                                      <ul class="list">
+                                          <li><a href="{url_main}events_event_list_most_anticipated.php">{l_events_browse_all}</a></li>
+                                      </ul>
+                                  </div>
+
+                                  <div class="bg darkgrey"></div>
+                              </div>
+
+                              </td>
+                            </tr>
+                          </table>
+
+                            </div>
+
+                        <div class="cl"></div>
+
+                        {events_event_list}
+
+                    </div>
+
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+
+					{events_sidebar}
+
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div>
+		<div class="foot_right"></div>
+
+
+    
+    </div>
+
+
+
+
+<br>
+
+
+{footer}

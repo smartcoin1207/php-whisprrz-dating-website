@@ -1,0 +1,30 @@
+/* Rade 2023-09-22 */
+* {
+    -webkit-box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+    box-sizing: content-box !important;
+}
+.note-toolbar .btn{
+	width:auto;
+}
+.club_main .club_btn{
+	background: url(../images/btn.png) 0 0 no-repeat !important;
+    width: 174px;
+    min-height: 34px;
+    padding: 5px 7px 0 7px;
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.club_main .club_btn a:focus, .club_btn a:hover, .club_btn a:active {
+	background: url(../images/btn.png) 0 0 no-repeat !important;
+    width: 174px;
+    min-height: 34px;
+    padding: 5px 7px 0 7px;
+	color: #fff !important;
+    text-align: center;
+    font-weight: bold;
+}
+.club_main .form-control {
+	width:95%
+}

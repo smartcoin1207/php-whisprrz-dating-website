@@ -1,0 +1,66 @@
+<div class="hotdates_new_head">
+<script type="text/javascript">
+    function hotdates_header_search_on_submit()    {
+        query = $("#hotdates_header_search input[name='query']").val();
+        
+        if((query != '')&&(query != '{l_hotdates_default_search_query}')){
+            return true;
+        }
+
+        alert('{l_blogs_please_enter_what_you_search}');
+        
+        return false;
+    }
+</script>
+<!-- 
+    <table>
+        <tr>
+            <td class="td_l">&nbsp;</td>
+            <td class="td_c"> -->
+            <div class="hotdates_head_bl">
+              <div class="hotdates_new_head_txt txt_upper_header_color">
+                 <strong><a href="{url_main}hotdates.php" style="text-decoration:none">{l_hotdates_hotdates}</a></strong>
+                 <!-- begin_hotdate_header_location -->
+                 <span class="dot4">::</span> {l_you_are_in} <span title="{location_full}">{location}</span>
+                 <!-- end_hotdate_header_location -->
+		 </div>
+              <form action="{url_main}hotdates_hotdate_edit.php<!--begin_hotdate_date -->?date={hotdate_date}<!--end_hotdate_date -->" method="post">
+<!--                        <div> class="hotdates_input2 fl_right"> <input class="no_abk" type="submit" value="{l_hotdates_create_hotdate}"/></div> -->
+
+                    <a href="{url_main}hotdates_hotdate_edit.php<!--begin_hotdate_date -->?date={hotdate_date}<!--end_hotdate_date -->" class="btn round blue fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_hotdates_create_hotdate}&nbsp;<img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+
+               </form>
+             <form id="hotdates_header_search" autocomplete="off" action="{url_main}hotdates_search.php" method="get" onsubmit="return hotdates_header_search_on_submit();">
+<!-- 			<div class="hotdates_input4 fl_right" style="position:relative;left:-17px;"> <input class="no_abk"  type="submit" value="{l_hotdates_search}"/></div> -->
+                        <input style="margin: 0 15px 0 0;" class="btn round blue big fl_right" type="submit" value="{l_hotdates_search}" />
+
+			 <div class="hotdates_input_text1 fl_right"><input class="no_abk" type="text" name="query" /></div>
+				</form>
+            </div>
+<!--              </td>
+            <td class="td_r">&nbsp;</td>
+        </tr>
+    </table> -->
+
+    <div class="hotdates_new_menu_bg">
+        <ul class="hotdates_new_menu fl_left">
+            <!-- begin_categories_item --> <!-- begin_categories_item_active -->
+            <span class="txt_upper_header_color">{category_title}</span>
+            <!-- end_categories_item_active --><!-- begin_categories_item_not_active -->
+            <class="last"><a href="{url_main}hotdates_settings_change.php?category_id={category_id}">{category_title}</a>
+            <!-- end_categories_item_not_active --><!-- end_categories_item -->
+      </ul> 
+      <ul class="hotdates_new_menu fl_right"style=" padding-right: 70px; font-size: 18px; font-weight:500 ;"></a>
+            <a href="{url_main}hotdates_calendar.php">{l_hotdates_my_calendar}</a> 
+            <a href="{url_main}hotdates_hotdate_list_upcoming.php">{l_hotdates_upcoming_hotdates}</a>
+            <a href="{url_main}hotdates_my.php">{l_hotdates_my_hotdates}</a>
+            <a href="{url_main}main_calendar.php">{l_my_main_calendar}</a>           
+            <class="last">
+                      
+          
+            
+             
+        </ul>
+    <div class="justify"></div>
+    </div>
+</div>

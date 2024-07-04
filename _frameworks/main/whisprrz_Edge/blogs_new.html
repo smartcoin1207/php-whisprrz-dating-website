@@ -1,0 +1,47 @@
+{header}
+{blogs_header}
+
+
+<div class="blogs_new_p pl_top">
+    <h1 class="blue">{l_new_blog_posts}</h1>
+    <table class="blogs_new_tb_sub">
+        <col width="7px"/>
+        <col width="19px"/>
+		<col width="1px"/>
+        <col width="85px"/>
+		<col width="1px"/>
+        <col width="241px"/>
+		<col width="1px"/>
+        <tr>
+            <th class="th_t_l nb first">&nbsp;</th>
+            <th class="th_t_c">&nbsp;</th>
+            <th class="th_t_b">&nbsp;</th>
+			<th class="th_t_c"><span>{l_blog_blogger}</span></th>
+            <th class="th_t_b">&nbsp;</th>
+			<th class="th_t_c"><span>{l_blog_post}</span></th>
+            <th class="th_t_b">&nbsp;</th>
+			<th class="th_t_c nb"><span>{l_blog_posted_on}</span></th>
+            <th class="th_t_r nb first">&nbsp;</th>
+        </tr>
+        <!-- begin_post -->
+        <tr>
+            <td class="first" colspan="2"><a class="foto" href="{url_main}blogs_blog.php?id={post_user_id}"><img src="{post_user_photo}" width="28" height="29" alt=""/></a></td>
+            <td class="b">&nbsp;</td>
+			<td><span><a href="{url_main}search_results.php?display=profile&uid={post_user_id}">{post_user_name_short}</a></span></td>
+            <td class="b">&nbsp;</td>
+			<td><span><a class="lblue" href="{url_main}blogs_post.php?id={post_id}">{post_subject_medium}</a></span></td>
+            <td class="b">&nbsp;</td>
+			<td colspan="2" class="color nb"><span>{post_dt_readable3}</span></td>
+        </tr>
+        <!-- end_post -->
+        <tr>
+            <th class="th_b_l nb">&nbsp;</th>
+            <th colspan="7" class="th_b_c nb">&nbsp;</th>
+            <th class="th_b_r nb">&nbsp;</th>
+        </tr>
+    </table>
+</div>
+{blogs_side}
+<ul class="blogs_new_paging">{pager}</ul>
+{blogs_footer}
+{footer}

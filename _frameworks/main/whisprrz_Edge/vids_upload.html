@@ -1,0 +1,142 @@
+{header}
+{vids_header}
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/load-image.min.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/jquery.iframe-transport.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/jquery.fileupload.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/jquery.fileupload-process.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/jquery.fileupload-validate.js{cache_version_param}"></script>
+
+<script language="javascript" type="text/javascript">
+$(function () {
+    'use strict';
+    // Change this to the location of your server-side upload handler:
+    var url = '{url_main}ajax.php?type_upload=video&file={upload_name}',
+        uploadButton = $('<button/>').css('id', 'btn_upload')
+                       .on('click', function () {
+                            var $this = $(this), data = $this.data();
+                            data.submit();
+                       });
+                       
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        autoUpload: false,
+        acceptFileTypes: /(\.|\/)(3gp|avi|flv|3mkv|mov|mpeg|mpg|wmv|mp4)$/i,
+        maxChunkSize: {video_max_chunk_size},
+        maxFileSize: {video_file_size_limit},
+        messages: {
+                maxNumberOfFiles: '{l_maximum_number_files}',
+                acceptFileTypes: '{l_accept_file_types}',
+                maxFileSize: '{error_video_file_size_limit}',
+                minFileSize: '{l_min_file_size}'
+        }
+    }).on('fileuploadadd', function (e, data) {
+        $('#upload').text(data.files[0].name);
+        uploadButton.data(data);
+    }).on('fileuploadprocessalways', function (e, data) {
+        var error = data.files[0].error;
+        if (error) upload_error(error);
+    }).on('fileuploadprogress', function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $('#progress .progress-bar').css('width', progress + '%');
+    }).on('fileuploaddone', function (e, data) {
+        var error = data.result.files[0].error;
+        if (error) {
+            upload_error(error);
+        } else {
+            $('#info_blink').fadeIn(1000);
+            $.ajax({url: '{url_main}files_uploader.php',
+                    data: 'filevideo={upload_name}&ajax=1',
+                    success: function(data){
+                        if (data == 'ok') {
+                            $('#form_val').submit();
+                        } else {
+                            upload_error(data);
+                        }
+                    }
+            });
+        }
+    }).on('submit', function (e, data) {
+        $('#upload').text('').removeClass('text-overflow');
+        uploadButton.click();
+        return false;
+    });
+
+    $('#upload').click(function() {
+        $('#fileupload').click();
+    });
+});
+function upload_error(msg)
+{
+    $('#upload').text('');
+    $('#progress .progress-bar').css('width', '0px');
+    $('#info_blink').css('display', 'none');
+    hide_load_animation();
+    alert(msg);
+}
+function form_submit()
+{
+    if ($('#code').val() == '' && $('#upload').text() == '') {
+        alert('{l_please_entry_code_or_upload_file}');
+    } else {
+        if ($('#code').val() != '') {
+            $.post("{url_main}vids_code_valid_ajax.php", { code: $('#code').val() }, function(data) {
+                if (data == 'ok') {
+                    show_load_animation();
+                    $('#form_val').submit();
+                } else {
+                    alert('{l_please_entry_code_or_upload_file}');
+                }
+            });
+        } else {
+            show_load_animation();
+            $('#filevideo').val('{upload_name}');
+            $('#fileupload').submit();
+        }
+    }
+    return false;
+}
+
+</script>
+
+<div class="vids_new_p pl_top">
+    <h1>{l_upload}</h1>
+    <form id="form_val" name="form_val" action="{url_main}vids_upload.php" method="post" enctype="multipart/form-data">
+	<input id="filevideo" type="hidden" value="" name="filevideo">
+        <ul id="form_val_errors"></ul>
+        <table class="tb_vids_new_frm">
+            <tr>
+                <th>{l_file}:</th>
+                <td  class="vids_inp_file">
+                    <span class="fileinput-button" style="display: none;">
+                        <input id="fileupload" accept="video/*" type="file" name="files" multiple>
+                    </span>
+                    <div id="progress" style="width:360px;">
+                        <div class="progress-bar" style="max-width: 98%;"></div>
+                        <div class="vids_input_text2">
+                            <span class="text-overflow" id="upload"></span>
+                        </div>
+                    </div>
+                 </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="txt">{l_or}</td>
+            </tr>
+            <tr>
+                <th>{l_embed_code}:</th>
+                <td><div class="vids_input_text2"><input class="no_abk" id="code" name="code" type="text"/></div></td>
+            </tr>
+        </table>
+
+            <a href="" onclick="form_submit(); return false;" class="btn round upper_header_color fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_upload} <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+            <img  class="vishide" id="load_animation" src="{url_tmpl_main}images/load_animation.gif" style="position:relative;top:1px; float:right; margin: 0 5px 0 0; ">
+            <div id="info_blink" class="blink" style="float: right; margin-right: 5px; display: none;">{l_video_converting}</div>
+        </div>
+    </form>
+</div>
+<div class="vids_new_empty"></div>
+
+{vids_side}
+{vids_footer}
+{footer}

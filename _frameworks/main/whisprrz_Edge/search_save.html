@@ -1,0 +1,65 @@
+{header}
+<div class="frame_content">
+
+{search}
+<div class="cl"></div>
+    <h2  class="txt_lower_header_color" style="padding-top:10px; ">
+    <img src="{url_tmpl_main}img/kdvi.png" class="png_behavior" align="absmiddle" alt="">
+    {l_saved_searches}</h2>
+		<span >{l_save_your_search}</span>
+    <div class="advsearch">
+	<table width="100%" cellpadding="0" border="0">
+		<!-- begin_search_save -->
+		<tr>
+		<td width="495" class="list_view1_alt" style="height: 30px; padding-left: 16px;"><a href="{url_main}{search_url}?{query}" class="pri_text_bold"><b>{name}</b></a></td>
+		<td width="165" align="center" class="list_view1_alt"><span class="body_little"><a href="{url_main}{url_search}?{query}" class="body_little">{l_edit}</a> &nbsp;&nbsp; <b>&middot;</b> &nbsp;&nbsp; <a href="{url_main}search_save.php?cmd=delete&id={id}" class="body_little">{l_delete}</a></span></td>
+		</tr>
+		<!-- end_search_save -->
+	</table>
+
+    </div>
+    <!-- begin_tab_enabled -->
+    <!-- begin_quick_search_container -->
+    <h2  class="txt_lower_header_color" style="padding-top:30px; ">
+    <img src="{url_tmpl_main}img/kdvi.png" class="png_behavior" align="absmiddle" alt="">
+    {l_quick_search}</h2>
+	<span>{l_more_ways}</span>
+      <div class="advsearch" style="padding: 0 0 15px;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <!-- begin_quick_search -->
+                        <!-- begin_quick_search_whos_online_item -->
+              <!-- begin_online_tab_enabled -->  
+              <tr>
+                <td class="list_view1" style="height: 28px;"><span class="body_text"><a href="{url_main}users_online.php" class="pri_text_bold"><b>{l_whos_online}</b></a> - {l_whos_online_text}</span></td>
+              </tr>
+              <!-- end_online_tab_enabled -->
+                        <!-- end_quick_search_whos_online_item -->
+                        <!-- begin_quick_search_whos_new_item -->
+              <!-- begin_new_tab_enabled --> 
+              <tr>
+                <td class="list_view2" style="height: 28px;"><span class="body_text"><a href="{url_main}users_new.php" class="pri_text_bold"><b>{l_whos_new}</b></a> - {l_whos_new_text}</span></td>
+              </tr>
+              <!-- end_new_tab_enabled -->
+                        <!-- end_quick_search_whos_new_item -->
+                        <!-- begin_quick_search_birthdays_item -->
+              <!-- begin_birthdays_tab_enabled --> 
+              <tr>
+                <td class="list_view1" style="height: 28px;"><span class="body_text"><a href="{url_main}users_birthdays.php" class="pri_text_bold"><b>{l_birthdays}</b></a> - {l_birthdays_text}</span></td>
+              </tr>
+              <!-- end_birthdays_tab_enabled -->
+                        <!-- end_quick_search_birthdays_item -->
+                        <!-- begin_quick_search_menu_users_featured_item -->
+              <!-- begin_matching_tab_enabled -->
+              <tr>
+                <td class="list_view2" style="height: 28px;"><span class="body_text"><a href="{url_main}users_featured.php" class="pri_text_bold"><b>{l_featured}</b></a> - {l_featured_text}</span></td>
+              </tr>
+              <!-- end_matching_tab_enabled -->
+                        <!-- end_quick_search_menu_users_featured_item -->
+          <!-- end_quick_search -->
+        </table>
+      </div>
+    <!-- end_quick_search_container -->
+    <!-- end_tab_enabled -->
+</div>
+
+{footer}

@@ -1,0 +1,237 @@
+<div id="ls_comment_{comment_id}" data-cid="{comment_id}" data-send="{comment_send}" class="ls_comment_item item {comment_custom_class}">
+    <div class="comment_item_wrapper">
+        <div class="photo">
+            <a data-photo="{comment_user_photo}" data-user-group-owner="{comment_user_group_owner}" data-uid="{comment_user_id}" title="{comment_user_name}" href="{comment_user_url}" class="pic profile_photo_r_{comment_user_id} to_hide <!-- begin_data_my_photo --><!-- end_data_my_photo -->" style="background-image:url({url_files}{comment_user_photo});"></a>
+            <script>onLoadImgFromList($('.profile_photo_r_{comment_user_id}.to_hide'), '{url_files}{comment_user_photo}');</script>
+        </div>
+        <div class="comment_container">
+            <div class="comment_text">
+                <div class="comment_text_cont">
+					<!-- begin_comment_audio -->
+					<span class="im_audio_message">
+						<span id="ls_comment_audio_{comment_id}" class="im_audio_message_loader" data-audio-message-file="{comment_audio_file}" >
+							<i class="fa fa-play" aria-hidden="true"></i>
+						</span>
+						<span class="im_audio_message_process"></span>
+						<span class="im_audio_message_process_play"></span>
+					</span>
+					<div class="cl"></div>
+					<!-- end_comment_audio -->
+					{comment_text}
+				</div>
+                <ul class="list comment_action_list">
+                    <li>
+                        <span id="ls_comment_like_link_{comment_id}" class="comment_item" data-cid="{comment_id}" data-like="{comment_like}" data-no-fade-in="true" data-cl-loader="loader_like_comments" onclick="clStream.like($(this));">
+                            <span title="{comment_like_title_alt}" class="comment_item_title">{comment_like_title}</span>
+                        </span>
+                    </li>
+                    <li>
+                        <a href="#" data-cid="{comment_id}" onclick="clStream.showFrmReply(this); return false;" >{l_reply_comment}</a>
+                    </li>
+                    <li id="ls_comment_likes_bl_{comment_id}" class="comment_likes_bl <!-- begin_comment_likes_hide -->to_hide<!-- end_comment_likes_hide -->">
+                        <span class="comment_item" data-cid="{comment_id}"  onclick="redirectLikePage('{comment_url_page_liked}', event)" title="{comment_count_like_users}" >
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+							<span id="ls_comment_likes_count_{comment_id}" class="comment_likes_count">{comment_count_like}</span>
+                        </span>
+                    </li>
+                    <li class="comment_data hidden-xs hide_mobile" data-photo-date="{comment_time_full}">{comment_date}</li>
+                    <li class="comm_to_comm_delete">
+                        <!-- begin_comment_delete -->
+                        <div class="comm_tick">
+                            <span id="ls_comm_delete_{comment_id}" data-no-fade-in="true" data-cl-loader="loader_delete_comment" class="stick_delete">
+                                <span class="icon_chevron_down" data-toggle="collapse" data-target="#ls_comm_delete_ul_{comment_id}"></span>
+                            </span>
+                            <ul id="ls_comm_delete_ul_{comment_id}" class="more_menu_collapse more_menu_right collapse" >
+                                <!-- begin_comment_delete_report -->
+								<li>
+                                    <a onclick="clProfile.openReport('{comment_user_id}', '{report_content_item_id}', $(this), '', '{comment_id}{report_content_postfix}', 'gallery'); return false;" href="#">
+                                        <span class="icon_fa"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                                        <span>{l_report}</span>
+                                    </a>
+                                </li>
+								<!-- end_comment_delete_report -->
+                                <!-- begin_comment_delete_link -->
+								<li>
+                                    <a onclick="clStream.confirmDeleteComment($(this),'{comment_id}'); return false;" href="#">
+                                        <span class="icon_fa"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                        <span>{l_delete}</span>
+                                    </a>
+                                </li>
+								<!-- end_comment_delete_link -->
+                            </ul>
+                        </div>
+                        <!-- end_comment_delete -->
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div id="ls_comments_replies_load_{comment_id}" class="comments_reply_load <!-- begin_comments_reply_list_load -->to_show<!-- end_comments_reply_list_load -->">
+                <div class="comm_to_comm_text">
+                    <a href="" data-no-fade-in="true" data-cl-children="no" data-cl-loader="loader_more_comments_replies" class="comments_replies_load_link no_transparent" onclick="clStream.commentsRepliesLoadMore($(this), '{comment_id}'); return false;">
+                        <!--<span data-no-fade-in="true" data-cl-loader="icon_wall_loader" class="glyphicon glyphicon-comment icon"></span>-->
+                        <i data-no-fade-in="true" data-cl-loader="icon_wall_loader" class="fa fa-comment-o icon" aria-hidden="true"></i>
+                        <span class="comments_replies_load_title">{comments_reply_list_load_title}</span>
+                    </a>
+                    <div class="comm_to_comm_text_number <!-- begin_comments_reply_list_load_number -->to_show<!-- end_comments_reply_list_load_number -->">
+                        {comments_reply_list_load_number}
+                    </div>
+                </div>
+            </div>
+
+            <div id="ls_comments_replies_list_{comment_id}" class="comments_replies_list">
+                <!-- begin_comments_reply_list -->
+                <!-- begin_comments_reply_item -->
+                <div id="ls_comments_replies_item_{comments_reply_item_id}" data-cid="{comments_reply_item_parent_id}" data-send="{comments_reply_item_send}" data-rcid="{comments_reply_item_id}" class="comment_to_comment_container comments_replies_item {comments_reply_item_custom_class}">
+                    <div class="comment_item_wrapper">
+                        <div class="photo">
+                            <a data-photo="{comments_reply_item_user_photo}" data-user-group-owner="{comments_reply_item_user_group_owner}" data-uid="{comments_reply_item_user_id}" title="{comments_reply_item_user_name}" href="{comments_reply_item_user_url}" class="pic to_hide profile_photo_r_{comments_reply_item_user_id}" style="background-image:url({url_files}{comments_reply_item_user_photo});"></a>
+                            <script>onLoadImgFromList($('.profile_photo_r_{comments_reply_item_user_id}.to_hide'), '{url_files}{comments_reply_item_user_photo}');</script>
+                        </div>
+                        <div class="comment_container">
+                            <div class="comment_text">
+                                <div class="comment_text_reply_one">
+									<!-- begin_comments_reply_item_audio -->
+									<span class="im_audio_message">
+										<span id="ls_comments_replies_{comments_reply_item_id}" class="im_audio_message_loader" data-audio-message-file="{comments_reply_item_audio_file}" >
+											<i class="fa fa-play" aria-hidden="true"></i>
+										</span>
+										<span class="im_audio_message_process"></span>
+										<span class="im_audio_message_process_play"></span>
+									</span>
+									<div class="cl"></div>
+									<!-- end_comments_reply_item_audio -->
+									{comments_reply_item_text}
+								</div>
+                                <ul class="list comment_action_list">
+                                    <li>
+                                        <span id="ls_comment_reply_like_link_{comments_reply_item_id}" class="comment_item" data-rcid="{comments_reply_item_id}" data-like="{comments_reply_item_like}" data-no-fade-in1="true" data-cl-loader="loader_like_comments"  onclick="clStream.like($(this));">
+                                            <span title="{comments_reply_item_like_title}"  class="comment_item_title">{comments_reply_item_like_title}</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="comment_item" data-cid="{comments_reply_item_parent_id}" onclick="clStream.showFrmReply(this);">
+                                            {l_reply_comment}
+                                        </span>
+                                    </li>
+                                    <li id="ls_comment_reply_likes_bl_{comments_reply_item_id}" class="comment_likes_bl <!-- begin_comments_reply_item_likes_hide -->to_hide<!-- end_comments_reply_item_likes_hide -->"> <!-- hidden-xs -->
+                                        <span class="comment_item" data-rcid="{comments_reply_item_id}" title="{comments_reply_item_count_like_users}" onclick="redirectLikePage('{comments_reply_item_url_page_liked}',event)">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                            <span id="ls_comment_likes_count_{comments_reply_item_id}" class="comment_likes_count">{comments_reply_item_count_like}</span>
+                                        </span>
+                                    </li>
+                                    <li class="comment_reply_data hidden-xs hide_mobile" data-photo-date="{comments_reply_item_time_full}">{comments_reply_item_date}</li>
+                                    <!-- begin_comments_reply_item_delete -->
+                                    <li class="comm_to_comm_delete">
+                                        <span id="ls_comm_delete_{comments_reply_item_id}"  data-no-fade-in="true" data-cl-loader="loader_delete_comment_reply" class="stick_delete">
+                                            <span class="icon_chevron_down" data-toggle="collapse" data-target="#ls_comm_delete_ul_{comments_reply_item_id}">
+                                                <svg viewBox="0 0 48 48">
+                                                    <path d="M14.83 16.42l9.17 9.17 9.17-9.17 2.83 2.83-12 12-12-12z"/>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <ul id="ls_comm_delete_ul_{comments_reply_item_id}" class="more_menu_collapse more_menu_right collapse" >
+											<!-- begin_comments_reply_item_delete_report -->
+											<li>
+												<a onclick="clProfile.openReport('{comments_reply_item_user_id}', '{report_content_item_id}', $(this), '', '{comments_reply_item_id}{report_content_postfix}', 'gallery'); return false;" href="#">
+													<span class="icon_fa"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+													<span>{l_report}</span>
+												</a>
+											</li>
+											<!-- end_comments_reply_item_delete_report -->
+											<!-- begin_comments_reply_item_delete_link -->
+                                            <li>
+                                                <a onclick="clStream.confirmDeleteComment($(this),'{comments_reply_item_parent_id}','{comments_reply_item_id}'); return false;" href="">
+                                                    <span class="icon_fa"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                                    <span>{l_delete}</span>
+                                                </a>
+                                            </li>
+											<!-- end_comments_reply_item_delete_link -->
+                                        </ul>
+                                    </li>
+                                    <!-- end_comments_reply_item_delete -->
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <script>
+                            clStream.commentsReplyCacheAdd('{comments_reply_item_live_id}', '{comments_reply_item_parent_id}', '{comments_reply_item_id}', '{comments_reply_list_comments_number}');
+                        </script>
+                    </div>
+                </div>
+                <!-- end_comments_reply_item -->
+                <!-- end_comments_reply_list -->
+            </div>
+
+            <script>
+                clStream.commentsCacheAdd('{comment_ls_id}', '{comment_id}');
+                clStream.itemInfoSet('{comment_ls_id}', '{comment_ls_last_action_like}', '{comment_ls_last_action_comment}', '{comment_ls_comments_count}');
+            </script>
+            <div id="ls_comment_replies_{comment_id}" class="comments_replies_post">
+                <div class="photo">
+                    <a title="{comment_current_user_name}"  href="{comment_current_user_url}" class="pic profile_photo_r_{comment_current_user_id} to_hide" style="background-image:url({url_files}{comment_current_user_photo});"></a>
+                    <script>onLoadImgFromList($('.profile_photo_r_{comment_current_user_id}.to_hide'), '{url_files}{comment_current_user_photo}');</script>
+                </div>
+                <div class="comment_container comment_container_textarea">
+                    <div id="ls_comment_replies_input_{comment_id}" data-cid="{comment_id}" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_your_comment}" class="form-control textarea"></div>
+
+					<div class="comment_action">
+						<div id="ls_comment_replies_sticker_{comment_id}" title="{a_stickers}" data-input="#ls_comment_replies_input_{comment_id}" onclick="stickerBlockShowWall(this)" class="comment_sticker_btn"></div>
+
+						<div id="ls_comment_replies_smile_{comment_id}" title="{a_smilies}" data-input="#ls_comment_replies_input_{comment_id}" onclick="smileBlockShowWall(this)" class="wall_comment_smile_btn">
+							<i class="fa fa-smile-o" aria-hidden="true"></i>
+						</div>
+
+						<!-- begin_comment_reply_audio -->
+						<div class="im_audio_message_recorder">
+							<span class="audio_visualizer"></span>
+							<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl" title="{a_record_audio_message}" onclick="runAudioRecorder('#ls_comment_replies_{comment_id}');">
+								<i class="fa fa-microphone" aria-hidden="true"></i>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+						<!-- end_comment_reply_audio -->
+
+						<div id="ls_comment_replies_upload_img_{comment_id}" class="comment_upload_img disabled">
+							<div id="ls_comment_replies_upload_img_{comment_id}_loader" class="comment_upload_img_loader"></div>
+
+							<button id="ls_comment_replies_upload_img_{comment_id}_edit" onclick="openEditorCommentUploadImage('ls_comment_replies_upload_img_{comment_id}'); return false;" title="{a_edit_image}" class="btn btn-success comment_upload_img_editor">
+								<span class="btn_wrap">
+									<span class="icon_fa"  data-no-fade-in="true">
+										<svg height="24" width="24" viewBox="0 0 24 24">
+											<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+										</svg>
+									</span>
+								</span>
+							</button>
+							<script>initCommentUploadImageEditor($('#ls_comment_replies_upload_img_{comment_id}_edit'));</script>
+
+							<i class="fa fa-camera" onclick="clearCommentUploadImage('ls_comment_replies_upload_img_{comment_id}', true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+							<span class="count_upload_image">
+								<i class="fa fa-check" aria-hidden="true"></i>
+								<i class="fa fa-times" aria-hidden="true"></i>
+							</span>
+
+							<form id="ls_comment_replies_upload_img_{comment_id}_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+								<input class="comment_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="ls_upload_img_comment_{comment_id}" onclick="clickCommentUploadImage($(this));" onChange="changeCommentUploadImage($(this));"/>
+								<input class="inp_hide" type="reset" value=""/>
+								<input class="inp_hide" type="submit" value=""/>
+							</form>
+							<script>initCommentUploadImage('ls_comment_replies_upload_img_{comment_id}');</script>
+						</div>
+						<button class="wall_post_send">
+							<svg viewBox="0 0 24 24">
+								<path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+							</svg>
+						</button>
+					</div>
+					<script>clStream.initFeedCommentReplies('{comment_id}');</script>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

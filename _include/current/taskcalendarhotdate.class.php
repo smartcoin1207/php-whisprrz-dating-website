@@ -484,7 +484,7 @@ Class TaskCalendarHotdate {
         return $n;
     }
 
-    static function parseHotdatesDay(&$html, $day_time, $uid = null)
+    static function parseHotdatesDay(&$html, $day_time, $uid = null, $hotdate_id = '')
     {
         global $p;
         global $g;
@@ -578,6 +578,11 @@ Class TaskCalendarHotdate {
 
             $limit = $n_results_per_page;
             $shift = ($page - 1) * $n_results_per_page;
+
+            if($hotdate_id) {
+                $limit = 0;
+                $shift = 0;
+            }
 
             $hotdates = ChotdatesTools::retrieve_from_sql_base($sql_base, $limit, $shift);
 

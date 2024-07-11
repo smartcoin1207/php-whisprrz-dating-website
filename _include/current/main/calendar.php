@@ -26,6 +26,7 @@ class CMainCalendar extends CHtmlBlock
         $isCalendarSocial = Common::isOptionActiveTemplate('event_social_enabled');
         $day_time = intval(get_param('day_time'));
         $eventDayLoadMore = get_param('event_day_load_more');
+        $guest_sign_action = get_param('guest_sign_action', '');
 
         $orientation_see_sql = " 1=1 ";
         if($g_user['orientation'] == '1') {
@@ -116,7 +117,23 @@ class CMainCalendar extends CHtmlBlock
             $html->setvar('page_url', Common::pageUrl('user_calendar', $uid));
         }
 
-        if ($day_time){
+        if($guest_sign_action == '1') {
+            $guest_sign_day = get_param('guest_sign_day', '');
+
+            $event_id = intval(get_param('event_id', ''));
+            $hotdate_id = intval(get_param('hotdate_id', ''));
+            $partyhou_id = intval(get_param('partyhou_id', ''));
+
+            if($event_id) {
+                $event_id = $event_id;
+            } elseif($hotdate_id) {
+                $event_id = $hotdate_id;
+            } elseif($partyhou_id) {
+                $event_id = $partyhou_id;
+            }
+
+            TaskCalendarMain::parseMainDay($html, strtotime($guest_sign_day), $uid, $canPost, $event_id);
+        } elseif ($day_time){
             TaskCalendarMain::parseMainDay($html, $day_time, $uid, $canPost);
         } elseif ($eventDayLoadMore){
             TaskCalendarMain::parseMainDay($html, strtotime($eventDayLoadMore), $uid, $canPost);
@@ -173,6 +190,23 @@ class CMainCalendar extends CHtmlBlock
         if ($isCalendarSocial) {
             if ($eventDayLoadMore) {
                 $html->parse('add_events', false);
+            }  elseif($guest_sign_action == '1') {
+                $event_id = intval(get_param('event_id', ''));
+                $hotdate_id = intval(get_param('hotdate_id', ''));
+                $partyhou_id = intval(get_param('partyhou_id', ''));
+                if($event_id) {
+                    $maincalendar_type = 'event';
+                    $html->setvar('event_id', $event_id);
+                } elseif($hotdate_id) {
+                    $maincalendar_type = 'hotdate';
+                    $html->setvar('event_id', $hotdate_id);
+                } elseif($partyhou_id) {
+                    $maincalendar_type = 'partyhou';
+                    $html->setvar('event_id', $partyhou_id);
+                }
+
+                $html->setvar('maincalendar_type', $maincalendar_type);
+                $html->parse('update_events', false);
             } else {
                 $html->parse('set_events', false);
             }

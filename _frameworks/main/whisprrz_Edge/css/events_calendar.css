@@ -22,7 +22,6 @@
   font-size: 33px;
 }
 
-
 @media screen and (max-width: 767px) /*480px*/ {
   .events_calendar .header {
     margin: 0 !important;

@@ -30,6 +30,12 @@
         clCalendar.setHotdates(hotdatesItems);
     }
     <!-- end_set_hotdates -->
+
+    <!-- begin_update_hotdates -->
+    if(typeof clCalendar=='object'){
+        clCalendar.updateHotdates(hotdatesItems, '{hotdate_id}');
+    }
+    <!-- end_update_hotdates -->
     
     <!-- begin_add_hotdates -->
     if(typeof clCalendar=='object'){

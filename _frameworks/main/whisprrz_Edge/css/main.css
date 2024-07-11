@@ -1294,7 +1294,7 @@ div.status_home_page { top: 126px; width:126px;font-size:9px;}
 .head_network{ background: #f4f4f4; border-radius: 5px 5px 0 0; padding: 0 9px; margin: -15px -15px 0 -15px; height: 30px; line-height: 30px; font-size: 11px; }
 .graph-frame{ border-radius: 0 0 6px 6px; }
 
-ul.profile_menu{ margin: 0 0 5px; padding: 0; float: left; clear: both; }
+ul.profile_menu{ margin: 0 0 5px; padding: 0; float: left; clear: both; font-size: 12px;}
 ul.profile_menu li{ margin: 0 5px 10px 0; padding: 0; float: left; font-weight: bold; }
 ul.profile_menu li:last-child{ margin: 0 0 5px; }
 

@@ -88,13 +88,16 @@
 	<div id="photo_info" style="cursor:hand; margin-left: 7px; width: 90px; position: relative;" class="users_li">
 		<i title="{a_send_message}" onclick="sendMessages('{user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
 
-		<a href="{url_main}{url_page}?display=profile&uid={user_id}{params_item}" style="position: relative; text-decoration: none;">
+		<a href="{url_main}{url_page}?display=profile&uid={user_id}{params_item}" style="position: relative; text-decoration: none; display: block;">
 			<img class="lazy_user img_border" data-original="{url_files}{photo}" style="display: block; margin-bottom:3px; " src="{url_files}{photo}" onmousemove="show_face_jq('usr0{members_num_1}', event)"
 			onmouseout="hide_face_jq('usr0{members_num_1}')">
 
-			<div class="profile_image_gender" style="left: auto;"> 
-				<img src="{members_gender_image}" class="gender_icon" alt="gender" style="width: 12px; height: 12px; margin:auto;" />
-				<span class="profile_image_mile" style="margin: auto; margin-left: 5px;">{members_distance} mi</span>
+			<div class="profile_gender_mile_text">
+				<span class="stroked_text" style="font-size: 12px;">{members_distance}mi</span>
+			</div>
+			<div class="profile_gender_image_container_gallery">
+				<img src="{members_gender_image}" class="gender_icon" style="width: 10px; height: 12px; margin: 0px; margin-right: 2px;" alt="gender" />
+				<span class="stroked_text_small" style="font-size: 10px;">{members_gender_text}</span>
 			</div>
 			
 			<noscript><img src="{url_files}{photo}" alt="{name}" class="img_border"></noscript>

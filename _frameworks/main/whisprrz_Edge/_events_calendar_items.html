@@ -10,11 +10,12 @@ clEventsCalendar.setData({
 var eventsItems=[
     <!-- begin_day -->
         <!-- begin_event -->
-        {id:'{event_id}',
+        {id:'{event_id}_{ehp_type}',
          eventName: clEventsCalendar.getHtmlEventItem('{event_id}', '{event_done}', '{event_user_name_js}', '{event_user_url}', '{event_user_photo}', '{event_user_is_online}', '{event_title_js}', '{event_description_js}', '{event_time}', 0, 0, '{event_user_uid}', '{event_user_to_uid}', '{event_edit_url}', '{event_show_url}', '{event_image}', '{event_category}', '{event_additional_data}'),
          date:'{event_datetime_day}',
+         type: '{ehp_type}',
          calendar: 'Work', color: '<!-- begin_my_event_class -->my_event_color<!-- end_my_event_class --><!-- begin_other_event_class -->other_event_color<!-- end_other_event_class -->'},
-        <!-- end_event -->
+         <!-- end_event -->
 
         <!-- begin_day_action -->
         {id:0,
@@ -30,6 +31,12 @@ if(typeof clCalendar=='object'){
     clCalendar.setEvents(eventsItems);
 }
 <!-- end_set_events -->
+
+<!-- begin_update_events -->
+if(typeof clCalendar=='object'){
+    clCalendar.updateEvents(eventsItems, '{event_id}', '{maincalendar_type}');
+}
+<!-- end_update_events -->
 
 <!-- begin_add_events -->
 if(typeof clCalendar=='object'){

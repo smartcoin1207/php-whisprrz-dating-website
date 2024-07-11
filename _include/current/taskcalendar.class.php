@@ -427,7 +427,7 @@ Class TaskCalendar {
             'is_own' => $is_own,
             'is_finished' => CEventsTools::is_event_finished($event),
             'signin_available' => $signin_available,
-            'type' => 'event'
+            'type' => 'Event'
         );
         $html->setvar('event_additional_data', json_encode($event_additional_data));
         /** popcorn modified 2024-05-23 end*/
@@ -446,7 +446,7 @@ Class TaskCalendar {
         return $numberEvent;
     }
 
-    static function parseEventsDay(&$html, $day_time, $uid = null)
+    static function parseEventsDay(&$html, $day_time, $uid = null, $event_id = '')
     {
         global $p;
         global $g;
@@ -535,6 +535,11 @@ Class TaskCalendar {
             $limit = $n_results_per_page;
             $shift = ($page - 1) * $n_results_per_page;
 
+            if($event_id) {
+                $shift = 0;
+                $limit = 0;
+            }
+            
             $events = CEventsTools::retrieve_from_sql_base($sql_base, $limit, $shift);
 
             if (Common::isOptionActiveTemplate('event_social_enabled')) {
@@ -579,16 +584,9 @@ Class TaskCalendar {
                 DB::execute($sqlUpdateDone);
             }
 
-            // foreach ($guest_events as $key => $guest_event) {
-            //     array_push($events, $guest_event);
-            // }
-
-
             foreach($events as $event) {
                 self::parseEvent($html, $event, $n_results);
             }
-
-             
 
             if($n_pages > 1){
                 if($page > 1) {
@@ -608,7 +606,6 @@ Class TaskCalendar {
                 $html->parse('pager');
             }
         } else {
-            //$html->clean('event');
         }
 
         if ($n_results > $n_results_per_page) {

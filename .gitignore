@@ -81,6 +81,13 @@ _frameworks/main/whisprrz_Edge/quill/
 !_server/wall_urban.js
 !_server/wall.js
 
+!/_server/js
+/_server/js/*
+!_server/js/moment_init.js
+!_server/js/moment_hotdates_init.js
+!_server/js/moment_partyhouz_init.js
+
+
 /_pay/pagseguro/
 /_pay/stripe/stripe-php-7.57.0/
 

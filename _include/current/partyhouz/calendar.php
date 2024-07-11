@@ -21,6 +21,8 @@ class CPartyhouzCalendar extends CHtmlBlock
         $isCalendarSocial = Common::isOptionActiveTemplate('partyhou_social_enabled');
         $day_time = intval(get_param('day_time'));
         $partyhouDayLoadMore = get_param('partyhou_day_load_more');
+        $guest_sign_action = get_param('guest_sign_action', '');
+
 
         $guid = guid();
         $uid = User::getParamUid($guid);
@@ -33,7 +35,10 @@ class CPartyhouzCalendar extends CHtmlBlock
             $html->setvar('page_url', Common::pageUrl('user_partyhou_calendar', $uid));
         }
 
-        if ($day_time){
+        if($guest_sign_action == '1') {
+            $guest_sign_day = get_param('guest_sign_day', '');
+            TaskCalendarPartyhou::parsePartyhouzDay($html, strtotime($guest_sign_day), $uid);
+        } elseif ($day_time){
             TaskCalendarPartyhou::parsePartyhouzDay($html, $day_time, $uid);
         } elseif ($partyhouDayLoadMore){
             TaskCalendarPartyhou::parsePartyhouzDay($html, strtotime($partyhouDayLoadMore), $uid);
@@ -90,6 +95,10 @@ class CPartyhouzCalendar extends CHtmlBlock
         if ($isCalendarSocial) {
             if ($partyhouDayLoadMore) {
                 $html->parse('add_partyhouz', false);
+            } elseif($guest_sign_action == '1') {
+                $partyhou_id = intval(get_param('partyhou_id'));
+                $html->setvar('partyhou_id', $partyhou_id);
+                $html->parse('update_partyhouz', false);
             } else {
                 $html->parse('set_partyhouz', false);
             }

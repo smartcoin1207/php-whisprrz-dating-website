@@ -152,7 +152,7 @@
 
                             <i title="{a_send_message}" onclick="sendMessages('{user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
 
-                            <a href="{url_page}?display=profile&uid={user_id}{params_item}" style="text-decoration: none;">
+                            <a href="{url_page}?display=profile&uid={user_id}{params_item}" style="text-decoration: none; position: relative;">
                                 <!-- begin_user_status -->
                                 <div class="list_status status{status_style}" style="z-index:1;">{status}</div>
                                 <!-- end_user_status -->
@@ -160,9 +160,12 @@
                                     <img class="lazy_user" style="display: block; margin-bottom:0px; " data-original="{url_files}{photo}" src="{url_files}{photo}" onmousemove="show_face_jq('usr0{members_num_1}', event)"
                                     onmouseout="hide_face_jq('usr0{members_num_1}')">
                                     
-                                    <div class="profile_image_gender" style="left: auto;"> 
-                                        <img src="{members_gender_image}" style="width: 12px; height: 12px; margin: 0px;" class="gender_icon" alt="gender" />
-                                        <p class="profile_image_mile" style="margin: auto; margin-left: 5px;">{members_distance} mi</p>
+                                    <div class="profile_gender_mile_text">
+                                        <div class="stroked_text" style="font-size: 12px;">{members_distance}mi</div>
+                                    </div>
+                                    <div class="profile_gender_image_container_info">
+                                        <img src="{members_gender_image}" class="gender_icon" style="width: 10px; height: 12px; margin: 0; margin-right: 2px;" alt="gender" />
+                                        <div class="stroked_text_small" style="font-size: 10px;">{members_gender_text}</div>
                                     </div>
                                     
                                     <noscript><img src="{url_files}{photo}" alt="{name}"></noscript>

@@ -26,14 +26,6 @@ class Image
             return false;
         }
 
-
-// Error when validate files by URL
-//        $size = filesize ($path);
-//
-//        if ($size == 0) {
-//            return false;
-//        }
-
         $img_sz = @getimagesize($path);
 
         if (!is_array($img_sz)) {

@@ -493,7 +493,7 @@ Class TaskCalendarPartyhou {
         return $n;
     }
 
-    static function parsePartyhouzDay(&$html, $day_time, $uid = null)
+    static function parsePartyhouzDay(&$html, $day_time, $uid = null, $partyhou_id = '')
     {
         global $p;
         global $g;
@@ -587,6 +587,11 @@ Class TaskCalendarPartyhou {
 
             $limit = $n_results_per_page;
             $shift = ($page - 1) * $n_results_per_page;
+
+            if($partyhou_id) {
+                $limit = 0;
+                $shift = 0;
+            }
 
             $partyhouz = CpartyhouzTools::retrieve_from_sql_base($sql_base, $limit, $shift);
             if (Common::isOptionActiveTemplate('partyhou_social_enabled')) {

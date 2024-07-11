@@ -21,6 +21,7 @@ class CHotdatesCalendar extends CHtmlBlock
         $isCalendarSocial = Common::isOptionActiveTemplate('hotdate_social_enabled');
         $day_time = intval(get_param('day_time'));
         $hotdateDayLoadMore = get_param('hotdate_day_load_more');
+        $guest_sign_action = get_param('guest_sign_action', '');
 
         $guid = guid();
         $uid = User::getParamUid($guid);
@@ -33,7 +34,11 @@ class CHotdatesCalendar extends CHtmlBlock
             $html->setvar('page_url', Common::pageUrl('user_hotdate_calendar', $uid));
         }
 
-        if ($day_time){
+        if($guest_sign_action == '1') {
+            $guest_sign_day = get_param('guest_sign_day', '');
+            $hotdate_id = intval(get_param('hotdate_id'));
+            TaskCalendarHotdate::parseHotdatesDay($html, strtotime($guest_sign_day), $uid, $hotdate_id);
+        } elseif ($day_time){
             TaskCalendarHotdate::parseHotdatesDay($html, $day_time, $uid);
         } elseif ($hotdateDayLoadMore){
             TaskCalendarHotdate::parseHotdatesDay($html, strtotime($hotdateDayLoadMore), $uid);
@@ -90,6 +95,10 @@ class CHotdatesCalendar extends CHtmlBlock
         if ($isCalendarSocial) {
             if ($hotdateDayLoadMore) {
                 $html->parse('add_hotdates', false);
+            } elseif($guest_sign_action == '1') {
+                $hotdate_id = intval(get_param('hotdate_id'));
+                $html->setvar('hotdate_id', $hotdate_id);
+                $html->parse('update_hotdates', false);
             } else {
                 $html->parse('set_hotdates', false);
             }

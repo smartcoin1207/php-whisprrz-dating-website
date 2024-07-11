@@ -80,7 +80,6 @@ class CProfilePhoto extends CHtmlBlock
     {
         global $p;
         $photo_cmd = get_param('photo_cmd', '');
-
         $ehp_type = TemplateEdge::getEHPType();
 
         if ($ehp_type == 'event') {

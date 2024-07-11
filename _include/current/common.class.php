@@ -6419,8 +6419,9 @@ JS;
         $long1 = abs($long1)> 1000 ? floatval($long1)/$MULTIPLE : $long1;
         $lat2 = abs($lat2)> 1000 ? floatval($lat2)/$MULTIPLE : $lat2;
         $long2 = abs($long2)> 1000 ? floatval($long2)/$MULTIPLE : $long2;
-                
+        
         $distance = calculateDistance($lat1, $long1, $lat2, $long2);
+        
         $distance_decimal2 = number_format($distance, 2, '.', '');
 
         return $distance_decimal2;

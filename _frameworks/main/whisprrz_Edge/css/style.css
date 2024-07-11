@@ -21341,22 +21341,65 @@ body.drag_cover *{
 
 /* popcorn added 2024-05-29 start */
 
-.profile_image_gender {
+.profile_gender_mile_text {
   position: absolute;
-    top: 2px;
-    left: 2px;
-    display: flex;
-    flex-direction: row;
-    border-radius: 3px;
-    padding: 1px 5px;
-    max-height: 15px;
-    background-color: #0404049e;
+  top: 2px;
+  left: 2px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 3px;
+  max-height: 15px;
 }
 
-.profile_image_gender .gender_icon {
-  width: 12px;
+.profile_gender_image_container {
+  position: absolute;
+  top: 55px;
+  left: 2px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 3px;
+  max-height: 15px;
+}
+
+.profile_gender_image_container .gender_icon {
+  width: 10px;
   height: 12px;
-  margin: 0px;
+  margin: 0;
+  margin-right: 2px;
+}
+
+.profile_gender_image_container_gallery {
+  position: absolute;
+  bottom: 0px;
+  left: 2px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 3px;
+  max-height: 15px;
+}
+
+.profile_gender_image_container_gallery .gender_icon {
+  width: 10px;
+  height: 12px;
+  margin: 0;
+  margin-right: 2px;
+}
+
+.profile_gender_image_container_info {
+  position: absolute;
+  bottom: 0px;
+  left: 2px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 3px;
+  max-height: 15px;
+}
+
+.profile_gender_image_container_info .gender_icon {
+  width: 10px;
+  height: 12px;
+  margin: 0;
+  margin-right: 2px;
 }
 
 .profile_image_mile {
@@ -21364,7 +21407,60 @@ body.drag_cover *{
   line-height: 10px;
   color: white;
   margin: auto;
-  margin-left: 2px;
+}
+
+/* For WebKit-based browsers */
+.stroked_text {
+  font-size: 10px;
+  color: white;
+  -webkit-text-stroke: 0.5px black;
+  text-shadow: 
+    0.5px 0.5px 0 #000, 
+    -0.25px -0.25px 0 #000,  
+    0.25px -0.25px 0 #000,
+    -0.25px 0.25px 0 #000,   
+    0.25px 0.25px 0 #000;
+}
+
+/* For non-WebKit browsers */
+@supports not (-webkit-text-stroke: 0.5px black) {
+  .stroked_text {
+    font-size: 10px;
+    color: white;
+    text-shadow: 
+      0.5px 0.5px 0 #000, 
+      -0.25px -0.25px 0 #000,  
+      0.25px -0.25px 0 #000,
+      -0.25px 0.25px 0 #000,   
+      0.25px 0.25px 0 #000;
+  }
+}
+
+/* For WebKit-based browsers */
+.stroked_text_small {
+  font-size: 8px;
+  color: white;
+  -webkit-text-stroke: 0.5px black;
+  text-shadow: 
+    0.5px 0.5px 0 #000, 
+    -0.25px -0.25px 0 #000,  
+    0.25px -0.25px 0 #000,
+    -0.25px 0.25px 0 #000,   
+    0.25px 0.25px 0 #000;
+}
+
+/* For non-WebKit browsers */
+@supports not (-webkit-text-stroke: 0.5px black) {
+  .stroked_text_small {
+    font-size: 8px;
+    color: white;
+    text-shadow: 
+      0.5px 0.5px 0 #000, 
+      -0.25px -0.25px 0 #000,  
+      0.25px -0.25px 0 #000,
+      -0.25px 0.25px 0 #000,   
+      0.25px 0.25px 0 #000;
+  }
 }
 
 /* popcorn added 2024-05-29 end */

@@ -18,9 +18,9 @@ Class TemplateEdge {
     static $listUserGroupId = 0;
     static $nameUser = '';
     static $isProfileTabs = false;
-    static $event_ehp_pages = ['event_wall.php', 'events_guest_users.php', 'event_photo_list.php',  'event_mail.php', 'select_event_users.php', 'event_photo_list.php'];
-    static $hotdate_ehp_pages = ['hotdate_wall.php', 'hotdates_guest_users.php', 'hotdate_photo_list.php',  'hotdate_mail.php', 'select_hotdate_users.php', 'hotdate_photo_list.php'];
-    static $partyhou_ehp_pages = ['partyhou_wall.php', 'partyhou_guest_users.php', 'partyhou_photo_list.php',  'partyhou_mail.php', 'select_partyhou_users.php', 'partyhou_photo_list.php'];
+    static $event_ehp_pages = ['event_wall.php', 'events_guest_users.php', 'event_photo_list.php',  'event_mail.php', 'select_event_users.php', 'event_photo_list.php', 'events_event_task_edit.php', 'events_event_delete.php'];
+    static $hotdate_ehp_pages = ['hotdate_wall.php', 'hotdates_guest_users.php', 'hotdate_photo_list.php',  'hotdate_mail.php', 'select_hotdate_users.php', 'hotdate_photo_list.php', 'hotdates_hotdate_delete.php'];
+    static $partyhou_ehp_pages = ['partyhou_wall.php', 'partyhou_guest_users.php', 'partyhou_photo_list.php',  'partyhou_mail.php', 'select_partyhou_users.php', 'partyhou_photo_list.php', 'partyhouz_partyhou_edit.php', 'partyhouz_partyhou_delete.php'];
 
     static function isEHP () {
         global $g;
@@ -45,13 +45,11 @@ Class TemplateEdge {
         $ehp = '';
         if(in_array($p, self::$event_ehp_pages)) {
             $ehp = 'event';
-        }
-        if(in_array($p, self::$hotdate_ehp_pages)) {
+        } elseif(in_array($p, self::$hotdate_ehp_pages)) {
             $ehp = 'hotdate';
         } elseif(in_array($p, self::$partyhou_ehp_pages)) {
             $ehp = 'partyhou';
         }
-
 
         return $ehp;
     }

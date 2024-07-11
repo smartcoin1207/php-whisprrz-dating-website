@@ -193,20 +193,20 @@ $row = array();
 // FIRST OF ALL with photo
 if($is_photo)
 {
-	if($is_city == false || !parse_user_home($html, "SELECT u.*, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
-) AS age FROM user AS u WHERE $where_query AND u.is_photo='Y' AND u.city_id = ".$g_user['city_id']))
+	if($is_city == false || !parse_user_home($html, "SELECT u.*, vi.title as income_title, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
+) AS age FROM user AS u LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id WHERE $where_query AND u.is_photo='Y' AND u.city_id = ".$g_user['city_id']))
 	{
 		$is_city = false;
-		if($is_state == false || !parse_user_home($html, "SELECT u.*, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
-) AS age FROM user AS u WHERE $where_query AND  u.is_photo='Y' AND u.state_id = ".$g_user['state_id']))
+		if($is_state == false || !parse_user_home($html, "SELECT u.*, vi.title as income_title, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
+) AS age FROM user AS u LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id WHERE $where_query AND  u.is_photo='Y' AND u.state_id = ".$g_user['state_id']))
 		{
 			$is_state = false;
-			if($is_country == false || !parse_user_home($html, "SELECT u.*, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
-) AS age FROM user AS u WHERE $where_query AND  u.is_photo='Y' AND u.country_id = ".$g_user['country_id']))
+			if($is_country == false || !parse_user_home($html, "SELECT u.*, vi.title as income_title, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
+) AS age FROM user AS u LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id WHERE $where_query AND  u.is_photo='Y' AND u.country_id = ".$g_user['country_id']))
 			{
 				$is_country = false;
-				if(!parse_user_home($html, "SELECT u.*, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
-) AS age FROM user AS u WHERE $where_query AND u.is_photo='Y'"))
+				if(!parse_user_home($html, "SELECT u.*, vi.title as income_title, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
+) AS age FROM user AS u LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id WHERE $where_query AND u.is_photo='Y'"))
 				{
 					$is_photo = false;
 					$is_city = true;
@@ -222,20 +222,20 @@ if($is_photo)
 // WITHOUT PHOTO
 if(!$is_photo)
 {
-	if($is_city == false || !parse_user_home($html, "SELECT u.*, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
-) AS age FROM user AS u WHERE $where_query AND u.city_id = ".$g_user['city_id']))
+	if($is_city == false || !parse_user_home($html, "SELECT u.*, vi.title as income_title,  (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
+) AS age FROM user AS u LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id  WHERE $where_query AND u.city_id = ".$g_user['city_id']))
 	{
 		$is_city = false;
-		if($is_state == false || !parse_user_home($html, "SELECT u.*, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
-) AS age FROM user AS u WHERE $where_query AND u.state_id = ".$g_user['state_id']))
+		if($is_state == false || !parse_user_home($html, "SELECT u.*, vi.title as income_title, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
+) AS age FROM user AS u LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id WHERE $where_query AND u.state_id = ".$g_user['state_id']))
 		{
 			$is_state = false;
-			if($is_country == false || !parse_user_home($html, "SELECT u.*, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
-) AS age FROM user AS u WHERE $where_query AND u.country_id = ".$g_user['country_id']))
+			if($is_country == false || !parse_user_home($html, "SELECT u.*, vi.title as income_title, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
+) AS age FROM user AS u LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id WHERE $where_query AND u.country_id = ".$g_user['country_id']))
 			{
 				$is_country = false;
-				if(!parse_user_home($html, "SELECT u.*, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
-) AS age FROM user AS u WHERE $where_query ")) $is_photo = false;
+				if(!parse_user_home($html, "SELECT u.*, vi.title as income_title, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
+) AS age FROM user AS u LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id WHERE $where_query ")) $is_photo = false;
 			}
 		}
 	}
@@ -267,13 +267,14 @@ if(!$is_photo)
 		if ($order) {
 			$order = ' ORDER BY ' . $order;
 		}
-		$from_add = "";
+		$from_add = "LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id ";
+
 		$html->assign("members_link","users_new.php");
 		$html->parse("members_new");
 		
 		$sqlCount = 'SELECT COUNT(u.user_id) FROM user AS u ' . $from_add;
 		$sql = $sqlCount . $where;
-		$sql_content = 'SELECT u.* FROM user AS u ' . $from_add . $where;
+		$sql_content = 'SELECT u.*, vi.title as income_title FROM user AS u ' . $from_add . $where;
 		$total = DB::result($sql);
 		if($total>4) $total = 4;
 		for($i=0;$i<$total;$i++)
@@ -293,13 +294,14 @@ if(!$is_photo)
 		if ($order) {
 			$order = ' ORDER BY ' . $order;
 		}
-		$from_add = " JOIN users_view AS v ON (u.user_id=v.user_from AND v.user_to=" . to_sql($g_user['user_id'], "Number") . ")";
+		$from_add = " JOIN users_view AS v ON (u.user_id=v.user_from AND v.user_to=" . to_sql($g_user['user_id'], "Number") . ") LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id ";
+
 		$html->assign("members_link","users_viewed_me.php");
 		$html->parse("members_viewed_me");
 		
 		$sqlCount = 'SELECT COUNT(u.user_id) FROM user AS u ' . $from_add;
 		$sql = $sqlCount . $where;
-		$sql_content = 'SELECT u.* FROM user AS u ' . $from_add . $where;
+		$sql_content = 'SELECT u.*, vi.title as income_title FROM user AS u ' . $from_add . $where;
 		$total = DB::result($sql);
 		// if($total>4) $total=4;
 		for($i=0;$i<$total;$i++)
@@ -391,13 +393,13 @@ if(!$is_photo)
 		if ($order) {
 			$order = ' ORDER BY ' . $order;
 		}
-		$from_add = "LEFT JOIN userinfo as i ON u.user_id=i.user_id";
+		$from_add = "LEFT JOIN userinfo as i ON u.user_id=i.user_id LEFT JOIN var_income vi ON i.income=vi.id ";
 		$html->assign("members_link","users_featured.php");
 		$html->parse("members_matches");
 		
 		$sqlCount = 'SELECT COUNT(u.user_id) FROM user AS u ' . $from_add;
 		$sql = $sqlCount . $where;
-		$sql_content = 'SELECT u.* FROM user AS u ' . $from_add . $where;
+		$sql_content = 'SELECT u.*, vi.title as income_title FROM user AS u ' . $from_add . $where;
 		$total = DB::result($sql);
 		if($total>4) $total = 4;
 		for($i=0;$i<$total;$i++)
@@ -490,6 +492,8 @@ function parse_user_common(&$html, $sql, $i=0, $fliptxt="") {
 	$row['distance'] = $distance;
 	$genderImgPath = Common::getGenderImage($user_id);
 	$row['gender_image'] = $genderImgPath;
+	
+	$row['gender_text'] = $row['income_title'];
 	
 	foreach($row as $k=>$v) {
         if ($k == 'name') $v = User::nameOneLetterFull($v);

@@ -2683,6 +2683,25 @@ function getParamsFile($dirFile, $addPrfFile, $setOptions, $compresion = '', $ex
     }
  }
 
+ function loadPageContentAjaxSign($page, $pending)
+ {
+    global $p;
+    if (get_param('upload_page_content_ajax')) {
+        $page->init();
+        $page->action();
+        $page->parseSEO();
+        $cacheLoadPages = get_param_array('cache_upload_pages_ajax');
+        if (!isset($cacheLoadPages[$p])) {
+            $page->parseScriptInit();
+        }
+        $tmp = null;
+        echo getResponseDataAjaxSign($page->parse($tmp, true), $pending);
+        exit;
+    } else {
+        $page->parseScriptInit();
+    }
+ }
+
  function getResponseAjaxByAuth($isAuth, $data = true)
  {
     $response['status'] = 1;
@@ -2734,6 +2753,18 @@ function getParamsFile($dirFile, $addPrfFile, $setOptions, $compresion = '', $ex
  function getResponseDataAjax($data = true)
  {
     $response['status'] = 1;
+    if ($data === 'error') {
+        $data = false;
+    }
+    $response['data'] = $data;
+
+    return defined('JSON_UNESCAPED_UNICODE') ? json_encode($response, JSON_UNESCAPED_UNICODE) : json_encode($response);
+ }
+
+ function getResponseDataAjaxSign($data = true, $pending = true) 
+ {
+    $response['status'] = 1;
+    $response['pending'] = $pending;
     if ($data === 'error') {
         $data = false;
     }

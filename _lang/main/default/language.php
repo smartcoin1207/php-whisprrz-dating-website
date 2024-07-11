@@ -6266,5 +6266,6 @@ $l['all']['everyone_allowed'] = "Everyone Allowed";
 $l['all']['event_approval_title'] = "Event Approval";
 $l['all']['hotdate_approval_title'] = "Hotdate Approval";
 $l['all']['partyhou_approval_title'] = "Partyhou Approval";
-$l['all']['approval_text'] = 'Require Host Approval To Join Guests'
+$l['all']['approval_text'] = 'Require Host Approval To Join Guests';
+
 ?>

@@ -408,7 +408,7 @@ Class TaskCalendarMain {
         $sql = "SELECT * FROM events_event_guest WHERE event_id=" . to_sql($event['event_id']) . " AND user_id=" . to_sql(guid()) . " LIMIT 1";
         $guest_user = DB::row($sql);
         $is_own = $event['user_id'] == guid();
-        
+        $signin_available = CEventsTools::getSignAvailable($event);
         #additional data
         $event_additional_data = array(
             'state_title' => $state_title,
@@ -422,9 +422,12 @@ Class TaskCalendarMain {
             'is_member' => isset($guest_user['user_id']) ? true : false,
             'accepted' => (isset($guest_user['accepted']) && $guest_user['accepted'] == 1) ? true  : false,
             'is_own' => $is_own,
+            'is_finished' => CEventsTools::is_event_finished($event),
+            'signin_available' => $signin_available,
             'type' => 'event'
         );
         $html->setvar('event_additional_data', json_encode($event_additional_data));
+        $html->setvar('ehp_type', 'event');
 
         $html->parse('event');
     }
@@ -450,7 +453,6 @@ Class TaskCalendarMain {
                 && Common::isOptionActive('calendar_item_show_name_user', "{$optionTmplName}_events_settings")) {
             $html->setvar('event_user_name_js', toJs($userInfo['name']));
         }
-
 
         if ($html->varExists('event_user_photo')
                 && Common::isOptionActive('calendar_item_show_photo_user', "{$optionTmplName}_events_settings")) {
@@ -562,6 +564,8 @@ Class TaskCalendarMain {
         $guest_user = DB::row($sql);
         $is_own = $hotdate['user_id'] == guid();
         
+        $signin_available = ChotdatesTools::getSignAvailable($hotdate);
+
         #additional data
         $hotdate_additional_data = array(
             'state_title' => $state_title,
@@ -574,12 +578,14 @@ Class TaskCalendarMain {
             'approved' => $approved,
             'is_member' => isset($guest_user['user_id']) ? true : false,
             'accepted' => (isset($guest_user['accepted']) && $guest_user['accepted'] == 1) ? true  : false,
+            'signin_available' => $signin_available,
             'is_finished' => ChotdatesTools::is_hotdate_finished($hotdate),
             'is_own' => $is_own,
             'type' => 'hotdate'
         );
 
         $html->setvar('event_additional_data', json_encode($hotdate_additional_data));
+        $html->setvar('ehp_type', 'hotdate');
 
         $html->parse('event');
     }
@@ -719,6 +725,8 @@ Class TaskCalendarMain {
         $is_own = $partyhou['user_id'] == guid();
         
         /** popcorn modified 2024-05-23 start*/
+        $signin_available = CpartyhouzTools::getSignAvailable($partyhou);
+
         #additional data
         $partyhou_additional_data = array(
             'state_title' => $state_title,
@@ -732,10 +740,13 @@ Class TaskCalendarMain {
             'is_member' => isset($guest_user['user_id']) ? true : false,
             'accepted' => (isset($guest_user['accepted']) && $guest_user['accepted'] == 1) ? true  : false,
             'is_finished' => CpartyhouzTools::is_partyhou_finished($partyhou),
+            'signin_available' => $signin_available,
             'is_own' => $is_own,
             'type' => 'partyhou'
         );
-        $html->setvar('event_additional_data', json_encode($partyhou_additional_data));
+        $html->setvar('event_additional_data', json_encode($partyhou_additional_data));        
+        $html->setvar('ehp_type', 'partyhou');
+
         /** popcorn modified 2024-05-23 end*/
 
         $html->parse('event');
@@ -752,7 +763,7 @@ Class TaskCalendarMain {
         return $numberEvent;
     }
 
-    static function parseMainDay(&$html, $day_time, $uid = null, $can_post=true)
+    static function parseMainDay(&$html, $day_time, $uid = null, $can_post=true, $event_id = '')
     {
         global $p;
         $optionTmplName = Common::getTmplName();
@@ -769,6 +780,7 @@ Class TaskCalendarMain {
         $html->clean('event');
         $html->clean('pager');
         $calendar_day = Common::dateFormat($day_time,'calendar_day',false);
+
         $today = date("Ymd", $day_time) == date("Ymd");
 
         $html->setvar('calendar_day', $calendar_day);
@@ -847,7 +859,6 @@ Class TaskCalendarMain {
         $n_results_per_page = self::getNumberEventLoad();
 
         if($n_results) {
-
             $page = intval(get_param('event_calendar_day_page', 1));
             $n_pages = ceil($n_results / $n_results_per_page);
             $page = max(1, min($n_pages, $page));
@@ -856,9 +867,20 @@ Class TaskCalendarMain {
             $limit = $n_results_per_page;
             $shift = ($page - 1) * $n_results_per_page;
 
-            $events = CEventsTools::retrieve_from_sql_base($sql_event_base, $limit, $shift);
-            $hotdates = CEventsTools::retrieve_from_sql_base($sql_hotdate_base, $limit, $shift);
-            $partyhouz = CpartyhouzTools::retrieve_from_sql_base($sql_partyhou_base, $limit, $shift);
+            if($event_id) {
+                $limit = 0;
+                $shift = 0;
+
+                $events = CEventsTools::retrieve_from_sql_base($sql_event_base, $limit, $shift);
+                $hotdates = CEventsTools::retrieve_from_sql_base($sql_hotdate_base, $limit, $shift);
+                $partyhouz = CpartyhouzTools::retrieve_from_sql_base($sql_partyhou_base, $limit, $shift);
+            } else {
+                    $ehps = self::getMainEhpsBySqlBase($sql_event_base, $sql_hotdate_base, $sql_partyhou_base, $limit, $shift);
+
+                    $events = $ehps['new_events'];
+                    $hotdates = $ehps['new_hotdates'];
+                    $partyhouz = $ehps['new_partyhouz'];
+            }
 
             if (Common::isOptionActiveTemplate('event_social_enabled')) {
                 $whereNotifId = '';
@@ -1038,6 +1060,58 @@ Class TaskCalendarMain {
         }
 
         $html->parse('day', true);
+    }
+
+    static function getMainEhpsBySqlBase($sql_event_base, $sql_hotdate_base, $sql_partyhou_base, $limit, $shift) {
+        // Retrieve all events, hotdates, and partyhouz without limits
+        $events = CEventsTools::retrieve_from_sql_base($sql_event_base, 0, 0);
+        $hotdates = CEventsTools::retrieve_from_sql_base($sql_hotdate_base, 0, 0);
+        $partyhouz = CpartyhouzTools::retrieve_from_sql_base($sql_partyhou_base, 0, 0);
+
+        // Add a type to each array to identify them later
+        foreach ($events as &$event) {
+            $event['type'] = 'event';
+        }
+        foreach ($hotdates as &$hotdate) {
+            $hotdate['type'] = 'hotdate';
+        }
+        foreach ($partyhouz as &$partyhou) {
+            $partyhou['type'] = 'partyhou';
+        }
+
+        // Merge all arrays
+        $all_items = array_merge($events, $hotdates, $partyhouz);
+
+        // Sort the merged array by datetime
+        usort($all_items, function($a, $b) {
+            return strtotime($a['event_datetime'] ?? $a['hotdate_datetime'] ?? $a['partyhou_datetime']) - 
+                   strtotime($b['event_datetime'] ?? $b['hotdate_datetime'] ?? $b['partyhou_datetime']);
+        });
+
+        // Apply the shift and limit
+        $sliced_items = array_slice($all_items, $shift, $limit);
+
+        // Split the sorted array back into the three categories
+        $new_events = [];
+        $new_hotdates = [];
+        $new_partyhouz = [];
+
+        foreach ($sliced_items as $item) {
+            if ($item['type'] == 'event') {
+                $new_events[] = $item;
+            } elseif ($item['type'] == 'hotdate') {
+                $new_hotdates[] = $item;
+            } elseif ($item['type'] == 'partyhou') {
+                $new_partyhouz[] = $item;
+            }
+        }
+
+        // Return the new arrays
+        return [
+            'new_events' => $new_events,
+            'new_hotdates' => $new_hotdates,
+            'new_partyhouz' => $new_partyhouz
+        ];
     }
 
     static function searchUsersFromName()

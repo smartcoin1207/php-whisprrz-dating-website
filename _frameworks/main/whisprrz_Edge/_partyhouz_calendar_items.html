@@ -30,6 +30,12 @@
         clCalendar.setPartyhouz(partyhouzItems);
     }
     <!-- end_set_partyhouz -->
+
+    <!-- begin_update_partyhouz -->
+    if(typeof clCalendar=='object'){
+        clCalendar.updatePartyhouz(partyhouzItems, '{partyhou_id}');
+    }
+    <!-- end_update_partyhouz -->
     
     <!-- begin_add_partyhouz -->
     if(typeof clCalendar=='object'){

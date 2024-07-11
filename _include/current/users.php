@@ -155,6 +155,7 @@ class CUsers extends CHtmlList
         $row['distance'] = $distance;
         $genderImgPath = Common::getGenderImage($user_id);
         $row['gender_image'] = $genderImgPath;
+        $row['gender_text'] = "Str Bi";
 
         $guid = guid();
         $optionSet = Common::getOption('set', 'template_options');
@@ -451,6 +452,7 @@ class CUsers extends CHtmlList
         $html->setvar('user_online_gallery_text', '');
 
         $html->setvar("members_gender_image", $row['gender_image']);
+        $html->setvar("members_gender_text", $row['gender_text']);
         $html->setvar("members_distance", $row['distance']);
 
         $online_sql = 'SELECT u.*, n.title as partner_fulltype FROM user as u LEFT JOIN var_nickname AS n ON u.partner_type = n.id  WHERE u.user_id = ' . $row['user_id'] . ' AND hide_time = 0

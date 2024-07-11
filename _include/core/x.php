@@ -1643,17 +1643,22 @@ class Config {
     }
 }
 
-//popcorn add this function 2024-05-29 
-function calculateDistance($lat1, $long1, $lat2, $long2) {
-    //Haversine Formula
-    $dlong = $long2 - $long1;
-    $dlati = $lat2 - $lat1;
+//popcorn add this function 2024-07-10
+function calculateDistance($lat1, $long1, $lat2, $long2) {    
+    // convert from degrees to radians
+    $latFrom = deg2rad($lat1);
+    $lonFrom = deg2rad($long1);
+    $latTo = deg2rad($lat2);
+    $lonTo = deg2rad($long2);
+
+    $latDelta = $latTo - $latFrom;
+    $lonDelta = $lonTo - $lonFrom;
         
-    $val = pow(sin($dlati/2),2)+cos($lat1)*cos($lat2)*pow(sin($dlong/2),2);
-    $res = 2 * asin(sqrt($val));
+    $val = pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2);
+    $angle = 2 * asin(sqrt($val));
     $radius = 3958.756;
         
-    return ($res*$radius);
+    return ($angle * $radius);
 }
 
 function getInRadiusWhere($radius)

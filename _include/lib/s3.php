@@ -108,7 +108,6 @@ class S3ClientClass {
 
             return true;
         } catch (\Aws\S3\Exception\S3Exception $e) {
-            
             if ($e->getStatusCode() == 404) {
                 return false;
             } else {

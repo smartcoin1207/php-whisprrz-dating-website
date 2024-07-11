@@ -21,7 +21,8 @@ class CEventsCalendar extends CHtmlBlock
         $isCalendarSocial = Common::isOptionActiveTemplate('event_social_enabled');
         $day_time = intval(get_param('day_time'));
         $eventDayLoadMore = get_param('event_day_load_more');
-
+        $guest_sign_action = get_param('guest_sign_action', '');
+        
         $guid = guid();
         $uid = User::getParamUid($guid);
 
@@ -33,7 +34,11 @@ class CEventsCalendar extends CHtmlBlock
             $html->setvar('page_url', Common::pageUrl('user_event_calendar', $uid));
         }
 
-        if ($day_time){
+        if($guest_sign_action == '1') {
+            $guest_sign_day = get_param('guest_sign_day', '');
+            $event_id = intval(get_param('event_id'));
+            TaskCalendar::parseEventsDay($html, strtotime($guest_sign_day), $uid, $event_id);
+        } elseif ($day_time){
             TaskCalendar::parseEventsDay($html, $day_time, $uid);
         } elseif ($eventDayLoadMore){
             TaskCalendar::parseEventsDay($html, strtotime($eventDayLoadMore), $uid);
@@ -90,6 +95,10 @@ class CEventsCalendar extends CHtmlBlock
         if ($isCalendarSocial) {
             if ($eventDayLoadMore) {
                 $html->parse('add_events', false);
+            } elseif($guest_sign_action == '1') {
+                $event_id = intval(get_param('event_id'));
+                $html->setvar('event_id', $event_id);
+                $html->parse('update_events', false);
             } else {
                 $html->parse('set_events', false);
             }

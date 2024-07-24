@@ -493,7 +493,12 @@ function parse_user_common(&$html, $sql, $i=0, $fliptxt="") {
 	$genderImgPath = Common::getGenderImage($user_id);
 	$row['gender_image'] = $genderImgPath;
 	
-	$row['gender_text'] = $row['income_title'];
+	$income_title = convertWordsByUnderLine($row['income_title']);
+	$gender_text = "";
+	if($income_title) {
+		$gender_text = l($income_title . "_short");
+	}
+	$row['gender_text'] = $gender_text;
 	
 	foreach($row as $k=>$v) {
         if ($k == 'name') $v = User::nameOneLetterFull($v);

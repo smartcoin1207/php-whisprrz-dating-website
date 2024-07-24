@@ -7244,10 +7244,6 @@ class User
             }
         }
 
-
-        //if ($cmd == 'update_im') {
-        //$sql = "{$sql} ORDER BY date {$order}";
-        //} else {
         $customWhere = '';
         if ($cmd == 'get_more_event') {
             $customWhere = ' WHERE `rank` > ' . to_sql($rank);
@@ -7260,7 +7256,6 @@ class User
                            SELECT EVT.*, @rownum := @rownum + 1 AS `rank`
                              FROM ({$sql} ORDER BY date {$order}, id DESC) EVT,
                           (SELECT @rownum := 0) R) AEVT {$customWhere}";
-        //}
 
         $result = DB::rows($sql);
         $events = array();
@@ -7356,7 +7351,7 @@ class User
                 'id'         => $item['id'],
                 'title'      => $title, //"events_notification_{$item['type_short']}_{$item['event_item_id']}/" . $title
                 'date'       => $item['date'],
-                'time_ago'   => timeAgo($item['date'], 'now', 'string', 60, 'second'),
+                'time_ago'   => timeAgo($item['date'], 'now', 'string', 60, 'second') . "---------" . $item['date'],
                 'user_id'    => $item['user_id'],
                 'url'        => $urlUser,
                 'url_page'   => $urlPage,
@@ -7366,6 +7361,8 @@ class User
         }
         
         return $events;
+
+        var_dump($events); die();
     }
 
     static function markSeenEvent($type = null,  $id = null)

@@ -3104,6 +3104,22 @@ $l['all']['straight-female'] = "Straight-Female";
 $l['all']['straight-male'] = "Straight-Male";
 $l['all']['straight_female'] = "Straight Female";
 $l['all']['straight_male'] = "Straight Male";
+
+$l['all']['straight_male_short'] = "Str-M";
+$l['all']['straight_female_short'] = "Str-F";
+$l['all']['bi_male_short'] = "Bi-M";
+$l['all']['bi_female_short'] = "Bi-F";
+$l['all']['bi_curious_male_short'] = "Bic-M";
+$l['all']['bi_curious_female_short'] = "Bic-F";
+$l['all']['bi_friendly_male_short'] = "Bif-M";
+$l['all']['bi_friendly_female_short'] = "Bif-F";
+$l['all']['transgender_short'] = "Tran";
+$l['all']['gay_short'] = "Gay";
+$l['all']['lesbian_short'] = "Les";
+$l['all']['queer_short'] = "Qr";
+$l['all']['pansexual_short'] = "Ps";
+$l['all']['non-binary_short'] = "Nb";
+
 $l['all']['street_chat_from_user'] = "Street Chat with {link_start}{name}{link_end}";
 $l['all']['street_chat_from_user_edge'] = "Street Chat with {user_name} {user_photo} <span class=\"title_answer\">Do you accept this chat?</span>";
 $l['all']['street_chat_from_user_impact_mobile'] = "Street Chat with {user_name} {user_photo} Do you accept this chat?";
@@ -6267,5 +6283,6 @@ $l['all']['event_approval_title'] = "Event Approval";
 $l['all']['hotdate_approval_title'] = "Hotdate Approval";
 $l['all']['partyhou_approval_title'] = "Partyhou Approval";
 $l['all']['approval_text'] = 'Require Host Approval To Join Guests';
+
 
 ?>

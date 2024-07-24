@@ -3531,9 +3531,11 @@ JS;
         $text = $mail_row['text'];
         $subject = $mail_row['subject'];
 
-        $var['name'] = $g_user['name'];
+        $guest_user = User::getInfoBasic($guest_user_id);
+
+        $var['name'] = $guest_user['name'];
         $var['title'] = $event['event_title'];
-        $var['url'] = "./events_event_show.php?event_id = " . $event_id;
+        $var['url'] = "./events_event_show.php?event_id=" . $event_id;
 
         $subject = Common::replaceByVars($subject, $var);
         $text = Common::replaceByVars($text, $var);

@@ -2004,7 +2004,19 @@ function getDemoMsg($msgs = array(), $field = 'msg', $demoMsgs = null)
     return $msg;
 }
 
+//popcorn added 2024-0710 
+function convertWordsByUnderLine($inputString) {
+    // Ensure the input string is not null
+    if ($inputString === null) {
+        $inputString = '';
+    }
+    $inputString = strtolower($inputString);
 
+    // Replace multiple spaces with a single space
+    $inputString = preg_replace('/\s+/', ' ', $inputString);
+    // Replace spaces with underscores
+    return str_replace(' ', '_', $inputString);
+}
 
 class Plural {
 

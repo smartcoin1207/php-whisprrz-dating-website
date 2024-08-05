@@ -1,5 +1,4 @@
 var CEvents = function(guid) {
-
     var $this=this;
     this.guid=guid*1;
 
@@ -9,8 +8,6 @@ var CEvents = function(guid) {
     }
 
     this.updateEvents = function(data){
-
-
         debugLog('Update events', data);
         clCounters.setDataOneCounter('new_events', data.new_count);
         if (typeof data.new_list != 'object' || $.isEmptyObject(data.new_list)) return;
@@ -53,7 +50,6 @@ var CEvents = function(guid) {
                 }
             }
         }
-
 
         for (var key in data) {
             var event=data[key];
@@ -373,6 +369,24 @@ var CEvents = function(guid) {
                         groupParam='&group_id='+eventGroupId+'&view='+$el.data('groupType');
                     }
                     redirectUrl(url+groupParam);
+                    return;
+                }
+
+                if( type == 'events_event_guest' ) {
+                    var url  = "" + "event_wall.php?event_id=" + eventId;
+                    redirectUrl(url);
+                    return;
+                } 
+
+                if( type == 'hotdates_hotdate_guest') {
+                    var url  = "" + "hotdate_wall.php?hotdate_id=" + eventId;
+                    redirectUrl(url);
+                    return;
+                } 
+
+                if( type == 'partyhouz_partyhou_guest') {
+                    var url  = "" + "partyhouz_wall.php?partyhou_id=" + eventId;
+                    redirectUrl(url);
                     return;
                 }
 

@@ -934,14 +934,14 @@ $l['all']['ethnicity'] = "Ethnicity";
 $l['all']['evangelical'] = "Evangelical";
 $l['all']['event'] = "Event";
 $l['all']['event_groups_social_subscribers'] = "You are now a member of \"{link_start}{name}{link_end}\"!";
-$l['all']['event_groups_subscribers_new_m'] = "{link_start}{name}{link_end} has joined your group \"{link_start_group}{group_title}{link_end_group}\"";
-$l['all']['event_groups_subscribers_new_f'] = "{link_start}{name}{link_end} has joined your group \"{link_start_group}{group_title}{link_end_group}\"";
-$l['all']['event_groups_subscribers_new_'] = "{link_start}{name}{link_end} has joined your group \"{link_start_group}{group_title}{link_end_group}\"";
+$l['all']['event_groups_subscribers_new_m'] = "{link_start}{name}{link_end} has joined your group1 \"{link_start_group}{group_title}{link_end_group}\"";
+$l['all']['event_groups_subscribers_new_f'] = "{link_start}{name}{link_end} has joined your group2 \"{link_start_group}{group_title}{link_end_group}\"";
+$l['all']['event_groups_subscribers_new_'] = "{link_start}{name}{link_end} has joined your group3 \"{link_start_group}{group_title}{link_end_group}\"";
 $l['all']['event_groups_subscribers_page_new_m'] = "{link_start}{name}{link_end} has liked your page \"{link_start_group}{group_title}{link_end_group}\"";
 $l['all']['event_groups_subscribers_page_new_f'] = "{link_start}{name}{link_end} has liked your page \"{link_start_group}{group_title}{link_end_group}\"";
-$l['all']['event_photo_comments_f'] = "{link_start}{name}{link_end} has left a comment on your photo";
 $l['all']['event_photo_comments_likes_f'] = "{link_start}{name}{link_end} has liked your comment on a photo";
 $l['all']['event_photo_comments_likes_m'] = "{link_start}{name}{link_end} has liked your comment on a photo";
+$l['all']['event_photo_comments_f'] = "{link_start}{name}{link_end} has left a comment on your photo";
 $l['all']['event_photo_comments_m'] = "{link_start}{name}{link_end} has left a comment on your photo";
 $l['all']['event_photo_comments_reply_f'] = "{link_start}{name}{link_end} has commented on your thought about a photo";
 $l['all']['event_photo_comments_reply_m'] = "{link_start}{name}{link_end} has commented on your thought about a photo";
@@ -969,17 +969,17 @@ $l['all']['event_vids_likes_m'] = "{link_start}{name}{link_end} has liked your v
 $l['all']['event_vids_likes_f'] = "{link_start}{name}{link_end} has liked your video";
 
 //popcorn added 2024-05-28
-$l['all']['event_events_event_guest_'] = "{link_start}{name}{link_end} You are a member of this event";
-$l['all']['event_events_event_guest_m'] = "{link_start}{name}{link_end} You are a member of this event";
-$l['all']['event_events_event_guest_f'] = "{link_start}{name}{link_end} You are a member of this event";
+$l['all']['event_events_event_guest_'] = "{link_start}{name}{link_end} You are a member of event \"{link_start_event}{title_event}{link_end_event}\"";
+$l['all']['event_events_event_guest_m'] = "{link_start}{name}{link_end} You are a member of event \"{link_start_event}{title_event}{link_end_event}\"";
+$l['all']['event_events_event_guest_f'] = "{link_start}{name}{link_end} You are a member of event \"{link_start_event}{title_event}{link_end_event}\"";
 
-$l['all']['event_hotdates_hotdate_guest_'] = "{link_start}{name}{link_end} You are a member of this Hotdate";
-$l['all']['event_hotdates_hotdate_guest_m'] = "{link_start}{name}{link_end} You are a member of this Hotdate";
-$l['all']['event_hotdates_hotdate_guest_f'] = "{link_start}{name}{link_end} You are a member of this Hotdate";
+$l['all']['event_hotdates_hotdate_guest_'] = "{link_start}{name}{link_end} You are a member of Hotdate \"{link_start_event}{title_event}{link_end_event}\"";
+$l['all']['event_hotdates_hotdate_guest_m'] = "{link_start}{name}{link_end} You are a member of Hotdate \"{link_start_event}{title_event}{link_end_event}\"";
+$l['all']['event_hotdates_hotdate_guest_f'] = "{link_start}{name}{link_end} You are a member of Hotdate \"{link_start_event}{title_event}{link_end_event}\"";
 
-$l['all']['event_partyhouz_partyhou_guest_'] = "{link_start}{name}{link_end} You are a member of this Partyhou";
-$l['all']['event_partyhouz_partyhou_guest_m'] = "{link_start}{name}{link_end} You are a member of this Partyhou";
-$l['all']['event_partyhouz_partyhou_guest_f'] = "{link_start}{name}{link_end} You are a member of this Partyhou";
+$l['all']['event_partyhouz_partyhou_guest_'] = "{link_start}{name}{link_end} You are a member of Partyhou \"{link_start_event}{title_event}{link_end_event}\"";
+$l['all']['event_partyhouz_partyhou_guest_m'] = "{link_start}{name}{link_end} You are a member of Partyhou \"{link_start_event}{title_event}{link_end_event}\"";
+$l['all']['event_partyhouz_partyhou_guest_f'] = "{link_start}{name}{link_end} You are a member of Partyhou \"{link_start_event}{title_event}{link_end_event}\"";
 
 $l['all']['events'] = "Events";
 $l['all']['events_add_clndr'] = "Task Reminder Main Calendar";

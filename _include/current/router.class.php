@@ -358,15 +358,8 @@ class Router {
             'task_edit'             => array('page' => 'calendar_task_edit', 'param_secondary' => 'event_id'),
 
             'event_calendar'        => array('page' => 'events_calendar', 'param_secondary' => 'date', 'param_secondary_1' => array('task_id', 3)),
-
             'hotdate_calendar'              => array('page' => 'hotdates_calendar', 'param_secondary' => 'date', 'param_secondary_1' => array('task_id', 3)),
-            // 'task_hotdate_create'           => array('page' => 'calendar_task_hotdate_create', 'param_secondary' => 'date'),
-            // 'task_hotdate_edit'             => array('page' => 'calendar_task_hotdate_edit', 'param_secondary' => 'event_id'),
-
             'partyhou_calendar'              => array('page' => 'partyhouz_calendar', 'param_secondary' => 'date', 'param_secondary_1' => array('task_id', 3)),
-            // 'task_partyhou_create'           => array('page' => 'calendar_task_partyhou_create', 'param_secondary' => 'date'),
-            // 'task_partyhou_edit'             => array('page' => 'calendar_task_partyhou_edit', 'param_secondary' => 'event_id'),
-
 
             'photos'                => 'photos_list',
             'photo_liked'           => array('page' => 'search_results', 'params' => array('show' => 'photo_liked'), 'param_secondary' => 'photo_id'),

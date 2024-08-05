@@ -12,6 +12,8 @@ include_once('./_include/current/vids/tools.php');
 
 $guid = guid();
 
+
+
 $siteGuid = get_param('site_guid', false);
 if ($siteGuid !== false && $siteGuid != $guid) {
     echo getResponseAjaxByAuth(false);

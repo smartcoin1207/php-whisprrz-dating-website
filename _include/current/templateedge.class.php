@@ -68,14 +68,6 @@ Class TemplateEdge {
         return $ehp_id;
     }
 
-    static function getEHPInfo()
-    {
-        #event
-        $event_id = self::getEHPId();
-
-        $event = CEventsTools::retrieve_event_by_id($event_id);
-    }
-
     static function headerParseBlock(&$html)
     {
         global $g;
@@ -2726,7 +2718,30 @@ Class TemplateEdge {
                     $html->clean("{$blockItemType}_menu");
                 }
             } elseif(self::isEHP()) {
-                // if ($row['user_id'] == $guid) {
+                $ehp_type = self::getEHPType();
+                $is_ehp_owner = false;
+
+                if($ehp_type == 'event') {
+                    $event_id = self::getEHPId();
+                    $event  = CEventsTools::retrieve_event_by_id($event_id);
+                    if($event && isset($event['user_id']) && $event['user_id'] == guid()) {
+                        $is_ehp_owner = true;
+                    }
+                } else if($ehp_type == 'hotdate') {
+                    $hotdate_id = self::getEHPId();
+                    $hotdate  = ChotdatesTools::retrieve_hotdate_by_id($hotdate_id);
+                    if($hotdate && isset($hotdate['user_id']) && $hotdate['user_id'] == guid()) {
+                        $is_ehp_owner = true;
+                    }
+                } else if($ehp_type == 'partyhou') {
+                    $partyhou_id = self::getEHPId();
+                    $partyhou  = CpartyhouzTools::retrieve_partyhou_by_id($partyhou_id);
+                    if($partyhou && isset($partyhou['user_id']) && $partyhou['user_id'] == guid()) {
+                        $is_ehp_owner = true;
+                    }
+                }
+
+                if ($row['user_id'] == $guid || $is_ehp_owner) {
                     if (Common::isOptionActive('gallery_show_download_original', 'edge_gallery_settings')) {
                         $html->parse("{$blockItemType}_link_download", false);
                     }
@@ -2736,9 +2751,9 @@ Class TemplateEdge {
                     $html->subcond($isImageEditorEnabed, "{$blockItemType}_editor");
 
                     $html->parse("{$blockItemType}_menu", false);
-                // } else {
-                //     $html->clean("{$blockItemType}_menu");
-                // }
+                } else {
+                    $html->clean("{$blockItemType}_menu");
+                }
             } 
 
             //$html->subcond($uidParam && $uidParam == $guid && $row['user_id'] == $guid, "{$blockItemType}_menu");
@@ -3233,7 +3248,7 @@ Class TemplateEdge {
                 foreach ($events as $key => $item) {
                     $html->assign($blockEventsItem, $item);
                     $html->subcond($item['new'], "{$blockEventsItem}_new");
-                    //$html->subcond($item['new'], "{$blockEventsItem}_menu_mark_see");
+                    // $html->subcond($item['new'], "{$blockEventsItem}_menu_mark_see");
                     $html->parse($blockEventsItem, true);
 
                     $rank = $item['rank'];

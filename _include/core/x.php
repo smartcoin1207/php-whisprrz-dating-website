@@ -1824,8 +1824,6 @@ function g_user_full()
     $g_user['free_access'] = User::isFreeAccess();
 }
 
-
-
 function user($user_id) {
     $row = User::getInfoBasic($user_id);
     if($row) {
@@ -1872,7 +1870,6 @@ function uphoto($user_id, $size = "s", $gender = false) {
     global $g;
     return $g['path']['url_files'] . User::getPhotoDefault($user_id, $size, false, $gender, DB_MAX_INDEX);
 }
-
 
 function demoImAdd()
 {

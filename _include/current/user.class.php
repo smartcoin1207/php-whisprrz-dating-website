@@ -839,13 +839,13 @@ class User
         }
 
         /* popcorn modified text_show_before_approval 2024-05-23 start */
-        if(Common::isOptionActive('text_show_before_approval')) {
+        if (Common::isOptionActive('text_show_before_approval')) {
             $sql = "SELECT * FROM texts WHERE user_id = " . to_sql($uid, "Text") . " LIMIT 1";
             $text_row = DB::row($sql);
-            if($text_row) {
+            if ($text_row) {
                 $info['headline'] = $text_row['headline'];
                 $info['essay'] = $text_row['essay'];
-                $info['what_are_you_looking_for'] = $text_row['what_are_you_looking_for']; 
+                $info['what_are_you_looking_for'] = $text_row['what_are_you_looking_for'];
             }
         }
         /* popcorn modified text_show_before_approval 2024-05-23 end */
@@ -1394,9 +1394,9 @@ class User
 
     static function redirectToHomePage()
     {
-        global $g_user , $g;
+        global $g_user, $g;
         $urlHomePage = 'home.php';
-        if ( isset($g_user['user_id']) && $g_user['user_id'] != 0 && isset($g['options']['feed_as_home_page']) && $g['options']['feed_as_home_page'] == 'Y') {
+        if (isset($g_user['user_id']) && $g_user['user_id'] != 0 && isset($g['options']['feed_as_home_page']) && $g['options']['feed_as_home_page'] == 'Y') {
             $urlHomePage = 'wall.php';
         }
     }
@@ -5499,9 +5499,9 @@ class User
         if ($access == 'private' || $access == 'public') {
             CProfilePhoto::setPhotoPrivate($pid);
             /* Fix set photo default public */
-        } elseif ($access == 'personal') { 
+        } elseif ($access == 'personal') {
             CProfilePhoto::setPhotoPersonal($pid);
-        } elseif ($access == 'folder') { 
+        } elseif ($access == 'folder') {
             CProfilePhoto::setPhotoCustomFolder($pid);
             /* Divyesh - Added on 11-04-2024 */
         } elseif ($uid) {
@@ -6353,13 +6353,13 @@ class User
                 if ($field == 'city_title') {
                     $keyField = 'city';
                 }
-                
+
                 //popcorn modified 2024-05-29
-                if($field == 'lat') {
-                    $lat = floatval($data[$field])/10000000;
+                if ($field == 'lat') {
+                    $lat = floatval($data[$field]) / 10000000;
                     $result["geo_position_{$keyField}"] = $lat;
-                } elseif($field == 'long') {
-                    $long = floatval($data[$field])/10000000;
+                } elseif ($field == 'long') {
+                    $long = floatval($data[$field]) / 10000000;
                     $result["geo_position_{$keyField}"] = $long;
                 } else {
                     $result["geo_position_{$keyField}"] = $data[$field];
@@ -6458,7 +6458,7 @@ class User
                 //popcorn added
 
                 self::update($geoPosition);
-                
+
                 $data = array(
                     'country' => $geoPosition['geo_position_country'],
                     'city' => $geoPosition['geo_position_city']
@@ -6658,6 +6658,36 @@ class User
                        FROM `photo_face_user_relation` AS PHU
                       WHERE " . ($all ? '' : 'PHU.is_new = 1 AND ') . " PHU.user_photo_id != {$guidSql} AND PHU.user_id = {$guidSql} {$whereGroupLike})";
         
+        //popcorn modified 2024-08-04 start
+        //private invite
+        $sqlList[] = "+
+                    (SELECT COUNT(*)
+                       FROM `invited_private` AS ip
+                LEFT JOIN `user` AS CU ON CU.user_id = ip.user_id
+                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql})";
+
+        //personal invite
+        $sqlList[] = "+
+                    (SELECT COUNT(*)
+                       FROM `invited_personal` AS ip
+                LEFT JOIN `user` AS CU ON CU.user_id = ip.user_id
+                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql})";
+        //popcorn modified 2024-08-04 end
+
+        //created folder invite
+        $sqlList[] = "+
+                    (SELECT COUNT(*)
+                       FROM `invited_folder` AS ifp
+                LEFT JOIN `user` AS CU ON CU.user_id = ifp.user_id
+                WHERE ifp.friend_id = {$guidSql} AND ifp.user_id != {$guidSql})";
+
+        //private video invite
+        $sqlList[] = "+
+                    (SELECT COUNT(*)
+                       FROM `invited_private_vids` AS ipv
+                LEFT JOIN `user` AS CU ON CU.user_id = ipv.user_id
+                WHERE ipv.friend_id = {$guidSql} AND ipv.user_id != {$guidSql})";
+
         //popcorn modified 2024-05-28
         //You are a member of event
         $sqlList[] = "+ (SELECT COUNT(*) FROM `events_event_guest` AS CL
@@ -6678,7 +6708,7 @@ class User
                         LEFT JOIN `partyhouz_partyhou` AS CEE ON CEE.partyhou_id = CL.partyhou_id 
                         WHERE CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
                         AND CEE.partyhou_approval = 1 
-                        AND CL.accepted = 1 )";                    
+                        AND CL.accepted = 1 )";
 
         foreach ($sqlList as $key => $sqlItem) {
             $sql .= $sqlItem;
@@ -7062,7 +7092,7 @@ class User
                         CU.name, CU.name_seo, CU.gender
                 FROM `invited_private` AS ip
                 LEFT JOIN `user` AS CU ON CU.user_id = ip.user_id
-                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql} ORDER BY ip.created_at {$order} LIMIT " . ($loadLimit + $rank) . ")";
+                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql}" . getWhereSql('ip.date', $isUpdateOldEvent) . $sqlLimit . ")";
         //personal invite
         $sqlList[] = "UNION
                     (SELECT IF(true, 'invitation', 'invitation') AS type,
@@ -7083,7 +7113,7 @@ class User
                         CU.name, CU.name_seo, CU.gender
                 FROM `invited_personal` AS ip
                 LEFT JOIN `user` AS CU ON CU.user_id = ip.user_id
-                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql} ORDER BY ip.created_at {$order} LIMIT " . ($loadLimit + $rank) . ")";
+                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql}" . getWhereSql('ip.date', $isUpdateOldEvent) . $sqlLimit . ")";
         //created folder invite
         $sqlList[] = "UNION
                     (SELECT IF(true, 'invitation', 'invitation') AS type,
@@ -7104,7 +7134,7 @@ class User
                         CU.name, CU.name_seo, CU.gender
                 FROM `invited_folder` AS ifp
                 LEFT JOIN `user` AS CU ON CU.user_id = ifp.user_id
-                WHERE ifp.friend_id = {$guidSql} AND ifp.user_id != {$guidSql} ORDER BY ifp.created_at {$order} LIMIT " . ($loadLimit + $rank) . ")";
+                WHERE ifp.friend_id = {$guidSql} AND ifp.user_id != {$guidSql}" . getWhereSql('ip.date', $isUpdateOldEvent) . $sqlLimit . ")";
         //private video invite
         $sqlList[] = "UNION
                     (SELECT IF(true, 'invitation', 'invitation') AS type,
@@ -7125,7 +7155,7 @@ class User
                         CU.name, CU.name_seo, CU.gender
                 FROM `invited_private_vids` AS ipv
                 LEFT JOIN `user` AS CU ON CU.user_id = ipv.user_id
-                WHERE ipv.friend_id = {$guidSql} AND ipv.user_id != {$guidSql} ORDER BY ipv.created_at {$order} LIMIT " . ($loadLimit + $rank) . ")";
+                WHERE ipv.friend_id = {$guidSql} AND ipv.user_id != {$guidSql}" . getWhereSql('ip.date', $isUpdateOldEvent) . $sqlLimit . ")";
         /** popcorn added 2024-05-28 */
 
         //You are now a member of Event (event, hotdate, partyhou)
@@ -7179,7 +7209,7 @@ class User
             WHERE CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
             AND CEE.hotdate_approval = 1 
             AND CL.accepted = 1" . getWhereSql('CL.created_at', $isUpdateOldEvent) . $sqlLimit . ")";
-        
+
         //You are now a member of Partyhou 
         $sqlList[] = "UNION
         (SELECT IF(true, 'partyhouz_partyhou_guest', 'partyhouz_partyhou_guest') AS type,
@@ -7205,10 +7235,10 @@ class User
             WHERE CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
             AND CEE.partyhou_approval = 1 
             AND CL.accepted = 1" . getWhereSql('CL.created_at', $isUpdateOldEvent) . $sqlLimit . ")";
-        /* Divyesh - added on 11-04-2024 */
+        /* popcorn - added on 11-04-2024 */
 
         foreach ($sqlList as $key => $sqlItem) {
-            $sql .= $sqlItem;
+            $sql .= " " . $sqlItem;
         }
 
         if ($isUpdateOldEvent) {
@@ -7256,12 +7286,11 @@ class User
                            SELECT EVT.*, @rownum := @rownum + 1 AS `rank`
                              FROM ({$sql} ORDER BY date {$order}, id DESC) EVT,
                           (SELECT @rownum := 0) R) AEVT {$customWhere}";
-
         $result = DB::rows($sql);
-        $events = array();
-        //var_dump_pre($result, true);
-        foreach ($result as $key => $item) {
 
+        $events = array();
+
+        foreach ($result as $key => $item) {
             $gender = strtolower($item['gender']);
 
             $isNotifPage = 0;
@@ -7305,6 +7334,35 @@ class User
                 $photo = $g['path']['url_files'] . User::getPhotoDefault($item['user_id']);
             }
 
+            $title_event = "";
+            $urlTitle = "";
+
+            if ($item['type'] == 'events_event_guest') {
+                $event_id = $item['event_id'];
+                $event = CEventsTools::retrieve_event_by_id($event_id);
+
+                if ($event) {
+                    $title_event = $event['event_title'];
+                    $urlTitle = "events_event_show.php?event_id=" . $event_id;
+                }
+            } else if ($item['type'] == 'hotdates_hotdate_guest') {
+                $hotdate_id = $item['event_id'];
+                $hotdate = ChotdatesTools::retrieve_hotdate_by_id($hotdate_id);
+
+                if ($hotdate) {
+                    $title_event = $hotdate['hotdate_title'];
+                    $urlTitle = "hotdates_hotdate_show.php?hotdate_id=" . $hotdate_id;
+                }
+            } else if ($item['type'] == 'partyhouz_partyhou_gest') {
+                $partyhou_id = $item['event_id'];
+                $partyhou = CpartyhouzTools::retrieve_partyhou_by_id($partyhou_id);
+
+                if ($partyhou) {
+                    $title_event = $partyhou['partyhou_title'];
+                    $urlTitle = "partyhouz_partyhou_show.php?partyhou_id=" . $partyhou_id;
+                }
+            }
+
             $vars = array(
                 'name' => $userName,
                 'url'  => $urlUser
@@ -7334,6 +7392,12 @@ class User
                     $title_text = l('private_video_notify_text');
 
                 $title = Common::lSetLink($title_text . " " . $userName, $vars);;
+            } else if ($item['type'] == 'events_event_guest' || $item['type'] == 'hotdates_hotdate_guest' || $item['type'] == 'partyhouz_partyhou_guest') {
+                $vars = array(
+                    'title_event' => $title_event,
+                    'url' => $urlTitle
+                );
+                $title = Common::lSetLink($title, $vars, false, '_event');
             }
 
             $events[] = array(
@@ -7359,10 +7423,8 @@ class User
                 'new'        => $item['new']
             );
         }
-        
-        return $events;
 
-        var_dump($events); die();
+        return $events;
     }
 
     static function markSeenEvent($type = null,  $id = null)
@@ -8030,7 +8092,7 @@ class User
 
         $userinfoNumbers = '';
         $userinfoTexts = '';
-        
+
         foreach ($g['user_var'] as $k => $v) {
             $k = to_sql($k, 'Plain');
             $key = 'j_couple_' . $k;

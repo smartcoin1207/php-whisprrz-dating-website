@@ -16,10 +16,26 @@ $photo_cmd = get_param('photo_cmd', '');
 $photo = array();
 $filename = false;
 
+//event image
+
 if($photo_cmd == 'event_photos') {
     $where = '`image_id` = ' . to_sql($photoId);
     $isSiteAdministrator = Common::isSiteAdministrator();
-    if(!$isSiteAdministrator) {
+    $isEventOwner = false;
+
+    $pre_photo = DB::one("events_event_image", $where);
+    if($pre_photo) {
+        $event_id = $pre_photo['event_id'];
+        $event = CEventsTools::retrieve_event_by_id($event_id);
+        if($event) {
+            $event_user_id = $event['event_id'];
+            if($event_user_id == guid()) {
+                $isEventOwner = true;
+            }
+        }
+    }
+
+    if(!$isSiteAdministrator && !$isEventOwner) {
         $where .= ' AND `user_id` = ' . to_sql(guid());
     }
     $photo = DB::one('events_event_image', $where);
@@ -34,11 +50,25 @@ if($photo_cmd == 'event_photos') {
 } elseif($photo_cmd == 'hotdate_photos') {
     $where = '`image_id` = ' . to_sql($photoId);
     $isSiteAdministrator = Common::isSiteAdministrator();
-    if(!$isSiteAdministrator) {
+    $isHotdateOwner = false;
+
+    $pre_photo = DB::one("hotdates_hotdate_image", $where);
+    if($pre_photo) {
+        $hotdate_id = $pre_photo['hotdate_id'];
+        $hotdate = ChotdatesTools::retrieve_hotdate_by_id($hotdate_id);
+        if($hotdate) {
+            $hotdate_user_id = $hotdate['user_id'];
+            if($hotdate_user_id == guid()) {
+                $isHotdateOwner = true;
+            }
+        }
+    }
+
+    if(!$isSiteAdministrator && !$isHotdateOwner) {
         $where .= ' AND `user_id` = ' . to_sql(guid());
     }
     $photo = DB::one('hotdates_hotdate_image', $where);
-    if ($photo ) {
+    if ($photo) {
         if($isSiteAdministrator) {
             $photo['private'] = 'N';
         }
@@ -49,7 +79,21 @@ if($photo_cmd == 'event_photos') {
 } elseif($photo_cmd == 'partyhou_photos') {
     $where = '`image_id` = ' . to_sql($photoId);
     $isSiteAdministrator = Common::isSiteAdministrator();
-    if(!$isSiteAdministrator) {
+    $isPartyhouOwner = false;
+
+    $pre_photo = DB::one("partyhouz_partyhou_image", $where);
+    if($pre_photo) {
+        $partyhou_id = $pre_photo['partyhou_id'];
+        $partyhou = CpartyhouzTools::retrieve_partyhou_by_id($partyhou_id);
+        if($partyhou) {
+            $partyhou_user_id = $partyhou['user_id'];
+            if($partyhou_user_id == guid()) {
+                $isPartyhouOwner = true;
+            }
+        }
+    }
+
+    if(!$isSiteAdministrator && !$isHotdateOwner) {
         $where .= ' AND `user_id` = ' . to_sql(guid());
     }
     $photo = DB::one('partyhouz_partyhou_image', $where);
@@ -81,6 +125,7 @@ if($photo_cmd == 'event_photos') {
 }
 
 $ext = 'jpg';
+
 if ($filename && custom_file_exists($filename)) {
 
     CProfilePhoto::createFileOrigImage($filename);

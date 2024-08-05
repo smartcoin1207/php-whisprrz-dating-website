@@ -1801,6 +1801,11 @@ var CProfilePhoto = function(guid,uid) {
     $this.mediaOffset=false;
     this.showGallery = function(pid, dataMedia, list, reloadData, groupId, e, dataCustom){
 
+        //popcorn modified for event notification...
+        var $target = $(e.target).closest('.events_notification_item');
+        var eventId = $target.data('event-id');
+        var is_event_notification = eventId ? true :  false;
+
         reloadData=reloadData||false;
         groupId=groupId||false;
 
@@ -2004,10 +2009,10 @@ var CProfilePhoto = function(guid,uid) {
                         dataMedia = $this.galleryMediaData && $this.galleryMediaData[pid];
                         fnPrepareGallery();
                     },10)
-                },groupId)
+                },groupId, is_event_notification)
             } else {
                 fnPrepareGallery();
-                $this.showUploadComments(pid,1,0,false,groupId);
+                $this.showUploadComments(pid,1,0,false,groupId, is_event_notification);
             }
             fnShowGallery();
         }
@@ -2829,10 +2834,10 @@ var CProfilePhoto = function(guid,uid) {
             $this.scrollToNative($toComment);
             $this.$ppGalleryLoader.show();
         },50)
-        return $toComment[0];
+        return $toComment[0];   
     }
 
-    this.showUploadComments = function(pid,isUpdateData,direct,callRes,groupId){
+    this.showUploadComments = function(pid,isUpdateData,direct,callRes,groupId, is_event_notification = false){
         groupId=groupId||0;
         var cmd='get_photo_comment',pidD=pid;
         if ($this.ppGalleryIsVideo) {
@@ -2852,13 +2857,17 @@ var CProfilePhoto = function(guid,uid) {
         var dataRes={uid:$this.uid,
                 photo_id:pid,
                 photo_cur_id:pid,
-                // group_id: groupId ? groupId : ((dataMedia && dataMedia['group_id'])  ? dataMedia['group_id'] : 0),  // popcorn mmodified for group image scroll 2024-05-23
+                group_id: groupId ? groupId : ((dataMedia && dataMedia['group_id'])  ? dataMedia['group_id'] : 0),  // popcorn mmodified for group image scroll 2024-05-23
                 get_data_edge:isUpdateData,
                 load_more:0,
                 last_id:0,
                 limit:0,
                 // offset_media:$this.mediaOffset,
                 show_comment_id: $this.showCommentId};
+        
+        if(is_event_notification) {
+            dataRes['is_event_notification'] = is_event_notification;
+        }
 
         direct=direct||0;
         if (direct) {
@@ -2873,6 +2882,11 @@ var CProfilePhoto = function(guid,uid) {
         photoCmd = $this.getPhotoCmd();
         ehp_type = $this.getEHPType();
 
+        if(is_event_notification) {
+            photoCmd = '';
+        }
+
+        //popcorn modified 2024-08-05 start
         if(ehp_type == 'event') {
             url = location.href;
             const urlParams = new URLSearchParams(new URL(url).search);
@@ -2889,7 +2903,8 @@ var CProfilePhoto = function(guid,uid) {
             const partyhouId = urlParams.get('partyhou_id');
             dataRes['activity_id'] = partyhouId;
         }
-        
+        //popcorn modified 2024-08-05 end
+    
         /* Divyesh - added on 23042024 */
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -3870,7 +3885,6 @@ var CProfilePhoto = function(guid,uid) {
                             $this.visibleMediaData[pid]['tags_html'] = data.tags_html;
                             $this.visibleMediaData[pid]['tags_title'] = data.tags_title;
 
-
                             if ($this.ppGalleryIsVideo) {
                                 var $listTags=$('.video_list_tags_'+pid);
                             } else {
@@ -4171,7 +4185,6 @@ var CProfilePhoto = function(guid,uid) {
                 })
             }
         }
-
     }
 
     this.photoRotateInit = {};

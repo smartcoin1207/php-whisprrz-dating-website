@@ -452,7 +452,6 @@ class CProfilePhoto extends CHtmlBlock
         }
 
         if ($imageString && $uid && $pid) {
-
             $photo = array(
                 'photo_id' => $pid,
                 'user_id' => $uid,
@@ -464,7 +463,8 @@ class CProfilePhoto extends CHtmlBlock
             $image_directory = $photoTables['image_directory'];
 
             if (self::isActivityEHP()) {
-                $photo = DB::one($table_image, '`image_id` = ' . to_sql($pid) . ' AND `user_id` = ' . to_sql($uid));
+                $photo = DB::one($table_image, '`image_id` = ' . to_sql($pid));
+
                 $fileSrc = $g['path']['dir_files'] . 'temp/' . $image_directory . "/" . $photo['image_id'] . "_src.jpg";
             } else {
                 $photo = DB::one('photo', '`photo_id` = ' . to_sql($pid) . ' AND `user_id` = ' . to_sql($uid));
@@ -477,13 +477,7 @@ class CProfilePhoto extends CHtmlBlock
                 }
             }
 
-            //whisprrz.com/_files/temp/2_xxx.png
-            //whisprrz.com/_files/photo/2_xxx.png
-            //whisprrz.com/_files/events_event_images/3_xx.png
-            //whisprrz.com/_files/temp/events_event_images/3_xx.png
-            
             Common::saveFileSize($fileSrc, false);
-
             if (file_put_contents($fileSrc, $imageString) === strlen($imageString)) {
                 $im = new Image();
                 if ($im->loadImage($fileSrc)) {
@@ -506,7 +500,6 @@ class CProfilePhoto extends CHtmlBlock
                         }
                     }
                     
-
                     self::subtractPhotoFileSizes($sFile_);
 
                     if (self::createBasePhotoFile($im, $sFile_, $fileSrc)) {
@@ -545,7 +538,6 @@ class CProfilePhoto extends CHtmlBlock
                 return true;
             }
         }
-
         return false;
     }
 
@@ -732,7 +724,6 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         $photosInfo = self::preparePhotoList($uid, $order, $whereSql, $limit, false, false, get_param('offset', false), $groupId); // Divyesh - added on 23042024
-
         $is = false;
         $privatePhoto = self::$privatePhoto;
         $personalPhoto = self::$personalPhoto;  // Divyesh - added on 23042024
@@ -873,7 +864,6 @@ class CProfilePhoto extends CHtmlBlock
                 $sqlCount = 'SELECT COUNT(PH.photo_id) FROM `photo` AS PH LEFT JOIN `user` AS U ON U.user_id = PH.user_id WHERE PH.visible != "P" AND ' . $where;
             }
 
-
             if ($isEdgeGetData) {
                 self::$allPhotoCount = intval(DB::result($sqlCount, 0, DB_MAX_INDEX));
                 $countPhoto = self::$allPhotoCount;
@@ -971,11 +961,6 @@ class CProfilePhoto extends CHtmlBlock
                             $sql .= $limitNextSql;
                         }
                     }
-
-                    //var_dump_pre(self::$preloadPhotoLimit);
-                    //echo $sql;
-                    //var_dump_pre($pagePreloadDirect);
-                    //var_dump_pre($pagePreloadLimit);
                 } else {
                     $checkStopPreloadPhoto = true;
 
@@ -1075,7 +1060,7 @@ class CProfilePhoto extends CHtmlBlock
             } else {
                 $sql .= $limit;
             }
-            
+                        
             $profilePhoto = DB::all($sql, DB_MAX_INDEX);
 
             if ($isEdgeGetData && $checkStopPreloadPhoto) {
@@ -1103,6 +1088,7 @@ class CProfilePhoto extends CHtmlBlock
 
         $nextStepRated = intval(Common::getOption('rate_see_my_photo_rating'));
         $isDefaultPhoto = false;
+
         if (!empty($profilePhoto)) {
             if (!$isEdge) {
                 if ($isCityVisitor) {
@@ -5783,6 +5769,7 @@ class CProfilePhoto extends CHtmlBlock
                     " ORDER BY id DESC" . $limit;
 
                 $comments = DB::all($sql);
+
                 /* Show comment from event */
                 $showCommentId = get_param_int('show_comment_id');
                 if ($typeGallery == 'edge' && $comments && $showCommentId && $isGetLoadComments) {
@@ -5827,14 +5814,11 @@ class CProfilePhoto extends CHtmlBlock
                     $commentsLikes = self::getAllLikesCommentsFromUser($type);
                 }
 
-
-
                 $html->parse('comment_block_start');
                 if ($count > 0) {
                     $i = 0;
                     foreach ($comments as $key => $comment) {
                         $comment['item_group_id'] = $groupId;
-                        //for ($i = 0; $i < $count; $i++) {
                         if ($lastId !== false && $i == $numberComments) {
                             break;
                         }
@@ -6754,6 +6738,7 @@ class CProfilePhoto extends CHtmlBlock
                     $typeOrderDefault = Common::getOption('list_photos_type_order', 'edge_general_settings');
                     $order = self::getOrderList($typeOrderDefault);
                     $numberPhotoProfile = 0;
+                    
                     if ($uid) {
                         $photos = self::getPhotoListMobile($uid, $order, '', '', $groupId);
                         $list = $photos['list_photos'];
@@ -7567,17 +7552,20 @@ class CProfilePhoto extends CHtmlBlock
             }
         }
         $noPrivatePhoto = Common::isOptionActiveTemplate('no_private_photos');
+
         /* Divyesh - Added on 11-04-2024 */
-        if ($access == 'private') {
+        if(get_param('is_event_notification', '')) {
+
+        } else if ($access == 'private') {
             $where .= " AND {$table}private = 'Y' ";
         } else if ($access == 'personal') {
             $where .= " AND {$table}personal = 'Y' ";
         } else if ($access == 'folder') {
             $where .= " AND {$table}in_custom_folder = 'Y' ";
         } else if ((($access == true || $access == 'public') && !$noPrivatePhoto) || self::isHidePrivatePhoto()) {
-            $where .= " AND {$table}private = 'N' ";
-            $where .= " AND {$table}personal = 'N' ";
-            $where .= " AND {$table}in_custom_folder = 'N' ";
+                $where .= " AND {$table}private = 'N' ";
+                $where .= " AND {$table}personal = 'N' ";
+                $where .= " AND {$table}in_custom_folder = 'N' ";
             //User::setNoPhotoPprivateInOffset();
         }
         /* Divyesh - Added on 11-04-2024 */

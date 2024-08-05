@@ -145,6 +145,8 @@ if ($cmd == 'read_msg') {
 	/* Clear old events older than a week */
 	User::getListGlobalEvents(null, 'ASC', $groupIdEvent, true);
 	/* Clear old events older than a week */
+
+
     $events = array(
         'new_count' => User::getNumberGlobalEvents(false, $groupIdEvent),
         'new_list'  => User::getListGlobalEvents(null, 'ASC', $groupIdEvent)

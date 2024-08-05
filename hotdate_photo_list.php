@@ -166,8 +166,8 @@ class CPage extends CHtmlBlock
         } else {
             $html->setvar('num_total', $itemsTotal);
         }
+        
         $rows = $class::parseListPhotos($html, $typeOrder, $limit, '', true, $user_id);
-
 
         if ($rows) {
             Common::parsePagesListUrban($html, $page, $itemsTotal, $pagerOnPage, $mOnBar, $pageUrl);

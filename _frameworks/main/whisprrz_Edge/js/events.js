@@ -372,17 +372,22 @@ var CEvents = function(guid) {
                     return;
                 }
 
+                if(type == 'groups_social_subscribers') {
+
+                    return;
+                }
+
                 if( type == 'events_event_guest' ) {
                     var url  = "" + "event_wall.php?event_id=" + eventId;
                     redirectUrl(url);
                     return;
-                } 
+                }
 
                 if( type == 'hotdates_hotdate_guest') {
                     var url  = "" + "hotdate_wall.php?hotdate_id=" + eventId;
                     redirectUrl(url);
                     return;
-                } 
+                }
 
                 if( type == 'partyhouz_partyhou_guest') {
                     var url  = "" + "partyhouz_wall.php?partyhou_id=" + eventId;

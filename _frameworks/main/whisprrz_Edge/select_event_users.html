@@ -136,10 +136,6 @@
                 checkbox.checked = true;
               }
         });
-
-
-
-
     });
     function save_user() {
         var form = document.forms["SelectEventUsers"];
@@ -159,7 +155,6 @@
         form.submit();
     }
 
-
     function save_all (){
         location.href = "{url_page}&save=all";
     }
@@ -171,7 +166,6 @@
     function return_back() {
         location.href = "{url_event_mail}";
     }
-
 </script>
 <div class="frame_content">
     <!-- {selected_members_session} -->
@@ -227,13 +221,14 @@
         </tr>
     </table>
 
-    <div>
-        <input style="margin:0px; width: 12px;" type="checkbox" id="all">
-        <label id="checkall_label" for="all">{l_check_all}</label>
-        <label id="uncheckall_label" for="all" style="display: none">{l_uncheck_all}</label>
-
-
-        <label style="margin-left: 200px;">{member_count_message}</label>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+        <div style="display: flex;">
+            <input style="margin:0px 5px 0 0; width: 12px;" type="checkbox" id="all">
+            <label id="checkall_label" for="all" style="margin-bottom: 0;">{l_check_all}</label>
+            <label id="uncheckall_label" for="all" style="display: none; margin-bottom: 0;">{l_uncheck_all}</label>
+        </div>
+        
+        <label style="margin-bottom: 0;">{member_count_message}</label>
 
         <input class="btn blue" style="width: 100px; float: right;" onclick="if (confirm('{l_are_you_sure}')) save_user(); else return false; " value="{l_save}">
     </div>
@@ -244,9 +239,9 @@
             <input hidden text name="cmd" value="save">
             <div class="userlist-column">
                 <!-- begin_main_item -->
-                <div>
-                    <input style="margin:0px;" type="checkbox" id="chk_{user_id}" name="users[{user_id}]" value="1" {checked}>
-                    <label for="chk_{user_id}">{name}</label>
+                <div style="display: flex;">
+                    <input style="margin: 0px 5px 0 0;" type="checkbox" id="chk_{user_id}" name="users[{user_id}]" value="1" {checked}>
+                    <label for="chk_{user_id}" style="margin-bottom: 0;">{name}</label>
                 </div>
                 <!-- end_main_item -->
             </div>

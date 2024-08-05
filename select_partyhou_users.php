@@ -16,7 +16,6 @@ class CUsersResults extends CHtmlList
         global $g, $p, $g_user;
 
         $partyhou_id = get_param('partyhou_id');
-        $session_key = $partyhou_id . "_partyhou_selected_members";
 		
         $sql = "SELECT  * FROM partyhouz_partyhou_guest WHERE partyhou_id = " . to_sql($partyhou_id, 'Text') . "AND user_id = " . to_sql(guid(), 'Text');
         $my_subscriber = DB::row($sql);
@@ -36,6 +35,7 @@ class CUsersResults extends CHtmlList
         $cmd = get_param('cmd', '');
         $save = get_param('save', '');
         $clear = get_param('clear', '');
+        $selected_members = [];
 
         if ($save == 'all') {
             $members = CpartyhouzTools::getGuestUsers($partyhou_id);
@@ -50,24 +50,14 @@ class CUsersResults extends CHtmlList
                     $selected_members[$value['user_id']] = '1';
                 }
             }
-
-            set_session($session_key, json_encode($selected_members));
-            redirect($current_url);
         }
         if ($clear == 'all') {
             $selected_members = [];
-            set_session($session_key, json_encode($selected_members));
-            redirect($current_url);
         }
 
         if ($cmd == 'save') {
             $users = get_param_array('users');
-            $selected_members_session = get_session($session_key);
-            $selected_members = json_decode($selected_members_session, true);
 
-            if (!$selected_members) {
-                $selected_members = array();
-            }
             if ($users) {
                 foreach ($users as $key => $value) {
                     if ($value == '1') {
@@ -80,8 +70,24 @@ class CUsersResults extends CHtmlList
                     }
                 }
             }
+        }
 
-            set_session($session_key, json_encode($selected_members));
+        if($cmd == 'save' || $clear == 'all' || $save == 'all') {
+            $table = "mass_mail_saved_user_list";
+            
+            $exist_row = DB::row("SELECT * FROM " . $table . " WHERE event_id = " . to_sql($partyhou_id) . " AND event_type = 'partyhou'" );
+
+            if(isset($exist_row)) {
+                $sql = "UPDATE mass_mail_saved_user_list SET userlist = " . to_sql(json_encode($selected_members)) . " WHERE event_id = " . to_sql($partyhou_id);
+            } else {
+                $sql = "INSERT INTO mass_mail_saved_user_list (event_id, userlist, event_type) values(" . to_sql($partyhou_id, 'Text') . ", " . to_sql(json_encode($selected_members), 'Text') .  ", 'partyhou')";
+            }
+
+            dB::execute($sql);
+        }
+
+        if($clear == 'all' || $save =='all') {
+            redirect($current_url);
         }
     }
 
@@ -101,8 +107,7 @@ class CUsersResults extends CHtmlList
         $this->m_sql_from_add = " LEFT JOIN user as u ON u.user_id=gs.user_id ";
 
         if ($display == "all") {
-          
-            $display = $row['total_row'];
+
         }
         $this->m_on_page = $display;
         $this->m_on_bar = 10;
@@ -142,6 +147,7 @@ class CUsersResults extends CHtmlList
     public function parseBlock(&$html)
     {
         global $g;
+        $table = "mass_mail_saved_user_list";
         $partyhou_id = get_param('partyhou_id', '');
         $gsql = "SELECT * FROM partyhouz_partyhou_guest where partyhou_id = " . to_sql($partyhou_id, 'Text');
         $partyhou_guests = DB::row($gsql);
@@ -159,9 +165,14 @@ class CUsersResults extends CHtmlList
         $html->setvar("page_option", $opt_html);
         $html->setvar("display_p", $selected);
 
-        $session_key = $partyhou_id . "_partyhou_selected_members";
-        $selected_members_session = get_session($session_key);
-        $selected_members = json_decode($selected_members_session, true);
+        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($partyhou_id) . " AND event_type = 'partyhou'";
+        $saved_users_list = DB::row($sql);
+        if($saved_users_list) {
+            $user_list = $saved_users_list['userlist'];
+            $selected_members = json_decode($user_list, true);
+        } else {
+            $selected_members = [];
+        }
 
         $x = [];
         if ($selected_members) {

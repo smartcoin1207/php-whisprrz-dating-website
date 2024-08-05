@@ -53,6 +53,7 @@ class CHotdateMail extends CHtmlBlock
     public function action()
     {
         global $g, $g_user;
+        $table = "mass_mail_saved_user_list";
 
         $cmd = get_param('cmd', '');
         if ($cmd == "sent") {
@@ -73,10 +74,15 @@ class CHotdateMail extends CHtmlBlock
             }
             $text = trim(strip_tags($text));
 
-            $session_key  = $hotdate_id . "_hotdate_selected_members";
 
-            $selected_members_session = get_session($session_key);
-            $selected_members = json_decode($selected_members_session, true);
+            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND event_type = 'hotdate'";
+            $saved_users_list = DB::row($sql);
+            if($saved_users_list) {
+                $user_list = $saved_users_list['userlist'];
+                $selected_members = json_decode($user_list, true);
+            } else {
+                $selected_members = [];
+            }
 
             if ($selected_members && $subject != '' && $text != '') {
                 $textHash = md5(mb_strtolower($text, 'UTF-8'));
@@ -187,16 +193,22 @@ class CHotdateMail extends CHtmlBlock
     {
         global $g;
         $hotdate_id = get_param('hotdate_id', '');
+        $table = "mass_mail_saved_user_list";
 
         if (!$hotdate_id) {
             Common::toHomePage();
         }
 
-        $total_member_count = ChotdatesTools::getTotalGuestsCount($hotdate_id);
+        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND event_type = 'hotdate'";
+        $saved_users_list = DB::row($sql);
+        if($saved_users_list) {
+            $user_list = $saved_users_list['userlist'];
+            $selected_members = json_decode($user_list, true);
+        } else {
+            $selected_members = [];
+        }
 
-        $session_key  = $hotdate_id . "_hotdate_selected_members";
-        $selected_members_session = get_session($session_key);
-        $selected_members = json_decode($selected_members_session, true);
+        $total_member_count = ChotdatesTools::getTotalGuestsCount($hotdate_id);
 
         $member_count = 0;
         if ($selected_members) {

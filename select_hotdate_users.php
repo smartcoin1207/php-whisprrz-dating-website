@@ -16,16 +16,9 @@ class CUsersResults extends CHtmlList
         global $g, $p, $g_user;
 
         $hotdate_id = get_param('hotdate_id');
-        $session_key = $hotdate_id . "_hotdate_selected_members";
 		
         $sql = "SELECT  * FROM hotdates_hotdate_guest WHERE hotdate_id = " . to_sql($hotdate_id, 'Text') . "AND user_id = " . to_sql(guid(), 'Text');
         $my_subscriber = DB::row($sql);
-        // $moderator_options = json_decode($my_subscriber['moderator_options'], true);
-				
-		// if (!self::isOwner() && !$moderator_options['hotdate_mail']) {
-        //     $redirect_url = $g['path']['url_main'] . "hotdate_wall.php?hotdate_id=" . $hotdate_id;
-        //     redirect($redirect_url);
-        // }
 
         if (!self::isOwner()) {
             $redirect_url = $g['path']['url_main'] . "hotdate_wall.php?hotdate_id=" . $hotdate_id;
@@ -36,6 +29,7 @@ class CUsersResults extends CHtmlList
         $cmd = get_param('cmd', '');
         $save = get_param('save', '');
         $clear = get_param('clear', '');
+        $selected_members = [];
 
         if ($save == 'all') {
             $members = ChotdatesTools::getGuestUsers($hotdate_id);
@@ -50,24 +44,15 @@ class CUsersResults extends CHtmlList
                     $selected_members[$value['user_id']] = '1';
                 }
             }
-
-            set_session($session_key, json_encode($selected_members));
-            redirect($current_url);
         }
+
         if ($clear == 'all') {
             $selected_members = [];
-            set_session($session_key, json_encode($selected_members));
-            redirect($current_url);
         }
 
         if ($cmd == 'save') {
-            $users = get_param_array('users');
-            $selected_members_session = get_session($session_key);
-            $selected_members = json_decode($selected_members_session, true);
+            $users = get_param_array('users', []);
 
-            if (!$selected_members) {
-                $selected_members = array();
-            }
             if ($users) {
                 foreach ($users as $key => $value) {
                     if ($value == '1') {
@@ -76,12 +61,27 @@ class CUsersResults extends CHtmlList
                         if (isset($selected_members[$key])) {
                             unset($selected_members[$key]);
                         }
-
                     }
                 }
             }
+        }
 
-            set_session($session_key, json_encode($selected_members));
+        if($cmd == 'save' || $clear == 'all' || $save == 'all') {
+            $table = "mass_mail_saved_user_list";
+            
+            $exist_row = DB::row("SELECT * FROM " . $table . " WHERE event_id = " . to_sql($hotdate_id) . " AND event_type = 'hotdate'" );
+
+            if(isset($exist_row)) {
+                $sql = "UPDATE mass_mail_saved_user_list SET userlist = " . to_sql(json_encode($selected_members)) . " WHERE event_id = " . to_sql($hotdate_id);
+            } else {
+                $sql = "INSERT INTO mass_mail_saved_user_list (event_id, userlist, event_type) values(" . to_sql($hotdate_id, 'Text') . ", " . to_sql(json_encode($selected_members), 'Text') .  ", 'hotdate')";
+            }
+
+            dB::execute($sql);
+        }
+
+        if($clear == 'all' || $save =='all') {
+            redirect($current_url);
         }
     }
 
@@ -102,7 +102,6 @@ class CUsersResults extends CHtmlList
 
         if ($display == "all") {
           
-            $display = $row['total_row'];
         }
         $this->m_on_page = $display;
         $this->m_on_bar = 10;
@@ -142,6 +141,8 @@ class CUsersResults extends CHtmlList
     public function parseBlock(&$html)
     {
         global $g;
+        $table = "mass_mail_saved_user_list";
+
         $hotdate_id = get_param('hotdate_id', '');
         $gsql = "SELECT * FROM hotdates_hotdate_guest where hotdate_id = " . to_sql($hotdate_id, 'Text');
         $hotdate_guests = DB::row($gsql);
@@ -159,9 +160,14 @@ class CUsersResults extends CHtmlList
         $html->setvar("page_option", $opt_html);
         $html->setvar("display_p", $selected);
 
-        $session_key = $hotdate_id . "_hotdate_selected_members";
-        $selected_members_session = get_session($session_key);
-        $selected_members = json_decode($selected_members_session, true);
+        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND event_type = 'hotdate'";
+        $saved_users_list = DB::row($sql);
+        if($saved_users_list) {
+            $user_list = $saved_users_list['userlist'];
+            $selected_members = json_decode($user_list, true);
+        } else {
+            $selected_members = [];
+        }
 
         $x = [];
         if ($selected_members) {

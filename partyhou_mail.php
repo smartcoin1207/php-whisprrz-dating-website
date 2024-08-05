@@ -53,6 +53,7 @@ class CPartyhouMail extends CHtmlBlock
     public function action()
     {
         global $g, $g_user;
+        $table = "mass_mail_saved_user_list";
 
         $cmd = get_param('cmd', '');
         if ($cmd == "sent") {
@@ -73,11 +74,14 @@ class CPartyhouMail extends CHtmlBlock
             }
             $text = trim(strip_tags($text));
 
-            $session_key  = $partyhou_id . "_partyhou_selected_members";
-
-            $selected_members_session = get_session($session_key);
-            $selected_members = json_decode($selected_members_session, true);
-
+            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($partyhou_id) . " AND event_type = 'partyhou'";
+            $saved_users_list = DB::row($sql);
+            if($saved_users_list) {
+                $user_list = $saved_users_list['userlist'];
+                $selected_members = json_decode($user_list, true);
+            } else {
+                $selected_members = [];
+            }
             if ($selected_members && $subject != '' && $text != '') {
                 $textHash = md5(mb_strtolower($text, 'UTF-8'));
                 if (User::isBanMails($textHash) || User::isBanMailsIp()) {
@@ -187,6 +191,7 @@ class CPartyhouMail extends CHtmlBlock
     {
         global $g;
         $partyhou_id = get_param('partyhou_id', '');
+        $table = "mass_mail_saved_user_list";
 
         if (!$partyhou_id) {
             Common::toHomePage();
@@ -194,9 +199,14 @@ class CPartyhouMail extends CHtmlBlock
 
         $total_member_count = CpartyhouzTools::getTotalGuestsCount($partyhou_id);
 
-        $session_key  = $partyhou_id . "_partyhou_selected_members";
-        $selected_members_session = get_session($session_key);
-        $selected_members = json_decode($selected_members_session, true);
+        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($partyhou_id) . " AND event_type = 'partyhou'";
+        $saved_users_list = DB::row($sql);
+        if($saved_users_list) {
+            $user_list = $saved_users_list['userlist'];
+            $selected_members = json_decode($user_list, true);
+        } else {
+            $selected_members = [];
+        }
 
         $member_count = 0;
         if ($selected_members) {

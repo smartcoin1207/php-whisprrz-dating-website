@@ -14,12 +14,9 @@ if(!Common::isOptionActive('wink')) {
     redirect(Common::toHomePage());
 }
 
-
-
 class CHtmlUsersListAction extends CHtmlUsersListInt
 {
 	var $m_on_page = 20;
-
 
 	function action()
 	{

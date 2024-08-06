@@ -112,7 +112,10 @@ var CPages = function(guid) {
             }
         }*/
 
-        replaceUrl($this.urlPage+param);
+        var queryString = window.location.search;
+        var queryStringWithoutQuestionMark = window.location.search.substring(1);
+        var replaceUrlPre = $this.urlPage + param + (queryStringWithoutQuestionMark ?  "?" + queryStringWithoutQuestionMark : "");
+        replaceUrl(replaceUrlPre);
     }
 
     this.closeFilter = function(){
@@ -272,6 +275,7 @@ var CPages = function(guid) {
             $this.setData(data);
         }
 
+
         $this.setDisabledLink(page);
 
         if(!noScroll){
@@ -304,6 +308,10 @@ var CPages = function(guid) {
                 data['user_id'] = user_id;
             }
         }
+
+        var params = new URLSearchParams(window.location.search);
+        var offset = params.get('offset');
+        data['offset'] = offset;
 
         $.post($this.urlPage, data, function(data){
             if(~$this.urlPage.indexOf('users_viewed_me')){

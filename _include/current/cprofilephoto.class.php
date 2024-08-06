@@ -1485,19 +1485,19 @@ class CProfilePhoto extends CHtmlBlock
                     . ' GROUP BY PH.photo_id '
                     . $whereTags;
             } else {
-                $sql = 'SELECT PH.*, PH.count_comments AS comments_count, U.name, U.name_seo, U.country, U.city, U.gender
+                $sql = 'SELECT DISTINCT PH.*, PH.count_comments AS comments_count, U.name, U.name_seo, U.country, U.city, U.gender
                           FROM `photo` AS PH
                           JOIN `user` AS U ON U.user_id = PH.user_id ';
-                        if ($onlyPublic == 'private'){
-                            $sql .= 'LEFT JOIN invited_private ip ON ip.user_id=PH.user_id ';
-                        }else if($onlyPublic == 'personal'){
-                            $sql .= 'LEFT JOIN invited_personal ip ON ip.user_id=PH.user_id ';
-                        }else if($onlyPublic == 'folder'){
-                            $sql .= 'LEFT JOIN invited_folder ip ON ip.user_id=PH.user_id ';
-                        }
-                         $sql .= 'WHERE ' . $where . $order;
+                if ($onlyPublic == 'private'){
+                    $sql .= 'LEFT JOIN invited_private ip ON ip.user_id=PH.user_id ';
+                }else if($onlyPublic == 'personal'){
+                    $sql .= 'LEFT JOIN invited_personal ip ON ip.user_id=PH.user_id ';
+                }else if($onlyPublic == 'folder'){
+                    $sql .= 'LEFT JOIN invited_folder ip ON ip.user_id=PH.user_id ';
+                }
+                    $sql .= 'WHERE ' . $where . $order;
 
-                $sqlCount = 'SELECT COUNT(PH.photo_id) FROM `photo` AS PH LEFT JOIN `user` AS U ON U.user_id = PH.user_id ';
+                $sqlCount = 'SELECT COUNT(DISTINCT PH.photo_id) FROM `photo` AS PH LEFT JOIN `user` AS U ON U.user_id = PH.user_id ';
                 if ($onlyPublic == 'private'){
                     $sqlCount .= 'LEFT JOIN invited_private ip ON ip.user_id=PH.user_id ';
                 }else if($onlyPublic == 'personal'){
@@ -1507,7 +1507,6 @@ class CProfilePhoto extends CHtmlBlock
                 }
                 $sqlCount .= 'WHERE ' . $where;
             }
-
 
             if ($isEdgeGetData) {
                 self::$allPhotoCount = intval(DB::result($sqlCount, 0, DB_MAX_INDEX));
@@ -1606,23 +1605,15 @@ class CProfilePhoto extends CHtmlBlock
                             $sql .= $limitNextSql;
                         }
                     }
-
-                    //var_dump_pre(self::$preloadPhotoLimit);
-                    //echo $sql;
-                    //var_dump_pre($pagePreloadDirect);
-                    //var_dump_pre($pagePreloadLimit);
                 } else {
                     $checkStopPreloadPhoto = true;
 
                     $d = round($limitPreloadData / 2);
                     $limitPreloadData2 = $limitPreloadData * 2;
                     if (($limitPreloadData + $d) >= $countPhoto) {
-                        //var_dump_pre(0);
-                        //$sql .= $limit;
                         self::$stopPreloadPhoto = true;
                     } else {
                         $offsetMedia = get_param('offset_media');
-                        //var_dump_pre($offsetMedia);
                         $pidCur = get_param_int('photo_cur_id');
                         if ($pidCur) {
                             $sqlExistsPhoto = $sqlCount . ' AND PH.photo_id = ' . to_sql($pidCur);
@@ -1662,13 +1653,6 @@ class CProfilePhoto extends CHtmlBlock
 
                         $prevLimit = $offsetMedia - $limitPreloadData;
                         $nextLimit = $offsetMedia + $limitPreloadData + 1;
-
-                        //echo '$offsetMedia';
-                        //var_dump_pre($offsetMedia);
-                        //echo 'prev';
-                        //var_dump_pre($prevLimit);
-                        //echo 'next';
-                        //var_dump_pre($nextLimit);
 
                         self::$preloadPhotoLimit = array('prev' => array(0, 0), 'next' => array(0, 0));
                         if ($prevLimit >= 0 && $countPhoto >= $nextLimit) {
@@ -1756,7 +1740,6 @@ class CProfilePhoto extends CHtmlBlock
             $photoIds = array();
 
             $isPrivatePhotoAvailable = ($uid === $g_user['user_id'] || User::isFriend($uid, $g_user['user_id']));
-
             foreach ($profilePhoto as $item) {
                 /* Divyesh - added on 11-04-2024 */
                 if (in_array($onlyPublic, array('private', 'personal', 'folder')) && ($item['private'] == 'Y' || $item['personal'] == 'Y' || $item['in_custom_folder'] == 'Y') && !$isPrivatePhotoAvailable) {
@@ -1932,7 +1915,6 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allPhotoInfo[$pid]['hide_header'] = $item['hide_header'] * 1;
                 self::$allPhotoInfo[$pid]['hash'] = $item['hash'];
             }
-
             if (!User::getNoPhotoPprivateInOffset()) {
                 if ($numPhoto > 1) {
                     if (!$isEdge) {
@@ -7485,14 +7467,13 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
        $guid = guid();
-
-
+       
         $where = self::getWherePhotosList('PH.', $onlyPublic, $uid);
 
-        $sql = 'SELECT COUNT(*) FROM `photo` AS PH JOIN `user` AS U ON PH.user_id=U.user_id where ' . $where;
+        $sql = 'SELECT COUNT(DISTINCT PH.photo_id) FROM `photo` AS PH JOIN `user` AS U ON PH.user_id=U.user_id where ' . $where;
 
         if ($guid) {
-            $sql = 'SELECT COUNT(*) FROM `photo` AS PH JOIN `user` AS U ON PH.user_id=U.user_id ';
+            $sql = 'SELECT COUNT(DISTINCT PH.photo_id) FROM `photo` AS PH JOIN `user` AS U ON PH.user_id=U.user_id ';
             if ($onlyPublic == 'private'){
                 $sql .= 'LEFT JOIN invited_private ip ON ip.user_id=PH.user_id ';
             }else if($onlyPublic == 'personal'){

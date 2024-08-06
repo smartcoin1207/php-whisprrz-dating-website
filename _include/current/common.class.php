@@ -2046,7 +2046,7 @@ Class Common {
 
     }
 
-    static function parsePagesListUrban(&$html, $page, $n_results, $n_results_per_page, $n_links = 5, $pageUrlDefault = '', $pageUrlParam = 'page')
+    static function parsePagesListUrban(&$html, $page, $n_results, $n_results_per_page, $n_links = 5, $pageUrlDefault = '', $pageUrlParam = 'page', $page_offset = '')
     {
         global $p;
 
@@ -2063,7 +2063,6 @@ Class Common {
             }
             $html->setvar('pager_url_delimiter', $pagerUrlDelimiter);
             $html->setvar('pager_url', $pageUrl);
-
         }
 
         $pageUrlDelimiter = '';
@@ -2072,6 +2071,8 @@ Class Common {
             $pageUrlDelimiter = self::getPagesListDelimiter($pageUrlDefault, $pageUrlParam);
             $html->setvar('pager_url_seo', $pageUrlDefault);
         }
+
+        $html->setvar('page_offset', $page_offset);
 
         $page = intval($page);
         if($page < 1) {

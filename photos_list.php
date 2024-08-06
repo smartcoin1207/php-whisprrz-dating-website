@@ -36,7 +36,6 @@ if(!$groupId) {
     $is_personal_photo_access = User::checkPhotoTabAccess('invited_personal', $uid);
     $is_folder_photo_access = User::checkPhotoTabAccess('invited_folder', $uid);
 
-
     if (!empty($uid) && $uid != $g_user['user_id'] && (($offset == 2 && !$is_private_photo_access) || 
     ($offset == 3 && !$is_personal_photo_access) ||
     ($offset == 4 && !$is_folder_photo_access))) {
@@ -66,6 +65,8 @@ class CPage extends CHtmlBlock
         $ajax = get_param('ajax');
         $groupId = Groups::getParamId();
 
+        $page_offset = "";
+
         if(!$groupId) {
             global $g_user, $is_folder_photo_access, $is_private_photo_access, $is_personal_photo_access;
 
@@ -86,9 +87,14 @@ class CPage extends CHtmlBlock
             } else {
                 $active_tab_1 = 'active';
             }
+
+            if($offset == 2 || $offset == 3 || $offset == 4) {
+                $page_offset = "?offset=" . $offset;
+            } else {
+                $page_offset = "";
+            }
             /* Divyesh - added on 11-04-2024 */
         }
-
 
         $optionTmplName = Common::getTmplName();
         $uid = User::getParamUid(0);
@@ -317,7 +323,7 @@ class CPage extends CHtmlBlock
         CProfilePhoto::$isGetDataWithFilter = false;
 
         if ( $groupId ? $rows : $public_rows) {
-            Common::parsePagesListUrban($html, $page, $itemsTotal, $pagerOnPage, $mOnBar, $pageUrl);
+            Common::parsePagesListUrban($html, $page, $itemsTotal, $pagerOnPage, $mOnBar, $pageUrl, 'page', $page_offset );
         } else {
             $html->parse("list_noitems");
         }

@@ -11,7 +11,6 @@ This notice may not be removed from the source code. */
 
 class User
 {
-
     static private $cacheInfoBasic = array();
 
     static $blockOptions = array(
@@ -5496,7 +5495,9 @@ class User
             DB::update('wall', array('params' => 1), '`id` = ' . to_sql($wallId));
         }
         /* Divyesh - Added on 11-04-2024 */
-        if ($access == 'private' || $access == 'public') {
+        if($access == 'public') {
+            CProfilePhoto::setPhotoPublic($pid, true);
+        } else if ($access == 'private') {
             CProfilePhoto::setPhotoPrivate($pid);
             /* Fix set photo default public */
         } elseif ($access == 'personal') {
@@ -6631,7 +6632,6 @@ class User
                        FROM `groups_social_subscribers`
                       WHERE " . ($all ? '' : 'is_new = 1 AND ') . "user_id = {$guidSql} AND group_user_id != {$guidSql} AND group_private = 'Y' AND accepted = 1)";
 
-
         //Wall like post
         $sqlList[] = "+
                     (SELECT COUNT(*)
@@ -6643,7 +6643,6 @@ class User
                     (SELECT COUNT(*)
                        FROM `photo_likes`
                       WHERE " . ($all ? '' : 'is_new = 1 AND ') . "photo_user_id = {$guidSql} AND user_id != {$guidSql} {$whereGroupLike})";
-
 
         //Video like post
         $sqlList[] = "+
@@ -6664,14 +6663,14 @@ class User
                     (SELECT COUNT(*)
                        FROM `invited_private` AS ip
                 LEFT JOIN `user` AS CU ON CU.user_id = ip.user_id
-                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql})";
+                WHERE " . ($all ? '' : 'ip.is_new = 1 AND ') . " ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql})";
 
         //personal invite
         $sqlList[] = "+
                     (SELECT COUNT(*)
                        FROM `invited_personal` AS ip
                 LEFT JOIN `user` AS CU ON CU.user_id = ip.user_id
-                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql})";
+                WHERE " . ($all ? '' : 'ip.is_new = 1 AND ') . " ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql})";
         //popcorn modified 2024-08-04 end
 
         //created folder invite
@@ -6679,34 +6678,34 @@ class User
                     (SELECT COUNT(*)
                        FROM `invited_folder` AS ifp
                 LEFT JOIN `user` AS CU ON CU.user_id = ifp.user_id
-                WHERE ifp.friend_id = {$guidSql} AND ifp.user_id != {$guidSql})";
+                WHERE " . ($all ? '' : 'ifp.is_new = 1 AND ') . " ifp.friend_id = {$guidSql} AND ifp.user_id != {$guidSql})";
 
         //private video invite
         $sqlList[] = "+
                     (SELECT COUNT(*)
                        FROM `invited_private_vids` AS ipv
                 LEFT JOIN `user` AS CU ON CU.user_id = ipv.user_id
-                WHERE ipv.friend_id = {$guidSql} AND ipv.user_id != {$guidSql})";
+                WHERE " . ($all ? '' : 'ipv.is_new = 1 AND ') . " ipv.friend_id = {$guidSql} AND ipv.user_id != {$guidSql})";
 
         //popcorn modified 2024-05-28
         //You are a member of event
         $sqlList[] = "+ (SELECT COUNT(*) FROM `events_event_guest` AS CL
                         LEFT JOIN `events_event` AS CEE ON CEE.event_id = CL.event_id 
-                        WHERE CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
+                        WHERE " . ($all ? '' : 'CL.is_new = 1 AND ') . " CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
                         AND CEE.event_approval = 1 
                         AND CL.accepted = 1 )";
 
         //You are a member of hotdate
         $sqlList[] = "+ (SELECT COUNT(*) FROM `hotdates_hotdate_guest` AS CL
                         LEFT JOIN `hotdates_hotdate` AS CEE ON CEE.hotdate_id = CL.hotdate_id 
-                        WHERE CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
+                        WHERE " . ($all ? '' : 'CL.is_new = 1 AND ') . " CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
                         AND CEE.hotdate_approval = 1 
                         AND CL.accepted = 1 )";
 
         //You are a member of hotdate
         $sqlList[] = "+ (SELECT COUNT(*) FROM `partyhouz_partyhou_guest` AS CL
                         LEFT JOIN `partyhouz_partyhou` AS CEE ON CEE.partyhou_id = CL.partyhou_id 
-                        WHERE CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
+                        WHERE " . ($all ? '' : 'CL.is_new = 1 AND ') . " CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
                         AND CEE.partyhou_approval = 1 
                         AND CL.accepted = 1 )";
 
@@ -7075,11 +7074,11 @@ class User
         //private invite
         $sqlList[] = "UNION
                     (SELECT IF(true, 'invitation', 'invitation') AS type,
-                        IF(true, 'private_photo', 'private_photo') AS tb,
-                        IF(true, 'private_photo', 'private_photo') AS type_short,
-                        ip.user_id AS id,
+                        IF(true, 'invited_private', 'invited_private') AS tb,
+                        IF(true, 'invited_private', 'invited_private') AS type_short,
+                        ip.id AS id,
                         IF(true, 0, 0) AS group_id,
-                        IF(true, 0, 0) AS new,
+                        ip.is_new AS new,
                         ip.friend_id AS user_id, 
                         ip.created_at AS date,
                         IF(true, 0, 0) AS event_id,
@@ -7092,15 +7091,15 @@ class User
                         CU.name, CU.name_seo, CU.gender
                 FROM `invited_private` AS ip
                 LEFT JOIN `user` AS CU ON CU.user_id = ip.user_id
-                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql}" . getWhereSql('ip.date', $isUpdateOldEvent) . $sqlLimit . ")";
+                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql}" . getWhereSql('ip.created_at', $isUpdateOldEvent) . $sqlLimit . ")";
         //personal invite
         $sqlList[] = "UNION
                     (SELECT IF(true, 'invitation', 'invitation') AS type,
-                        IF(true, 'personal_photo', 'personal_photo') AS tb,
-                        IF(true, 'personal_photo', 'personal_photo') AS type_short,
-                        ip.user_id AS id,
+                        IF(true, 'invited_personal', 'invited_personal') AS tb,
+                        IF(true, 'invited_personal', 'invited_personal') AS type_short,
+                        ip.id AS id,
                         IF(true, 0, 0) AS group_id,
-                        IF(true, 0, 0) AS new,
+                        ip.is_new AS new,
                         ip.friend_id AS user_id, 
                         ip.created_at AS date,
                         IF(true, 0, 0) AS event_id,
@@ -7113,15 +7112,15 @@ class User
                         CU.name, CU.name_seo, CU.gender
                 FROM `invited_personal` AS ip
                 LEFT JOIN `user` AS CU ON CU.user_id = ip.user_id
-                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql}" . getWhereSql('ip.date', $isUpdateOldEvent) . $sqlLimit . ")";
+                WHERE ip.friend_id = {$guidSql} AND ip.user_id != {$guidSql}" . getWhereSql('ip.created_at', $isUpdateOldEvent) . $sqlLimit . ")";
         //created folder invite
         $sqlList[] = "UNION
                     (SELECT IF(true, 'invitation', 'invitation') AS type,
-                        IF(true, 'folder_photo', 'folder_photo') AS tb,
-                        IF(true, 'folder_photo', 'folder_photo') AS type_short,
-                        ifp.user_id AS id,
+                        IF(true, 'invited_folder', 'invited_folder') AS tb,
+                        IF(true, 'invited_folder', 'invited_folder') AS type_short,
+                        ifp.id AS id,
                         IF(true, 0, 0) AS group_id,
-                        IF(true, 0, 0) AS new,
+                        ifp.is_new AS new,
                         ifp.friend_id AS user_id, 
                         ifp.created_at AS date,
                         IF(true, 0, 0) AS event_id,
@@ -7134,15 +7133,15 @@ class User
                         CU.name, CU.name_seo, CU.gender
                 FROM `invited_folder` AS ifp
                 LEFT JOIN `user` AS CU ON CU.user_id = ifp.user_id
-                WHERE ifp.friend_id = {$guidSql} AND ifp.user_id != {$guidSql}" . getWhereSql('ip.date', $isUpdateOldEvent) . $sqlLimit . ")";
+                WHERE ifp.friend_id = {$guidSql} AND ifp.user_id != {$guidSql}" . getWhereSql('ifp.created_at', $isUpdateOldEvent) . $sqlLimit . ")";
         //private video invite
         $sqlList[] = "UNION
                     (SELECT IF(true, 'invitation', 'invitation') AS type,
-                        IF(true, 'private_video', 'private_video') AS tb,
-                        IF(true, 'private_video', 'private_video') AS type_short,
-                        ipv.user_id AS id,
+                        IF(true, 'invited_private_vids', 'invited_private_vids') AS tb,
+                        IF(true, 'invited_private_vids', 'invited_private_vids') AS type_short,
+                        ipv.id AS id,
                         IF(true, 0, 0) AS group_id,
-                        IF(true, 0, 0) AS new,
+                        ipv.is_new AS new,
                         ipv.friend_id AS user_id, 
                         ipv.created_at AS date,
                         IF(true, 0, 0) AS event_id,
@@ -7155,7 +7154,7 @@ class User
                         CU.name, CU.name_seo, CU.gender
                 FROM `invited_private_vids` AS ipv
                 LEFT JOIN `user` AS CU ON CU.user_id = ipv.user_id
-                WHERE ipv.friend_id = {$guidSql} AND ipv.user_id != {$guidSql}" . getWhereSql('ip.date', $isUpdateOldEvent) . $sqlLimit . ")";
+                WHERE ipv.friend_id = {$guidSql} AND ipv.user_id != {$guidSql}" . getWhereSql('ipv.created_at', $isUpdateOldEvent) . $sqlLimit . ")";
         /** popcorn added 2024-05-28 */
 
         //You are now a member of Event (event, hotdate, partyhou)
@@ -7260,6 +7259,13 @@ class User
 
                 foreach ($itemsUpdateValue as $tb => $item) {
                     $id = $tb == 'events_event' ? 'event_id' : 'id';
+                    if($tb == 'events_event_guest') {
+                        $id = 'guest_id';
+                    } else if($tb == 'hotdates_hotdate_guest') {
+                        $id = 'guest_id';
+                    } else if($tb == 'partyhouz_partyhou_guest') {
+                        $id = 'guest_id';
+                    }
                     $prepareData = implode(",", $item);
                     DB::update($tb, array('is_new' => 0), "{$id} IN (" . to_sql($prepareData, 'Plain') . ')');
                 }
@@ -7382,14 +7388,14 @@ class User
                     'name' => $userName,
                     'url'  => $urlUser
                 );
-                if ($item['type_short'] == 'private_photo')
-                    $title_text = l('private_photo_notify_text');
-                if ($item['type_short'] == 'personal_photo')
-                    $title_text = l('personal_photo_notify_text');
-                if ($item['type_short'] == 'folder_photo')
-                    $title_text = l('folder_photo_notify_text');
-                if ($item['type_short'] == 'private_video')
-                    $title_text = l('private_video_notify_text');
+                if ($item['type_short'] == 'invited_private')
+                    $title_text = l('invited_private_photo_notify_text');
+                if ($item['type_short'] == 'invited_personal')
+                    $title_text = l('invited_personal_photo_notify_text');
+                if ($item['type_short'] == 'invited_folder')
+                    $title_text = l('invited_folder_photo_notify_text');
+                if ($item['type_short'] == 'invited_private_vids')
+                    $title_text = l('invited_private_video_notify_text');
 
                 $title = Common::lSetLink($title_text . " " . $userName, $vars);;
             } else if ($item['type'] == 'events_event_guest' || $item['type'] == 'hotdates_hotdate_guest' || $item['type'] == 'partyhouz_partyhou_guest') {
@@ -7415,7 +7421,7 @@ class User
                 'id'         => $item['id'],
                 'title'      => $title, //"events_notification_{$item['type_short']}_{$item['event_item_id']}/" . $title
                 'date'       => $item['date'],
-                'time_ago'   => timeAgo($item['date'], 'now', 'string', 60, 'second') . "---------" . $item['date'],
+                'time_ago'   => timeAgo($item['date'], 'now', 'string', 60, 'second') . " --- " . $item['date'],
                 'user_id'    => $item['user_id'],
                 'url'        => $urlUser,
                 'url_page'   => $urlPage,

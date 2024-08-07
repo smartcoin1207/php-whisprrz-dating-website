@@ -5556,7 +5556,6 @@ JS;
                   || ($p == 'search_results.php' && $display == 'profile');
         } elseif ($page == 'search_results') {
             $isPage = $p == 'search_results.php' && !$display && !$show;
-
         } elseif ($page == 'user_vids_list' || $page == 'group_vids_list') {
             $isPage = $p == 'vids_list.php' && $paramUid && !$viewList;
         } elseif ($page == 'user_my_vids_list') {
@@ -5571,7 +5570,6 @@ JS;
             $isPage = $p == 'vids_list.php' && $viewList == 'group_page' && $paramUid == $guid;
         } elseif ($page == 'user_my_groups_vids_list') {
             $isPage = $p == 'vids_list.php' && $viewList == 'group' && $paramUid == $guid;
-
         } elseif ($page == 'user_photos_list' || $page == 'group_photos_list') {
             $isPage = $p == 'photos_list.php' && $paramUid && !$viewList;
         } elseif ($page == 'user_my_photos_list') {
@@ -5586,7 +5584,6 @@ JS;
             $isPage = $p == 'photos_list.php' && $viewList == 'group_page' && $paramUid == $guid;
         } elseif ($page == 'user_my_groups_photos_list') {
             $isPage = $p == 'photos_list.php' && $viewList == 'group' && $paramUid == $guid;
-
         } elseif ($page == 'user_friends_list') {
             $isPage = $p == 'friends_list.php' && get_param('show', 'all') == 'all';
         //} elseif ($page == 'friends_list') {

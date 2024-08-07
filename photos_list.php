@@ -314,7 +314,7 @@ class CPage extends CHtmlBlock
             /* Divyesh - Added on 20042024 */
             if ($uid) {
                 $public_rows = $class::parseListTabPhotos($html, $typeOrder, $tab, $limit, $groupId, true); // Divyesh - Added on 11-04-2024
-            }else{
+            } else{
                 $public_rows = $class::parseListTabsPhotos($html, $typeOrder, $tab, $limit, $groupId, true); // Divyesh - Added on 11-04-2024
             }
             /* Divyesh - Added on 20042024 */
@@ -368,7 +368,6 @@ $page = new CPage("", $tmplList);
 if ($isAjaxRequest) {
     getResponsePageAjaxByAuthStop($page, $hideFromGuests ? guid() : 1);
 }
-
 
 $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);

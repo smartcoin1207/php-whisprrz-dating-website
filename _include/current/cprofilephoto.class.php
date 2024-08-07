@@ -2712,6 +2712,30 @@ class CProfilePhoto extends CHtmlBlock
         //return Common::isOptionActive('photo_approval') && $visible == 'N';
     }
 
+    public static function setPhotoPublic($id, $isAdmin = false)
+    {
+        $sql = "SELECT * FROM photo WHERE photo_id = " . to_sql($id, 'Number');
+        $photo_pre = DB::row($sql);
+
+        $responseData = false;
+        
+        if(($photo_pre && $photo_pre['user_id'] == guid()) || $isAdmin) {
+            $sql = "UPDATE `photo` SET `private` = 'N', `personal` = 'N', `in_custom_folder` = 'N' WHERE `photo_id` = " . to_sql($id, 'Number');
+            DB::execute($sql);
+            Wall::UpdateAccessPhoto($id, 'public');
+            $responseData = 'photo_approval';
+
+            if (Common::isEnabledAutoMail('approve_image_admin')) {
+                $vars = array(
+                    'name' => User::getInfoBasic($photo_pre['user_id'], 'name'),
+                );
+                Common::sendAutomail(Common::getOption('administration', 'lang_value'), Common::getOption('info_mail', 'main'), 'approve_image_admin', $vars);
+            }
+        }
+
+        return $responseData;
+    }
+
     public static function setPhotoPrivate($id, $isAdmin = false)
     {
         global $g_user;
@@ -7509,7 +7533,6 @@ class CProfilePhoto extends CHtmlBlock
                 $whereGroupPrivate = "({$table}group_private = 'Y' AND {$table}group_id IN (" . $listGroups . '))';
 
                 $whereGroup .= " AND {$table}group_page = 0 AND ({$table}group_private = 'N' OR " . $whereGroupPrivate . ")";
-                //var_dump_pre($whereGroup);
             }
         }
         $where .= $whereGroup;
@@ -7534,20 +7557,19 @@ class CProfilePhoto extends CHtmlBlock
         }
         $noPrivatePhoto = Common::isOptionActiveTemplate('no_private_photos');
 
+        $photoId = get_param('photo_id', '');
+
         /* Divyesh - Added on 11-04-2024 */
-        if(get_param('is_event_notification', '')) {
+        if(get_param('is_access_offset_all', '')) {
 
         } else if ($access == 'private') {
-            $where .= " AND {$table}private = 'Y' ";
+            $where .= " AND ({$table}private = 'Y' OR {$table}photo_id = '{$photoId}') ";
         } else if ($access == 'personal') {
-            $where .= " AND {$table}personal = 'Y' ";
+            $where .= " AND ({$table}personal = 'Y' OR {$table}photo_id = '{$photoId}')";
         } else if ($access == 'folder') {
-            $where .= " AND {$table}in_custom_folder = 'Y' ";
+            $where .= " AND ({$table}in_custom_folder = 'Y' OR {$table}photo_id = '{$photoId}')";
         } else if ((($access == true || $access == 'public') && !$noPrivatePhoto) || self::isHidePrivatePhoto()) {
-                $where .= " AND {$table}private = 'N' ";
-                $where .= " AND {$table}personal = 'N' ";
-                $where .= " AND {$table}in_custom_folder = 'N' ";
-            //User::setNoPhotoPprivateInOffset();
+            $where .= " AND ({$table}private = 'N' AND {$table}personal = 'N' AND {$table}in_custom_folder = 'N' OR {$table}photo_id = '{$photoId}') " ;
         }
         /* Divyesh - Added on 11-04-2024 */
         if ($uid) {

@@ -1001,12 +1001,12 @@ class CpartyhouzTools
 
     static function approve_partyhou_guest_as_host($partyhou_id, $guest_users_ids) {
         if($guest_users_ids) {
-            DB::execute("UPDATE partyhouz_partyhou_guest SET accepted = '1' WHERE partyhou_id=".to_sql($partyhou_id, 'Nubmer')." AND user_id IN (" . $guest_users_ids . ")");
+            DB::execute("UPDATE partyhouz_partyhou_guest SET accepted = '1', is_new = '1' WHERE partyhou_id=".to_sql($partyhou_id, 'Nubmer')." AND user_id IN (" . $guest_users_ids . ")");
         }
     }
 
     static function approve_partyhou_guest_user_one_as_host($partyhou_id, $guest_user_id) {
-        DB::execute("UPDATE partyhouz_partyhou_guest SET accepted = '1' WHERE partyhou_id = " . to_sql($partyhou_id, 'Number') . " AND user_id = " . to_sql($guest_user_id, 'Number'));
+        DB::execute("UPDATE partyhouz_partyhou_guest SET accepted = '1', is_new = '1' WHERE partyhou_id = " . to_sql($partyhou_id, 'Number') . " AND user_id = " . to_sql($guest_user_id, 'Number'));
     }
 
 

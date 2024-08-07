@@ -524,12 +524,21 @@ class CUsers extends CHtmlList
         //$nsc_couple_id = $row['user_id']+1;
         $photo = User::getPhotoDefault($row["user_id"], "m");
         $html->setvar('new_photo', $photo);
+        // Use a regular expression to match the numeric part
+        if($photo) {
+            preg_match('/photo\/(\d+)_/', $photo, $matches);
+            if(isset($matches[1])) {
+                $html->setvar('new_photo_id', $matches[1]);
+            }
+        }
+        
         DB::query("SELECT photo_id, user_id, photo_name, description, visible, hash FROM photo WHERE user_id=" . $row["user_id"] . ";");
 
         $partner_t = DB::row("SELECT * FROM var_nickname WHERE id='" . $row['partner_type'] . "'");
 
         if ($new_row = DB::fetch_row()) {
             $html->setvar("new_photo", "photo/" . $new_row['photo_id'] . "_" . $new_row['hash'] . "_b.jpg");
+            $html->setvar('new_photo_id', 123);
         }
         if (isset($partner_t['title']) && $partner_t['title'] !== '' && isset($row['nsc_couple_id']) && $row['nsc_couple_id'] > 0) {
             $html->setvar("partner_type", $partner_t['title']);
@@ -839,7 +848,6 @@ class CUsers extends CHtmlList
         }
         $parseFavoriteAdd = false;
 
-
         if (Common::isOptionActive('bookmarks')) {
 
             $isBookmarded = User::isBookmarkExists(guid(), $row['user_id']);
@@ -880,7 +888,6 @@ class CUsers extends CHtmlList
         }
         if (!$this->m_is_me && ($interactiveOptionsCount > 0 || $parseFavoriteAdd)) {
             $html->parse('interactive_options', false);
-
         }
 
         $blockPhotoCount = 'photo_count';
@@ -2639,6 +2646,10 @@ class CUsersProfile extends CUsers
 
             $html->parse("show_private_video", true);
             $html->setblockvar('cancel_private_video', "");
+        }
+
+        if( isset($row['user_id']) && $row['user_id'] != guid()) {
+            $html->parse('user_invite');
         }
 
         /* Divyesh - added on 11-04-2024 */

@@ -56,10 +56,7 @@
         <a href="#" onclick="showRecorder(); return false;"><img src="{url_tmpl_main}img/hi_label.png" width="29" height="24" class="png_behavior" /></a>
         </div>
     <!-- end_recorder -->
-    
-        <a href="{url_main}{url_page}?offset={offset}&display=photo{params}">
-            <img border="0" alt="{name}, {city}, {country}" src="{url_files}{new_photo}" width="126" height="140" class="border_radius">
-        </a>
+        <img border="0" alt="{name}, {city}, {country}" src="{url_files}{new_photo}" width="126" height="140" onclick="openGalleryList(event,'{new_photo_id}', false, '{user_id}')" class="border_radius">
         <!--<a class="icon_photo" href="{url_main}{url_page}?offset={offset}&display=photo{params}"></a>-->
     
         <!-- begin_profile_status -->
@@ -211,7 +208,6 @@
                 </td>
             </tr></table>
             <br>
-
         <!-- begin_new_couple_profile -->
     <div class="fullprof" style="position:relative; margin: 0 0 20px;">
             <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
@@ -465,14 +461,12 @@
                 <span style="margin-left: 17px;" >
                     {l_calendar}
                 </span>
-
             </a></li>
             <!-- begin_wall -->
                     <li class="pm_wall"><a class="ico_wall" href="{url_page}?offset={offset}&display={display_wall}{params}" title="{l_news_feed}">{l_news_feed}</a></li>
-            <!-- end_wall -->
-               
+            <!-- end_wall --> 
 
-            <!-- Divyesh - Added on 12-04-2024 -->
+            <!-- begin_user_invite -->
             <li class="pm_invitation dropdown-submenu">
                 <a class="ico_invitation" href="javascript:void();">{l_invitation}</a>
                 <ul class="custom-dd-menu">
@@ -500,9 +494,8 @@
                     <!-- end_cancel_private_video -->
                 </ul>
             </li>
-            <!--    Divyesh - Added on 12-04-2024 -->
-
-
+            <!-- end_user_invite -->
+            
             <!-- begin_my_certify_link--> 
                     <li class="pm_certify">
                         <a class="ico_certify" href="{url_main}my_certify.php" title="{l_my_certify}">

@@ -69,14 +69,14 @@
                     <br />
                     <img src="{url_files}photo/{photo_file}_bm.jpg">
                     <!-- Divyesh - 17042024 -->
-                    <div style="padding: 10px 20px;">
-                        <label><input type="radio" class="radio" name="do[{photo_id}]" value="public" {public_check}> {l_public}</label> &nbsp;&nbsp;
-                        <label><input type="radio" class="radio" name="do[{photo_id}]" value="private" {private_check}> {l_make_private}</label> &nbsp;&nbsp;
-                        <label><input type="radio" class="radio" name="do[{photo_id}]" value="personal" {personal_check}> {l_make_personal}</label> &nbsp;&nbsp;
+                    <div style="padding: 10px 20px; display: flex;">
+                        <div style="display: flex; align-items: center;"><input type="radio" id="public_{photo_id}" class="radio" name="do[{photo_id}]" value="public" {public_check}> <label for="public_{photo_id}" style="margin: 0 0 -1px 5px;">{l_public}</label></div> &nbsp;&nbsp;
+                        <div style="display: flex; align-items: center;"><input type="radio" id="private_{photo_id}" class="radio" name="do[{photo_id}]" value="private" {private_check}> <label for="private_{photo_id}" style="margin: 0 0 -1px 5px;">{l_make_private}</label></div> &nbsp;&nbsp;
+                        <div style="display: flex; align-items: center;"><input type="radio" id="personal_{photo_id}" class="radio" name="do[{photo_id}]" value="personal" {personal_check}> <label for="personal_{photo_id}" style="margin: 0 0 -1px 5px;">{l_make_personal}</label></div> &nbsp;&nbsp;
                         <!-- begin_show_folder_access -->
-                        <label><input type="radio" class="radio" name="do[{photo_id}]" value="folder" {folder_check}> {folder_access}</label> &nbsp;&nbsp;
+                        <div style="display: flex; align-items: center;"><input type="radio" id="{folder_access}_{photo_id}" class="radio" name="do[{photo_id}]" value="folder" {folder_check}> <label for="{folder_access}_{photo_id}" style="margin: 0 0 -1px 5px;">{folder_access}</label></div> &nbsp;&nbsp;
                         <!-- end_show_folder_access -->
-                        <label><input type="radio" class="radio" name="do[{photo_id}]" value="del"> {l_delete}</label>
+                        <div style="display: flex; align-items: center;"><input type="radio" id="delete_{photo_id}" class="radio" name="do[{photo_id}]" value="del"> <label for="delete_{photo_id}" style="margin: 0 0 -1px 5px;">{l_delete}</label></div>
                     </div>
                     <!-- Divyesh - 17042024 -->
                 </div>

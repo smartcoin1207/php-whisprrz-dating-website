@@ -996,12 +996,12 @@ class ChotdatesTools
 
     static function approve_hotdate_guest_as_host($hotdate_id, $guest_users_ids) {
         if($guest_users_ids) {
-            DB::execute("UPDATE hotdates_hotdate_guest SET accepted = '1' WHERE hotdate_id=".to_sql($hotdate_id, 'Nubmer')." AND user_id IN (" . $guest_users_ids . ")");
+            DB::execute("UPDATE hotdates_hotdate_guest SET accepted = '1', is_new = '1' WHERE hotdate_id=".to_sql($hotdate_id, 'Nubmer')." AND user_id IN (" . $guest_users_ids . ")");
         }
     }
 
     static function approve_hotdate_guest_user_one_as_host($hotdate_id, $guest_user_id) {
-        DB::execute("UPDATE hotdates_hotdate_guest SET accepted = '1' WHERE hotdate_id = " . to_sql($hotdate_id, 'Number') . " AND user_id = " . to_sql($guest_user_id, 'Number'));
+        DB::execute("UPDATE hotdates_hotdate_guest SET accepted = '1', is_new = '1' WHERE hotdate_id = " . to_sql($hotdate_id, 'Number') . " AND user_id = " . to_sql($guest_user_id, 'Number'));
     }
 
     static function create_hotdate_guest($hotdate_id, $n_friends)

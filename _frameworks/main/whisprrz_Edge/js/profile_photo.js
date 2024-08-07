@@ -1804,7 +1804,14 @@ var CProfilePhoto = function(guid,uid) {
         //popcorn modified for event notification...
         var $target = $(e.target).closest('.events_notification_item');
         var eventId = $target.data('event-id');
-        var is_event_notification = eventId ? true :  false;
+        var is_access_offset_all = eventId ? true :  false;
+
+        //in profile photo page get all access(public, private, folder, personal) for this is_access_offset_all = true;
+        var $target = $(e.target).closest('.img_border');
+        var profile_photo = $target.data('profile-photo');
+        if(profile_photo == '1') {
+            is_access_offset_all = true;
+        }
 
         reloadData=reloadData||false;
         groupId=groupId||false;
@@ -2009,10 +2016,10 @@ var CProfilePhoto = function(guid,uid) {
                         dataMedia = $this.galleryMediaData && $this.galleryMediaData[pid];
                         fnPrepareGallery();
                     },10)
-                },groupId, is_event_notification)
+                },groupId, is_access_offset_all)
             } else {
                 fnPrepareGallery();
-                $this.showUploadComments(pid,1,0,false,groupId, is_event_notification);
+                $this.showUploadComments(pid,1,0,false,groupId, is_access_offset_all);
             }
             fnShowGallery();
         }
@@ -2837,7 +2844,7 @@ var CProfilePhoto = function(guid,uid) {
         return $toComment[0];   
     }
 
-    this.showUploadComments = function(pid,isUpdateData,direct,callRes,groupId, is_event_notification = false){
+    this.showUploadComments = function(pid,isUpdateData,direct,callRes,groupId, is_access_offset_all = false){
         groupId=groupId||0;
         var cmd='get_photo_comment',pidD=pid;
         if ($this.ppGalleryIsVideo) {
@@ -2865,10 +2872,6 @@ var CProfilePhoto = function(guid,uid) {
                 // offset_media:$this.mediaOffset,
                 show_comment_id: $this.showCommentId};
         
-        if(is_event_notification) {
-            dataRes['is_event_notification'] = is_event_notification;
-        }
-
         direct=direct||0;
         if (direct) {
             isUpdateData=true;
@@ -2882,7 +2885,8 @@ var CProfilePhoto = function(guid,uid) {
         photoCmd = $this.getPhotoCmd();
         ehp_type = $this.getEHPType();
 
-        if(is_event_notification) {
+        //when event notification is in ehp(event, hotdate, partyhou) pages
+        if(is_access_offset_all) {
             photoCmd = '';
         }
 
@@ -2917,8 +2921,11 @@ var CProfilePhoto = function(guid,uid) {
         }else if (offset == '4'){
             offset_str = 'folder';
         }
+
+        if(!is_access_offset_all) {
+            dataRes['offset'] = offset_str;
+        }
         
-        dataRes['offset'] = offset_str;
         /* Divyesh - added on 23042024 */
         var fnLoad=function(){
             debugLog('Gallery showUploadComments', dataRes);
@@ -3978,6 +3985,7 @@ var CProfilePhoto = function(guid,uid) {
             desc=trim($this.$el['descEditText'].val()),
             data=$this.galleryMediaData[pid];
         desc=strip_tags(desc);
+        $this.visibleMediaData[pid] = $this.galleryMediaData[pid];
 
         if (data['description']!=desc) {
             var descTitle=desc;

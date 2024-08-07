@@ -808,7 +808,9 @@ function openGallery(e, pid, video, uid, cid, list, groupId, liveUrl, dataCustom
 
 function openGalleryDataId($el, e, video, uid, cid, list){
     if($el.closest('.action_set_default_photo')[0])return false;
-    openGallery(e, $el.data('pid'), video, uid, cid, list)
+    var groupId = $el.data('group-id'); // Retrieve the data-group-id attribute
+    
+    openGallery(e, $el.data('pid'), video, uid, cid, list, groupId);
 }
 
 function openGalleryList(e, pid, video, uid){

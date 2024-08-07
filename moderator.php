@@ -17,7 +17,6 @@ Moderator::checkAccess();
 
 class CHon extends CHtmlBlock
 {
-
     var $message_send = '';
 
     function action()

@@ -8,7 +8,7 @@
                 <img onload="clProfilePhoto.onloadCoverPhoto($(this))" src="{header_custom_big_grid_cover_img_url}" class="nocontextmenu" <!-- begin_header_custom_big_grid_cover_img_style -->style="{header_custom_big_grid_cover_img_style}"<!-- end_header_custom_big_grid_cover_img_style -->>
                 <!-- end_header_custom_big_grid_cover_img -->
                 <!-- begin_header_custom_big_grid_item -->
-                <div onclick="openGallery(event, '{header_custom_big_grid_item_id}', '{header_custom_big_grid_item_video}'*1, '{header_custom_uid}')" title="{header_custom_big_grid_item_description_attr}" class="block grid_item_{header_custom_big_grid_item_id} {header_custom_big_grid_item_class} to_hide photo_description_{header_custom_big_grid_item_id}" data-src="{header_custom_big_grid_item_url}" style="background-image:url({header_custom_big_grid_item_url});">
+                <div onclick="openGallery(event, '{header_custom_big_grid_item_id}', '{header_custom_big_grid_item_video}'*1, '{header_custom_uid}', false, false, '{header_group_id}')" title="{header_custom_big_grid_item_description_attr}" class="block grid_item_{header_custom_big_grid_item_id} {header_custom_big_grid_item_class} to_hide photo_description_{header_custom_big_grid_item_id}" data-src="{header_custom_big_grid_item_url}" style="background-image:url({header_custom_big_grid_item_url});">
                 </div>
                 <script>
                     showGridPhoto('.grid_item_{header_custom_big_grid_item_id}', '{header_custom_big_grid_item_url}');
@@ -296,7 +296,7 @@
 
 
                 <div class="user_pic_frame_ie">
-                    <img data-pid="{header_custom_photo_id}" onclick="openGalleryDataId($(this), event, 0, '{header_custom_uid}')" class="profile_photo_bm_{header_custom_uid}_{header_group_id} nocontextmenu to_hide" onload="onLoadProfilePhoto('.profile_photo_bm_{header_custom_uid}_{header_group_id}')" src="{header_custom_photo}" alt="">
+                    <img data-pid="{header_custom_photo_id}" onclick="openGalleryDataId($(this), event, 0, '{header_custom_uid}')" data-group-id='{header_group_id}' class="profile_photo_bm_{header_custom_uid}_{header_group_id} nocontextmenu to_hide" onload="onLoadProfilePhoto('.profile_photo_bm_{header_custom_uid}_{header_group_id}')" src="{header_custom_photo}" alt="">
                     <!-- begin_header_custom_upload_profile_photo -->
                     <div class="conteiner_main_user_pic_settings">
                         <div class="wrap_main_user_pic_settings">
@@ -343,7 +343,7 @@
                 <!-- end_header_custom_small_grid_cover_img -->
 
                 <!-- begin_header_custom_small_grid_item -->
-                <div onclick="openGallery(event,'{header_custom_small_grid_item_id}', '{header_custom_small_grid_item_video}'*1, '{header_custom_uid}')" title="{header_custom_small_grid_item_description_attr}" class="block grid_item_{header_custom_small_grid_item_id} {header_custom_small_grid_item_class} to_hide photo_description_{header_custom_small_grid_item_id}" data-src="{header_custom_small_grid_item_url}" style="background-image:url({header_custom_small_grid_item_url});">
+                <div onclick="openGallery(event,'{header_custom_small_grid_item_id}', '{header_custom_small_grid_item_video}'*1, '{header_custom_uid}', false, false, '{header_group_id}')" title="{header_custom_small_grid_item_description_attr}" class="block grid_item_{header_custom_small_grid_item_id} {header_custom_small_grid_item_class} to_hide photo_description_{header_custom_small_grid_item_id}" data-src="{header_custom_small_grid_item_url}" style="background-image:url({header_custom_small_grid_item_url});">
                 </div>
                 <script>
                     showGridPhoto('.grid_item_{header_custom_small_grid_item_id}', '{header_custom_small_grid_item_url}');

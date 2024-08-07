@@ -15,7 +15,6 @@ class Router {
     static function init(){
         global $g;
         global $p;
-        // var_dump("xxx"); die();
 
         $g['router'] = array(
             'load'      => 0,
@@ -57,8 +56,6 @@ class Router {
         $page = '';
         $uid = 0;
         $groupInfo = Groups::getInfoFromNameSeo($nameSeo);
-
-        // var_dump(Groups::isPage()); die();
 
         if ($groupInfo) {//Groups
             $nameSeo = User::getNameSeoFromUid($groupInfo['user_id']);
@@ -338,13 +335,11 @@ class Router {
             'rate_people'           => array('page' => 'search_results', 'params' => array('display' => 'rate_people')),
             'favorite_list'         => 'favorite_list',
 
-
             'my_friends'           => 'my_friends',
             'friends_list'         => 'my_friends',
             'private_photo_access' => 'my_friends',
             'friends'              => array('page' => 'friends_list', 'page_param_secondary' => 'name_seo', 'param_secondary' => 'offset'),
             'friends_online'       => array('page' => 'friends_list_online', 'page_param_secondary' => 'name_seo', 'param_secondary' => 'offset'),
-
 
             'blogs_add'                => 'blogs_add',
             'blog_edit'                => array('page' => 'blogs_add', 'param_secondary' => 'blog_id'),
@@ -362,6 +357,7 @@ class Router {
             'partyhou_calendar'              => array('page' => 'partyhouz_calendar', 'param_secondary' => 'date', 'param_secondary_1' => array('task_id', 3)),
 
             'photos'                => 'photos_list',
+            'profile_photo'         => 'profile_photo',
             'photo_liked'           => array('page' => 'search_results', 'params' => array('show' => 'photo_liked'), 'param_secondary' => 'photo_id'),
             'photo_liked_comment'   => array('page' => 'search_results', 'params' => array('show' => 'photo_liked_comment'), 'param_secondary' => 'comment_id'),
 
@@ -375,7 +371,6 @@ class Router {
             'wall_liked'            => array('page' => 'search_results', 'params' => array('show' => 'wall_liked'), 'param_secondary' => 'wall_item_id'),
             'wall_liked_comment'    => array('page' => 'search_results', 'params' => array('show' => 'wall_liked_comment'), 'param_secondary' => 'comment_id'),
             'wall_shared'           => array('page' => 'search_results', 'params' => array('show' => 'wall_shared'), 'param_secondary' => 'wall_shared_item_id'),
-
 
             /* 3DCity */
             'city'                 => array('page' => 'city', 'params' => array('place' => 'city')),
@@ -426,7 +421,6 @@ class Router {
             'songs_groups'         => array('page' => 'songs_list', 'param_secondary' => 'page', 'params' => array('view_list' => 'group')),
             'songs_my_pages'      => array('page' => 'songs_list', 'param_secondary' => 'page', 'page_param_secondary' => 'name_seo', 'params' => array('view_list' => 'group_page')),
             'songs_my_groups'     => array('page' => 'songs_list', 'param_secondary' => 'page', 'page_param_secondary' => 'name_seo', 'params' => array('view_list' => 'group')),
-
 
             'groups'               => array('page' => 'groups_list', 'page_secondary' => 'groups_list', 'page_param_secondary' => 'name_seo'),
             'pages'                => array('page' => 'groups_list', 'page_secondary' => 'groups_list', 'page_param_secondary' => 'name_seo', 'params' => array('view' => 'group_page')),

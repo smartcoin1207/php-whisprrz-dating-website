@@ -40,7 +40,7 @@ class Users_List
                 $psql = 'DELETE FROM invited_private WHERE friend_id=' . $private_set . ' and user_id = ' . $g_user['user_id'];
                 DB::execute($psql);
             } else {
-                $psql = 'INSERT  INTO `invited_private` (`user_id`,`friend_id`,`accepted`,`activity`) VALUES (' . $g_user['user_id'] . ',' . $private_set . ',1,3)';
+                $psql = 'INSERT  INTO `invited_private` (`user_id`,`friend_id`,`accepted`,`activity`, `is_new`) VALUES (' . $g_user['user_id'] . ',' . $private_set . ',1,3,1)';
                 DB::execute($psql);
             }
             redirect("search_results.php?offset=1&display=profile&uid={$private_id}");
@@ -58,7 +58,7 @@ class Users_List
                 $psql = 'DELETE FROM invited_personal WHERE friend_id=' . $personal_set . ' and user_id = ' . $g_user['user_id'];
                 DB::execute($psql);
             } else {
-                $psql = 'INSERT  INTO `invited_personal` (`user_id`,`friend_id`,`accepted`,`activity`) VALUES (' . $g_user['user_id'] . ',' . $personal_set . ',1,3)';
+                $psql = 'INSERT  INTO `invited_personal` (`user_id`,`friend_id`,`accepted`,`activity`, `is_new`) VALUES (' . $g_user['user_id'] . ',' . $personal_set . ',1,3,1)';
                 DB::execute($psql);
             }
             redirect("search_results.php?offset=1&display=profile&uid={$personal_id}");
@@ -73,7 +73,7 @@ class Users_List
                 $psql = 'DELETE FROM invited_folder WHERE friend_id=' . $folder_set . ' and user_id = ' . $g_user['user_id'];
                 DB::execute($psql);
             } else {
-                $psql = 'INSERT  INTO `invited_folder` (`user_id`,`friend_id`,`accepted`,`activity`) VALUES (' . $g_user['user_id'] . ',' . $folder_set . ',1,3)';
+                $psql = 'INSERT  INTO `invited_folder` (`user_id`,`friend_id`,`accepted`,`activity`, `is_new`) VALUES (' . $g_user['user_id'] . ',' . $folder_set . ',1,3,1)';
                 DB::execute($psql);
             }
             redirect("search_results.php?offset=1&display=profile&uid={$uid_id}");
@@ -88,7 +88,7 @@ class Users_List
                 $psql = 'DELETE FROM invited_private_vids WHERE friend_id=' . $private_vid_set . ' and user_id = ' . $g_user['user_id'];
                 DB::execute($psql);
             } else {
-                $psql = 'INSERT  INTO `invited_private_vids` (`user_id`,`friend_id`,`accepted`,`activity`) VALUES (' . $g_user['user_id'] . ',' . $private_vid_set . ',1,3)';
+                $psql = 'INSERT  INTO `invited_private_vids` (`user_id`,`friend_id`,`accepted`,`activity`,`is_new`) VALUES (' . $g_user['user_id'] . ',' . $private_vid_set . ',1,3,1)';
                 DB::execute($psql);
             }
             redirect("search_results.php?offset=1&display=profile&uid={$uid_id}");

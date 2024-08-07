@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<!-- Divyesh - Added on 11-04-2024 -->
-			<table width="100%" border="0" cellpadding="0" cellspacing="0" style="padding-bottom: 20px;">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" style="padding-bottom: 20px; margin-top: 20px;">
 				<tr>
 					<td width="280" 1style="padding-left: 8px;" align="left">
 						<!-- begin_photo_item-->
@@ -39,11 +39,12 @@
 								<td valign="top" rowspan="2" style="padding-right: 10px;">
 									<div id="photo_info">
 										<!-- begin_photo_item_photo -->
-										<a
-											href="{url_main}search_results.php?display=photo&uid={user_id}&photo_offset={photo_offset}">
-											<img class="img_border" src="{url_files}photo/{photo_id}_{hash}_s.jpg">
-										</a>
+										<!-- <a
+											href="{url_main}search_results.php?display=photo&uid={user_id}&photo_offset={photo_offset}"> -->
+											<img class="img_border" src="{url_files}photo/{photo_id}_{hash}_s.jpg" data-profile-photo="1"  onclick="openGalleryList(event,'{photo_id}', false, '{user_id}')">
+										<!-- </a> -->
 										<!-- end_photo_item_photo -->
+
 										<!-- begin_photo_item_photo_not_approval -->
 										<img class="img_border" src="{url_files}photo/{photo_id}_{hash}_s.jpg">
 										<!-- end_photo_item_photo_not_approval -->

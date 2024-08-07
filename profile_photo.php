@@ -13,7 +13,6 @@ include("./_include/current/menu_section.class.php");
 
 class CPhoto extends CHtmlBlock
 {
-
 	var $sMessage = "";
 
 	function action()

@@ -965,12 +965,12 @@ class CEventsTools
 
     static function approve_event_guest_as_host($event_id, $guest_users_ids) {
         if($guest_users_ids) {
-            DB::execute("UPDATE events_event_guest SET accepted = '1' WHERE event_id=".to_sql($event_id, 'Nubmer')." AND user_id IN (" . $guest_users_ids . ")");
+            DB::execute("UPDATE events_event_guest SET accepted = '1', is_new = '1' WHERE event_id=".to_sql($event_id, 'Nubmer')." AND user_id IN (" . $guest_users_ids . ")");
         }
     }
 
     static function approve_event_guest_user_one_as_host($event_id, $guest_user_id) {
-        DB::execute("UPDATE events_event_guest SET accepted = '1' WHERE event_id = " . to_sql($event_id, 'Number') . " AND user_id = " . to_sql($guest_user_id, 'Number'));
+        DB::execute("UPDATE events_event_guest SET accepted = '1', is_new = '1' WHERE event_id = " . to_sql($event_id, 'Number') . " AND user_id = " . to_sql($guest_user_id, 'Number'));
     }
 
     static function create_event_guest($event_id, $n_friends)
@@ -1008,6 +1008,7 @@ class CEventsTools
         }
         return '';
     }
+
     //popcorn modified 2024-05-26
     static function getSignAvailable($event) {
         global $g_user;

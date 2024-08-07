@@ -6,9 +6,6 @@ and any kind of using it must agree to the Websplosion's license agreement.
 It can be found at http://www.chameleonsocial.com/license.doc
 
 This notice may not be removed from the source code. */
-
-use Symfony\Component\VarDumper\VarDumper;
-
 require_once('events/tools.php');
 require_once('hotdates/tools.php');
 require_once('partyhouz/tools.php');
@@ -20,7 +17,7 @@ Class TemplateEdge {
     static $isProfileTabs = false;
     static $event_ehp_pages = ['event_wall.php', 'events_guest_users.php', 'event_photo_list.php',  'event_mail.php', 'select_event_users.php', 'event_photo_list.php', 'events_event_task_edit.php', 'events_event_delete.php'];
     static $hotdate_ehp_pages = ['hotdate_wall.php', 'hotdates_guest_users.php', 'hotdate_photo_list.php',  'hotdate_mail.php', 'select_hotdate_users.php', 'hotdate_photo_list.php', 'hotdates_hotdate_delete.php'];
-    static $partyhou_ehp_pages = ['partyhou_wall.php', 'partyhou_guest_users.php', 'partyhou_photo_list.php',  'partyhou_mail.php', 'select_partyhou_users.php', 'partyhou_photo_list.php', 'partyhouz_partyhou_edit.php', 'partyhouz_partyhou_delete.php'];
+    static $partyhou_ehp_pages = ['partyhou_wall.php', 'partyhou_guest_users.php', 'partyhou_photo_list.php',  'partyhou_mail.php', 'select_partyhou_users.php', 'partyhou_photo_list.php', 'partyhouz_partyhou_delete.php'];
 
     static function isEHP () {
         global $g;
@@ -583,7 +580,8 @@ Class TemplateEdge {
     {
         $vars = array('name_1' => $row['name'], 'name_2' => '', 'age' => $row['age']);
         if (!$groupId) {
-            $name = preg_replace('/(\s)+/u', ' ', $row['name']);
+            
+            $name = $row['name'] ? preg_replace('/(\s)+/u', ' ', $row['name']) : "";
             if ($name) {
                 $name = User::nameOneLetterFull($row['name']);
                 $parts = explode(' ', $name);
@@ -705,7 +703,6 @@ Class TemplateEdge {
         if ($blockHeader == 'header_custom_only_navbar') {
             return;
         }
-
         $html->setvar('type_custom_header', $blockHeader);
 
         if ($uid === null) {

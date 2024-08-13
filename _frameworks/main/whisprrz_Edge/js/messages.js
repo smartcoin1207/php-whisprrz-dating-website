@@ -1,7 +1,5 @@
 var CMessages = function(guid, guidPhoto, imHistoryMessages) {
-
     var $this=this;
-
     this.guid = guid;
     this.guidPhoto = guidPhoto;
     this.imHistoryMessages = imHistoryMessages*1;
@@ -128,7 +126,7 @@ var CMessages = function(guid, guidPhoto, imHistoryMessages) {
 
         if(uid && groupUserId && groupId) {
 
-            data={user_id:100000,is_mode_fb:isFbModeTitle};
+            data={user_id:"100000001",is_mode_fb:isFbModeTitle};
 
             var result={group_im_id:$this._siteGroupId, from_group_id:$this._siteGroupId, to_group_id:0};
             for (var key in result) {

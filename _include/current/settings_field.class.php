@@ -971,6 +971,7 @@ class SettingsField extends CHtmlBlock
                 'group' => 2,
             );
         }
+        
         if ($this->allowShowOption('set_notif_want_to_meet_you') && isset($g_user['set_notif_want_to_meet_you'])) {
 
             $this->settings['set_notif_want_to_meet_you'] = array(

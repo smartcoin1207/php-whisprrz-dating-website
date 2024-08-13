@@ -4300,8 +4300,6 @@ class CAdminOptions extends CHtmlBlock
         }
     }
 
-
-
     function parseBlockAll(&$html)
     {
         $html->setvar('rand', rand(0, 100000));

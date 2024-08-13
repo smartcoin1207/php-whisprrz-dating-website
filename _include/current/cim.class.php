@@ -807,6 +807,9 @@ class CIm extends CHtmlBlock
                 $where .= ' AND `from_user` != ' . to_sql($exceptUser, 'Number');
             }
 
+            //member to group owner message ignore
+            $where .= " AND !(`from_group_id` = 0 AND `group_id` != 0 AND `to_group_id` != 0) ";
+
             $where .= self::getWhereNoSysytem();
 
             if($fromUser && $exceptUser === null && self::$countMessagesFromUsers !== null) {
@@ -1355,7 +1358,7 @@ class CIm extends CHtmlBlock
         }
         DB::execute($sql);
 
-        if($userId != '100000') {
+        if($userId != '100000001') {
             $sql = 'INSERT IGNORE INTO `' . self::getTable() . '`
                             SET `from_user` = ' . to_sql($userId, 'Number') . ',
                                 `to_user` = ' . to_sql($guid, 'Number') . ',
@@ -1410,7 +1413,7 @@ class CIm extends CHtmlBlock
         }
         DB::execute($sql);
 
-        if($userId != '100000') {
+        if($userId != '100000001') {
             $sql = 'INSERT IGNORE INTO `' . self::getTable() . '`
                             SET `from_user` = ' . to_sql($userId, 'Number') . ',
                                 `to_user` = ' . to_sql($guid, 'Number') . ',
@@ -1930,7 +1933,7 @@ class CIm extends CHtmlBlock
                 $userCity = '';
                 $userNameTitle = '';
                 $userLink = Groups::url($groupId, $groupInfo);
-            } elseif ($userInfo['from_group_id'] && $userInfo['to_user'] == '100000') {
+            } elseif ($userInfo['from_group_id'] && $userInfo['to_user'] == '100000001') {
                 $groupId = $userInfo['from_group_id'];
                 $groupInfo = Groups::getInfoBasic($groupId);
                 $userName = 'members (' .  $groupInfo['title'] . ')';
@@ -2175,7 +2178,7 @@ class CIm extends CHtmlBlock
                     $groupType = 'page';
                 }
 
-            } elseif ($userInfo['from_group_id'] && $userInfo['to_user'] == '100000') {
+            } elseif ($userInfo['from_group_id'] && $userInfo['to_user'] == '100000001') {
                 $groupId = $userInfo['from_group_id'];
                 $groupsInfo = Groups::getInfoBasic($groupId);
                 $imName = $groupsInfo['title'];
@@ -3695,7 +3698,7 @@ class CIm extends CHtmlBlock
             }
 
             $sub_users = [];
-            if($groupId && $userId != '100000' && $isFbMode != 'true')
+            if($groupId && $userId != '100000001' && $isFbMode != 'true')
             {
                 $groupId = self::getGroupId();
                 $groupInfo = Groups::getInfoBasic($groupId);
@@ -3758,7 +3761,7 @@ class CIm extends CHtmlBlock
                 }
             }
 
-            if($groupId && $userId == '100000') {
+            if($groupId && $userId == '100000001') {
                 $where .= ' AND ((IMO.group_id = 0) OR IMO.group_id = ' . to_sql($groupId, 'Text') . ')';
             } elseif ($groupId) {
                 $where .= ' AND ((IMO.group_id = 0) OR (IMO.group_id >0 AND IMO.group_id=' . to_sql($groupId, 'Text') . ')) ';
@@ -3955,7 +3958,7 @@ class CIm extends CHtmlBlock
             $userTo = get_param('user_to', 0);
             $from_group_id = get_param('from_group_id', '');
             
-            if($userTo == '100000' && $from_group_id) {
+            if($userTo == '100000001' && $from_group_id) {
                 
                 $rows = Groups::getListSubscribers($from_group_id);
 

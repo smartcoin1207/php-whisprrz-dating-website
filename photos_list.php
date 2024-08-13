@@ -8,6 +8,7 @@ It can be found at http://www.chameleonsocial.com/license.doc
 This notice may not be removed from the source code. */
 
 include('./_include/core/main_start.php');
+include("./_include/current/menu_section.class.php");
 
 $groupId = Groups::getParamId();
 
@@ -368,7 +369,8 @@ $page = new CPage("", $tmplList);
 if ($isAjaxRequest) {
     getResponsePageAjaxByAuthStop($page, $hideFromGuests ? guid() : 1);
 }
-
+$complite = new CComplite("complite", $g['tmpl']['dir_tmpl_main'] . "_complite.html");
+$page->add($complite);
 $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");

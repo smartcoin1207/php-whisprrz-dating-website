@@ -56,7 +56,7 @@ function send_mail($to_mail, $from_mail, $subject, $message, $name = NULL)
     $headers .= "Content-Type: text/html; charset=utf-8" . "\n";
     $headers .= "Content-Transfer-Encoding: 8bit" . "\n";
 
-    $to = trim(preg_replace("/[\r\n]/", "", $to_mail));
+    $to = trim(preg_replace("/[\r\n]/", "", $to_mail ? $to_mail : ""));
 
     // FIX bare LF
     $message = preg_replace('#(?<!\r)\n#', "\r\n", $message);

@@ -21387,7 +21387,7 @@ body.drag_cover *{
 
 .profile_gender_image_container_info {
   position: absolute;
-  bottom: 0px;
+  top: 86px;
   left: 2px;
   display: flex;
   flex-direction: row;

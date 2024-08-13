@@ -76,7 +76,7 @@ var CEvents = function(guid) {
 
                 if(typeof event['id'] == 'undefined') return false;
                 var $tmpl=
-                $('<li id="'+event['alias']+'" data-id="'+event['id']+'" data-date="'+event['date']+'" data-type="'+event['type']+'" data-event-id="'+event['event_id']+'" data-event-live-id="'+event['live_id']+'" data-event-item-id="'+event['event_item_id']+'" data-event-user-id="'+event['event_user_id']+'" data-event-item-parent-id="'+event['event_item_parent_id']+'" data-group-id="'+event['group_id']+'" data-group-type="'+event['group_type']+'" class="events_notification_item '+clNew+'">'+
+                $('<li id="'+event['alias']+'" data-id="'+event['id']+'" data-date="'+event['date']+'" data-type="'+event['type']+'" data-event-id="'+event['event_id']+'" data-event-live-id="'+event['live_id']+'" data-event-item-id="'+event['event_item_id']+'" data-event-user-id="'+event['event_user_id']+ '" data-event-user-name-seo="'+event['event_user_name_seo']+ '" data-event-item-parent-id="'+event['event_item_parent_id']+'" data-group-id="'+event['group_id']+'" data-group-type="'+event['group_type']+'" class="events_notification_item '+clNew+'">'+
                     '<div class="cont">'+
                         '<a class="pic" href="'+event['url']+'">'+
                         '<img src="'+event['photo']+'" alt="" />'+
@@ -405,6 +405,28 @@ var CEvents = function(guid) {
 				if (type == 'photo_face') {
 					eventItemId = 0;
 				}
+
+                if(type == 'invitation') {
+                    var event_notification_id = $el.attr('id');
+                    var idWithoutPrefix = event_notification_id.replace('events_notification_', '');
+                    var invite_type = idWithoutPrefix.split('_').slice(0, -2).join('_'); // Join parts except the last two
+                    var name_seo = $el.data('event-user-name-seo');      // Get the "user_id" part
+                    var url = "";
+                    if(invite_type == 'invited_private') {
+                        url = "" + name_seo + "/" + "photos" + "?offset=2";
+                    } else if(invite_type == 'invited_personal') {
+                        url = "" + name_seo + "/" + "photos" + "?offset=3";
+
+                    } else if(invite_type == 'invited_folder') {
+                        url = "" + name_seo + "/" + "photos" + "?offset=4";
+
+                    } else if(invite_type == 'invited_private_vids') {
+                        url = "" + name_seo + "/" + "vids" + "?offset=2";
+                    }
+
+                    redirectUrl(url);
+                    return;
+                }
 
                 setTimeout(function(){
                     var c=$jq('.new_events_counter').data('counter')*1

@@ -7388,6 +7388,7 @@ class User
                     'name' => $userName,
                     'url'  => $urlUser
                 );
+                $title_text = "";
                 if ($item['type_short'] == 'invited_private')
                     $title_text = l('invited_private_photo_notify_text');
                 if ($item['type_short'] == 'invited_personal')
@@ -7405,7 +7406,6 @@ class User
                 );
                 $title = Common::lSetLink($title, $vars, false, '_event');
             }
-
             $events[] = array(
                 'rank'       => $item['rank'],
                 'alias'      => "events_notification_{$item['type_short']}_{$item['event_item_id']}_{$item['event_who_user_id']}",
@@ -7415,6 +7415,7 @@ class User
                 'group_type' => $item['group_id'] ? ($isNotifPage ? 'group_page' : 'group') : '',
                 'event_id'   => $item['event_id'],
                 'event_user_id'   => $item['event_user_id'],
+                'event_user_name_seo' => $item['name_seo'],
                 'event_item_id'   => $item['event_item_id'],
                 'event_item_parent_id'   => $item['event_item_parent_id_real'],
                 'live_id'    => $item['live_id'],

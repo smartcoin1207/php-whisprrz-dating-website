@@ -1273,7 +1273,11 @@ class CUsers extends CHtmlList
                         $html->setblockvar("nsc_mobile_off", '');
                     }
                 }
-                $html->parse('nsc_couple_profile_status', true);
+
+                // if ($profileStatus) {
+                    $html->parse('nsc_couple_profile_status', false);
+                // }
+
 
                 $html->setVar('partner_type_title', l("single"));
 
@@ -2561,6 +2565,7 @@ class CUsersProfile extends CUsers
                     DB::execute("UPDATE user SET new_views=new_views+1, total_views=total_views+1, popularity = popularity + 1 WHERE user_id=" . to_sql($row_user['user_id'], "Number") . "");
 
                     $option = 'set_notif_profile_visitors';
+                    // var_dump(User::isSettingEnabled($option), User::isOptionSettings($option, $row_user)); die();
                     if (Common::isEnabledAutoMail('profile_visitors')
                         && $display != 'encounters'
                         && User::isSettingEnabled($option)

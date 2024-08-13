@@ -42,6 +42,13 @@
             background-repeat: no-repeat;
             background-size: 20px 20px;
         }
+
+        ul.profile_menu li a {
+            font-size: 13px;
+        }
+        .bl_profile_list ul li a {
+            font-size: 13px;
+        }
     </style>
     
     <div class="contentpad content_bgrnd" style="padding: 15px; border-radius: 10px;">
@@ -52,17 +59,22 @@
                 <td width="128" valign="top">
     
                 <!-- begin_recorder -->
-        <div style="position:absolute; width:auto; left:96px; margin-top:1px; height:24px;">
-        <a href="#" onclick="showRecorder(); return false;"><img src="{url_tmpl_main}img/hi_label.png" width="29" height="24" class="png_behavior" /></a>
-        </div>
-    <!-- end_recorder -->
-        <img border="0" alt="{name}, {city}, {country}" src="{url_files}{new_photo}" width="126" height="140" onclick="openGalleryList(event,'{new_photo_id}', false, '{user_id}')" class="border_radius">
+                    <div style="position:absolute; width:auto; left:96px; margin-top:1px; height:24px;">
+                        <a href="#" onclick="showRecorder(); return false;">
+                            <img src="{url_tmpl_main}img/hi_label.png" width="29" height="24" class="png_behavior" />
+                        </a>
+                    </div>
+                <!-- end_recorder -->
+        <a href="{url_main}{name_seo}/photos" >
+            <img border="0" alt="{name}, {city}, {country}" src="{url_files}{new_photo}" width="126" height="140"  class="border_radius">
+        </a>
+        <!-- onclick="openGalleryList(event,'{new_photo_id}', false, '{user_id}')" -->
         <!--<a class="icon_photo" href="{url_main}{url_page}?offset={offset}&display=photo{params}"></a>-->
     
         <!-- begin_profile_status -->
             <div class="status_home_page profile_editable_bot">
                 <div class="profile_editable" id="profile_status_{user_id}">
-                    <a href="{url_main}{url_page}?offset={offset}&display=photo{params}" style="text-decoration: none;">{profile_status}</a>
+                    <a href="{url_main}{name_seo}/photos" style="text-decoration: none;">{profile_status}</a>
                 </div>
             </div>
         <!-- end_profile_status -->
@@ -165,33 +177,33 @@
                     <!-- begin_interactive_options -->
                     <div class="bl_profile_list">
                         <ul>
-                        <li>
-                            <!-- begin_favorite_add -->
-                            <a href="{url_main}bookmark_friends.php?action=add&id={user_id}" class="pri_tiny ico_favorites" >{l_add_to_favorites}</a>
+                            <li>
+                                <!-- begin_favorite_add -->
+                                <a href="{url_main}bookmark_friends.php?action=add&id={user_id}" class="pri_tiny ico_favorites" >{l_add_to_favorites}</a>
 
-                            <!-- end_favorite_add -->
-                        </li>
-                            <!-- begin_nsc_primary_mobile_off -->
-                            <!-- begin_games -->
-                            <!-- end_games -->
-                            
-                            
-                        <li>
-                            <a href="{url_main}games.php?id={user_id}" class="pri_tiny ico_games" ><b>{l_play_games}</b></a>
-                        </li>
-                        <!-- begin_videochat -->
-                        <li>
-                            <a href="#" data-ui onclick="clProfile.inviteVideoChatProfile($(this), {user_id}); return false;" class="pri_tiny ico_videochat" ><b>{l_have_videochat}</b></a>
-                        </li>
-                        <!-- end_videochat -->
+                                <!-- end_favorite_add -->
+                            </li>
+                                <!-- begin_nsc_primary_mobile_off -->
+                                <!-- begin_games -->
+                                <!-- end_games -->
+                                
+                                
+                            <li>
+                                <a href="{url_main}games.php?id={user_id}" class="pri_tiny ico_games" ><b>{l_play_games}</b></a>
+                            </li>
+                            <!-- begin_videochat -->
+                            <li>
+                                <a href="#" data-ui onclick="clProfile.inviteVideoChatProfile($(this), {user_id}); return false;" class="pri_tiny ico_videochat" ><b>{l_have_videochat}</b></a>
+                            </li>
+                            <!-- end_videochat -->
 
-                        <!-- begin_audiochat -->
-                        <li>
-                            <a href="#" onclick="clProfile.inviteAudioChatProfile($(this), {user_id}); return false;" class="pri_tiny ico_audiochat" ><b>{l_have_audiochat}</b></a>
-                        </li>
-                        <!-- end_audiochat -->
-                        
-                        <!-- end_nsc_primary_mobile_off -->                 
+                            <!-- begin_audiochat -->
+                            <li>
+                                <a href="#" onclick="clProfile.inviteAudioChatProfile($(this), {user_id}); return false;" class="pri_tiny ico_audiochat"><b>{l_have_audiochat}</b></a>
+                            </li>
+                            <!-- end_audiochat -->
+                            
+                            <!-- end_nsc_primary_mobile_off -->                 
                         </ul>
                     </div>
                 <!-- end_interactive_options -->
@@ -296,12 +308,9 @@
                                 <!-- end_nsc_orientation -->
                         </div>
 
-
-    
-                    
                         {l_i_am}: <b>{nsc_couple_other_first}</b><br>
 
-                    {l_age}: <b>{nsc_couple_age}</b>
+                        {l_age}: <b>{nsc_couple_age}</b>
                     <!-- begin_biorythm -->
                     |<span>&nbsp;<a href="{url_main}biorythm.php?id={user_id}" class="pri_little">{l_view_biorythm}</a></span>
                     <!-- end_biorythm -->
@@ -516,12 +525,10 @@
                 </ul>
         </div>
     
-    
         <div id="flashcontent" style="margin-left:-18px; margin-right:-20px;"></div>
+        <!-- begin_flash_profile -->
         {flash_profile}
-        <!-- begin_flash_profile1 -->
-        {flash_profile}
-        <!-- end_flash_profile1 -->
+        <!-- end_flash_profile -->
 
         <!-- begin_profile_html -->
         <div style="float:left; width:100%;">
@@ -664,7 +671,7 @@
                 <span style="    position: absolute;
                 width: 14px;
                 height: 19px;
-                top: -4px;" >
+                >
                     <figure title="{new_tasks_title}">
                         <svg viewBox="0 0 1000 1000" style="fill: grey">
                             <g><path d="M901.9,145.9h-74.1v25.2c0,53.6-58.3,97.1-111.9,97.1c-53.6,0-111.9-43.5-111.9-97.1v-25.2H393.8v25.2c0,53.6-58.3,97.1-111.9,97.1c-53.6,0-111.9-43.5-111.9-97.1v-25.2H98.1c-48.6,0-88.1,46.9-88.1,104.7v615.2c0,57.8,39.5,104.7,88.1,104.7h803.8c48.6,0,88.1-46.9,88.1-104.7V250.6C990,192.8,950.5,145.9,901.9,145.9z M930.6,838.1c0,40.3-33.6,73.1-75.1,73.1H139.9c-41.5,0-75.1-32.8-75.1-73.1V397.2c0-40.3,33.6-73.1,75.1-73.1h715.6c41.5,0,75.1,32.8,75.1,73.1V838.1z"/><path d="M720.4,29.4c-35,0-73.1,28.4-73.1,63.4v17.6V146v10.3c0,35,38.1,63.5,73.1,63.5s73.1-28.4,73.1-63.5v-10.4v-35.5V92.8C793.5,57.8,755.5,29.4,720.4,29.4z"/><path d="M281.8,29.4c-35,0-73.1,28.4-73.1,63.4v17.6V146v10.3c0,35,38.1,63.5,73.1,63.5c35,0,73.1-28.4,73.1-63.5v-10.4v-35.5V92.8C355,57.8,316.9,29.4,281.8,29.4z"/><path d="M251.4,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C313.3,427.2,285.6,399.5,251.4,399.5z"/><path d="M516.3,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C578.3,427.2,550.6,399.5,516.3,399.5z"/><path d="M781.3,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9l0-56.1C843.2,427.2,815.5,399.5,781.3,399.5z"/><path d="M251.4,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C313.3,676.1,285.6,648.4,251.4,648.4z"/><path d="M516.3,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C578.3,676.1,550.6,648.4,516.3,648.4z"/><path d="M781.3,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C843.2,676.1,815.5,648.4,781.3,648.4z"/></g>

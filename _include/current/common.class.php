@@ -446,7 +446,7 @@ Class Common {
                 $text = self::replaceByVars($emailAuto['template'], $data);
             }
 
-            if (!$isGetData) {
+            if (!$isGetData) {                
                 send_mail($email, Common::getOption('info_mail', 'main'), $subject, $text);
                 $sent = true;
             }

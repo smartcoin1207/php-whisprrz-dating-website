@@ -153,7 +153,6 @@ class CChatGeneral extends CHtmlBlock
 	}
 }
 
-
 $dirTmpl = $g['tmpl']['dir_tmpl_main'];
 $tmpls = array(
     'main' => "{$dirTmpl}general_chat.html",

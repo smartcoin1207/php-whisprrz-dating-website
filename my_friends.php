@@ -757,8 +757,6 @@ if (Common::isOptionActive('list_users_my_friends_tmpl_parts', 'template_options
     unset($listTmpl['profile_column_right']);
 }
 
-
-
 $listTmpl = array(
     'main' => $g['tmpl']['dir_tmpl_main'] . 'my_friends.html'
 );
@@ -789,6 +787,9 @@ if (Common::isParseModule('profile_menu')) {
         $friends_menu->active_button = 'personal';
     if ($show == 'folder') // Divyesh - added on 17042024
         $friends_menu->active_button = 'folder';
+    if ($show == 'online')
+        //popcorn - added on 2024-08-25
+        $friends_menu->active_button = 'friends_online';
     $page->add($friends_menu);
 }
 

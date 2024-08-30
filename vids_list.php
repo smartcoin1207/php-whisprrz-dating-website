@@ -186,7 +186,6 @@ class CPage extends CHtmlBlock
 
         $block = 'list_video';
         $class = "Template{$optionTmplName}";
-        // var_dump($class); die()
 		if ($isEdge) {
 			$typeOrderDefault = Common::getOption('list_videos_type_order', "{$optionTmplName}_general_settings");
 		} else {
@@ -303,7 +302,7 @@ class CPage extends CHtmlBlock
             if (!$uid || $uid == $guid) {
                 $html->parse('wrap_head_links', false);
             }
-            TemplateEdge::parseColumn($html, $uid ? $uid : $guid);
+            // TemplateEdge::parseColumn($html, $uid ? $uid : $guid);
         } else {
             $html->setvar('num_total', $itemsTotal);
         }

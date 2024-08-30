@@ -58,7 +58,7 @@ class CComplite extends UserFields {
                 }
                 $html->parse('customization');
             }
-			//CProfileNarowBox::Customization($html);	
+			// CProfileNarowBox::Customization($html);	
 		//nnsscc-diamond end        
         $complite =   User::profileComplite();
         $html->setvar('profile_complite_percent',$complite['completed']);

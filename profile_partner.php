@@ -19,7 +19,8 @@ class CProfilePartner extends UserFields//CHtmlBlock
 	{
             $cmd = get_param('cmd', '');
             if ($cmd == 'update') {
-                $this->verification('par_check');
+
+                // $this->verification('par_check');
                 $this->updatePartner(guid());
             }
 	}

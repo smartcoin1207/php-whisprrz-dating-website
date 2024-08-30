@@ -2920,9 +2920,9 @@ class User
     {
         global $swf;
 
-        $src = sprintf($swf['profile']['params']['movie'], 'geditor.swf');
+        $src = sprintf($swf['profile']['params']['movie'] ?? '', 'geditor.swf');
         unset($swf['profile']['params']['movie']);
-
+        
         $params['main']    = $swf['profile']['params'];
         $params['attributes'] = $swf['profile']['attributes'];
 

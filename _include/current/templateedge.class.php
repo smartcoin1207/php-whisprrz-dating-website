@@ -2705,6 +2705,35 @@ Class TemplateEdge {
                     if (Common::isOptionActive('gallery_show_download_original', 'edge_gallery_settings')) {
                         $html->parse("{$blockItemType}_link_download", false);
                     }
+
+                    if($row['private'] == 'N') {
+                        $html->setvar("photo_private_title", l('make_private'));
+                        $html->setvar("make_private_url", '?cmd=make_private');
+                    } else {
+                        $html->setvar("photo_private_title", l('remove_private'));
+                        $html->setvar("make_private_url", '?cmd=remove_private');
+                    }
+
+                    if($row['personal'] == 'N') {
+                        $html->setvar("photo_personal_title", l('make_personal'));
+                        $html->setvar("make_personal_url", '?cmd=make_personal');
+                    } else {
+                        $html->setvar("photo_personal_title", l('remove_personal'));
+                        $html->setvar("make_personal_url", '?cmd=remove_personal');
+                    }
+
+                    if($row['folder'] == 'N') {
+                        $html->setvar("photo_folder_title", l('move_to_custom_folder'));
+                        $html->setvar("make_folder_url", '?cmd=make_folder');
+                    } else {
+                        $html->setvar("photo_folder_title", l('remove_from_custom_folder'));
+                        $html->setvar("make_folder_url", '?cmd=remove_folder');
+                    }
+
+                    $html->parse("{$blockItemType}_link_make_private", false);
+                    $html->parse("{$blockItemType}_link_make_personal", false);
+                    $html->parse("{$blockItemType}_link_make_customfolder", false);
+
                     $keyDefault = $row['group_id'] ? 'default_group' : 'default';
                     $html->subcond($row[$keyDefault] == 'Y', "{$blockItemType}_profile_pic");
 

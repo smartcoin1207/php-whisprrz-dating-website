@@ -1,3 +1,4 @@
+{header}
 <div class="bl_modal_body">
     <div class="modal-body">
         <div class="bl_forms">
@@ -46,22 +47,23 @@
     <script>
     var responseRecaptchaContact='', isRecaptchaContact=false, captchaContact='';
     <!-- begin_re_captcha_js -->
-    isRecaptchaContact=true;
-    var recaptchaWdContact,
-    verifyCallbackContact = function(response) {
-        captchaContact = grecaptcha.getResponse(recaptchaWdContact);
-        hideError('#contact_recaptcha');
-    },
-    onloadCallbackContact = function() {
-        recaptchaWdContact = grecaptcha.render('contact_recaptcha', {
-            'sitekey' : '{re_captcha_sitekey}',
-            'callback' : verifyCallbackContact,
-            'theme' : '{re_captcha_theme}'
-        });
-    };
+        isRecaptchaContact=true;
+        var recaptchaWdContact,
+        verifyCallbackContact = function(response) {
+            captchaContact = grecaptcha.getResponse(recaptchaWdContact);
+            hideError('#contact_recaptcha');
+        },
+        onloadCallbackContact = function() {
+            recaptchaWdContact = grecaptcha.render('contact_recaptcha', {
+                'sitekey' : '{re_captcha_sitekey}',
+                'callback' : verifyCallbackContact,
+                'theme' : '{re_captcha_theme}'
+            });
+        };
     <!-- end_re_captcha_js -->
     </script>
     <!-- begin_re_captcha_script -->
     <script src="//www.google.com/recaptcha/api.js?onload=onloadCallbackContact&render=explicit&hl={re_captcha_lang}" async defer></script>
     <!-- end_re_captcha_script -->
 </div>
+{footer}

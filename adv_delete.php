@@ -22,7 +22,7 @@ function do_action()
 	if($craigs_id && $cat_name) {
         if($ajax) {
             if(isset($g_user['moderator_craigs']) && $g_user['moderator_craigs']) {
-                CAdvTools::deleteAdv($cat_name, $craigs_id);
+                CAdvTools::deleteAdv($cat_name, $craigs_id, null, true);
             }
             die(getResponseDataAjaxByAuth(true));
 	    }

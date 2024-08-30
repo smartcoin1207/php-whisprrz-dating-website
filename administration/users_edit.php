@@ -396,7 +396,6 @@ class CForm extends UserFields//CHtmlBlock
             $html->parse('add_folder_access', false);
         }
 
-        
         if ($html->varExists('user_photo')) {
             $html->setvar('user_photo', User::getPhotoDefault($g_user['user_id'], 'm'));
         }

@@ -73,8 +73,7 @@ class Cpartyhouz extends CHtmlBlock
                         $usersTimeZone = 'UTC';
                     }
                 }
-
-
+                
                 $zone = new DateTimeZone($usersTimeZone);
                 $time=DateTime::createFromFormat($format, $partyhou_time, $zone);
 

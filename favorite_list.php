@@ -47,7 +47,6 @@ if ($isAjaxRequest) {
 $page = new CPage("", $dirTmpl . 'search_results.html');
 
 $list = new CHtmlUsersListFav('users_list', $tmplList);
-
 $list->m_on_page = Common::getOptionUsersInfoPerPage();
 $list->m_view = 0;
 $list->m_sql_where = "1";
@@ -57,6 +56,9 @@ $list->m_sql_from_add = "JOIN users_favorite AS i ON (u.user_id=i.user_to AND i.
 $page->add($list);
 
 if (!$isAjaxRequest) {
+
+    $complite = new CComplite("complite", $g['tmpl']['dir_tmpl_main'] . "_complite.html");
+    $page->add($complite);  
     $header = new CHeader("header", $dirTmpl . "_header.html");
     $page->add($header);
     $footer = new CFooter("footer", $dirTmpl . "_footer.html");

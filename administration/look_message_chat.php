@@ -93,7 +93,6 @@ class Cgroups extends CHtmlList
 	}
 }
 
-
 $page = new CHon("", $g['tmpl']['dir_tmpl_administration'] . "look_message_chat.html");
 $header = new CAdminHeader("header", $g['tmpl']['dir_tmpl_administration'] . "_header.html");
 $page->add($header);

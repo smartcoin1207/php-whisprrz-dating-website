@@ -90,6 +90,20 @@ else
 
 class BioR 
 {
+    private $date_for_bior_epoch;
+    private $birth_date_y;
+    private $birth_date_m;
+    private $birth_date_d;
+    private $date_for_bior_y;
+    private $date_for_bior_m;
+    private $date_for_bior_d;
+    private $days_from_birth;
+    private $file_for_diag;
+    private $image;
+    private $trend;
+    private $oldX;
+    private $oldY;
+
     function __construct($birth_date, $date_for_bior = -1) {
 
         if ($date_for_bior == -1)
@@ -191,6 +205,8 @@ class BioR
         $centerDay = $this->GetDaysFromBirth() - (DAYS_TO_SHOW / 2);
         $plotScale = (DIAGRAM_HEIGHT - 25) / 2;
         $plotCenter = (DIAGRAM_HEIGHT - 25) / 2;
+        $oldX = 1;
+        $oldY = 1;
 
         for($x = 0; $x <= DAYS_TO_SHOW; $x++) {
             $phase = (($centerDay + $x) % $period) / $period * 2 * pi();

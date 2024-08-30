@@ -4,13 +4,17 @@
 {profile_column_right}
 <div class="wall">
 
-
     <div class="blogs_wrap page_list {page_class} <!-- begin_list_people_info -->cham-blog-style-1<!-- end_list_people_info --><!-- begin_list_people_default -->cham-project-style-3<!-- end_list_people_default --><!-- begin_list_video_info -->cham-blog-style-1<!-- end_list_video_info --><!-- begin_list_blogs_info -->cham-blog-style-1<!-- end_list_blogs_info --><!-- begin_list_blogs_info_big -->cham-content-style-5<!-- end_list_blogs_info_big --><!-- begin_list_blogs_info_plain -->cham-blog-style-2<!-- end_list_blogs_info_plain --><!-- begin_list_blogs_info_small -->cham-features-style-4<!-- end_list_blogs_info_small --><!-- begin_list_photos_default -->cham-blog-style-1<!-- end_list_photos_default -->     <!-- begin_list_groups_info -->cham-blog-style-1<!-- end_list_groups_info --> <!-- begin_list_live_info -->cham-blog-style-1<!-- end_list_live_info --> <!-- begin_list_songs_default -->cham-blog-style-1<!-- end_list_songs_default -->">
         <div style="position: relative;">
             <div class="col-md-12 cham-heading-description">
                 <script>showRightColumnWall();</script>
                 <!-- begin_wrap_head_links -->
                 <div id="wrap_filter" class="wrap_head_links">
+                    <!-- begin_page_link_custom_folder -->
+                    <span class="head_link photo_custom_folder" onclick="openCustomFolderPopup();">
+                        <i class="fa fa-folder"></i>{l_custom_folder}
+                    </span>
+                    <!-- end_page_link_custom_folder -->
                     <!-- begin_page_link_photo_upload -->
                     <span class="head_link photo_upload">
                         <i class="fa fa-upload"></i>{l_upload_photo_link}
@@ -34,7 +38,6 @@
                         <a href="{url_page_user_vids_list}"><i class="fa fa-file-video-o"></i>{l_your_vids}</a>
                     </span>
                     <!-- end_page_link_my_video -->
-
 
                     <!-- begin_page_link_songs_upload -->
                     <span class="head_link song_upload">
@@ -320,7 +323,7 @@
                         <ul class="nav nav-tabs ">
                             <!-- begin_show_all_tabs -->
                                 <li class="{active_tab_1}">
-                                    <a href="{url_page_photos_list}?offset=1">{l_public_pic}</a>
+                                    <a href="{url_page_photos_list}">{l_public_pic}</a>
                                 </li>
                                 <li class="{active_tab_2}">
                                     <a href="{url_page_photos_list}?offset=2">{l_private_pic}</a>
@@ -335,7 +338,7 @@
 
                             <!-- begin_show_myphoto_tabs -->
                                 <li class="{active_tab_1}">
-                                    <a href="{url_page_user_photos_list}?offset=1">{l_public_pic}</a>
+                                    <a href="{url_page_user_photos_list}">{l_public_pic}</a>
                                 </li>
                                 <!-- begin_show_private_tab -->
                                 <li class="{active_tab_2}">

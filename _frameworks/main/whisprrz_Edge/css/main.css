@@ -258,7 +258,7 @@ font-weight: normal;
 html>body .box .bbbr{overflow: hidden;}
 #wide{position: relative; width: 750px; color: #000;}
 #popup{padding:20px; text-align:left;}
-#profile{float: left; color: #000; margin-bottom: 5px;  }
+#profile{float: left; color: #000; }
 #profile dl{float: left; width: 330px; padding-bottom: 10px; position: relative; display: inline; }
 #profile dt{position: relative; width: 107px; height: 105px; float: left;}
 #profile dt img{ border-radius: 5px; }
@@ -290,7 +290,7 @@ li.num{padding: 0px 0 0 5px; font-weight: bold; float: left;}
 #profile .links li.gold{background-image: url(../img/bullet-more-blue.gif);}
 #search_info{ float: left;}
 #search_info dd{margin-left: 105px;  }
-#banner{float: left; margin:5px 0 10px 2px;}
+#banner{float: left; margin:0px;}
 #complite{float: right; width:160px; margin-bottom:5px; text-align:left;}
 #complite p{margin: 0 0 5px !important;}
 #searchn{float: right; width: 160px; margin-bottom:5px;}

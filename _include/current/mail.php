@@ -631,8 +631,6 @@ class CHtmlUsersListFav extends CUsers
 			" . $this->m_sql_from_add . "
 		";
 
-		// var_dump($this->m_sql_from_add); die();
-
 		$this->m_field['user_id'] = array("user_id", null);
 		$this->m_field['photo_id'] = array("photo", null);
 		$this->m_field['name'] = array("name", null);

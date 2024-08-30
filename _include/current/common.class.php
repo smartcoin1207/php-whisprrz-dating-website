@@ -4897,6 +4897,7 @@ JS;
                     'user_photos_list'  => 'photos',
                     'user_vids_list'    => 'vids',
                     'user_songs_list'    => 'songs',
+                    'profile_photo_list' => 'profile_photo',
 
                     'user_friends_list' => 'friends',
                     'my_friends_online' => 'friends_online',

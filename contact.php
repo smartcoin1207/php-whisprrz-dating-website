@@ -141,7 +141,6 @@ class CContact extends CHtmlBlock
             Common::parseCaptcha($html);
         }
 
-
         if (!guid()){
             $blocksVisitor = array('contact_email', 'contact_username', 'contact_captcha');
             foreach ($blocksVisitor as $block) {
@@ -161,7 +160,6 @@ if ($ajax) {
     $page->action(false);
     die(getResponseDataAjax($page->responseData));
 }
-
 
 $page = new CContact("", $g['tmpl']['dir_tmpl_main'] . "contact.html");
 $getPageAjax = get_param('get_page_ajax');

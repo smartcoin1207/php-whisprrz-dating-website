@@ -882,7 +882,7 @@ class Cgroups extends CHtmlList
                 }
             }
 
-            $html->setvar('delete_moderator_object_url', 'events_event_delete.php');
+            $html->setvar('delete_moderator_object_url', 'adv_delete.php');
             $html->setvar('approve_moderator_object_url', 'moderator_approve_ajax.php');
             $html->setvar('delete_img_ajax_php', 'events_event_image_delete_ajax.php');
             $html->setvar('redirect_url', 'moderator.php?section=craigs');

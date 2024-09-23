@@ -238,7 +238,6 @@ class CPhoto extends CHtmlBlock
             $html->setvar("num_users", $nume);
             $html->parse("recently_friends", true);
         } elseif ($show == "requests") {
-
             $result = DB::query("SELECT * FROM friends_requests WHERE friend_id='" . $g_user['user_id'] . "' AND accepted=0 ORDER BY created_at DESC");
             $nume = DB::num_rows();
             $html->setvar("num_users", $nume);
@@ -317,14 +316,14 @@ class CPhoto extends CHtmlBlock
                 DB::query($sql);
             } elseif ($show == "all" || $show == 'online') {
                 if ($show == 'online') {
-                    $whereOnline = ' AND U.last_visit > ' . to_sql(date('Y-m-d H:i:s', time() - Common::getOption('online_time') * 60)) . ' ';
+                    $whereOnline = ' AND (U.last_visit > ' . to_sql(date('Y-m-d H:i:s', time() - Common::getOption('online_time') * 60)) . ' OR U.use_as_online=1)';
                     $sql = 'SELECT *
                               FROM `friends_requests` AS F
                               LEFT JOIN `user` AS U ON U.user_id = IF(F.user_id = ' . $guidSql . ', F.friend_id, F.user_id)
                              WHERE F.accepted = 1 '  . $whereOnline .
                              ' AND (F.user_id = ' . $guidSql . ' OR F.friend_id = ' . $guidSql . ')
                              ORDER BY F.activity DESC, F.created_at DESC, F.user_id DESC, F.friend_id DESC
-                             LIMIT ' . to_sql($eu, 'Number') . ", " . to_sql($limit, 'Number');;
+                             LIMIT ' . to_sql($eu, 'Number') . ", " . to_sql($limit, 'Number');
                 } else {
                     $sql = 'SELECT *
                               FROM `friends_requests`

@@ -185,7 +185,7 @@ class CGames extends CHtmlBlock
         if (!$game) {
             $users = DB::rows("
 	           (SELECT u.* FROM user as u WHERE u.user_id = " . to_sql($selected_user_id, 'NUMBER') . ") UNION DISTINCT
-	           (SELECT u.* FROM friends_requests as f, user as u WHERE ((f.user_id='" . $g_user['user_id'] . "' AND u.user_id = f.friend_id) OR (f.friend_id='" . $g_user['user_id'] . "' AND u.user_id = f.user_id)) AND f.accepted=1 AND u.last_visit>'" . (date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60)) . "')");
+	           (SELECT u.* FROM friends_requests as f, user as u WHERE ((f.user_id='" . $g_user['user_id'] . "' AND u.user_id = f.friend_id) OR (f.friend_id='" . $g_user['user_id'] . "' AND u.user_id = f.user_id)) AND f.accepted=1 AND (u.last_visit>'" . (date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60)) . "'" . " OR u.use_as_online=1)" . " )");
 
             $row = 1;
             $col = 1;

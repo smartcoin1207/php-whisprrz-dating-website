@@ -171,10 +171,6 @@ class CProfile extends UserFields  {
             redirect();
 
         }
-        //elseif ($cmd == "confirmed")
-        //{
-        //$this->message = l("Email confirmed")."<br><br>";
-        //}
     }
 
     function parseBlock(&$html) {
@@ -202,10 +198,7 @@ class CProfile extends UserFields  {
 
         $html->setvar("name", $g_user['name']);
         $html->setvar("mail", get_param("mail", $g_user['mail']));
-
-        //start-nnsscc-diamond  
-        //$html->setvar("nsc_couple_name", "test");     
-        //$nsc_couple_id = $g_user['user_id']+1;            
+          
         $nsc_couple_id = $g_user['nsc_couple_id'];          
         $nsc_new_couple_row = DB::row('SELECT * FROM user WHERE user_id = ' . $nsc_couple_id, 1);
         $html->setvar("nsc_couple_user_id", $nsc_new_couple_row['user_id']);
@@ -339,7 +332,7 @@ class CProfile extends UserFields  {
         }
 // PAYMENTS
         if (self::isActive('orientation')) {
-            if (Common::isOptionActive('your_orientation')) {
+            if (!Common::isOptionActive('allow_users_to_change_looking_for')) {
                 if (guser('p_orientation')) {
                     $name = User::getTitleOrientationLookingFor(array('p_orientation' => guser('p_orientation')));
                     $html->setvar('name', $name);
@@ -352,7 +345,6 @@ class CProfile extends UserFields  {
 
         parent::parseBlock($html);
     }
-
 }
 
 g_user_full();

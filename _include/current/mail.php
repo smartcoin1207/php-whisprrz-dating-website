@@ -617,6 +617,7 @@ class CHtmlUsersListFav extends CUsers
 		global $g_user;
 
 		$this->m_sql_count = "SELECT COUNT(u.user_id) FROM user AS u " . $this->m_sql_from_add . "";
+
 		$this->m_sql = "
 			SELECT u.user_id, u.gender, u.orientation, u.rating, u.name, u.gold_days, u.type, u.partner_type, u.set_my_presence_couples, u.set_my_presence_males, u.set_my_presence_females, u.set_my_presence_transgender,  u.set_my_presence_nonbinary, u.set_my_presence_everyone,  (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
 ) AS age, u.last_visit,

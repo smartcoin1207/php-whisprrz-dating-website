@@ -68,7 +68,6 @@ class CPhoto extends CHtmlBlock
 			$num=DB::num_rows();
 			if ($num>0)
 			{
-
                 while ($row = DB::fetch_row()){
                     $rows[] = $row;
                 }
@@ -79,7 +78,6 @@ class CPhoto extends CHtmlBlock
 
 					$result_user=DB::query("SELECT *, YEAR(FROM_DAYS(TO_DAYS('" . date('Y-m-d H:i:s') . "')-TO_DAYS(birth))) AS age FROM user WHERE user_id='".to_sql($row['fr_user_id'],"Number")."' LIMIT 0, 1",2);
 					$row_user=DB::fetch_row(2);
-
 
 					$bmv = 'Bookmark visible';
 					$bmh = 'Bookmark hidden';
@@ -105,9 +103,7 @@ class CPhoto extends CHtmlBlock
 					$html->parse("item_my_show_bookmark", true);
 				}
 				$html->parse("show_my_bookmark", true);
-			}
-			else
-			{
+			} else {
 				$html->parse("error_my_show_bookmark", true);
 			}
 
@@ -120,9 +116,7 @@ class CPhoto extends CHtmlBlock
                     $rows[] = $row;
                 }
 
-
                 foreach ($rows as $key11 => $row) {
-
 					$user_photo = User::getPhotoDefault($row['user_id'],"r");
 
 					$result_user=DB::query("SELECT *, YEAR(FROM_DAYS(TO_DAYS('" . date('Y-m-d H:i:s') . "')-TO_DAYS(birth))) AS age FROM user WHERE user_id='".to_sql($row['user_id'],"Number")."' LIMIT 0, 1",2);

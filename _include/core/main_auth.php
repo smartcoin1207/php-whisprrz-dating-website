@@ -326,7 +326,7 @@ if(Common::getTmplSet() == 'old') {
     $sql = 'SELECT COUNT(*) FROM user
         WHERE hide_time = 0
             AND user_id != ' . to_sql(guid()) . '
-            AND last_visit > ' . to_sql(date('Y-m-d H:i:00', time() - $g['options']['online_time'] * 60), 'Text') . $defaultOnlineView;
+            AND (last_visit > ' . to_sql(date('Y-m-d H:i:00', time() - $g['options']['online_time'] * 60), 'Text') . ' OR use_as_online=1)' . $defaultOnlineView;
     $g_info['users_online'] = DB::result($sql);
 } else {
     $g_info['users_online'] = 0;

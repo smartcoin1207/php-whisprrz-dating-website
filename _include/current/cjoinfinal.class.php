@@ -9,7 +9,6 @@ This notice may not be removed from the source code. */
 
 class CJoinFinal extends UserFields//CHtmlBlock
 {
-
     function init()
     {
         global $g;

@@ -138,7 +138,10 @@ class CGroups extends CHtmlBlock
         //Most Popular
         $popular_days = 2;
         $popular_num = 10;
-        $sql_popular = "SELECT * FROM groups_social as g LEFT JOIN groups_social_subscribers as gs ON g.group_id=gs.group_id WHERE gs.created_at >= " . to_sql(date('Y-m-d H:00:00', time() - intval($popular_days) * 3600 * 24)) . " AND g.page='0'" . " LIMIT  " . $popular_num;
+        $sql_popular = "SELECT DISTINCT g.* FROM groups_social as g LEFT JOIN groups_social_subscribers as gs ON g.group_id=gs.group_id WHERE gs.created_at >= " . to_sql(date('Y-m-d H:00:00', time() - intval($popular_days) * 3600 * 24)) . " AND g.page='0'" . " LIMIT  " . $popular_num;
+        
+
+
         $popular_groups = DB::rows($sql_popular);
         
         if(1==1 || $popular_groups) {

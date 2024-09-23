@@ -6977,6 +6977,9 @@ WHERE forum_id = ' . $comment['forum_id'];
                 $friendsAccessTitle = $groupInfo['page'] ? l('wall_post_access_like_page') : l('wall_post_access_subscribed_group');
             }
             $blockAccess = 'wall_module_access';
+
+            //copylink
+            $html->parse('wall_copy_link', false);
             
             $not_sharable = false;
     
@@ -6999,6 +7002,7 @@ WHERE forum_id = ' . $comment['forum_id'];
                     }
                     $html->parse("{$blockAccess}_bl", false);
                 }
+                $html->clean('wall_copy_link');
             } else {
                 $moduleClass = 'share';
                 $moduleTitle = l('share');
@@ -7038,7 +7042,6 @@ WHERE forum_id = ' . $comment['forum_id'];
             }
 
             if(($isPrivateGroup1 || $is_only_profile_wall) && $rowSource['user_id'] == guid()) {
-                
                 $make_shareable_title = $rowSource['shareable'] == '1' ? l('wall_make_shareable') : l('wall_make_not_shareable');
 
                 $html->setvar('wall_module_make_shareable_title', $make_shareable_title);

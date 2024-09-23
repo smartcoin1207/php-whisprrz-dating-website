@@ -76,7 +76,6 @@ class CPage extends CHtmlBlock
                       'group_moderator_url' => $group_moderator_url
                     );
 
-
         $pagerOnPage = Common::getOptionInt('list_people_number_users', "{$optionTmplName}_general_settings");
         $mOnBar = Common::getOption('usersinfo_pages_per_list', 'template_options');
         if (!$mOnBar) {
@@ -95,7 +94,6 @@ class CPage extends CHtmlBlock
         } else {
             $itemsTotal = Groups::getNumberSubscribers($groupId, $search_query);
         }
-
 
         if ($ajax) {
             $html->setvar('num_total', $itemsTotal);
@@ -159,7 +157,5 @@ $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
-
-
 
 include('./_include/core/main_close.php');

@@ -4575,10 +4575,9 @@ JS;
         if (get_param('status') == 'online'){
             $time = date('Y-m-d H:i:s', time() - $g['options']['online_time'] * 60);
             if ($optionSet == 'urban') {
-                $where .= " AND ({$tableUser}.last_visit> " . to_sql($time, 'Text') . ' AND ' . User::isHiddenSql($tableUser . '.') . ')';
-                //$where .= " AND ({$tableUser}.last_visit> " . to_sql($time, 'Text') . " AND {$tableUser}.set_hide_my_presence = 2)";
+                $where .= " AND (({$tableUser}.last_visit> " . to_sql($time, 'Text') . " OR {$tableUser}.use_as_online=1)" . ' AND ' . User::isHiddenSql($tableUser . '.') . ')';
             } else {
-                $where .= " AND {$tableUser}.last_visit> " . to_sql($time, 'Text');
+                $where .= " AND ({$tableUser}.last_visit> " . to_sql($time, 'Text') . " OR {$tableUser}.use_as_online=1)" ;
             }
         } elseif (get_param('status') == 'new'){
             $where .= " AND {$tableUser}.register > " . to_sql(date('Y-m-d H:i:s', (time() - $g['options']['new_time'] * 3600 * 24)), 'Text');
@@ -4991,7 +4990,8 @@ JS;
                     'partyhou_wall' => 'partyhou_wall.php?partyhou_id=' . $uid,
                     'partyhou_photo' => 'partyhou_photo_list.php?partyhou_id=' . $uid,
                     'partyhou_edit_page' => 'partyhouz_partyhou_edit.php?partyhou_id=' . $uid,
-                    'partyhou_mail_page' => 'partyhou_mail.php?partyhou_id=' . $uid
+                    'partyhou_mail_page' => 'partyhou_mail.php?partyhou_id=' . $uid,
+                    'favorite_list' => 'favorite_list.php'
                 );
                 if (isset($customUrls[$page])) {
                     if ($page == 'my_friends_online') {

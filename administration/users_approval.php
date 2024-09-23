@@ -197,7 +197,7 @@ class CUsersResults extends CHtmlList
 
 		if (get_param("status", "") == "online")
 		{
-			$where .= " AND last_visit>" . (time() - $g['options']['online_time'] * 60) . "";
+			$where .= " AND (last_visit>" . (time() - $g['options']['online_time'] * 60) . " OR use_as_online=1) " . "";
 		}
 		elseif (get_param("status", "") == "new")
 		{

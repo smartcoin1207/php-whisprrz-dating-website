@@ -1272,16 +1272,16 @@
             user_profile_bg='{user_profile_bg}';      
         }
 
-        // $(function(){
-        //     if (user_profile_bg) {
-        //       const user_profile_bg = '{user_profile_bg}';
-        //       const profileBgElement = document.querySelector('.profile_bg');
+        $(function(){
+            if (user_profile_bg) {
+              const user_profile_bg = '{user_profile_bg}';
+              const profileBgElement = document.querySelector('.profile_bg');
               
-        //       profileBgElement.style.background = `url("{url_tmpl_main}images/patterns/{user_profile_bg}") 0px 0px repeat`;
-        //       profileBgElement.style.transition = 'none 0s ease 0s';
-        //       profileBgElement.style.opacity = '1';
-        //     }
-        // });
+              profileBgElement.style.background = `url("{url_tmpl_main}images/patterns/{user_profile_bg}") 0px 0px repeat`;
+              profileBgElement.style.transition = 'none 0s ease 0s';
+              profileBgElement.style.opacity = '1';
+            }
+        });
 
         var userAllowedFeature={user_allowed_feature};
         var chatsPrice={video:'{video_chat_price}'*1, audio:'{audio_chat_price}'*1};
@@ -1459,7 +1459,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
+        width: calc(100% - 14px);
         height: 100%;
         background: transparent 0 0 repeat;
         transition: all 0.8s;
@@ -1945,17 +1945,11 @@
 <!-- begin_header_member -->
 <body class="body_member <!-- begin_body_city -->city_body<!-- end_body_city --> {body_class} {city_class}" >
 
+    <!-- <div id="bg_video_tumb" class="bg_video tumb"></div>
+    <div class="bg_video" id="bg_video"></div> -->
+    <div class="profile_bg"> </div>
 
-
-
-<!-- <div id="bg_video_tumb" class="bg_video tumb"></div>
-<div class="bg_video" id="bg_video"></div>
-<div class="profile_bg">  -->
- </div>
-
-
-
-        <!-- begin_background_img -->
+    <!-- begin_background_img -->
     <!-- img src="{bg_path}{src}" id="bg" oncontextmenu="return false;" alt="" / -->
     <!-- <div class="bg_fon"> </div> -->
      <script  type="text/javascript">
@@ -1979,7 +1973,7 @@
             });
         })()
      </script>
-        <!-- end_background_img -->
+    <!-- end_background_img -->
 
     <!-- begin_banner_top -->
     <div style="padding-top: 8px; position: relative; text-align: center;">

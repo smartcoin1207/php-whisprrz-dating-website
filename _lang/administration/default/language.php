@@ -1086,6 +1086,7 @@ $l['site_options.php']['field_profile_status'] = "Profile status enabled";
 $l['site_options.php']['field_video_on_main_pag_urban'] = "Video on main page";
 $l['site_options.php']['field_youtube_video_background_users_urban'] = "YouTube video background for users";
 $l['site_options.php']['field_allow_users_to_change_profile_type'] = "Allow users to change profile type";
+$l['site_options.php']['field_allow_users_to_change_looking_for'] = "Allow users to change Looking For";
 $l['site_options.php']['field_youtube_video_background_users_urban_quality'] = "The quality YouTube video background  playback";
 $l['site_options.php']['field_youtube_video_background_users_all_pages_urban'] = "Show video background on all user&#39;s pages, not only in the profile";
 $l['site_options.php']['video_quality_default'] = "Default (YouTube selects the appropriate playback quality)";

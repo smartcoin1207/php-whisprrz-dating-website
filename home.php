@@ -163,18 +163,12 @@ $is_country = true;
 	// online
 	else {
 
-
             if($g_user['default_online_view']=='B' || $g_user['default_online_view']=='')
-                $where = " u.user_id NOT IN({users_stop_list})  AND u.hide_time=0 AND u.last_visit>'" . (date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60))."' " . $g['sql']['your_orientation'] . " ";
+                $where = " u.user_id NOT IN({users_stop_list})  AND u.hide_time=0 AND (u.last_visit>'" . (date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60))."' " . " OR u.use_as_online=1)" . $g['sql']['your_orientation'] . " ";
 		else
 		
-		/*
 		$where = " u.user_id NOT IN({users_stop_list}) 
-		AND (u.gender=".to_sql($g_user['default_online_view']).")
-		AND u.hide_time=0 AND u.last_visit>'" . (date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60))."' " . $g['sql']['your_orientation'] . " ";*/
-		
-		$where = " u.user_id NOT IN({users_stop_list}) 
-				AND u.hide_time=0 AND u.last_visit>'" . (date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60))."' " . $g['sql']['your_orientation'] . " ";
+				AND u.hide_time=0 AND (u.last_visit>'" . (date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60))."' " . " OR u.use_as_online=1)" . $g['sql']['your_orientation'] . " ";
 	
 		$html->assign("members_link","users_online.php");
 		$html->parse("members_online");

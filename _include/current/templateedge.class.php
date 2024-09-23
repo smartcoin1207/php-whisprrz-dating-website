@@ -2373,7 +2373,6 @@ Class TemplateEdge {
 
             }
  
-
             if ($profileDisplayType == 'info') {
                 if (isset($info['about_title'])) {
                     $html->parse("{$blockItem}_about", false);

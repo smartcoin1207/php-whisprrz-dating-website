@@ -11,7 +11,6 @@ $area = "login";
 include("./_include/core/main_start.php");
 include("./_include/current/menu_section.class.php");
 
-
 class CHtmlAdd extends CHtmlBlock
 {
 	var $m_on_page = 20;

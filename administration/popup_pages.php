@@ -67,8 +67,6 @@ class CAdminPopupPages extends CHtmlBlock {
 
         $html->setvar('page_current', $page);
 
-
-
         $sql = 'SELECT * FROM ' . $this->getTable() . '
             WHERE lang = "default" ' . $where . ' ORDER BY page ASC';
         
@@ -89,9 +87,7 @@ class CAdminPopupPages extends CHtmlBlock {
                 $html->setblockvar("mail_on", "");
             }
             $html->parse("mail", true);
-
         }
-
 
         $sql = 'SELECT * FROM ' . $this->getTable() . ' '
                 . 'WHERE lang = ' . to_sql($languageCurrent, 'Text')
@@ -102,7 +98,6 @@ class CAdminPopupPages extends CHtmlBlock {
             $html->setvar('page_title', htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8'));
             $html->setvar('page_text', $row['text']);
         }
-
 
         $languageCurrent = Common::langParamValue();
         $html->setvar('lang', $languageCurrent);
@@ -115,7 +110,6 @@ class CAdminPopupPages extends CHtmlBlock {
 
         parent::parseBlock($html);
     }
-
 }
 
 $page = new CAdminPopupPages("", $g['tmpl']['dir_tmpl_administration'] . "popup_pages.html");

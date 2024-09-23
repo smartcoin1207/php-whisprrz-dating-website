@@ -20,7 +20,6 @@ if (Common::isOptionActive('content_popup_on_page', 'template_options')) {
     }
     include('./page_custom.php');
 } else {
-
     $page = new PageInfo('', $g['tmpl']['dir_tmpl_main'] . 'info.html');
 
     if (Common::getOption('name', 'template_options') == 'impact') {

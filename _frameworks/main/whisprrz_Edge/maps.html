@@ -190,6 +190,11 @@ justify-content: space-around;
     var loggedIn_longitude;
     $('.userlist-column').css('grid-template-columns', 'repeat({column_count}, 1fr)');
 
+    window.onload = function() {
+        // Code to execute after the entire page has loaded
+        javascript:OpenWindow('./info.php?page=map_terms&lang=default','650','400');
+    };
+
 
     function getLocation() {
 

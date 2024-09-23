@@ -456,7 +456,7 @@ class CUsers extends CHtmlList
         $html->setvar("members_distance", $row['distance']);
 
         $online_sql = 'SELECT u.*, n.title as partner_fulltype FROM user as u LEFT JOIN var_nickname AS n ON u.partner_type = n.id  WHERE u.user_id = ' . $row['user_id'] . ' AND hide_time = 0
-            AND last_visit > ' . to_sql((date("Y-m-d H:i:00", time() - $g['options']['online_time'] * 60)), 'Text');
+            AND (last_visit > ' . to_sql((date("Y-m-d H:i:00", time() - $g['options']['online_time'] * 60)), 'Text') . ' OR use_as_online=1)';
 
         $online_user1 = DB::row($online_sql);
 
@@ -823,7 +823,6 @@ class CUsers extends CHtmlList
             }
         }
 
-
         if (isset($row['is_photo']) && $row['is_photo'] == 'Y') {
             $html->parse($this->m_name . "_photo", false);
             $html->setblockvar($this->m_name . "_nophoto", "");
@@ -873,7 +872,7 @@ class CUsers extends CHtmlList
         }
         $sql = 'SELECT u.* FROM user as u WHERE u.user_id = ' . $row['user_id'] . '
         AND hide_time = 0
-        AND last_visit > ' . to_sql((date("Y-m-d H:i:00", time() - $g['options']['online_time'] * 60)), 'Text');
+        AND (last_visit > ' . to_sql((date("Y-m-d H:i:00", time() - $g['options']['online_time'] * 60)), 'Text') . ' OR use_as_online=1)';
         DB::query($sql);
         $onlines = array();
         $online_state = false;
@@ -1259,7 +1258,7 @@ class CUsers extends CHtmlList
                     }
                     $sql = 'SELECT u.* FROM user as u WHERE u.user_id = ' . $row['nsc_couple_id'] . '
                     AND hide_time = 0
-                    AND last_visit > ' . to_sql((date("Y-m-d H:i:00", time() - $g['options']['online_time'] * 60)), 'Text');
+                    AND (last_visit > ' . to_sql((date("Y-m-d H:i:00", time() - $g['options']['online_time'] * 60)), 'Text') . ' OR use_as_online=1)';
                     DB::query($sql);
                     $onlines = array();
                     $online_state = false;
@@ -1453,37 +1452,37 @@ class CUsers extends CHtmlList
                 $html->parse("event1");
             }
 
-            $n_pages = 2;
-            $page = 2;
+            // $n_pages = 2;
+            // $page = 2;
 
-            if ($n_pages > 1) {
-                if ($page > 1) {
-                    $html->setvar('page_n', $page - 1);
-                    $html->parse('pager_prev');
-                }
+            // if ($n_pages > 1) {
+            //     if ($page > 1) {
+            //         $html->setvar('page_n', $page - 1);
+            //         $html->parse('pager_prev');
+            //     }
 
-                $links = pager_get_pages_links($n_pages, $page);
+            //     $links = pager_get_pages_links($n_pages, $page);
 
-                foreach ($links as $link) {
-                    $html->setvar('page_n', $link);
+            //     foreach ($links as $link) {
+            //         $html->setvar('page_n', $link);
 
-                    if ($page == $link) {
-                        $html->parse('pager_link_active', false);
-                        $html->setblockvar('pager_link_not_active', '');
-                    } else {
-                        $html->parse('pager_link_not_active', false);
-                        $html->setblockvar('pager_link_active', '');
-                    }
-                    $html->parse('pager_link');
-                }
+            //         if ($page == $link) {
+            //             $html->parse('pager_link_active', false);
+            //             $html->setblockvar('pager_link_not_active', '');
+            //         } else {
+            //             $html->parse('pager_link_not_active', false);
+            //             $html->setblockvar('pager_link_active', '');
+            //         }
+            //         $html->parse('pager_link');
+            //     }
 
-                if ($page < $n_pages) {
-                    $html->setvar('page_n', $page + 1);
-                    $html->parse('pager_next');
-                }
+            //     if ($page < $n_pages) {
+            //         $html->setvar('page_n', $page + 1);
+            //         $html->parse('pager_next');
+            //     }
 
-                $html->parse('pager');
-            }
+            //     $html->parse('pager');
+            // }
 
             $html->parse("events");
         } else {
@@ -1521,37 +1520,37 @@ class CUsers extends CHtmlList
                 $html->parse("hotdate1");
             }
 
-            $n_pages = 2;
-            $page = 2;
+            // $n_pages = 2;
+            // $page = 2;
 
-            if ($n_pages > 1) {
-                if ($page > 1) {
-                    $html->setvar('page_n', $page - 1);
-                    $html->parse('pager_prev');
-                }
+            // if ($n_pages > 1) {
+            //     if ($page > 1) {
+            //         $html->setvar('page_n', $page - 1);
+            //         $html->parse('pager_prev');
+            //     }
 
-                $links = pager_get_pages_links($n_pages, $page);
+            //     $links = pager_get_pages_links($n_pages, $page);
 
-                foreach ($links as $link) {
-                    $html->setvar('page_n', $link);
+            //     foreach ($links as $link) {
+            //         $html->setvar('page_n', $link);
 
-                    if ($page == $link) {
-                        $html->parse('pager_link_active', false);
-                        $html->setblockvar('pager_link_not_active', '');
-                    } else {
-                        $html->parse('pager_link_not_active', false);
-                        $html->setblockvar('pager_link_active', '');
-                    }
-                    $html->parse('pager_link');
-                }
+            //         if ($page == $link) {
+            //             $html->parse('pager_link_active', false);
+            //             $html->setblockvar('pager_link_not_active', '');
+            //         } else {
+            //             $html->parse('pager_link_not_active', false);
+            //             $html->setblockvar('pager_link_active', '');
+            //         }
+            //         $html->parse('pager_link');
+            //     }
 
-                if ($page < $n_pages) {
-                    $html->setvar('page_n', $page + 1);
-                    $html->parse('pager_next');
-                }
+            //     if ($page < $n_pages) {
+            //         $html->setvar('page_n', $page + 1);
+            //         $html->parse('pager_next');
+            //     }
 
-                $html->parse('pager');
-            }
+            //     $html->parse('pager');
+            // }
 
             $html->parse("hotdates");
         } else {
@@ -1589,37 +1588,37 @@ class CUsers extends CHtmlList
                 $html->parse("partyhou1");
             }
 
-            $n_pages = 2;
-            $page = 2;
+            // $n_pages = 2;
+            // $page = 2;
 
-            if ($n_pages > 1) {
-                if ($page > 1) {
-                    $html->setvar('page_n', $page - 1);
-                    $html->parse('pager_prev');
-                }
+            // if ($n_pages > 1) {
+            //     if ($page > 1) {
+            //         $html->setvar('page_n', $page - 1);
+            //         $html->parse('pager_prev');
+            //     }
 
-                $links = pager_get_pages_links($n_pages, $page);
+            //     $links = pager_get_pages_links($n_pages, $page);
 
-                foreach ($links as $link) {
-                    $html->setvar('page_n', $link);
+            //     foreach ($links as $link) {
+            //         $html->setvar('page_n', $link);
 
-                    if ($page == $link) {
-                        $html->parse('pager_link_active', false);
-                        $html->setblockvar('pager_link_not_active', '');
-                    } else {
-                        $html->parse('pager_link_not_active', false);
-                        $html->setblockvar('pager_link_active', '');
-                    }
-                    $html->parse('pager_link');
-                }
+            //         if ($page == $link) {
+            //             $html->parse('pager_link_active', false);
+            //             $html->setblockvar('pager_link_not_active', '');
+            //         } else {
+            //             $html->parse('pager_link_not_active', false);
+            //             $html->setblockvar('pager_link_active', '');
+            //         }
+            //         $html->parse('pager_link');
+            //     }
 
-                if ($page < $n_pages) {
-                    $html->setvar('page_n', $page + 1);
-                    $html->parse('pager_next');
-                }
+            //     if ($page < $n_pages) {
+            //         $html->setvar('page_n', $page + 1);
+            //         $html->parse('pager_next');
+            //     }
 
-                $html->parse('pager');
-            }
+            //     $html->parse('pager');
+            // }
 
             $html->parse("partyhouz");
         } else {

@@ -18,8 +18,6 @@ $ajax_login = get_param('ajax_login');
 $login  = get_param('user_name');
 $password = get_param('password');
 if($ajax_login) {
-
-
     $user_1 = User::getUserByLoginAndPassword($login, $password);
     if(!$user_1) {
         header('Content-Type: application/json');
@@ -71,15 +69,12 @@ if($ajax_login) {
     exit;
 }
 
-
 $demoSite = get_param('demo_site');
 if($demoSite
     && (Common::getOption('tmpl_loaded', 'tmpl') == 'mixer'
         || Common::getTmplSet() == 'urban')) {
     redirect('index.php');
 }
-
-
 
 $template = 'join.html';
 
@@ -131,11 +126,7 @@ if($cmd =='login'){
             }
         }
     }
-
-    
-
 }
-
 
 if($cmd=='get_email'){
     $user = User::getUserByLoginAndPassword($login, $password);

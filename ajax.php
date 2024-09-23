@@ -930,7 +930,7 @@ elseif($cmd == 'get_event_photos') {
     if ($isAuth) {
         $bg = get_param('bg');
         DB::update('user', array('profile_bg'=>$bg), '`user_id` = ' . to_sql($guid, 'Number'));
-            echo $bg; die();
+            // echo $bg; die();
 
         $responseData = true;
         if ($bg) {

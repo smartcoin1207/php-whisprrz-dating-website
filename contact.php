@@ -33,10 +33,10 @@ class CContact extends CHtmlBlock
 
 		if ($cmd == 'send')
 		{
-			$mail = get_param('email');
-			$name = get_param('username');
+			$mail = get_param('contact_email');
+			$name = get_param('contact_username');
 			$userId = 0;
-            if (guid() && $ajax) {
+            if (guid()) {
 				$userId = $g_user['user_id'];
                 $user = User::getInfoBasic($g_user['user_id']);
                 $mail = $user['mail'];
@@ -45,27 +45,23 @@ class CContact extends CHtmlBlock
 
 			$this->message = '';
             $message = 0;
-            // When Ajax mail is certainly true - it makes no sense to check
-            if (!Common::validateEmail($mail) && (!$ajax || ($ajax && !guid()))) {
-                $this->message = l('the_e_mail_incorrect_please_choose_another');
-                if ($ajax) {
-                    $this->responseData = '<span class="error">' . $this->message . '<span>';
+
+            if(!guid()) {
+                $captcha = get_param('contact_captcha');
+        
+                // When Ajax mail is certainly true - it makes no sense to check
+                if (!Common::validateEmail($mail) && (!$ajax || ($ajax && !guid()))) {
+                    $this->message = l('the_e_mail_incorrect_please_choose_another');
+                    if ($ajax) {
+                        $this->responseData = '<span class="error">' . $this->message . '<span>';
+                    }
+                    $message = 1;
+                } else if (!$ajax && !Securimage::check($captcha)) {
+                    $message = 3;
                 }
-                $message = 1;
-            } else if (!$ajax && !get_session('j_captcha')) {
-                $message = 3;
             }
-
-			$comment = trim(strip_tags(get_param('comment')));
-
-			/*$add = DB::result("SELECT id FROM contact WHERE comment=" . to_sql($comment) . "");
-			if ($add != 0) {
-                $this->message .= l('This comment alredy was sent.'). '<br />';
-			}*/
-
-            /*if ($this->message != '' && $ajax) {
-                $this->responseData = '<error>' . $this->message . '</error>';
-            }*/
+            
+			$comment = trim(strip_tags(get_param('contact_comment')));
 
             $name = strip_tags($name);
             $mail = strip_tags($mail);
@@ -103,8 +99,8 @@ class CContact extends CHtmlBlock
             if (!$ajax) {
                 redirect($p . '?message=' . $message);
             }
-        }elseif ($cmd == 'check_captcha') {
-            $responseData = check_captcha_mod(get_param('captcha'), '', false, false, '', '');
+        } elseif ($cmd == 'check_captcha') {
+            $responseData = check_captcha_mod(get_param('contact_captcha'), '', false, false, '', '');
             die(getResponseAjaxByAuth(true, $responseData));
         }
 	}

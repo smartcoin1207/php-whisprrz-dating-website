@@ -63,7 +63,6 @@ class CMailFavorite extends CHtmlBlock {
 
         parent::parseBlock($html);
     }
-
 }
 
 $page = new CMailFavorite("", $g['tmpl']['dir_tmpl_main'] . "mail_favorite.html");

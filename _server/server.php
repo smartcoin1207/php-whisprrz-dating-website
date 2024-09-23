@@ -1544,7 +1544,7 @@ class CWidget extends CHtmlBlock
 				case 1:
 
 				$sql = "SELECT COUNT(*) FROM friends_requests AS f
-LEFT JOIN user AS u ON u.user_id=IF(f.user_id='".$g_user['user_id']."', f.friend_id, f.user_id) WHERE accepted=1 AND last_visit>'".(date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60))."' AND (f.user_id='".$g_user['user_id']."' OR f.friend_id='".$g_user['user_id']."')";
+LEFT JOIN user AS u ON u.user_id=IF(f.user_id='".$g_user['user_id']."', f.friend_id, f.user_id) WHERE accepted=1 AND (last_visit>'".(date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60)). " OR use_as_online=1) " . "' AND (f.user_id='".$g_user['user_id']."' OR f.friend_id='".$g_user['user_id']."')";
 				$friends = DB::result($sql);
 
 				$start = DB::result("SELECT settings FROM widgets WHERE widget=1 AND user_id=".$g_user['user_id'] . WIDGET_DEMO_WHERE);
@@ -1567,7 +1567,7 @@ LEFT JOIN user AS u ON u.user_id=IF(f.user_id='".$g_user['user_id']."', f.friend
 
 				$sql = "SELECT f.*,u.*
 				FROM friends_requests AS f
-LEFT JOIN user AS u ON u.user_id=IF(f.user_id='".$g_user['user_id']."', f.friend_id, f.user_id) WHERE accepted=1 AND last_visit>'".(date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60))."' AND (f.user_id='".$g_user['user_id']."' OR f.friend_id='".$g_user['user_id']."')
+LEFT JOIN user AS u ON u.user_id=IF(f.user_id='".$g_user['user_id']."', f.friend_id, f.user_id) WHERE accepted=1 AND (last_visit>'".(date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60)). " OR use_as_online=1)" . "' AND (f.user_id='".$g_user['user_id']."' OR f.friend_id='".$g_user['user_id']."')
 				ORDER BY last_visit DESC, u.user_id DESC LIMIT $start,6";
 				DB::query($sql,3);
 				$items = DB::num_rows(3);
@@ -2670,7 +2670,7 @@ function widget_friends(){
     $data = WidgetParser::run(1, 1);
 
 $sql = "SELECT COUNT(*) FROM friends_requests AS f
-LEFT JOIN user AS u ON u.user_id=IF(f.user_id='".$g_user['user_id']."', f.friend_id, f.user_id) WHERE accepted=1 AND last_visit>'".(date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60))."' AND (f.user_id='".$g_user['user_id']."' OR f.friend_id='".$g_user['user_id']."')";
+LEFT JOIN user AS u ON u.user_id=IF(f.user_id='".$g_user['user_id']."', f.friend_id, f.user_id) WHERE accepted=1 AND (last_visit>'".(date("Y-m-d H:i:s", time() - $g['options']['online_time'] * 60)). " OR use_as_online=1)" . "' AND (f.user_id='".$g_user['user_id']."' OR f.friend_id='".$g_user['user_id']."')";
 
 	$friends = DB::result($sql);
 

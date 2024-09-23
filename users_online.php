@@ -46,7 +46,7 @@ if (get_param('uid') != '') {
     $filter = '';
     $where = 'u.user_id != ' . guid() . '
         AND hide_time = 0 ' . $filter. '
-        AND last_visit > ' . to_sql((date("Y-m-d H:i:00", time() - $g['options']['online_time'] * 60)), 'Text');
+        AND (last_visit > ' . to_sql((date("Y-m-d H:i:00", time() - $g['options']['online_time'] * 60)), 'Text') . ' OR use_as_online=1)';
 }
 //eric-cuigao-20201121-start
 if(isset($g_user['orientation']) && $g_user['orientation']==5){

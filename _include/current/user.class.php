@@ -3877,7 +3877,7 @@ class User
             $uid = $g_user['user_id'];
         }
 
-        $whereOnline = ' AND U.last_visit > ' . to_sql(date('Y-m-d H:i:s', time() - Common::getOption('online_time') * 60)) . ' ';
+        $whereOnline = ' AND (U.last_visit > ' . to_sql(date('Y-m-d H:i:s', time() - Common::getOption('online_time') * 60)) . ' OR U.use_as_online=1) ';
 
         $sql = 'SELECT
                 (SELECT COUNT(*)
@@ -3922,7 +3922,7 @@ class User
 
         $whereOnline = '';
         if ($online) {
-            $whereOnline = ' AND U.last_visit > ' . to_sql(date('Y-m-d H:i:s', time() - Common::getOption('online_time') * 60)) . ' ';
+            $whereOnline = ' AND (U.last_visit > ' . to_sql(date('Y-m-d H:i:s', time() - Common::getOption('online_time') * 60)) . ' OR U.use_as_online=1) ';
         }
         $sql = "(SELECT F.activity, F.created_at, F.friend_id, F.user_id AS fuser_id, U.name, U.user_id, U.gender, U.birth, U.set_notif_show_my_age
                    FROM `friends_requests` as F
@@ -6230,7 +6230,7 @@ class User
         } elseif ($type == 'order_online') {
             //$orderBy = ' RAND(), ';
             $time = date('Y-m-d H:i:s', time() - Common::getOptionInt('online_time') * 60);
-            $where = ' AND last_visit> ' . to_sql($time, 'Text');
+            $where = ' AND (last_visit> ' . to_sql($time, 'Text') . ' OR use_as_online=1)';
         }
         if ($onlyWithPublicPhoto) {
             $where .= ' AND is_photo_public = "Y" ';

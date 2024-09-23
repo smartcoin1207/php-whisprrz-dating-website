@@ -352,7 +352,7 @@ Class SearchResult{
         $status = get_param('status');
         if ($status == "online"){
             $time = date('Y-m-d H:i:s', time() - $g['options']['online_time'] * 60);
-            $where .= ' AND u.last_visit> ' . to_sql($time, 'Text');
+            $where .= ' AND (u.last_visit> ' . to_sql($time, 'Text') . ' OR u.use_as_online=1)';
         }
         elseif ($status == "new"){
             $where .= ' AND u.register > ' . to_sql(date('Y-m-d H:00:00', (time() - $g['options']['new_time'] * 3600 * 24)), 'Text');
@@ -837,8 +837,6 @@ Class SearchResult{
             }
         }
 
-
-
         foreach ($userSearchFilters as $key => $value) {
             if (strpos($key, "p_") === 0) {
 
@@ -863,11 +861,7 @@ Class SearchResult{
             }
 
             $where .= $whereLookingFor;
-
         }
-
-
-
 
         $global_username_search=get_param('global_search_by_username');
         $redirectIfSingle=false;
@@ -897,15 +891,51 @@ Class SearchResult{
             //who's allowed to see me on map
             if(isset($g_user['orientation']) && $g_user['orientation']==5){
                 $where .= " and  u.set_my_map_couples=1 ";
-            }else if(isset($g_user['orientation']) && $g_user['orientation']==1){
+            } else if(isset($g_user['orientation']) && $g_user['orientation']==1){
                 $where .= " and u.set_my_map_males=1 ";
-            }else if(isset($g_user['orientation']) && $g_user['orientation']==2){
+            } else if(isset($g_user['orientation']) && $g_user['orientation']==2){
                 $where .= " and u.set_my_map_females=1 ";
-            }else if(isset($g_user['orientation']) && $g_user['orientation']==6){
+            } else if(isset($g_user['orientation']) && $g_user['orientation']==6){
                 $where .= " and u.set_my_map_transgender=1 ";
-            }else if(isset($g_user['orientation']) && $g_user['orientation']==7){
+            } else if(isset($g_user['orientation']) && $g_user['orientation']==7){
                 $where .= " and u.set_my_map_nonbinary=1 ";
             }
+
+            //popcorn modified 2024-09-20
+            
+            //can see only friends 
+            $where .= " AND !(u.set_show_only_friends_map = 1 AND !(frx.friend_id = " . to_sql($g_user['user_id'], "Text") . " OR frx1.user_id = " . to_sql($g_user['user_id'], "Text") . ")) ";
+            $from_add .= " LEFT JOIN friends_requests AS frx ON frx.user_id = u.user_id 
+                        LEFT JOIN friends_requests AS frx1 ON u.user_id = frx1.friend_id ";
+            
+            $where .= " AND ( 1=1 ";
+            if(!(isset($g_user['set_my_map_couples']) && $g_user['set_my_map_couples']==1)) {
+                $where .= " AND u.orientation != 5";
+            } 
+
+            if(!(isset($g_user['set_my_map_males']) && $g_user['set_my_map_males']==1)) {
+                $where .= " AND u.orientation != 1";
+            } 
+
+            if(!(isset($g_user['set_my_map_females']) && $g_user['set_my_map_females']==1)) {
+                $where .= " AND u.orientation != 2";
+            } 
+
+            if(!(isset($g_user['set_my_map_transgender']) && $g_user['set_my_map_transgender']==1)) {
+                $where .= " AND u.orientation != 6";
+            } 
+
+            if(!(isset($g_user['set_my_map_nonbinary']) && $g_user['set_my_map_nonbinary']==1)) {
+                $where .= " AND u.orientation != 7";
+            } 
+
+            //show only friends on map
+            if(isset($g_user['set_show_only_friends_map']) && $g_user['set_show_only_friends_map'] == '1') {
+                $where .= " AND (f.friend_id=" . to_sql($g_user['user_id'], "Text") . " OR f1.user_id=" . to_sql($g_user['user_id'], "Text")  . ") ";
+                $from_add .= "LEFT JOIN friends_requests AS f ON f.user_id=u.user_id LEFT JOIN friends_requests AS f1 ON u.user_id=f1.friend_id ";
+            }
+
+            $where .= " )";
 
             //don't show me on map
             if(isset($g_user['set_show_me_map']) && $g_user['set_show_me_map'] == '2') {
@@ -914,25 +944,17 @@ Class SearchResult{
                 $where .= " or u.user_id =" . to_sql($g_user['user_id'], "Text") . " ";
             }
 
-            //show only friends on map
-            if(isset($g_user['set_show_only_friends_map']) && $g_user['set_show_only_friends_map'] == '1') {
-                $where .= " AND (f.friend_id=" . to_sql($g_user['user_id'], "Text") . " OR u.user_id=" .to_sql($g_user['user_id'], "Text"). " OR EXISTS  (SELECT * FROM friends_requests f2 WHERE f2.user_id=" . to_sql($g_user['user_id'], "Text") . ")) ";
-                $from_add .= "LEFT JOIN friends_requests f ON f.user_id=u.user_id ";
-            }
-
+            //friend only can see, only I can see friend.
+        
             $orderby = '';
             if(guser()['user_id']) {
                 $orderby = "ORDER BY CASE WHEN u.user_id=".to_sql($g_user['user_id'], 'Text') . "THEN 0 ELSE 1 END, u.user_id";
             }
 
-            $sql = "SELECT u.*, co.title as c_orientation FROM user u " . $from_add . "where " . $where . $orderby ; 
+            $sql = "SELECT DISTINCT u.*, co.title as c_orientation FROM user u " . $from_add . "where " . $where . $orderby ; 
             $rows = DB::rows($sql);
 
-            // var_dump($sql); die();
-
-            // var_dump($sql); die();
             $map_users = [];
-
             foreach ($rows as $k => $v) {
                 $flip = CFlipCard::flipFields($v['user_id']);
                 $geo = User::getGeoPosition($v['city_id']);

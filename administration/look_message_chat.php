@@ -19,7 +19,7 @@ class CHon extends CHtmlBlock
 		$action = get_param('action');
 		$id = get_param('id');
 		if($action=='delete' && !empty($id)){
-			DB::execute("delete from chat_line where id=".to_sql($id));
+			DB::execute("delete from flashchat_messages where id=".to_sql($id));
 			global $p;
 			redirect($p."?user_id=".get_param("user_id"));
 		}
@@ -36,7 +36,6 @@ class CHon extends CHtmlBlock
 	}
 }
 
-
 class Cgroups extends CHtmlList
 {
 	function init()
@@ -46,18 +45,14 @@ class Cgroups extends CHtmlList
 		global $g_user;
 		$user_id = get_param('user_id');
 		$this->m_on_page = 10;
-		$this->m_sql_count = "select count(M.id)  from chat_line as M  join user as U on U.name = M.nick";
-		$this->m_sql = "select M.*  from chat_line as M  join user as U on U.name = M.nick";
+		$this->m_sql_count = "select count(M.id)  from flashchat_messages as M  join user as U on U.user_id = M.user_id";
+		$this->m_sql = "select M.*  from flashchat_messages as M  join user as U on U.user_id = M.user_id";
 		$this->m_sql_where = " U.user_id = ".to_sql( $user_id);
-		$this->m_sql_order = " timesaid desc ";
+		$this->m_sql_order = " time desc ";
 		$this->m_params = "&user_id=".get_param('user_id');
 		$this->m_field['id'] = array("id", null);
-	 //	$this->m_field['nick'] = array("nick", null);
-		$this->m_field['line'] = array("line", null);
-		$this->m_field['timesaid'] = array("timesaid", null);
-
-
-
+		$this->m_field['msgtext'] = array("msgtext", null);
+		$this->m_field['time'] = array("time", null);
 	}
 	function onItem(&$html, $row, $i, $last)
 	{
@@ -65,9 +60,8 @@ class Cgroups extends CHtmlList
 		$user_id = get_param('user_id');
 		$html->setvar("id", $row['id']);
 		$html->setvar("user_id", $user_id);
-	 //	$html->setvar("nick", $row['nick']);
-		$html->setvar("text", $row['line']);
-		$html->setvar("data", date('d-m-Y h:m:s',time_mysql_dt2u($row['timesaid'])));
+		$html->setvar("text", $row['msgtext']);
+		$html->setvar("data", date('d-m-Y h:m:s',($row['time'])));
 
         if ($i % 2 == 0) {
             $html->setvar("class", 'color');
@@ -78,8 +72,6 @@ class Cgroups extends CHtmlList
             $html->setvar("decl", '');
             $html->setvar("decr", '');
         }
-
-
 	}
 	function parseBlock(&$html)
 	{

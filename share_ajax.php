@@ -17,7 +17,6 @@ if ($siteGuid !== false && $siteGuid != guid()) {
 
 global $g;
 
-
 class WallShare extends CHtmlBlock
 {
     function parseBlock(&$html)
@@ -33,10 +32,9 @@ class WallShare extends CHtmlBlock
         $groupId = get_param('group_id', '');
 
         $share_wall = DB::row("SELECT * FROM wall WHERE id =" . to_sql($wall_id, 'Text'));
-        if(!(isset($share_wall['shareable']) && $share_wall['shareable'] == '0')) {
+        if(!(isset($share_wall['shareable']) && $share_wall['shareable'] == '0') && $share_wall['user_id'] != guid()) {
             $html->parse('wall_share_not_shareable', false);
-        } 
-        else {
+        } else {
             //group own
             $sql_own = "SELECT * FROM `groups_social` as g WHERE g.user_id = " . to_sql(guid(), 'Text') . " AND g.group_id != " . to_sql($groupId, 'Text');
             $myOwnGroups = DB::rows($sql_own);
@@ -73,24 +71,18 @@ class WallShare extends CHtmlBlock
             $html->parse('wall_share_items', false);
         }
 
-   
-
         parent::parseBlock($html);
-
     }
-
 }
 
-    $dirTmpl = $g['tmpl']['dir_tmpl_main'];
+$dirTmpl = $g['tmpl']['dir_tmpl_main'];
 
-    $tmpl = "{$dirTmpl}_wall_share_item.html";
+$tmpl = "{$dirTmpl}_wall_share_item.html";
 
-    $responsePage = new WallShare('', $tmpl);
+$responsePage = new WallShare('', $tmpl);
 
-    if (isset($responsePage)) {
-        echo getResponsePageAjaxByAuth(true, $responsePage);
-    }
-
-
+if (isset($responsePage)) {
+    echo getResponsePageAjaxByAuth(true, $responsePage);
+}
 
 // include('./_include/core/main_close.php');

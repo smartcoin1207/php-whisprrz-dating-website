@@ -8380,7 +8380,7 @@ ul.notification_list li button:last-child{
     padding-right: 15px;
     padding-bottom: 15px;
     box-sizing: border-box;
-    border: 1px solid #e8e8e8;
+    /* border: 1px solid #e8e8e8; */
     border-top: none;
     background-color:#fff;
     /* float: left; */
@@ -21468,4 +21468,12 @@ body.drag_cover *{
 /* popcorn added */
 .photo_custom_folder {
   margin-right: 20px;;
+}
+
+#bl_page_columns *{
+    box-sizing: border-box !important;
+}
+
+#bl_page_columns h3{
+  font-size: 24px !important;
 }

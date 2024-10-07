@@ -53,7 +53,7 @@ class CHotdateMail extends CHtmlBlock
     public function action()
     {
         global $g, $g_user;
-        $table = "mass_mail_saved_user_list";
+        $table = "saved_user_list";
 
         $cmd = get_param('cmd', '');
         if ($cmd == "sent") {
@@ -74,8 +74,7 @@ class CHotdateMail extends CHtmlBlock
             }
             $text = trim(strip_tags($text));
 
-
-            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND event_type = 'hotdate'";
+            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND type = 'hotdate'";
             $saved_users_list = DB::row($sql);
             if($saved_users_list) {
                 $user_list = $saved_users_list['userlist'];
@@ -193,13 +192,13 @@ class CHotdateMail extends CHtmlBlock
     {
         global $g;
         $hotdate_id = get_param('hotdate_id', '');
-        $table = "mass_mail_saved_user_list";
+        $table = "saved_user_list";
 
         if (!$hotdate_id) {
             Common::toHomePage();
         }
 
-        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND event_type = 'hotdate'";
+        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND type = 'hotdate'";
         $saved_users_list = DB::row($sql);
         if($saved_users_list) {
             $user_list = $saved_users_list['userlist'];

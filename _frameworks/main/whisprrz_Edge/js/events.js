@@ -399,12 +399,20 @@ var CEvents = function(guid) {
                     isVideo=true;
                     eventId='v_'+eventId;
                 }
+
                 if (type == 'photo_likes' || type == 'vids_likes') {
                     eventItemId = 0;
                 }
+
 				if (type == 'photo_face') {
 					eventItemId = 0;
-				}
+				} 
+
+                if (type == 'plus_partner') {
+                    var url  = "" + "profile.php";
+                    redirectUrl(url);
+                    return;
+                }
 
                 if(type == 'invitation') {
                     var event_notification_id = $el.attr('id');

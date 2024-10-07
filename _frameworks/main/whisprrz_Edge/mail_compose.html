@@ -58,8 +58,18 @@
   }
   function submitAddContactForm() {
     if (validateAddContactForm()) 
-       isPost = true; 
-       document.AddContactForm.submit();
+       isPost = true;
+
+	var subject = document.AddContactForm.subject.value;
+	var text = document.AddContactForm.text.value;
+
+	saveTemplate(subject, text).then((response) => {
+		if (response) {
+				document.AddContactForm.submit();
+			} else {
+				console.log('Template not saved, form not submitted.');
+			}
+		});
     }
 
 function setname(name)
@@ -141,7 +151,7 @@ window.onbeforeunload = function (evt) {
 }
 </script>
 
-<form class="" name="AddContactForm" method="POST" action="{url_main}mail_compose.php?cmd=sent" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
+<form class="bl_forms" name="AddContactForm" method="POST" action="{url_main}mail_compose.php?cmd=sent" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
 <input type="hidden" name="page_from" value="{page_from}">
 				<table cellpadding="0" cellspacing="0" border="0" class="mail_compose">
                     <col width="100px" />
@@ -165,6 +175,7 @@ window.onbeforeunload = function (evt) {
 								<span class="ter_text_bold">{l_friends_list}</span> -
 								<a href="javascript:switchdiv('favorite-off','favorite-on');" class="body_little">{l_show_friends}</a>
 							</div>
+
 							<div id="favorite-on" style="display:none; width: 450px; text-align: left; padding: 0;">
 								<img src="{url_tmpl_main}img/icon_arrow_open.gif" border=0>
 								<span class="ter_text_bold">{l_friends_list}</span> -
@@ -183,12 +194,20 @@ window.onbeforeunload = function (evt) {
 								</tr>
 								</table>
 							</div>
-                            <div align="left"><b>{message}</b></div>
+							<div align="left"><b>{message}</b></div>
 						</td>
 					</tr>
+
+					<tr>
+						<td></td>
+						<td>
+							{mail_templates_list}
+						</td>
+					</tr>
+
 					<tr>
 						<td class="body_text" align="right"><b>{l_username}:</b></td>
-						<td><input id="to_name" type="text" class="inp" name="name" value="{name}"  tabindex="1"></td>
+						<td><input id="to_name" type="text" class="inp " name="name" value="{name}"  tabindex="1"></td>
 					</tr>
 					<!-- end_add_name -->
 					<tr>
@@ -211,24 +230,32 @@ window.onbeforeunload = function (evt) {
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
-						<td align="left"><div style="float:left;"><input type="checkbox" name="save" id="save" value="1" checked></div>&nbsp;<label for="save" class="chk_label"><span class="dash">{l_save_mail}</span></label></td>
+						<td align="left">
+							<div style="display: flex; justify-content: space-between; width: 421px;">
+								<div>
+									<div style="float:left;"><input type="checkbox" name="save" id="save" value="1" checked></div>&nbsp;<label for="save" class="chk_label"><span class="dash">{l_save_mail}</span></label>
+								</div>
+							</div>
+						</td>
 					</tr>
-<!-- 					<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr> -->
 					<tr>
 						<td></td>
 						<td align="left" style="padding-top: 10px;">
-							<input type="button" value="{l_sent_message}" onClick=" submitAddContactForm();" class="btn lower_header_color" tabindex="3" title="{l_sent_message}" onMouseOver="window.status='{l_sent_message}'; return true;" onMouseOut="window.status=''; return true;">
+							<input type="button" value="{l_sent_message}" onClick="submitAddContactForm();" class="btn lower_header_color" tabindex="3" title="{l_sent_message}" onMouseOver="window.status='{l_sent_message}'; return true;" onMouseOut="window.status=''; return true;">
 						</td>
 					</tr>
 				</table>
 <script type="text/javascript">
-    
-onload = function() {
-document.forms['AddContactForm']['text'].focus();
-}
+	onload = function() {
+		document.forms['AddContactForm']['text'].focus();
+	}
+</script>
+<script>
+	const selectElement = document.getElementById('mail_templates');
+	selectElement.addEventListener('change', function (event) {
+		const selectedValue = event.target.value;
+		handleSelectChange(selectedValue, 'AddContactForm', 'subject', 'text');
+	});
 </script>
 </form>
 

@@ -981,6 +981,10 @@ $l['all']['event_partyhouz_partyhou_guest_'] = "{link_start}{name}{link_end} You
 $l['all']['event_partyhouz_partyhou_guest_m'] = "{link_start}{name}{link_end} You are a member of Partyhou \"{link_start_event}{title_event}{link_end_event}\"";
 $l['all']['event_partyhouz_partyhou_guest_f'] = "{link_start}{name}{link_end} You are a member of Partyhou \"{link_start_event}{title_event}{link_end_event}\"";
 
+$l['all']['event_plus_partner_m'] = "{link_start}{name}{link_end} has requested as plus partner";
+$l['all']['event_plus_partner_f'] = "{link_start}{name}{link_end} has requested as plus partner";
+$l['all']['event_plus_partner_'] = "{link_start}{name}{link_end} has requested as plus partner";
+
 $l['all']['events'] = "Events";
 $l['all']['events_add_clndr'] = "Task Reminder Main Calendar";
 $l['all']['events_add_event'] = "Add Event";
@@ -2673,8 +2677,9 @@ $l['all']['popup_hotdates_text'] = "Popup Hotdates";
 $l['all']['popup_messages_list_title'] = "Messages ({count})";
 $l['all']['popup_messages_list_title_empty'] = "Messages";
 $l['all']['popup_partyhouz_text'] = "Popup PartyHouz";
-$l['all']['popup_posting_terms'] = "<a href=\"#\" onclick=\"javascript:OpenWindow(&#39;./info.php?page=posting_terms&lang=default&#39;,&#39;650&#39;,&#39;400&#39;);\"  >Terms & Condition</a>";
-$l['all']['popup_privacy_policy'] = "<a href=\"#\" onclick=\"javascript:OpenWindow(&#39;./info.php?page=priv_policy&lang=default&#39;,&#39;650&#39;,&#39;400&#39;);\"  >Privacy Policy</a>";
+$l['all']['popup_posting_terms'] = "<a onclick=\"javascript:OpenWindow(&#39;./info.php?page=posting_terms&lang=default&#39;,&#39;650&#39;,&#39;400&#39;);\"  >Terms & Condition</a>";
+$l['all']['popup_privacy_policy'] = "<a onclick=\"javascript:OpenWindow(&#39;./info.php?page=priv_policy&lang=default&#39;,&#39;650&#39;,&#39;400&#39;);\"  >Privacy Policy</a>";
+$l['all']['popup_map_terms'] = "<a onclick=\"javascript:OpenWindow(&#39;./info.php?page=map_terms&lang=default&#39;,&#39;650&#39;,&#39;400&#39;);\"  >Map Terms</a>";
 $l['all']['portuguese'] = "Português";
 $l['all']['position_photo'] = "({offset}/{num})";
 $l['all']['positions_and_openings'] = "Positions and openings";
@@ -4135,10 +4140,13 @@ $l['all']['wall_item_title_template_share_partyhou_photo'] = "{item_profile} sha
 $l['all']['remove_personal'] = "Remove From Personal";
 $l['all']['make_personal'] = "Make Personal";
 $l['all']['remove_personal'] = "Remove Personal";
-$l['all']['custom_folder'] = "Custom Folder";
+$l['all']['custom_folder'] = "Change Folder Name";
 $l['all']['manage_folder'] = "Manage Folder";
 $l['all']['custom_folder_saved'] = "Custom Folder saved successfully";
 $l['all']['custom_folder_error'] = "Error in Save Custom Folder";
+$l['all']['add_custom_folder'] = "Add Custom Folder";
+$l['all']['add_custom_folder_saved'] = "New Custom Folder was made successfully";
+$l['all']['add_custom_folder_error'] = "Error in Made New Custom Folder";
 $l['all']['cancel_private'] = "Cancel Private";
 $l['all']['cancel_personal'] = "Cancel Personal";
 $l['all']['album_personal'] = "Personal";
@@ -6299,5 +6307,10 @@ $l['all']['hotdate_approval_title'] = "Hotdate Approval";
 $l['all']['partyhou_approval_title'] = "Partyhou Approval";
 $l['all']['approval_text'] = 'Require Host Approval To Join Guests';
 
+$l['all']['mail_templates'] = 'Mail Templates';
+$l['all']['show_templates'] = 'Show Templates';
+
+$l['all']['saved_user_list'] = 'Saved User List'; 
+$l['all']['select_group_users'] = 'Select Users'; 
 
 ?>

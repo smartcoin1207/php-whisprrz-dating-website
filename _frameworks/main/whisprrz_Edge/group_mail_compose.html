@@ -62,8 +62,17 @@
   }
   function submitAddContactForm() {
     if (validateAddContactForm()) 
-       isPost = true; 
-       document.AddContactForm.submit();
+      isPost = true; 
+      var subject = document.AddContactForm.subject.value;
+      var text = document.AddContactForm.text.value;
+
+      saveTemplate(subject, text).then((response) => {
+      if (response) {
+              document.AddContactForm.submit();
+          } else {
+              console.log('Template not saved, form not submitted.');
+          }
+      });
     }
 
 function setname(name)
@@ -166,8 +175,30 @@ window.onbeforeunload = function (evt) {
 	    <col width="100px" />
 		<tr>
 			<td class="body_text" align="right"></td>
-			<td><b style="margin: 0, 10px;">{member_count_message}</b> <input class="btn blue" type="button" name="select_users" onclick="location='{url_select_page}';"  value="{l_select_users}"  tabindex="2" required></td>
-		</tr>
+			<td>
+        <div style="display: flex; justify-content: space-between; align-items: center; ">
+          <div class="field" style="width: 50%; margin: 0 5px 0 0; ">
+              <div class="text-left">
+                <b>{l_saved_user_list}</b>
+                <a href="{select_group_user_url}">{l_select_group_users}</a>
+              </div>
+              <select id="saved_user_list" name="saved_user_list" class="inp selectpicker show-tick" data-live-search="true">
+                  {saved_user_list}
+              </select>
+          </div>
+          <div style="width: 50%; margin: 0 0 0 5px;">
+            {mail_templates_list}
+          </div>
+        </div>
+        
+      </td>
+    </tr>
+    <!-- <tr>
+        <td></td>
+        <td>
+            {mail_templates_list}
+        </td>
+    </tr> -->
 		<tr>
 			<td class="body_text" align="right"><b>{l_subject}:</b></td>
 			<td><input class="inp" type="text" name="subject" style="width:100%" value="{subject}"  tabindex="2" required></td>
@@ -190,8 +221,11 @@ window.onbeforeunload = function (evt) {
 		</tr>
 	</table>
 	<script type="text/javascript">
-	    
-		
+	    const selectElement = document.getElementById('mail_templates');
+      selectElement.addEventListener('change', function (event) {
+          const selectedValue = event.target.value;
+          handleSelectChange(selectedValue, 'AddContactForm', 'subject', 'text');
+      });
 	</script>
 </form>
 

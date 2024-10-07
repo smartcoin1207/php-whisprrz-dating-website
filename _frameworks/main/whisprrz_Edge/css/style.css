@@ -21477,3 +21477,51 @@ body.drag_cover *{
 #bl_page_columns h3{
   font-size: 24px !important;
 }
+
+/* popcorn added 2024-09-30 */
+.flex-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-header span {
+  font-size: 12px;
+}
+
+/* popcorn added */
+/* Style the autocomplete dropdown */
+.ui-autocomplete {
+  background-color: #f9f9f9;  /* Change background color */
+  border: 1px solid #ddd;     /* Add a border */
+  max-height: 200px;          /* Limit the height of the dropdown */
+  min-width: inherit;
+  width: 160px !important;
+  overflow-y: auto;           /* Enable scrolling if content overflows */
+  font-family: Arial, sans-serif; /* Customize font */
+  font-size: 14px;            /* Customize font size */
+  padding: 10px 0;            /* Add some padding inside */
+  z-index: 9999;              /* Make sure the dropdown appears above other elements */
+}
+
+/* Style each item in the dropdown */
+.ui-menu-item {
+  padding: 10px;              /* Add padding to each item */
+  cursor: pointer;            /* Make items clickable */
+  border-bottom: 1px solid #eee; /* Add a subtle border between items */
+}
+
+/* Style the item when hovered or focused */
+.ui-state-focus {
+  background-color: #e0e0e0;  /* Highlight color when an item is selected/hovered */
+  color: #333;                /* Text color for the highlighted item */
+}
+
+/* Optionally add different colors for alternating items */
+.ui-menu-item:nth-child(odd) {
+  background-color: #f5f5f5;  /* Lighter background for odd items */
+}
+
+.ui-menu-item:nth-child(even) {
+  background-color: #ffffff;  /* Lighter background for even items */
+}

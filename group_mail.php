@@ -8,6 +8,7 @@ It can be found at http://www.chameleonsocial.com/license.doc
 This notice may not be removed from the source code. */
 
 include './_include/core/main_start.php';
+include("./_include/current/mail.templates.class.php");
 
 $optionTmplName = Common::getTmplName();
 if ($optionTmplName != 'edge') {
@@ -73,12 +74,11 @@ class CGroupMail extends CHtmlBlock
             }
             $text = trim(strip_tags($text));
 
-            $group_seo = self::getNameSeo();
-            $session_key  = $group_seo . "_selected_members";
+            $saved_user_list_id = get_param('saved_user_list', 0);
+            $sql = "SELECT user_ids FROM saved_user_list WHERE id = " . to_sql($saved_user_list_id, 'Number');
+            $saved_row = DB::row($sql);
 
-            $selected_members_session = get_session($session_key);
-            $selected_members1 = json_decode($selected_members_session);
-            $selected_members = json_decode(json_encode($selected_members1), true);
+            $selected_members = json_decode($saved_row['user_ids'], true);
 
             if ($selected_members && $subject != '' && $text != '') {
                 $textHash = md5(mb_strtolower($text, 'UTF-8'));
@@ -87,8 +87,8 @@ class CGroupMail extends CHtmlBlock
                 }
 
                 foreach ($selected_members as $key => $value) {
-                    $id = $key;
-                    if($key == $g_user['user_id']) {
+                    $id = $value;
+                    if($value == $g_user['user_id']) {
                         continue;
                     }
                     $block = User::isBlocked('mail', $id, guid());
@@ -140,8 +140,6 @@ class CGroupMail extends CHtmlBlock
                         DB::execute("UPDATE user SET new_mails=new_mails+1 WHERE user_id=" . to_sql($id, "Number") . "");
                         CStatsTools::count('mail_messages_sent');
                         User::updateActivity($id);
-
-
 
                         if (Common::isEnabledAutoMail('mail_message')) {
                             DB::query('SELECT * FROM user WHERE user_id = ' . to_sql($id, 'Number'));
@@ -208,18 +206,6 @@ class CGroupMail extends CHtmlBlock
         $total_member_count = Groups::getNumberSubscribers($groupId);
 
         $group_seo = self::getNameSeo();
-        $session_key  = $group_seo . "_selected_members";
-        $selected_members_session = get_session($session_key);
-        $selected_members1 = json_decode($selected_members_session);
-
-        $selected_members = json_decode(json_encode($selected_members1), true);
-        $member_count = 0;
-        if ($selected_members) {
-            $member_count = count($selected_members);
-        }
-
-        $message = "Selected " . $member_count . "/" . $total_member_count;
-        $html->setvar('member_count_message', $message);
 
         $groupId = Groups::getParamId();
         $gsql = "SELECT * FROM groups_social where group_id = " . to_sql($groupId, 'Text');
@@ -233,12 +219,25 @@ class CGroupMail extends CHtmlBlock
         $select_url = $g['path']['url_main'] . $group_nameseo . "/select_group_users";
         $html->setvar('url_select_page', $select_url);
 
+        $saved_user_list = self::getSavedUserList($groupId);
+        $html->setvar('saved_user_list', $saved_user_list);
+
+        $select_group_user_url = $group_url = $g['path']['url_main'] . $group_nameseo . "/select_group_users";
+        $html->setvar('select_group_user_url', $select_group_user_url);
+
         parent::parseBlock($html);
+    }
+
+    function getSavedUserList($groupId)
+    {
+        $sql = "SELECT id, title FROM saved_user_list WHERE user_id = " . to_sql(guid(), 'Number') . " AND event_id = " . to_sql($groupId, 'Number') . " AND type = 'group'";
+        
+        $saved_user_list = DB::db_options($sql, '', 0, true, false);
+        return $saved_user_list;
     }
 
     function getNameSeo()
     {
-
         global $g_user, $g;
 
         $groupId = Groups::getParamId();
@@ -277,5 +276,8 @@ $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
+
+$mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
+$page->add($mail_templates_list);
 
 include './_include/core/main_close.php';

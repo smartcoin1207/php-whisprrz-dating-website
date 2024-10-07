@@ -7,7 +7,7 @@
 
     <div class="blogs_wrap page_list {page_class} <!-- begin_list_people_info -->cham-blog-style-1<!-- end_list_people_info --><!-- begin_list_people_default -->cham-project-style-3<!-- end_list_people_default --><!-- begin_list_video_info -->cham-blog-style-1<!-- end_list_video_info --><!-- begin_list_blogs_info -->cham-blog-style-1<!-- end_list_blogs_info --><!-- begin_list_blogs_info_big -->cham-content-style-5<!-- end_list_blogs_info_big --><!-- begin_list_blogs_info_plain -->cham-blog-style-2<!-- end_list_blogs_info_plain --><!-- begin_list_blogs_info_small -->cham-features-style-4<!-- end_list_blogs_info_small --><!-- begin_list_photos_default -->cham-blog-style-1<!-- end_list_photos_default -->     <!-- begin_list_groups_info -->cham-blog-style-1<!-- end_list_groups_info --> <!-- begin_list_live_info -->cham-blog-style-1<!-- end_list_live_info --> <!-- begin_list_songs_default -->cham-blog-style-1<!-- end_list_songs_default -->">
         <div style="position: relative;">
-            <div class="col-md-12 cham-heading-description" style="float: left; width: 536px;">
+            <div class="col-md-12 cham-heading-description">
                 <script>showRightColumnWall();</script>
                 <h3 id="page_list_title" class="cham-heading">
 					<!-- begin_page_title_circle -->
@@ -82,7 +82,8 @@
                     <span class="dot"></span>
                     <span class="search_advanced">
                         <a href="./groups">
-                            <span class="icon_fa">{page_link_groups_search_icon}</span>{l_groups}
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            {l_groups}
                         </a>
                     </span>
                     <!-- end_edge_groups -->
@@ -91,7 +92,8 @@
                     <span class="dot"></span>
                     <span class="search_advanced">
                         <a href="./groups_search_advanced.php">
-                            <span class="icon_fa">{page_link_groups_search_icon}</span>{page_link_groups_search_title}
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            {page_link_groups_search_title}
                         </a>
                     </span>
                     <!-- end_group_sarch_advanced -->
@@ -191,7 +193,7 @@
                     <!-- end_page_filter -->
 
                     <!-- begin_group_advanced_search_filter -->
-                    <span class="more bl_filter" style="position: relative;">
+                    <span class="more bl_filter" style="position: relative; display: block;">
                         <span id="filter_open" data-target="#filter_results" class="dropdown-toggle link" data-toggle="collapse"
                             role="button" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-filter"></i>{l_filter}<span class="caret"></span>

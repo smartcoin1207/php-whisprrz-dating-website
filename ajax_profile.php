@@ -118,5 +118,16 @@ if ($cmd == 'sendcode') { /* Start Divyesh - 21-07-23 */
         }
     }
     echo json_encode($res); /* End Divyesh - 21-07-23 */
+} elseif ($cmd == 'add_custom_folder') {
+    $folder = get_param('folder');
+    $sql = "INSERT INTO `custom_folders` (`user_id`, `name`) VALUES (" . to_sql(guid(), 'Text') . ", " . to_sql($folder, 'Text') . ")";
+    DB::execute($sql);
+    $folder_id = DB::insert_id();
+
+    if ($folder_id) {
+        echo json_encode(array("status" => "ok"));
+    } else {
+        echo json_encode(array("status" => "fail"));
+    }
 }
 DB::close();

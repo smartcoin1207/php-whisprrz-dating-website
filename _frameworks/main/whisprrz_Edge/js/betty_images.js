@@ -40,7 +40,6 @@ function nd_image_change() {
 function update_image_interval() {
     if(currentCount < updateCount) {
         // Select all image elements on the page
-        console.log("232323")
         if ($('#nd_change_filter').prop('checked')) {
             const image = document.getElementsByTagName('img');
             // Loop through each image and update its source attribute
@@ -70,10 +69,8 @@ function update_image_interval() {
     currentCount++;
 }
 
-// window.onload = function () {
-    nd_image_change();
-    setInterval(update_image_interval, 1000);
-// }
+nd_image_change();
+setInterval(update_image_interval, 1000);
 
 //when nd filter button clicked
 document.querySelector('#nd_change_filter').addEventListener('change', function() {

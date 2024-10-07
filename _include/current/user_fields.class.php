@@ -2453,8 +2453,6 @@ class UserFields extends CHtmlBlock
     {
         global $g_user;
 
-        // var_dump($type); die();
-
         $this->currentTypeParse = $type;
         if ($init) {
             $this->init();
@@ -2530,7 +2528,6 @@ class UserFields extends CHtmlBlock
                             break;
 
                         case 'profile_html':
-
                             if (($data['type'] == 'text') || ($data['type'] == 'textarea')) {
                                 if ($this->gUser[$name] != '') {
                                     $this->parseText($html, $name, $data, false);
@@ -2619,10 +2616,6 @@ class UserFields extends CHtmlBlock
                                 $this->parseModule($html, $name, 2, 'field_item', false, true, false, $i, $countFieldGroup);
                             }
                             break;
-
-                        //case 'profile_about_urban':
-                        //$this->parseText($html, $name, $data);
-                        //break;
 
                         case 'interests_category_urban':
                             $this->parseRadio($html, $name, $data, 2, false, 'interests_category');

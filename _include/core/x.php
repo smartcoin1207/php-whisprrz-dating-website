@@ -7,10 +7,6 @@ It can be found at http://www.chameleonsocial.com/license.doc
 
 This notice may not be removed from the source code. */
 
-use Aws\S3\S3Client;
-
-use function PHPUnit\Framework\returnSelf;
-
 $langsForBrowsers = array(
     'en' => 'default',
     'af' => 'afrikaans',

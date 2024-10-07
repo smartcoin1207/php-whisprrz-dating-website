@@ -150,6 +150,10 @@ class CUsers extends CHtmlList
         global $status_style;
         global $p;
 
+        if(!(isset($row['user_id']) && $row['user_id'])) {
+            return false;
+        }
+
         $user_id = $row['user_id'];
         $distance  = intval(Common::calculateDistance($user_id));
         $row['distance'] = $distance;
@@ -416,6 +420,7 @@ class CUsers extends CHtmlList
         $orientation_row = User::getOrientationInfo($row['orientation']);
 
         $access = User::paidLevel($row['type'], $row['gold_days'], $orientation_row['free']);
+
         $row['type'] = $access['type'];
         $row['gold_days'] = $access['gold_days'];
 
@@ -2708,12 +2713,12 @@ class CUsersProfile extends CUsers
         if ($optionTmplSet !== 'urban' && !User::isSimpleProfile($row_user['user_id']) && !Common::isMobile()) {
             //start-nnsscc-diamond-20200214
             // var_dump('smart1'); die();
-            if ($this->m_is_me) {
-            $html->setvar('flash_profile', User::flashProfile($row_user['user_id']));
-            } else {
-            $html->setvar('flash_profile', User::flashProfile($row_user['user_id'], 'viewer'));
-            }
-            $html->parse('flash_profile', false);
+            // if ($this->m_is_me) {
+            // $html->setvar('flash_profile', User::flashProfile($row_user['user_id']));
+            // } else {
+            // $html->setvar('flash_profile', User::flashProfile($row_user['user_id'], 'viewer'));
+            // }
+            // $html->parse('flash_profile', false);
              
             $prf = null;
             if ($display == 'profile_info') {

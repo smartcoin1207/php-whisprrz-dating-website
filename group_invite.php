@@ -9,6 +9,7 @@ This notice may not be removed from the source code. */
 
 $area = "login";
 include "./_include/core/main_start.php";
+include("./_include/current/mail.templates.class.php");
 
 function generate_group_key($gid)
 {
@@ -188,5 +189,9 @@ $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
+
+$mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
+$page->add($mail_templates_list);
+
 
 include "./_include/core/main_close.php";

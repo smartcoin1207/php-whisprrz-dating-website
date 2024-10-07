@@ -192,7 +192,6 @@ function form_submit()
 </style>
 <script>
 function confirm_policy () {
-
     var popup_confirm_button = "{popup_confirm_button}";
     var popup_decline_button = "{popup_decline_button}";
     var popup_text = `{popup_text}`;
@@ -208,11 +207,8 @@ function confirm_policy () {
             backdrop: false,
             showCancelButton: true,
             preConfirm: () => {
-				
                 $("#hotdate_edit_form").submit();
-    
             },
-            
             
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
@@ -226,7 +222,6 @@ function confirm_policy () {
 
 </script>
 <!-- end_popup_confirm_terms_policy -->
-
 
                     <form id="hotdate_edit_form" method="POST" action="{url_main}hotdates_hotdate_edit.php?cmd=save&hotdate_private={hotdate_private}&hotdate_id={hotdate_id}" enctype="multipart/form-data">
 

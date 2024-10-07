@@ -3,7 +3,6 @@
 {profile_column_left}
 {profile_column_right}
 <div class="wall">
-
     <div class="blogs_wrap page_list {page_class} <!-- begin_list_people_info -->cham-blog-style-1<!-- end_list_people_info --><!-- begin_list_people_default -->cham-project-style-3<!-- end_list_people_default --><!-- begin_list_video_info -->cham-blog-style-1<!-- end_list_video_info --><!-- begin_list_blogs_info -->cham-blog-style-1<!-- end_list_blogs_info --><!-- begin_list_blogs_info_big -->cham-content-style-5<!-- end_list_blogs_info_big --><!-- begin_list_blogs_info_plain -->cham-blog-style-2<!-- end_list_blogs_info_plain --><!-- begin_list_blogs_info_small -->cham-features-style-4<!-- end_list_blogs_info_small --><!-- begin_list_photos_default -->cham-blog-style-1<!-- end_list_photos_default -->     <!-- begin_list_groups_info -->cham-blog-style-1<!-- end_list_groups_info --> <!-- begin_list_live_info -->cham-blog-style-1<!-- end_list_live_info --> <!-- begin_list_songs_default -->cham-blog-style-1<!-- end_list_songs_default -->">
         <div style="position: relative;">
             <div class="col-md-12 cham-heading-description">
@@ -15,6 +14,13 @@
                         <i class="fa fa-folder"></i>{l_custom_folder}
                     </span>
                     <!-- end_page_link_custom_folder -->
+                    
+                    <!-- begin_page_link_add_custom_folder -->
+                    <span class="head_link photo_custom_folder" onclick="openAddCustomFolderPopup();">
+                        <i class="fa fa-folder"></i>{l_add_custom_folder}
+                    </span>
+                    <!-- end_page_link_add_custom_folder -->
+                    
                     <!-- begin_page_link_photo_upload -->
                     <span class="head_link photo_upload">
                         <i class="fa fa-upload"></i>{l_upload_photo_link}
@@ -298,8 +304,6 @@
                                             </div>
                                             <!-- end_radius_options -->
 
-
-
                                             <div class="col-lg-12 col-md-12 field foot">
                                                 <button id="filter_results_search" type="submit" class="btn btn-block btn-info">
                                                     <span>{l_apply_filter}</span>
@@ -351,9 +355,11 @@
                                 </li>
                                 <!-- end_show_personal_tab -->
                                 <!-- begin_show_folder_tab -->
-                                <li class="{active_tab_4}">
-                                    <a href="{url_page_user_photos_list}?offset=4">{custom_folder}</a>
-                                </li>
+                                    <!-- begin_custom_child_folder_tab -->
+                                    <li class="{active_folder}">
+                                        <a href="{url_page_user_photos_list}?offset={custom_folder_offset}">{custom_folder_name}</a>
+                                    </li>
+                                    <!-- end_custom_child_folder_tab -->
                                 <!-- end_show_folder_tab -->
                             <!-- end_show_myphoto_tabs -->
                         </ul>
@@ -432,6 +438,112 @@
     $(document).ready(function(){
        $(".module_filter_result").height('auto');
     });
+
+    /* Divyesh - Added on 11-04-2024 */
+    function openCustomFolderPopup() {
+        Swal.fire({
+            title: '{l_manage_folder}',
+            html: `<input type="text" id="custom_folder" class="swal2-input" maxlength="15" placeholder="" value="{custom_folder}">`,
+            confirmButtonText: '{l_save}',
+            focusConfirm: false,
+            showCancelButton: true,
+            preConfirm: () => {
+                const custom_folder = Swal.getPopup().querySelector('#custom_folder').value
+                /*if (!custom_folder) {
+                    Swal.showValidationMessage(`{l_enter_custom_folder}`)
+                } else {*/
+                    return fetch(`{url_main}ajax_profile.php`, {
+                        method: 'POST',
+                        body: 'cmd=custom_folder&folder=' + encodeURIComponent(custom_folder),
+                        headers: {
+                            'Content-type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(response => {
+                        if (!response.status) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    }).catch(error => {
+                        Swal.showValidationMessage(`{l_enter_custom_folder}`);
+                    })
+                //}
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (result.value.status == "ok") {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: '{l_custom_folder_saved}',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    window.location.reload();
+                } else {
+                    Swal.fire(
+                        '{l_there_was_an_error}',
+                        '{l_custom_folder_error}',
+                        'error'
+                    )
+                }
+            } else {
+
+            }
+        })
+    }
+    /* Divyesh - Added on 11-04-2024 */
+
+    /* Popcorn - Added on 24-09-2024 */
+    function openAddCustomFolderPopup() {
+        Swal.fire({
+            title: '{l_add_custom_folder}',
+            html: `<input type="text" id="add_custom_folder" class="swal2-input" maxlength="15" placeholder="XXX" value="">`,
+            confirmButtonText: '{l_save}',
+            focusConfirm: false,
+            showCancelButton: true,
+            preConfirm: () => {
+                const add_custom_folder = Swal.getPopup().querySelector('#add_custom_folder').value
+                    return fetch(`{url_main}ajax_profile.php`, {
+                        method: 'POST',
+                        body: 'cmd=add_custom_folder&folder=' + encodeURIComponent(add_custom_folder),
+                        headers: {
+                            'Content-type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(response => {
+                        if (!response.status) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    }).catch(error => {
+                        Swal.showValidationMessage(`{l_enter_custom_folder}`);
+                    })
+                //}
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (result.value.status == "ok") {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: '{l_add_custom_folder_saved}',
+                        showConfirmButton: false,
+                        timer: 5000
+                    });
+                    window.location.reload();
+                } else {
+                    Swal.fire(
+                        '{l_there_was_an_error}',
+                        '{l_add_custom_folder_error}',
+                        'error'
+                    )
+                }
+            } else {
+
+            }
+        })
+    }
 </script>
 
 <div class="clearfix"></div>

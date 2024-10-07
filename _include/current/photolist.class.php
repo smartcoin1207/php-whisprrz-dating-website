@@ -265,6 +265,7 @@ class CPhotoList extends CHtmlBlock
                     if (!$uid || $uid == $guid) {
                         if($profile_photo == 1) {
                             $html->parse('page_link_custom_folder', false);
+                            $html->parse('page_link_add_custom_folder', false);
                         }
 
                         $html->parse('page_link_photo_upload', false);

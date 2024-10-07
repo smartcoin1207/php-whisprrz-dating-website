@@ -8,14 +8,12 @@
     .bbbr{background: url(../img/bbr.gif) no-repeat 100% 100%; padding: 15px 20px;}
     #profile{float: left;  background: #FAFAFA; color: #000; margin-bottom: 5px;}
 
-
     .userlist-column {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(5, 1fr); /* Two columns */
       grid-auto-rows: auto; /* Automatically adjust the row height */
     }
-
 </style>
 
 <div class="frame_content">
@@ -62,38 +60,44 @@
   }
 
   function submitAddContactForm() {
-    if (validateAddContactForm()) 
-       isPost = true; 
-       document.AddContactForm.submit();
+    if (validateAddContactForm())
+        isPost = true; 
+        var subject = document.AddContactForm.subject.value;
+        var text = document.AddContactForm.text.value;
+
+        saveTemplate(subject, text).then((response) => {
+        if (response) {
+                document.AddContactForm.submit();
+            } else {
+                console.log('Template not saved, form not submitted.');
+            }
+        });
     }
     
-
-window.onbeforeunload = function (evt) {
-    var text = $.trim($('#text').val());
-    if (text != '' && isPost == false <!-- begin_reply_compare_js -->&& text != reply_text<!-- end_reply_compare_js -->) {
-        var message = '{l_leave_this_page}';
-        if (typeof evt == "undefined") {
-            evt = window.event;
-        }
-        if (evt) {
-            evt.returnValue = message;
-        }        
-        return message;
-    } 
-}
-
-
+    window.onbeforeunload = function (evt) {
+        var text = $.trim($('#text').val());
+        if (text != '' && isPost == false <!-- begin_reply_compare_js -->&& text != reply_text<!-- end_reply_compare_js -->) {
+            var message = '{l_leave_this_page}';
+            if (typeof evt == "undefined") {
+                evt = window.event;
+            }
+            if (evt) {
+                evt.returnValue = message;
+            }        
+            return message;
+        } 
+    }
 </script>
 
 <table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
-        <tr>
-            <td style=" margin-bottom: 5px;">
-                <h3 style="border: 0; margin-bottom: 0;">{l_title_current}</h3>
-            </td>
-            <td>
-            </td>
-        </tr>
-    </table>
+    <tr>
+        <td style=" margin-bottom: 5px;">
+            <h3 style="border: 0; margin-bottom: 0;">{l_title_current}</h3>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
 
 <form class="" name="AddContactForm" method="POST" action="{request_post_url}" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
     <input type="hidden" name="page_from" value="{page_from}">
@@ -101,6 +105,13 @@ window.onbeforeunload = function (evt) {
 
     <table cellpadding="0" cellspacing="0" border="0" class="mail_compose">
         <col width="100px" />
+
+        <tr>
+            <td></td>
+            <td>
+                {mail_templates_list}
+            </td>
+        </tr>
         <!-- <tr>
             <td class="body_text" align="right"></td>
             <td><b style="margin: 0, 10px;">{member_count_message}</b> <input class="btn blue" type="button" name="select_users" onclick="location='{url_select_page}';"  value="{l_select_users}"  tabindex="2" required></td>
@@ -136,13 +147,14 @@ window.onbeforeunload = function (evt) {
             </td>
         </tr>
     </table>
-    <script type="text/javascript">
-        
-        
+    <script>
+        const selectElement = document.getElementById('mail_templates');
+        selectElement.addEventListener('change', function (event) {
+            const selectedValue = event.target.value;
+            handleSelectChange(selectedValue, 'AddContactForm', 'subject', 'text');
+        });
     </script>
 </form>
-
-
 </div>
 
 {footer}

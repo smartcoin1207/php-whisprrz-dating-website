@@ -10,6 +10,7 @@ This notice may not be removed from the source code. */
 $area = "login";
 include("./_include/core/main_start.php");
 include("./_include/current/menu_section.class.php");
+include("./_include/current/mail.templates.class.php");
 
 if(!Common::isOptionActive('mail')) {
     redirect(Common::toHomePage());
@@ -273,7 +274,6 @@ class CCompose extends CHtmlBlock
 			$html->parse("favorite", true);
 		}
 
-
 		if (isset($this->id))
 		{
 			$id = $this->id;
@@ -319,6 +319,9 @@ $page->add($folders);
 $mailMenu = new CMenuSection('mail_menu', $g['tmpl']['dir_tmpl_main'] . "_mail_menu.html");
 $mailMenu->setActive('compose');
 $page->add($mailMenu);
+
+$mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
+$page->add($mail_templates_list);
 
 include("./_include/core/main_close.php");
 ?>

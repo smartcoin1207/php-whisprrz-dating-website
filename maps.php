@@ -25,9 +25,11 @@ class CMaps extends CHtmlBlock
 
             $lat = get_param('latitude', '');
             $long = get_param('longitude', '');
+
             if($lat && $long) {
-                DB::update('user', array('geo_position_lat' => $lat, 'geo_position_long' => $long), '`user_id` = ' . to_sql($g_user['user_id'], 'Number'));
+                DB::update('user', array('geo_position_lat' => to_sql($lat, 'Float') , 'geo_position_long' => to_sql($long, 'Float')), '`user_id` = ' . to_sql($g_user['user_id'], 'Number'));
             }
+            
             echo json_encode('success');
             exit;
         } else {
@@ -43,7 +45,6 @@ class CMaps extends CHtmlBlock
         $lat = $geoCityInfo['lat'];
         $long = $geoCityInfo['long'];
 
-        
         if(get_param('map', '')) {
             $map_users = SearchResult::search();
             $html->setvar('map_users', json_encode($map_users));
@@ -142,8 +143,22 @@ class CMaps extends CHtmlBlock
         $html->parse('variables', false);
         //flipcard end
 
-        parent::parseBlock($html);
+        //pupup windows
+        $popup_row = DB::row("SELECT  * FROM posting_info  WHERE page = 'popup_maps' LIMIT 1");
+        $html->setvar('popup_title', $popup_row['header']);
+        $html->setvar('popup_confirm_button', $popup_row['active']);
+        $html->setvar('popup_decline_button', $popup_row['deactive']);
+        $var = array();
+        $text = $popup_row['text'];
+        $var['username'] = $g_user['name'];
+        $var['map_terms'] = l('popup_map_terms');
+        $var['time'] = date('Y-m-d h:i:s A');
+        $var['privacy_policy'] = l('popup_privacy_policy');
+        $ful_text = Common::replaceByVars($text, $var);
+        $html->setvar('popup_text', $ful_text);
+        $html->parse('popup_confirm_terms_policy', true);
 
+        parent::parseBlock($html);
     }
 }
 

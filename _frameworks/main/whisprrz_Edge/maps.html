@@ -92,9 +92,23 @@ justify-content: space-around;
     border-radius: 50%;
 }
 
+
+p {
+    margin-bottom: 0px;
+}
+.swal2-popup {
+    width: 500px;
+}
+
+.swal2-styled.swal2-confirm {
+    font-size: 16px;
+}
+
+.swal2-styled.swal2-cancel {
+    font-size: 16px;
+}
+
 <!-- begin_column_count -->
-
-
     .userlist-column {
       width: 100%;
       display: grid;
@@ -107,8 +121,6 @@ justify-content: space-around;
       box-sizing: border-box; /* Include padding and border in the element's total width and height */
     }
 <!-- end_column_count -->
-
-
 </style>
 
 <script>
@@ -176,13 +188,44 @@ justify-content: space-around;
     <div id="pindrop_users" ></div>
 </div>
 
-
 <!---->
 
 <!---->
 
 <script>
+    function confirm_policy () {
+        var popup_confirm_button = "{popup_confirm_button}";
+        var popup_decline_button = "{popup_decline_button}";
+        var popup_text = `{popup_text}`;
+        
+        var popup_title = "{popup_title}";
+    
+         Swal.fire({
+            footer:` <div><div style="text-align: center;">` + popup_text +`</div><div style="text-align:center;border-top: 1px solid #746b6b; padding-top: 10px; font-size : 16px;">` + popup_title + `</div></div>`,
+            confirmButtonText: `<div style="border-radius: 5px;">` + popup_confirm_button +`<div>`,
+            confirmButtonColor:'#22b14c',
+            cancelButtonText: popup_decline_button,
+            cancelButtonColor: '#ed1c24',
+            focusConfirm: false,
+            backdrop: false,
+            showCancelButton: true,
+            preConfirm: () => {
+                Swal.close();
+            },
+            
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+			if (result.dismiss === Swal.DismissReason.cancel) {
+                $('#load_animation_submit').css('visibility', 'hidden');
+                window.location.href = './';
+	
+			} else if (result.isConfirmed) {
+			}
+		  });
+    }
+</script>
 
+<script>
     var x = document.getElementById("demo");
     var granted = document.getElementById('granted');
     var denied = document.getElementById('denied');
@@ -192,7 +235,7 @@ justify-content: space-around;
 
     window.onload = function() {
         // Code to execute after the entire page has loaded
-        javascript:OpenWindow('./info.php?page=map_terms&lang=default','650','400');
+        confirm_policy();
     };
 
 
@@ -223,7 +266,6 @@ justify-content: space-around;
         }
         initMap(loggedIn_latitude, loggedIn_longitude);
         saveLocationToDatabase(loggedIn_latitude, loggedIn_longitude);
-
     }
 
     function erorr(err){
@@ -299,7 +341,6 @@ justify-content: space-around;
         // Return the complete user row
         return userRow;
     }
-    
     
     function saveLocationToDatabase(latitude, longitude) {
   // Define the URL of your server-side script that will handle the database operation
@@ -482,9 +523,7 @@ justify-content: space-around;
                 var userDistance = user.userDistance;
                 var isAddedPin = false;
 
-
                 if(!isAddedDuplicated(user)){
-                    console.log(TotalDuplicateList);
                     var duplicates = duplicateLocation(currentMarkers, user);
                     
                     if(duplicates['isduplicate']) {
@@ -1021,12 +1060,10 @@ function createMarkersForFilterUsers(distance, users) {
         
         return flipSpan;
     }   
-
 </script>
 
  <!-- begin_map_api_key -->
  <script src="https://maps.googleapis.com/maps/api/js?key={map_api_key}"></script>
  <!-- end_map_api_key -->
-
 
 {footer}

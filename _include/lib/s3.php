@@ -41,8 +41,6 @@ class S3ClientClass {
         if(Common::isOptionActive($file_parts[0] . '_directory', 'edge_media_files_settings')) {
             try {
                 $objectKey = '_files/' . $fileName;
-
-                // var_dump($objectKey, self::$bucketName);
     
                 $result = self::getS3Client()->getObject([
                     'Bucket' => self::$bucketName,

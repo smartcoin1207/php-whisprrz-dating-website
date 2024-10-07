@@ -54,7 +54,7 @@ class CEventMail extends CHtmlBlock
     {
         global $g, $g_user;
         
-        $table = "mass_mail_saved_user_list";
+        $table = "saved_user_list";
         $cmd = get_param('cmd', '');
         if ($cmd == "sent") {
 
@@ -74,7 +74,7 @@ class CEventMail extends CHtmlBlock
             }
             $text = trim(strip_tags($text));
 
-            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($event_id) . " AND event_type = 'event'";
+            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($event_id) . " AND type = 'event'";
             $saved_users_list = DB::row($sql);
             if($saved_users_list) {
                 $user_list = $saved_users_list['userlist'];
@@ -192,7 +192,7 @@ class CEventMail extends CHtmlBlock
     {
         global $g;
         $event_id = get_param('event_id', '');
-        $table = "mass_mail_saved_user_list";
+        $table = "saved_user_list";
 
         if (!$event_id) {
             Common::toHomePage();
@@ -200,7 +200,7 @@ class CEventMail extends CHtmlBlock
 
         $total_member_count = CEventsTools::getTotalGuestsCount($event_id);
 
-        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($event_id) . " AND event_type = 'event'";
+        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($event_id) . " AND type = 'event'";
         $saved_users_list = DB::row($sql);
         if($saved_users_list) {
             $user_list = $saved_users_list['userlist'];

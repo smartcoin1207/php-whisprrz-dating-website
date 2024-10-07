@@ -18,7 +18,7 @@ $conn = new mysqli($servername, $username, $password, $dbnanme);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}	
+}
 try
 {
 	$sql = "";
@@ -53,9 +53,7 @@ try
 			$userOpt[] = array("value" => $row['name'], "label" => $row['name']);
 		}
 	}
-	
 } catch (Exception $e) {
-   var_dump($e);
    die();
 }
 $conn-> close();

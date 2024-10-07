@@ -6679,7 +6679,7 @@ class User
                        FROM `invited_folder` AS ifp
                 LEFT JOIN `user` AS CU ON CU.user_id = ifp.user_id
                 WHERE " . ($all ? '' : 'ifp.is_new = 1 AND ') . " ifp.friend_id = {$guidSql} AND ifp.user_id != {$guidSql})";
-
+        
         //private video invite
         $sqlList[] = "+
                     (SELECT COUNT(*)
@@ -6708,6 +6708,10 @@ class User
                         WHERE " . ($all ? '' : 'CL.is_new = 1 AND ') . " CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
                         AND CEE.partyhou_approval = 1 
                         AND CL.accepted = 1 )";
+        
+        $sqlList[] = "+ (SELECT COUNT(*)
+                        FROM `user` AS U
+                        WHERE U.couple_new = 1 AND U.couple_to = {$guidSql})";
 
         foreach ($sqlList as $key => $sqlItem) {
             $sql .= $sqlItem;
@@ -6934,6 +6938,29 @@ class User
                       OR (CO.user_id = {$guidSql} AND CO.done_user = CO.user_to AND CO.user_to != {$guidSql}))
                     AND CO.done_user != 0" . getWhereSql('CO.event_datetime', $isUpdateOldEvent) . $sqlLimit .
             ")";
+
+            // echo date('Y-m-d H:i:s'); die();
+
+        $sqlList[] = "UNION
+            (SELECT IF(true, 'plus_partner', 'plus_partner') AS type,
+                    IF(true, 'user', 'user') AS tb,
+                    IF(true, 'user_plus', 'user_plus') AS type_short,
+                    CO.user_id AS id,
+                    IF(true, 0, 0) AS group_id,
+                    CO.couple_new AS new,
+                    CO.user_id AS user_id,
+                    CO.couple_request_time AS date,
+                    IF(true, 0, 0) AS event_id,
+                    IF(true, 0, 0) AS live_id,
+                    IF(true, 0, 0) AS event_user_id,
+                    IF(true, 0, 0) AS event_who_user_id,
+                    IF(true, 0, 0) AS event_item_id,
+                    IF(true, 0, 0) AS event_item_parent_id,
+                    IF(true, 0, 0) AS event_item_parent_id_real,
+                    CO.name, CO.name_seo, CO.gender
+            FROM `user` AS CO
+            WHERE CO.couple_to = {$guidSql} " . $sqlLimit .
+        ")";
 
         //New group members
         $sqlList[] = "UNION
@@ -7265,6 +7292,13 @@ class User
                         $id = 'guest_id';
                     } else if($tb == 'partyhouz_partyhou_guest') {
                         $id = 'guest_id';
+                    } else if($tb == 'user') {
+                        $id = 'user_id';
+
+                        $prepareData = implode(",", $item);
+                        DB::update($tb, array('couple_new' => 0), "{$id} IN (" . to_sql($prepareData, 'Plain') . ')');
+    
+                        continue;
                     }
                     $prepareData = implode(",", $item);
                     DB::update($tb, array('is_new' => 0), "{$id} IN (" . to_sql($prepareData, 'Plain') . ')');
@@ -7398,7 +7432,7 @@ class User
                 if ($item['type_short'] == 'invited_private_vids')
                     $title_text = l('invited_private_video_notify_text');
 
-                $title = Common::lSetLink($title_text . " " . $userName, $vars);;
+                $title = Common::lSetLink($title_text . " " . $userName, $vars);
             } else if ($item['type'] == 'events_event_guest' || $item['type'] == 'hotdates_hotdate_guest' || $item['type'] == 'partyhouz_partyhou_guest') {
                 $vars = array(
                     'title_event' => $title_event,

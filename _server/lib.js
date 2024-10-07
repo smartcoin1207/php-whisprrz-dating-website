@@ -3033,9 +3033,6 @@ function loginInSite($btnSubmit, $blForm, fn) {
                 return true;
             }
             if(res.status) {
-
-
-
                 Swal.fire({
                     title: l_login_type,
                     width: '600px',
@@ -3141,12 +3138,7 @@ function loginInSite($btnSubmit, $blForm, fn) {
                     },
                     allowOutsideClick: () => !Swal.isLoading()
                 })
-
             } else {
-
-
-
-
                 Swal.fire({
                     title: l_login_type,
                     width: '500px',

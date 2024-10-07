@@ -15,11 +15,9 @@ class CMenuSection extends CHtmlBlock
             $html->setvar('button_oryx_' . $this->active . '_active', 'active_btn', true);
         }
 
-
         global $g_user;
         if(isset($g_user['name_seo']))
         $html->setvar('name_seo',$g_user['name_seo']);
-
 
         $favorite = DB::count('users_favorite', '`user_from` = ' . to_sql(guid(), 'Number'));
         $fans     = DB::count('users_interest', '`user_to` = ' . to_sql(guid(), 'Number'));

@@ -142,134 +142,120 @@
     
         </div>
     
-    <br><br>
+        <br><br>
     
             <!-- begin_users_list_item -->
-    
             <table width="100%" id="profile"><tr><td style="padding-left:20px;" class="users_ul">
-                        <dl id="search_info">
-                        <dt id="photo_info" style="position:relative; float: left;" class="users_li">
+                <dl id="search_info">
+                <dt id="photo_info" style="position:relative; float: left;" class="users_li">
 
-                            <i title="{a_send_message}" onclick="sendMessages('{user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
+                    <i title="{a_send_message}" onclick="sendMessages('{user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
 
-                            <a href="{url_page}?display=profile&uid={user_id}{params_item}" style="text-decoration: none; position: relative;">
-                                <!-- begin_user_status -->
-                                <div class="list_status status{status_style}" style="z-index:1;">{status}</div>
-                                <!-- end_user_status -->
-                                <div style="text-align: center;">
-                                    <img class="lazy_user" style="display: block; margin-bottom:0px; " data-original="{url_files}{photo}" src="{url_files}{photo}" onmousemove="show_face_jq('usr0{members_num_1}', event)"
-                                    onmouseout="hide_face_jq('usr0{members_num_1}')">
-                                    
-                                    <div class="profile_gender_mile_text">
-                                        <div class="stroked_text" style="font-size: 12px;">{members_distance}mi</div>
-                                    </div>
-                                    <div class="profile_gender_image_container_info">
-                                        <img src="{members_gender_image}" class="gender_icon" style="width: 10px; height: 12px; margin: 0; margin-right: 2px;" alt="gender" />
-                                        <div class="stroked_text_small" style="font-size: 10px;">{members_gender_text}</div>
-                                    </div>
-                                    
-                                    <noscript><img src="{url_files}{photo}" alt="{name}"></noscript>
-                                    <p style="color: red; font-size: 8px; padding-right: 17px; ">{user_online_text}</p>
-                                </div>
-                            </a>
-                        </dt>
-                                <div style="font-size: 13px;">
-                                    <dd class="name"><a href="{url_page}?display=profile&uid={user_id}{params_item}" style="text-decoration:none;" class="dynamic_color">{name} <span style="font-size:12pt; color: #8123a0;">{partner_type}</span></a> <!-- begin_couple --> + <a style='color: #b0c4cb' href="{url_main}search_results.php?display=profile&name={couple_name}">{couple_name}</a><!-- end_couple -->
-                                    </dd>
-                                        <dd>
-                                            {l_age}: <strong>{age}</strong>
-                                            <!--begin_couple1-->
-                                            <img class="couple12" src="{url_tmpl_main}images/men_women_passive.png" border="0">
-                                            <!--end_couple1-->
-                                            <!--begin_man-->
-                                            <img class="man12" src="{url_tmpl_main}images/men_passive.png" border="0">
-                                            <!--end_man-->
-                                            <!--begin_woman-->
-                                            <img class="woman12" src="{url_tmpl_main}images/women_passive.png" border="0">
-                                            <!--end_woman-->
-                                        </dd>
-                                        
-                                        <dd>{l_i_am}: <strong>{partner_type_title}</strong>
-                                             
-                                        </dd>
-                                        <dd>{l_i_am}: <strong>{nsc_user_other_first}</strong></dd>
-                                        <!-- begin_city_title -->
-                                        <dd>{l_city}: <strong>{city}</strong></dd>
-                                        <!-- end_city_title -->
-                                        <!-- begin_state_title -->
-                                        <dd>{l_state}: <strong>{state}</strong></dd>
-                                        <!-- end_state_title -->
-                                        <!-- begin_country_title -->
-                                        <dd>{l_country}: <strong>{country}</strong></dd>
-                                        <!-- end_country_title -->
-                                        <!-- begin_relationship -->
-                                        <dd>{l_relationship}: <strong>{relation}</strong></dd>
-                                        <!-- end_relationship -->
-                                    </dl>
-                                </div>
-    
-                                <div class="user_info" style="font-size: 13px;" >
-    
-                                    <ul>
-                                        <!-- begin_mail_on -->
-                                        <li>
-                                            <a {cannot_self_2} class="ico_mail" href="{url_main}mail_compose.php?id={user_id}">{l_send_mail}</a>
-                                        </li>
-                                        <!-- end_mail_on -->
-                                        <!-- begin_wink_on -->
-                                        <li>
-                                            <a {cannot_self_2} class="ico_wink" href="{url_main}show_interest.php?offset={offset}&cmd=interest&id={user_id}{params}">{l_show_interest}</a>
-                                        </li>
-                                        <!-- end_wink_on -->
-                                        <!--begin_favorite_add -->
-                                        <li>
-                                            <a class="ico_favorites" href="{url_main}bookmark_friends.php?action=add&id={user_id}">{l_add_to_favorites}</a>
-                                        </li>
-                                        <!--end_favorite_add -->
-                                        <!-- begin_im -->
-                                        <li>
-                                            <a class="ico_im" href="#" onclick="sendMessages('{user_id}'); return false;">{l_send_im}</a>
-                                        </li>
-                                        <!-- end_im -->
-                                        <!-- begin_im_off -->
-                                        <li>
-                                            <b class="im_inactive ico_im_off">{l_send_im}</b>
-                                        </li>
-                                        <!-- end_im_off -->
-                                        <li>
-                                            <!-- begin_mobile_off -->
-                                              <!-- begin_games -->
-                                              <a class="ico_games" href="{url_main}games.php?id={user_id}">{l_play_games}</a>
-                                              <!-- end_games -->
-                                            <!-- end_mobile_off -->
-                                        </li>
-                                        <li>
-                                            <i class="last_activity">{l_last_activity}: <strong>{last_visit}</strong></i>
-                                        </li>
-                                    </ul>
-    
-                                </div>
-    
+                    <a href="{url_page}?display=profile&uid={user_id}{params_item}" style="text-decoration: none; position: relative; display: block;">
+                        <!-- begin_user_status -->
+                        <div class="list_status status{status_style}" style="z-index:1;">{status}</div>
+                        <!-- end_user_status -->
+                        <div style="text-align: center;">
+                            <img class="lazy_user" style="display: block; margin-bottom:0px; " data-original="{url_files}{photo}" src="{url_files}{photo}" onmousemove="show_face_jq('usr0{members_num_1}', event)"
+                            onmouseout="hide_face_jq('usr0{members_num_1}')">
+                            
+                            <div class="profile_gender_mile_text">
+                                <div class="stroked_text" style="font-size: 12px;">{members_distance}mi</div>
+                            </div>
+                            <div class="profile_gender_image_container_info">
+                                <img src="{members_gender_image}" class="gender_icon" style="width: 10px; height: 12px; margin: 0; margin-right: 2px;" alt="gender" />
+                                <div class="stroked_text_small" style="font-size: 10px;">{members_gender_text}</div>
+                            </div>
+                            
+                            <noscript><img src="{url_files}{photo}" alt="{name}"></noscript>
+                            <p style="color: red; font-size: 8px; padding-right: 17px; ">{user_online_text}</p>
+                        </div>
+                    </a>
+                </dt>
+                <div style="font-size: 13px;">
+                    <dd class="name"><a href="{url_page}?display=profile&uid={user_id}{params_item}" style="text-decoration:none;" class="dynamic_color">{name} <span style="font-size:12pt; color: #8123a0;">{partner_type}</span></a> <!-- begin_couple --> + <a style='color: #b0c4cb' href="{url_main}search_results.php?display=profile&name={couple_name}">{couple_name}</a><!-- end_couple -->
+                    </dd>
+                        <dd>
+                            {l_age}: <strong>{age}</strong>
+                            <!--begin_couple1-->
+                            <img class="couple12" src="{url_tmpl_main}images/men_women_passive.png" border="0">
+                            <!--end_couple1-->
+                            <!--begin_man-->
+                            <img class="man12" src="{url_tmpl_main}images/men_passive.png" border="0">
+                            <!--end_man-->
+                            <!--begin_woman-->
+                            <img class="woman12" src="{url_tmpl_main}images/women_passive.png" border="0">
+                            <!--end_woman-->
+                        </dd>
+                        
+                        <dd>{l_i_am}: <strong>{partner_type_title}</strong>
+                                
+                        </dd>
+                        <dd>{l_i_am}: <strong>{nsc_user_other_first}</strong></dd>
+                        <!-- begin_city_title -->
+                        <dd>{l_city}: <strong>{city}</strong></dd>
+                        <!-- end_city_title -->
+                        <!-- begin_state_title -->
+                        <dd>{l_state}: <strong>{state}</strong></dd>
+                        <!-- end_state_title -->
+                        <!-- begin_country_title -->
+                        <dd>{l_country}: <strong>{country}</strong></dd>
+                        <!-- end_country_title -->
+                        <!-- begin_relationship -->
+                        <dd>{l_relationship}: <strong>{relation}</strong></dd>
+                        <!-- end_relationship -->
+                    </dl>
+                </div>
+
+                <div class="user_info" style="font-size: 13px;" >
+                    <ul>
+                        <!-- begin_mail_on -->
+                        <li>
+                            <a {cannot_self_2} class="ico_mail" href="{url_main}mail_compose.php?id={user_id}">{l_send_mail}</a>
+                        </li>
+                        <!-- end_mail_on -->
+                        <!-- begin_wink_on -->
+                        <li>
+                            <a {cannot_self_2} class="ico_wink" href="{url_main}show_interest.php?offset={offset}&cmd=interest&id={user_id}{params}">{l_show_interest}</a>
+                        </li>
+                        <!-- end_wink_on -->
+                        <!--begin_favorite_add -->
+                        <li>
+                            <a class="ico_favorites" href="{url_main}bookmark_friends.php?action=add&id={user_id}">{l_add_to_favorites}</a>
+                        </li>
+                        <!--end_favorite_add -->
+                        <!-- begin_im -->
+                        <li>
+                            <a class="ico_im" href="#" onclick="sendMessages('{user_id}'); return false;">{l_send_im}</a>
+                        </li>
+                        <!-- end_im -->
+                        <!-- begin_im_off -->
+                        <li>
+                            <b class="im_inactive ico_im_off">{l_send_im}</b>
+                        </li>
+                        <!-- end_im_off -->
+                        <li>
+                            <!-- begin_mobile_off -->
+                                <!-- begin_games -->
+                                <a class="ico_games" href="{url_main}games.php?id={user_id}">{l_play_games}</a>
+                                <!-- end_games -->
+                            <!-- end_mobile_off -->
+                        </li>
+                        <li>
+                            <i class="last_activity">{l_last_activity}: <strong>{last_visit}</strong></i>
+                        </li>
+                    </ul>
+                </div>
             </td></tr>
-    
-    
-    
             <tr><td class="user_line">&nbsp;</td></tr>
-    
             </table>
     
             <!-- end_users_list_item -->
-    
-    
-    
             <!-- begin_users_list_noitems -->
     
             <div style="height: 250px;"></div>
     
             <!-- end_users_list_noitems -->
-    
-    
-    
         <div align="center">
     
             <!-- begin_users_list_pages -->

@@ -16,10 +16,9 @@ class CUsersResults extends CHtmlList
         global $g, $p, $g_user;
 
         $group_seo = self::getNameSeo();
-        $session_key = $group_seo . "_selected_members";
 		
 		$groupId = Groups::getParamId();
-        $sql = "SELECT  * FROM groups_social_subscribers WHERE group_id = " . to_sql($groupId, 'Text') . "AND user_id = " . to_sql(guid(), 'Text');
+        $sql = "SELECT  * FROM groups_social_subscribers WHERE group_id = " . to_sql($groupId, 'Text') . " AND user_id = " . to_sql(guid(), 'Text');
         $my_subscriber = DB::row($sql);
         $moderator_options = json_decode($my_subscriber['moderator_options'], true);
 				
@@ -33,54 +32,23 @@ class CUsersResults extends CHtmlList
         $save = get_param('save', '');
         $clear = get_param('clear', '');
 
-        if ($save == 'all') {
-
-            $members = Groups::getListSubscribers($groupId);
-            $selected_members = [];
-
-            if ($members) {
-                foreach ($members as $key => $value) {
-                    if ($g_user['user_id'] == $value['user_id']) {
-                        continue;
-                    }
-
-                    $selected_members[$value['user_id']] = '1';
-                }
-            }
-
-            set_session($session_key, json_encode($selected_members));
-            redirect($current_url);
-        }
-        if ($clear == 'all') {
-            $selected_members = [];
-            set_session($session_key, json_encode($selected_members));
-            redirect($current_url);
-        }
-
-        if ($cmd == 'save') {
+        if($cmd == "save_user_list") {
             $users = get_param_array('users');
-            $selected_members_session = get_session($session_key);
-            $selected_members1 = json_decode($selected_members_session);
+            $title = get_param('title');
+            
+            $row = array
+            (
+                'user_id' => guid(),
+                'user_ids' => json_encode($users),
+                'event_id' => $groupId,
+                'type' => 'group',
+                'title' => $title
+            );
+            DB::insert('saved_user_list', $row);
+            $id = DB::insert_id();
 
-            $selected_members = json_decode(json_encode($selected_members1), true);
-
-            if (!$selected_members) {
-                $selected_members = array();
-            }
-            if ($users) {
-                foreach ($users as $key => $value) {
-                    if ($value == '1') {
-                        $selected_members[$key] = '1';
-                    } else {
-                        if (isset($selected_members[$key])) {
-                            unset($selected_members[$key]);
-                        }
-
-                    }
-                }
-            }
-
-            set_session($session_key, json_encode($selected_members));
+            echo json_encode(array("users" => $users, "status" => "success"));
+            exit;
         }
     }
 
@@ -100,9 +68,9 @@ class CUsersResults extends CHtmlList
         $this->m_sql_from_add = " LEFT JOIN user as u ON u.user_id=gs.user_id ";
 
         if ($display == "all") {
-            // DB::query("SELECT count(u.user_id) as total_row FROM groups_social_subscribers AS gs
-            //             " . $this->m_sql_from_add . "");
-            // $row = DB::fetch_row();
+            DB::query("SELECT count(u.user_id) as total_row FROM groups_social_subscribers AS gs
+                        " . $this->m_sql_from_add . "");
+            $row = DB::fetch_row();
             $display = $row['total_row'];
         }
         $this->m_on_page = $display;
@@ -171,7 +139,7 @@ class CUsersResults extends CHtmlList
         $html->setvar('url_group_mail', $g['path']['url_main'] . $group_nameseo . "/group_mail");
 
         $page_options = array("5" => "5 / Page", "50" => "50 / Page", "75" => "75 / Page", "250" => "250 / Page", "all" => "All / Page");
-        $selected = get_param('display_p', '5');
+        $selected = get_param('display_p', '50');
         $opt_html = "";
         foreach ($page_options as $key => $page) {
             $opt_html .= "<option value='{$key}' " . ($key == $selected ? 'selected' : '') . ">{$page}</option>";
@@ -179,31 +147,8 @@ class CUsersResults extends CHtmlList
         $html->setvar("page_option", $opt_html);
         $html->setvar("display_p", $selected);
 
-        $session_key = $group_nameseo . "_selected_members";
-        $selected_members_session = get_session($session_key);
-        $selected_members1 = json_decode($selected_members_session);
-
-        $selected_members = json_decode(json_encode($selected_members1), true);
-        $x = [];
-        if ($selected_members) {
-            foreach ($selected_members as $k => $v) {
-                $x[] = $k;
-            }
-        }
-
         $total_member_count = Groups::getNumberSubscribers($groupId);
         $total_member_count -= 1;
-
-        $member_count = 0;
-        if ($selected_members) {
-            $member_count = count($selected_members);
-        }
-
-        $member_count_message = "Saved Members:  " . $member_count . " / " . $total_member_count;
-        $html->setvar('member_count_message', $member_count_message);
-
-        $html->setvar('member_message', 'sss');
-        $html->setvar('selected_members_session', json_encode($x));
 
         $user_column = 5;
         $html->setvar('user_list_column', $user_column);
@@ -220,8 +165,6 @@ class CUsersResults extends CHtmlList
     public function onItem(&$html, $row, $i, $last)
     {
         global $g;
-
-        // CUsersResultsBase::parse($html, $this->m_field, $row);
 
         if ($i % 2 == 0) {
             $html->setvar("class", 'color');

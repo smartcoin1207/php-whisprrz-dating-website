@@ -111,9 +111,9 @@ class CProfile extends UserFields  {
                     /*Old couples from*/
                     $coupleToOld = User::getInfoBasic($couple_id, 'couple_from');
                     if ($coupleToOld > 0)
-                        DB::execute("UPDATE `user` SET `couple_to` = 0 WHERE `user_id` = " . to_sql($coupleToOld, 'Number'));
+                        DB::execute("UPDATE `user` SET `couple_to` = 0, `couple_new` = 0, `couple_request_time` = '1990-01-01 12:00:00' WHERE `user_id` = " . to_sql($coupleToOld, 'Number'));
                     DB::execute("UPDATE `user` SET `couple_from` = " . to_sql($g_user['user_id'], 'Number') . " WHERE `user_id` = " . to_sql($couple_id, 'Number'));
-                    DB::execute("UPDATE `user` SET `couple_to` = " . to_sql($couple_id, 'Number') . " WHERE `user_id` = " . to_sql($g_user['user_id'], 'Number'));
+                    DB::execute("UPDATE `user` SET `couple_to` = " . to_sql($couple_id, 'Number') . ", `couple_new` = 1, `couple_request_time`=" . to_sql(date("Y-m-d H:i:s"), 'Text') . " WHERE `user_id` = " . to_sql($g_user['user_id'], 'Number'));
                 }
             } else {
                 $this->message = l('user_not_exists');

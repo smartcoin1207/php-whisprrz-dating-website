@@ -67,14 +67,14 @@ class CUsersResults extends CHtmlList
         }
 
         if($cmd == 'save' || $clear == 'all' || $save == 'all') {
-            $table = "mass_mail_saved_user_list";
+            $table = "saved_user_list";
             
-            $exist_row = DB::row("SELECT * FROM " . $table . " WHERE event_id = " . to_sql($hotdate_id) . " AND event_type = 'hotdate'" );
+            $exist_row = DB::row("SELECT * FROM " . $table . " WHERE event_id = " . to_sql($hotdate_id) . " AND type = 'hotdate'" );
 
             if(isset($exist_row)) {
-                $sql = "UPDATE mass_mail_saved_user_list SET userlist = " . to_sql(json_encode($selected_members)) . " WHERE event_id = " . to_sql($hotdate_id);
+                $sql = "UPDATE saved_user_list SET userlist = " . to_sql(json_encode($selected_members)) . " WHERE event_id = " . to_sql($hotdate_id) . " AND type='hotdate'";
             } else {
-                $sql = "INSERT INTO mass_mail_saved_user_list (event_id, userlist, event_type) values(" . to_sql($hotdate_id, 'Text') . ", " . to_sql(json_encode($selected_members), 'Text') .  ", 'hotdate')";
+                $sql = "INSERT INTO saved_user_list (event_id, userlist, type) values(" . to_sql($hotdate_id, 'Text') . ", " . to_sql(json_encode($selected_members), 'Text') .  ", 'hotdate')";
             }
 
             dB::execute($sql);
@@ -141,7 +141,7 @@ class CUsersResults extends CHtmlList
     public function parseBlock(&$html)
     {
         global $g;
-        $table = "mass_mail_saved_user_list";
+        $table = "saved_user_list";
 
         $hotdate_id = get_param('hotdate_id', '');
         $gsql = "SELECT * FROM hotdates_hotdate_guest where hotdate_id = " . to_sql($hotdate_id, 'Text');
@@ -160,7 +160,7 @@ class CUsersResults extends CHtmlList
         $html->setvar("page_option", $opt_html);
         $html->setvar("display_p", $selected);
 
-        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND event_type = 'hotdate'";
+        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND type = 'hotdate'";
         $saved_users_list = DB::row($sql);
         if($saved_users_list) {
             $user_list = $saved_users_list['userlist'];

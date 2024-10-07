@@ -8,7 +8,6 @@ It can be found at http://www.chameleonsocial.com/license.doc
 This notice may not be removed from the source code. */
 Class SearchResult{
     static function search() {
-
         global $g;
         global $g_user;
         global $p;
@@ -18,7 +17,6 @@ Class SearchResult{
         $show = get_param('show');
         $isCustomShowList = in_array($show, array('wall_liked', 'wall_shared', 'wall_liked_comment', 'photo_liked', 'photo_liked_comment', 'video_liked', 'video_liked_comment'));
 
-
         if ($optionTmplName == 'edge' && $isCustomShowList) {
             if (isset($l[$p]["page_title_{$show}"])) {//EDGE
                 $l[$p]['page_title'] = $l[$p]["page_title_{$show}"];
@@ -26,11 +24,8 @@ Class SearchResult{
             Common::$pagerUrl = Common::pageUrl($show);
         }
 
-
         $addWhereLocation = true;
-
         $display = get_param('display');
-
 
         if (!guid() && $optionTmplName == 'edge') {
             if (!$display && Common::isOptionActive('list_people_hide_from_guests', "{$optionTmplName}_general_settings")) {
@@ -42,13 +37,9 @@ Class SearchResult{
         }
 
         if (!guid() && $optionTmplName == 'oryx') {
-        
-        if($display){
+            if($display){
                 Common::toLoginPage();
-
-            //   die();
-        }
-
+            }
         }
 
         if (!get_param('join_search_page')){
@@ -155,7 +146,6 @@ Class SearchResult{
                         $_GET['i_am_here_to'] = $iAmHereTo;
                     }
                 }
-
             }
         }
 
@@ -382,7 +372,6 @@ Class SearchResult{
             $where .= " AND u.register <= '$year-$month-$day 23:59:59' ";
         }
 
-
         // IF active distance search, then exclude others
         // DISTANCE
         $distance = (int) get_param('radius', 0);
@@ -458,7 +447,6 @@ Class SearchResult{
         }
 
         $from_add .= " LEFT JOIN userinfo AS i ON u.user_id=i.user_id ";
-                //. " LEFT JOIN geo_city AS gc ON gc.city_id = u.city_id";
 
         $search_header = get_param("search_header", "");
         $where_search = '';
@@ -467,82 +455,81 @@ Class SearchResult{
         $sexuality = get_param("p_sexuality","");
         if(is_array($sexuality)){
             foreach ($sexuality as $k => $v){
-                //$from_add .= " JOIN userinfo ui ON ui.user_id = u.user_id ";
                 $where .= " and ui.income ='" . $v ."'";
             }
         }
         //nnsscc-diamond-20200304-end
         if ($keyword != "")
         {
-
             if ($search_header == 1) {
                 $where_search = ' OR u.mail =' . to_sql($keyword, 'Text');
             }
+            
             $keyword_search_sql = "";
             $keyword = to_sql(strip_tags($keyword), "Plain");
-            foreach ($g['user_var'] as $k => $v) if ($v['type'] == "text" or $v['type'] == "textarea") $keyword_search_sql .= " OR i." . $k . " LIKE '%" . $keyword . "%'";
+            if($search_header != 1) {
+                foreach ($g['user_var'] as $k => $v) if ($v['type'] == "text" or $v['type'] == "textarea") $keyword_search_sql .= " OR i." . $k . " LIKE '%" . $keyword . "%'";
+            }
             $where .= " AND (u.name LIKE '%" . $keyword . "%'" . $keyword_search_sql . $where_search . ") ";
-        //startnnsscc-diamond-20200221
-            $where .= " OR u.geo_position_city LIKE '%" . $keyword . "%'";
-            $where .= " OR u.geo_position_state LIKE '%" . $keyword . "%'";
-            $where .= " OR u.geo_position_country LIKE '%" . $keyword . "%'";
-            //startnnsscc-diamond-20200328-start
-            $from_add .= " LEFT JOIN var_ethnicity  v_ethnicity ON ui.ethnicity   = v_ethnicity.id "; 
-            $where .= " or v_ethnicity.title like '%" . $keyword ."%'";
-            
-            $from_add .= " LEFT JOIN var_age_preference  v_age_preference ON ui.age_preference   = v_age_preference.id "; 
-            $where .= " or v_age_preference.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_appearance  v_appearance ON ui.appearance   = v_appearance.id "; 
-            $where .= " or v_appearance.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_body  v_body ON ui.body   = v_body.id "; 
-            $where .= " or v_body.title like '%" . $keyword ."%'";  
-            $from_add .= " LEFT JOIN var_can_you_host  v_can_you_host ON ui.can_you_host   = v_can_you_host.id "; 
-            $where .= " or v_can_you_host.title like '%" . $keyword ."%'";
-            //$from_add .= " LEFT JOIN var_career  v_career ON ui.career   = v_career.id "; 
-            //$where .= " or v_career.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_drinking  v_drinking ON ui.drinking   = v_drinking.id "; 
-            $where .= " or v_drinking.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_education  v_education ON ui.education   = v_education.id "; 
-            $where .= " or v_education.title like '%" . $keyword ."%'";
-            
-            $from_add .= " LEFT JOIN var_eye  v_eye ON ui.eye   = v_eye.id "; 
-            $where .= " or v_eye.title like '%" . $keyword ."%'";
-            //$from_add .= " LEFT JOIN var_family  v_family ON ui.family   = v_family.id "; 
-            //$where .= " or v_family.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_first_date  v_first_date ON ui.first_date   = v_first_date.id "; 
-            $where .= " or v_first_date.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_hair  v_hair ON ui.hair   = v_hair.id "; 
-            $where .= " or v_hair.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_height  v_height ON ui.height   = v_height.id "; 
-            $where .= " or v_height.title like '%" . $keyword ."%'";
-            //$from_add .= " LEFT JOIN var_hobbies  v_hobbies ON ui.hobbies   = v_hobbies.id "; 
-            //$where .= " or v_hobbies.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_humor  v_humor ON ui.humor   = v_humor.id "; 
-            $where .= " or v_humor.title like '%" . $keyword ."%'";
-            $from_add .= " LEFT JOIN var_income  vi ON ui.income   = vi.id ";
-            $where .= " or vi.title like '%" . $keyword ."%'";
-            //$from_add .= " LEFT JOIN var_live_where  v_live_where ON ui.live_where = vi.id ";
-            //$where .= " or v_live_where.title like '%" . $keyword ."%'";
-            
-            $from_add .= " LEFT JOIN var_smoking  v_smoking ON ui.smoking   = v_smoking.id "; 
-            $where .= " or v_smoking.title like '%" . $keyword ."%'";
-            
-            //$from_add .= " LEFT JOIN var_language  v_language ON ui.language   = vi.id ";
-            //$where .= " or v_language.title like '%" . $keyword ."%'";
-            //nnsscc-diamond-20200328-start
-            $from_add .=" LEFT JOIN var_status vs ON ui.status   = vs.id ";
-            $where .= " or vs.title LIKE '%" . $keyword ."%'";
-            //$from_add .=" LEFT JOIN const_relation      cr ON u.relation   = cr.id ";
-            //$where .= " or cr.title LIKE '%" . $keyword ."%'";
-            $from_add .=" LEFT JOIN const_orientation      co ON u.orientation   = co.id ";
-            $where .= " or co.title LIKE '%" . $keyword ."%'";
-            //end
+
+            if($search_header != 1) {
+                //startnnsscc-diamond-20200221
+                $where .= " OR u.geo_position_city LIKE '%" . $keyword . "%'";
+                $where .= " OR u.geo_position_state LIKE '%" . $keyword . "%'";
+                $where .= " OR u.geo_position_country LIKE '%" . $keyword . "%'";
+                //startnnsscc-diamond-20200328-start
+                $from_add .= " LEFT JOIN var_ethnicity  v_ethnicity ON ui.ethnicity   = v_ethnicity.id "; 
+                $where .= " or v_ethnicity.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_age_preference  v_age_preference ON ui.age_preference   = v_age_preference.id "; 
+                $where .= " or v_age_preference.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_appearance  v_appearance ON ui.appearance   = v_appearance.id "; 
+                $where .= " or v_appearance.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_body  v_body ON ui.body   = v_body.id "; 
+                $where .= " or v_body.title like '%" . $keyword ."%'";  
+
+                $from_add .= " LEFT JOIN var_can_you_host  v_can_you_host ON ui.can_you_host   = v_can_you_host.id "; 
+                $where .= " or v_can_you_host.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_drinking  v_drinking ON ui.drinking   = v_drinking.id "; 
+                $where .= " or v_drinking.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_education  v_education ON ui.education   = v_education.id "; 
+                $where .= " or v_education.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_eye  v_eye ON ui.eye   = v_eye.id "; 
+                $where .= " or v_eye.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_first_date  v_first_date ON ui.first_date   = v_first_date.id "; 
+                $where .= " or v_first_date.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_hair  v_hair ON ui.hair   = v_hair.id "; 
+                $where .= " or v_hair.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_height  v_height ON ui.height   = v_height.id "; 
+                $where .= " or v_height.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_humor  v_humor ON ui.humor   = v_humor.id "; 
+                $where .= " or v_humor.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_income  vi ON ui.income   = vi.id ";
+                $where .= " or vi.title like '%" . $keyword ."%'";
+
+                $from_add .= " LEFT JOIN var_smoking  v_smoking ON ui.smoking   = v_smoking.id "; 
+                $where .= " or v_smoking.title like '%" . $keyword ."%'";
+
+                $from_add .=" LEFT JOIN var_status vs ON ui.status   = vs.id ";
+                $where .= " or vs.title LIKE '%" . $keyword ."%'";
+
+                $from_add .=" LEFT JOIN const_orientation      co ON u.orientation   = co.id ";
+                $where .= " or co.title LIKE '%" . $keyword ."%'";
+                //end
+            }
         }
 
-        //$ht = get_param("name", "") == "" ? "u.hide_time=0" : "1 ";
-
         $ht = User::isHiddenSql();
-
 
         if(get_param('moderator_view_profile')) {
             $ht = ' 1 ';
@@ -598,7 +585,6 @@ Class SearchResult{
             $from_add .= " LEFT JOIN {$table}_comments_likes AS lc ON lc.user_id = u.user_id ";
             $ht = ' 1 ';
         }
-
 
         $whereCore .= ' AND ' . $ht;
 

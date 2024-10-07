@@ -53,7 +53,7 @@ class CPartyhouMail extends CHtmlBlock
     public function action()
     {
         global $g, $g_user;
-        $table = "mass_mail_saved_user_list";
+        $table = "saved_user_list";
 
         $cmd = get_param('cmd', '');
         if ($cmd == "sent") {
@@ -74,7 +74,7 @@ class CPartyhouMail extends CHtmlBlock
             }
             $text = trim(strip_tags($text));
 
-            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($partyhou_id) . " AND event_type = 'partyhou'";
+            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($partyhou_id) . " AND type = 'partyhou'";
             $saved_users_list = DB::row($sql);
             if($saved_users_list) {
                 $user_list = $saved_users_list['userlist'];
@@ -191,7 +191,7 @@ class CPartyhouMail extends CHtmlBlock
     {
         global $g;
         $partyhou_id = get_param('partyhou_id', '');
-        $table = "mass_mail_saved_user_list";
+        $table = "saved_user_list";
 
         if (!$partyhou_id) {
             Common::toHomePage();
@@ -199,7 +199,7 @@ class CPartyhouMail extends CHtmlBlock
 
         $total_member_count = CpartyhouzTools::getTotalGuestsCount($partyhou_id);
 
-        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($partyhou_id) . " AND event_type = 'partyhou'";
+        $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($partyhou_id) . " AND type = 'partyhou'";
         $saved_users_list = DB::row($sql);
         if($saved_users_list) {
             $user_list = $saved_users_list['userlist'];

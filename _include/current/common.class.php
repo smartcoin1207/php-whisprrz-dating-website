@@ -874,6 +874,15 @@ Class Common {
         return $cities;
     }
 
+    static function listMailTemplates($selected = '', $list = false, $isFirstValueEmpty = false)
+    {
+        global $p;
+        $sql = "SELECT id, title FROM mail_templates WHERE user_id = " . to_sql(guid(), 'Number');
+        
+        $mail_templates = ($list) ? DB::db_options_ul($sql, $selected, 0, true) : DB::db_options($sql, $selected, 0, true, $isFirstValueEmpty);
+        return $mail_templates;
+    }
+
     static function setSiteOptions()
     {
         global $g;
@@ -6403,28 +6412,39 @@ JS;
 
         return $file_path;
     }
-
+    
     static function calculateDistance($toUserId, $fromUserId = '') {
         global $g, $g_user;
+        
+        // Get basic user info for the two users
         $toUser = User::getInfoBasic($toUserId);
         $fromUser = $fromUserId ? User::getInfoBasic($fromUserId) : $g_user;
-
-        $lat1  = $fromUser['geo_position_lat'];
-        $long1 = $fromUser['geo_position_long'];
-        $lat2  = $toUser['geo_position_lat'];
-        $long2 = $toUser['geo_position_long'];
-
-        $MULTIPLE =  10000000;
-
-        $lat1 = abs($lat1)> 1000 ? floatval($lat1)/$MULTIPLE : $lat1;
-        $long1 = abs($long1)> 1000 ? floatval($long1)/$MULTIPLE : $long1;
-        $lat2 = abs($lat2)> 1000 ? floatval($lat2)/$MULTIPLE : $lat2;
-        $long2 = abs($long2)> 1000 ? floatval($long2)/$MULTIPLE : $long2;
-        
+    
+        // Extract latitude and longitude from both users
+        $lat1  = isset($fromUser['geo_position_lat']) ? $fromUser['geo_position_lat'] : null;
+        $long1 = isset($fromUser['geo_position_long']) ? $fromUser['geo_position_long'] : null;
+        $lat2  = isset($toUser['geo_position_lat']) ? $toUser['geo_position_lat'] : null;
+        $long2 = isset($toUser['geo_position_long']) ? $toUser['geo_position_long'] : null;
+    
+        $MULTIPLE = 10000000;
+    
+        // Validate and adjust latitude and longitude if necessary
+        $lat1 = $lat1 !== null && abs($lat1) > 1000 ? floatval($lat1) / $MULTIPLE : $lat1;
+        $long1 = $long1 !== null && abs($long1) > 1000 ? floatval($long1) / $MULTIPLE : $long1;
+        $lat2 = $lat2 !== null && abs($lat2) > 1000 ? floatval($lat2) / $MULTIPLE : $lat2;
+        $long2 = $long2 !== null && abs($long2) > 1000 ? floatval($long2) / $MULTIPLE : $long2;
+    
+        // If any of the latitude/longitude values are missing, return 0 or handle as needed
+        if ($lat1 === null || $long1 === null || $lat2 === null || $long2 === null) {
+            return 0;  // Return 0 if coordinates are missing
+        }
+    
+        // Perform distance calculation between two coordinates
         $distance = calculateDistance($lat1, $long1, $lat2, $long2);
-        
+    
+        // Format the distance to two decimal points
         $distance_decimal2 = number_format($distance, 2, '.', '');
-
+    
         return $distance_decimal2;
     }
 }

@@ -2524,16 +2524,6 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allVideoInfo[$pid]['live_id'] = intval($item['live_id']);
 
                 $photoIds[] = self::$allVideoInfo[$pid]['photo_id'];
-
-                /* $offsetInfo = User::paramsVideoOffset($uid, '-1', $pidNum);
-                //     $offsetInfo = array('offset' => '', 'next' => '', 'prev' => '', 'next_id' => '', 'prev_id' => '');
-                foreach ($offsetInfo as $key => $value) {
-                self::$allVideoInfo[$pid][$key] = $value;
-                }
-
-                 */
-                //echo "{$item['id']} > " . self::$allVideoInfo[$pid]['offset'] . " > " . self::$allVideoInfo[$pid]['prev'] . " > " . self::$allVideoInfo[$pid]['next'] . " <br>";
-
             }
             self::$allVideo = self::$publicVideo + self::$privateVideo;
 

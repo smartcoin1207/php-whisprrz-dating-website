@@ -84,61 +84,6 @@
 			}
 			/* Divyesh - Added on 11-04-2024 */
 			<!-- end_show_video_update_function -->
-
-			/* Divyesh - Added on 11-04-2024 */
-			function openCustomFolderPopup() {
-				Swal.fire({
-					title: '{l_manage_folder}',
-					html: `<input type="text" id="custom_folder" class="swal2-input" maxlength="15" placeholder="" value="{custom_folder}">`,
-					confirmButtonText: '{l_save}',
-					focusConfirm: false,
-					showCancelButton: true,
-					preConfirm: () => {
-						const custom_folder = Swal.getPopup().querySelector('#custom_folder').value
-						/*if (!custom_folder) {
-							Swal.showValidationMessage(`{l_enter_custom_folder}`)
-						} else {*/
-							return fetch(`{url_main}ajax_profile.php`, {
-								method: 'POST',
-								body: 'cmd=custom_folder&folder=' + encodeURIComponent(custom_folder),
-								headers: {
-									'Content-type': 'application/x-www-form-urlencoded'
-								}
-							}).then(response => {
-								if (!response.status) {
-									throw new Error(response.statusText)
-								}
-								return response.json()
-							}).catch(error => {
-								Swal.showValidationMessage(`{l_enter_custom_folder}`);
-							})
-						//}
-					},
-					allowOutsideClick: () => !Swal.isLoading()
-				}).then((result) => {
-					if (result.isConfirmed) {
-						if (result.value.status == "ok") {
-							Swal.fire({
-								position: "top-end",
-								icon: "success",
-								title: '{l_custom_folder_saved}',
-								showConfirmButton: false,
-								timer: 1500
-							});
-							window.location.reload();
-						} else {
-							Swal.fire(
-								'{l_there_was_an_error}',
-								'{l_custom_folder_error}',
-								'error'
-							)
-						}
-					} else {
-
-					}
-				})
-			}
-			/* Divyesh - Added on 11-04-2024 */
 		</script>
 	</div>
 {footer}

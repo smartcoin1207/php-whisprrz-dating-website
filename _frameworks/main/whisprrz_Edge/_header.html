@@ -295,7 +295,6 @@
     <script type="text/javascript" src="{url_tmpl_main}jquery/jquery.timeentry.pack.js{cache_version_param}"></script>
     <script type="text/javascript" src="{url_main}_server/jquery/jquery.validate.js{cache_version_param}"></script>
 
-
     <script language="javascript" type="text/javascript">
         var clProfile = new CProfile('{user_id}', '{header_uid}');
         clProfile.setStatusOnline('{real_status_online}', '{user_status_online}');
@@ -1357,27 +1356,21 @@
     <script>
         function xinit_client1(){ alert('uuu'); console.log(xajax); return xajax.call("init_client", arguments, 1);}
 
-                function zoom_in1() {
-            var currentZoom = parseFloat(document.body.style.zoom) || 1;
-            var newZoom = currentZoom + 0.2;
-            document.body.style.zoom = newZoom;
-    
-            document.body.style.MozTransform = 'scale(' + newZoom + ')';
+        var zoomLevel = 1;
+        
+        function zoom_in1() {
+            zoomLevel += 0.2;
+            document.body.style.transform = 'scale(' + zoomLevel + ')';
+            console.log("zoom in")
         }
         
         function zoom_out1() {
-            var currentZoom = parseFloat(document.body.style.zoom) || 1;
-            if(currentZoom <= 0.2) {
-                return false;
+            if (zoomLevel > 0.2) { // Prevent zooming out too much
+                zoomLevel -= 0.2;
+                document.body.style.transform = 'scale(' + zoomLevel + ')';
+                console.log("zoom out")
             }
-        
-            var newZoom = currentZoom - 0.2;
-            document.body.style.zoom = newZoom;
-    
-            document.body.style.MozTransform = 'scale(' + newZoom + ')';
         }
-
-        
     </script>
 <script language="javascript" type="text/javascript">
 
@@ -1941,9 +1934,8 @@
         <div class="page_content">
 <!-- end_header_visitor -->
 
-
 <!-- begin_header_member -->
-<body class="body_member <!-- begin_body_city -->city_body<!-- end_body_city --> {body_class} {city_class}" >
+<body class="body_member <!-- begin_body_city -->city_body<!-- end_body_city --> {body_class} {city_class}" style="transform-origin: 50% 0;">
 
     <!-- <div id="bg_video_tumb" class="bg_video tumb"></div>
     <div class="bg_video" id="bg_video"></div> -->
@@ -2308,7 +2300,7 @@
 
                                     <!-- begin_header_your_settings_item -->
                                         <!-- begin_submenu_widget -->
-                                            <li order="your_settings" style="padding: 0px;"><a class="menu_settings"title={l_widgets}  href="{url_main}widgets.php" style="border-bottom: none;"><i>{l_widgets}</i></a></a></li>
+                                            <li order="your_settings" style="padding: 0px; margin-right: 4px;"><a class="menu_settings"title={l_widgets}  href="{url_main}widgets.php" style="border-bottom: none;"><i>{l_widgets}</i></a></a></li>
                                         <!-- end_submenu_widget -->
                                     <!-- end_header_your_settings_item --> 
                                                                          
@@ -2316,12 +2308,6 @@
                             <!-- end_menu_l -->
                             </div>
                         </div>
-                        <!-- <form action="{url_main}search_results.php" method="get" style="margin-top: 0px; max-width: 50%;  box-sizing: border-box;" class="inline-flex " >
-                            <input type="hidden" name="search_header" value="1">
-                            <input type="text" style="box-sizing: border-box;" class="input no_abk" value="{topquery}" name="keyword" placeholder="{l_search_for_people}"/>
-                            <input class="btn_search" type="submit" value="{l_search}" style="font-size: 12px;"/>
-                        </form> -->
-
                         <form id="search_by_username" action="{url_main}search_results.php" method="get" class="navbar-form navbar-right custom_search ">
                             <div class="form-group">
                                 <input type="hidden" name="search_header" value="1">
@@ -2329,7 +2315,28 @@
                                 <a onclick="searchUserByName();  return false;" class="link_icon_search" href=""><span class="glyphicon glyphicon-search"></span></a>
                             </div>
                         </form>
-
+                        <script>
+                            $('#search_by_username input[name="keyword"]').autocomplete({
+                                source: function (request, response) {
+                                    var request_data = {
+                                        q: request.term,
+                                        type: 1,
+                                        user_id: user_id
+                                    };
+                                    $.ajax({
+                                        url: "{url_main}users_autocomplete_ajax.php",
+                                        dataType: "json",
+                                        data: request_data,
+                                        type: "POST",
+                                        beforeSend: function () {
+                                        },
+                                        success: function (data) {
+                                            response(data);
+                                        }
+                                    });
+                                },
+                            });
+                        </script>
                     </div>
                     <style>
                         a.text-white.text-xs.font-medium {

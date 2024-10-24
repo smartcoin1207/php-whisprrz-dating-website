@@ -1735,7 +1735,7 @@ class CHeader extends CHtmlBlock
         }
 
         // if(Common::isOptionActive('friends')) {
-        $pending_friends = DB::query("SELECT * FROM friends_requests WHERE friend_id='" . $g_user['user_id'] . "' AND accepted=0 ORDER BY created_at DESC");
+        $pending_friends = DB::query("SELECT * FROM friends_requests WHERE friend_id='" . guid() . "' AND accepted=0 ORDER BY created_at DESC");
         $num_pfriends = DB::num_rows();
         if ($num_pfriends != '0') {
             $html->setvar('new_friends', $num_pfriends);

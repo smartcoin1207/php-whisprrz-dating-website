@@ -42,44 +42,15 @@ class CPhotoList extends CHtmlBlock
     function parseBlock(&$html)
     {
         $guid = guid();
+        $uid = User::getParamUid(0);
         $ajax = get_param('ajax');
         $groupId = Groups::getParamId();
         $profile_photo = get_param("profile_photo", '');
 
-        $page_offset = "";
-
-        if(!$groupId) {
-            global $g_user, $is_folder_photo_access, $is_private_photo_access, $is_personal_photo_access;
-
-            /* Divyesh - added on 11-04-2024 */
-            $offset = get_param('offset');
-            $offset = empty($offset) ? '1' : $offset;
-            $tab = "public";
-            $active_tab_1 = $active_tab_2 = $active_tab_3 = $active_tab_4 = '';
-            if ($offset == 2) {
-                $tab = "private";
-                $active_tab_2 = 'active';
-            } else if ($offset == 3) {
-                $tab = "personal";
-                $active_tab_3 = 'active';
-            } else if ($offset == 4) {
-                $tab = 'folder';
-                $active_tab_4 = 'active';
-            } else {
-                $active_tab_1 = 'active';
-            }
-
-            if($offset == 2 || $offset == 3 || $offset == 4) {
-                $page_offset = "?offset=" . $offset;
-            } else {
-                $page_offset = "";
-            }
-            /* Divyesh - added on 11-04-2024 */
-        }
+        $folder_sql = "SELECT * FROM custom_folders WHERE user_id=" . to_sql($uid, "Number");
+        $folders = DB::rows($folder_sql);
 
         $optionTmplName = Common::getTmplName();
-        $uid = User::getParamUid(0);
-
         $groupsPhotoList = Groups::getParamTypeContentList();
         $isPagesPhotosList = $groupsPhotoList == 'group_page';
         if ($groupsPhotoList) {
@@ -100,6 +71,7 @@ class CPhotoList extends CHtmlBlock
         $pageTitle = l('page_title');
         $pageDescription = '';
         $pageClass = 'photos_list';
+        $page_offset = "";
 
         if ($uid) {
             if ($groupId) {
@@ -137,7 +109,7 @@ class CPhotoList extends CHtmlBlock
 
         if($profile_photo == 1) {
             $pageUrl = Common::pageUrl("profile_photo_list");
-        }        
+        }
 
         $vars = array(
             'page_number' => $page,
@@ -181,13 +153,36 @@ class CPhotoList extends CHtmlBlock
             }
         }
 
+        /* popcorn modified 2024-10-08 */
         if(!$groupId) {
-            /* Divyesh - Added on 11-04-2024 */
-            $html->setvar('active_tab_1', $active_tab_1);
-            $html->setvar('active_tab_2', $active_tab_2);
-            $html->setvar('active_tab_3', $active_tab_3);
-            $html->setvar('active_tab_4', $active_tab_4);
-            if ($uid === $g_user['user_id'] || User::isFriend($uid, $g_user['user_id'])) {
+            global $g_user, $is_private_photo_access, $is_personal_photo_access;
+
+            /* Divyesh - added on 11-04-2024 */
+            $offset = get_param('offset', '');
+            $offset = empty($offset) ? '' : $offset;
+            $tab = "public";
+            $active_tab_public = $active_tab_private = $active_tab_personal = $active_tab_folder = '';
+            if (is_numeric($offset) && $offset > 0) { // Check if offset is a number and greater than 0
+                $tab = 'folder';
+                $active_tab_folder = 'active';
+            } else if ($offset == 'private') {
+                $tab = "private";
+                $active_tab_private = 'active';
+            } else if ($offset == 'personal') {
+                $tab = "personal";
+                $active_tab_personal = 'active';
+            } else if(!$offset) {
+                $active_tab_public = 'active';
+            }
+            
+            $page_offset = $offset ? "?offset=" . $offset : "";
+
+            $html->setvar('active_tab_public', $active_tab_public);
+            $html->setvar('active_tab_private', $active_tab_private);
+            $html->setvar('active_tab_personal', $active_tab_personal);
+            $html->setvar('active_tab_folder', $active_tab_folder);
+
+            if ($uid === guid() || User::isFriend($uid, guid())) {
                 $html->setvar('custom_folder', User::getInfoBasic($uid, 'custom_folder'));
                 
                 if($profile_photo == 1) {
@@ -200,12 +195,27 @@ class CPhotoList extends CHtmlBlock
                 if ($is_personal_photo_access || $uid == $g_user['user_id'])
                     $html->parse('show_personal_tab', false);
 
-                if ($is_folder_photo_access || $uid == $g_user['user_id'])
-                    $html->parse('show_folder_tab', false);
+                //custom child folders
+                foreach ($folders as $key => $folder) {
+                    $is_folder_access = User::checkPhotoTabAccess('invited_folder', $uid, $folder['id']);
+
+                    if($is_folder_access || guid() == $uid) {
+                        $folder_offset = $folder['id'];
+                        $custom_folder_name = $folder['name'];
+                        $active_folder = $offset == $folder['id'] ? 'active' : '';
+                        $html->setvar('active_folder', $active_folder);
+                        $html->setvar('custom_folder_offset', $folder_offset);
+                        $html->setvar('custom_folder_name', $custom_folder_name);
+                        $html->parse('custom_child_folder_tab');
+                    }
+                }
+                
+                $html->parse('show_folder_tab', false);
+                $html->clean('custom_child_folder_tab');
 
                 if (!empty($uid)){
                     $html->parse('show_myphoto_tabs', false);
-                } 
+                }
             } else {
                 /* Divyesh - Added on 20042024 */
                 $pageUrlMy = Common::pageUrl('photos');
@@ -215,7 +225,7 @@ class CPhotoList extends CHtmlBlock
             }
             /* Divyesh - Added on 11-04-2024 */
         }
-        
+
         CProfilePhoto::$isGetDataWithFilter = true;
         /* Divyesh - Added on 20042024 */
         /**popcorn modified 2024-05-17 */
@@ -283,7 +293,6 @@ class CPhotoList extends CHtmlBlock
                 $html->parse('page_search_query', false);
                 $html->parse('page_filter_no_result', false);
                 $html->parse('page_filter', false);
-                
             }
             $show = get_param('show');
             if ($show == 'gallery') {

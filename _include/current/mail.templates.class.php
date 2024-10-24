@@ -47,7 +47,7 @@ class CMailTemplates extends CHtmlBlock
     
     function parseBlock(&$html)
     {
-        $html->setvar('mail_templates_list', Common::listMailTemplates());
+        $html->setvar('mail_templates_list', Common::listMailTemplates('', false, true));
         parent::parseBlock($html);
     }
 }

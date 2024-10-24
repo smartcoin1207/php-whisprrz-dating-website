@@ -147,7 +147,6 @@
 												<div class="bbbr"> -->
 	<!-- begin_customization -->
 
-
 <script language="javascript" type="text/javascript">
 $(function(){
 
@@ -262,7 +261,7 @@ $(function(){
 				code.focus();
 				pp_add_video.fadeIn(durV);
 			}
-		})	
+		})
 		pp_add_video_btn.click(function(){
 			customHideTip(code, '#pp_add_video_bg');
 			var yCode=$.trim(code.val()), alert=yCode?'':'empty';
@@ -303,24 +302,22 @@ $(function(){
 
         <!-- begin_profile_customization_video_add_tip -->
             <div class="bl_pp_tooltip">
-            <div id="pp_add_video" class="pp_tooltip" style="display:none; z-index:5;">
-                <div class="pp_tooltip_cont" >
-
-                    <ul class="icons_tooltip_list">
-                        <li>
-                            <span class="link">
-                                <div class="link_frm">
-                                    <input type="text" autofocus="autofocus" name="add_video_code" value="" id="pp_add_video_code" placeholder="{l_paste_youtube_link}" title="{l_paste_youtube_link}">
-                                    <a id="pp_add_video_bg" href="#" class="btn_check"></a>
-                                    <img id="pp_add_video_loader" class="video_loader" src="{url_tmpl_main}images/loader_m.gif">
-                                    <div class="cl"></div>
-                                </div>
-                            </span>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
+				<div id="pp_add_video" class="pp_tooltip" style="display:none; z-index:5;">
+					<div class="pp_tooltip_cont" >
+						<ul class="icons_tooltip_list">
+							<li>
+								<span class="link">
+									<div class="link_frm">
+										<input type="text" autofocus="autofocus" name="add_video_code" value="" id="pp_add_video_code" placeholder="{l_paste_youtube_link}" title="{l_paste_youtube_link}">
+										<a id="pp_add_video_bg" href="#" class="btn_check"></a>
+										<img id="pp_add_video_loader" class="video_loader" src="{url_tmpl_main}images/loader_m.gif">
+										<div class="cl"></div>
+									</div>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
             </div>
             <!-- end_profile_customization_video_add_tip -->
 

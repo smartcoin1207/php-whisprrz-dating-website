@@ -47,7 +47,6 @@ if($g_user['user_id'] != $group['user_id'] && !$moderator_options['group_mail'])
 
 class CGroupMail extends CHtmlBlock
 {
-
     public function init()
     {
 
@@ -203,10 +202,6 @@ class CGroupMail extends CHtmlBlock
             Common::toHomePage();
         }
 
-        $total_member_count = Groups::getNumberSubscribers($groupId);
-
-        $group_seo = self::getNameSeo();
-
         $groupId = Groups::getParamId();
         $gsql = "SELECT * FROM groups_social where group_id = " . to_sql($groupId, 'Text');
         $group = DB::row($gsql);
@@ -222,7 +217,7 @@ class CGroupMail extends CHtmlBlock
         $saved_user_list = self::getSavedUserList($groupId);
         $html->setvar('saved_user_list', $saved_user_list);
 
-        $select_group_user_url = $group_url = $g['path']['url_main'] . $group_nameseo . "/select_group_users";
+        $select_group_user_url = $g['path']['url_main'] . $group_nameseo . "/select_group_users";
         $html->setvar('select_group_user_url', $select_group_user_url);
 
         parent::parseBlock($html);
@@ -231,9 +226,7 @@ class CGroupMail extends CHtmlBlock
     function getSavedUserList($groupId)
     {
         $sql = "SELECT id, title FROM saved_user_list WHERE user_id = " . to_sql(guid(), 'Number') . " AND event_id = " . to_sql($groupId, 'Number') . " AND type = 'group'";
-        
-        $saved_user_list = DB::db_options($sql, '', 0, true, false);
-        return $saved_user_list;
+        return Common::getSavedUserList($sql);
     }
 
     function getNameSeo()

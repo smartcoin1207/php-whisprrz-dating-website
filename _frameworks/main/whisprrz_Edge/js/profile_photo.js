@@ -1068,8 +1068,7 @@ var CProfilePhoto = function(guid,uid) {
             $this.visibleMediaData = $this.galleryMediaData;
         } else if(ehp_type == 'partyhou') {
             $this.visibleMediaData = $this.galleryMediaData;
-        } 
-
+        }
     }
 
     this.updateOffsetMediaData = function(curPid, noFirstUpdate, noLastUpdate, data) {
@@ -1835,7 +1834,6 @@ var CProfilePhoto = function(guid,uid) {
        }
 
         dataMedia = (dataMedia && dataMedia[pid]) || $this.visibleMediaData[pid];
-
 
         $this.$el={
             layerBlocked   : $('#pp_gallery_layer_blocked'),
@@ -2914,16 +2912,17 @@ var CProfilePhoto = function(guid,uid) {
         const urlParams = new URLSearchParams(queryString);
         var offset = urlParams.get('offset')
         var offset_str = 'public';
-        if (offset == '2'){
+        if (offset === 'private') {
             offset_str = 'private';
-        }else if (offset == '3'){
+        } else if (offset === 'personal') {
             offset_str = 'personal';
-        }else if (offset == '4'){
+        } else if (!isNaN(offset) && offset > 0) {  // Check if offset is a number
             offset_str = 'folder';
         }
 
         if(!is_access_offset_all) {
             dataRes['offset'] = offset_str;
+            dataRes['folder_id'] = offset;
         }
         
         /* Divyesh - added on 23042024 */
@@ -3669,6 +3668,69 @@ var CProfilePhoto = function(guid,uid) {
                 $this.updaterCounterPage(type, count_title, count);
             }
         }
+    }
+    
+    /** Popcorn - added 2024-10-14 */
+    // access: public, private, personal, custom folders
+    this.changeAccessPhoto = function(pid, cmd = '', folder_id = 0) {
+        notGallery = true;
+        $.ajax({type:'POST',
+                url:url_ajax,
+                data:{cmd:cmd, photo_cmd: "", id:pid, uid:$this.uid, folder_id: folder_id},
+                beforeSend: function(){
+                    if($this.isShowGallery && !notGallery){
+                        $this.toggleShowLayerBlocked()
+                    }
+                },
+                success: function(res){
+                    if ($this.noAction()&&!notGallery)return;
+                    var data=checkDataAjax(res);
+                    if (data!==false){
+                        updateGridPhotoFromDelete(pid);
+
+                        $this.updatePageData(pid, data.count_title, data.count, isVideo);
+                        if(!notGallery){
+                            if (isVideo){
+                                $this.closeGalleryPopup();
+                                return;
+                            } else {
+                                $this.countAllMedia -= 1;
+                            }
+                        }
+
+                        var fnSuccess = function(){
+                            if(!notGallery){
+                                $this.toggleShowLayerBlocked('hide');
+                                if ($this.countAllMedia<1) {
+                                    $this.closeGalleryPopup();
+                                } else{
+                                    if ($this.countAllMedia==1) {
+                                        $this.$ppGalleryContainer.css('cursor','default');
+                                        $this.$el['arrows'].addClass('to_hide');
+                                    }
+                                    if(isVideo){
+
+                                    } else {
+                                        $this.prepareLoadParamPhoto(pidNext);
+                                    }
+                                    $this.show('left', pidNext)
+                                }
+                            }
+                            if (!isVideo){
+                                $this.replacePhotoDefaultCheck(data.photo_default, photoDefaultId);
+                            }
+                        }
+                        setTimeout(fnSuccess,200);
+                    } else{
+                        alertServerError(true);
+                        if(notGallery){
+                            $('#list_image_layer_action_'+pid).removeClass('to_show').removeChildrenLoader();
+                        } else {
+                            $this.toggleShowLayerBlocked('hide')
+                        }
+                    }
+                }
+        })
     }
 
     this.photoDelete = function(pid,notGallery,isVideo) {

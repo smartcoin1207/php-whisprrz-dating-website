@@ -206,7 +206,6 @@ class CProfilePhoto extends CHtmlBlock
         return $EHP_id;
     }
 
-
     public static function getEHPImage($pid = '')
     {
         if (!$pid) {
@@ -258,7 +257,7 @@ class CProfilePhoto extends CHtmlBlock
         $isPrivate = ($type == 'private') ? true : false;
         $pending = get_param('pending', 'P');
 
-        $id = uploadphoto($g_user['user_id'], '', '', $pending, $dir, false, $inputFile, $isPrivate, true, $isCity);
+        $id = uploadphoto(guid(), '', '', $pending, $dir, false, $inputFile, $isPrivate, true, $isCity);
         CStatsTools::count('photos_uploaded');
 
         if ($uploadDefault) {
@@ -267,7 +266,7 @@ class CProfilePhoto extends CHtmlBlock
 
         $photo = DB::one('photo', '`photo_id` = ' . to_sql($id));
 
-        $photo['user_id'] = $g_user['user_id'];
+        $photo['user_id'] = guid();
         $photo['private'] = ($type == 'private') ? 'Y' : 'N';
         $photo['visible'] = $pending;
         $size = get_param('size', 'r');
@@ -733,9 +732,9 @@ class CProfilePhoto extends CHtmlBlock
 
         $seePrivatePhotoId = 0;
         $photoCurId = get_param('photo_cur_id', 0);
-        $isFriend = User::isFriendForPhoto($g_user['user_id'], $uid);
+        $isFriend = User::isFriendForPhoto(guid(), $uid);
         if (
-            $uid != $g_user['user_id']
+            $uid != guid()
             && !$isFriend
             && !empty($privatePhoto)
         ) {
@@ -795,7 +794,7 @@ class CProfilePhoto extends CHtmlBlock
         $result = array();
 
         if ($uid === null) {
-            $uid = $g_user['user_id'];
+            $uid = guid();
         }
 
         $display = get_param('display');
@@ -820,7 +819,7 @@ class CProfilePhoto extends CHtmlBlock
             }
             //$orderOffset = '`private` DESC, `default` ASC, `photo_id` DESC';
             $orderOffset = str_replace('PH.', '', $order);
-            
+
             $where = self::getWherePhotosList('PH.', $onlyPublic, $uid, $groupId, $showAllMyPhoto);
             if ($whereSql) {
                 $where .= $whereSql;
@@ -1069,7 +1068,7 @@ class CProfilePhoto extends CHtmlBlock
         } else {
             $orderOffset = null;
             $vis = '';
-            if ($isVisible || $uid != $g_user['user_id']) {
+            if ($isVisible || $uid != guid()) {
                 $vis = $g['sql']['photo_vis'];
             }
 
@@ -1096,7 +1095,7 @@ class CProfilePhoto extends CHtmlBlock
                     $gender = $g_user['gender'];
                     $isUserReport = 0;
                 } else {
-                    $isFriend = User::isFriend($uid, $g_user['user_id']);
+                    $isFriend = User::isFriend($uid, guid());
                     $gender = User::getInfoBasic($uid, 'gender');
                     $isUserReport = User::isReportUser($uid);
                 }
@@ -1106,7 +1105,7 @@ class CProfilePhoto extends CHtmlBlock
 
             $photoIds = array();
 
-            $isPrivatePhotoAvailable = ($uid === $g_user['user_id'] || User::isFriend($uid, $g_user['user_id']));
+            $isPrivatePhotoAvailable = ($uid === guid() || User::isFriend($uid, guid()));
 
             foreach ($profilePhoto as $item) {
                 /* Divyesh - added on 11-04-2024 */
@@ -1116,7 +1115,7 @@ class CProfilePhoto extends CHtmlBlock
                 /* Divyesh - added on 11-04-2024 */
                 $uid = $item['user_id'];
                 if ($isEdge) {
-                    $isFriend = User::isFriendForPhoto($uid, $g_user['user_id']);
+                    $isFriend = User::isFriendForPhoto($uid, guid());
                     $gender = $item['gender'];
                     $isUserReport = User::isReportUser($uid);
                 }
@@ -1190,7 +1189,6 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allPhotoInfo[$pid]['visible'] = $item['visible'];
                 self::$allPhotoInfo[$pid]['reports'] = $item['users_reports'];
                 self::$allPhotoInfo[$pid]['version'] = $item['version'];
-
                 self::$allPhotoInfo[$pid]['report_user'] = $isUserReport;
                 self::$allPhotoInfo[$pid]['restore'] = intval($item['restore']);
                 self::$allPhotoInfo[$pid]['src_b'] = User::getPhotoFile($item, 'b', $gender);
@@ -1251,11 +1249,11 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allPhotoInfo[$pid]['my_rating'] = 0;
                 self::$allPhotoInfo[$pid]['visible_rating'] = 0;
                 if (!$isCity) {
-                    if ($uid != $g_user['user_id']) {
+                    if ($uid != guid()) {
                         $myRating = 0;
-                        if ($g_user['user_id'] && self::$addRatingToInfo) {
+                        if (guid() && self::$addRatingToInfo) {
                             $where = '`photo_id` = ' . to_sql($pid, 'Number') .
-                                ' AND `user_id` = ' . to_sql($g_user['user_id'], 'Number');
+                                ' AND `user_id` = ' . to_sql(guid(), 'Number');
                             $userRatePhoto = DB::field('photo_rate', 'rating', $where);
                             if (!empty($userRatePhoto) && isset($userRatePhoto[0])) {
                                 $myRating = $userRatePhoto[0];
@@ -1290,7 +1288,7 @@ class CProfilePhoto extends CHtmlBlock
                     $personal = self::$allPhotoInfo[$pid]['personal'];
                     $folder = self::$allPhotoInfo[$pid]['folder'];
                     /* Divyesh - added on 23042024 */
-                    if (($private == 'Y' || $personal == 'Y' || $folder == 'Y') && !$isFriend && $uid != $g_user['user_id']) { // Divyesh - added on 23042024
+                    if (($private == 'Y' || $personal == 'Y' || $folder == 'Y') && !$isFriend && $uid != guid()) { // Divyesh - added on 23042024
                         $title = '';
                     } else {
                         $title = self::$allPhotoInfo[$pid]['description'];
@@ -1301,6 +1299,10 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allPhotoInfo[$pid]['is_video'] = 0;
                 self::$allPhotoInfo[$pid]['hide_header'] = $item['hide_header'] * 1;
                 self::$allPhotoInfo[$pid]['hash'] = $item['hash'];
+                /** Popcorn - added start 2024-10-14 */
+                self::$allPhotoInfo[$pid]['custom_folder_id'] = $item['custom_folder_id'];
+                self::$allPhotoInfo[$pid]['in_custom_folder'] = $item['in_custom_folder'];
+                /** Popcorn - added end 2024-10-14 */
             }
 
             if (!User::getNoPhotoPprivateInOffset()) {
@@ -1332,7 +1334,7 @@ class CProfilePhoto extends CHtmlBlock
                         $personal = self::$allPhotoInfo[$photoIds[$prev]]['personal'];
                         $folder = self::$allPhotoInfo[$photoIds[$prev]]['folder'];
                         /* Divyesh - added on 23042024 */
-                        if (($private == 'Y' || $personal == 'Y' || $folder == 'Y') && !$isFriend && $uid != $g_user['user_id']) { // Divyesh - added on 23042024
+                        if (($private == 'Y' || $personal == 'Y' || $folder == 'Y') && !$isFriend && $uid != guid()) { // Divyesh - added on 23042024
                             $title = '';
                         } else {
                             $title = self::$allPhotoInfo[$photoIds[$prev]]['description'];
@@ -1345,7 +1347,7 @@ class CProfilePhoto extends CHtmlBlock
                         $personal = self::$allPhotoInfo[$photoIds[$next]]['personal'];
                         $folder = self::$allPhotoInfo[$photoIds[$next]]['folder'];
                         /* Divyesh - added on 23042024 */
-                        if (($private == 'Y' || $personal == 'Y' || $folder == 'Y') && !$isFriend && $uid != $g_user['user_id']) { //Divyesh - added on 23042024
+                        if (($private == 'Y' || $personal == 'Y' || $folder == 'Y') && !$isFriend && $uid != guid()) { //Divyesh - added on 23042024
                             $title = '';
                         } else {
                             $title = self::$allPhotoInfo[$photoIds[$next]]['description'];
@@ -1406,7 +1408,7 @@ class CProfilePhoto extends CHtmlBlock
         $result = array();
 
         if ($uid === null) {
-            $uid = $g_user['user_id'];
+            $uid = guid();
         }
 
         $display = get_param('display');
@@ -1442,7 +1444,6 @@ class CProfilePhoto extends CHtmlBlock
                 $where .= " AND (ip.user_id=PH.user_id OR PH.user_id={$guid}) ";
             }
             
-
             if (!$guid) {
                 $where .= ($where ? " AND " : " ") . " U.set_who_view_profile != 'members'";
             }
@@ -1703,7 +1704,7 @@ class CProfilePhoto extends CHtmlBlock
         } else {
             $orderOffset = null;
             $vis = '';
-            if ($isVisible || $uid != $g_user['user_id']) {
+            if ($isVisible || $uid != guid()) {
                 $vis = $g['sql']['photo_vis'];
             }
 
@@ -1729,7 +1730,7 @@ class CProfilePhoto extends CHtmlBlock
                     $gender = $g_user['gender'];
                     $isUserReport = 0;
                 } else {
-                    $isFriend = User::isFriend($uid, $g_user['user_id']);
+                    $isFriend = User::isFriend($uid, guid());
                     $gender = User::getInfoBasic($uid, 'gender');
                     $isUserReport = User::isReportUser($uid);
                 }
@@ -1739,7 +1740,7 @@ class CProfilePhoto extends CHtmlBlock
 
             $photoIds = array();
 
-            $isPrivatePhotoAvailable = ($uid === $g_user['user_id'] || User::isFriend($uid, $g_user['user_id']));
+            $isPrivatePhotoAvailable = ($uid === guid() || User::isFriend($uid, guid()));
             foreach ($profilePhoto as $item) {
                 /* Divyesh - added on 11-04-2024 */
                 if (in_array($onlyPublic, array('private', 'personal', 'folder')) && ($item['private'] == 'Y' || $item['personal'] == 'Y' || $item['in_custom_folder'] == 'Y') && !$isPrivatePhotoAvailable) {
@@ -1748,7 +1749,7 @@ class CProfilePhoto extends CHtmlBlock
                 /* Divyesh - added on 11-04-2024 */
                 $uid = $item['user_id'];
                 if ($isEdge) {
-                    $isFriend = User::isFriendForPhoto($uid, $g_user['user_id']);
+                    $isFriend = User::isFriendForPhoto($uid, guid());
                     $gender = $item['gender'];
                     $isUserReport = User::isReportUser($uid);
                 }
@@ -1868,11 +1869,11 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allPhotoInfo[$pid]['my_rating'] = 0;
                 self::$allPhotoInfo[$pid]['visible_rating'] = 0;
                 if (!$isCity) {
-                    if ($uid != $g_user['user_id']) {
+                    if ($uid != guid()) {
                         $myRating = 0;
-                        if ($g_user['user_id'] && self::$addRatingToInfo) {
+                        if (guid() && self::$addRatingToInfo) {
                             $where = '`photo_id` = ' . to_sql($pid, 'Number') .
-                                ' AND `user_id` = ' . to_sql($g_user['user_id'], 'Number');
+                                ' AND `user_id` = ' . to_sql(guid(), 'Number');
                             $userRatePhoto = DB::field('photo_rate', 'rating', $where);
                             if (!empty($userRatePhoto) && isset($userRatePhoto[0])) {
                                 $myRating = $userRatePhoto[0];
@@ -1903,7 +1904,7 @@ class CProfilePhoto extends CHtmlBlock
                     self::$allPhotoInfo[$pid]['prev_id'] = $pid;
 
                     $private = self::$allPhotoInfo[$pid]['private'];
-                    if ($private == 'Y' && !$isFriend && $uid != $g_user['user_id']) {
+                    if ($private == 'Y' && !$isFriend && $uid != guid()) {
                         $title = '';
                     } else {
                         $title = self::$allPhotoInfo[$pid]['description'];
@@ -1914,6 +1915,11 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allPhotoInfo[$pid]['is_video'] = 0;
                 self::$allPhotoInfo[$pid]['hide_header'] = $item['hide_header'] * 1;
                 self::$allPhotoInfo[$pid]['hash'] = $item['hash'];
+
+                /** Popcorn - added start 2024-10-14 */
+                self::$allPhotoInfo[$pid]['in_custom_folder'] = $item['in_custom_folder'];
+                self::$allPhotoInfo[$pid]['custom_folder_id'] = $item['custom_folder_id'];
+                /** Popcorn - added end 2024-10-14 */
             }
             if (!User::getNoPhotoPprivateInOffset()) {
                 if ($numPhoto > 1) {
@@ -1940,7 +1946,7 @@ class CProfilePhoto extends CHtmlBlock
                         self::$allPhotoInfo[$pid]['prev_id'] = $photoIds[$prev];
 
                         $private = self::$allPhotoInfo[$photoIds[$prev]]['private'];
-                        if ($private == 'Y' && !$isFriend && $uid != $g_user['user_id']) {
+                        if ($private == 'Y' && !$isFriend && $uid != guid()) {
                             $title = '';
                         } else {
                             $title = self::$allPhotoInfo[$photoIds[$prev]]['description'];
@@ -1949,7 +1955,7 @@ class CProfilePhoto extends CHtmlBlock
                         self::$allPhotoInfo[$pid]['prev_title'] = $title;
 
                         $private = self::$allPhotoInfo[$photoIds[$next]]['private'];
-                        if ($private == 'Y' && !$isFriend && $uid != $g_user['user_id']) {
+                        if ($private == 'Y' && !$isFriend && $uid != guid()) {
                             $title = '';
                         } else {
                             $title = self::$allPhotoInfo[$photoIds[$next]]['description'];
@@ -2002,7 +2008,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         $response = array();
-        if (!$g_user['user_id']) {
+        if (!guid()) {
             return $response;
         }
         if ($uid === null) {
@@ -2018,8 +2024,8 @@ class CProfilePhoto extends CHtmlBlock
         $numberPrivate = count($privatePhoto);
 
         if (
-            $uid != $g_user['user_id']
-            // && !User::isFriend($g_user['user_id'], $row['user_id'])
+            $uid != guid()
+            // && !User::isFriend(guid(), $row['user_id'])
             && !empty($privatePhoto)
         ) {
             arsort($privatePhoto);
@@ -2131,7 +2137,7 @@ class CProfilePhoto extends CHtmlBlock
         $displayPhoto = array();
         // If one then immediately select all photos
         /*if (guid() == $uid
-        || User::isFriend($g_user['user_id'], $uid)) {
+        || User::isFriend(guid(), $uid)) {
         if (!empty($allPhoto)) {
         unset($allPhoto[$photoDefault]);
         $numPhoto = count($allPhoto);
@@ -2145,7 +2151,7 @@ class CProfilePhoto extends CHtmlBlock
         }
         }
         }
-        if ($g_user['user_id'] == $uid) {
+        if (guid() == $uid) {
         $html->parse('photo_add');
         }
         } else {
@@ -2182,7 +2188,7 @@ class CProfilePhoto extends CHtmlBlock
         }
         }*/
 
-        if ($g_user['user_id'] == $uid) {
+        if (guid() == $uid) {
             $html->parse('photo_add');
         }
 
@@ -2348,8 +2354,8 @@ class CProfilePhoto extends CHtmlBlock
                 $urlPhoto = User::getPhotoFile($photo, $imgSize, '', DB_MAX_INDEX, City::isVisitorUser()); //gender not
 
                 if ($type == 'private') {
-                    $isFriend = User::isFriend($g_user['user_id'], $uid);
-                    $isFriendRequestExists = User::isFriendRequestExists($uid, $g_user['user_id']);
+                    $isFriend = User::isFriend(guid(), $uid);
+                    $isFriendRequestExists = User::isFriendRequestExists($uid, guid());
                     if (!$isFriend && !$isFriendRequestExists && (guid() != $photo['user_id'])) {
                         $html->setvar("{$typeBlock}_title", ' ');
                     } else if (($isFriend) or (guid() == $photo['user_id'])) {
@@ -2407,9 +2413,9 @@ class CProfilePhoto extends CHtmlBlock
             }
         }
 
-        $isFriend = User::isFriend($g_user['user_id'], $uid);
-        $isFriendRequestExists = User::isFriendRequestExists($uid, $g_user['user_id']);
-        if ($g_user['user_id'] == $uid) {
+        $isFriend = User::isFriend(guid(), $uid);
+        $isFriendRequestExists = User::isFriendRequestExists($uid, guid());
+        if (guid() == $uid) {
             $html->parse("{$typeBlock}_more");
             $html->parse("{$typeBlock}_add");
         } else if (
@@ -2422,7 +2428,7 @@ class CProfilePhoto extends CHtmlBlock
             $html->parse("{$typeBlock}_can_view");
         }
 
-        if (!empty($userPhoto) || $g_user['user_id'] == $uid) {
+        if (!empty($userPhoto) || guid() == $uid) {
             $html->parse($block);
         }
     }
@@ -2434,12 +2440,12 @@ class CProfilePhoto extends CHtmlBlock
         $result = array();
 
         if ($uid === null) {
-            $uid = $g_user['user_id'];
+            $uid = guid();
         }
 
         $vis = " AND active!='2' ";
         $isVideoApproval = Common::isOptionActive('video_approval');
-        if ($isVideoApproval && $uid != $g_user['user_id']) {
+        if ($isVideoApproval && $uid != guid()) {
             $vis = " AND active='1' ";
         }
 
@@ -2561,7 +2567,7 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allVideoInfo[$pid]['prev_id'] = $photoIds[$prev];
 
                 $private = self::$allVideoInfo[$photoIds[$prev]]['private'];
-                if ($private == '1' && !$isFriend && $uid != $g_user['user_id']) {
+                if ($private == '1' && !$isFriend && $uid != guid()) {
                     $title = '';
                 } else {
                     $title = self::$allVideoInfo[$photoIds[$prev]]['description'];
@@ -2570,7 +2576,7 @@ class CProfilePhoto extends CHtmlBlock
                 self::$allVideoInfo[$pid]['prev_title'] = $title;
 
                 $private = self::$allVideoInfo[$photoIds[$next]]['private'];
-                if ($private == '1' && !$isFriend && $uid != $g_user['user_id']) {
+                if ($private == '1' && !$isFriend && $uid != guid()) {
                     $title = '';
                 } else {
                     $title = self::$allVideoInfo[$photoIds[$next]]['description'];
@@ -2615,8 +2621,8 @@ class CProfilePhoto extends CHtmlBlock
                 $video['private'] = $item['private'];
                 $urlVideo = User::getVideoFile($video, $imgSize, ''); //gender not
                 if ($type == 'private') {
-                    $isFriend = User::isFriend($g_user['user_id'], $uid);
-                    $isFriendRequestExists = User::isFriendRequestExists($uid, $g_user['user_id']);
+                    $isFriend = User::isFriend(guid(), $uid);
+                    $isFriendRequestExists = User::isFriendRequestExists($uid, guid());
                     if (!$isFriend && !$isFriendRequestExists && (guid() != $video['user_id'])) {
                         $html->setvar("{$typeBlock}_title", ' ');
                     } else if (($isFriend) or (guid() == $video['user_id'])) {
@@ -2643,11 +2649,11 @@ class CProfilePhoto extends CHtmlBlock
                 /*
                 if ($isCity) {
                 $where = '`photo_id` = ' . to_sql($photo_id) .
-                ' AND `user_id` = ' . to_sql($g_user['user_id']);
+                ' AND `user_id` = ' . to_sql(guid());
                 $photoEditor = DB::select('city_avatar_face', $where);
                 if ($photoEditor && isset($photoEditor[0])) {
                 $html->setvar("{$typeBlock}_face_params", $photoEditor[0]['params']);
-                $fileFace = "city/users/{$g_user['user_id']}_{$photo_id}.jpg";
+                $fileFace = "city/users/{guid()}_{$photo_id}.jpg";
                 $fileFaceUrl = "{$g['path']['url_files_city']}{$fileFace}?v={$photoEditor[0]['hash']}";
                 $html->setvar("{$typeBlock}_face_url", $fileFaceUrl);
                 $html->setvar("{$typeBlock}_face_color", $photoEditor[0]['head_color']);
@@ -2673,9 +2679,9 @@ class CProfilePhoto extends CHtmlBlock
             }
         }
 
-        $isFriend = User::isFriend($g_user['user_id'], $uid);
-        $isFriendRequestExists = User::isFriendRequestExists($uid, $g_user['user_id']);
-        if ($g_user['user_id'] == $uid) {
+        $isFriend = User::isFriend(guid(), $uid);
+        $isFriendRequestExists = User::isFriendRequestExists($uid, guid());
+        if (guid() == $uid) {
             $html->parse("{$typeBlock}_more");
             $html->parse("{$typeBlock}_add");
         } else if (
@@ -2688,7 +2694,7 @@ class CProfilePhoto extends CHtmlBlock
             $html->parse("{$typeBlock}_can_view");
         }
 
-        if (!empty($userVideo) || $g_user['user_id'] == $uid) {
+        if (!empty($userVideo) || guid() == $uid) {
             $html->parse($block);
         }
     }
@@ -2731,7 +2737,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         $responseData = false;
-        $guid = $g_user['user_id'];
+        $guid = guid();
         if ($guid && $id) {
 
             $sql = 'SELECT `private`, `visible`, `nudity`
@@ -2763,7 +2769,7 @@ class CProfilePhoto extends CHtmlBlock
                        AND `user_id` = ' . to_sql($guid, 'Number');
             DB::execute($sql);
 
-            User::setAvailabilityPublicPhoto($g_user['user_id']);
+            User::setAvailabilityPublicPhoto(guid());
             Wall::UpdateAccessPhoto($id, $access);
 
             $responseData = 'update';
@@ -2806,7 +2812,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         $responseData = false;
-        $guid = $g_user['user_id'];
+        $guid = guid();
         if ($guid && $id) {
 
             $sql = 'SELECT `personal`
@@ -2837,18 +2843,14 @@ class CProfilePhoto extends CHtmlBlock
         }
         return $responseData;
     }
-    public static function setPhotoCustomFolder($id, $isAdmin = false)
+
+    public static function setPhotoCustomFolder($id, $isAdmin = false, $folder_id = 0)
     {
-        global $g_user;
-
         $responseData = false;
-        $guid = $g_user['user_id'];
-        if ($guid && $id) {
-
+        if ($id) {
             $sql = 'SELECT `in_custom_folder`
                       FROM `photo`
-                     WHERE `photo_id` = ' . to_sql($id, 'Number') . '
-                       AND `user_id` = ' . to_sql($guid, 'Number');
+                     WHERE `photo_id` = ' . to_sql($id, 'Number');
             $photo = DB::row($sql);
             if (!$photo) {
                 return $responseData;
@@ -2857,16 +2859,12 @@ class CProfilePhoto extends CHtmlBlock
 
             if ($in_custom_folder == 'Y') {
                 $in_custom_folder = 'N';
-                //$response = 'public';
+                $sql = "UPDATE `photo` SET `in_custom_folder` = '$in_custom_folder', `custom_folder_id` = '0' WHERE `photo_id` = " . to_sql($id, 'Number');
             } else {
                 $in_custom_folder = 'Y';
-                //$response = 'personal';
+                $sql = "UPDATE `photo` SET `in_custom_folder` = '$in_custom_folder', `custom_folder_id` = '$folder_id' WHERE `photo_id` = " . to_sql($id, 'Number');
             }
 
-            $sql = "UPDATE `photo`
-                       SET `in_custom_folder` = '$in_custom_folder'
-                     WHERE `photo_id` = " . to_sql($id, 'Number') . '
-                       AND `user_id` = ' . to_sql($guid, 'Number');
             DB::execute($sql);
 
             $responseData = 'update';
@@ -3141,7 +3139,7 @@ class CProfilePhoto extends CHtmlBlock
         $section = $photoTables['section'];
 
         $responseData = false;
-        if ($g_user['user_id']) {
+        if (guid()) {
             $cid = get_param('cid', $comment_id);
             $pid = get_param('pid', $photo_id);
             if ($cid) {
@@ -3152,8 +3150,8 @@ class CProfilePhoto extends CHtmlBlock
                     ' AND PC.photo_id = P.' . $image_id_field;
                 $photo = DB::row($sql);
                 if ($photo) {
-                    $isMyComment = $g_user['user_id'] == $photo['user_id'];
-                    if ($isMyComment || $g_user['user_id'] == $photo['pu']) {
+                    $isMyComment = guid() == $photo['user_id'];
+                    if ($isMyComment || guid() == $photo['pu']) {
                         $responseData = array();
                         $noRatingPhoto = Common::isOptionActiveTemplate('no_rating_photos');
                         if (!$noRatingPhoto) {
@@ -3313,17 +3311,17 @@ class CProfilePhoto extends CHtmlBlock
     public static function deleteOldPendingVideos($type)
     {
         global $g_user;
-        if ($g_user['user_id'] && $type != '') {
+        if (guid() && $type != '') {
             include_once self::includePath() . '_include/current/vids/tools.php';
             $sql = "SELECT id FROM vids_video
                      WHERE `active` = '2'
                        AND `live_id` = '0'
-                       AND `user_id` = " . to_sql($g_user['user_id'], 'Number');
+                       AND `user_id` = " . to_sql(guid(), 'Number');
             $ids = DB::column($sql);
             foreach ($ids as $k => $id) {
                 CVidsTools::delVideoById($id);
             }
-            //DB::delete('vids_video', "`active` = '2' AND `user_id` = " . to_sql($g_user['user_id'], 'Number'));
+            //DB::delete('vids_video', "`active` = '2' AND `user_id` = " . to_sql(guid(), 'Number'));
         }
     }
 
@@ -3382,7 +3380,7 @@ class CProfilePhoto extends CHtmlBlock
         }
 
         $uploadLimitPhotoCount = Common::getOption('upload_limit_photo_count');
-        $currentCountPhotos = DB::count('photo', '`visible` <> "P" AND `user_id` = ' . to_sql($g_user['user_id'], 'Number'));
+        $currentCountPhotos = DB::count('photo', '`visible` <> "P" AND `user_id` = ' . to_sql(guid(), 'Number'));
         $isNudityPhoto = false;
 
         if (!empty($photos) && $type != '') {
@@ -3420,7 +3418,7 @@ class CProfilePhoto extends CHtmlBlock
                             $wallId = Wall::addGroupAccess('photo', $access, $wallId, $pid, $groupId);
                         }
                     }
-                    Wall::addItemForUser($photo['id'], 'photo', $g_user['user_id'], false, $groupId);
+                    Wall::addItemForUser($photo['id'], 'photo', guid(), false, $groupId);
                 }
 
                 $groupPage = 0;
@@ -3463,7 +3461,7 @@ class CProfilePhoto extends CHtmlBlock
                     $wallParams = DB::count('photo', '`visible` = "Y" AND `wall_id` = ' . to_sql($wallId) . $whereGroup);
                 } else {
                     if (!$groupId) {
-                        DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql($g_user['user_id'], 'Number'));
+                        DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql(guid(), 'Number'));
                     }
                     $wallParams = 1;
                 }
@@ -3486,14 +3484,14 @@ class CProfilePhoto extends CHtmlBlock
 
             if ($uploadCount && (Common::isOptionActive('photo_approval') || $isNudityPhoto) && Common::isEnabledAutoMail('approve_image_admin')) {
                 $vars = array(
-                    'name' => User::getInfoBasic($g_user['user_id'], 'name'),
+                    'name' => User::getInfoBasic(guid(), 'name'),
                 );
                 Common::sendAutomail(Common::getOption('administration', 'lang_value'), Common::getOption('info_mail', 'main'), 'approve_image_admin', $vars);
             }
         }
 
         self::deleteOldPendingPhotos($type);
-        self::preparePhotoList($g_user['user_id'], '`photo_id` ASC', '', '', false, false, false, $groupId);
+        self::preparePhotoList(guid(), '`photo_id` ASC', '', '', false, false, false, $groupId);
 
         if ($templateName == 'edge') {
             $vidsList = CProfileVideo::getVideosList('', '', $guid, false, true, 0, '', $groupId);
@@ -3513,7 +3511,7 @@ class CProfilePhoto extends CHtmlBlock
             return $response;
         }
 
-        self::prepareVideoList($g_user['user_id'], '`id` ASC');
+        self::prepareVideoList(guid(), '`id` ASC');
 
         $response = self::$allPhotoInfo + self::$allVideoInfo;
 
@@ -3575,7 +3573,7 @@ class CProfilePhoto extends CHtmlBlock
         }
 
         $uploadLimitPhotoCount = Common::getOption('upload_limit_photo_count');
-        $currentCountPhotos = DB::count('photo', '`visible` <> "P" AND `user_id` = ' . to_sql($g_user['user_id'], 'Number'));
+        $currentCountPhotos = DB::count('photo', '`visible` <> "P" AND `user_id` = ' . to_sql(guid(), 'Number'));
         $isNudityPhoto = false;
 
         if (!empty($photos) && $type != '') {
@@ -3613,7 +3611,7 @@ class CProfilePhoto extends CHtmlBlock
                             $wallId = Wall::addGroupAccess('photo', $access, $wallId, $pid, $groupId);
                         }
                     }
-                    Wall::addItemForUser($photo['id'], 'photo', $g_user['user_id'], false, $groupId);
+                    Wall::addItemForUser($photo['id'], 'photo', guid(), false, $groupId);
                 }
 
                 $groupPage = 0;
@@ -3656,7 +3654,7 @@ class CProfilePhoto extends CHtmlBlock
                     $wallParams = DB::count('photo', '`visible` = "Y" AND `wall_id` = ' . to_sql($wallId) . $whereGroup);
                 } else {
                     if (!$groupId) {
-                        DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql($g_user['user_id'], 'Number'));
+                        DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql(guid(), 'Number'));
                     }
                     $wallParams = 1;
                 }
@@ -3679,14 +3677,14 @@ class CProfilePhoto extends CHtmlBlock
 
             if ($uploadCount && (Common::isOptionActive('photo_approval') || $isNudityPhoto) && Common::isEnabledAutoMail('approve_image_admin')) {
                 $vars = array(
-                    'name' => User::getInfoBasic($g_user['user_id'], 'name'),
+                    'name' => User::getInfoBasic(guid(), 'name'),
                 );
                 Common::sendAutomail(Common::getOption('administration', 'lang_value'), Common::getOption('info_mail', 'main'), 'approve_image_admin', $vars);
             }
         }
 
         self::deleteOldPendingPhotos($type);
-        self::preparePhotoList($g_user['user_id'], '`photo_id` ASC', '', '', false, false, false, $groupId);
+        self::preparePhotoList(guid(), '`photo_id` ASC', '', '', false, false, false, $groupId);
 
         if ($templateName == 'edge') {
             $vidsList = CProfileVideo::getVideosList('', '', $guid, false, true, 0, '', $groupId);
@@ -3706,13 +3704,38 @@ class CProfilePhoto extends CHtmlBlock
             return $response;
         }
 
-        self::prepareVideoList($g_user['user_id'], '`id` ASC');
+        self::prepareVideoList(guid(), '`id` ASC');
 
         $response = self::$allPhotoInfo + self::$allVideoInfo;
 
         return $response;
     }
     /* Divyesh - Added on 11-04-2024 */
+
+    /** Popcorn -Added on 2024-10-14 start */
+    public static function changeAccessPhoto()
+    {
+        $cmd = get_param('cmd', '');
+        $photo_id = get_param('id', '');
+        $folder_id = get_param('folder_id', '');
+
+        if($cmd == 'make_private') {
+            DB::update('photo', array('private' => 'Y'), '`photo_id` = ' . to_sql($photo_id, 'Number'));
+        } elseif($cmd == 'remove_private') {
+            DB::update('photo', array('private' => 'N'), '`photo_id` = ' . to_sql($photo_id, 'Number'));
+        } elseif($cmd == 'make_personal') {
+            DB::update('photo', array('personal' => 'Y'), '`photo_id` = ' . to_sql($photo_id, 'Number'));
+        } elseif($cmd == 'remove_personal') {
+            DB::update('photo', array('personal' => 'N'), '`photo_id` = ' . to_sql($photo_id, 'Number'));
+        } elseif($cmd == 'move_to_custom_folder') {
+            DB::update('photo', array('in_custom_folder' => 'Y', 'custom_folder_id' => $folder_id), '`photo_id` = ' . to_sql($photo_id, 'Number'));
+        } elseif($cmd == 'remove_custom_folder') {
+            DB::update('photo', array('in_custom_folder' => 'N', 'custom_folder_id' => 0), '`photo_id` = ' . to_sql($photo_id, 'Number'));
+        }
+
+        return true;
+    }
+    /** Popcorn -Added on 2-24-10-14 end */
 
     public static function publishPhotosEHP($photos = null, $type = null, $groupId = null, $uploadDefault = false)
     {
@@ -3761,16 +3784,16 @@ class CProfilePhoto extends CHtmlBlock
                 $nudity = 1;
             }
             if ($vis == 'Y') {
-                DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql($g_user['user_id'], 'Number'));
+                DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql(guid(), 'Number'));
             }
             DB::update('photo', array('visible' => $vis, 'nudity' => $nudity), '`photo_id` = ' . to_sql($pid, 'Number'));
-            User::setAvailabilityPublicPhoto($g_user['user_id']);
+            User::setAvailabilityPublicPhoto(guid());
 
             if ((Common::isOptionActive('photo_approval') || $isNudityPhoto)
                 && Common::isEnabledAutoMail('approve_image_admin')
             ) {
                 $vars = array(
-                    'name' => User::getInfoBasic($g_user['user_id'], 'name'),
+                    'name' => User::getInfoBasic(guid(), 'name'),
                 );
                 Common::sendAutomail(Common::getOption('administration', 'lang_value'), Common::getOption('info_mail', 'main'), 'approve_image_admin', $vars);
             }
@@ -3788,8 +3811,8 @@ class CProfilePhoto extends CHtmlBlock
     public static function deleteOldPendingPhotos($type)
     {
         global $g_user;
-        if ($g_user['user_id'] && $type != '') {
-            $photos = DB::select('photo', "`visible` = 'P' AND `user_id` = " . to_sql($g_user['user_id'], 'Number'));
+        if (guid() && $type != '') {
+            $photos = DB::select('photo', "`visible` = 'P' AND `user_id` = " . to_sql(guid(), 'Number'));
             if ($photos) {
                 foreach ($photos as $photo) {
                     self::deletePhoto($photo['photo_id']);
@@ -3898,7 +3921,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         if ($uid === null) {
-            $uid = $g_user['user_id'];
+            $uid = guid();
         }
         $where = '`user_id` = ' . to_sql($uid, 'Number') . " AND visible!='P' AND `group_id` = 0";
         if ($private !== null) {
@@ -3912,7 +3935,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         if ($uid === null) {
-            $uid = $g_user['user_id'];
+            $uid = guid();
         }
         $sql = 'SELECT AVG(average)
                   FROM `photo`
@@ -3928,7 +3951,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         if ($uid === null) {
-            $uid = $g_user['user_id'];
+            $uid = guid();
         }
 
         $uid = to_sql($uid, 'Number');
@@ -3969,7 +3992,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         if ($uid === null) {
-            $uid = $g_user['user_id'];
+            $uid = guid();
         }
 
         $sql = 'UPDATE photo_rate AS pr
@@ -3990,7 +4013,7 @@ class CProfilePhoto extends CHtmlBlock
             return false;
         }
         if ($uid === null) {
-            $uid = $g_user['user_id'];
+            $uid = guid();
         }
         if ($lastId === null) {
             $lastId = $g_user['last_photo_visible_rated'];
@@ -4009,7 +4032,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         $responseData = false;
-        if ($g_user['user_id']) {
+        if (guid()) {
             $pid = get_param('photo_id', 0);
             $puid = get_param('photo_user_id', 0);
             $rate = intval(get_param('rate', 0));
@@ -4022,13 +4045,13 @@ class CProfilePhoto extends CHtmlBlock
             $photoInfo = $photoInfo[0];
 
             $where = '`photo_id` = ' . to_sql($pid, 'Number') .
-                ' AND `user_id` = ' . to_sql($g_user['user_id'], 'Number');
+                ' AND `user_id` = ' . to_sql(guid(), 'Number');
             $userRatePhoto = DB::field('photo_rate', 'rating', $where);
 
             $vars = array(
                 'photo_id' => $pid,
                 'photo_user_id' => $puid,
-                'user_id' => $g_user['user_id'],
+                'user_id' => guid(),
                 'rating' => $rate
             );
             $votes = $photoInfo['votes'];
@@ -4051,11 +4074,11 @@ class CProfilePhoto extends CHtmlBlock
                             $sql = 'UPDATE `user`
                                        SET `rated_photos` = 0,
                                            `last_photo_visible_rated` = ' . to_sql($lastRatedId, 'Number') .
-                                ' WHERE `user_id` = ' . to_sql($g_user['user_id'], 'Number');
+                                ' WHERE `user_id` = ' . to_sql(guid(), 'Number');
                         } else {
                             $sql = 'UPDATE `user`
                                        SET rated_photos = rated_photos + 1
-                                     WHERE `user_id` = ' . to_sql($g_user['user_id'], 'Number');
+                                     WHERE `user_id` = ' . to_sql(guid(), 'Number');
                         }
                         DB::execute($sql);
                     }
@@ -4103,12 +4126,12 @@ class CProfilePhoto extends CHtmlBlock
         global $g_user;
 
         $responseData = false;
-        if ($g_user['user_id']) {
+        if (guid()) {
             if ($pid === null) {
                 $pid = get_param('photo_id', 0);
             }
             $where = '`photo_id` = ' . to_sql($pid, 'Number') .
-                ' AND `user_id` = ' . to_sql($g_user['user_id'], 'Number');
+                ' AND `user_id` = ' . to_sql(guid(), 'Number');
             $userRatePhoto = DB::field('photo_rate', 'rating', $where);
 
             if (!empty($userRatePhoto) && isset($userRatePhoto[0])) {
@@ -4136,7 +4159,7 @@ class CProfilePhoto extends CHtmlBlock
                 if (isset($g_user['rated_photos']) && $g_user['rated_photos']) {
                     $sql = 'UPDATE `user`
                                SET rated_photos = rated_photos - 1
-                             WHERE `user_id` = ' . to_sql($g_user['user_id'], 'Number');
+                             WHERE `user_id` = ' . to_sql(guid(), 'Number');
                     DB::execute($sql);
                 }
                 $sql = "SELECT `id`
@@ -4193,7 +4216,7 @@ class CProfilePhoto extends CHtmlBlock
 
         $responseData = false;
         $id = get_param('id');
-        if ($g_user['user_id'] && $id) {
+        if (guid() && $id) {
             DB::update('photo_rate', array('visible' => 0), '`id` = ' . to_sql($id, 'Number'));
             $responseData = self::getNumberUsersRatedMePhoto();
         }
@@ -5670,7 +5693,7 @@ class CProfilePhoto extends CHtmlBlock
         }
 
         global $g_user;
-        $guid = $g_user['user_id'];
+        $guid = guid();
         $cmd = get_param('cmd');
         $isGetLoadComments = in_array($cmd, array('get_photo_comment', 'get_video_comment', 'get_live_stream_comment'));
 
@@ -5886,7 +5909,7 @@ class CProfilePhoto extends CHtmlBlock
     public static function parseCommentsEHP(&$html, $pid, $type = 'photo')
     {
         global $g_user;
-        $guid = $g_user['user_id'];
+        $guid = guid();
         $cmd = get_param('cmd');
         $isGetLoadComments = in_array($cmd, array('get_photo_comment', 'get_video_comment', 'get_live_stream_comment'));
 
@@ -6093,7 +6116,7 @@ class CProfilePhoto extends CHtmlBlock
             if (
                 $video['private'] == '0'
                 || User::isFriend(guid(), $video['user_id'])
-                || $video['user_id'] == $g_user['user_id']
+                || $video['user_id'] == guid()
             ) { //For Urban and Impact only public albums - check is not needed
                 //if(self::$videoAddView) {//self::$videoAddView - not used
                 CStatsTools::count('videos_viewed');
@@ -6303,7 +6326,7 @@ class CProfilePhoto extends CHtmlBlock
                 $html->setvar("{$block}_count_like_users", $countLikesUsers);
             }
 
-            $isMyComment = $g_user['user_id'] == $comment['user_id'];
+            $isMyComment = guid() == $comment['user_id'];
             if ($isMyComment) {
                 $html->setvar("{$block}_user_photo_id", $comment['user_photo_id']);
                 $html->parse('data_my_photo');
@@ -6887,12 +6910,12 @@ class CProfilePhoto extends CHtmlBlock
             self::preparePhotoList($uid, '`photo_id` DESC');
 
             if ($uid && $photoId && (!empty(self::$allVideoInfo) || !empty(self::$allPhotoInfo))) {
-                $html->setvar('cur_user_id', $g_user['user_id']);
+                $html->setvar('cur_user_id', guid());
                 $html->setvar('friend_id', '0');
                 $html->setvar('user_id', $uid);
                 $html->setvar('photos_info', json_encode(self::$allVideoInfo + self::$allPhotoInfo));
                 $html->setvar('display_profile', User::displayProfile());
-                if ($uid == $g_user['user_id']) {
+                if ($uid == guid()) {
                     $whosePhotos = l('your_videos');
                     $html->parse('photo_edit_desc');
                     $html->parse('photo_edit_desc_frm');
@@ -6928,10 +6951,10 @@ class CProfilePhoto extends CHtmlBlock
                         $idN = str_replace('v_', '', $id);
                         $idV = 'v_' . $id;
                         $isFriend = User::isFriend(guid(), $photo['user_id']);
-                        $isMyPhoto = $photo['user_id'] == $g_user['user_id'];
+                        $isMyPhoto = $photo['user_id'] == guid();
                         $html->setvar('carousel_title', $photo['description']);
                         if ($photoId == $id) {
-                            if ($g_user['user_id'] == $uid) {
+                            if (guid() == $uid) {
                                 if ($photo['visible'] == 'Y') {
                                     $html->parse('photo_not_checked_hide');
                                 }
@@ -6949,7 +6972,7 @@ class CProfilePhoto extends CHtmlBlock
 
                             $isAccessPrivate = $photo['private'] == 0 || $isFriend || $isMyPhoto;
                             if ($isAccessPrivate) {
-                                if (empty($photo['description']) && $g_user['user_id'] == $uid) {
+                                if (empty($photo['description']) && guid() == $uid) {
                                     $description = l('click_here_to_add_a_photo_caption');
                                 } else {
                                     $description = $photo['description'];
@@ -6976,9 +6999,9 @@ class CProfilePhoto extends CHtmlBlock
                         $html->parse($blockCarousel, true);
                         $i++;
                     }
-                    if ($g_user['user_id']) {
-                        $html->setvar('current_user_photo', User::getPhotoDefault($g_user['user_id'], 'r', false, $g_user['gender']));
-                        $html->setvar('current_user_photo_id', User::getPhotoDefault($g_user['user_id'], 'r', true));
+                    if (guid()) {
+                        $html->setvar('current_user_photo', User::getPhotoDefault(guid(), 'r', false, $g_user['gender']));
+                        $html->setvar('current_user_photo_id', User::getPhotoDefault(guid(), 'r', true));
                     }
 
                     if ($count == 1) {
@@ -6997,9 +7020,9 @@ class CProfilePhoto extends CHtmlBlock
             self::preparePhotoList($uid, '`photo_id` DESC');
             self::prepareVideoList($uid, '`id` DESC');
             if ($uid && $photoId && (!empty(self::$allPhotoInfo) || !empty(self::$allVideoInfo))) {
-                $html->setvar('cur_user_id', $g_user['user_id']);
+                $html->setvar('cur_user_id', guid());
                 /* Access to private */
-                $isFriend = User::isFriend($uid, $g_user['user_id']);
+                $isFriend = User::isFriend($uid, guid());
                 $html->setvar('friend_id', $isFriend);
                 $html->setvar('user_id', $uid);
                 if (!$isFriend) {
@@ -7008,7 +7031,7 @@ class CProfilePhoto extends CHtmlBlock
                         $html->parse('scip_private');
                         $isParseOr = true;
                     }
-                    if (!User::isFriendRequestExists($uid, $g_user['user_id'])) {
+                    if (!User::isFriendRequestExists($uid, guid())) {
                         $mode = 1;
                         if (!$isParseOr) {
                             $mode = 0;
@@ -7032,7 +7055,7 @@ class CProfilePhoto extends CHtmlBlock
 
                 $html->setvar('photos_info', json_encode(self::$allPhotoInfo + self::$allVideoInfo));
                 $html->setvar('display_profile', User::displayProfile());
-                if ($uid == $g_user['user_id']) {
+                if ($uid == guid()) {
                     $whosePhotos = l('your_photos');
                     $html->parse('photo_edit_desc');
                     $html->parse('photo_edit_desc_frm');
@@ -7070,10 +7093,10 @@ class CProfilePhoto extends CHtmlBlock
                     foreach (self::$allPhotoInfo as $id => $photo) {
 
                         $isFriend = User::isFriend(guid(), $photo['user_id']);
-                        $isMyPhoto = $photo['user_id'] == $g_user['user_id'];
+                        $isMyPhoto = $photo['user_id'] == guid();
 
                         if ($photoId == $id) {
-                            if ($g_user['user_id'] == $uid) {
+                            if (guid() == $uid) {
                                 if ($photo['visible'] == 'Y') {
                                     $html->parse('photo_not_checked_hide');
                                 }
@@ -7089,14 +7112,14 @@ class CProfilePhoto extends CHtmlBlock
                             }
                             $html->setvar('photo_main_id', $id);
 
-                            if ($g_user['user_id']) {
-                                $html->setvar('current_user_photo', User::getPhotoDefault($g_user['user_id'], 'r', false, $g_user['gender']));
-                                $html->setvar('current_user_photo_id', User::getPhotoDefault($g_user['user_id'], 'r', true));
+                            if (guid()) {
+                                $html->setvar('current_user_photo', User::getPhotoDefault(guid(), 'r', false, $g_user['gender']));
+                                $html->setvar('current_user_photo_id', User::getPhotoDefault(guid(), 'r', true));
                             }
 
                             $isAccessPrivate = $photo['private'] == 'N' || $isFriend || $isMyPhoto;
                             if ($isAccessPrivate) {
-                                if (empty($photo['description']) && $g_user['user_id'] == $uid) {
+                                if (empty($photo['description']) && guid() == $uid) {
                                     $description = l('click_here_to_add_a_photo_caption');
                                 } else {
                                     $description = $photo['description'];
@@ -7549,7 +7572,7 @@ class CProfilePhoto extends CHtmlBlock
 
         $photoId = get_param('photo_id', '');
 
-        /* Divyesh - Added on 11-04-2024 */
+        /* Popcorn - Modified on 23-10-2024 */ 
         if(get_param('is_access_offset_all', '')) {
 
         } else if ($access == 'private') {
@@ -7557,11 +7580,12 @@ class CProfilePhoto extends CHtmlBlock
         } else if ($access == 'personal') {
             $where .= " AND ({$table}personal = 'Y' OR {$table}photo_id = '{$photoId}')";
         } else if ($access == 'folder') {
-            $where .= " AND ({$table}in_custom_folder = 'Y' OR {$table}photo_id = '{$photoId}')";
+            $custom_folder_id = get_param('offset', 0);
+            $where .= " AND (({$table}in_custom_folder = 'Y' AND {$table}custom_folder_id = ". to_sql($custom_folder_id, 'Number') .") OR {$table}photo_id = '{$photoId}')";
         } else if ((($access == true || $access == 'public') && !$noPrivatePhoto) || self::isHidePrivatePhoto()) {
             $where .= " AND ({$table}private = 'N' AND {$table}personal = 'N' AND {$table}in_custom_folder = 'N' OR {$table}photo_id = '{$photoId}') " ;
         }
-        /* Divyesh - Added on 11-04-2024 */
+        /* Popcorn - Modified on 23-10-2024 */ 
         if ($uid) {
             $where .= " AND {$table}user_id = " . to_sql($uid);
         } elseif ($guid) {

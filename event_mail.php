@@ -8,6 +8,7 @@ It can be found at http://www.chameleonsocial.com/license.doc
 This notice may not be removed from the source code. */
 
 include './_include/core/main_start.php';
+include("./_include/current/mail.templates.class.php");
 
 $optionTmplName = Common::getTmplName();
 if ($optionTmplName != 'edge') {
@@ -23,7 +24,6 @@ if (!guid() && !$isAjaxRequest) {
     }
 }
 
-
 global $g_user, $g;
 $event_id = get_param('event_id', '');
 $gsql = "SELECT * FROM events_event where event_id = " . to_sql($event_id, 'Text');
@@ -31,7 +31,6 @@ $event = DB::row($gsql);
 if(!$event) {
     Common::toHomePage();
 } 
-
 
 $sql = "SELECT  * FROM events_event_guest WHERE event_id = " . to_sql($event_id, 'Text') . "AND user_id = " . to_sql(guid(), 'Text');
 $my_subscriber  = DB::row($sql);
@@ -44,7 +43,6 @@ if($g_user['user_id'] != $event['user_id']) {
 
 class CEventMail extends CHtmlBlock
 {
-
     public function init()
     {
 
@@ -77,7 +75,7 @@ class CEventMail extends CHtmlBlock
             $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($event_id) . " AND type = 'event'";
             $saved_users_list = DB::row($sql);
             if($saved_users_list) {
-                $user_list = $saved_users_list['userlist'];
+                $user_list = $saved_users_list['user_ids'];
                 $selected_members = json_decode($user_list, true);
             } else {
                 $selected_members = [];
@@ -90,8 +88,9 @@ class CEventMail extends CHtmlBlock
                 }
 
                 foreach ($selected_members as $key => $value) {
-                    $id = $key;
-                    if($key == $g_user['user_id']) {
+                    $id = $value;
+
+                    if($value == $g_user['user_id']) {
                         continue;
                     }
                     $block = User::isBlocked('mail', $id, guid());
@@ -106,6 +105,7 @@ class CEventMail extends CHtmlBlock
                             $sqlInto = ', text_hash';
                             $sqlValue = ', ' . to_sql($textHash);
                         }
+
                         if (get_param('save') == '1') {
                             DB::execute("
                                 INSERT INTO mail_msg (user_id, user_from, user_to, folder, subject, text, date_sent, new, type, receiver_read" . $sqlInto . ")
@@ -198,34 +198,33 @@ class CEventMail extends CHtmlBlock
             Common::toHomePage();
         }
 
-        $total_member_count = CEventsTools::getTotalGuestsCount($event_id);
-
         $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($event_id) . " AND type = 'event'";
         $saved_users_list = DB::row($sql);
         if($saved_users_list) {
-            $user_list = $saved_users_list['userlist'];
+            $user_list = $saved_users_list['user_ids'];
             $selected_members = json_decode($user_list, true);
         } else {
             $selected_members = [];
         }
-
-        $member_count = 0;
-        if ($selected_members) {
-            $member_count = count($selected_members);
-        }
-
-        $message = "Selected " . $member_count . "/" . $total_member_count;
-        $html->setvar('member_count_message', $message);
 
         $event_id = get_param('event_id', '');
 
         $urlpage = $g['path']['url_main'] . "event_mail.php?event_id=" . $event_id;
         $html->setvar('url_page', $urlpage);
 
-        $select_url = $g['path']['url_main'] . "select_event_users.php?event_id=" . $event_id;
-        $html->setvar('url_select_page', $select_url);
+        $saved_user_list = self::getSavedUserList($event_id);
+        $html->setvar('saved_user_list', $saved_user_list);
+
+        $select_event_user_url = $g['path']['url_main'] . "select_event_users.php?event_id=" . $event_id;
+        $html->setvar('select_event_user_url', $select_event_user_url);
 
         parent::parseBlock($html);
+    }
+
+    function getSavedUserList($event_id)
+    {
+        $sql = "SELECT id, title FROM saved_user_list WHERE user_id = " . to_sql(guid(), 'Number') . " AND event_id = " . to_sql($event_id, 'Number') . " AND type = 'event'";
+        return Common::getSavedUserList($sql);
     }
 }
 
@@ -235,5 +234,8 @@ $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
+
+$mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
+$page->add($mail_templates_list);
 
 include './_include/core/main_close.php';

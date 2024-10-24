@@ -29,9 +29,9 @@ class CComplite extends UserFields {
 			$html->setvar('profile_bg_video_play_disabled', $profileBgVideoPlayDisabled);
 			
 			$isCustom = true;
-            $userId = get_param('uid', $g_user['user_id']);
-            $userName = get_param('name', $g_user['name']);
-            if (($userId == $g_user['user_id'] && $userName == $g_user['name']) || get_param('display') == 'encounters') {
+            $userId = get_param('uid', $g_user['user_id'] ?? '');
+            $userName = get_param('name', $g_user['name'] ?? '');
+            if (($userId == $g_user['user_id'] && $userName == ($g_user['name'] ?? '')) || get_param('display') == 'encounters') {
                 /*
 				if (Common::isOptionActive('youtube_video_background_users_urban')
                     && (get_param('display') == 'profile' || Common::isOptionActive('youtube_video_background_users_all_pages_urban'))) {

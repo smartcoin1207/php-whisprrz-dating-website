@@ -110,6 +110,7 @@ class CPhoto extends CHtmlBlock
 			CProfilePhoto::setPhotoPersonal($photo_id);
 			redirect();
 		}
+		
 		if ($cmd == 'move_to_folder' || $cmd == 'remove_from_folder') {
 			CProfilePhoto::setPhotoCustomFolder($photo_id);
 			redirect();

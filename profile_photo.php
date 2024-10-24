@@ -64,8 +64,6 @@ if ($isAjaxRequest) {
     $tmplList['profile_column_left'] = $dirTmpl . '_profile_column_left.html';
     $tmplList['profile_column_right'] = $dirTmpl . '_profile_column_right.html';
 }
-
-
 $page = new CPhotoList("", $tmplList);
 
 if ($isAjaxRequest) {

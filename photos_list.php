@@ -31,7 +31,7 @@ if (!guid() && !$isAjaxRequest) {
 if(!$groupId) {
     /* Divyesh - Added on 11-04-2024 */
     $offset = get_param('offset');
-    $offset = empty($offset) ? 1 : $offset;
+    $offset = empty($offset) ? '' : $offset;
     $uid = User::getParamUid(0);
     $guid = guid();
 
@@ -39,14 +39,14 @@ if(!$groupId) {
     $is_personal_photo_access = User::checkPhotoTabAccess('invited_personal', $uid);
     $is_folder_photo_access = User::checkPhotoTabAccess('invited_folder', $uid);
 
-    if (!empty($uid) && $uid != $g_user['user_id'] && (($offset == 2 && !$is_private_photo_access) || 
-    ($offset == 3 && !$is_personal_photo_access) ||
-    ($offset == 4 && !$is_folder_photo_access))) {
+    if (!empty($uid) && $uid != $g_user['user_id'] && (($offset == 'private' && !$is_private_photo_access) || 
+    ($offset == 'personal' && !$is_personal_photo_access) ||
+    (is_numeric($offset) && $offset > 1 && !$is_folder_photo_access))) {
         $uname = User::getInfoBasic($uid, 'name_seo');
         redirect("{$uname}/photos");
     }
 
-    if (empty($guid) && $offset > 1){
+    if (empty($guid) && $offset){
         redirect("photos");
     }
     /* Divyesh - Added on 11-04-2024 */
@@ -81,7 +81,6 @@ if ($isAjaxRequest) {
     $tmplList['profile_column_left'] = $dirTmpl . '_profile_column_left.html';
     $tmplList['profile_column_right'] = $dirTmpl . '_profile_column_right.html';
 }
-
 $page = new CPhotoList("", $tmplList);
 
 if ($isAjaxRequest) {

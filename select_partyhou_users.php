@@ -17,77 +17,29 @@ class CUsersResults extends CHtmlList
 
         $partyhou_id = get_param('partyhou_id');
 		
-        $sql = "SELECT  * FROM partyhouz_partyhou_guest WHERE partyhou_id = " . to_sql($partyhou_id, 'Text') . "AND user_id = " . to_sql(guid(), 'Text');
-        $my_subscriber = DB::row($sql);
-        // $moderator_options = json_decode($my_subscriber['moderator_options'], true);
-				
-		// if (!self::isOwner() && !$moderator_options['partyhou_mail']) {
-        //     $redirect_url = $g['path']['url_main'] . "partyhou_wall.php?partyhou_id=" . $partyhou_id;
-        //     redirect($redirect_url);
-        // }
-
         if (!self::isOwner()) {
             $redirect_url = $g['path']['url_main'] . "partyhou_wall.php?partyhou_id=" . $partyhou_id;
             redirect($redirect_url);
         }
 
-        $current_url = $g['path']['url_main'] . "select_partyhou_users.php?partyhou_id=" . $partyhou_id;
         $cmd = get_param('cmd', '');
-        $save = get_param('save', '');
-        $clear = get_param('clear', '');
-        $selected_members = [];
-
-        if ($save == 'all') {
-            $members = CpartyhouzTools::getGuestUsers($partyhou_id);
-            $selected_members = [];
-
-            if ($members) {
-                foreach ($members as $key => $value) {
-                    if ($g_user['user_id'] == $value['user_id']) {
-                        continue;
-                    }
-
-                    $selected_members[$value['user_id']] = '1';
-                }
-            }
-        }
-        if ($clear == 'all') {
-            $selected_members = [];
-        }
-
-        if ($cmd == 'save') {
+        if($cmd == "save_user_list") {
             $users = get_param_array('users');
-
-            if ($users) {
-                foreach ($users as $key => $value) {
-                    if ($value == '1') {
-                        $selected_members[$key] = '1';
-                    } else {
-                        if (isset($selected_members[$key])) {
-                            unset($selected_members[$key]);
-                        }
-
-                    }
-                }
-            }
-        }
-
-        if($cmd == 'save' || $clear == 'all' || $save == 'all') {
-            $table = "saved_user_list";
+            $title = get_param('title');
             
-            $exist_row = DB::row("SELECT * FROM " . $table . " WHERE event_id = " . to_sql($partyhou_id) . " AND type = 'partyhou'" );
+            $row = array
+            (
+                'user_id' => guid(),
+                'user_ids' => json_encode($users),
+                'event_id' => $partyhou_id,
+                'type' => 'partyhou',
+                'title' => $title
+            );
+            DB::insert('saved_user_list', $row);
+            $id = DB::insert_id();
 
-            if(isset($exist_row)) {
-                $sql = "UPDATE saved_user_list SET userlist = " . to_sql(json_encode($selected_members)) . " WHERE event_id = " . to_sql($partyhou_id) . " AND type='partyhou'";
-            } else {
-                $sql = "INSERT INTO saved_user_list (event_id, userlist, type) values(" . to_sql($partyhou_id, 'Text') . ", " . to_sql(json_encode($selected_members), 'Text') .  ", 'partyhou')";
-            }
-
-            dB::execute($sql);
-        }
-
-        if($clear == 'all' || $save =='all') {
-            redirect($current_url);
+            echo json_encode(array("users" => $users, "status" => "success"));
+            exit;
         }
     }
 
@@ -148,9 +100,9 @@ class CUsersResults extends CHtmlList
     {
         global $g;
         $table = "saved_user_list";
+
         $partyhou_id = get_param('partyhou_id', '');
         $gsql = "SELECT * FROM partyhouz_partyhou_guest where partyhou_id = " . to_sql($partyhou_id, 'Text');
-        $partyhou_guests = DB::row($gsql);
 
         $url = $g['path']['url_main'] . "select_partyhou_users.php?partyhou_id=" . $partyhou_id;
         $html->setvar('url_page', $url);

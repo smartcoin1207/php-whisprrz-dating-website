@@ -254,7 +254,6 @@ class CCompose extends CHtmlBlock
                  GROUP BY U.name
                  ORDER BY count_mail DESC LIMIT " . to_sql(Common::getOption('number_friends_show_mail'), 'Number');
 
-
         $friends = DB::rows($sql);
         $i = 0;
 		$num_columns = 3;

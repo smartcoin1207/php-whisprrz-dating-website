@@ -17,71 +17,29 @@ class CUsersResults extends CHtmlList
 
         $hotdate_id = get_param('hotdate_id');
 		
-        $sql = "SELECT  * FROM hotdates_hotdate_guest WHERE hotdate_id = " . to_sql($hotdate_id, 'Text') . "AND user_id = " . to_sql(guid(), 'Text');
-        $my_subscriber = DB::row($sql);
-
         if (!self::isOwner()) {
             $redirect_url = $g['path']['url_main'] . "hotdate_wall.php?hotdate_id=" . $hotdate_id;
             redirect($redirect_url);
         }
 
-        $current_url = $g['path']['url_main'] . "select_hotdate_users.php?hotdate_id=" . $hotdate_id;
         $cmd = get_param('cmd', '');
-        $save = get_param('save', '');
-        $clear = get_param('clear', '');
-        $selected_members = [];
-
-        if ($save == 'all') {
-            $members = ChotdatesTools::getGuestUsers($hotdate_id);
-            $selected_members = [];
-
-            if ($members) {
-                foreach ($members as $key => $value) {
-                    if ($g_user['user_id'] == $value['user_id']) {
-                        continue;
-                    }
-
-                    $selected_members[$value['user_id']] = '1';
-                }
-            }
-        }
-
-        if ($clear == 'all') {
-            $selected_members = [];
-        }
-
-        if ($cmd == 'save') {
-            $users = get_param_array('users', []);
-
-            if ($users) {
-                foreach ($users as $key => $value) {
-                    if ($value == '1') {
-                        $selected_members[$key] = '1';
-                    } else {
-                        if (isset($selected_members[$key])) {
-                            unset($selected_members[$key]);
-                        }
-                    }
-                }
-            }
-        }
-
-        if($cmd == 'save' || $clear == 'all' || $save == 'all') {
-            $table = "saved_user_list";
+        if($cmd == "save_user_list") {
+            $users = get_param_array('users');
+            $title = get_param('title');
             
-            $exist_row = DB::row("SELECT * FROM " . $table . " WHERE event_id = " . to_sql($hotdate_id) . " AND type = 'hotdate'" );
+            $row = array
+            (
+                'user_id' => guid(),
+                'user_ids' => json_encode($users),
+                'event_id' => $hotdate_id,
+                'type' => 'hotdate',
+                'title' => $title
+            );
+            DB::insert('saved_user_list', $row);
+            $id = DB::insert_id();
 
-            if(isset($exist_row)) {
-                $sql = "UPDATE saved_user_list SET userlist = " . to_sql(json_encode($selected_members)) . " WHERE event_id = " . to_sql($hotdate_id) . " AND type='hotdate'";
-            } else {
-                $sql = "INSERT INTO saved_user_list (event_id, userlist, type) values(" . to_sql($hotdate_id, 'Text') . ", " . to_sql(json_encode($selected_members), 'Text') .  ", 'hotdate')";
-            }
-
-            dB::execute($sql);
-        }
-
-        if($clear == 'all' || $save =='all') {
-            redirect($current_url);
+            echo json_encode(array("users" => $users, "status" => "success"));
+            exit;
         }
     }
 

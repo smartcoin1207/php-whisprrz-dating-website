@@ -8,6 +8,7 @@ It can be found at http://www.chameleonsocial.com/license.doc
 This notice may not be removed from the source code. */
 
 include './_include/core/main_start.php';
+include("./_include/current/mail.templates.class.php");
 
 $optionTmplName = Common::getTmplName();
 if ($optionTmplName != 'edge') {
@@ -23,14 +24,13 @@ if (!guid() && !$isAjaxRequest) {
     }
 }
 
-
 global $g_user, $g;
 $hotdate_id = get_param('hotdate_id', '');
 $gsql = "SELECT * FROM hotdates_hotdate where hotdate_id = " . to_sql($hotdate_id, 'Text');
 $hotdate = DB::row($gsql);
 if(!$hotdate) {
     Common::toHomePage();
-} 
+}
 
 
 $sql = "SELECT  * FROM hotdates_hotdate_guest WHERE hotdate_id = " . to_sql($hotdate_id, 'Text') . "AND user_id = " . to_sql(guid(), 'Text');
@@ -53,8 +53,8 @@ class CHotdateMail extends CHtmlBlock
     public function action()
     {
         global $g, $g_user;
+        
         $table = "saved_user_list";
-
         $cmd = get_param('cmd', '');
         if ($cmd == "sent") {
 
@@ -77,7 +77,7 @@ class CHotdateMail extends CHtmlBlock
             $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND type = 'hotdate'";
             $saved_users_list = DB::row($sql);
             if($saved_users_list) {
-                $user_list = $saved_users_list['userlist'];
+                $user_list = $saved_users_list['user_ids'];
                 $selected_members = json_decode($user_list, true);
             } else {
                 $selected_members = [];
@@ -90,8 +90,8 @@ class CHotdateMail extends CHtmlBlock
                 }
 
                 foreach ($selected_members as $key => $value) {
-                    $id = $key;
-                    if($key == $g_user['user_id']) {
+                    $id = $value;
+                    if($value == $g_user['user_id']) {
                         continue;
                     }
                     $block = User::isBlocked('mail', $id, guid());
@@ -201,31 +201,30 @@ class CHotdateMail extends CHtmlBlock
         $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($hotdate_id) . " AND type = 'hotdate'";
         $saved_users_list = DB::row($sql);
         if($saved_users_list) {
-            $user_list = $saved_users_list['userlist'];
+            $user_list = $saved_users_list['user_ids'];
             $selected_members = json_decode($user_list, true);
         } else {
             $selected_members = [];
         }
-
-        $total_member_count = ChotdatesTools::getTotalGuestsCount($hotdate_id);
-
-        $member_count = 0;
-        if ($selected_members) {
-            $member_count = count($selected_members);
-        }
-
-        $message = "Selected " . $member_count . "/" . $total_member_count;
-        $html->setvar('member_count_message', $message);
 
         $hotdate_id = get_param('hotdate_id', '');
 
         $urlpage = $g['path']['url_main'] . "hotdate_mail.php?hotdate_id=" . $hotdate_id;
         $html->setvar('url_page', $urlpage);
 
-        $select_url = $g['path']['url_main'] . "select_hotdate_users.php?hotdate_id=" . $hotdate_id;
-        $html->setvar('url_select_page', $select_url);
+        $saved_user_list = self::getSavedUserList($hotdate_id);
+        $html->setvar('saved_user_list', $saved_user_list);
+
+        $select_hotdate_user_url = $g['path']['url_main'] . "select_hotdate_users.php?hotdate_id=" . $hotdate_id;
+        $html->setvar('select_event_user_url', $select_hotdate_user_url);
 
         parent::parseBlock($html);
+    }
+
+    function getSavedUserList($hotdate_id)
+    {
+        $sql = "SELECT id, title FROM saved_user_list WHERE user_id = " . to_sql(guid(), 'Number') . " AND event_id = " . to_sql($hotdate_id, 'Number') . " AND type = 'hotdate'";
+        return Common::getSavedUserList($sql);
     }
 }
 
@@ -235,5 +234,8 @@ $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
+
+$mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
+$page->add($mail_templates_list);
 
 include './_include/core/main_close.php';

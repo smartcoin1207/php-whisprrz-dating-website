@@ -142,8 +142,6 @@ class CPhoto extends CHtmlBlock
     function parseBlock(&$html)
     {
         $show = get_param('show', 'all');
-
-        global $g;
         global $g_user;
         CBanner::getBlock($html, 'right_column');
         $optionNameTemplate = Common::getOption('name', 'template_options');
@@ -154,7 +152,6 @@ class CPhoto extends CHtmlBlock
         }
         $start = get_param_int('start', get_param_int('offset'));
         $uid = get_param_int('uid');
-        //$show = get_param('show', 'all');
 
         $show = self::getShow();
 
@@ -176,18 +173,6 @@ class CPhoto extends CHtmlBlock
             $customWhere = '`rank` > ' . to_sql(get_param('rank', 0));
         }
 
-        /* Divyesh - 17042024 */
-
-        $custom_folder = User::getInfoBasic($g_user['user_id'], 'custom_folder');
-        if (!empty($custom_folder)) {
-            $html->setvar('folder_name', $custom_folder);
-        }
-        /* Divyesh - 17042024 */
-
-        $this_page = $eu + $limit;
-        $back = $eu - $limit;
-        $next = $eu + $limit;
-
         $guid = $g_user['user_id'];
         $guidSql = to_sql($g_user['user_id']);
         if ($optionNameTemplate == 'edge') {
@@ -200,7 +185,6 @@ class CPhoto extends CHtmlBlock
         }
 
         $nume = 0;
-
 
         if (($show == 'all' || $show == 'online') && !$isCustomList){
 
@@ -227,9 +211,12 @@ class CPhoto extends CHtmlBlock
             $nume = DB::num_rows();
             $html->setvar("num_users", $nume);
             $html->parse("personal_users", true);
-        } elseif ($show == "folder" && !empty($custom_folder)) {
+        } elseif ($show == "folder") {
             $result = DB::query("SELECT * FROM invited_folder WHERE (user_id='" . $g_user['user_id'] . "') AND accepted=1 ORDER BY created_at DESC LIMIT 0,10");
             $nume = DB::num_rows();
+            $folder_offset = get_param('folder', 0);
+            $folder = DB::row("SELECT * FROM custom_folders WHERE id = " . to_sql($folder_offset, 'Number'));
+            $html->setvar('folder_name', $folder['name'] . ' Folder');
             $html->setvar("num_users", $nume);
             $html->parse("folder_users", true); /* Divyesh - 17042024 */
         } elseif ($show == "recently") { //eric-cuigao-nsc-20201207-end
@@ -367,8 +354,6 @@ class CPhoto extends CHtmlBlock
             $profileDisplayType = Common::getOption('list_people_display_type', 'edge_general_settings');
             $numberRow = Common::getOptionInt('list_people_number_row', 'edge_general_settings');
         
-            
-
             $nume = DB::num_rows();
             if ($nume > 0) {
                 $rows = array();
@@ -377,7 +362,6 @@ class CPhoto extends CHtmlBlock
                 }
 
                 foreach ($rows as $key11 => $row) {
-             
                     $haveFriends = true;
                     $friend_id = isset($row['fr_user_id']) ? $row['fr_user_id'] : (($row['user_id'] == $guid) ? $row['friend_id'] : $row['user_id']);
                     $row_user = User::getInfoBasic($friend_id, false, 2);
@@ -515,7 +499,7 @@ class CPhoto extends CHtmlBlock
                     if (is_array($row_user)){
                         CFlipCard::parseFlipCard($html, $row_user);
                         $html->parse("item_block_users", true);
-                    } 
+                    }
                 }
                 $html->parse("block_users", true);
 
@@ -523,12 +507,10 @@ class CPhoto extends CHtmlBlock
                 if ($html->blockExists($block)) {
                     $html->parse($block, false);
                 }
-
             } else {
                 if ($html->blockexists('no_one_here_yet')){
                     $html->parse('no_one_here_yet');
                 }
-
             }
         } else {
             if ($html->blockexists('list_noitems')){
@@ -782,7 +764,7 @@ if (Common::isParseModule('profile_menu')) {
         $friends_menu->active_button = 'pending';
     if($show == 'private') //eric-cuigao-nsc-20201207-start
         $friends_menu->active_button = 'private';
-    if ($show == 'private') // Divyesh - added on 17042024
+    if ($show == 'personal') // Divyesh - added on 17042024
         $friends_menu->active_button = 'personal';
     if ($show == 'folder') // Divyesh - added on 17042024
         $friends_menu->active_button = 'folder';

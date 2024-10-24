@@ -874,13 +874,18 @@ Class Common {
         return $cities;
     }
 
-    static function listMailTemplates($selected = '', $list = false, $isFirstValueEmpty = false)
+    static function listMailTemplates($selected = '', $list = false)
     {
-        global $p;
         $sql = "SELECT id, title FROM mail_templates WHERE user_id = " . to_sql(guid(), 'Number');
         
-        $mail_templates = ($list) ? DB::db_options_ul($sql, $selected, 0, true) : DB::db_options($sql, $selected, 0, true, $isFirstValueEmpty);
+        $mail_templates = ($list) ? DB::db_options_ul($sql, $selected, 0, true) : DB::db_options($sql, '', 0, true, true);
         return $mail_templates;
+    }
+
+    static function getSavedUserList($sql, $selected = '', $list = false)
+    {
+        $saved_user_list = ($list) ? DB::db_options_ul($sql, $selected, 0, true) : DB::db_options($sql, '', 0, true, true);
+        return $saved_user_list;
     }
 
     static function setSiteOptions()

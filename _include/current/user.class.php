@@ -69,7 +69,7 @@ class User
                 $goldDays = $g_user['gold_days'];
                 $orientation = $g_user['orientation'];
             } else {
-                if ($g_user['user_id']) {
+                if (isset($g_user['user_id']) && $g_user['user_id']) {
                     $user = User::getInfoBasic($g_user['user_id']);
                     $goldDays = $user['gold_days'];
                     $orientation = $user['orientation'];
@@ -833,7 +833,7 @@ class User
                 $user[] = $values;
             }
             $user[3]['checkbox'] = self::getInfoCheckboxAll($uid, $dbIndex, false);
-            $info = array_merge($user[0], $user[1], $user[2], $user[3]);
+            $info = array_merge($user[0] ?? array(), $user[1], $user[2], $user[3]);
             $cache[$uid] = $info;
         }
 
@@ -5502,8 +5502,10 @@ class User
             /* Fix set photo default public */
         } elseif ($access == 'personal') {
             CProfilePhoto::setPhotoPersonal($pid);
-        } elseif ($access == 'folder') {
-            CProfilePhoto::setPhotoCustomFolder($pid);
+        } elseif (strpos($access, 'folder_') === 0) {
+            $access_parts = explode('folder_', $access, 2);
+            $folder_id = $access_parts[1];
+            CProfilePhoto::setPhotoCustomFolder($pid, true, $folder_id);
             /* Divyesh - Added on 11-04-2024 */
         } elseif ($uid) {
             if (
@@ -8210,10 +8212,14 @@ class User
         Wall::add('comment', 0, $g_user['nsc_couple_user_id'], 'joined the website');
     }
     /* Divyesh - Added on 11-04-2024 */
-    static function checkPhotoTabAccess($table, $user_id)
+    static function checkPhotoTabAccess($table, $user_id, $offset=0)
     {
         global $g_user;
         $psqlCount = 'SELECT COUNT(user_id) FROM ' . $table . ' where friend_id = ' . $g_user['user_id'] . ' and user_id = ' . $user_id . ' and activity=3';
+        if($table == 'invited_folder') {
+            $psqlCount = 'SELECT COUNT(user_id) FROM ' . $table . ' where friend_id = ' . $g_user['user_id'] . ' and user_id = ' . $user_id . ' and activity=3 and folder_id=' . to_sql($offset, 'Number');
+        }
+        
         $total = DB::result($psqlCount);
         if ($total > 0) {
             return true;

@@ -73,9 +73,15 @@
                         <div style="display: flex; align-items: center;"><input type="radio" id="public_{photo_id}" class="radio" name="do[{photo_id}]" value="public" {public_check}> <label for="public_{photo_id}" style="margin: 0 0 -1px 5px;">{l_public}</label></div> &nbsp;&nbsp;
                         <div style="display: flex; align-items: center;"><input type="radio" id="private_{photo_id}" class="radio" name="do[{photo_id}]" value="private" {private_check}> <label for="private_{photo_id}" style="margin: 0 0 -1px 5px;">{l_make_private}</label></div> &nbsp;&nbsp;
                         <div style="display: flex; align-items: center;"><input type="radio" id="personal_{photo_id}" class="radio" name="do[{photo_id}]" value="personal" {personal_check}> <label for="personal_{photo_id}" style="margin: 0 0 -1px 5px;">{l_make_personal}</label></div> &nbsp;&nbsp;
-                        <!-- begin_show_folder_access -->
-                        <div style="display: flex; align-items: center;"><input type="radio" id="{folder_access}_{photo_id}" class="radio" name="do[{photo_id}]" value="folder" {folder_check}> <label for="{folder_access}_{photo_id}" style="margin: 0 0 -1px 5px;">{folder_access}</label></div> &nbsp;&nbsp;
-                        <!-- end_show_folder_access -->
+                        <!-- begin_folders_move -->
+                            <!-- begin_folder_item -->
+                            <div style="display: flex; align-items: center;">
+                                <input type="radio" id="{folder_id}_{photo_id}" class="radio" name="do[{photo_id}]" value="folder_{folder_id}" {folder_check}>
+                                <label for="{folder_id}_{photo_id}" style="margin: 0 0 -1px 5px;">{folder_name}</label>
+                            </div>
+                            &nbsp;&nbsp;
+                            <!-- end_folder_item -->
+                        <!-- end_folders_move -->
                         <div style="display: flex; align-items: center;"><input type="radio" id="delete_{photo_id}" class="radio" name="do[{photo_id}]" value="del"> <label for="delete_{photo_id}" style="margin: 0 0 -1px 5px;">{l_delete}</label></div>
                     </div>
                     <!-- Divyesh - 17042024 -->
@@ -253,13 +259,10 @@
                             isAll: true
                         },
                         success: function (response) {
-
                             elements.forEach(function (element) {
                                 element.remove();
                             });
                             redirectUrl('{url_main}{redirect_url}');
-
-
                         },
                         error: function (xhr, status, error) {
                             console.log('AJAX request failed');
@@ -379,7 +382,6 @@
 
         <!-- end_moderator_section -->
 
-
         <!-- end_sections -->
         <!--begin_profiles-->
         <style>
@@ -424,7 +426,6 @@
             }
         </style>
 
-
         <!-- begin_group_list_pages -->
         <div>{num_total} {l_count_users}</div>
         <div style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
@@ -449,8 +450,6 @@
             <!-- begin_group_list_next_page_off --> | <b>{l_next}</b><!-- end_group_list_next_page_off -->
         </div>
         <!-- end_group_list_pages -->
-
-
 
         <!-- begin_group_list_items -->
         <table cellpadding="0" cellspacing="0" border="0" class="light table-moderator" width="100%">

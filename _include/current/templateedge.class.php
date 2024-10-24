@@ -2699,39 +2699,57 @@ Class TemplateEdge {
             }
             $html->setvar('editor_hide_class', $editorHideClass);
 
+            /** Popcorn - added 2024-10-14 */
+            $sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql($guid, 'Number') . " AND id != " . to_sql($row['custom_folder_id'], 'Number');
+            $folders = DB::rows($sql);
+
             if(!self::isEHP()) {
                 if ($uidParam && $uidParam == $guid && $row['user_id'] == $guid) {
                     if (Common::isOptionActive('gallery_show_download_original', 'edge_gallery_settings')) {
                         $html->parse("{$blockItemType}_link_download", false);
                     }
+                    $html->setvar('photo_id', $row['photo_id']);
 
+                    //private code start
                     if($row['private'] == 'N') {
                         $html->setvar("photo_private_title", l('make_private'));
-                        $html->setvar("make_private_url", '?cmd=make_private');
+                        $html->setvar("cmd", 'make_private');
                     } else {
                         $html->setvar("photo_private_title", l('remove_private'));
-                        $html->setvar("make_private_url", '?cmd=remove_private');
+                        $html->setvar("cmd", 'remove_private');
                     }
+                    $html->parse("{$blockItemType}_link_make_private", false);
+                    //private code end
 
+                    //personal code start
                     if($row['personal'] == 'N') {
                         $html->setvar("photo_personal_title", l('make_personal'));
-                        $html->setvar("make_personal_url", '?cmd=make_personal');
+                        $html->setvar("cmd", 'make_personal');
                     } else {
                         $html->setvar("photo_personal_title", l('remove_personal'));
-                        $html->setvar("make_personal_url", '?cmd=remove_personal');
+                        $html->setvar("cmd", 'remove_personal');
                     }
-
-                    if($row['folder'] == 'N') {
-                        $html->setvar("photo_folder_title", l('move_to_custom_folder'));
-                        $html->setvar("make_folder_url", '?cmd=make_folder');
-                    } else {
-                        $html->setvar("photo_folder_title", l('remove_from_custom_folder'));
-                        $html->setvar("make_folder_url", '?cmd=remove_folder');
-                    }
-
-                    $html->parse("{$blockItemType}_link_make_private", false);
                     $html->parse("{$blockItemType}_link_make_personal", false);
+                    //personal code end
+
+                    //folder code start
+                    if($row['folder'] !== 'N') {
+                        $html->setvar("photo_folder_title", l('remove_custom_folder'));
+                        $html->setvar('cmd', 'remove_custom_folder');
+                        $html->parse("{$blockItemType}_link_remove_customfolder", false);
+                    }
+
+                    $html->setvar("photo_folder_title", l('move_to_custom_folder'));
+                    foreach ($folders as $key => $folder) {
+                        $html->setvar('cmd', 'move_to_custom_folder');
+                        $html->setvar('folder_name', $folder['name']);
+                        $html->setvar('folder_id', $folder['id']);
+                        $html->parse('folder_submenu_item', true);
+                    }
+
                     $html->parse("{$blockItemType}_link_make_customfolder", false);
+                    $html->clean('folder_submenu_item');
+                    //folder code end
 
                     $keyDefault = $row['group_id'] ? 'default_group' : 'default';
                     $html->subcond($row[$keyDefault] == 'Y', "{$blockItemType}_profile_pic");

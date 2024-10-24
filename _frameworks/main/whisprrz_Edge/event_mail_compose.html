@@ -8,7 +8,6 @@
 	.bbbr{background: url(../img/bbr.gif) no-repeat 100% 100%; padding: 15px 20px;}
 	#profile{float: left;  background: #FAFAFA; color: #000; margin-bottom: 5px;}
 
-
     .userlist-column {
       width: 100%;
       display: grid;
@@ -62,8 +61,17 @@
   }
   function submitAddContactForm() {
     if (validateAddContactForm()) 
-       isPost = true; 
-       document.AddContactForm.submit();
+      isPost = true; 
+      var subject = document.AddContactForm.subject.value;
+      var text = document.AddContactForm.text.value;
+
+      saveTemplate(subject, text).then((response) => {
+      if (response) {
+              document.AddContactForm.submit();
+          } else {
+              console.log('Template not saved, form not submitted.');
+          }
+      });
     }
 
 function setname(name)
@@ -143,30 +151,50 @@ window.onbeforeunload = function (evt) {
         return message;
     } 
 }
-
 </script>
 
 <table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
-        <tr>
-            <td style=" margin-bottom: 5px;">
-                <h3 style="border: 0; margin-bottom: 0;">{l_title_current}</h3>
-            </td>
-            <td>
-            </td>
-        </tr>
-    </table>
+    <tr>
+        <td style=" margin-bottom: 5px;">
+            <h3 style="border: 0; margin-bottom: 0;">{l_title_current}</h3>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
 
-<form class="" name="AddContactForm" method="POST" action="{url_page}" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
+<form class="" name="AddContactForm" method="POST" action="{url_page}?cmd=sent" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
 	<input type="hidden" name="page_from" value="{page_from}">
 	<input type="hidden" name="cmd" value="sent">
-
 
 	<table cellpadding="0" cellspacing="0" border="0" class="mail_compose">
 	    <col width="100px" />
 		<tr>
 			<td class="body_text" align="right"></td>
-			<td><b style="margin: 0, 10px;">{member_count_message}</b> <input class="btn blue" type="button" name="select_users" onclick="location='{url_select_page}';"  value="{l_select_users}"  tabindex="2" required></td>
-		</tr>
+			<td>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="field" style="width: 50%; margin: 0 5px 0 0; ">
+              <div class="text-left body_text" style="display: flex; justify-content: space-between;">
+                <b>{l_saved_user_list}</b>
+                <a href="{select_event_user_url}" class="body_text select_user_label_text" >{l_select_event_users}</a>
+              </div>
+              <select id="saved_user_list" name="saved_user_list" class="inp selectpicker show-tick" data-live-search="true">
+                  {saved_user_list}
+              </select>
+          </div>
+          <div style="width: 50%; margin: 0 0 0 5px;">
+            {mail_templates_list}
+          </div>
+        </div>
+        
+      </td>
+    </tr>
+    <!-- <tr>
+        <td></td>
+        <td>
+            {mail_templates_list}
+        </td>
+    </tr> -->
 		<tr>
 			<td class="body_text" align="right"><b>{l_subject}:</b></td>
 			<td><input class="inp" type="text" name="subject" style="width:100%" value="{subject}"  tabindex="2" required></td>
@@ -189,13 +217,13 @@ window.onbeforeunload = function (evt) {
 		</tr>
 	</table>
 	<script type="text/javascript">
-	    
-		
+	    const selectElement = document.getElementById('mail_templates');
+      selectElement.addEventListener('change', function (event) {
+          const selectedValue = event.target.value;
+          handleSelectChange(selectedValue, 'AddContactForm', 'subject', 'text');
+      });
 	</script>
 </form>
-
-
 </div>
-
 {footer}
 

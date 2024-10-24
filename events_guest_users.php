@@ -181,6 +181,4 @@ $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
 
-
-
 include('./_include/core/main_close.php');

@@ -11596,7 +11596,7 @@ button.ls_send:hover{
 
 .item_settings{
   position: absolute;
-  z-index: 3;
+  /* z-index: 3; */
   top: 11px;
   right: 11px;
 }
@@ -11633,7 +11633,7 @@ button.ls_send:hover{
 
 .item_editor_image{
   position: absolute;
-  z-index: 3;
+  /* z-index: 3; */
   top: 46px;
   right: 11px;
 }
@@ -11652,9 +11652,9 @@ button.ls_send:hover{
 .item_editor_image .icon_editor_image svg{
   fill: #fff;
   opacity: .7;
-  width: 76%;
+  /* width: 76%; */
   vertical-align: middle;
-  margin-top: -2px;
+  /* margin-top: -2px; */
   transition: opacity .5s ease;
 }
 
@@ -16277,7 +16277,7 @@ button.ls_send:hover{
 
 .module_filter_result{
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
   -webkit-transition: height 0.4s;
   transition: height 0.4s;
   clear: both;
@@ -21524,4 +21524,59 @@ body.drag_cover *{
 
 .ui-menu-item:nth-child(even) {
   background-color: #ffffff;  /* Lighter background for even items */
+}
+
+/* Popcorn - added 2024-10-14 */
+.has-submenu {
+  position: relative;
+}
+
+.has-submenu:hover .submenu {
+  display: block;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: 16rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1; /* Higher z-index to ensure visibility */
+}
+
+@media (max-width: 768px) {
+  .submenu {
+      right: auto; /* Adjust positioning for smaller screens */
+      left: 0; /* Display the submenu below the parent */
+      top: 100%;
+  }
+}
+
+.submenu li a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  white-space: nowrap;
+  padding: 8px 12px;
+  height: auto;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submenu li a:hover {
+  background-color: #f5f5f5;
+}
+
+.more_menu_collapse {
+  overflow: visible; /* Allow the submenu to overflow the parent container */
 }

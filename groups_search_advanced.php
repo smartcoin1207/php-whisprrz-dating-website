@@ -41,18 +41,19 @@ class CGroups extends CHtmlBlock
         );
         $html->assign('page_link_groups', $linkVars);
 
+        $vars = array(
+                'page_title'  => l('page_title'),
+        );
+    
+        $html->assign('', $vars);
+
         $html->setvar('groups_add_url', Common::pageUrl('group_add'));
         $html->parse('page_link_groups_add', false);
         $html->parse('edge_groups', false);
         $html->parse('page_link_my_groups', false);
-
         $html->setvar('page_link_groups_search_title', l('search'));
-
-
         $html->parse('page_link_delimiter', false);
-        
-       
-
+    
         //Location for Search Groups
         $country = $g_user['country_id'];
         $state   = $g_user['state_id'];
@@ -61,7 +62,6 @@ class CGroups extends CHtmlBlock
         $html->setvar('country_options', Common::listCountries($country));
         $html->setvar('state_options', Common::listStates($country, $state));
         $html->setvar('city_options', Common::listCities($state, $city));
-
         $html->parse('location', false);
 
         //Category for Search Groups
@@ -139,9 +139,6 @@ class CGroups extends CHtmlBlock
         $popular_days = 2;
         $popular_num = 10;
         $sql_popular = "SELECT DISTINCT g.* FROM groups_social as g LEFT JOIN groups_social_subscribers as gs ON g.group_id=gs.group_id WHERE gs.created_at >= " . to_sql(date('Y-m-d H:00:00', time() - intval($popular_days) * 3600 * 24)) . " AND g.page='0'" . " LIMIT  " . $popular_num;
-        
-
-
         $popular_groups = DB::rows($sql_popular);
         
         if(1==1 || $popular_groups) {

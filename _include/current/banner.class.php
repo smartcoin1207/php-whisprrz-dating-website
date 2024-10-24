@@ -438,7 +438,7 @@ class CBanner extends CHtmlBlock
 
                         $from_add = "";
                         if (isset($distance['value'])) {
-                            $whereLocation = inradius($g_user['city_id'], $distance['value']);
+                            $whereLocation = inradius(isset($g_user['city_id']) ? $g_user['city_id'] : '', $distance['value']);
                             $from_add .= " LEFT JOIN geo_city AS gc ON gc.city_id = e.city_id";
                         }
 

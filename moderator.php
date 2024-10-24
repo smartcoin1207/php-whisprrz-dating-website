@@ -58,7 +58,6 @@ class CHon extends CHtmlBlock
                 redirect($p . '?section=' . $cmd);
             }
         } else if ($cmd == "users_reports") {
-            // var_dump("die"); die()
             $action = get_param('action');
             if ($action == "delete_report") {
                 $reportsId = get_param('id');
@@ -144,14 +143,13 @@ class CHon extends CHtmlBlock
                 $data_texts[$row[0]] = get_param_array($row[0]);
             }
         }
-        #print_r($data_texts);
+
+
         foreach ($do as $k => $v) {
             $k = ((int) $k);
 
             if ($v == "del") {
-
                 if ($cmd == 'texts') {
-
                     Moderator::setNotificationTypeText();
                     $sql = 'SELECT user_id FROM texts WHERE id = ' . to_sql($k);
                     $row = DB::row($sql);
@@ -177,7 +175,6 @@ class CHon extends CHtmlBlock
                 }
 
                 if ($cmd == 'photo') {
-
                     Moderator::setNotificationTypePhoto();
 
                     $sql = 'SELECT * FROM photo WHERE photo_id = ' . $k;
@@ -303,7 +300,6 @@ class CHon extends CHtmlBlock
 
 class Cgroups extends CHtmlList
 {
-
     var $dir = 'groups';
 
     function init()
@@ -538,6 +534,7 @@ class Cgroups extends CHtmlList
     {
         global $g;
         global $g_user; /* Added by Divyesh - 13-10-2023 */
+        global $guid;
 
         $tmplName = Common::getTmplName();
         $cmd = get_param('section', Moderator::checkAccess());
@@ -631,10 +628,6 @@ class Cgroups extends CHtmlList
             $num = DB::num_rows(2);
             while ($row = DB::fetch_row(2)) {
                 $row['user_name'] = User::getInfoBasic($row['user_id'], 'name');
-                $custom_folder = User::getInfoBasic($row['user_id'], 'custom_folder');
-                if (!empty($custom_folder)) {
-                    $html->setvar('custom_folder', $custom_folder);
-                }
                 $row['user_profile_link'] = User::url($row['user_id']);
                 foreach ($row as $k => $v) {
                     $html->setvar($k, $v);
@@ -644,37 +637,44 @@ class Cgroups extends CHtmlList
                     if ($row['private'] == 'Y') {
                         $html->setvar('status', l('Private'));
                         $html->setvar('private_check', 'checked="checked"');
-                        $html->setvar("personal_check", '');
-                        $html->setvar("folder_check", '');
-                        $html->setvar("public_check", '');
                     } else if ($row['personal'] == 'Y') {
                         $html->setvar('status', l('personal'));
                         $html->setvar('personal_check', 'checked="checked"');
-                        $html->setvar("private_check", '');
-                        $html->setvar("folder_check", '');
-                        $html->setvar("public_check", '');
-                    } else if ($row['in_custom_folder'] == 'Y' && !empty($custom_folder)) {
-                        $html->setvar('status', $custom_folder);
-                        $html->setvar('folder_check', 'checked="checked"');
-                        $html->setvar("private_check", '');
-                        $html->setvar("personal_check", '');
-                        $html->setvar("public_check", '');
+                    } else if ($row['in_custom_folder'] == 'Y' && !empty($row['custom_folder_id'])) {
                     } else {
                         $html->setvar('status', l('Public'));
                         $html->setvar('public_check', 'checked="checked"');
-                        $html->setvar("private_check", '');
-                        $html->setvar("personal_check", '');
-                        $html->setvar("folder_check", '');
                     }
                     //$html->parse('photo_status', false);
 
-                    /* Divyesh - 17042024 */
-                    if (!empty($custom_folder)) {
-                        $html->setvar("folder_access", l('move_to') . " " . $custom_folder);
-                        $html->parse("show_folder_access", false);
-                    } else {
-                        $html->setblockvar("show_folder_access", '');
+                    $sql = "SELECT * FROM custom_folders WHERE user_id=" . to_sql($guid, 'Number');
+                    $folders = DB::rows($sql);
+
+                    foreach ($folders as $key => $folder) {
+                        $folder_name = $folder['name'];
+                        $folder_id = $folder['id'];
+                        if($folder_id == $row['custom_folder_id']) {
+                            $folder_check = 'checked=checked';
+                        } else {
+                            $folder_check = '';
+                        }
+
+                        $html->setvar('folder_name', l('move_to') . ' ' . $folder['name']);
+                        $html->setvar('folder_id', $folder['id']);
+                        $html->setvar('folder_check', $folder_check);
+                        $html->parse('folder_item', true);
                     }
+
+                    $html->parse('folders_move', false);
+                    $html->clean('folder_item');
+
+                    /* Divyesh - 17042024 */
+                    // if (!empty($custom_folder)) {
+                    //     $html->setvar("folder_access", l('move_to') . " " . $custom_folder);
+                    //     $html->parse("show_folder_access", false);
+                    // } else {
+                    //     $html->setblockvar("show_folder_access", '');
+                    // }
                     /* Divyesh - 17042024 */
 
                     //$html->parse('photo_access', false);

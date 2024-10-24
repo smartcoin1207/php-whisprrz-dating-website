@@ -631,6 +631,8 @@ if ($cmd == 'login') {
         $tmpls = getPageCustomTemplate('_photo_gallery_items.html', 'pp_gallery_template');
             $responsePage = new CProfilePhoto('', $tmpls);
     }
+} elseif (in_array($cmd, ['make_private', 'remove_private', 'make_personal', 'remove_personal', 'move_to_custom_folder', 'remove_custom_folder'])) {
+    $responseData = CProfilePhoto::changeAccessPhoto();
 }
 
 /** popcorn added 2024-05-29 start */

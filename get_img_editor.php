@@ -162,22 +162,10 @@ if ($filename && custom_file_exists($filename)) {
         $imageSideSize = 2000;
 
         if($im->getHeight() > $imageSideSize || $im->getWidth() > $imageSideSize) {
-        //        $imageSizes = array();
-        //        $imageSizeSubTypes = array('x', 'y');
-        //        foreach(CProfilePhoto::$sizesBasePhoto as $imageSizeType) {
-        //            foreach($imageSizeSubTypes as $imageSizeSubType) {
-        //                $imageSizes[] = intval(trim(Common::getOption($imageSizeType . '_' . $imageSizeSubType, 'image')));
-        //            }
-        //        }
-        //
-        //        $maxImageSize = max($imageSizes);
-        //        $imageSideSize = min(2000, $maxImageSize);
-
             $im->resizeWH($imageSideSize, $imageSideSize, false, '', 0, '', '', false);
             imageJpeg($im->$image, null, $g['image']['quality']);
             $im->clearImage();
         } else {
-            //header('Content-Length: ' . filesize($filename));
             readfile($filename);
         }
 

@@ -1771,7 +1771,7 @@ $l['all']['remove_from_private'] = "Remove From Private";
 $l['all']['make_profile_picture'] = "Make profile picture";
 $l['all']['make_public'] = "Make public";
 $l['all']['move_to_custom_folder'] = "Move to custom folder";
-$l['all']['remove_from_custom_folder'] = "Remove from custom folder";
+$l['all']['remove_custom_folder'] = "Remove from custom folder";
 $l['all']['make_this_my_video_greeting'] = "Make this my video greeting";
 $l['all']['malay'] = "Bahasa Melayu";
 $l['all']['male'] = " Male";
@@ -5267,6 +5267,8 @@ $l['groups_search_advanced.php']['filter'] = "Search Filter";
 $l['groups_search_advanced.php']['all'] = "All";
 $l['groups_search_advanced.php']['search_results'] = "Search Results";
 $l['groups_search_advanced.php']['group_search_empty'] = "Group Search Empty";
+$l['groups_search_advanced.php']['page_title'] = "Group Search";
+
 
 $l['select_group_users.php']['title_current'] = "Select Members For Group Mail";
 $l['select_group_users.php']['save_all'] = "Add All Members To My list";
@@ -6312,5 +6314,9 @@ $l['all']['show_templates'] = 'Show Templates';
 
 $l['all']['saved_user_list'] = 'Saved User List'; 
 $l['all']['select_group_users'] = 'Select Users'; 
+$l['all']['select_event_users'] = 'Select Users'; 
+$l['all']['select_hotdate_users'] = 'Select Users'; 
+$l['all']['select_partyhou_users'] = 'Select Users'; 
 
+$l['all']['folder_invite'] = "Invite";
 ?>

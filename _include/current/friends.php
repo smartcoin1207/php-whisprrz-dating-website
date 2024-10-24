@@ -40,11 +40,23 @@ class CFriendsMenu extends CHtmlBlock
 		$html->setvar("button_" . $this->active_button . "_active", "_active");
 		$html->setvar("button_oryx_" . $this->active_button . "_active", "active_btn");
 
-        $custom_folder = User::getInfoBasic($g_user['user_id'], 'custom_folder');
-        if (!empty($custom_folder)){
-            $html->setvar('folder_name', $custom_folder);
-            $html->parse('folder_invite', false);
+        $sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql(guid(), 'Number');
+        $folders = DB::rows($sql);
+        $folder_offset = get_param('folder', '');
+        foreach ($folders as $key => $folder) {
+            $html->setvar('folder_name', $folder['name']);
+            $html->setvar('folder_id', $folder['id']);
+            if($folder_offset == $folder['id']) {
+                $html->setvar('folder_active', 'active_btn');
+            } else {
+                $html->setvar('folder_active', '');
+            }
+            $html->parse('folder_item', true);
         }
+
+        $html->parse('folder_invite', false);
+        $html->clean('folder_item');
+        $html->clean('folder_active');
 
 		$n_friend_requests = DB::result("SELECT COUNT(user_id) FROM friends_requests WHERE friend_id = " . $g_user["user_id"] . " AND accepted=0");
 		$html->setvar("n_friend_requests", $n_friend_requests);

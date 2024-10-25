@@ -317,6 +317,7 @@ $l['all']['october'] = "October";
 $l['all']['november'] = "November";
 $l['all']['december'] = "December";
 $l['all']['menu_categories_add'] = "Add Category";
+$l['all']['menu_open_partyhouz'] = "Open PartyhouZ";
 $l['all']['menu_smtp'] = "Smtp";
 $l['all']['error_upload_file_1'] = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
 $l['all']['error_upload_file_2'] = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
@@ -3110,6 +3111,28 @@ $l['partyhouz_partyhouz.php']['partyhou_title'] = "Title";
 $l['partyhouz_partyhouz.php']['partyhou_id'] = "Id";
 $l['partyhouz_partyhouz.php']['partyhou_datetime'] = "PartyHouZ date";
 $l['partyhouz_partyhouz.php']['partyhou_has_images'] = "Has images";
+
+$l['partyhouz_open.php']['title_current'] = "Open PartyHouZ";
+$l['partyhouz_open.php']['open_partyhouz_id'] = "ID";
+$l['partyhouz_open.php']['category_title'] = "Category Title";
+$l['partyhouz_open.php']['room_max'] = "Room Max Count";
+$l['partyhouz_open.php']['allowed_gender'] = "Allowed Gender";
+$l['partyhouz_open.php']['user_max'] = "User Max Size";
+$l['partyhouz_open.php']['resets'] = "Resets Duration";
+$l['partyhouz_open.php']['are_you_sure_category'] = "Are you sure? All PartyHouZ in this category will be deleted.";
+
+$l['partyhouz_open_edit.php']['title_current'] = "Edit Open PartyHouZ";
+$l['partyhouz_open_edit.php']['category_title'] = "Title";
+$l['partyhouz_open_edit.php']['partyhouzs'] = "PartyHouZ Titles";
+$l['partyhouz_open_edit.php']['room_max'] = "Room Max Count";
+$l['partyhouz_open_edit.php']['allowed_gender'] = "Allowed Gender";
+$l['partyhouz_open_edit.php']['user_max'] = "User Max Size";
+$l['partyhouz_open_edit.php']['resets'] = "Resets Duration";
+$l['partyhouz_open_edit.php']['partyhou_ids'] = "Open PartyHouZ";
+$l['partyhouz_open_edit.php']['please_specify_room_max'] = "Please specify Room Max Count";
+$l['partyhouz_open_edit.php']['please_specify_allowed_gender'] = "Please specify Allowed Gender";
+$l['partyhouz_open_edit.php']['please_specify_user_max'] = "Please specify User Max Size";
+$l['partyhouz_open_edit.php']['please_specify_resets'] = "Please specify Resets Duration";
 
 $l['partyhouz_partyhou_edit.php']['title_current'] = "Edit PartyHouZ";
 $l['partyhouz_partyhou_edit.php']['this_action'] = "This action can not be undone. Are you sure you wish to continue?";

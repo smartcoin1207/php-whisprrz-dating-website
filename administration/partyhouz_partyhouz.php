@@ -29,7 +29,7 @@ class CPlaces extends CHtmlList
 			FROM partyhouz_partyhou AS m 
 			" . $this->m_sql_from_add . "
 		";
-
+		
 		$this->m_field['partyhou_id'] = array("partyhou_id", null);
 		$this->m_field['user_id'] = array("user_id", null);
 		$this->m_field['category_id'] = array("category_id", null);
@@ -39,10 +39,11 @@ class CPlaces extends CHtmlList
         $this->m_field['partyhou_n_guests'] = array("partyhou_n_guests", null);
 		$this->m_field['created_at'] = array("created_at", null);
 
-		$where = "";
+		//modified open partyhouz senior-dev-1019
+		$where = " is_open_partyhouz = 0 "; // added to check the open partyhouz by senior-dev-1019
 		#$this->m_debug = "Y";
 
-		$this->m_sql_where = "1" . $where;
+		$this->m_sql_where = $where; // changed to check the open partyhouz by senior-dev-1019
 		$this->m_sql_order = "partyhou_id";
 		$this->m_sql_from_add = "";
 	}

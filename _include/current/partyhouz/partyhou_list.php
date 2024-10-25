@@ -71,6 +71,9 @@ class CpartyhouzpartyhouList extends CHtmlBlock
             case "upcoming":
                 $sql_base = CpartyhouzTools::partyhouz_upcoming_sql_base();
                 break;
+            case "openparty":
+                $sql_base = CpartyhouzTools::partyhouz_open_party_sql_base(" e.is_open_partyhouz = 1 ");
+                break;
             case "random":
                 $sql_base = CpartyhouzTools::partyhouz_random_partyhouz_sql_base($upcoming);
                 break;
@@ -106,6 +109,15 @@ class CpartyhouzpartyhouList extends CHtmlBlock
         		$sql_base = CpartyhouzTools::partyhouz_recent_sql_base();
         		break;
         }
+
+        // Start Open_PartyhouZ senior-dev-1019 2024-10-21
+        
+        if($list_type !== "openparty")
+        {
+            $sql_base['query'] = str_replace("WHERE", " WHERE e.is_open_partyhouz = 0 AND", $sql_base['query']);
+        }
+        // End Open_PartyhouZ senior-dev-1019 2024-10-21
+        // var_dump($sql_base['query']);exit;
 
         $n_results = CpartyhouzTools::count_from_sql_base($sql_base);
 

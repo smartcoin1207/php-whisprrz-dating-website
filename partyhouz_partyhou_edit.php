@@ -119,6 +119,7 @@ class Cpartyhouz extends CHtmlBlock
                 $signin_transgender  = get_param('signin_transgender', '') == '1' ? 1 : 0;
                 $signin_nonbinary  = get_param('signin_nonbinary', '') == '1' ? 1 : 0;
                 $signin_everyone  = get_param('signin_everyone', '') == '1' ? 1 : 0;
+                $is_open_partyhouz = get_param('is_open_partyhouz', '') == '1' ? 1 : 0;
 
                 $invited_users = get_param("invited_users");
 
@@ -163,6 +164,7 @@ class Cpartyhouz extends CHtmlBlock
                         ", signin_transgender=".to_sql($signin_transgender).
                         ", signin_nonbinary=".to_sql($signin_nonbinary).
                         ", signin_everyone=".to_sql($signin_everyone).
+                        ", is_open_partyhouz=".to_sql($is_open_partyhouz).
                         ", saved_name=" . to_sql($saved_name) .
                         ", is_saved=" . to_sql($is_saved) .
                         ", invited_user_ids=" . to_sql($invited_users) .
@@ -211,6 +213,7 @@ class Cpartyhouz extends CHtmlBlock
                         ", signin_transgender=".to_sql($signin_transgender).
                         ", signin_nonbinary=".to_sql($signin_nonbinary).
                         ", signin_everyone=".to_sql($signin_everyone).
+                        ", is_open_partyhouz=".to_sql($is_open_partyhouz).
                         ", saved_name=" . to_sql($saved_name) .
                         ", is_saved=" . to_sql($is_saved) .
                         ", invited_user_ids=" . to_sql($invited_users) .

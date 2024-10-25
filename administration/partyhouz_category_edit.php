@@ -33,6 +33,10 @@ class CForm extends CHtmlBlock
 					' WHERE category_id=' . $category_id);
 					redirect("partyhouz_categories.php");
 	        }
+			// Start Open_PartyhouZ senior-dev-1019 2024-10-18
+			// insert creating open_partyhouz code
+			// but before creating please check that the open party is existing for this category
+			
 		redirect("partyhouz_categories.php");
 		}
 	}

@@ -1481,6 +1481,7 @@ $l['all']['hotdates_site'] = "Website";
 $l['all']['hotdates_upcoming_hotdates'] = "( Upcoming  HotDates )";
 $l['all']['hotdates_upcoming_hotdates_calendar'] = "Upcoming Hotdates";
 $l['all']['partyhouz_upcoming_partyhou_calendar'] = "Upcoming PartyHouZ";
+$l['all']['partyhouz_open_title'] = "Open PartyHouZ";
 $l['all']['hotdates_when'] = "When";
 $l['all']['hotdates_where'] = "Where";
 $l['all']['hotdates_will_you_come'] = "Are you interested?";
@@ -2459,6 +2460,7 @@ $l['all']['partyhouz_save'] = "Save";
 $l['all']['partyhouz_search'] = "Search";
 $l['all']['partyhouz_site'] = "Website";
 $l['all']['partyhouz_upcoming_partyhouz'] = "( Upcoming  Parties )";
+$l['all']['partyhouz_open_partyhouz'] = "( Open  Parties )";
 $l['all']['partyhouz_when'] = "Party Host<br> & Time";
 $l['all']['partyhouz_where'] = "Where";
 $l['all']['partyhouz_will_you_come'] = "Are you interested?";
@@ -6314,9 +6316,5 @@ $l['all']['show_templates'] = 'Show Templates';
 
 $l['all']['saved_user_list'] = 'Saved User List'; 
 $l['all']['select_group_users'] = 'Select Users'; 
-$l['all']['select_event_users'] = 'Select Users'; 
-$l['all']['select_hotdate_users'] = 'Select Users'; 
-$l['all']['select_partyhou_users'] = 'Select Users'; 
 
-$l['all']['folder_invite'] = "Invite";
 ?>

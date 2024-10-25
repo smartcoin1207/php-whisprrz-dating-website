@@ -322,6 +322,17 @@ class CpartyhouzTools
         return array('query' => $sql, 'columns' => 'e.*, u.name');
     }
 
+    static function partyhouz_open_party_sql_base($where="")
+    {
+        $order_by_from_settings = self::order_by_from_settings();
+        $is_approved = self::is_approved_sql();
+
+        $sql = "partyhouz_partyhou as e LEFT JOIN user u ON u.user_id = e.user_id WHERE $where " .
+            "  ORDER BY e.partyhou_datetime ASC " . ($order_by_from_settings ? (", " . $order_by_from_settings . "") : '');
+            
+        return array('query' => $sql, 'columns' => 'e.*, u.name');
+    }
+
     static function partyhouz_upcoming_main_page_sql_base($where="")
     {
         $order_by_from_settings = self::order_by_from_settings();
@@ -984,8 +995,8 @@ class CpartyhouzTools
     static function delete_partyhou_guest($partyhou_id, $partyhou_need_update = true)
     {
         global $g_user;
-
-        DB::execute("DELETE FROM partyhouz_partyhou_guest WHERE partyhou_id=".to_sql($partyhou_id, 'Nubmer')." AND user_id=".$g_user['user_id']);
+        $user_id = isset($g_user['user_id']) ? $g_user['user_id']: 0;
+        DB::execute("DELETE FROM partyhouz_partyhou_guest WHERE partyhou_id=".to_sql($partyhou_id, 'Nubmer')." AND user_id=".$user_id);
 
         if($partyhou_need_update)
            self::update_partyhou($partyhou_id);

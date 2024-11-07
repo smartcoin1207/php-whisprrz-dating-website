@@ -7107,7 +7107,7 @@ class User
                         ip.id AS id,
                         IF(true, 0, 0) AS group_id,
                         ip.is_new AS new,
-                        ip.friend_id AS user_id, 
+                        ip.user_id AS user_id, 
                         ip.created_at AS date,
                         IF(true, 0, 0) AS event_id,
                         IF(true, 0, 0) AS live_id,
@@ -7128,7 +7128,7 @@ class User
                         ip.id AS id,
                         IF(true, 0, 0) AS group_id,
                         ip.is_new AS new,
-                        ip.friend_id AS user_id, 
+                        ip.user_id AS user_id, 
                         ip.created_at AS date,
                         IF(true, 0, 0) AS event_id,
                         IF(true, 0, 0) AS live_id,
@@ -7149,13 +7149,13 @@ class User
                         ifp.id AS id,
                         IF(true, 0, 0) AS group_id,
                         ifp.is_new AS new,
-                        ifp.friend_id AS user_id, 
+                        ifp.user_id AS user_id, 
                         ifp.created_at AS date,
                         IF(true, 0, 0) AS event_id,
                         IF(true, 0, 0) AS live_id,
                         IF(true, 0, 0) AS event_user_id,
                         ifp.user_id AS event_who_user_id,
-                        IF(true, 0, 0) AS event_item_id,
+                        ifp.folder_id AS event_item_id,
                         IF(true, 0, 0) AS event_item_parent_id,
                         IF(true, 0, 0) AS event_item_parent_id_real,
                         CU.name, CU.name_seo, CU.gender
@@ -7259,7 +7259,7 @@ class User
             LEFT JOIN `partyhouz_partyhou` AS CEE ON CEE.partyhou_id = CL.partyhou_id 
             LEFT JOIN `user` AS CU ON CU.user_id = CL.user_id
             LEFT JOIN `user` AS CEEU ON CEEU.user_id = CEE.user_id
-            WHERE CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql} 
+            WHERE CL.user_id = {$guidSql} AND CEE.user_id != {$guidSql}
             AND CEE.partyhou_approval = 1 
             AND CL.accepted = 1" . getWhereSql('CL.created_at', $isUpdateOldEvent) . $sqlLimit . ")";
         /* popcorn - added on 11-04-2024 */
@@ -7327,6 +7327,7 @@ class User
                            SELECT EVT.*, @rownum := @rownum + 1 AS `rank`
                              FROM ({$sql} ORDER BY date {$order}, id DESC) EVT,
                           (SELECT @rownum := 0) R) AEVT {$customWhere}";
+
         $result = DB::rows($sql);
 
         $events = array();
@@ -7419,7 +7420,7 @@ class User
                 );
                 $title = Common::lSetLink($title, $vars, false, '_group');
             } else if ($item['type'] == 'invitation') {
-                $title = $vars = array(
+                $vars = array(
                     'name' => $userName,
                     'url'  => $urlUser
                 );
@@ -7428,12 +7429,19 @@ class User
                     $title_text = l('invited_private_photo_notify_text');
                 if ($item['type_short'] == 'invited_personal')
                     $title_text = l('invited_personal_photo_notify_text');
-                if ($item['type_short'] == 'invited_folder')
-                    $title_text = l('invited_folder_photo_notify_text');
                 if ($item['type_short'] == 'invited_private_vids')
                     $title_text = l('invited_private_video_notify_text');
 
                 $title = Common::lSetLink($title_text . " " . $userName, $vars);
+
+                if ($item['type_short'] == 'invited_folder') {
+                    $folder_sql = "SELECT * FROM custom_folders cf LEFT JOIN invited_folder AS infr ON cf.id = infr.folder_id WHERE infr.id=" . to_sql($item['id']);
+                    $folder_row = DB::row($folder_sql);
+                    $vars['folder_title'] = $folder_row['name'];
+
+                    $title_text = l('invited_folder_photo_notify_text');
+                    $title = Common::lSetLink($title_text, $vars);
+                }
             } else if ($item['type'] == 'events_event_guest' || $item['type'] == 'hotdates_hotdate_guest' || $item['type'] == 'partyhouz_partyhou_guest') {
                 $vars = array(
                     'title_event' => $title_event,

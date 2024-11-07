@@ -406,7 +406,7 @@ var CEvents = function(guid) {
 
 				if (type == 'photo_face') {
 					eventItemId = 0;
-				} 
+				}
 
                 if (type == 'plus_partner') {
                     var url  = "" + "profile.php";
@@ -414,20 +414,20 @@ var CEvents = function(guid) {
                     return;
                 }
 
+                //popcorn modified 2024-11-06 custom folders 
                 if(type == 'invitation') {
                     var event_notification_id = $el.attr('id');
                     var idWithoutPrefix = event_notification_id.replace('events_notification_', '');
                     var invite_type = idWithoutPrefix.split('_').slice(0, -2).join('_'); // Join parts except the last two
                     var name_seo = $el.data('event-user-name-seo');      // Get the "user_id" part
+                    var folder_id = $el.data('event-item-id');
                     var url = "";
                     if(invite_type == 'invited_private') {
-                        url = "" + name_seo + "/" + "photos" + "?offset=2";
+                        url = "" + name_seo + "/" + "photos" + "?offset=private";
                     } else if(invite_type == 'invited_personal') {
-                        url = "" + name_seo + "/" + "photos" + "?offset=3";
-
+                        url = "" + name_seo + "/" + "photos" + "?offset=personal";
                     } else if(invite_type == 'invited_folder') {
-                        url = "" + name_seo + "/" + "photos" + "?offset=4";
-
+                        url = "" + name_seo + "/" + "photos" + "?offset=" + folder_id;
                     } else if(invite_type == 'invited_private_vids') {
                         url = "" + name_seo + "/" + "vids" + "?offset=2";
                     }

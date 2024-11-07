@@ -37,7 +37,7 @@ if(!$groupId) {
 
     $is_private_photo_access = User::checkPhotoTabAccess('invited_private', $uid);
     $is_personal_photo_access = User::checkPhotoTabAccess('invited_personal', $uid);
-    $is_folder_photo_access = User::checkPhotoTabAccess('invited_folder', $uid);
+    $is_folder_photo_access = User::checkPhotoTabAccess('invited_folder', $uid, $offset);
 
     if (!empty($uid) && $uid != $g_user['user_id'] && (($offset == 'private' && !$is_private_photo_access) || 
     ($offset == 'personal' && !$is_personal_photo_access) ||

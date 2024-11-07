@@ -64,20 +64,22 @@ class Users_List
             redirect("search_results.php?offset=1&display=profile&uid={$personal_id}");
         }
 
-        $folder_set = get_param('folder_set', '0');
-        $uid_id = get_param('uid', '0');
-        if ($folder_set > 0 and $uid_id > 0) {
-            $psqlCount = 'SELECT COUNT(fu.user_id) FROM invited_folder AS fu where fu.friend_id = ' . $folder_set . ' and fu.user_id = ' . $g_user['user_id'] . ' and activity=3';
-            $total = DB::result($psqlCount);
-            if ($total > 0) {
-                $psql = 'DELETE FROM invited_folder WHERE friend_id=' . $folder_set . ' and user_id = ' . $g_user['user_id'];
+        /** Popcorn added 2024-11-06 custom folders start */
+        $invite_folder_user = get_param('invite_folder_user', 0);
+        if($invite_folder_user > 0) {
+            $invite_folder_type = get_param('invite_folder_type', '');
+            $folder_id = get_param('folder_id', '');
+            if($invite_folder_type == 'remove') {
+                $psql = "DELETE FROM invited_folder WHERE user_id=" . to_sql(guid(), 'Number') . " AND friend_id=" . to_sql($invite_folder_user, 'Number') . " AND folder_id=" . to_sql($folder_id, 'Number');
                 DB::execute($psql);
-            } else {
-                $psql = 'INSERT  INTO `invited_folder` (`user_id`,`friend_id`,`accepted`,`activity`, `is_new`) VALUES (' . $g_user['user_id'] . ',' . $folder_set . ',1,3,1)';
+            } else if($invite_folder_type == 'invite') {
+                $psql = "INSERT INTO `invited_folder` (`user_id`,`friend_id`,`folder_id`,`accepted`,`activity`, `is_new`) VALUES (" . to_sql(guid(), 'Number') . ", " . to_sql($invite_folder_user, 'Number') . ", " . to_sql($folder_id, 'Number') . ", 1,3,1)";
                 DB::execute($psql);
             }
+            $uid_id = get_param('uid', '0');
             redirect("search_results.php?offset=1&display=profile&uid={$uid_id}");
         }
+        /** Popcorn added 2024-11-06 custom folders end */
 
         $private_vid_set = get_param('private_vid_set', '0');
         $uid_id = get_param('uid', '0');

@@ -38,20 +38,14 @@ class CPhoto extends CHtmlBlock
                 }
             }
             redirect("my_friends.php?show=personal");
-        }else if ($action == "remove_folder") {
-            $user_id = get_param('user_id');
-            if ($user_id > 0 and $user_id > 0) {
-                $psqlCount = 'SELECT COUNT(fu.user_id) FROM invited_folder AS fu where fu.friend_id = ' . $user_id . ' and fu.user_id = ' . $g_user['user_id'] . ' and activity=3';
-                $total = DB::result($psqlCount);
-                if ($total > 0) {
-                    $psql = 'DELETE FROM invited_folder WHERE friend_id=' . $user_id . ' and user_id = ' . $g_user['user_id'];
-                    DB::execute($psql);
-                } else {
-                    $psql = 'INSERT  INTO `invited_folder` (`user_id`,`friend_id`,`accepted`,`activity`) VALUES (' . $g_user['user_id'] . ',' . $user_id . ',1,3)';
-                    DB::execute($psql);
-                }
+        } else if ($action == "remove_folder") {
+            $friend_id = get_param('user_id');
+            $folder_id = get_param('folder_id', 0);
+            if ($friend_id > 0 and $folder_id > 0) {
+                $psql = 'DELETE FROM invited_folder WHERE friend_id=' . $friend_id . ' and user_id = ' . $g_user['user_id'] . ' AND folder_id=' . to_sql($folder_id, "Number");
+                DB::execute($psql);
             }
-            redirect("my_friends.php?show=folder");
+            redirect("my_friends.php?show=folder&folder_id=" . $folder_id);
         } else { /* Divyesh - 17042024 */
             $this->responseData = User::friendAction();
             if (get_param('ajax_data')) {
@@ -212,13 +206,16 @@ class CPhoto extends CHtmlBlock
             $html->setvar("num_users", $nume);
             $html->parse("personal_users", true);
         } elseif ($show == "folder") {
-            $result = DB::query("SELECT * FROM invited_folder WHERE (user_id='" . $g_user['user_id'] . "') AND accepted=1 ORDER BY created_at DESC LIMIT 0,10");
+            /**Popcorn modified 2024-11-06 custom folderst start */
+            $folder_id = get_param('folder_id', 0);
+            $folder = DB::row("SELECT * FROM custom_folders WHERE id = " . to_sql($folder_id, 'Number'));
+            $result = DB::query("SELECT * FROM invited_folder WHERE (user_id='" . $g_user['user_id'] . "' AND folder_id=" . to_sql($folder_id, 'Number') . ") AND accepted=1 ORDER BY created_at DESC LIMIT 0,10");
             $nume = DB::num_rows();
-            $folder_offset = get_param('folder', 0);
-            $folder = DB::row("SELECT * FROM custom_folders WHERE id = " . to_sql($folder_offset, 'Number'));
             $html->setvar('folder_name', $folder['name'] . ' Folder');
+            $html->setvar('folder_id', $folder['id']);
             $html->setvar("num_users", $nume);
             $html->parse("folder_users", true); /* Divyesh - 17042024 */
+            /**Popcorn modified 2024-11-06 custom folderst end */
         } elseif ($show == "recently") { //eric-cuigao-nsc-20201207-end
             $result = DB::query("SELECT * FROM friends_requests WHERE (user_id='" . $g_user['user_id'] . "' OR friend_id='" . $g_user['user_id'] . "') AND accepted=1 ORDER BY created_at DESC LIMIT 0,10");
             $nume = DB::num_rows();
@@ -361,7 +358,7 @@ class CPhoto extends CHtmlBlock
                     $rows[] = $row;
                 }
 
-                foreach ($rows as $key11 => $row) {
+                foreach ($rows as $row) {
                     $haveFriends = true;
                     $friend_id = isset($row['fr_user_id']) ? $row['fr_user_id'] : (($row['user_id'] == $guid) ? $row['friend_id'] : $row['user_id']);
                     $row_user = User::getInfoBasic($friend_id, false, 2);

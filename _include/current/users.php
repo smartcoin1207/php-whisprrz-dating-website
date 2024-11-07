@@ -2635,9 +2635,24 @@ class CUsersProfile extends CUsers
         $folders = DB::rows($folders_sql);
 
         foreach ($folders as $folder) {
+            $invited_sql = "SELECT * FROM invited_folder WHERE user_id = " . to_sql(guid(), 'Number') . " AND friend_id = " . to_sql($row['user_id'], 'Number') . " AND folder_id=" . to_sql($folder['id'], 'Number') . " AND accepted=1 AND activity=3 LIMIT 1";
+            $invited_folder = DB::row($invited_sql);
+            $folder_label = "";
+            $folder_invite_type = "";
+            if($invited_folder) {
+                $folder_label = "Cancel From Folder " . $folder['name'];
+                $folder_invite_type = "remove";
+            } else {
+                $folder_label = "Invite To Folder " . $folder['name'];
+                $folder_invite_type = "invite";
+            }
             
-        }
+            $html->setvar('folder_id', $folder['id']);
+            $html->setvar('invite_folder_label', $folder_label);
+            $html->setvar('invite_folder_type', $folder_invite_type);
 
+            $html->parse('invite_folder_photo', true);
+        }
 
         /** Popcorn modified 2024-11-05 custom folders invite end */
         $custom_folder = User::getInfoBasic($g_user['user_id'], 'custom_folder');
@@ -2667,6 +2682,8 @@ class CUsersProfile extends CUsers
         if( isset($row['user_id']) && $row['user_id'] != guid()) {
             $html->parse('user_invite');
         }
+        
+        $html->clean('invite_folder_photo');
 
         /* Divyesh - added on 11-04-2024 */
 

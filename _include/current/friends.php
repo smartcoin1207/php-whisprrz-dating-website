@@ -7,8 +7,6 @@ It can be found at http://www.chameleonsocial.com/license.doc
 
 This notice may not be removed from the source code. */
 
-
-
 function isFriends($uid1, $uid2)
 {
     $uid1 = intval($uid1);
@@ -42,11 +40,11 @@ class CFriendsMenu extends CHtmlBlock
 
         $sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql(guid(), 'Number');
         $folders = DB::rows($sql);
-        $folder_offset = get_param('folder', '');
+        $folder_id = get_param('folder_id', '');
         foreach ($folders as $key => $folder) {
             $html->setvar('folder_name', $folder['name']);
             $html->setvar('folder_id', $folder['id']);
-            if($folder_offset == $folder['id']) {
+            if($folder_id == $folder['id']) {
                 $html->setvar('folder_active', 'active_btn');
             } else {
                 $html->setvar('folder_active', '');

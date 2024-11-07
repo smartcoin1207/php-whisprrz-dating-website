@@ -104,9 +104,26 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="double">
-                    <button type="button" class="btn btn-secondary btn_close"><span>{l_close_window}</span></button>
-                    <button type="button" class="btn btn-primary btn_publish" disabled><span>{l_add_photo_publish}</span></button>
+                <div class="photo-upload-button-group">
+                    <div class="photo-col-md-6">
+                        <div class="double">
+                            <!-- Popcorn - Added on 28-10-2024 -->
+                            <!-- begin_photo_offset_select -->
+                            <select name="photo_upload_offset_select" id="photo_upload_offset_select" class="form-control photo-upload-select">
+                                <!-- begin_photo_offset_option -->
+                                <option value="{photo_offset}">{photo_offset_label}</option>
+                                <!-- end_photo_offset_option -->
+                            </select>
+                            <!-- end_photo_offset_select -->
+                            <!-- Popcorn - Added on 28-10-2024 -->
+                        </div>
+                    </div>
+                    <div class="photo-col-md-6">
+                        <div class="double">
+                            <button type="button" class="btn btn-secondary btn_close"><span>{l_close_window}</span></button>
+                            <button type="button" class="btn btn-primary btn_publish" disabled><span>{l_add_photo_publish}</span></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -489,7 +506,6 @@
 							</form>
 							<script>initCommentUploadImage('pp_gallery_comment_top_upload_img');</script>
 						</div>
-
 
 						<button onclick="clProfilePhoto.commentAdd(this); return false;" class="btn_comment_send">
 							<svg viewBox="0 0 24 24">

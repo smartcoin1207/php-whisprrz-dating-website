@@ -3878,4 +3878,5 @@ $l['stickers_collections_sticker.php']['collection_title'] = "Collection {number
 $l['all']['field_event_wall_enabled'] = "Event Wall Enabled";
 $l['all']['field_hotdate_wall_enabled'] = "Hotdate Wall Enabled";
 $l['all']['field_partyhou_wall_enabled'] = "Partyhou Wall Enabled";
+
 ?>

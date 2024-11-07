@@ -493,6 +493,11 @@ function uploadphoto($user_id, $photo_name, $description, $vis = 0, $dir = "", $
 
         $hash = Common::generateFileNameHash();
 
+		$in_custom_folder = "N";
+		$custom_folder_id = 0;
+
+		$sql_1 = "";
+		$sql_2 = "";
 		if ($access=="private"){
 			$sql_1 = "private,";
 			$sql_2 = '"Y",';
@@ -502,17 +507,20 @@ function uploadphoto($user_id, $photo_name, $description, $vis = 0, $dir = "", $
 		}else if ($access=="folder"){
 			$sql_1 = "in_custom_folder,";
 			$sql_2 = '"Y",';
-		}else {
-			$sql_1 = "";
-			$sql_2 = "";
-		}
+		} elseif (strpos($access, 'folder_') === 0) {
+            $access_parts = explode('folder_', $access, 2);
+			$in_custom_folder = "Y";
+			$custom_folder_id = $access_parts[1];
+        }
         
-        $sql = 'INSERT INTO ' . $table . ' (user_id, photo_name, description, visible, date, '.$sql_1.' hash)
+        $sql = 'INSERT INTO ' . $table . ' (user_id, photo_name, description, visible, date, in_custom_folder, custom_folder_id, '.$sql_1.' hash)
                 VALUES (' . to_sql($user_id, 'Number') . ',
                         ' . to_sql($photo_name, 'Text') . ',
                         ' . to_sql($description, 'Text') . ',
                         ' . to_sql($vis, 'Text') . ',
                         ' . to_sql($date) . ',
+						' . to_sql($in_custom_folder) . ',
+						' . to_sql($custom_folder_id) . ',
                         '.$sql_2.'
                         ' . to_sql($hash) . ')';
 

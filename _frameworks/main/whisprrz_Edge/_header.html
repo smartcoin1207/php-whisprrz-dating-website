@@ -1275,8 +1275,9 @@
             if (user_profile_bg) {
               const user_profile_bg = '{user_profile_bg}';
               const profileBgElement = document.querySelector('.profile_bg');
-              
-              profileBgElement.style.background = `url("{url_tmpl_main}images/patterns/{user_profile_bg}") 0px 0px repeat`;
+              if(user_profile_bg) {
+                profileBgElement.style.background = `url("{url_tmpl_main}images/patterns/{user_profile_bg}") 0px 0px repeat`;
+              }
               profileBgElement.style.transition = 'none 0s ease 0s';
               profileBgElement.style.opacity = '1';
             }

@@ -2699,10 +2699,6 @@ Class TemplateEdge {
             }
             $html->setvar('editor_hide_class', $editorHideClass);
 
-            /** Popcorn - added 2024-10-14 */
-            $sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql($guid, 'Number') . " AND id != " . to_sql($row['custom_folder_id'], 'Number');
-            $folders = DB::rows($sql);
-
             if(!self::isEHP()) {
                 if ($uidParam && $uidParam == $guid && $row['user_id'] == $guid) {
                     if (Common::isOptionActive('gallery_show_download_original', 'edge_gallery_settings')) {
@@ -2739,6 +2735,9 @@ Class TemplateEdge {
                         $html->parse("{$blockItemType}_link_remove_customfolder", false);
                     }
 
+                    /** Popcorn - added 2024-10-14 */
+                    $sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql($guid, 'Number') . " AND id != " . to_sql($row['custom_folder_id'], 'Number');
+                    $folders = DB::rows($sql);
                     $html->setvar("photo_folder_title", l('move_to_custom_folder'));
                     foreach ($folders as $key => $folder) {
                         $html->setvar('cmd', 'move_to_custom_folder');

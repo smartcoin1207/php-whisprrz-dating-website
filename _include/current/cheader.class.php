@@ -2519,7 +2519,7 @@ class CHeader extends CHtmlBlock
         }*/
 
         self::parseApp($html);
-
+        
         if ($html->varExists('is_player_native')) {
             $html->setvar('is_player_native', intval(Common::getOption('video_player_type') == 'player_native'));
         }
@@ -2601,6 +2601,38 @@ class CHeader extends CHtmlBlock
 
         Common::parseStickersBlock($html);
 
+        /* Popcorn - Added on 28-10-2024 custom folders */
+        $is_ehp_page = TemplateEdge::isEHP();
+        $groupId = Groups::getParamId();
+        if(!$is_ehp_page && !$groupId) {
+            $sql = "SELECT * FROM custom_folders WHERE user_id=" . to_sql(guid(), 'Number');
+            $folders = DB::rows($sql);
+    
+            $custom_folders = [
+                ['offset' => 'public', 'name' => 'public'],
+                ['offset' => 'private', 'name' => 'private'],
+                ['offset' => 'personal', 'name' => 'personal'],
+            ];
+    
+            foreach ($folders as $folder) {
+                $custom_folder = [
+                    'offset' => $folder['id'],
+                    'name' => $folder['name']
+                ];
+                $custom_folders[] = $custom_folder;
+            }
+    
+            foreach ($custom_folders as $folder) {
+                $html->setvar('photo_offset', $folder['offset']);
+                $html->setvar('photo_offset_label', $folder['name']);
+                $html->parse('photo_offset_option', true);
+            }
+    
+            $html->parse('photo_offset_select', false);
+            $html->clean('photo_offset_option');
+        }
+        /* Popcorn - Added on 28-10-2024  custom folders */
+
         if (Common::isOptionActiveTemplate('include_template_class')) {
             $classTemplate = 'Template' . $optionTmplName;
             if (class_exists($classTemplate, true) && method_exists($classTemplate, 'headerParseBlock')) {
@@ -2633,7 +2665,6 @@ class CHeader extends CHtmlBlock
         }
 
         $html->setvar('html_language_code', Common::getLocaleShortCode());
-
 
         parent::parseBlock($html);
     }

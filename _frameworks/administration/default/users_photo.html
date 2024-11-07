@@ -49,15 +49,16 @@ function approvePhoto(pid){
                     </div>
 
                     <div class="mod_bl_decor">
-                        <!-- Divyesh - Added on 11-04-2024 -->
-                        <label style="margin: 5px;"><input type="radio" class="check" name="do[{photo_id}]" {public_check} value="public"> {l_public}</label>
-                        <label style="margin: 5px;"><input type="radio" class="check" name="do[{photo_id}]" {private_check} value="private"> {l_private}</label>
-                        <label style="margin: 5px;"><input type="radio" class="check" name="do[{photo_id}]" {personal_check} value="personal"> {l_personal}</label>
-                        <!-- begin_show_folder_access -->
-                        <label style="margin: 5px;"><input type="radio" class="check" name="do[{photo_id}]" {folder_check} value="folder"> {folder_access}</label>
-                        <!-- end_show_folder_access -->
+                        <!-- Popcorn modified 2024-11-05 custom folders start -->
+                        <!-- begin_photo_access -->
+                            <!-- begin_photo_access_item -->
+                            <label style="margin: 5px;"><input type="radio" class="check" name="do[{photo_id}]" {photo_access_check} value="{photo_access_value}">
+                                {photo_access_label}
+                            </label>
+                            <!-- end_photo_access_item -->
+                        <!-- end_photo_access -->
+                        <!-- Popcorn modified 2024-11-05 custom folders end -->
                         <label style="margin: 5px;"><input type="radio" class="check" name="do[{photo_id}]" value="del"> {l_delete}</label>
-                        <!-- Divyesh - Added on 11-04-2024 -->
                     </div>
                     
                     <div>

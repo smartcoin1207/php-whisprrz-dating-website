@@ -1792,3 +1792,27 @@ table td.language_action_buttons a {
 .group_page_title_menu li.current a {
     text-decoration: none;
 }
+
+.user-photo-item {
+    width:150px;
+    height: 100%;
+    vertical-align: top;
+    display: inline-block;
+    padding: 5px 5px 5px 5px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #979494;
+    box-sizing: border-box;
+}
+
+.photo-item-container {
+    padding: 4px;
+}
+
+.photo-action-ul {
+    
+}
+
+.photo-action-ul li {
+    padding: 3px 0;
+}

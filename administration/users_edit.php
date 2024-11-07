@@ -21,7 +21,6 @@ if ($cmd != 'location') {
 }
 
 class CForm extends UserFields//CHtmlBlock
-
 {
     public $message = "";
     public $login = "";
@@ -36,8 +35,6 @@ class CForm extends UserFields//CHtmlBlock
         $optionsTmplName = Common::getOption('name', 'template_options');
 
         if ($cmd == 'update') {
-
-            // var_dump('expression'); die();
             $this->message = "";
             $orientation = get_param('orientation', $g_user['orientation']);
 
@@ -308,14 +305,20 @@ class CForm extends UserFields//CHtmlBlock
             redirect("{$p}?id={$uid}&action=saved");
         } elseif ($cmd == 'set_photo_folder_access') {
             $uid = get_param('id');
-            CProfilePhoto::setPhotoCustomFolder(get_param('photo_id'), true);
+            $folder_id = get_param('folder_id');
+            CProfilePhoto::setPhotoCustomFolder(get_param('photo_id'), $folder_id, true);
             redirect("{$p}?id={$uid}&action=saved");
-        } elseif ($cmd == 'set_photo_access') {
+        } elseif($cmd == 'remove_photo_folder_access') {
+            $uid = get_param('id');
+            CProfilePhoto::setPhotoCustomFolder(get_param('photo_id'), 0, true);
+            redirect("{$p}?id={$uid}&action=saved");
+        } elseif($cmd == 'set_photo_access') {
             $uid = get_param('id');
             CProfilePhoto::setPhotoPrivate(get_param('photo_id'), true);
             redirect("{$p}?id={$uid}&action=saved");
         }
     }
+
     public function parseBlock(&$html)
     {
         global $g;
@@ -391,10 +394,19 @@ class CForm extends UserFields//CHtmlBlock
         $html->setvar("custom_folder", $custom_folder);  
 
         /* Divyesh - Add on 17042024 */
-        if(!empty($custom_folder)){
-            $html->setvar("custom_folder_access", l('move_to') . ' ' . $custom_folder);
-            $html->parse('add_folder_access', false);
+
+        /** Popcorn modified 2024-11-05 customfolders start */
+        $folders_sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql($g_user['user_id'], 'Number');
+        $custom_folders = DB::rows($folders_sql);
+
+        foreach ($custom_folders as $folder) {
+            $html->setvar('folder_id', $folder['id']);
+            $html->setvar('custom_folder_access', $folder['name'] . " Folder");
+            $html->parse('add_folder_item', true);
         }
+        $html->parse('add_folder_access', false);
+        $html->clean('add_folder_item');
+        /** Popcorn modified 2024-11-05 customfolders end */
 
         if ($html->varExists('user_photo')) {
             $html->setvar('user_photo', User::getPhotoDefault($g_user['user_id'], 'm'));
@@ -485,7 +497,6 @@ class CForm extends UserFields//CHtmlBlock
         }
 
         $html->setvar("num_photos", $num_photos);
-
         DB::query("SELECT *, `private` AS access FROM photo WHERE user_id=" . $g_user['user_id'] . " AND `visible` != 'P' AND `group_id` = 0 " . $whereNoPrivatePhoto . " ORDER BY access, photo_id DESC;");
         
         $noPrivatePhoto = Common::isOptionActiveTemplate('no_private_photos');
@@ -503,12 +514,22 @@ class CForm extends UserFields//CHtmlBlock
 
                 /* Divyesh - added on - 17042024 */
                 $html->setvar("photo_personal_access", l($row['personal'] == 'N' ? 'make_personal' : 'remove_personal')); 
-                if(!empty($custom_folder)){
-                    $html->setvar("custom_folder_access", l($row['in_custom_folder'] == 'N' ? 'move_to' : 'Remove_from') . ' ' . $custom_folder);
-                    $html->parse('folder_access', false);
-                }
                 /* Divyesh - added on - 17042024 */
 
+                /** Popcorn modified added 2024-11-05 custom folders start */
+                if($row['custom_folder_id']) {
+                    $html->setvar('photo_folder_remove', 'Remove from Folder');
+                    $html->parse('remove_customfolder', false);
+                }
+
+                foreach ($custom_folders as $folder) {
+                    $html->setvar('folder_id', $folder['id']);
+                    $html->setvar('folder_name', "Folder". " " . $folder['name']);
+                    $html->parse('make_customfolder_item', true);
+                }
+                $html->parse('make_customfolder', false);
+                $html->clean('make_customfolder_item');
+                /** Popcorn modified added 2024-11-05 custom folders end */
 
                 $html->setvar("photo_name", $row['photo_name']);
                 $html->setvar("description", nl2br($row['description']));

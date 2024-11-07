@@ -2613,9 +2613,7 @@ class CUsersProfile extends CUsers
         if($total>0){
             $html->parse("cancel_private_photo", true);
             $html->setblockvar('show_private_photo', "");
-
         }else{
-
             $html->parse("show_private_photo", true);
             $html->setblockvar('cancel_private_photo', "");
         }
@@ -2631,19 +2629,28 @@ class CUsersProfile extends CUsers
             $html->parse("show_personal_photo", true);
             $html->setblockvar('cancel_personal_photo', "");
         }
-        /* 17042024 */
+
+        /** Popcorn modified 2024-11-05 custom folders invite start */
+        $folders_sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql(guid(), 'Number');
+        $folders = DB::rows($folders_sql);
+
+        foreach ($folders as $folder) {
+            
+        }
+
+
+        /** Popcorn modified 2024-11-05 custom folders invite end */
         $custom_folder = User::getInfoBasic($g_user['user_id'], 'custom_folder');
         if (!empty($custom_folder)){
             $psqlCount = 'SELECT COUNT(fu.user_id) FROM invited_folder AS fu where fu.friend_id = ' . $row_user['user_id'] . ' and fu.user_id = ' . $g_user['user_id'] . ' and activity=3';
             $total = DB::result($psqlCount);
-            if($total>0){
+            if( $total>0 ){
                 $html->setvar("custom_folder", l('cancel') . ' ' . $custom_folder);
-            }else{
+            } else {
                 $html->setvar("custom_folder", $custom_folder);
             }
             $html->parse('show_folder_photo', false);
         }
-        /* 17042024 */
 
         $psqlCount = 'SELECT COUNT(fu.user_id) FROM invited_private_vids AS fu where fu.friend_id = ' . $row_user['user_id'] . ' and fu.user_id = ' . $g_user['user_id'] . ' and activity=3';
         $total = DB::result($psqlCount);

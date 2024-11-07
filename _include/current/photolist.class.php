@@ -15,28 +15,28 @@ class CPhotoList extends CHtmlBlock
 
     function action()
     {
-        $cmd = get_param("cmd", "");
-        $photo_id = get_param("id", 0);
+        // $cmd = get_param("cmd", "");
+        // $photo_id = get_param("id", 0);
 
-        if ($cmd == "main")	{
-			User::photoToDefault($photo_id);
-			redirect();
-		}
+        // if ($cmd == "main")	{
+		// 	User::photoToDefault($photo_id);
+		// 	redirect();
+		// }
 
-        if($cmd == 'private' || $cmd == 'public') {
-            CProfilePhoto::setPhotoPrivate($photo_id);
-            redirect();
-        }
+        // if($cmd == 'private' || $cmd == 'public') {
+        //     CProfilePhoto::setPhotoPrivate($photo_id);
+        //     redirect();
+        // }
 
-		/* Divyesh - Added on 11-04-2024 */
-		if ($cmd == 'personal' || $cmd == 'remove_personal') {
-			CProfilePhoto::setPhotoPersonal($photo_id);
-			redirect();
-		}
-		if ($cmd == 'move_to_folder' || $cmd == 'remove_from_folder') {
-			CProfilePhoto::setPhotoCustomFolder($photo_id);
-			redirect();
-		}
+		// /* Divyesh - Added on 11-04-2024 */
+		// if ($cmd == 'personal' || $cmd == 'remove_personal') {
+		// 	CProfilePhoto::setPhotoPersonal($photo_id);
+		// 	redirect();
+		// }
+		// if ($cmd == 'move_to_folder' || $cmd == 'remove_from_folder') {
+		// 	CProfilePhoto::setPhotoCustomFolder($photo_id, 0, true);
+		// 	redirect();
+		// }
     }
 
     function parseBlock(&$html)

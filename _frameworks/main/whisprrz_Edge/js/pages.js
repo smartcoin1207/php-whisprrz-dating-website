@@ -182,7 +182,7 @@ var CPages = function(guid) {
         }
     }
 
-    this.myPageReload = function(type,noRedirect,toMyMedia, groupId){
+    this.myPageReload = function(type,noRedirect,toMyMedia, groupId, photo_offset = ''){
         groupId=groupId||0;
         groupId *=1;
         type=type||$this.pageType;
@@ -206,7 +206,12 @@ var CPages = function(guid) {
                 if(groupId && urlPagesSite['group_photos_list_'+groupId]){
                     url=urlPagesSite['group_photos_list_'+groupId];
                 } else {
-                    url=urlPagesSite.my_photos_list;
+                    let paramUrl = new URL(urlPagesSite.my_photos_list);
+
+                    if (photo_offset) {
+                        paramUrl.searchParams.set('offset', photo_offset);
+                    }
+                    url=paramUrl.toString();
                 }
             } else if(type == 'songs'){
                 if(groupId && urlPagesSite['group_songs_list_'+groupId]){

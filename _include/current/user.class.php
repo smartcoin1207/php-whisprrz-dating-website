@@ -5499,14 +5499,13 @@ class User
             CProfilePhoto::setPhotoPublic($pid, true);
         } else if ($access == 'private') {
             CProfilePhoto::setPhotoPrivate($pid);
-            /* Fix set photo default public */
         } elseif ($access == 'personal') {
             CProfilePhoto::setPhotoPersonal($pid);
         } elseif (strpos($access, 'folder_') === 0) {
             $access_parts = explode('folder_', $access, 2);
             $folder_id = $access_parts[1];
-            CProfilePhoto::setPhotoCustomFolder($pid, true, $folder_id);
-            /* Divyesh - Added on 11-04-2024 */
+            CProfilePhoto::setPhotoCustomFolder($pid, $folder_id, true);
+        /* Divyesh - Added on 11-04-2024 */
         } elseif ($uid) {
             if (
                 !User::getPhotoDefault($uid, '', true)

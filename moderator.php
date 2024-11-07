@@ -645,13 +645,11 @@ class Cgroups extends CHtmlList
                         $html->setvar('status', l('Public'));
                         $html->setvar('public_check', 'checked="checked"');
                     }
-                    //$html->parse('photo_status', false);
 
-                    $sql = "SELECT * FROM custom_folders WHERE user_id=" . to_sql($guid, 'Number');
+                    $sql = "SELECT * FROM custom_folders WHERE user_id=" . to_sql($row['user_id'], 'Number');
                     $folders = DB::rows($sql);
 
                     foreach ($folders as $key => $folder) {
-                        $folder_name = $folder['name'];
                         $folder_id = $folder['id'];
                         if($folder_id == $row['custom_folder_id']) {
                             $folder_check = 'checked=checked';

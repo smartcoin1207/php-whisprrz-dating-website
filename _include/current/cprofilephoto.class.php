@@ -2844,7 +2844,7 @@ class CProfilePhoto extends CHtmlBlock
         return $responseData;
     }
 
-    public static function setPhotoCustomFolder($id, $isAdmin = false, $folder_id = 0)
+    public static function setPhotoCustomFolder($id, $folder_id = 0, $isAdmin = false)
     {
         $responseData = false;
         if ($id) {
@@ -2855,16 +2855,14 @@ class CProfilePhoto extends CHtmlBlock
             if (!$photo) {
                 return $responseData;
             }
-            $in_custom_folder = $photo['in_custom_folder'];
-
-            if ($in_custom_folder == 'Y') {
-                $in_custom_folder = 'N';
-                $sql = "UPDATE `photo` SET `in_custom_folder` = '$in_custom_folder', `custom_folder_id` = '0' WHERE `photo_id` = " . to_sql($id, 'Number');
-            } else {
+            
+            if($folder_id) {
                 $in_custom_folder = 'Y';
-                $sql = "UPDATE `photo` SET `in_custom_folder` = '$in_custom_folder', `custom_folder_id` = '$folder_id' WHERE `photo_id` = " . to_sql($id, 'Number');
+            } else {
+                $in_custom_folder = 'N';
             }
 
+            $sql = "UPDATE `photo` SET `in_custom_folder` = '$in_custom_folder', `custom_folder_id` = '$folder_id' WHERE `photo_id` = " . to_sql($id, 'Number');
             DB::execute($sql);
 
             $responseData = 'update';
@@ -3430,7 +3428,7 @@ class CProfilePhoto extends CHtmlBlock
                 }
 
                 $photoVisible = 'N';
-
+                
                 $data = array(
                     'visible' => $photoVisible,
                     'nudity' => $nudity,
@@ -3440,6 +3438,31 @@ class CProfilePhoto extends CHtmlBlock
                     'group_page' => $groupPage,
                     'group_private' => $groupPrivate
                 );
+                
+                /** Popcorn added 2024-11-05 custom folders start */
+                $photo_upload_offset = get_param('photo_upload_offset');
+                $custom_folder_id = 0;
+                $in_custom_folder = 'N';
+                $photo_private = 'N';
+                $photo_personal = 'N';
+                
+                if($photo_upload_offset == 'public') {
+                    
+                } elseif($photo_upload_offset == 'private') {
+                    $photo_private = 'Y';
+                } elseif($photo_upload_offset == 'personal') {
+                    $photo_personal = 'Y';
+                } elseif(is_numeric($photo_upload_offset) && $photo_upload_offset > 0) {
+                    $in_custom_folder = 'Y';
+                    $custom_folder_id = $photo_upload_offset;
+                }
+
+                $data['private'] = $photo_private;
+                $data['personal'] = $photo_personal;
+                $data['in_custom_folder'] = $in_custom_folder;
+                $data['custom_folder_id'] = $custom_folder_id;
+                /** Popcorn added 2024-11-05 custom folders end */
+                
                 if (isset($photo['set_photo_default'])) {
                     if ($photoVisible == 'Y') {
                         self::setPhotoDefault($pid);

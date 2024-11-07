@@ -162,6 +162,8 @@ var CProfilePhoto = function(guid,uid) {
             photoDefaultId=$this.getPhotoDefaultId(groupId);
         }
         var data;
+        var photo_upload_offset = '';
+
         if (type == 'song') {
             data={cmd:'publish_songs',
                   songs:$this.uploadFileData[type],
@@ -170,7 +172,6 @@ var CProfilePhoto = function(guid,uid) {
             photoCmdString = $this.getPhotoCmdString();
             ehp_type = $this.getEHPType();
             ehpid = '';
-
             if(ehp_type == 'event') {
                 url = location.href;
                 const urlParams = new URLSearchParams(new URL(url).search);
@@ -186,13 +187,19 @@ var CProfilePhoto = function(guid,uid) {
                 const urlParams = new URLSearchParams(new URL(url).search);
                 const partyhouId = urlParams.get('partyhou_id');
                 ehpid = partyhouId;
+            } else if(!groupId || groupId == "0") {
+                const selected_photo_offset_el = document.getElementById("photo_upload_offset_select");
+                const selectedValue = selected_photo_offset_el.value;
+              
+                photo_upload_offset = selectedValue;
             }
 
             data={cmd:'publish_photos_gallery',type:paramType,
                   photos:$this.uploadFileData[type],
                   group_id:groupId,
                   photo_cmd: photoCmdString,
-                  activity_id: ehpid
+                  activity_id: ehpid,
+                  photo_upload_offset: photo_upload_offset,
               };
         }
 
@@ -207,17 +214,14 @@ var CProfilePhoto = function(guid,uid) {
                     var data=checkDataAjax(res);
                     if (data!==false){
                         $this.clearUploadFileData(type);
-                        /*for(var id in $this.uploadFileData[type]) {
-                            delete $this.uploadFileData[type][id];
-                        }*/
-                        //console.log(data);
+
                         $this.$ppUpload[type]['pp'].one('hidden.bs.modal', function(){
                             $this.$ppUpload[type]['btn_cancel'].prop('disabled', false);
                             $this.$ppUpload[type]['btn_publish'].removeChildrenLoader();
                             $this.removeUploadFile(type);
                         }).modal('hide');
 
-                        if(!clPages.myPageReload(sel,false,toMyMedia,groupId)){
+                        if(!clPages.myPageReload(sel,false,toMyMedia,groupId, photo_upload_offset)){
                             wallUpdater();
 
                             if (type != 'song') {
@@ -230,13 +234,6 @@ var CProfilePhoto = function(guid,uid) {
                             }
                             delete data.data;
                         }
-
-                        /*type == 'photo' && setTimeout(function(){
-                            for(var id in requestuploadFileData) {
-                                var photo=requestuploadFileData[id];
-                                checkImageFaceDetection(photo.src_bm, photo.id);
-                            }
-                        },1)*/
                     }else{
                         showError()
                     }
@@ -3672,7 +3669,7 @@ var CProfilePhoto = function(guid,uid) {
     
     /** Popcorn - added 2024-10-14 */
     // access: public, private, personal, custom folders
-    this.changeAccessPhoto = function(pid, cmd = '', folder_id = 0) {
+    this.changeAccessPhoto = function(pid, cmd = '', folder_id = 0, isVideo=false) {
         notGallery = true;
         $.ajax({type:'POST',
                 url:url_ajax,
@@ -3716,7 +3713,10 @@ var CProfilePhoto = function(guid,uid) {
                                     $this.show('left', pidNext)
                                 }
                             }
+                            var photoDefaultId=0,
+                            groupId=$this.getMediaField(pid, 'group_id')*1;
                             if (!isVideo){
+                                photoDefaultId=$this.getPhotoDefaultId(groupId);
                                 $this.replacePhotoDefaultCheck(data.photo_default, photoDefaultId);
                             }
                         }

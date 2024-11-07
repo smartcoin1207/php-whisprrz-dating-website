@@ -76,15 +76,15 @@ class CForm extends CHtmlBlock
 		$html->setvar('photo_height', Common::getOption('medium_y', 'image'));
 		$noPrivatePhoto = Common::isOptionActiveTemplate('no_private_photos');
 
-		DB::query("SELECT * FROM photo WHERE " . CProfilePhoto::moderatorVisibleFilter() . " AND `group_id` = 0 ORDER BY photo_id LIMIT 20");
-		$num=DB::num_rows();
-		while ($row = DB::fetch_row())
-		{
+		$sql = "SELECT * FROM photo WHERE " . CProfilePhoto::moderatorVisibleFilter() . " AND `group_id` = 0 ORDER BY photo_id LIMIT 20";
+		$num = DB::count('photo', CProfilePhoto::moderatorVisibleFilter() . " AND `group_id` = 0", '', 20 );
+		$rows = DB::rows($sql);
+
+		foreach ($rows as $row) {
 			$row['user_name'] = DB::result("SELECT name FROM user WHERE user_id=" . $row['user_id'] . "", 0, 2);
-			$custom_folder = DB::result("SELECT custom_folder FROM user WHERE user_id=" . $row['user_id'] . "", 0, 2);
-			if (!empty($custom_folder)) {
-				$html->setvar('custom_folder', $custom_folder);
-			}
+			$folder_sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql($row['user_id'], "Number");
+			$custom_folders = DB::rows($folder_sql);
+			
 			foreach ($row as $k => $v)
 			{
 				$html->setvar($k, $v);
@@ -92,46 +92,49 @@ class CForm extends CHtmlBlock
 
 			$html->setvar('photo_m', User::photoFileCheck($row, 'm'));
 			$html->setvar('photo_b', User::photoFileCheck($row, 'b'));
+			
 			if (!$noPrivatePhoto) {
-				/* Divyesh - Added on 11-04-2024 */
-				if ($row['private'] == 'Y') {
-					$html->setvar('status', l('Private'));
-					$html->setvar('private_check', 'checked="checked"');
-					$html->setvar("personal_check", '');
-					$html->setvar("folder_check", '');
-					$html->setvar("public_check", '');
-				} else if ($row['personal'] == 'Y') {
-					$html->setvar('status', l('personal'));
-					$html->setvar('personal_check', 'checked="checked"');
-					$html->setvar("private_check", '');
-					$html->setvar("folder_check", '');
-					$html->setvar("public_check", '');
-				} else if ($row['in_custom_folder'] == 'Y' && !empty($custom_folder)) {
-					$html->setvar('status', $custom_folder);
-					$html->setvar('folder_check', 'checked="checked"');
-					$html->setvar("private_check", '');
-					$html->setvar("personal_check", '');
-					$html->setvar("public_check", '');
-				} else {
-					$html->setvar('status', l('Public'));
-					$html->setvar('public_check', 'checked="checked"');
-					$html->setvar("private_check", '');
-					$html->setvar("personal_check", '');
-					$html->setvar("folder_check", '');
+				/* Popcorn modified 2024-11-05 custom folders start */
+				$photo_accesses = [
+					[ "value" => 'public', "label" => "public"],
+					[ "value" => 'private', "label" => "private"],
+					[ "value" => 'personal', "label" => "personal"],
+				];
+
+				foreach ($custom_folders as $folder) {
+					$photo_accesses[] = ["value" => $folder['id'], "label" => $folder['name']];
 				}
-				
-				if (!empty($custom_folder)) {
-					$html->setvar("folder_access", l('move_to') . " " . $custom_folder);
-					$html->parse("show_folder_access", false);
-				} else {
-					$html->setblockvar("show_folder_access", '');
+
+				foreach ($photo_accesses as $photo_access) {
+					$html->setvar('status', l($photo_access['label']));
+					$html->setvar('photo_access_label', $photo_access['label']);
+					$html->setvar('photo_access_value', $photo_access['value']);
+
+					$photo_access_check = false;
+					if($photo_access['label'] == 'public') {
+						$photo_access_check = true;
+					} else if($photo_access['label'] == 'private' && $row['private'] == "Y") {
+						$photo_access_check = true;
+					} else if($photo_access['label'] == 'personal' && $row['personal'] == "Y") {
+						$photo_access_check = true;
+					} else if(is_numeric($photo_access['value']) && $photo_access['value'] > 0) {
+						if($row['in_custom_folder'] == 'Y' && ((int) $row['custom_folder_id']) > 0  && $photo_access['value'] == $row['custom_folder_id']) {
+							$photo_access_check = true;
+						}
+					}
+
+					if($photo_access_check) {
+						$html->setvar('photo_access_check', 'checked="checked"');
+					} else {
+						$html->setvar('photo_access_check', '');
+					}
+
+					$html->parse('photo_access_item', true);
 				}
-				
-				//$html->setvar("photo_access", l($row['private']=='N'?'make_private':'make_public'));
-				//$html->parse('photo_access', false);
-				
-				/* Divyesh - Added on 11-04-2024 */
-				
+
+				$html->parse('photo_access', false);
+				$html->clean('photo_access_item');
+				/* Popcorn modified 2024-11-05 custom folders start */
 			}
 
 			$html->subcond($row['gif'], 'photo_edit_image');
@@ -139,8 +142,8 @@ class CForm extends CHtmlBlock
 			$html->subcond(!$row['gif'], 'photo_rotate');
 
 			$html->parse("photo", true);
-			
 		}
+		
 		if($num){
 			$html->parse("photos");
 		} else {

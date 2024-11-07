@@ -9,7 +9,7 @@ This notice may not be removed from the source code. */
 
 class Image
 {
-	var $image = false;
+	var $image = null;
 	var $image_type = 2;
     var $transformation = true;
     var $width = 0;
@@ -243,12 +243,11 @@ class Image
 
     function setPngParams($imageNew)
     {
-        /*if ($this->image_type == 'PNG') {
-            imagealphablending($imageNew, false);
-            imagesavealpha($imageNew, true);
-        };*/
         $white = imagecolorallocate($imageNew, 255, 255, 255);
-        imagefill($imageNew, 0, 0, $white);
+		$width = imagesx($imageNew);
+		$height = imagesy($imageNew);
+
+		imagefill($imageNew, 0, 0, $white);
     }
 
 	function resizeW($newWidth)

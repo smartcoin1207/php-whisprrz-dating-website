@@ -2860,7 +2860,7 @@ var CProfilePhoto = function(guid,uid) {
                 photo_id:pid,
                 photo_cur_id:pid,
                 group_id: groupId ? groupId : ((dataMedia && dataMedia['group_id'])  ? dataMedia['group_id'] : 0),  // popcorn mmodified for group image scroll 2024-05-23
-                get_data_edge:isUpdateData,
+                get_data_edge:1,
                 load_more:0,
                 last_id:0,
                 limit:0,
@@ -2914,12 +2914,11 @@ var CProfilePhoto = function(guid,uid) {
         } else if (offset === 'personal') {
             offset_str = 'personal';
         } else if (!isNaN(offset) && offset > 0) {  // Check if offset is a number
-            offset_str = 'folder';
+            offset_str = $offset;
         }
 
         if(!is_access_offset_all) {
             dataRes['offset'] = offset_str;
-            dataRes['folder_id'] = offset;
         }
         
         /* Divyesh - added on 23042024 */

@@ -15,28 +15,7 @@ class CPhotoList extends CHtmlBlock
 
     function action()
     {
-        // $cmd = get_param("cmd", "");
-        // $photo_id = get_param("id", 0);
 
-        // if ($cmd == "main")	{
-		// 	User::photoToDefault($photo_id);
-		// 	redirect();
-		// }
-
-        // if($cmd == 'private' || $cmd == 'public') {
-        //     CProfilePhoto::setPhotoPrivate($photo_id);
-        //     redirect();
-        // }
-
-		// /* Divyesh - Added on 11-04-2024 */
-		// if ($cmd == 'personal' || $cmd == 'remove_personal') {
-		// 	CProfilePhoto::setPhotoPersonal($photo_id);
-		// 	redirect();
-		// }
-		// if ($cmd == 'move_to_folder' || $cmd == 'remove_from_folder') {
-		// 	CProfilePhoto::setPhotoCustomFolder($photo_id, 0, true);
-		// 	redirect();
-		// }
     }
 
     function parseBlock(&$html)
@@ -52,8 +31,8 @@ class CPhotoList extends CHtmlBlock
 
         $optionTmplName = Common::getTmplName();
         $groupsPhotoList = Groups::getParamTypeContentList();
-        $isPagesPhotosList = $groupsPhotoList == 'group_page';
         if ($groupsPhotoList) {
+            $isPagesPhotosList = $groupsPhotoList == 'group_page';
             $groupId = 0;
         } else {
             $groupId = Groups::getParamId();
@@ -157,34 +136,31 @@ class CPhotoList extends CHtmlBlock
         if(!$groupId) {
             global $g_user, $is_private_photo_access, $is_personal_photo_access;
 
-            /* Divyesh - added on 11-04-2024 */
+            /* Popcorn modified 2024-11-08 custom folders start */
             $offset = get_param('offset', '');
             $offset = empty($offset) ? '' : $offset;
-            $tab = "public";
-            $active_tab_public = $active_tab_private = $active_tab_personal = $active_tab_folder = '';
-            if (is_numeric($offset) && $offset > 0) { // Check if offset is a number and greater than 0
-                $tab = 'folder';
-                $active_tab_folder = 'active';
-            } else if ($offset == 'private') {
-                $tab = "private";
-                $active_tab_private = 'active';
-            } else if ($offset == 'personal') {
-                $tab = "personal";
-                $active_tab_personal = 'active';
-            } else if(!$offset) {
-                $active_tab_public = 'active';
-            }
-            
             $page_offset = $offset ? "?offset=" . $offset : "";
-
-            $html->setvar('active_tab_public', $active_tab_public);
-            $html->setvar('active_tab_private', $active_tab_private);
-            $html->setvar('active_tab_personal', $active_tab_personal);
-            $html->setvar('active_tab_folder', $active_tab_folder);
+            $tab = "public";
 
             if ($uid === guid() || User::isFriend($uid, guid())) {
-                $html->setvar('custom_folder', User::getInfoBasic($uid, 'custom_folder'));
+                $active_tab_public = $active_tab_private = $active_tab_personal = '';
+
+                if (is_numeric($offset) && $offset > 0) {
+                    $tab = 'folder';
+                } else if ($offset == 'private') {
+                    $tab = "private";
+                    $active_tab_private = 'active';
+                } else if ($offset == 'personal') {
+                    $tab = "personal";
+                    $active_tab_personal = 'active';
+                } else if(!$offset) {
+                    $active_tab_public = 'active';
+                }
                 
+                $html->setvar('active_tab_public', $active_tab_public);
+                $html->setvar('active_tab_private', $active_tab_private);
+                $html->setvar('active_tab_personal', $active_tab_personal);
+
                 if($profile_photo == 1) {
                     $html->setvar('url_page_user_photos_list', $pageUrl);
                 }
@@ -217,13 +193,32 @@ class CPhotoList extends CHtmlBlock
                     $html->parse('show_myphoto_tabs', false);
                 }
             } else {
+                $active_tab_public = $active_tab_private = $active_tab_personal = $active_tab_folder = '';
+
+                if ($offset == 'custom_folders') {
+                    $tab = 'folder';
+                    $active_tab_folder = 'active';
+                } else if ($offset == 'private') {
+                    $tab = "private";
+                    $active_tab_private = 'active';
+                } else if ($offset == 'personal') {
+                    $tab = "personal";
+                    $active_tab_personal = 'active';
+                } else if(!$offset) {
+                    $active_tab_public = 'active';
+                }
+
+                $html->setvar('active_tab_public', $active_tab_public);
+                $html->setvar('active_tab_private', $active_tab_private);
+                $html->setvar('active_tab_personal', $active_tab_personal);
+                $html->setvar('active_tab_folder', $active_tab_folder);
+    
                 /* Divyesh - Added on 20042024 */
-                $pageUrlMy = Common::pageUrl('photos');
-                $html->setvar('url_page_photos_list' , $pageUrlMy);
+                $html->setvar('url_page_photos_list' , $pageUrl);
                 $html->parse('show_all_tabs', false);
                 /* Divyesh - Added on 20042024 */
             }
-            /* Divyesh - Added on 11-04-2024 */
+            /* Popcorn modified 2024-11-08 custom folders start */
         }
 
         CProfilePhoto::$isGetDataWithFilter = true;

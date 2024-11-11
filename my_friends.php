@@ -38,6 +38,17 @@ class CPhoto extends CHtmlBlock
                 }
             }
             redirect("my_friends.php?show=personal");
+        } else if ($action == "remove_private_vids") {
+            $user_id = get_param('user_id');
+            if ($user_id > 0 and $user_id > 0) {
+                $psqlCount = 'SELECT COUNT(fu.user_id) FROM invited_private_vids AS fu where fu.friend_id = ' . $user_id . ' and fu.user_id = ' . $g_user['user_id'] . ' and activity=3';
+                $total = DB::result($psqlCount);
+                if ($total > 0) {
+                    $psql = 'DELETE FROM invited_private_vids WHERE friend_id=' . $user_id . ' and user_id = ' . $g_user['user_id'];
+                    DB::execute($psql);
+                }
+            }
+            redirect("my_friends.php?show=private_vids");
         } else if ($action == "remove_folder") {
             $friend_id = get_param('user_id');
             $folder_id = get_param('folder_id', 0);
@@ -200,6 +211,11 @@ class CPhoto extends CHtmlBlock
             $nume = DB::num_rows();
             $html->setvar("num_users", $nume);
             $html->parse("private_users", true);
+        }  elseif ($show == "private_vids") { //popcorn modified
+            $result = DB::query("SELECT * FROM invited_private_vids WHERE (user_id='" . $g_user['user_id'] . "') AND accepted=1 ORDER BY created_at DESC LIMIT 0,10");
+            $nume = DB::num_rows();
+            $html->setvar("num_users", $nume);
+            $html->parse("private_vids_users", true);
         } elseif ($show == "personal") {/* Divyesh - 17042024 */
             $result = DB::query("SELECT * FROM invited_personal WHERE (user_id='" . $g_user['user_id'] . "') AND accepted=1 ORDER BY created_at DESC LIMIT 0,10");
             $nume = DB::num_rows();
@@ -472,6 +488,8 @@ class CPhoto extends CHtmlBlock
                         //eric-cuigao-nsc-20201207-start
                         if ($show == "private") {
                             $html->parse("item_block_users_private", false);
+                        } else if($show == 'private_vids') {
+                            $html->parse("item_block_users_private_vids", false); //popcorn modified 2024-11-07
                         } else if ($show == "personal") { /* Divyesh added on 17042024 */
                             $html->parse("item_block_users_personal", false);
                         } else if ($show == "folder") {
@@ -761,6 +779,8 @@ if (Common::isParseModule('profile_menu')) {
         $friends_menu->active_button = 'pending';
     if($show == 'private') //eric-cuigao-nsc-20201207-start
         $friends_menu->active_button = 'private';
+    if($show == 'private_vids') //eric-cuigao-nsc-20201207-start
+        $friends_menu->active_button = 'private_vids';
     if ($show == 'personal') // Divyesh - added on 17042024
         $friends_menu->active_button = 'personal';
     if ($show == 'folder') // Divyesh - added on 17042024

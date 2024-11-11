@@ -7170,7 +7170,7 @@ class User
                         ipv.id AS id,
                         IF(true, 0, 0) AS group_id,
                         ipv.is_new AS new,
-                        ipv.friend_id AS user_id, 
+                        ipv.user_id AS user_id, 
                         ipv.created_at AS date,
                         IF(true, 0, 0) AS event_id,
                         IF(true, 0, 0) AS live_id,
@@ -7432,7 +7432,7 @@ class User
                 if ($item['type_short'] == 'invited_private_vids')
                     $title_text = l('invited_private_video_notify_text');
 
-                $title = Common::lSetLink($title_text . " " . $userName, $vars);
+                $title = Common::lSetLink($title_text . " ", $vars);
 
                 if ($item['type_short'] == 'invited_folder') {
                     $folder_sql = "SELECT * FROM custom_folders cf LEFT JOIN invited_folder AS infr ON cf.id = infr.folder_id WHERE infr.id=" . to_sql($item['id']);

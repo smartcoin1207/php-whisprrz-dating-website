@@ -722,7 +722,12 @@ class CProfilePhoto extends CHtmlBlock
     {
         global $g_user;
 
-        $photosInfo = self::preparePhotoList($uid, $order, $whereSql, $limit, false, false, get_param('offset', false), $groupId); // Divyesh - added on 23042024
+        $access = get_param('offset', '');
+        if(is_numeric($access) && $access > 0) {
+            $access = 'folder';
+        }
+
+        $photosInfo = self::preparePhotoList($uid, $order, $whereSql, $limit, false, false, $access, $groupId); // Divyesh - added on 23042024
         $is = false;
         $privatePhoto = self::$privatePhoto;
         $personalPhoto = self::$personalPhoto;  // Divyesh - added on 23042024
@@ -1441,7 +1446,7 @@ class CProfilePhoto extends CHtmlBlock
             }
 
             if ($onlyPublic != 'public'){
-                $where .= " AND (ip.user_id=PH.user_id OR PH.user_id={$guid}) ";
+                $where .= " AND ((ip.user_id=PH.user_id AND ip.friend_id={$guid}) OR PH.user_id={$guid}) ";
             }
             
             if (!$guid) {
@@ -1657,39 +1662,27 @@ class CProfilePhoto extends CHtmlBlock
 
                         self::$preloadPhotoLimit = array('prev' => array(0, 0), 'next' => array(0, 0));
                         if ($prevLimit >= 0 && $countPhoto >= $nextLimit) {
-                            //var_dump_pre(1);
                             $limitPrevSql = '';
                             $limitNextSql = ' LIMIT ' . $prevLimit . ', ' . ($limitPreloadData2 + 1);
                             self::$preloadPhotoLimit['next'] = array($prevLimit, $limitPreloadData2 + 1);
                         } elseif ($prevLimit >= 0 && $countPhoto < $nextLimit) {
-                            //var_dump_pre(2);
                             $limitPrevSql = ' LIMIT 0, ' . ($nextLimit - $countPhoto);
                             self::$preloadPhotoLimit['next'] = array(0, $nextLimit - $countPhoto);
                             $limitNextSql = ' LIMIT ' . $prevLimit . ', ' . $countPhoto;
                             self::$preloadPhotoLimit['prev'] = array($prevLimit, $countPhoto);
                         } elseif ($prevLimit < 0 && $countPhoto >= $nextLimit) {
-                            //var_dump_pre(3);
                             $limitPrevSql = ' LIMIT ' . ($countPhoto - abs($prevLimit)) . ', ' . $countPhoto;
                             self::$preloadPhotoLimit['prev'] = array($countPhoto - abs($prevLimit), $countPhoto);
                             $limitNextSql = ' LIMIT 0, ' . $nextLimit;
                             self::$preloadPhotoLimit['next'] = array(0, $nextLimit);
                         } else {
-                            //var_dump_pre(4);
                         }
-                        /* elseif ($prevLimit < 0 && $countPhoto < $nextLimit) {
-                        var_dump_pre(5);
-                        $limitNextSql = $limit;
-                        }*/
 
                         if ($limitPrevSql) {
                             $sql = '(' . $sql . $limitPrevSql . ') UNION (' . $sql . $limitNextSql . ') ORDER BY ' . $orderOffset;
                         } else {
                             $sql .= $limitNextSql;
                         }
-
-                        //echo  $sql;
-                        //var_dump_pre($pidCur, true);
-
                     }
                 }
             } else {
@@ -6780,7 +6773,7 @@ class CProfilePhoto extends CHtmlBlock
                     $typeOrderDefault = Common::getOption('list_photos_type_order', 'edge_general_settings');
                     $order = self::getOrderList($typeOrderDefault);
                     $numberPhotoProfile = 0;
-                    
+
                     if ($uid) {
                         $photos = self::getPhotoListMobile($uid, $order, '', '', $groupId);
                         $list = $photos['list_photos'];
@@ -6794,8 +6787,12 @@ class CProfilePhoto extends CHtmlBlock
                             $order = self::getOrderList($orderFilter);
                         }
                         self::$isGetDataWithFilter = true;
-                        // Divyesh - added on 23042024
-                        $photos = self::preparePhotoList(0, $order, '', '', false, false, get_param('offset', false), 0, true);
+                        // Popcorn modified 2024-11-07 cusom folders
+                        $access = get_param('offset', '');
+                        if(is_numeric($access) && $access > 0) {
+                            $access = 'folder';
+                        }
+                        $photos = self::preparePhotoList(0, $order, '', '', false, false, $access, 0, true);
                         self::$isGetDataWithFilter = false;
                         $list = $photos;
                         $curPhoto = $pid;

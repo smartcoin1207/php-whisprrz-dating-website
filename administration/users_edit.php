@@ -497,78 +497,138 @@ class CForm extends UserFields//CHtmlBlock
         }
 
         $html->setvar("num_photos", $num_photos);
-        DB::query("SELECT *, `private` AS access FROM photo WHERE user_id=" . $g_user['user_id'] . " AND `visible` != 'P' AND `group_id` = 0 " . $whereNoPrivatePhoto . " ORDER BY access, photo_id DESC;");
         
+        $sql = "SELECT *, `private` AS access FROM photo WHERE user_id=" . $g_user['user_id'] . " AND `visible` != 'P' AND `group_id` = 0 " . $whereNoPrivatePhoto . " ORDER BY access, photo_id DESC;";
+        $photoRows = DB::rows($sql);
         $noPrivatePhoto = Common::isOptionActiveTemplate('no_private_photos');
-        for ($i = 1; $i <= $num_photos; $i++) {
-            $html->setvar("numer", $i);
 
-            if ($row = DB::fetch_row()) {
-                $html->setvar('photo', User::getPhotoFile($row, 's', $g_user['gender']));
-                $html->setvar("photo_id", $row['photo_id']);
-                
-                if (!$noPrivatePhoto) {
-                    $html->setvar("photo_access", l($row['private'] == 'N' ? 'make_private' : 'make_public'));
-                    $html->parse('photo_access', false);
-                }
+        $publicPhotos = [];
+        $privatePhotos = [];
+        $personalPhotos = [];
+        $customFoldersPhotos = [];
+        $folderNames = [];
+        
+        foreach ($custom_folders as $folder) {
+            $customFoldersPhotos[$folder['id']] = [];
+            $folderNames[$folder['id']] = $folder['name'];
+        }
 
-                /* Divyesh - added on - 17042024 */
-                $html->setvar("photo_personal_access", l($row['personal'] == 'N' ? 'make_personal' : 'remove_personal')); 
-                /* Divyesh - added on - 17042024 */
-
-                /** Popcorn modified added 2024-11-05 custom folders start */
-                if($row['custom_folder_id']) {
-                    $html->setvar('photo_folder_remove', 'Remove from Folder');
-                    $html->parse('remove_customfolder', false);
-                }
-
-                foreach ($custom_folders as $folder) {
-                    $html->setvar('folder_id', $folder['id']);
-                    $html->setvar('folder_name', "Folder". " " . $folder['name']);
-                    $html->parse('make_customfolder_item', true);
-                }
-                $html->parse('make_customfolder', false);
-                $html->clean('make_customfolder_item');
-                /** Popcorn modified added 2024-11-05 custom folders end */
-
-                $html->setvar("photo_name", $row['photo_name']);
-                $html->setvar("description", nl2br($row['description']));
-
-                $html->setvar("visible", $row['visible'] == "Y" ? "" : "(pending audit)");
-                if ($row['visible'] == "Y") {
-                    $html->clean('photo_approve');
-                } else {
-                    $html->parse('photo_approve', false);
-                }
-
-                if ($i == 1 or $i == 3) {
-                    $html->parse("photo_odd", true);
-                } else {
-                    $html->setblockvar("photo_odd", "");
-                }
-
-                if ($i == 2) {
-                    $html->parse("photo_even", true);
-                } else {
-                    $html->setblockvar("photo_even", "");
-                }
-
-                if ($i % 4 == 0) {
-                    $html->parse('photo_delimiter');
-                } else {
-                    $html->setblockvar('photo_delimiter', '');
-                }
-
-                $html->subcond(!$row['gif'], 'photo_edit_image');
-                $html->subcond(!$row['gif'], 'photo_rotate');
-
-                $html->parse("photo_item", true);
-
-                $html->parse("photo", false);
+        foreach ($photoRows as $photo) {
+            if ($photo['private'] == 'Y') {
+                $privatePhotos[] = $photo;
+            } elseif ($photo['personal'] == 'Y') {
+                $personalPhotos[] = $photo;
+            } elseif ($photo['in_custom_folder'] == 'Y' && (isset($photo['custom_folder_id']) && $photo['custom_folder_id'] > 0)) {
+                $folderId = $photo['custom_folder_id'];
+                $customFoldersPhotos[$folderId][] = $photo;
+            } else {
+                $publicPhotos[] = $photo;
             }
         }
 
-        $html->parse("photo_edit", true);
+        $groupedPhotos = [];
+
+        $groupedPhotos[] = [
+            "header" => "public",
+            "photos" => $publicPhotos
+        ];
+
+        $groupedPhotos[] = [
+            "header" => "private",
+            "photos" => $privatePhotos
+        ];
+        $groupedPhotos[] = [
+            "header" => "personal",
+            "photos" => $personalPhotos
+        ];
+
+        foreach ($customFoldersPhotos as $key => $folderPhotos) {
+            $groupedPhotos[] = [
+                "header" => $folderNames[$key] . " Folder",
+                "photos" => $folderPhotos
+            ];
+        }
+
+        // var_dump($groupedPhotos); die();
+
+        foreach ($groupedPhotos as $key => $folderPhotos) {
+            $html->setvar('grouped_photo_header', $folderPhotos['header']);
+            $photos = $folderPhotos['photos'];
+
+            foreach ($photos as $i => $row) {
+                $html->setvar("numer", $i);
+
+                if ($row) {
+                    $html->setvar('photo', User::getPhotoFile($row, 's', $g_user['gender']));
+                    $html->setvar("photo_id", $row['photo_id']);
+                    
+                    if (!$noPrivatePhoto) {
+                        $html->setvar("photo_access", l($row['private'] == 'N' ? 'make_private' : 'make_public'));
+                        $html->parse('photo_access', false);
+                    }
+
+                    /* Divyesh - added on - 17042024 */
+                    $html->setvar("photo_personal_access", l($row['personal'] == 'N' ? 'make_personal' : 'remove_personal')); 
+                    /* Divyesh - added on - 17042024 */
+
+                    /** Popcorn modified added 2024-11-05 custom folders start */
+                    if($row['custom_folder_id']) {
+                        $html->setvar('photo_folder_remove', 'Remove from Folder');
+                        $html->parse('remove_customfolder', false);
+                    }
+
+                    foreach ($custom_folders as $folder) {
+                        $html->setvar('folder_id', $folder['id']);
+                        $html->setvar('folder_name', "Folder". " " . $folder['name']);
+                        $html->parse('make_customfolder_item', true);
+                    }
+                    $html->parse('make_customfolder', false);
+                    $html->clean('make_customfolder_item');
+                    /** Popcorn modified added 2024-11-05 custom folders end */
+
+                    $html->setvar("photo_name", $row['photo_name']);
+                    $html->setvar("description", nl2br($row['description']));
+
+                    $html->setvar("visible", $row['visible'] == "Y" ? "" : "(pending audit)");
+                    if ($row['visible'] == "Y") {
+                        $html->clean('photo_approve');
+                    } else {
+                        $html->parse('photo_approve', false);
+                    }
+
+                    if ($i == 1 or $i == 3) {
+                        $html->parse("photo_odd", true);
+                    } else {
+                        $html->setblockvar("photo_odd", "");
+                    }
+
+                    if ($i == 2) {
+                        $html->parse("photo_even", true);
+                    } else {
+                        $html->setblockvar("photo_even", "");
+                    }
+
+                    if ($i % 4 == 0) {
+                        $html->parse('photo_delimiter');
+                    } else {
+                        $html->setblockvar('photo_delimiter', '');
+                    }
+
+                    $html->subcond(!$row['gif'], 'photo_edit_image');
+                    $html->subcond(!$row['gif'], 'photo_rotate');
+
+                    $html->parse("photo_item", true);
+
+                    $html->parse("photo", false);
+                }
+            }
+
+            $html->parse("photo_grouped_container", true);
+            $html->clean('photo_item');
+            $html->clean('nophoto_item');
+            $html->clean('photo');
+        }
+
         if (!Common::isOptionActive('personal_settings')) {
             $html->parse('btn_update', false);
         }

@@ -640,111 +640,107 @@
             <div style="height:20px"></div>
 
             <h2>{l_edit_photos} ({num_photos})</h2>
+            <!-- begin_photo_grouped_container -->
+                <h3 class="grouped_photo_header">{grouped_photo_header}</h3>
+                <div style="width: 100%; display: flex; flex-wrap: wrap;" class="photo_container">
+                    <!-- begin_photo-->
+                        <!-- begin_photo_item-->
+                        <div class="photo-item-container">
+                            <div class="user-photo-item">
+                                <img id="photo_{photo_id}" src="{url_files}{photo}">
+                                <a id="photo_rotate_{photo_id}" data-photo-id="{photo_id}" data-user-id="{user_id}"
+                                    data-photo-size="s" class="icon_rotate" title="{a_rotate}" href=""></a>
+            
+                                <p class="mod_bl_pending">{visible}</p>
+                                <p class="mod_bl_description" title="{description}">{description}&nbsp;</p>
+                                <!-- Popcorn modified 2024-11-05 custom folders start -->
+                                <ul class="photo-action-ul">
+                                    <li>
+                                        <a href="#"  onclick="if(confirm('{l_this_action}')) parent.location.href='{url_main}administration/users_edit.php?cmd=delete_photo&photo_id={photo_id}&id={user_id}';">
+                                            <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </span>
+                                            <span>{l_delete}</span>
+                                        </a>
+                                    </li>
+            
+                                    <!-- begin_photo_access -->
+                                    <li>
+                                        <a onclick="window.location.href='{url_main}administration/users_edit.php?cmd=set_photo_access&photo_id={photo_id}&id={user_id}';">
+                                            <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                            </span>
+                                            <span>{photo_access}</span>
+                                        </a>
+                                    </li>
+                                    <!-- end_photo_access -->
+            
+                                    <li>
+                                        <a onclick="window.location.href='{url_main}administration/users_edit.php?cmd=set_photo_personal_access&photo_id={photo_id}&id={user_id}';">
+                                            <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                            </span>
+                                            <span>{photo_personal_access}</span>
+                                        </a>
+                                    </li>
+                                    
+                                    <!-- begin_remove_customfolder -->
+                                    <li>
+                                        <a onclick="window.location.href='{url_main}administration/users_edit.php?cmd=remove_photo_folder_access&photo_id={photo_id}&id={user_id}';">
+                                            <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                <i class="fa fa-folder" aria-hidden="true"></i>
+                                            </span>
+                                            <span>{photo_folder_remove}</span>
+                                        </a>
+                                    </li>                
+                                    <!-- end_remove_customfolder -->
 
-            <div style="width: 100%; display: flex; flex-wrap: wrap;" class="photo_container">
+                                    <!-- begin_make_customfolder -->
+                                        <!-- begin_make_customfolder_item -->
+                                        <li>
+                                            <a onclick="window.location.href='{url_main}administration/users_edit.php?cmd=set_photo_folder_access&photo_id={photo_id}&id={user_id}&folder_id={folder_id}';">
+                                                <span class="icon_fa" data-no-fade-in="true">
+                                                    <i class="fa fa-folder-o" aria-hidden="true"></i>
+                                                </span>
+                                                <span>{folder_name}</span>
+                                            </a>
+                                        </li>
+                                        <!-- end_make_customfolder_item -->
+                                    <!-- end_make_customfolder -->
+                                </ul>
+                                <!-- Popcorn modified 2024-11-05 custom folders end -->
+                                <!-- begin_photo_approve -->
+                                <a class="mod_btn_submit_custom mod_link_profile"
+                                    onclick="redirectUrl('{url_main}administration/users_edit.php?cmd=approve_photo&photo_id={photo_id}&id={user_id}'); return false;">{l_photo_approve}</a>
+                                <!-- end_photo_approve -->
+            
+                                <!-- begin_photo_odd-->
+                                <!-- end_photo_odd-->
+                                <!-- begin_photo_even-->
+                                <!-- end_photo_even-->
+                                <div style="height:20px"></div>
+                            </div>
+                        </div>
+                            <!-- begin_photo_delimiter1 -->
+                            <br clear="all">
+                            <!-- end_photo_delimiter1 -->
+                        <!-- end_photo_item-->
 
-                <!-- begin_photo_edit -->
-                <!-- begin_photo-->
-                <!-- begin_photo_item-->
-                 <div class="photo-item-container">
-                    <div class="user-photo-item">
-                        <img id="photo_{photo_id}" src="{url_files}{photo}">
-                        <a id="photo_rotate_{photo_id}" data-photo-id="{photo_id}" data-user-id="{user_id}"
-                            data-photo-size="s" class="icon_rotate" title="{a_rotate}" href=""></a>
-    
-                        <p class="mod_bl_pending">{visible}</p>
-                        <p class="mod_bl_description" title="{description}">{description}&nbsp;</p>
-                        <!-- Popcorn modified 2024-11-05 custom folders start -->
-                        <ul class="photo-action-ul">
-                            <li>
-                                <a href="#"  onclick="if(confirm('{l_this_action}')) parent.location.href='{url_main}administration/users_edit.php?cmd=delete_photo&photo_id={photo_id}&id={user_id}';">
-                                    <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </span>
-                                    <span>{l_delete}</span>
-                                </a>
-                            </li>
-    
-                            <!-- begin_photo_access -->
-                            <li>
-                                <a onclick="window.location.href='{url_main}administration/users_edit.php?cmd=set_photo_access&photo_id={photo_id}&id={user_id}';">
-                                    <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
-                                        <i class="fa fa-user-secret" aria-hidden="true"></i>
-                                    </span>
-                                    <span>{photo_access}</span>
-                                </a>
-                            </li>
-                            <!-- end_photo_access -->
-    
-                            <li>
-                                <a onclick="window.location.href='{url_main}administration/users_edit.php?cmd=set_photo_personal_access&photo_id={photo_id}&id={user_id}';">
-                                    <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
-                                        <i class="fa fa-user-secret" aria-hidden="true"></i>
-                                    </span>
-                                    <span>{photo_personal_access}</span>
-                                </a>
-                            </li>
-                            
-                            <!-- begin_remove_customfolder -->
-                            <li>
-                                <a onclick="window.location.href='{url_main}administration/users_edit.php?cmd=remove_photo_folder_access&photo_id={photo_id}&id={user_id}';">
-                                    <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
-                                        <i class="fa fa-folder" aria-hidden="true"></i>
-                                    </span>
-                                    <span>{photo_folder_remove}</span>
-                                </a>
-                            </li>                
-                            <!-- end_remove_customfolder -->
+                        <!-- begin_nophoto_item-->
+                        <div style="width:115px; float: left;">
+                            <img src="{url_files}nophoto_s.jpg" width="90" height="100">
+                            <p><b>{numer}. ({l_empty})</b></p>
+                            <!-- begin_nophoto_odd-->
+                            <!-- end_nophoto_odd-->
+                            <!-- begin_nophoto_even-->
+                            <!-- end_nophoto_even-->
+                            <div style="height:15px"></div>
+                        </div>
+                        <!-- end_nophoto_item-->
 
-                            <!-- begin_make_customfolder -->
-                                <!-- begin_make_customfolder_item -->
-                                <li>
-                                    <a onclick="window.location.href='{url_main}administration/users_edit.php?cmd=set_photo_folder_access&photo_id={photo_id}&id={user_id}&folder_id={folder_id}';">
-                                        <span class="icon_fa" data-no-fade-in="true">
-                                            <i class="fa fa-folder-o" aria-hidden="true"></i>
-                                        </span>
-                                        <span>{folder_name}</span>
-                                    </a>
-                                </li>
-                                <!-- end_make_customfolder_item -->
-                            <!-- end_make_customfolder -->
-                        </ul>
-                        <!-- Popcorn modified 2024-11-05 custom folders end -->
-                        <!-- begin_photo_approve -->
-                        <a class="mod_btn_submit_custom mod_link_profile"
-                            onclick="redirectUrl('{url_main}administration/users_edit.php?cmd=approve_photo&photo_id={photo_id}&id={user_id}'); return false;">{l_photo_approve}</a>
-                        <!-- end_photo_approve -->
-    
-                        <!-- begin_photo_odd-->
-                        <!-- end_photo_odd-->
-                        <!-- begin_photo_even-->
-                        <!-- end_photo_even-->
-                        <div style="height:20px"></div>
-                    </div>
-                 </div>
-                
-
-                <!-- begin_photo_delimiter1 -->
-                <br clear="all">
-                <!-- end_photo_delimiter1 -->
-
-                <!-- end_photo_item-->
-                <!-- begin_nophoto_item-->
-                <div style="width:115px; float: left;">
-                    <img src="{url_files}nophoto_s.jpg" width="90" height="100">
-                    <p><b>{numer}. ({l_empty})</b></p>
-                    <!-- begin_nophoto_odd-->
-                    <!-- end_nophoto_odd-->
-                    <!-- begin_nophoto_even-->
-                    <!-- end_nophoto_even-->
-                    <div style="height:15px"></div>
+                    <!-- end_photo-->
                 </div>
-                <!-- end_nophoto_item-->
-
-                <!-- end_photo-->
-                <!-- end_photo_edit -->
-            </div>
-
+            <!-- end_photo_grouped_container -->
         </form>
 
         <br clear="all">

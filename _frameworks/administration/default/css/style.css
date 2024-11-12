@@ -1816,3 +1816,8 @@ table td.language_action_buttons a {
 .photo-action-ul li {
     padding: 3px 0;
 }
+
+/*Popcorn added 2024-11-12*/
+.grouped_photo_header {
+    border-bottom: 1px dotted rgb(97, 94, 94);
+}

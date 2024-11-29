@@ -1,206 +1,89 @@
 {header}
 <div id="oryx_content">
-{ims}
-{complite}
-<!--<script language="javascript" type="text/javascript">
-$(function(){
-   $('[id ^= DescEditable_]').editable({editor: 'textarea', 
-              empty: true,
-              classInput: 'profile_photo_edit_editable_textarea', 
-              classHover: 'profile_photo_edit_editable_hover',
-              type: 'photo'});
-});
-</script>-->
-<div class="column_main frame_content">
-
-  {profile_menu}
-
-			<!-- begin_photo_edit -->
-			<div>
-			<div class="cl"></div>
-				<!-- begin_photo-->
-				<h2>{l_profile_edit_photos}</h2>
-				<table width="100%" border="0" cellpadding="0" cellspacing="0" style="padding-bottom: 20px;"><tr>
-					<td width="280" 1style="padding-left: 8px;" align="left">
-					<!-- begin_photo_item-->
-						<table border="0" cellpadding="0" cellspacing="0"><tr><td valign="top" rowspan="2" style="padding-right: 10px;">
-						<div id="photo_info">
-                            <!-- begin_photo_item_photo -->
-                            <a href="{url_main}search_results.php?display=photo&uid={user_id}&photo_offset={photo_offset}">
-                                <img class="img_border" src="{url_files}photo/{photo_id}_{hash}_s.jpg">
-                            </a>
-                            <!-- end_photo_item_photo -->
-                            <!-- begin_photo_item_photo_not_approval -->
-                            <img class="img_border" src="{url_files}photo/{photo_id}_{hash}_s.jpg">
-                            <!-- end_photo_item_photo_not_approval -->
-						</div>
-						</td><td valign="top" class="body_little">
-						<div style="min-height: 70px; margin: 0 0 10px;">
-						<div><b>{numer}.</b><div class="profile_photo_edit_editable" id="DescEditable_{photo_id}">{description}</div></div>
-						<div class="pri_little_bold">{visible}</div>
-
-						<!-- begin_default -->{l_photo_default_sign} {default_title}<!-- end_default -->
-
-						<!-- begin_set_default --><a href="{url_page}?id={photo_id}&cmd=main">{default_title}</a><!-- end_set_default -->
-
-						<!-- begin_set_private --><br/><a href="{url_page}?id={photo_id}&cmd=private">{private_title}</a><!-- end_set_private -->
-						<!-- begin_set_public --><br/><a style="text-decoration: none;" href="{url_page}?id={photo_id}&cmd=public">{l_photo_private_sign}</a> <a href="{url_page}?id={photo_id}&cmd=public">{l_private}</a><!-- end_set_public -->
-						</div>
-						<div><table border="0" cellpadding="0" cellspacing="0"><tr><td class="body_little">
-						<table border="0" cellpadding="0" cellspacing="0"><tr><td>
-						<div class="button_border_2">
-						<input type="button" value="{l_delete}" onClick="if(confirm('{l_this_action_can_not_be_undone}')) parent.location.href='{url_main}profile_photo_nsc_couple.php?cmd=delete&id={photo_id}';" class="btn dblue" title="{l_delete}" onMouseOver="window.status='{l_delete}'; return true;" onMouseOut="window.status=''; return true;">
-						</div></td></tr></table></td><td style="padding-left: 8px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2">
-						<input type="button" value="{l_edit_text}" onClick="location.href='{url_main}profile_photo_edit_nsc_couple.php?id={photo_id}';" class="btn dblue" title="{l_edit_text}" onMouseOver="window.status='{l_edit_text}'; return true;" onMouseOut="window.status=''; return true;">
-						</div></td></tr></table></td></tr></table></div>
-
-						</td></tr>
-
-
-
-						<tr><td valign="bottom" class="body_little"><!-- <div><table border="0" cellpadding="0" cellspacing="0"><tr><td class="body_little">
-						<table border="0" cellpadding="0" cellspacing="0"><tr><td>
-						<div class="button_border_2">
-						<input type="button" value="{l_delete}" onClick="if(confirm('{l_this_action_can_not_be_undone}')) parent.location.href='{url_main}profile_photo.php?cmd=delete&id={photo_id}';" class="btn dblue" title="{l_delete}" onMouseOver="window.status='{l_delete}'; return true;" onMouseOut="window.status=''; return true;">
-						</div></td></tr></table></td><td style="padding-left: 8px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2">
-						<input type="button" value="{l_edit_text}" onClick="location.href='{url_main}profile_photo_edit.php?id={photo_id}';" class="btn dblue" title="{l_edit_text}" onMouseOver="window.status='{l_edit_text}'; return true;" onMouseOut="window.status=''; return true;">
-						</div></td></tr></table></td></tr></table></div> --></td></tr>
-
-						</table>
-						<!-- begin_photo_odd-->
-						</td><td align="left">
-						<!-- end_photo_odd-->
-						<!-- begin_photo_even-->
-						</td>
-						</tr><tr>
-						<td style="height: 20px;"></td>
-						</tr><tr>
-						<td align="left">
-						<!-- end_photo_even-->
-					<!-- end_photo_item-->
-					<!-- begin_nophoto_item-->
-						<table border="0" cellpadding="0" cellspacing="0"><tr><td valign="top" rowspan="2" style="padding-right: 10px;">
-							<div id="photo_info">
-							<img src="{url_files}oryx_nophoto_s.jpg" width="90" height="100" class="img_border">
-							</div>
-						</td><td valign="top" class="body_little">
-							<div><b>{numer}. ({l_empty})</b></div>
-						</td></tr></table>
-						<!-- begin_nophoto_odd-->
-						</td><td align="left">
-						<!-- end_nophoto_odd-->
-						<!-- begin_nophoto_even-->
-						</td>
-						</tr><tr>
-						<td style="height: 20px;"></td>
-						</tr><tr>
-						<td style="padding-left: 8px;" align="left">
-						<!-- end_nophoto_even-->
-					<!-- end_nophoto_item-->
-					</td>
-				</tr></table>
-				<!-- end_photo-->
-			</div>
-			<!-- end_photo_edit -->
-			<div class="keyline" style="height: 1px; margin-bottom: 8px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td></td></tr></table></div>
-<!-- begin_photo_upload -->
-	<h2>Upload Your Partner Picture</h2>
-
-<div>
-	<table border="0" cellpadding="0" cellspacing="0"><tr>
-		<td valign="top" style="padding-right: 10px;" align="left">
-			
-			<div class="body_text">
-				Your photo will not be displayed until it has been approved by our Customer Support Dept. which can take up to 24 hours. Photos that do not meet our guidelines will be rejected and deleted from your account. For information about posting photos, you can read our
-				<a href="#" onclick="javascript:OpenWindow('./info.php?page=photo_guidelines&amp;lang=default','650','400','yes');" class="pri_text_bold">photo guidelines</a>.
-			</div>
-			<br>
-			
-			
-			<div class="body_little">
-				<b>Note:</b> Your photo must be in one of the following formats: GIF, JPEG or PNG.
-			</div>
-		</td>
-		<td valign="top">
-<script Language="JavaScript" type="text/javascript">
-  var blockSubmission = false;
-  function removeSubmissionBlock() {
-    blockSubmission = false;
-  }
-  function isSubmissionAllowed() {
-    if(blockSubmission){
-       return false;
-    }
-    return;
-   }
-  document.onclick = isSubmissionAllowed;
-  document.onkeydown = isSubmissionAllowed;
-  function onValidateUploadPhotoForm() {
-    var form = document.forms['UploadPhotoForm'];
-    // "photo_file" field validation.
-    if (!(validateRequiredField(form['photo_file'], '{l_file_location}'))) {
-      removeSubmissionBlock();
-      return false;
-    }
-
-    // "photo_description" field validation.
-    if (!(validateMaxLength(form['description'], '{l_photo_description}','{profile_photo_description_length}'))) {
-      removeSubmissionBlock();
-      return false;
-    }
-    return true;
-  }
-  function validateUploadPhotoForm() {
-    blockSubmission = true;
-     if (typeof beforeUploadPhotoFormValidation != 'undefined') {
-       beforeUploadPhotoFormValidation();
-    }
-    var validated = onValidateUploadPhotoForm();
-    if (validated && (typeof uponSuccessfulUploadPhotoFormValidation != 'undefined')) {
-      validated = uponSuccessfulUploadPhotoFormValidation();
-    }
-    else if (!validated && (typeof uponUnsuccessfulUploadPhotoFormValidation != 'undefined')) {
-      uponUnsuccessfulUploadPhotoFormValidation();
-    }
-    if (!validated) {
-      removeSubmissionBlock();
-    }
-    return validated;
-  }
-  function submitUploadPhotoForm() {
-   if (validateUploadPhotoForm()) document.UploadPhotoForm.submit();
-    }
-</script>
-<form class="" name="UploadPhotoForm" method="POST" enctype="multipart/form-data" action="{url_main}profile_photo_nsc_couple.php" onSubmit="return validateUploadPhotoForm();" style="padding: 0px; margin: 0px;">
-			<input type="hidden" name="cmd" value="insert">
-			<table border="0" cellpadding="0" cellspacing="0"><tr>
-				<td class="body_little" valign="bottom" align="left">
-					<label for="PHOTO_FILE">{l_file_location}</label>
-					({max_size})
-					<br><input  class="no_abk file" type="file" id="PHOTO_FILE" name="photo_file"><br /><br />
-				</td>
-			</tr><tr style="padding-top: 8px;">
-				<td class="body_little" colspan="2" align="left">
-					<label for="PHOTO_DESCRIPTION">{l_photo_description}</label>
-					({l_max_100})
-					<br>
-					<textarea class="no_abk" id="PHOTO_DESCRIPTION"  name="description" style="width: 240px; height: 75px;"></textarea>
-				</td>
-			</tr><tr style="padding-top: 8px;">
-				<td colspan="2" align="left">
-                    <div style="padding-top:14px; font-weight: bold; margin-bottom: -12px;">{message}</div>
-					<br>
-                    <div>
-                    <input type="button" value="{l_upload_photo}" onClick=" submitUploadPhotoForm();" class="btn dblue" title="{l_upload_photo}" onMouseOver="window.status='{l_upload_photo}'; return true;" onMouseOut="window.status=''; return true;">
-                    <a style="float: right;" href="{url_main}search_results.php?offset=1&display=photo&name={name}">{l_view_profile_pictures}</a> 
-                    </div>
-				</td>
-			</tr></table>
-	</form>
-		</td>
-	</tr></table>
+	{ims}
+	{complite}
 </div>
-<!-- end_photo_upload -->
-</div>
-</div>
+
+	<div class="column_main frame_content" style="width: 580px;">
+		{profile_menu}
+		{search}
+
+		<style>
+			.wall {
+				border: 0px solid;
+			}
+		</style>
+
+		{list}
+		{users_list}
+
+		<script>
+			clPages.setData({
+				urlPage: '{url_main}{url_pages}',
+				pageType: '{page_type}',
+				page: '{page_number}' * 1,
+				type_order: '{type_order}',
+				tags: '{tags}',
+				only_friends: '{only_friends}' * 1,
+				only_live: '{only_live}' * 1,
+				uid: '{page_user_id}' * 1,
+				guid: '{page_guid}' * 1,
+				param: '{page_param}' ? '{page_param}' : 'page',
+				filter: '{page_filter}' * 1,
+				isMyFriend: '{page_my_friends}' * 1,
+				groupId: '{group_id}' * 1,
+				groupType: '{group_type}'
+			});
+			clPages.initList();
+
+			$(function () {
+				<!-- begin_show_gallery_js -->
+					clProfilePhoto.openGallery(false, '{show_photo_id}', false, false, '{show_comment_id}');
+				<!-- end_show_gallery_js -->
+				<!-- begin_show_video_gallery_js -->
+					clProfilePhoto.openGallery(false, 'v_{show_video_id}', true, false, '{show_comment_id}');
+				<!-- end_show_video_gallery_js -->
+			})
+
+			/* Divyesh - Added on 11-04-2024 */
+			<!-- begin_show_video_update_function -->
+			function update_video_private(v_id, video) {
+				var id = v_id.split("_");
+				$.ajax({
+					type: 'POST',
+					url: 'ajax_profile.php',
+					data: {
+						cmd: 'vid_private',
+						v_id: id[1],
+						video: video
+					},
+					dataType: 'json',
+					beforeSend: function () {
+
+					},
+					success: function (res) {
+						if (res.status == "ok") {
+							Swal.fire({
+								position: "top-end",
+								icon: "success",
+								title: '{l_video_private_status}',
+								showConfirmButton: false,
+								timer: 1500
+							});
+							window.location.reload();
+						} else {
+							Swal.fire(
+								'{l_there_was_an_error}',
+								'{l_private_video_error}',
+								'error'
+							)
+						}
+					}
+				});
+				return false;
+			}
+			/* Divyesh - Added on 11-04-2024 */
+			<!-- end_show_video_update_function -->
+		</script>
+	</div>
 {footer}

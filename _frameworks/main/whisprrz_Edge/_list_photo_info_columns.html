@@ -503,6 +503,7 @@
 
     /* Popcorn - Added on 24-09-2024 */
     function openAddCustomFolderPopup() {
+
         Swal.fire({
             title: '{l_add_custom_folder}',
             html: `<input type="text" id="add_custom_folder" class="swal2-input" maxlength="15" placeholder="XXX" value="">`,
@@ -513,7 +514,7 @@
                 const add_custom_folder = Swal.getPopup().querySelector('#add_custom_folder').value
                     return fetch(`{url_main}ajax_profile.php`, {
                         method: 'POST',
-                        body: 'cmd=add_custom_folder&folder=' + encodeURIComponent(add_custom_folder),
+                        body: 'cmd=add_custom_folder&folder= '+ encodeURIComponent(add_custom_folder) + '&is_nsc_couple_page=' + is_nsc_couple_page,
                         headers: {
                             'Content-type': 'application/x-www-form-urlencoded'
                         }

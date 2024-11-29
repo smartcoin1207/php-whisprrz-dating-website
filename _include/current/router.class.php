@@ -358,6 +358,7 @@ class Router {
 
             'photos'                => 'photos_list',
             'profile_photo'         => 'profile_photo',
+            'profile_photo_nsc_couple'         => 'profile_photo_nsc_couple',
             'photo_liked'           => array('page' => 'search_results', 'params' => array('show' => 'photo_liked'), 'param_secondary' => 'photo_id'),
             'photo_liked_comment'   => array('page' => 'search_results', 'params' => array('show' => 'photo_liked_comment'), 'param_secondary' => 'comment_id'),
 

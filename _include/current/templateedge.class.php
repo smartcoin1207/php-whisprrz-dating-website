@@ -77,6 +77,7 @@ Class TemplateEdge {
         $html->setvar('header_uid', $uid);
         $uidParam = User::getParamUid(0);
         $html->setvar('header_param_uid', $uidParam);
+        $html->setvar('nsc_couple_id', $g_user['nsc_couple_id'] ?? '');
 
         $groupId = Groups::getParamId();
         $html->setvar('header_group_id', $groupId);
@@ -2646,13 +2647,14 @@ Class TemplateEdge {
 
     static function parsePhoto(&$html, $row, $numberRow, $layoutType)
     {
-        global $g;
+        global $g, $g_user;
 
         $blockItem = 'list_photos_item';
         $blockItemType = "{$blockItem}_{$layoutType}";
         if ($html->blockExists($blockItemType)) {
             global $g;
             $guid = guid();
+            $nsc_couple_id = $g_user['nsc_couple_id'];
             $uidParam = User::getParamUid(0);
 
             $info = array('number_row' => $numberRow,
@@ -2700,7 +2702,7 @@ Class TemplateEdge {
             $html->setvar('editor_hide_class', $editorHideClass);
 
             if(!self::isEHP()) {
-                if ($uidParam && $uidParam == $guid && $row['user_id'] == $guid) {
+                if ($uidParam && ($uidParam == $guid || $uidParam == $nsc_couple_id) && ($row['user_id'] == $guid || $row['user_id'] == $nsc_couple_id)) {
                     if (Common::isOptionActive('gallery_show_download_original', 'edge_gallery_settings')) {
                         $html->parse("{$blockItemType}_link_download", false);
                     }
@@ -2736,7 +2738,8 @@ Class TemplateEdge {
                     }
 
                     /** Popcorn - added 2024-10-14 */
-                    $sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql($guid, 'Number') . " AND id != " . to_sql($row['custom_folder_id'], 'Number');
+                    $uid = User::getParamUid(0);
+                    $sql = "SELECT * FROM custom_folders WHERE user_id = " . to_sql($uid, 'Number') . " AND id != " . to_sql($row['custom_folder_id'], 'Number');
                     $folders = DB::rows($sql);
                     $html->setvar("photo_folder_title", l('move_to_custom_folder'));
                     foreach ($folders as $key => $folder) {
@@ -2796,7 +2799,7 @@ Class TemplateEdge {
                 } else {
                     $html->clean("{$blockItemType}_menu");
                 }
-            } 
+            }
 
             //$html->subcond($uidParam && $uidParam == $guid && $row['user_id'] == $guid, "{$blockItemType}_menu");
 

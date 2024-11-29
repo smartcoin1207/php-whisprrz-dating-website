@@ -110,7 +110,7 @@ if($photo_cmd == 'event_photos') {
         $where = '`photo_id` = ' . to_sql($photoId);
         $isSiteAdministrator = Common::isSiteAdministrator();
         if(!$isSiteAdministrator) {
-            $where .= ' AND `user_id` = ' . to_sql(guid());
+            $where .= ' AND ' . Common::getNscUserWhere('IN');
         }
         $photo = DB::one('photo', $where);
         if ($photo) {

@@ -120,7 +120,12 @@ if ($cmd == 'sendcode') { /* Start Divyesh - 21-07-23 */
     echo json_encode($res); /* End Divyesh - 21-07-23 */
 } elseif ($cmd == 'add_custom_folder') {
     $folder = get_param('folder');
-    $sql = "INSERT INTO `custom_folders` (`user_id`, `name`) VALUES (" . to_sql(guid(), 'Text') . ", " . to_sql($folder, 'Text') . ")";
+    $is_nsc_couple_page = get_param('is_nsc_couple_page');
+    $user_id = guid();
+    if($is_nsc_couple_page == 1) {
+        $user_id = $g_user['nsc_couple_id'] ?? 0;
+    }
+    $sql = "INSERT INTO `custom_folders` (`user_id`, `name`) VALUES (" . to_sql($user_id, 'Text') . ", " . to_sql($folder, 'Text') . ")";
     DB::execute($sql);
     $folder_id = DB::insert_id();
 

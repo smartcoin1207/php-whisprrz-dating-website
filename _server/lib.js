@@ -5388,6 +5388,10 @@ function initEditorImage(tmpl){
 					}
 				}
 
+                if(is_nsc_couple_page == 1) {
+                    data['is_nsc_couple_page'] = 1;
+                }
+
 				$.ajax({url:url,
 						type:'POST',
 						data:data,

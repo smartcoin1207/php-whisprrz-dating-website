@@ -170,7 +170,11 @@ var CPages = function(guid) {
             return false;
         }
         if ($this.uid) {
-            return $this.guid == $this.uid;
+            if(is_nsc_couple_page == 1) {
+                return nsc_couple_id == $this.uid;
+            } else {
+                return $this.guid == $this.uid;
+            }
         } else {
             var option='show_your_photo_browse_photos';
             if(type=='videos'){

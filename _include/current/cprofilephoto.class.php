@@ -256,8 +256,10 @@ class CProfilePhoto extends CHtmlBlock
         $type = get_param('type', 'public');
         $isPrivate = ($type == 'private') ? true : false;
         $pending = get_param('pending', 'P');
-
-        $id = uploadphoto(guid(), '', '', $pending, $dir, false, $inputFile, $isPrivate, true, $isCity);
+        $nsc_couple_id = $g_user['nsc_couple_id'];
+        $is_nsc_couple_page = get_param('is_nsc_couple_page', 0);
+        
+        $id = uploadphoto($is_nsc_couple_page == 1 ? $nsc_couple_id : guid(), '', '', $pending, $dir, false, $inputFile, $isPrivate, true, $isCity);
         CStatsTools::count('photos_uploaded');
 
         if ($uploadDefault) {
@@ -266,7 +268,7 @@ class CProfilePhoto extends CHtmlBlock
 
         $photo = DB::one('photo', '`photo_id` = ' . to_sql($id));
 
-        $photo['user_id'] = guid();
+        $photo['user_id'] = $is_nsc_couple_page == 1 ? $nsc_couple_id : guid();
         $photo['private'] = ($type == 'private') ? 'Y' : 'N';
         $photo['visible'] = $pending;
         $size = get_param('size', 'r');
@@ -317,6 +319,7 @@ class CProfilePhoto extends CHtmlBlock
         global $g, $g_user;
 
         $uid = guid();
+        $nsc_couple_id = $g_user['nsc_couple_id'];
         if (!$uid && get_session('admin_auth') != 'Y' && $g_user['moderator_photo'] != 1) {
             return false;
         }
@@ -342,11 +345,11 @@ class CProfilePhoto extends CHtmlBlock
             $photo['visible'] = 'Y';
             $fileSrc = $g['path']['dir_files'] . $image_directory . "/" . $photo['image_id'] . "_src.jpg";
         } else {
-            $photo = DB::one('photo', '`photo_id` = ' . to_sql($pid) . ' AND `user_id` = ' . to_sql($uid));
+            $photo = DB::one('photo', '`photo_id` = ' . to_sql($pid) . ' AND `user_id` IN (' . to_sql($uid) . ', ' . to_sql($nsc_couple_id) . ')');
             $photo['visible'] = 'Y';
             $fileSrc = $g['path']['dir_files'] . User::photoFileCheck($photo, 'src', '', false);
         }
-
+        
         CProfilePhoto::createFileOrigImage($fileSrc);
         Common::saveFileSize($fileSrc, false);
         $fileSrcBefore = $fileSrc;
@@ -428,13 +431,14 @@ class CProfilePhoto extends CHtmlBlock
 
     public static function updateFromString($param = 'image', $uid = null)
     {
-        global $g;
-
+        global $g, $g_user;
+        $is_nsc_couple_page = get_param('is_nsc_couple_page', 0);
+        
         if ($uid == null) {
-            $uid = guid();
+            $uid = $is_nsc_couple_page == 1 ? $g_user['nsc_couple_id'] : guid();
         }
-        $pid = get_param('photo_id');
 
+        $pid = get_param('photo_id');
         $isImageEditor = get_param_int('image_edit');
         $imageString = str_replace(' ', '+', get_param($param));
 
@@ -3325,6 +3329,9 @@ class CProfilePhoto extends CHtmlBlock
             return self::publishPhotosEHP($photos, $type, $groupId, $uploadDefault);
         }
 
+        $is_nsc_couple_page = get_param('is_nsc_couple_page', 0);
+        $publish_user = $is_nsc_couple_page ? $g_user['nsc_couple_id'] : guid();
+
         $templateName = Common::getTmplName();
         $guid = guid();
 
@@ -3344,9 +3351,9 @@ class CProfilePhoto extends CHtmlBlock
             self::publishVideo($type, $groupId);
             self::deleteOldPendingVideos($type);
 
-            $photosList = self::preparePhotoList($guid, '`photo_id` ASC', '', '', false, false, false, $groupId);
+            $photosList = self::preparePhotoList($publish_user, '`photo_id` ASC', '', '', false, false, false, $groupId);
             if ($templateName == 'edge') {
-                $vidsList = CProfileVideo::getVideosList('', '', $guid, false, true, 0, '', $groupId);
+                $vidsList = CProfileVideo::getVideosList('', '', $publish_user, false, true, 0, '', $groupId);
                 $response = array(
                     'data' => array(
                         'count' => count($vidsList),
@@ -3358,7 +3365,7 @@ class CProfilePhoto extends CHtmlBlock
                 return $response;
             }
 
-            self::prepareVideoList($guid, '`id` ASC');
+            self::prepareVideoList($publish_user, '`id` ASC');
             $response = self::$allVideoInfo + $photosList;
 
             return $response;
@@ -3371,7 +3378,7 @@ class CProfilePhoto extends CHtmlBlock
         }
 
         $uploadLimitPhotoCount = Common::getOption('upload_limit_photo_count');
-        $currentCountPhotos = DB::count('photo', '`visible` <> "P" AND `user_id` = ' . to_sql(guid(), 'Number'));
+        $currentCountPhotos = DB::count('photo', '`visible` <> "P" AND `user_id` = ' . to_sql($publish_user, 'Number'));
         $isNudityPhoto = false;
 
         if (!empty($photos) && $type != '') {
@@ -3409,7 +3416,7 @@ class CProfilePhoto extends CHtmlBlock
                             $wallId = Wall::addGroupAccess('photo', $access, $wallId, $pid, $groupId);
                         }
                     }
-                    Wall::addItemForUser($photo['id'], 'photo', guid(), false, $groupId);
+                    Wall::addItemForUser($photo['id'], 'photo', $publish_user, false, $groupId);
                 }
 
                 $groupPage = 0;
@@ -3477,7 +3484,7 @@ class CProfilePhoto extends CHtmlBlock
                     $wallParams = DB::count('photo', '`visible` = "Y" AND `wall_id` = ' . to_sql($wallId) . $whereGroup);
                 } else {
                     if (!$groupId) {
-                        DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql(guid(), 'Number'));
+                        DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql($publish_user, 'Number'));
                     }
                     $wallParams = 1;
                 }
@@ -3488,9 +3495,9 @@ class CProfilePhoto extends CHtmlBlock
                 if ($groupId) {
                     GroupsPhoto::checkPhotoDefault($pid, $groupId);
                 } else {
-                    User::setAvailabilityPublicPhoto($guid);
+                    User::setAvailabilityPublicPhoto($publish_user);
                     if (
-                        !User::getPhotoDefault($guid, '', true)
+                        !User::getPhotoDefault($publish_user, '', true)
                         || (!self::isPhotoDefaultPublic() && $type == 'public')
                     ) {
                         User::photoToDefault($pid);
@@ -3500,20 +3507,20 @@ class CProfilePhoto extends CHtmlBlock
 
             if ($uploadCount && (Common::isOptionActive('photo_approval') || $isNudityPhoto) && Common::isEnabledAutoMail('approve_image_admin')) {
                 $vars = array(
-                    'name' => User::getInfoBasic(guid(), 'name'),
+                    'name' => User::getInfoBasic($publish_user, 'name'),
                 );
                 Common::sendAutomail(Common::getOption('administration', 'lang_value'), Common::getOption('info_mail', 'main'), 'approve_image_admin', $vars);
             }
         }
 
         self::deleteOldPendingPhotos($type);
-        self::preparePhotoList(guid(), '`photo_id` ASC', '', '', false, false, false, $groupId);
+        self::preparePhotoList($publish_user, '`photo_id` ASC', '', '', false, false, false, $groupId);
 
         if ($templateName == 'edge') {
-            $vidsList = CProfileVideo::getVideosList('', '', $guid, false, true, 0, '', $groupId);
+            $vidsList = CProfileVideo::getVideosList('', '', $publish_user, false, true, 0, '', $groupId);
 
             if ($pid) {
-                $pidDefault = User::getPhotoDefault($guid, '', true, false, DB_MAX_INDEX, false, false, false, false, $groupId, false);
+                $pidDefault = User::getPhotoDefault($publish_user, '', true, false, DB_MAX_INDEX, false, false, false, false, $groupId, false);
             }
             $response = array(
                 'data' => array(
@@ -3527,7 +3534,7 @@ class CProfilePhoto extends CHtmlBlock
             return $response;
         }
 
-        self::prepareVideoList(guid(), '`id` ASC');
+        self::prepareVideoList($publish_user, '`id` ASC');
 
         $response = self::$allPhotoInfo + self::$allVideoInfo;
 

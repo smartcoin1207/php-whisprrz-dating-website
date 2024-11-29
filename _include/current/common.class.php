@@ -4911,6 +4911,7 @@ JS;
                     'user_vids_list'    => 'vids',
                     'user_songs_list'    => 'songs',
                     'profile_photo_list' => 'profile_photo',
+                    'profile_photo_nsc_couple_list' => 'profile_photo_nsc_couple',
 
                     'user_friends_list' => 'friends',
                     'my_friends_online' => 'friends_online',
@@ -6451,5 +6452,25 @@ JS;
         $distance_decimal2 = number_format($distance, 2, '.', '');
     
         return $distance_decimal2;
+    }
+
+    static function getNscUserWhere($type = '') {
+        global $g_user;
+        switch ($type) {
+            case 'IN':
+                $nsc_where = 'user_id IN (' . to_sql(guid(), 'Number') . ',' . to_sql($g_user['nsc_couple_id'], 'Number') . ')';
+                break;
+            case 'G_USER':
+                $nsc_where = 'user_id = ' . to_sql(guid(), 'Number');
+                break;
+            case 'NSC_USER':
+                $nsc_where = 'user_id = ' . to_sql($g_user['nsc_couple_id'], 'Number');
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        return $nsc_where;
     }
 }

@@ -1884,19 +1884,22 @@ class User
 
     static function photoToDefault($photo_id)
     {
+        //Popcorn modified 2024-11-18 nsc_couple custom folders
+        $nsc_in_where = Common::getNscUserWhere('IN');
+        
         if (!$photo_id) {
             return;
         }
         $whereGroup = ' AND `group_id` = 0';
         // current default photo
         $sql = 'SELECT photo_id FROM photo
-            WHERE user_id = ' . to_sql(guid(), 'Number') . $whereGroup . '
+            WHERE ' . $nsc_in_where . $whereGroup . '
                 AND `default` = "Y"
             LIMIT 1';
         $photoDefault = DB::result($sql);
         if ($photoDefault == 0) {
             $sql = 'SELECT photo_id FROM photo
-                WHERE user_id = ' . to_sql(guid(), 'Number') . $whereGroup . '
+                WHERE ' . $nsc_in_where . $whereGroup . '
                     ORDER BY photo_id ASC
                 LIMIT 1';
             $photoDefault = DB::result($sql);
@@ -1905,19 +1908,19 @@ class User
         $sql = "UPDATE photo
             SET `default`='Y'
             WHERE photo_id = " . to_sql($photo_id, 'Number') . "
-                AND user_id = " . to_sql(guid(), 'Number');
+                AND " . $nsc_in_where;
         DB::execute($sql);
 
         $sql = "UPDATE photo
             SET `default`='N'
             WHERE photo_id != " . to_sql($photo_id, 'Number') . $whereGroup . "
-                AND user_id = " . to_sql(guid(), 'Number');
+                AND " . $nsc_in_where;
         DB::execute($sql);
 
         if ($photoDefault && $photoDefault != $photo_id) {
             $sql = 'SELECT `private` FROM `photo`
                      WHERE `photo_id` = ' . to_sql($photo_id, 'Number')
-                . ' AND `user_id` = ' . to_sql(guid(), 'Number') . ' LIMIT 1';
+                . ' AND ' . $nsc_in_where . ' LIMIT 1';
             $access = (DB::result($sql) == 'Y') ? 'friends' : 'public';
             Wall::add('photo_default', $photo_id, false, $photo_id, false, 0, $access);
         }
@@ -8224,7 +8227,7 @@ class User
         global $g_user;
         $psqlCount = 'SELECT COUNT(user_id) FROM ' . $table . ' where friend_id = ' . $g_user['user_id'] . ' and user_id = ' . $user_id . ' and activity=3';
         if($table == 'invited_folder') {
-            $psqlCount = 'SELECT COUNT(user_id) FROM ' . $table . ' where friend_id = ' . $g_user['user_id'] . ' and user_id = ' . $user_id . ' and activity=3 and folder_id=' . to_sql($offset, 'Number');
+            $psqlCount = 'SELECT COUNT(t.user_id) FROM ' . $table . ' AS t LEFT JOIN user as u ON t.user_id = u.user_id where (t.friend_id = ' . $g_user['user_id'] . ' OR u.nsc_couple_id = ' . to_sql($g_user['user_id'], 'Number') . ') and u.user_id = ' . $user_id . ' and t.activity=3 and t.folder_id=' . to_sql($offset, 'Number');
         }
         
         $total = DB::result($psqlCount);

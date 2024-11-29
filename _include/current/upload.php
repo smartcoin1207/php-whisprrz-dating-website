@@ -600,26 +600,27 @@ function uploadphoto($user_id, $photo_name, $description, $vis = 0, $dir = "", $
     }
 
     return $photo_id;
-
 }
 
 //check is default photo set
 function photoDefaultCheck(){
+	global $g_user;
+	$nsc_couple_id = $g_user['nsc_couple_id'];
+	$is_nsc_couple_page = get_param('is_nsc_couple_page', 0);
     // current default photo
     $sql = 'SELECT photo_id FROM photo
-        WHERE user_id = ' . to_sql(guid(), 'Number') . '
+        WHERE user_id = ' . to_sql($is_nsc_couple_page ? $nsc_couple_id : guid(), 'Number') . '
             AND `default` = "Y"
         LIMIT 1';
     $photoDefault = DB::result($sql);
     if($photoDefault == 0){
         $sql = "UPDATE photo
             SET `default`='Y'
-            WHERE user_id = " . to_sql(guid(), 'Number') .
+            WHERE user_id = " . to_sql($is_nsc_couple_page ? $nsc_couple_id : guid(), 'Number') .
             ' LIMIT 1';
         DB::execute($sql);
     }
 }
-
 
 function updatephoto($user_id, $photo_id, $url = '')
 {

@@ -169,8 +169,8 @@ $l['all']['295_lbs_-_134_kg'] = "295 lbs - 134 kg";
 $l['all']['297_lbs_-_135_kg'] = "297 lbs - 135 kg";
 $l['all']['2_if_tickets_are_required'] = "2) if tickets are required";
 $l['all']['2co'] = "2CO";
-$l['all']['2nd_half'] = "2nd half";
-$l['all']['2nd_half_nickname'] = "2nd Half Nickname";
+$l['all']['2nd_half'] = "Other Half";
+$l['all']['2nd_half_nickname'] = "Other Half Nickname";
 $l['all']['30000-50000'] = "Bi Male";
 $l['all']['300_lbs_-_136_kg'] = "300 lbs - 136 kg";
 $l['all']['302_lbs_-_137_kg'] = "302 lbs - 137 kg";
@@ -827,7 +827,7 @@ $l['all']['edit_folders'] = "Edit Folders";
 $l['all']['edit_group'] = "Edit group";
 $l['all']['edit_Hot_Dates'] = "Edit PartyHouZ";
 $l['all']['edit_image'] = "Edit image";
-$l['all']['edit_partner'] = "Edit Couples 2nd Half Profile";
+$l['all']['edit_partner'] = "Edit Other Half Profile";
 $l['all']['edit_personal_details'] = "Edit personal info";
 $l['all']['edit_photo'] = "Edit photo";
 $l['all']['edit_photos'] = "Edit photos...";
@@ -967,24 +967,18 @@ $l['all']['event_photo_likes_m'] = "{link_start}{name}{link_end} has liked your 
 $l['all']['event_photo_likes_f'] = "{link_start}{name}{link_end} has liked your photo";
 $l['all']['event_vids_likes_m'] = "{link_start}{name}{link_end} has liked your video";
 $l['all']['event_vids_likes_f'] = "{link_start}{name}{link_end} has liked your video";
-
-//popcorn added 2024-05-28
 $l['all']['event_events_event_guest_'] = "{link_start}{name}{link_end} You are a member of event \"{link_start_event}{title_event}{link_end_event}\"";
 $l['all']['event_events_event_guest_m'] = "{link_start}{name}{link_end} You are a member of event \"{link_start_event}{title_event}{link_end_event}\"";
 $l['all']['event_events_event_guest_f'] = "{link_start}{name}{link_end} You are a member of event \"{link_start_event}{title_event}{link_end_event}\"";
-
 $l['all']['event_hotdates_hotdate_guest_'] = "{link_start}{name}{link_end} You are a member of Hotdate \"{link_start_event}{title_event}{link_end_event}\"";
 $l['all']['event_hotdates_hotdate_guest_m'] = "{link_start}{name}{link_end} You are a member of Hotdate \"{link_start_event}{title_event}{link_end_event}\"";
 $l['all']['event_hotdates_hotdate_guest_f'] = "{link_start}{name}{link_end} You are a member of Hotdate \"{link_start_event}{title_event}{link_end_event}\"";
-
 $l['all']['event_partyhouz_partyhou_guest_'] = "{link_start}{name}{link_end} You are a member of Partyhou \"{link_start_event}{title_event}{link_end_event}\"";
 $l['all']['event_partyhouz_partyhou_guest_m'] = "{link_start}{name}{link_end} You are a member of Partyhou \"{link_start_event}{title_event}{link_end_event}\"";
 $l['all']['event_partyhouz_partyhou_guest_f'] = "{link_start}{name}{link_end} You are a member of Partyhou \"{link_start_event}{title_event}{link_end_event}\"";
-
 $l['all']['event_plus_partner_m'] = "{link_start}{name}{link_end} has requested as plus partner";
 $l['all']['event_plus_partner_f'] = "{link_start}{name}{link_end} has requested as plus partner";
 $l['all']['event_plus_partner_'] = "{link_start}{name}{link_end} has requested as plus partner";
-
 $l['all']['events'] = "Events";
 $l['all']['events_add_clndr'] = "Task Reminder Main Calendar";
 $l['all']['events_add_event'] = "Add Event";
@@ -1770,7 +1764,6 @@ $l['all']['make_friends_wherever_you_are'] = "Make <strong>friends</strong>. Whe
 $l['all']['make_private'] = "Make private";
 $l['all']['remove_from_private'] = "Remove From Private";
 $l['all']['make_profile_picture'] = "Make profile picture";
-$l['all']['make_public'] = "Make public";
 $l['all']['move_to_custom_folder'] = "Move to custom folder";
 $l['all']['remove_custom_folder'] = "Remove from custom folder";
 $l['all']['make_this_my_video_greeting'] = "Make this my video greeting";
@@ -1975,10 +1968,10 @@ $l['all']['menu_post_to_blog'] = "Post to Blog";
 $l['all']['menu_privacy_policy_edge'] = "Privacy policy";
 $l['all']['menu_profile'] = "My Profile";
 $l['all']['menu_profile_edge'] = "Profile SwingBook";
-$l['all']['menu_profile_edit'] = "Edit Primary Half Profile";
+$l['all']['menu_profile_edit'] = "Edit Logged In Half Profile";
 $l['all']['menu_profile_edit_music'] = "Edit Audio";
-$l['all']['menu_profile_edit_photos'] = "Edit Primary Half  Pictures";
-$l['all']['menu_profile_edit_photos_nsc_couple'] = "Edit Couples 2nd Half Pictures";
+$l['all']['menu_profile_edit_photos'] = "Edit Logged In Half  Pictures";
+$l['all']['menu_profile_edit_photos_nsc_couple'] = "Edit Other Half Pictures";
 $l['all']['menu_profile_my_blog'] = "My Blog";
 $l['all']['menu_profile_my_music'] = "Whisp Radio";
 $l['all']['menu_profile_settings'] = "Settings";
@@ -2374,7 +2367,7 @@ $l['all']['pager_prev'] = "Prev";
 $l['all']['pagseguro'] = "PagSeguro";
 $l['all']['parking__storage'] = "Parking & storage";
 $l['all']['part_time'] = "Part-time";
-$l['all']['partner'] = "Primary Partner Profile";
+$l['all']['partner'] = "Partner Profile";
 $l['all']['partner_age_incorect'] = "Partner Age incorect.";
 $l['all']['partner_info'] = "Partner Info";
 $l['all']['partner_relation'] = "<font size=\"+1\"> DESIRES</font>";
@@ -2715,7 +2708,6 @@ $l['all']['private_photo_you_granted_access'] = "You granted access.";
 $l['all']['private_photos'] = "Private Photos";
 $l['all']['private_users'] = "Private Invite";
 $l['all']['private_vids_users'] = "Private Vids Invite";
-
 $l['all']['private_videos'] = "Private videos";
 $l['all']['problem_with_the_payment'] = "Problem with the payment";
 $l['all']['proceed'] = "Proceed";
@@ -3117,7 +3109,6 @@ $l['all']['straight-female'] = "Straight-Female";
 $l['all']['straight-male'] = "Straight-Male";
 $l['all']['straight_female'] = "Straight Female";
 $l['all']['straight_male'] = "Straight Male";
-
 $l['all']['straight_male_short'] = "Str-M";
 $l['all']['straight_female_short'] = "Str-F";
 $l['all']['bi_male_short'] = "Bi-M";
@@ -3132,7 +3123,6 @@ $l['all']['lesbian_short'] = "Les";
 $l['all']['queer_short'] = "Qr";
 $l['all']['pansexual_short'] = "Ps";
 $l['all']['non-binary_short'] = "Nb";
-
 $l['all']['street_chat_from_user'] = "Street Chat with {link_start}{name}{link_end}";
 $l['all']['street_chat_from_user_edge'] = "Street Chat with {user_name} {user_photo} <span class=\"title_answer\">Do you accept this chat?</span>";
 $l['all']['street_chat_from_user_impact_mobile'] = "Street Chat with {user_name} {user_photo} Do you accept this chat?";
@@ -3611,7 +3601,6 @@ $l['all']['wall_item_title_template_event_photos_f'] = "{profile} has added {pho
 $l['all']['wall_item_title_template_event_photos_m'] = "{profile} has added {photo_count} new photos to <strong>{item_link_start}{event_title}{item_link_end}</strong>";
 $l['all']['wall_item_title_template_event_photo_comment_f'] = "{profile} added a comment to event photo";
 $l['all']['wall_item_title_template_event_photo_comment_m'] = "{profile} added a comment to event photo";
-
 $l['all']['wall_item_title_template_field_status_f'] = "{profile} updated her sentimental status: <strong>{status}</strong>";
 $l['all']['wall_item_title_template_field_status_m'] = "{profile} updated his sentimental status: <strong>{status}</strong>";
 $l['all']['wall_item_title_template_forum_post_f'] = "{profile} wrote a new forum post in <strong>“{item_link_start}{forum_thread_subject}{item_link_end}”</strong>";
@@ -4082,7 +4071,6 @@ $l['all']['public_wall'] = "Public Swingbook";
 $l['all']['my_biorythm'] = "My Sexual Energy Today";
 $l['all']['new_interests'] = "Your new winks";
 $l['all']['page_title_someones'] = "{name}&#39;s calendar5";
-
 $l['all']['main_calendar_title'] = "My Calendar";
 $l['all']['event_calendar_title'] = "Event Calendar";
 $l['all']['hotdate_calendar_title'] = "Hotdate Calendar";
@@ -4142,9 +4130,8 @@ $l['all']['website'] = "Website";
 $l['all']['place'] = "Place";
 $l['all']['print'] = "Print";
 $l['all']['wall_item_title_template_share_partyhou_photo'] = "{item_profile} shared photos added by {profile} to <strong>{item_link_start}{partyhou_title}{item_link_end}</strong>";
-$l['all']['remove_personal'] = "Remove From Personal";
-$l['all']['make_personal'] = "Make Personal";
 $l['all']['remove_personal'] = "Remove Personal";
+$l['all']['make_personal'] = "Make Personal";
 $l['all']['custom_folder'] = "Change Folder Name";
 $l['all']['manage_folder'] = "Manage Folder";
 $l['all']['custom_folder_saved'] = "Custom Folder saved successfully";
@@ -4167,10 +4154,10 @@ $l['all']['video_private'] = "Private Vids";
 $l['all']['cancel_video_private'] = "Cancel Private Vids";
 $l['all']['publish_make_private'] = "Publish Make Private";
 $l['all']['publish_make_public'] = "Publish Make Public";
-$l['all']['invited_private_photo_notify_text'] = "You are invited to {link_start}{name}{link_end}'s private photo";
-$l['all']['invited_personal_photo_notify_text'] = "You are invited to {link_start}{name}{link_end}'s personal photo";
-$l['all']['invited_folder_photo_notify_text'] = "You are invited to {link_start}{name}{link_end}'s photo folder <b>{folder_title}</b>";
-$l['all']['invited_private_video_notify_text'] = "You are invited to {link_start}{name}{link_end}'s private video";
+$l['all']['invited_private_photo_notify_text'] = "You are invited to {link_start}{name}{link_end}&#39;s private photo";
+$l['all']['invited_personal_photo_notify_text'] = "You are invited to {link_start}{name}{link_end}&#39;s personal photo";
+$l['all']['invited_folder_photo_notify_text'] = "You are invited to {link_start}{name}{link_end}&#39;s photo folder <b>{folder_title}</b>";
+$l['all']['invited_private_video_notify_text'] = "You are invited to {link_start}{name}{link_end}&#39;s private video";
 $l['all']['private_vid'] = "private video";
 $l['all']['public_vid'] = "public video";
 $l['all']['move_to'] = "Move To";
@@ -4178,6 +4165,20 @@ $l['all']['remove_from'] = "Remove From";
 $l['all']['personal_users'] = "Personal Invite";
 $l['all']['remove_from_personal_users'] = "Remove From Personal Invite";
 $l['all']['custom_folder_name'] = "Custom Folder";
+$l['all']['couples_allowed'] = "Couples Allowed";
+$l['all']['females_allowed'] = "Females Allowed";
+$l['all']['males_allowed'] = "Males Allowed";
+$l['all']['transgender_allowed'] = "Transgender Allowed";
+$l['all']['nonbinary_allowed'] = "Non-binary Allowed";
+$l['all']['everyone_allowed'] = "Everyone Allowed";
+$l['all']['event_approval_title'] = "Event Approval";
+$l['all']['hotdate_approval_title'] = "Hotdate Approval";
+$l['all']['partyhou_approval_title'] = "Partyhou Approval";
+$l['all']['approval_text'] = "Require Host Approval To Join Guests";
+$l['all']['mail_templates'] = "Mail Templates";
+$l['all']['show_templates'] = "Show Templates";
+$l['all']['saved_user_list'] = "Saved User List";
+$l['all']['select_group_users'] = "Select Users";
 
 $l['audiochat.php']['audio_chat'] = "Audio chat";
 $l['audiochat.php']['call_now'] = "Call Now!";
@@ -4213,7 +4214,6 @@ $l['blogs_list.php']['page_title'] = "Browse blogs";
 $l['blogs_list.php']['search'] = "Search";
 $l['blogs_list.php']['page_title_someones'] = "{name}&#39;s Blogs";
 $l['blogs_list.php']['link_my_blogs'] = "My Blogs";
-
 
 $l['blogs_new.php']['new_blog_posts'] = "New Blog Posts";
 
@@ -4390,6 +4390,7 @@ $l['contact.php']['the_e_mail_incorrect_please_choose_another'] = "The email add
 $l['contact.php']['this_comment_alredy_was_sent'] = "This comment alredy was sent.";
 $l['contact.php']['your_comment_has_been_sent'] = "Your comment has been sent.";
 $l['contact.php']['contact_page'] = "Contact Whisprrz Support";
+
 $l['email_not_confirmed.php']['account_blocked'] = "This site requires account activation, an activation link has been sent to the e-mail address you provided. Please check your e-mail for further information.<br><br>If you haven&#39;t received the activation link you can request it using the form below.";
 $l['email_not_confirmed.php']['email_sent'] = "Email Sent, Check Your Inbox";
 $l['email_not_confirmed.php']['header_title'] = "";
@@ -4491,8 +4492,11 @@ $l['events_event_edit.php']['use_another'] = "Use another";
 $l['events_event_edit.php']['who_can_signin'] = "Who Can Sign In Event";
 
 $l['events_guest_users.php']['page_title'] = "({event_title}) Event Guest List";
+
 $l['hotdates_guest_users.php']['page_title'] = "({hotdate_title}) Hotdate Guest List";
+
 $l['partyhouz_guest_users.php']['page_title'] = "({partyhou_title}) PartyHouZ Guest List";
+
 $l['calendar_task_create.php']['btn_create'] = "Create";
 $l['calendar_task_create.php']['create_new_task'] = "Create new task";
 $l['calendar_task_create.php']['event_title'] = "Title";
@@ -5274,7 +5278,6 @@ $l['groups_search_advanced.php']['search_results'] = "Search Results";
 $l['groups_search_advanced.php']['group_search_empty'] = "Group Search Empty";
 $l['groups_search_advanced.php']['page_title'] = "Group Search";
 
-
 $l['select_group_users.php']['title_current'] = "Select Members For Group Mail";
 $l['select_group_users.php']['save_all'] = "Add All Members To My list";
 $l['select_group_users.php']['clear_all'] = "Clear All Members";
@@ -5492,6 +5495,7 @@ $l['partyhouz_partyhou_edit.php']['use_another'] = "Use another";
 $l['partyhouz_partyhou_edit.php']['who_can_signin'] = "Who Can Signin In Partyhou";
 
 $l['partyhouz_partyhou_show.php']['make_profile_picture'] = "Make Default Partyhou Image";
+
 $l['photos_list.php']['edge_column_photos_list_order_most_commented_title'] = "Most discussed";
 $l['photos_list.php']['edge_column_photos_list_order_most_viewed_title'] = "Top plays";
 $l['photos_list.php']['edge_column_photos_list_order_new_title'] = "Just added";
@@ -5787,7 +5791,6 @@ $l['profile_settings.php']['set_my_map_females'] = "(ON) = Allow Females To See 
 $l['profile_settings.php']['set_my_map_males'] = "(ON) = Allow MalesTo See See Me On Map. (OFF) =Hide Me On Map";
 $l['profile_settings.php']['set_my_map_transgender'] = "(ON) = Allow Transgender To See See Me On Map. (OFF) =Hide Me On Map";
 $l['profile_settings.php']['set_my_map_nonbinary'] = "(ON) = Allow Nonbinary To See See Me On Map. (OFF) =Hide Me On Map";
-
 $l['profile_settings.php']['set_see_my_calendar'] = "<b>Who&#39;s Allowed to see My Calendar</b>";
 $l['profile_settings.php']['set_couple_see_my_calendar'] = "(ON) = Allow Couples To See My Calendar. (OFF) =Hide My Calendar";
 $l['profile_settings.php']['set_male_see_my_calendar'] = "(ON) = Allow Males To See My Calendar. (OFF) =Hide My Calendar";
@@ -5802,7 +5805,6 @@ $l['profile_settings.php']['set_male_post_my_calendar'] = "(ON) = Allow Males To
 $l['profile_settings.php']['set_female_post_my_calendar'] = "(ON) = Allow Females To Post My Calendar. (OFF) =Hide My Calendar";
 $l['profile_settings.php']['set_transgender_post_my_calendar'] = "(ON) = Allow Transgender To Post My Calendar. (OFF) =Hide My Calendar";
 $l['profile_settings.php']['set_nonbinary_post_my_calendar'] = "(ON) = Allow Non Binary To Post My Calendar. (OFF) =Hide My Calendar";
-
 $l['profile_settings.php']['set_friends_post_my_calendar'] = "(ON) = Allow Friends To Post My Calendar. (OFF) =Hide My Calendar";
 $l['profile_settings.php']['set_group_post_my_calendar'] = "(ON) = Allow Groups To Post My Calendar. (OFF) =Hide My Calendar";
 $l['profile_settings.php']['set_notif_mutual_attraction'] = "Mutual attractions";
@@ -6301,23 +6303,4 @@ $l['partyhou_mail.php']['text_mail'] = "Mail Text";
 $l['partyhou_mail.php']['sent_message'] = "Send Message";
 $l['partyhou_mail.php']['select_users'] = "Select Members";
 $l['partyhou_mail.php']['title_current'] = "Partyhou Mail";
-
-$l['all']['couples_allowed'] = "Couples Allowed";
-$l['all']['females_allowed'] = "Females Allowed";
-$l['all']['males_allowed'] = "Males Allowed";
-$l['all']['transgender_allowed'] = "Transgender Allowed";
-$l['all']['nonbinary_allowed'] = "Non-binary Allowed";
-$l['all']['everyone_allowed'] = "Everyone Allowed";
-
-$l['all']['event_approval_title'] = "Event Approval";
-$l['all']['hotdate_approval_title'] = "Hotdate Approval";
-$l['all']['partyhou_approval_title'] = "Partyhou Approval";
-$l['all']['approval_text'] = 'Require Host Approval To Join Guests';
-
-$l['all']['mail_templates'] = 'Mail Templates';
-$l['all']['show_templates'] = 'Show Templates';
-
-$l['all']['saved_user_list'] = 'Saved User List'; 
-$l['all']['select_group_users'] = 'Select Users'; 
-
 ?>

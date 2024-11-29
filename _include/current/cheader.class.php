@@ -963,6 +963,18 @@ class CHeader extends CHtmlBlock
         
         Common::parseGdprCookie($html);
 
+        /** Popcorn added 2024-11-23 nsc couple start */
+        $html->setvar('nsc_couple_id', $g_user['nsc_couple_id'] ?? '');
+        $nsc_couple_pages = ['profile_photo_nsc_couple.php', 'profile_nsc_couple.php', 'profile_personal_nsc_couple.php'];
+        $is_nsc_couple_page = 0;
+        if(in_array($p, $nsc_couple_pages)) {
+            $is_nsc_couple_page = 1;
+        }
+
+        $html->setvar('is_nsc_couple_page', $is_nsc_couple_page);
+        
+        /** Popcorn added 2024-11-23 nsc couple end */
+
         if(TemplateEdge::getEHPType() == 'event') {
             $event_id = TemplateEdge::getEHPId();
             $html->setvar('photo_cmd', '&photo_cmd=event_photos&event_id=' . $event_id);
@@ -2605,7 +2617,7 @@ class CHeader extends CHtmlBlock
         $is_ehp_page = TemplateEdge::isEHP();
         $groupId = Groups::getParamId();
         if(!$is_ehp_page && !$groupId) {
-            $sql = "SELECT * FROM custom_folders WHERE user_id=" . to_sql(guid(), 'Number');
+            $sql = "SELECT * FROM custom_folders WHERE user_id=" . to_sql($is_nsc_couple_page == 1 ? $g_user['nsc_couple_id'] : guid(), 'Number');
             $folders = DB::rows($sql);
     
             $custom_folders = [

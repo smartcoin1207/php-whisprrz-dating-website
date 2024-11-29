@@ -1255,7 +1255,7 @@ class SettingsField extends CHtmlBlock
                 if ($g_user["orientation"] == 5 && $g_user['nsc_couple_id'] > 0) {
                     DB::execute("
                             UPDATE user SET
-                            transgender =" . $value[$item1['name']] . "
+                            set_my_map_transgender =" . $value[$item1['name']] . "
                             WHERE user_id=" . $g_user['nsc_couple_id'] . "
                         ");
                 }

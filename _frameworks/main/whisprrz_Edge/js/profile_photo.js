@@ -1,8 +1,9 @@
-var CProfilePhoto = function(guid,uid) {
+var CProfilePhoto = function(guid,uid, nsc_couple_id=0) {
 
     var $this=this;
     this.guid=guid*1;
     this.uid=uid*1;
+    this.nsc_couple_id=nsc_couple_id*1;
     this.dur=500;
     this.isImageEditorEnabled = true;
 
@@ -201,6 +202,10 @@ var CProfilePhoto = function(guid,uid) {
                   activity_id: ehpid,
                   photo_upload_offset: photo_upload_offset,
               };
+            
+            if(is_nsc_couple_page == 1) {
+                data['is_nsc_couple_page'] = 1;
+            }
         }
 
         // data[]
@@ -853,7 +858,8 @@ var CProfilePhoto = function(guid,uid) {
                 return false;
             }
 
-            if (($el.is('.photo_upload') || $el.closest('.photo_upload')[0]) && $this.uid && $this.guid != $this.uid) {
+            //popcorn modified 2024-11-25
+            if (($el.is('.photo_upload') || $el.closest('.photo_upload')[0]) && $this.uid && ($this.guid != $this.uid && !is_nsc_couple_page)) {
                 return false;
             }
             var $link=$(this);
@@ -2914,7 +2920,7 @@ var CProfilePhoto = function(guid,uid) {
         } else if (offset === 'personal') {
             offset_str = 'personal';
         } else if (!isNaN(offset) && offset > 0) {  // Check if offset is a number
-            offset_str = $offset;
+            offset_str = offset;
         }
 
         if(!is_access_offset_all) {
@@ -3353,7 +3359,7 @@ var CProfilePhoto = function(guid,uid) {
         if($btn.find('.css_loader')[0])return;
         $.ajax({type: 'POST',
                 url: url_ajax,
-                data: {cmd:'set_photo_default', photo_cmd: photoCmdString, photo_id: pid, group_id:groupId},
+                data: {cmd:'set_photo_default', photo_cmd: photoCmdString, photo_id: pid, group_id:groupId, nsc_couple_id: $this.nsc_couple_id},
                 beforeSend: function(){
                     if (isGallery) {
                         addChildrenLoader($btn, false);
@@ -4292,7 +4298,7 @@ var CProfilePhoto = function(guid,uid) {
 
         $.ajax({url:url_ajax+'?cmd=photo_rotate' + photoCmd,
                 type:'POST',
-                data:{photo_id:pid, angle:90},
+                data:{photo_id:pid, angle:90, is_nsc_couple_page: is_nsc_couple_page},
                 beforeSend: function(){},
                 success: function(res){
                     if (checkDataAjax(res)){
@@ -5356,7 +5362,6 @@ var CProfilePhoto = function(guid,uid) {
         $this.initUploadFile('video');
         $this.initUploadFile('song');
         $this.initUploadFile('photo');
-
 
         $this.$ppGallery=$('#pp_gallery_photos_content');
         $this.$ppGalleryClone=$this.$ppGallery.clone();

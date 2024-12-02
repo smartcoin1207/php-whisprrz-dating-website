@@ -2390,17 +2390,18 @@ class UserFields extends CHtmlBlock
                     if ($paramFrom > $paramTo) {
                         $this->message .= l($data['title']) . ' ' . l('incorrect') . '<br>';
                     }
-                } elseif ($data['type'] == 'const' && Common::isOptionActive('partner_settings')) {
-                    if ($name == 'age_range') {
-                        if (get_param('p_age_from', '') > get_param('p_age_to', '')
-                            || get_param('p_age_from', '') < Common::getOption('users_age')
-                            || get_param("p_age_to", "") > Common::getOption('users_age_max')) {
-                            $this->message = l('partner_age_incorect') . '<br>' . $this->message;
-                        }
-                    } else {
-
-                    }
                 }
+                // elseif ($data['type'] == 'const' && Common::isOptionActive('partner_settings')) {
+                //     if ($name == 'age_range') {
+                //         if (get_param('p_age_from', '') > get_param('p_age_to', '')
+                //             || get_param('p_age_from', '') < Common::getOption('users_age')
+                //             || get_param("p_age_to", "") > Common::getOption('users_age_max')) {
+                //             $this->message = l('partner_age_incorect') . '<br>' . $this->message;
+                //         }
+                //     } else {
+
+                //     }
+                // }
             }
         }
     }

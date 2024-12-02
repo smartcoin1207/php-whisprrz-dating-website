@@ -1632,12 +1632,8 @@ class CHeader extends CHtmlBlock
         if ($optionTmplName == 'edge') {
             $isShowBanner = false;
         }
-        // if ($isShowBanner) {
         CBanner::getBlock($html, 'header');
-        // }
-        // if ($isShowBanner) {
         CBanner::getBlock($html, 'footer');
-        // }
         CBanner::getBlock($html, 'footer_additional');
 
         if (Common::isMobile()) {

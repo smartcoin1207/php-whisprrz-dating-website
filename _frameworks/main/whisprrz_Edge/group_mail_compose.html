@@ -152,19 +152,17 @@ window.onbeforeunload = function (evt) {
         return message;
     } 
 }
-
-
 </script>
 
 <table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
-        <tr>
-            <td style=" margin-bottom: 5px;">
-                <h3 style="border: 0; margin-bottom: 0;">{l_title_current}</h3>
-            </td>
-            <td>
-            </td>
-        </tr>
-    </table>
+    <tr>
+        <td style=" margin-bottom: 5px;">
+            <h3 style="border: 0; margin-bottom: 0;">{l_title_current}</h3>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
 
 <form class="" name="AddContactForm" method="POST" action="{url_page}?cmd=sent" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
 	<input type="hidden" name="page_from" value="{page_from}">

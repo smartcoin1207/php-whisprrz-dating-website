@@ -10,6 +10,8 @@ This notice may not be removed from the source code. */
 $area = "login";
 include("./_include/core/main_start.php");
 include("./_include/current/menu_section.class.php");
+include("./_include/current/mail.php");
+
 if(!Common::isOptionActive('mail')) {
    redirect(Common::toHomePage());
 }
@@ -65,31 +67,22 @@ class CMailPage extends CHtmlBlock
 		global $g_user;
 		global $m_info;
 
-		// receive and set variables for ballon
-
 		$html->setvar("user_name", $m_info['user_name']);
 		$html->setvar("user_age", $m_info['user_age']);
 		$html->setvar("user_country_sub", $m_info['user_country_sub']);
-        //if(Common::isOptionActive('wink')) {
-            //$html->parse('wink_on', false);
-        //}
 		$html->parse("show_info", true);
 		parent::parseBlock($html);
 	}
 }
 
-
 if ($type == "list")
     $list = new CHtmlMailList("users_list", $g['tmpl']['dir_tmpl_main'] . "_mail_list.html");
 elseif ($type == "text"){
     $list = new CHtmlMailText("users_list", $g['tmpl']['dir_tmpl_main'] . "_mail_text.html");
-}
-else redirect("mail.php");
+} else redirect("mail.php");
 
 $page = new CMailPage("", $g['tmpl']['dir_tmpl_main'] . "mail.html");
-
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
-
 $list->m_on_bar = 1;
 $list->m_folder = ($folder == '') ? 1 : $folder;
 if (DB::result("SELECT id FROM mail_folder WHERE id=" . $list->m_folder . "") == 0) $list->m_folder = 1;
@@ -103,9 +96,7 @@ if($mid != '') {
 $list->m_sql_order = "m.id DESC";
 $list->m_sql_from_add = "";
 
-if($search !== false ) {
-    //$list->m_debug = 'Y';
-    //$list->m_on_page = 2;
+if($search !== false) {
     $list->m_search = $search;
     $list->m_sql_order = 'orders DESC, m.id DESC';
     $list->m_sql_where .= " AND (m.subject LIKE '%" . to_sql($search, 'Plain'). "%' OR m.text LIKE '%" . to_sql($search, 'Plain'). "%')";

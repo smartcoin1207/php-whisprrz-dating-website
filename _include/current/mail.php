@@ -43,11 +43,12 @@ class CFolders extends CHtmlBlock
 		}
 	}
 }
+
 class CHtmlMailList extends CUsers
 {
 	var $m_on_page = 20;
 	var $m_folder = 1;
-    var $total_init;
+	var $total_init;
 	function action()
 	{
 		global $g_user, $g_info;
@@ -56,61 +57,56 @@ class CHtmlMailList extends CUsers
 		DB::execute("UPDATE user SET new_mails=(SELECT COUNT(id) FROM mail_msg WHERE new='Y' AND folder = 1 AND user_id=" . $g_user['user_id'] . ") WHERE user_id=" . $g_user['user_id'] . "");
 
 		$cmd = get_param("cmd", "");
-		if ($cmd == "delete")
-		{
-                        $countDelete = 0;
-                        $sql = array();
+		if ($cmd == "delete") {
+			$countDelete = 0;
+			$sql = array();
 			$folder = get_param("folder", "");
 			$id = get_param_array("id");
-                        $action = get_param('action');
-    			foreach ($id as $k => $v)
-			{
-				if($folder == 2)
+			$action = get_param('action');
+			foreach ($id as $k => $v) {
+				if ($folder == 2)
 					DB::execute("
 						DELETE FROM mail_msg
 						WHERE user_id=" . $g_user['user_id'] . " AND id=" . to_sql($v, "Number") . "
 					");
-                                else
+				else
 					DB::execute("
 						UPDATE mail_msg
 						SET folder=2
 						WHERE user_id=" . $g_user['user_id'] . " AND id=" . to_sql($v, "Number") . "
 					");
-                                $sqlM = "SELECT `new`
+				$sqlM = "SELECT `new`
                                           FROM `mail_msg`
                                          WHERE `id` = " . to_sql($v, 'Number') . "
                                          LIMIT 1";
-                                $new = DB::result($sqlM);
-                                if ($action == 1 && $folder == 1 && $new == 'Y') {
-                                    $countDelete++;
-                                }
+				$new = DB::result($sqlM);
+				if ($action == 1 && $folder == 1 && $new == 'Y') {
+					$countDelete++;
+				}
 			}
-                        if ($action == 'delete_one') {
-                            set_session('delete_message', true);
-                        }
-                        if ($countDelete > 0) {
-                            $countMail = $g_user['new_mails'] - $countDelete;
-                            $sql['new_mails'] =  $countMail;
-                            DB::update('user', $sql, 'user_id = ' . to_sql($g_user['user_id'], 'Number'));
-                            $g_info['new_mails'] = $countMail;
-                        }
+			if ($action == 'delete_one') {
+				set_session('delete_message', true);
+			}
+			if ($countDelete > 0) {
+				$countMail = $g_user['new_mails'] - $countDelete;
+				$sql['new_mails'] =  $countMail;
+				DB::update('user', $sql, 'user_id = ' . to_sql($g_user['user_id'], 'Number'));
+				$g_info['new_mails'] = $countMail;
+			}
 		}
-		if ($cmd == "move")
-		{
+		if ($cmd == "move") {
 			$id = get_param_array("id");
-			foreach ($id as $k => $v)
-			{
+			foreach ($id as $k => $v) {
 				DB::execute("
 					UPDATE mail_msg
 					SET folder=" . $this->m_folder . "
 					WHERE user_id=" . $g_user['user_id'] . " AND id=" . to_sql($v, "Number") . "
 				");
 			}
-                        $g_info['new_mails'] = DB::result("SELECT COUNT(id) FROM mail_msg WHERE new='Y' AND folder = 1 AND user_id=" . $g_user['user_id']);
-                        DB::execute("UPDATE user SET new_mails={$g_info['new_mails']} WHERE user_id=" . $g_user['user_id'] . "");
+			$g_info['new_mails'] = DB::result("SELECT COUNT(id) FROM mail_msg WHERE new='Y' AND folder = 1 AND user_id=" . $g_user['user_id']);
+			DB::execute("UPDATE user SET new_mails={$g_info['new_mails']} WHERE user_id=" . $g_user['user_id'] . "");
 		}
-		if ($cmd == "empty_trash")
-		{
+		if ($cmd == "empty_trash") {
 			DB::execute("
 				DELETE FROM mail_msg
 				WHERE user_id=" . $g_user['user_id'] . " AND folder=2
@@ -122,80 +118,69 @@ class CHtmlMailList extends CUsers
 		global $l;
 		global $g;
 		global $g_user;
-        global $g_info;
-
+		global $g_info;
 
 		$opts = DB::db_options("SELECT id, name FROM mail_folder WHERE user_id=" . $g_user['user_id'] . " OR user_id=0 ORDER BY id", "");
-        $html->setvar("folder_options", $opts);
+		$html->setvar("folder_options", $opts);
 		if ($this->m_folder == 1) $fname = l('Inbox');
 		elseif ($this->m_folder == 2) $fname = l('Trash');
 		elseif ($this->m_folder == 3) $fname = l('Sent mail');
 		else $fname = DB::result("SELECT name FROM mail_folder WHERE id=" . $this->m_folder . "");
 
-		if($this->m_folder == 1)
-		{
+		if ($this->m_folder == 1) {
 			$html->setvar('folder_style', '');
 			$html->parse('inbox_navigation', true);
-            $html->setvar('new_mails_folder', $g_info['new_mails']);
-
-		}
-		else if($this->m_folder == 2)
-		{
+			$html->setvar('new_mails_folder', $g_info['new_mails']);
+		} else if ($this->m_folder == 2) {
 			$html->setvar('folder_style', ' trash');
 			$html->parse('trash_navigation', true);
-		}
-		else if($this->m_folder == 3)
-		{
+		} else if ($this->m_folder == 3) {
 			$html->setvar('folder_style', ' sent');
 			$html->parse('sent_navigation', true);
-
 		}
-        //$html->setvar("folder", strip_tags($fname));
-        if ($this->m_folder == 1) {
-            $this->m_folder_total = $g_info['new_mails'];
-        }
-        $this->m_folder_name = $fname;
-
-		$html->setvar("folder_id", $this->m_folder);
+		//$html->setvar("folder", strip_tags($fname));
+		if ($this->m_folder == 1) {
+			$this->m_folder_total = $g_info['new_mails'];
+		}
+		$this->m_folder_name = $fname;
+		$html->setvar("mail_folder_id", $this->m_folder);
 		if ($this->m_folder == 3)
-            $html->setvar('from_to', l('to'));
+			$html->setvar('from_to', l('to'));
 		else
-            $html->setvar('from_to', l('from'));
+			$html->setvar('from_to', l('from'));
 
-        // MAIL FOLDER ICON
-        if($this->m_folder > 0 && $this->m_folder < 4) $html->setvar("selected_folder",$this->m_folder);
-        $html->parse('yes_images');
-        // MAIL FOLDER ICON
-        if(Common::isOptionActive('wink')) {
-            $html->parse('wink_on', false);
-        }
+		// MAIL FOLDER ICON
+		if ($this->m_folder > 0 && $this->m_folder < 4) $html->setvar("selected_folder", $this->m_folder);
+		$html->parse('yes_images');
+		// MAIL FOLDER ICON
+		if (Common::isOptionActive('wink')) {
+			$html->parse('wink_on', false);
+		}
 
-        $send = get_session('send_message');
-        $delete = get_session('delete_message');
-        if ($send == true || $delete == true) {
-            if ($send == true) {
-                $msg = l('send_message');
-                delses('send_message');
-            } else {
-                $msg = l('delete_message');
-                delses('delete_message');
-            }
-            $html->setvar('display_search_email', 'none');
-            $html->setvar('info_message', $msg);
-            $html->parse('info_message', false);
-            $html->parse('info_message_js', false);
-
-        } else {
-            $html->setvar('display_search_email', 'block');
-        }
-        if ($this->m_search != '') {
-            $html->setvar('search_text', $this->m_search);
-        }
-        $count = DB::result($this->m_sql_count . " WHERE " . $this->m_sql_where);
-        $html->setvar('folder_id', $this->m_folder);
-        if ($count > 0) {
-            $html->parse('table_header_checkbox');
-        }
+		$send = get_session('send_message');
+		$delete = get_session('delete_message');
+		if ($send == true || $delete == true) {
+			if ($send == true) {
+				$msg = l('send_message');
+				delses('send_message');
+			} else {
+				$msg = l('delete_message');
+				delses('delete_message');
+			}
+			$html->setvar('display_search_email', 'none');
+			$html->setvar('info_message', $msg);
+			$html->parse('info_message', false);
+			$html->parse('info_message_js', false);
+		} else {
+			$html->setvar('display_search_email', 'block');
+		}
+		if ($this->m_search != '') {
+			$html->setvar('search_text', $this->m_search);
+		}
+		$count = DB::result($this->m_sql_count . " WHERE " . $this->m_sql_where);
+		if ($count > 0) {
+			$html->parse('table_header_checkbox');
+		}
 		parent::parseBlock($html);
 	}
 	function init()
@@ -204,14 +189,14 @@ class CHtmlMailList extends CUsers
 
 		global $g_user;
 
-        $this->m_sql_count = "SELECT COUNT(m.id)
+		$this->m_sql_count = "SELECT COUNT(m.id)
                                 FROM (mail_msg AS m LEFT JOIN user AS u ON u.user_id=m.user_from)
                                 " . $this->m_sql_from_add;
 
-        $like = '';
-        if ($this->m_search !== false) {
-            $like = "(IF(m.subject LIKE '%" . to_sql($this->m_search, 'Plain'). "%', 2, 0) + IF(m.text LIKE '%" . to_sql($this->m_search, 'Plain'). "%', 1, 0)) AS orders,";
-        }
+		$like = '';
+		if ($this->m_search !== false) {
+			$like = "(IF(m.subject LIKE '%" . to_sql($this->m_search, 'Plain') . "%', 2, 0) + IF(m.text LIKE '%" . to_sql($this->m_search, 'Plain') . "%', 1, 0)) AS orders,";
+		}
 
 		if ($this->m_folder == 3) {
 			$this->m_sql = "
@@ -221,8 +206,8 @@ class CHtmlMailList extends CUsers
 			 m.id, m.subject, m.date_sent, IF(m.receiver_read = 'N' OR m.receiver_read = '', 'Y', 'N') as new, m.system,
 			 u.is_photo, u.city, u.state, u.country, u.partner_type, u.nsc_couple_id, u.set_nsc_banner_activity, u.set_events_banner_activity, u.nsc_phone, u.nsc_join_phone, u.set_my_presence_couples, u.set_my_presence_everyone, u.set_my_presence_males, u.set_my_presence_females,  u.set_my_presence_transgender,  u.set_my_presence_nonbinary, u.set_profile_visitor,u.set_profile_visitor_couples, u.set_profile_visitor_males, u.set_profile_visitor_females, u.set_profile_visitor_transgender, u.set_profile_visitor_nonbinary, u.set_album_video_couples, u.set_album_video_everyone, u.set_album_video_males, u.set_album_video_females, u.set_album_video_transgender, u.set_album_video_nonbinary
 	  FROM (mail_msg AS m LEFT JOIN user AS u ON u.user_id=m.user_to)
-				" . $this->m_sql_from_add;//nnsscc-diamond-20200328
-				// , u.set_photo_couples, u.set_photo_everyone, u.set_photo_males, u.set_photo_females,u.set_album_couples, u.set_album_everyone, u.set_album_males, u.set_album_females
+				" . $this->m_sql_from_add; //nnsscc-diamond-20200328
+			// , u.set_photo_couples, u.set_photo_everyone, u.set_photo_males, u.set_photo_females,u.set_album_couples, u.set_album_everyone, u.set_album_males, u.set_album_females
 		} else {
 			$this->m_sql = "SELECT u.user_id, u.gender, u.orientation, u.name, u.last_visit, u.gold_days, u.type, u.rating, u.relation, u.partner_type,	
 
@@ -231,16 +216,16 @@ class CHtmlMailList extends CUsers
                        m.id, m.subject, m.date_sent, m.new, m.system,
                        u.is_photo, u.city, u.state, u.country, u.partner_type, u.nsc_couple_id, u.set_nsc_banner_activity, u.set_events_banner_activity, u.nsc_phone, u.nsc_join_phone, u.set_my_presence_couples, u.set_my_presence_everyone, u.set_my_presence_males, u.set_my_presence_females,u.set_my_presence_transgender,  u.set_my_presence_nonbinary, u.set_profile_visitor,u.set_profile_visitor_couples, u.set_profile_visitor_males, u.set_profile_visitor_females, u.set_profile_visitor_transgender, u.set_profile_visitor_nonbinary, u.set_album_video_couples, u.set_album_video_everyone, u.set_album_video_males, u.set_album_video_females, u.set_album_video_transgender, u.set_album_video_nonbinary
                   FROM (mail_msg AS m LEFT JOIN user AS u ON u.user_id=m.user_from)
-				" . $this->m_sql_from_add;//nnsscc-diamond-20200328
-				// ,  u.set_photo_couples, u.set_photo_everyone, u.set_photo_males, u.set_photo_females,u.set_album_couples, u.set_album_everyone, u.set_album_males, u.set_album_females
+				" . $this->m_sql_from_add; //nnsscc-diamond-20200328
+			// ,  u.set_photo_couples, u.set_photo_everyone, u.set_photo_males, u.set_photo_females,u.set_album_couples, u.set_album_everyone, u.set_album_males, u.set_album_females
 		}
 
-        //$this->total_init = DB::result($this->m_sql_count . " WHERE " . $this->m_sql_where);
+		//$this->total_init = DB::result($this->m_sql_count . " WHERE " . $this->m_sql_where);
 
 		$this->m_field['id'] = array("id", null);
 		$this->m_field['user_id'] = array("user_id", null);
 		$this->m_field['name'] = array("name", null);
-        $this->m_field['name_short'] = array("name_short", null);
+		$this->m_field['name_short'] = array("name_short", null);
 		$this->m_field['subject'] = array("subject", null);
 		$this->m_field['last_visit'] = array("last_visit", null);
 		$this->m_field['date_sent'] = array("date_sent", null);
@@ -269,47 +254,44 @@ class CHtmlMailList extends CUsers
 		if (!isset($row['state_title'])) $this->m_field['state_title'][1] = '-';
 		if (!isset($row['city_title'])) $this->m_field['city_title'][1] = '-';
 
-		if ($row['new'] == 'Y')
-		{
+		if ($row['new'] == 'Y') {
 			$html->setblockvar("mail_old", "");
 			$html->parse("mail_new", false);
-			$html->setvar("unread","unread");
+			$html->setvar("unread", "unread");
 			$html->setvar("bold", "<b>");
 			$html->setvar("bold_end", "</b>");
-		}
-		else
-		{
+		} else {
 			$html->setblockvar("mail_new", "");
 			$html->parse("mail_old", false);
-			$html->setvar("unread","");
+			$html->setvar("unread", "");
 			$html->setvar("bold", "");
 			$html->setvar("bold_end", "");
 		}
 		//$this->m_field['subject'][1] = mb_strlen($row['subject'],"UTF-8") > 30 ? trim(mb_substr($row['subject'], 0, 30,"UTF-8")) . "..." : $row['subject'];
 		$this->m_field['date_sent'][1] = Common::dateFormat($row['date_sent'], 'mail_date_sent', FALSE);
-        $this->m_field['name'][1] = $row['name'];
-        $this->m_field['name_short'][1] = User::nameOneLetterFull($row['name']);
+		$this->m_field['name'][1] = $row['name'];
+		$this->m_field['name_short'][1] = User::nameOneLetterFull($row['name']);
 		// rows
-		$html->setvar("row", ($i+1)%2+1);
+		$html->setvar("row", ($i + 1) % 2 + 1);
 
-		if(Common::isMobile()) {
+		if (Common::isMobile()) {
 			if (!$row['subject']) $row['subject'] = '...';
-            if (date("Ymd") == date("Ymd", $row['date_sent'])){
-                $formatName = 'mobile_mail_datetime_today';
-            } else {
-                $formatName = 'mobile_mail_datetime';
-            }
-			$this->m_field['date_sent'][1] = Common::dateFormat($row['date_sent'], $formatName,FALSE);
+			if (date("Ymd") == date("Ymd", $row['date_sent'])) {
+				$formatName = 'mobile_mail_datetime_today';
+			} else {
+				$formatName = 'mobile_mail_datetime';
+			}
+			$this->m_field['date_sent'][1] = Common::dateFormat($row['date_sent'], $formatName, FALSE);
 			$this->m_field['subject'][1] = strcut($row['subject'], 15);
 		}
-        if ($row['system']){
+		if ($row['system']) {
 			$html->clean('from');
-            $html->clean('from_user');
+			$html->clean('from_user');
 			$html->parse('from_admin', false);
-		}else{
+		} else {
 			$html->clean('from_admin');
 			$html->parse('from', false);
-            $html->parse('from_user', false);
+			$html->parse('from_user', false);
 		}
 	}
 }
@@ -368,7 +350,6 @@ class CHtmlMailText extends CUsers
         $offset = ($offset - 1) * 20 + 1;
 		$html->setvar('offset_list', $offset);
 
-
 		$this->m_folder = 2;
 
 		if($this->m_folder == 1)
@@ -391,7 +372,7 @@ class CHtmlMailText extends CUsers
 		elseif ($this->m_folder == 3) $fname = l('Sent mail');
 		else $fname = DB::result("SELECT name FROM mail_folder WHERE id=" . $this->m_folder . "");
 		$html->setvar("folder", strip_tags($fname));
-		$html->setvar("folder_id", $this->m_folder);
+		$html->setvar("mail_folder_id", $this->m_folder);
 
         // MAIL FOLDER ICON
 
@@ -401,9 +382,9 @@ class CHtmlMailText extends CUsers
 
 		parent::parseBlock($html);
 	}
+
 	function init()
 	{
-
 		parent::init();
 		global $g;
 		global $g_user;
@@ -523,7 +504,6 @@ class CHtmlMailText extends CUsers
 
 	function onItem(&$html, $row, $i, $last)
 	{
-
 		global $g_user;
         global $g_info;
 		global $g;
@@ -538,7 +518,6 @@ class CHtmlMailText extends CUsers
 		if (!isset($row['country_title'])) $this->m_field['country_title'][1] = '-';
 		if (!isset($row['state_title'])) $this->m_field['state_title'][1] = '-';
 		if (!isset($row['city_title'])) $this->m_field['city_title'][1] = '-';
-
 		if ($row['mtype'] == 'postcard') {
 			#$params = explode('|', $row['text']);
 			#foreach ($params as $k => $param) if (strpos($param, '.swf')  !== false || strpos($param, '.mp3')  !== false || strpos($param, '.jpg')  !== false) $params[$k] = './_server/postcard/' . $param;
@@ -551,7 +530,6 @@ class CHtmlMailText extends CUsers
 			global $no_folders;
 			$no_folders = true;
 		} else {
-
 			$html->setvar('text', $real_text);
 			// var_dump($real_text); die();
 			$html->parse('plain', true);

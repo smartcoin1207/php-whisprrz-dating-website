@@ -6303,4 +6303,5 @@ $l['partyhou_mail.php']['text_mail'] = "Mail Text";
 $l['partyhou_mail.php']['sent_message'] = "Send Message";
 $l['partyhou_mail.php']['select_users'] = "Select Members";
 $l['partyhou_mail.php']['title_current'] = "Partyhou Mail";
+$l['all']['save_mail'] = "Save Mail";
 ?>

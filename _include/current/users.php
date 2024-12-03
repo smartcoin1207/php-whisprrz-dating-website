@@ -432,8 +432,8 @@ class CUsers extends CHtmlList
         $html->setvar("user_profile_link", User::url($row['user_id'], $row));
         $name =  $row['name'];
         if (substr($name, -1) === "2") {
-            $name = substr($name, 0, -1);
-            $name = $name. '<span class= "couple-span-name2">2</span>';
+            // $name = substr($name, 0, -1);
+            // $name = $name. '<span class= "couple-span-name2">2</span>';
         }
 
         $html->setvar("name", $name);
@@ -677,10 +677,6 @@ class CUsers extends CHtmlList
        
 
                     $couple_name =  $row['couple_name'];
-                    // if (substr($couple_name, -1) === "2") {
-                    //     $couple_name = substr($couple_name, 0, -1);
-                    //     $couple_name = $couple_name. '<span class= "couple-span-name2">2</span>';
-                    // }
                     $html->setvar("couple_name", $couple_name);
 
                     $html->setvar("couple_name_2", '2');
@@ -1198,8 +1194,8 @@ class CUsers extends CHtmlList
 
                 $nsc_couple_name =  $nsc_new_couple_row['name'];
                 if (substr($nsc_couple_name, -1) === "2") {
-                    $nsc_couple_name = substr($nsc_couple_name, 0, -1);
-                    $nsc_couple_name = $nsc_couple_name. '<span class= "couple-span-name2">2</span>';
+                    // $nsc_couple_name = substr($nsc_couple_name, 0, -1);
+                    // $nsc_couple_name = $nsc_couple_name. '<span class= "couple-span-name2">2</span>';
                 }
                 $html->setvar("nsc_couple_name", $nsc_couple_name);
 
@@ -1761,7 +1757,6 @@ class CUsers extends CHtmlList
         }
 
         $tmplMethod = 'parseBlock' . self::$tmplName;
-        // var_dump($tmplMethod); die();
         if (method_exists('CUsers', $tmplMethod)) {
             $this->$tmplMethod($html);
         }
@@ -2569,7 +2564,6 @@ class CUsersProfile extends CUsers
                     DB::execute("UPDATE user SET new_views=new_views+1, total_views=total_views+1, popularity = popularity + 1 WHERE user_id=" . to_sql($row_user['user_id'], "Number") . "");
 
                     $option = 'set_notif_profile_visitors';
-                    // var_dump(User::isSettingEnabled($option), User::isOptionSettings($option, $row_user)); die();
                     if (Common::isEnabledAutoMail('profile_visitors')
                         && $display != 'encounters'
                         && User::isSettingEnabled($option)

@@ -1,0 +1,156 @@
+{header}
+
+
+    <script type="text/javascript">
+    function music_main_search_on_submit()
+    {
+        value = $("#places_main_search input[name='query']").val();
+
+        if(value != '')
+            return true;
+
+        alert('{l_music_please_enter_what_you_search}');
+
+        return false;
+    }
+    </script>
+
+    <div class="music_new">
+
+		{music_header}
+
+        <table class="tb_music_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    <!-- new_mods_decor -->
+                    <div class="music_new_decor_l">
+
+                        <div class="pl_top">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+
+                              <td><h1 class="txt_color">{l_music_top_plays}</h1></td>
+                              <td>
+                              <div class="main_pl">
+                                    <div class="cont">
+                                        <div class="pic">
+                                            <img class="png" src="{url_tmpl_main}images/music/ico_browse.png" width="34" height="34" alt=""/>
+                                        </div>
+                                        <ul class="list">
+                                            <li><a href="{url_main}music_song_list_top_plays.php">{l_music_browse_all}</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="bg grey">
+                                        <ul class="lists">
+                                            <li><a href="{url_main}music_my.php">{l_music_my_music}</a></li>
+                                        </ul>
+                                    </div>
+                              </div>
+                              </td>
+                            </tr>
+                          </table>
+                            </div>
+                            <!-- /bl_main_pl -->
+
+
+
+                              <div class="cl"></div>
+                              <!-- new_mods_top_pl -->
+                              <!-- begin_song -->
+                              <div class="music_new_top_pl<!-- begin_song_last --> last_top_pl<!-- end_song_last -->">
+                                  <div class="music_new_img_green">
+                                      <a href="{url_main}music_song_show.php?song_id={song_id}" title="{song_title_full}"><img src="{image_thumbnail_b}" width="160" height="120" alt=""/></a>
+                                      <div class="music_new_play_l">{song_player}</div>
+                                      <div class="music_new_star">
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="1" title="{l_song_rating_1}" {music_song_rating_1_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="2" title="{l_song_rating_2}" {music_song_rating_2_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="3" title="{l_song_rating_3}" {music_song_rating_3_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="4" title="{l_song_rating_4}" {music_song_rating_4_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="5" title="{l_song_rating_5}" {music_song_rating_5_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="6" title="{l_song_rating_6}" {music_song_rating_6_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="7" title="{l_song_rating_7}" {music_song_rating_7_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="8" title="{l_song_rating_8}" {music_song_rating_8_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="9" title="{l_song_rating_9}" {music_song_rating_9_checked} class="song_rating star {split:2, readOnly:true}"/>
+						                    <input name="music_top_plays_rating_{song_id}" type="radio" value="10" title="{l_song_rating_10}" {music_song_rating_10_checked} class="song_rating star {split:2, readOnly:true}"/>
+                                      </div>
+                                  </div>
+                                  <div class="music_new_img_txt">
+                                      <strong><a class="txt_lower_header_color" href="{url_main}music_song_show.php?song_id={song_id}" title="{song_title_full}">{song_title}</a> <span class="dot4">::</span></strong> <a class="txt_upper_header_color" href="{url_main}music_musician_show.php?musician_id={musician_id}" title="{musician_name_full}">{musician_name}</a>
+                                      <span>{l_music_plays}: {song_n_plays} | {l_music_comments}: {song_n_comments}</span>
+                                  </div>
+                              </div>
+                              <!-- end_song -->
+                              <!-- /new_mods_top_pl -->
+
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    <!-- /new_mods_decor -->
+
+                    <div class="music_new_shadow"></div>
+
+                    <div class="music_new_p pl_top_m">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+                                  <td><h1 class="txt_lower_header_color">{l_music_just_added}</h1></td>
+                                  <td>
+                                     <div class="main_pl bg">
+                                            <div class="cont darkgrey">
+                                                <div class="pic">
+                                                    <img class="png" src="{url_tmpl_main}images/music/ico_browse.png" width="34" height="34" alt=""/>
+                                                </div>
+                                                <ul class="list">
+                                                    <li><a href="{url_main}music_song_list_just_added.php">{l_music_browse_all}</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="bg darkgrey">
+                                                <div class="bl_search">
+                                                    <form id="places_main_search" action="{url_main}music_search.php" method="get" onsubmit="return music_main_search_on_submit();">
+                                                      <div class="music_input_text1 fl_left"> <input class="no_abk" type="text" name="query" value=""/></div>
+                                                        <!-- <div class="music_input8 fl_left"><input type="submit" value="{l_search}"/></div> -->
+                                                        <input class="btn upper_header_color round big" type="submit" value="{l_search}"/>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                      </div>
+                                  </td>
+                                </tr>
+                              </table>
+                          </div>
+                          <!-- /bl_main_pl -->
+
+                        <div class="cl"></div>
+
+                        {music_song_list}
+
+                    </div>
+                    <div class="music_new_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+				{music_sidebar}
+
+            </tr>
+        </table>
+
+		<div class="foot_left"></div>
+		<div class="foot_right"></div>
+    </div>
+
+{footer}

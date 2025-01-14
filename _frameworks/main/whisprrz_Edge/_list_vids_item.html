@@ -1,0 +1,123 @@
+<!-- begin_list_video_item_info -->
+<div class="col-md-{list_video_item_number_row} col-sm-6 item <!-- begin_list_video_item_info_hide -->to_hide<!-- end_list_video_item_info_hide -->">
+    <div class="cham-post">
+        <div class="cham-post-link" onclick="openGalleryList(event,'{list_video_item_video_id}', true)">
+            <div class="cham-post-image list_videos_image_{list_video_item_id} to_hide">
+                <div id="list_image_layer_action_{list_video_item_video_id}" data-cl-loader="layer_action_list_loader" class="layer_action_list"></div>
+
+                <div id="list_media_description_bl_{list_video_item_video_id}" class="cham-category descripton <!-- begin_list_video_item_info_description -->to_show<!-- end_list_video_item_info_description -->">
+                    <span class="subject" title="{list_video_item_subject_attr}">
+                        <span class="overflow">{list_video_item_subject_short}</span>
+                    </span>
+                </div>
+
+                <button class="play_button" type="button" aria-live="polite"></button>
+
+                <div class="pic rectangle hover-brightness" style="background-image: url({list_video_item_image});"></div>
+                <script>
+                    onLoadImgFromList($('.list_videos_image_{list_video_item_id}.to_hide'), '{list_video_item_image}');
+                    <!-- begin_set_video_data -->
+                    clProfilePhoto.setVisibleMediaData('{list_video_item_video_id}', {list_video_item_info});
+                    <!-- end_set_video_data -->
+                </script>
+
+                <!-- <span class="tag  begin_list_video_item_info_tags to_show end_list_video_item_info_tags ">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <span class="list_tags video_list_tags_{list_video_item_video_id}">
+                    {list_video_item_tags}
+                    </span>
+                </span> -->
+
+                <!-- begin_list_video_item_info_not_checked -->
+                <div class="icon_time" title="{l_being_checked_by_moderators}"></div>
+                <!-- end_list_video_item_info_not_checked -->
+            </div>
+            <!-- <div class="cham-post-text">
+                <h3>{list_video_item_subject}</h3>
+                <div class="post-text">
+                    <p>{list_video_item_text}</p>
+                </div>
+            </div> -->
+        </div>
+        <div class="cham-post-meta">
+            <div class="info">
+                <span class="info_item comments">
+                    <i class="fa fa-comments" aria-hidden="true"></i><span class="video_comments_count_{list_video_item_id}">{list_video_item_count_comments}</span>
+                </span>
+                <span class="info_item time">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>{list_video_item_time_ago}
+                </span>
+            </div>
+            <div class="info">
+                <!-- begin_list_video_item_info_name -->
+                <span class="info_item user_name">
+                    <a href="{url_main}{list_video_item_user_url}" class="name">
+                        <span class="icon_status <!-- begin_list_video_item_info_online -->online<!-- end_list_video_item_info_online-->"></span>
+                        {list_video_item_user_name}
+                    </a>
+                </span>
+                <!-- end_list_video_item_info_name -->
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- begin_list_video_item_info_menu -->
+        <div class="item_settings">
+            <span data-no-fade-in="true" class="icon_settings">
+                <span class="" data-toggle="collapse" data-target="#list_videos_image_menu_{list_video_item_video_id}">
+                </span>
+            </span>
+            <ul id="list_videos_image_menu_{list_video_item_video_id}" class="more_menu_collapse more_menu_right collapse list_photos_image_menu">
+
+                <!-- begin_app_ios_video_editor -->
+                <li>
+                    <a onclick="runAppIosVideoEditor('{list_video_item_video_id}', true); return false;" class="app_ios_video_editor_link app_ios_video_editor_{list_video_item_video_id}" href="#">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-magic" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_edit_video}</span>
+                    </a>
+                </li>
+                <!--end_app_ios_video_editor -->
+
+                <li>
+                    <a id="list_videos_image_menu_hide_header_{list_video_item_video_id}" href="#" onclick="clProfilePhoto.hideHeaderPicture($(this),'{list_video_item_video_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa {list_video_item_hide_header_icon}" aria-hidden="true"></i>
+                        </span>
+                        <span class="hide_header_picture_title">{list_video_item_hide_header}</span>
+                    </a>
+                </li>
+                <!-- Divyesh - Added on 11-04-2024 -->
+                <li>
+                    <a href="#" onclick="return update_video_private('{list_video_item_video_id}','{private}');">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-{private_icon}" aria-hidden="true"></i>
+                        </span>
+                        <span>{private_title}</span>
+                    </a>
+                </li>
+                <!-- Divyesh - Added on 11-04-2024 -->
+                <li>
+                    <a href="#" onclick="clProfilePhoto.confirmPhotoDeleteList('{list_video_item_video_id}', true); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_delete}</span>
+                    </a>
+                </li>
+                <!-- begin_list_video_item_info_link_download -->
+                <li>
+                    <a target="_blank" download href="{list_video_item_src}">
+                        <span class="icon_fa">
+                            <i class="fa fa-external-link" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_gallery_file_download}</span>
+                    </a>
+                </li>
+                <!-- end_list_video_item_info_link_download -->
+            </ul>
+        </div>
+        <!-- end_list_video_item_info_menu -->
+    </div>
+</div>
+<!-- end_list_video_item_info -->

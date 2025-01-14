@@ -1,0 +1,132 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/music_musicians.php">{l_menu_musicians}</a></li>
+        <li><a href="{url_main}administration/music_musician_comments.php">{l_menu_musician_comments}</a></li>
+        <li><a href="{url_main}administration/music_songs.php">{l_menu_songs}</a></li>
+        <li><a href="{url_main}administration/music_song_comments.php">{l_menu_song_comments}</a></li>
+        <li><a href="{url_main}administration/music_categories.php">{l_menu_categories}</a></li>
+        <li><a href="{url_main}administration/music_category_add.php">{l_menu_categories_add}</a></li>
+    </ul>
+</div>
+
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#place_edit_form").validate({
+        rules: {
+            musician_name: "required",
+            musician_leader: "required",
+            musician_about: "required"
+        },
+        messages: {
+        	musician_name: "{l_please_specify_title}",
+            musician_leader: "{l_please_specify_leader}",
+        	musician_about: "{l_please_enter_text}"
+        }
+    })
+});
+
+</script>
+
+<div class="block_main">
+    <h2>{l_title_current} - {musician_name}</h2>
+
+    <div class="bl_form">
+
+        <form method="POST" id="place_edit_form" action="{url_main}administration/music_musician_edit.php?cmd=update&musician_id={musician_id}">
+
+        <label>{l_category}:</label>
+        <select name="category" class="input">
+        {category_options}
+        </select>
+
+        <label>{l_country}:</label>
+        <select class="input" name="country" id="country">
+        {country_options}
+        </select>
+
+        <label>{l_musician_name}:</label>
+        <input type="text" name="musician_name" value="{musician_name}">
+
+        <label>{l_musician_leader}:</label>
+        <input type="text" name="musician_leader" value="{musician_leader}">
+
+        <label>{l_musician_founded}:</label>
+        <select class="input" name="musician_founded" id="musician_founded">
+        {musician_founded_options}
+        </select>
+
+        <label>{l_musician_about}:</label>
+        <textarea name="musician_about" id="musician_about" class="textarea_small">{musician_about}</textarea>
+
+        <div style="height:20px"></div>
+
+        <h2>{l_edit_photos}</h2>
+
+<div style="width: 100%;  height: 180px;">
+        <!-- begin_photo_edit -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    create_gallery()
+});
+
+function create_gallery()
+{
+    $('.edit_image_gallery').lightBox({
+        imageLoading:           '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+        imageBtnPrev:           '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+        imageBtnNext:           '{url_tmpl_administration}images/lightbox-btn-next.gif',
+        imageBtnClose:          '{url_tmpl_administration}images/lightbox-btn-close.gif',
+        imageBlank:             '{url_tmpl_administration}images/lightbox-blank.gif'
+        });
+}
+
+function edit_delete_image(image_id)
+{
+    if(confirm('{l_this_action}'))
+    {
+        $('#edit_image_' + image_id).fadeOut(400, function() {
+            $('#edit_image_' + image_id).remove();
+            create_gallery();
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}administration/music_musician_image_delete_ajax.php',
+                    data: {
+                        image_id: image_id
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+
+
+            <!-- begin_photo-->
+            <div style="width:24%;float: left;" id="edit_image_{image_id}">
+                <a class="edit_image_gallery" href="{image_file}"><img src="{image_thumbnail}"></a>
+                <p><a style="cursor: pointer;" onClick="return edit_delete_image({image_id});">{l_delete}</a></p>
+                <!-- begin_photo_odd-->
+                <!-- end_photo_odd-->
+                <!-- begin_photo_even-->
+                <!-- end_photo_even-->
+                <div style="height:15px"></div>
+            </div>
+            <!-- end_photo-->
+        <!-- end_photo_edit -->
+</div>
+
+        <div class="clear" style="height:20px"></div>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save_changes}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

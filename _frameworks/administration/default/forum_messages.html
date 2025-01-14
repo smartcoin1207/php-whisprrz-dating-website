@@ -1,0 +1,82 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/forum_categories.php">{l_menu_forum_categories}</a></li>
+        <li><a href="{url_main}administration/forum_category_add.php">{l_menu_forum_categories_add}</a></li>
+        <li><a href="{url_main}administration/forum_forums.php">{l_menu_forum_forums}</a></li>
+        <li><a href="{url_main}administration/forum_forum_add.php">{l_menu_forum_forums_add}</a></li>
+        <li><a href="{url_main}administration/forum_topics.php">{l_menu_forum_topics}</a></li>
+        <li class="active"><a href="{url_main}administration/forum_messages.php">{l_menu_forum_messages}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_main_pages -->
+    <div>&nbsp;</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+
+    <!-- begin_main_items -->
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right">{l_action}</th>
+        <th>
+            <!-- begin_params_none_id --><a href="{url_page}?{params_current}">{l_message_id}</a><!-- end_params_none_id -->
+            <!-- begin_params_asc_id -->&uarr;<a href="{url_page}?{params_current}">{l_message_id}</a><!-- end_params_asc_id -->
+            <!-- begin_params_desc_id -->&darr;<a href="{url_page}?{params_current}">{l_message_id}</a><!-- end_params_desc_id -->
+        </th>
+        <th>
+            <!-- begin_params_none_topic_id --><a href="{url_page}?{params_current}">{l_topic_id}</a><!-- end_params_none_topic_id -->
+            <!-- begin_params_asc_topic_id -->&uarr;<a href="{url_page}?{params_current}">{l_topic_id}</a><!-- end_params_asc_topic_id -->
+            <!-- begin_params_desc_topic_id -->&darr;<a href="{url_page}?{params_current}">{l_topic_id}</a><!-- end_params_desc_topic_id -->
+        </th>
+        <th class="last">
+            <!-- begin_params_none_message --><a href="{url_page}?{params_current}">{l_message_message}</a><!-- end_params_none_message -->
+            <!-- begin_params_asc_message -->&uarr;<a href="{url_page}?{params_current}">{l_message_message}</a><!-- end_params_asc_message -->
+            <!-- begin_params_desc_message -->&darr;<a href="{url_page}?{params_current}">{l_message_message}</a><!-- end_params_desc_message -->
+        </th>
+         
+        <th class="decor_r"></th>
+    </tr>
+
+    <!-- begin_main_item -->
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right">
+            <a href="{url_main}administration/forum_message_edit.php?id={id}">{l_edit}</a>
+            |
+            <a href="{url_main}administration/forum_message_delete.php?id={id}" onclick="if (confirm('{l_are_you_sure_message}')) return true; else return false;">{l_delete}</a>
+        </td>
+        <td>{id}</td>
+        <td>{topic_id}</td>
+        <td class="last">{message}</td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_places}</div>
+    <!-- end_main_noitems -->
+
+    <div class="empty"></div>
+</div>
+{footer}

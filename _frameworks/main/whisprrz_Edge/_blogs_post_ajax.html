@@ -1,0 +1,31 @@
+<!-- begin_blog_post_like -->
+<div id="blog_post_feed_like_result" class="who_liked {blog_post_like_class}">
+    <div class="who_liked_bl">
+        <!-- begin_link_unlike -->
+        <span id="blog_post_feed_like_hand" class="who_liked_link" onclick="clBlogs.likeDelete();" title="{a_unlike}">
+            <span class="glyphicon glyphicon-thumbs-up icon" data-no-fade-in="true" data-cl-loader="icon_wall_loader_hand"></span>
+        </span>
+        <!-- end_link_unlike -->
+        <!-- begin_icon_like -->
+        <span id="blog_post_feed_like_hand" class="who_liked_link" onclick="clBlogs.likeAdd();" title="{a_like}">
+            <span class="glyphicon glyphicon-thumbs-up icon" data-no-fade-in="true" data-cl-loader="icon_wall_loader_hand"></span>
+        </span>
+        <!-- end_icon_like -->
+
+        <!-- begin_wall_like_one -->
+        {wall_like_one}
+        <!-- end_wall_like_one -->
+
+        <!-- begin_wall_like_you -->{l_wall_you}<!-- end_wall_like_you --><!-- begin_wall_like_user -->{wall_like_delimiter}<a href="{wall_like_user_url}">{wall_like_name}</a><!-- end_wall_like_user -->
+
+        <!-- begin_wall_like_more -->
+        {wall_and_more_people_like_this}
+        <!-- end_wall_like_more -->
+
+        <!-- begin_wall_like_names -->
+        {l_wall_several_people_like_this}
+        <!-- end_wall_like_names -->
+    </div>
+</div>
+<script>clBlogs.setLikePostInfo('{blog_post_like_user_list}');</script>
+<!-- end_blog_post_like -->

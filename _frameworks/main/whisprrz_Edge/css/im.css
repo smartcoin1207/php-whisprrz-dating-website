@@ -1,0 +1,43 @@
+.brd{border:1px solid red;}
+.im_oryx { width:317px; height:388px; position:fixed; visibility:hidden; left: 0px; top: 0px; z-index: 90 !important; }
+.im_top { width:293px; height:19px; background:url("../images/im/im_top.png") 0 0 no-repeat transparent; padding:10px 12px 0 12px;}
+.im_top img{width:29px; height:14px; float:right; margin-right:5px; cursor:pointer;}
+.im_top div {width: 240px; height:14px; font: bold 10px Tahoma, sans-serif; color:#fff; text-align:left; padding:2px 8px; float:left;}
+
+.im_body { width:293px; height:301px; background: url("../images/im/im_bg.png") 0 0 repeat-y transparent; padding:0 12px; font: 12px Arial; overflow:hidden;}
+.im_body .message{width:260px; margin:4px 8px;font: 12px Arial; border-collapse:collapse; }
+.im_body .message th{position: relative; width:45px; margin:0; padding:0; vertical-align:top;}
+.im_body .message th a img.is_writing{position:absolute; top:30px; right:10px; width:21px; height:9px;}
+.im_body .message td{ width: 200px; text-align:left; margin:0; padding:0; vertical-align:top; line-height: 18px;}
+.im_body .message td div{ word-wrap: break-word; width: 210px; line-height: 21px; }
+.im_body h3{color:#0eb7d9; font-weight:normal; padding:0px;margin:0px 0 3px;font: 12px Arial;}
+.im_body img{ border-radius: 5px; }
+.im_body span{ color:#ababab; font-size:10px;}
+.im_body .smile{ display: inline-block; height: 19px; overflow: hidden; vertical-align: top; }
+.im_body .smile img{ border-radius: 0; }
+img.read {margin-left: 3px;}
+
+/*.im_bottom { width:317px; height:57px; background:url("../images/im/im_bottom.png") 0 0 no-repeat transparent; }*/
+.im_bottom_1 { width:317px; height:14px; background:url("../images/im/im_bottom_1.png") 0 0 no-repeat transparent; }
+.im_bottom_2 { width:317px;background:url("../images/im/im_bottom_2.png") 0 0 repeat-y transparent; }
+.im_bottom_3 { width:317px; height:31px; background:url("../images/im/im_bottom_3.png") 0 0 no-repeat transparent; }
+.im_bottom_2 .msg_field{ width:243px; height:15px; font: 12px Tahoma, sans-serif; line-height: 16px; color: #000; margin: 0 12px 0 22px; border:0px;}
+
+.im_oryx .smile img {
+    /*margin: -3px -2px -8px 0;
+    vertical-align: middle;
+    margin: -6px 0 -3px;
+    right: 2px;*/
+
+/*    position: relative;
+    margin: 0 0 -2px 0 ;
+    vertical-align: bottom;
+*/
+}
+
+img.read {padding-left: 3px;}
+.loader{width:280px; padding:28px 0px; background:url("../images/loader.gif") 50% 22px no-repeat transparent;}
+
+.im_body .message .original_message{display:none;}
+.im_body .message .show_original_message{z-index:5;}
+.im_body .message .show_original_message img{border-radius:0;}

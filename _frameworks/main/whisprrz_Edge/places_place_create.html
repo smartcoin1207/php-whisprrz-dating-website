@@ -1,0 +1,154 @@
+{header}
+
+
+    <div id="oryx_content">
+    <div class="places_new">
+
+		{places_header}
+
+        <table class="tb_places_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    <div class="places_new_p pl_top">
+                        <h1 class="txt_lower_header_color">{l_add_new_place}</h1>
+
+
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+	$("#place_create_form").validate({
+		rules: {
+			name: "required",
+			address: "required",
+			site: "url",
+			about: "required",
+			state: {
+				required: true,
+				min: 1,
+				number: true
+				},
+			city: {
+				required: true,
+				min: 1,
+				number: true
+				}
+		},
+		messages: {
+			name: "{l_please_specify_name}",
+			address: "{l_address_is_required}",
+			site: "{l_please_enter_correct_url}",
+			about: "",//"{l_please_enter_about}",
+			state: "",//"{l_please_select_state}",
+			city: ""//"{l_please_select_city}"
+		}
+	})
+
+    $("#place_create_form input[name='site']").change(function() {
+	    url = $("#place_create_form input[name='site']").val();
+	    
+	    if(url != '' && url.search(/http:\/\//i) < 0)
+	    {
+	        $("#place_create_form input[name='site']").val('http://'+url);
+	    }
+    });
+});
+
+function on_form_submit()
+{
+    if(!$("#place_create_form").valid())
+        alert('{l_please_fill_in_all_the_fields}');
+
+    return true;
+}
+jqTransformDaySelect = true;
+</script>
+
+                        
+						<form id="place_create_form" method="POST" action="{url_main}places_place_create.php?cmd=create" onsubmit="return on_form_submit();">
+
+                        <table class="tb_places_new_frm">
+                            <col width="50px"/>
+                            <col width="166px"/>
+                            <col width="60px"/>
+                            <col width="162px"/>
+                            <tr>
+                                <th>{l_name}:</th>
+                                <td><div class="place_inp"><input name="name"  class="inp_violet" type="text" value="{place_name}"/></div></td>
+                                <th>{l_category}:</th>
+                                <td>
+                                    <div class="place_select"><select name="category">
+                                        {category_options}
+                                    </select></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{l_phone}:</th>
+                                <td><div class="place_inp"><input name="phone" class="inp_violet" type="text" value=""/></div></td>
+                                <th>{l_site}:</th>
+                                <td><div class="place_inp"><input name="site" class="inp_violet" type="text" value=""/></div></td>
+                            </tr>
+                            <tr>
+                                <th>{l_about}:</th>
+                                <td colspan="3">
+                                    <textarea name="about" class="textarea_violet"></textarea>
+                                </td>
+                            </tr>
+	
+				                <tr>
+                                <th>{l_address}:</th>
+                                <td colspan="3"><div class="place_inp"><input name="address" class="inp_violet_l" type="text" value=""/></div></td>
+                            </tr>
+
+                            <tr>
+                                <th>{l_country}:</th>
+
+								<td>		
+                                    <div class="place_select"><select name="country" id="country" onchange="show_load_animation(1); xajax_states(country.value);">
+                                        {country_options}
+                                    </select></div>
+                                </td>
+                                <th><img style="visibility:hidden; margin: 1px 2px 0 0;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif">{l_state}:</th>
+                                <td>
+                                    
+                                    <select name="state" id="state" onchange="show_load_animation(2); xajax_cities(state.value)">
+										<option value="-1">- {l_select_state} -</option>
+                                        {state_options}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><img style="visibility:hidden; margin: 1px 2px 0 0;" id="load_animation2" src="{url_tmpl_main}images/load_animation.gif">{l_city}:</th>
+                                <td colspan="3">
+                                    <select class="" name="city" id="city" style="width:392px;">
+										<option value="-1">- {l_select_city} -</option>
+                                        {city_options}
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <div class="line_dashed"></div>
+
+                      
+<!--                             <div class="places_input3 fl_right"><input  type="submit" value="{l_next}"/></div> -->
+                           <input class="btn round upper_header_color big fl_right" type="submit" value="{l_next}"/>
+
+                        </form>
+                    </div>
+
+                </td>
+                <!-- /td_main -->
+
+				{places_sidebar}
+				
+            </tr>
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+    </div>
+</div>
+
+{footer}

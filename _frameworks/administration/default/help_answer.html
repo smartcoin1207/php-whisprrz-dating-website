@@ -1,0 +1,38 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/help_topic.php?lang={lang}">{l_menu_help}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current} - {topic_name}</h2>
+
+    <div class="bl_form">
+        <!-- begin_question -->
+        <form action="{url_page}?t={topic_id}&lang={lang}" method="POST">
+        <input name="cmd" value="edit" type="hidden">
+        <input name="id" value="{id}" type="hidden">
+        <label>{l_title_word}:</label>
+        <input type="text" name="name" value="{name}">
+        <label>{l_content}:</label>
+        <textarea name="text" class="textarea_small">{text}</textarea>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a></div>
+        <div class="btn fl_right"><a href="{url_page}?cmd=delete&t={topic_id}&id={id}&lang={lang}" onClick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a></div>
+        </form>
+        <div style="height:50px"></div>
+        <!-- end_question -->
+
+        <h2>{l_add}</h2>
+        <form action="{url_page}?t={topic_id}&lang={lang}" method="POST">
+        <input name="cmd" value="add" type="hidden">
+        <label>{l_title_word}:</label>
+        <input type="text" name="name" value="">
+        <label>{l_content}:</label>
+        <textarea name="text" class="textarea_small"></textarea>
+        <div class="btn fl_right"><a href="#" class="submit">{l_add}</a></div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

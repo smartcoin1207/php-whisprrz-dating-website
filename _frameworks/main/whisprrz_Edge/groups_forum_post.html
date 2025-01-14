@@ -1,0 +1,30 @@
+{header}
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+<input style="width: 150px;" type="button" value="{l_back_to_forum}" class="button" onclick="location='{url_main}groups_forum_view.php?fid={fid}';" title="{l_back_to_forum}">
+<input style="width: 150px;" type="button" value="{l_all_groups}" class="button" onclick="location='{url_main}groups.php';" title="{l_all_groups}">
+<input style="width: 150px;" type="button" value="{l_my_groups}" class="button" onclick="location='{url_main}groups_my.php';" title="{l_my_groups}">
+<input style="width: 150px;" type="button" value="{l_create_group}" class="button" onclick="location='{url_main}groups_add.php?cat_id={cat_id}';" title="{l_create_group}">
+<br><br>
+<!-- begin_add_form -->
+<form method="POST" >
+<input type="hidden" name="fid" value="{fid}" />
+<table>
+<tr><td valign="top">{l_text}&nbsp;&nbsp;&nbsp;</td><td><textarea name="text" style="width:700px;" rows="7"></textarea></td>
+</tr>
+<tr><td colspan="2" align="center"><br><input type="submit" value="{l_add_this}" class=button><br></td></tr>
+</table>
+</form>
+<!-- end_add_form -->
+
+<!-- begin_after_added -->
+<div class=header_big style="text-align:center;">{l_added}</div><br>
+<center><input style="width: 100px;" type="button" value="{l_back_to_forum}" class="button" onclick="location='{url_main}groups_forum_view.php?fid={fid}';" title="{l_back_to_forum}"><br><center>
+<!-- end_after_added -->
+
+<!-- begin_no_rights -->
+<div class=header_big style="text-align:center;">{l_cant_post}</div><br>
+<center><input style="width: 100px;" type="button" value="{l_back_to_forum}" class="button" onclick="location='{url_main}groups_forum_view.php?fid={fid}';" title="{l_back_to_forum}"><br><center>
+<!-- end_no_rights -->
+
+</div></div></div></div></div></div></div></div></div>
+{footer}

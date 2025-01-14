@@ -1,0 +1,61 @@
+{header}
+<script>
+$(function() {
+    $('#frm_gift').submit(function(){
+        var mask = /^-?[0-9]*(\.)?[0-9]*$/;
+        var credits=$('#credits'),price=credits.val()*1;
+        if ($('#cmd').val()=='add' && $('#img').val()=='') {
+            alert('{j_picture_gift_not_selected}');
+            return false;
+        } else if (Math.max(0,price)!==price||Math.ceil(price)!==price) {
+            console.log(Math.max(0,price),price,Math.ceil(price),price);
+            alert('{j_error_credits}');
+            credits.focus();
+            return false;
+        }
+    })
+})
+</script>
+<div class="block_narrow">
+{menu_page}
+</div>
+<div class="block_main">
+    <h2><!-- begin_add_gift_title -->{l_title_current}<!-- end_add_gift_title --><!-- begin_edit_gift_title -->{l_edit_gift}<!-- end_edit_gift_title --></h2>
+    <div class="bl_form">
+        <!-- begin_gift_item -->
+        <form id="frm_gift" action="{url_page}" name="frm_gift" enctype="multipart/form-data" method="POST">
+        <!-- begin_add_form -->
+        <input id="cmd" type="hidden" name="cmd" value="add">
+        <!-- end_add_form -->
+        <!-- begin_edit_form -->
+        <input id="cmd" type="hidden" name="cmd" value="edit">
+        <input type="hidden" name="id" value="{id}">
+        <img src="{url_gift}">
+        <br>
+        <!-- end_edit_form -->
+        <label>{l_style_set}:</label>
+        <select name="set" class="input">{set_opts}</select>
+        <label>{l_image}:</label>
+        <input id="img" style="width: 98%; margin-bottom: 20px; margin-top:0px;" class="upload" type="file" name="img">
+        <label>{l_credits}:</label>
+        <input id="credits" type="text" name="credits" value="{credits}">
+
+        <div class="btn fl_right"><a href="" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+        </form>
+        <!-- end_gift_item -->
+        <!-- begin_no_gifts -->
+        <div align="center">{l_no_result}</div>
+        <!-- end_no_gifts -->
+    </div>
+
+    <div class="empty"></div>
+
+</div>
+{footer}
+<!-- begin_error -->
+<script>
+    alert('{error}');
+</script>
+<!-- end_error -->

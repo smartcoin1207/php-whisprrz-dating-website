@@ -1,0 +1,137 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+    alert("{message}");
+    }
+    $(document).ready(function(){
+        var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            }else{
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function(){
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+    });
+    function delete_reports() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var reports = StrID.slice(0, -1);
+        window.location.href='{url_page}?cmd=delete_report&report_id='+reports;
+    }
+
+	function showPost($el){
+		$div=$el.closest('div').slideUp(300);
+		$div.closest('div.wall_post_item').prev('.wall_post_item.to_hide').slideDown(300);
+	}
+</script>
+<div class="block_main bl_wall_wrapper_admin">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_count_users}</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+    <!-- begin_main_items -->
+    <table class="tb" style="width: 100%;">
+    <thead>
+    <tr>
+        <th class="decor_l">&nbsp;</th>
+        <th class="right" style="width: 12px;">
+            <input style="margin:0px; position: relative; top:2px; left: 4px;" type="checkbox" id="all">
+        </th>
+        <th>
+            <!-- begin_params_none_date --><a href="{url_page}?{params_current}">{l_date}</a><!-- end_params_none_date -->
+            <!-- begin_params_asc_date -->&uarr;<a href="{url_page}?{params_current}">{l_date}</a><!-- end_params_asc_date -->
+            <!-- begin_params_desc_date -->&darr;<a href="{url_page}?{params_current}">{l_date}</a><!-- end_params_desc_date -->
+        </th>
+        <th>
+            <!-- begin_params_none_name_from --><a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_none_name_from -->
+            <!-- begin_params_asc_name_from -->&uarr;<a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_asc_name_from -->
+            <!-- begin_params_desc_name_from -->&darr;<a href="{url_page}?{params_current}">{l_from}</a><!-- end_params_desc_name_from -->
+        </th>
+        <th style="width: 40%;">
+            {l_content}
+        </th>
+		<th>
+            <!-- begin_params_none_comment_id --><a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_none_comment_id -->
+            <!-- begin_params_asc_comment_id -->&uarr;<a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_asc_comment_id -->
+            <!-- begin_params_desc_comment_id -->&darr;<a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_desc_comment_id -->
+        </th>
+        <th style="width: 25%;" class="last">
+            {l_message}
+        </th>
+        <th class="decor_r">&nbsp;</th>
+    </tr>
+    </thead>
+
+    <!-- begin_main_item -->
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right" style="width: 12px;"><input style="margin:0px; position: relative; top:2px; left: 4px;" type="checkbox" id="chk_{id}"></td>
+        <td class="bre">{date}</td>
+        <td><a href="users_edit.php?id={user_from}">{name_from}</a></td>
+        <td style="padding: 10px; width: 50%;">
+			{wall_item}
+			<!-- begin_wall_no_content -->
+			<div class="bl_no_content">
+				{l_no_content}
+			</div>
+			<!-- end_wall_no_content -->
+			<div class="bl_action">
+				<a href="{url_page}?cmd=delete_report&report_id={rep_id}&comment_type={comm_type}&comment_id={comm_id}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete_report}</a>
+				<span>&bull;</span>
+				<a href="{url_page}?cmd=delete_post&id={wall_id}&user_id={user_to}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete_post}</a>
+				<!-- begin_report_comment_delete -->
+				<span>&bull;</span>
+				<a href="{url_page}?cmd=delete_comment&report_id={rep_id}&user_id={user_to}&comment_type={comm_type}&comment_id={comm_id}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete_comment}</a>
+				<!-- end_report_comment_delete -->
+				<span>&bull;</span>
+				<a href="{url_page}?cmd=ban&user_id={user_to}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{ban_to}</a>
+			</div>
+        </td>
+		<td>{type}</td>
+        <td class="last bre">{msg}</td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_reports}</div>
+    <!-- end_main_noitems -->
+    <!-- begin_no_delete -->
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) delete_reports(); else return false; " href="#">{l_delete_all_reports}</a>
+    </div>
+    <!-- end_no_delete -->
+    <div class="empty"></div>
+</div>
+{footer}

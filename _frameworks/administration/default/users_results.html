@@ -1,0 +1,479 @@
+{header}
+<style>
+.wrapper {overflow: visible;}
+.zoomphoto{
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 0.2s;
+}
+td:hover .zoomphoto {
+    transform: scale(8);
+    z-index: 9999;
+}
+
+.tb_fields td, .tb td {
+  position: relative;
+}
+.pagination {
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination b,
+    span {
+        color: black;
+        padding: 4px 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        background: #eee;
+    }
+
+    .pagination a {
+        color: black;
+        padding: 4px 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    .pagination a.active,
+    .pagination b {
+        background: linear-gradient(#a6df11, #498f00);
+        color: white;
+
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+    }
+
+    .custom-swal2-input {
+        box-sizing: border-box;
+        width: 95%;
+        transition: border-color .1s, box-shadow .1s;
+        border: 1px solid #d9d9d9;
+        border-radius: .1875em;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .06), 0 0 0 3px rgba(0, 0, 0, 0);
+        color: inherit;
+        font-size: 1.125em;
+        height: 2.625em;
+        padding: 0 .75em;
+        margin: 0.5em 0em 3px;
+    }
+    form.user_search {
+        margin-bottom: 5px;
+    }
+
+    form.user_search input[type=text] {
+        padding: 5px;
+        border: 1px solid grey;
+        float: left;
+        width: 70%;
+        background: #f1f1f1;
+        margin-bottom: 0;
+    }
+
+    form.user_search button {
+        float: left;
+        width: 30%;
+        padding: 5px;
+        background: #2196F3;
+        color: white;
+        border: 1px solid grey;
+        border-left: none;
+        cursor: pointer;
+    }
+
+    form.user_search button:hover {
+        background: #0b7dda;
+    }
+
+    form.user_search::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .autocomplete-wrapper {
+        margin: 44px auto 44px;
+        max-width: 600px;
+    }
+
+    .autocomplete-wrapper label {
+        display: block;
+        margin-bottom: .75em;
+        color: #3f4e5e;
+        font-size: 1.25em;
+    }
+
+    .autocomplete-wrapper .text-field {
+        padding: 0 15px;
+        width: 100%;
+        height: 40px;
+        border: 1px solid #CBD3DD;
+        font-size: 1.125em;
+    }
+
+    .autocomplete-wrapper ::-webkit-input-placeholder {
+        color: #CBD3DD;
+        font-style: italic;
+        font-size: 18px;
+    }
+
+    .autocomplete-wrapper :-moz-placeholder {
+        color: #CBD3DD;
+        font-style: italic;
+        font-size: 18px;
+    }
+
+    .autocomplete-wrapper ::-moz-placeholder {
+        color: #CBD3DD;
+        font-style: italic;
+        font-size: 18px;
+    }
+
+    .autocomplete-wrapper :-ms-input-placeholder {
+        color: #CBD3DD;
+        font-style: italic;
+        font-size: 18px;
+    }
+
+    .autocomplete-suggestions {
+        overflow: auto;
+        border: 1px solid #CBD3DD;
+        background: #FFF;
+    }
+
+    .autocomplete-suggestion {
+        overflow: hidden;
+        padding: 5px 15px;
+        white-space: nowrap;
+    }
+
+    .autocomplete-selected {
+        background: #F0F0F0;
+    }
+
+    .autocomplete-suggestions strong {
+        color: #029cca;
+        font-weight: normal;
+    }
+    #user_lists {
+        overflow-x: scroll;
+    }
+
+    #user_lists,
+    #user_lists .tb {
+        transform: rotateX(180deg);
+    }
+    #user_lists .tb {
+        margin-bottom: 10px;
+    }
+
+    /* Designing for scroll-bar */
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: gainsboro;
+        border-radius: 5px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+</style>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li class="active"><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+<script src="{url_tmpl_administration}js/jquery.autocomplete.js"></script>
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+    alert("{message}");
+    }
+    $(document).ready(function(){
+        var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            }else{
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function(){
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+        $("#display_per_page").change(function () {
+            var val = $(this).val();
+            window.location.href = "{url_page}?display=" + val;
+        });
+
+        $('#search_box').autocomplete({
+            lookup: function (query, done) {
+                $.ajax({
+                    url: "ajax_custom.php?cmd=auto_suggest&q=" + query,
+                    dataType: "json",
+                    type: "POST",
+                    beforeSend: function () {
+                    },
+                    success: function (data) {
+                        done(data);
+                    }
+                });
+            },
+            onSelect: function (suggestion) {
+                /*selected_state = suggestion.state;
+                $("#country").val(suggestion.country);
+                $("#country").trigger("change");
+                $("#city").val(suggestion.city);*/
+            }
+        });
+
+    });
+    function delete_user() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var user = StrID.slice(0, -1);
+        window.location.href='{url_page}?delete='+user+'&offset={offset}&display={display}';
+    }
+
+    function ban(uid) {
+        window.location.href='{url_page}?ban='+uid+'&offset={offset}&display={display}';
+    }
+
+    function one_delete(uid) {
+        window.location.href='{url_page}?delete='+uid+'&offset={offset}&display={display}';
+    }
+
+</script>
+<div class="block_main">
+    <table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
+        <tr>
+            <td style="width: 50%; margin-bottom: 5px;">
+                <h2 style="border: 0; margin-bottom: 0;">{l_title_current}</h2>
+            </td>
+            <td style="width: 50%;">
+                <form class="user_search" action="users_results.php">
+                    <input type="hidden" name="display" value="{display}">
+                    <input type="text" placeholder="{l_search}.." name="q" id="search_box" value="{q}">
+                    <button type="submit">{l_search}</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 100%; margin-bottom: 15px;">
+        <tr>
+            
+            <td style="width: 20%;">
+                <div>{num_total} {l_count_users}</div>
+            </td>
+            <td style="width: 65%;">
+                <!-- begin_main_pages -->
+                <div style="text-align: center;" class="pagination">
+                    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a>
+                    <!-- end_main_prev_page -->
+                    <!-- begin_main_prev_page_off --><span>{l_prev}</span> <!-- end_main_prev_page_off -->
+                    <!-- begin_main_first_page --><a
+                        href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+                    <!-- begin_main_prev_pages --><a
+                        href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+                    <!-- begin_main_page -->
+                    <!-- begin_main_link_page --><a
+                        href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+                    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+                    <!-- end_main_page -->
+                    <!-- begin_main_next_pages --><a
+                        href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+                    <!-- begin_main_last_page --><b>{l_of}</b> <a
+                        href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+                    <!-- begin_main_next_page --> <a
+                        href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+                    <!-- begin_main_next_page_off --> <span>{l_next}</span><!-- end_main_next_page_off -->
+                </div>
+                <!-- end_main_pages -->
+            </td>
+            
+            <td style="width: 15%; text-align: right;">
+                <select id="display_per_page" class="custom-swal2-input">
+                    {page_option}
+                </select>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <div id="user_lists">
+        <!-- begin_main_items -->
+        <table class="tb">
+        <tr>
+            <th class="decor_l"></th>
+            <th class="right">
+                <input style="margin:0px; width: 12px;" type="checkbox" id="all">
+            </th>
+            <th>{l_action}</th>
+            <th>
+                {l_photo}
+            </th>
+            <!--th-->
+                <!-- bbegin_params_none_photo -><a href="{url_page}?{params_current}">{l_photo}</a><!- end_params_none_photo -->
+                <!-- bbegin_params_asc_photo ->&uarr;<a href="{url_page}?{params_current}">{l_photo}</a><!- end_params_asc_photo -->
+                <!-- bbegin_params_desc_photo ->&darr;<a href="{url_page}?{params_current}">{l_photo}</a><!- end_params_desc_photo -->
+            <!--/th-->
+            <th>
+                <!-- begin_params_none_name --><a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_none_name -->
+                <!-- begin_params_asc_name -->&uarr;<a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_asc_name -->
+                <!-- begin_params_desc_name -->&darr;<a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_desc_name -->
+            </th>
+            <th>
+                <!-- begin_params_none_password --><a href="{url_page}?{params_current}">{l_password}</a><!-- end_params_none_password -->
+                <!-- begin_params_asc_password -->&uarr;<a href="{url_page}?{params_current}">{l_password}</a><!-- end_params_asc_password -->
+                <!-- begin_params_desc_password -->&darr;<a href="{url_page}?{params_current}">{l_password}</a><!-- end_params_desc_password -->
+            </th>
+            <th>
+                <!-- begin_params_none_site_access_type --><a href="{url_page}?{params_current}">{l_site_access_type}</a><!-- end_params_none_site_access_type -->
+                <!-- begin_params_asc_site_access_type -->&uarr;<a href="{url_page}?{params_current}">{l_site_access_type}</a><!-- end_params_asc_site_access_type -->
+                <!-- begin_params_desc_site_access_type -->&darr;<a href="{url_page}?{params_current}">{l_site_access_type}</a><!-- end_params_desc_site_access_type -->
+            </th>
+            <th>
+                <!-- begin_params_none_gold_days --><a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_none_gold_days -->
+                <!-- begin_params_asc_gold_days -->&uarr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_asc_gold_days -->
+                <!-- begin_params_desc_gold_days -->&darr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_desc_gold_days -->
+            </th>
+            <th>
+                <!-- begin_params_none_item_name --><a href="{url_page}?{params_current}">{l_item_title_current}</a><!-- end_params_none_item_name -->
+                <!-- begin_params_asc_item_name -->&uarr;<a href="{url_page}?{params_current}">{l_item_title_current}</a><!-- end_params_asc_item_name -->
+                <!-- begin_params_desc_item_name -->&darr;<a href="{url_page}?{params_current}">{l_item_title_current}</a><!-- end_params_desc_item_name -->
+            </th>
+            <th>
+                <!-- begin_params_none_trial_item_name --><a href="{url_page}?{params_current}">{l_trial_item_title_current}</a><!-- end_params_none_trial_item_name -->
+                <!-- begin_params_asc_trial_item_name -->&uarr;<a href="{url_page}?{params_current}">{l_trial_item_title_current}</a><!-- end_params_asc_trial_item_name -->
+                <!-- begin_params_desc_trial_item_name -->&darr;<a href="{url_page}?{params_current}">{l_trial_item_title_current}</a><!-- end_params_desc_trial_item_name -->
+            </th>
+            <th>
+                <!-- begin_params_none_mail --><a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_none_mail -->
+                <!-- begin_params_asc_mail -->&uarr;<a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_asc_mail -->
+                <!-- begin_params_desc_mail -->&darr;<a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_desc_mail -->
+            </th>
+            <th>
+                <!-- begin_params_none_orientation --><a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_none_orientation -->
+                <!-- begin_params_asc_orientation -->&uarr;<a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_asc_orientation -->
+                <!-- begin_params_desc_orientation -->&darr;<a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_desc_orientation -->
+            </th>
+            <th>
+                <!-- begin_params_none_age --><a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_none_age -->
+                <!-- begin_params_asc_age -->&uarr;<a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_asc_age -->
+                <!-- begin_params_desc_age -->&darr;<a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_desc_age -->
+            </th>
+              <th>
+                <!-- begin_params_none_register --><a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_none_register -->
+                <!-- begin_params_asc_register -->&uarr;<a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_asc_register -->
+                <!-- begin_params_desc_register -->&darr;<a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_desc_register -->
+            </th>           
+            <th>
+                <!-- begin_params_none_last_ip --><a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_none_last_ip -->
+                <!-- begin_params_asc_last_ip -->&uarr;<a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_asc_last_ip -->
+                <!-- begin_params_desc_last_ip -->&darr;<a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_desc_last_ip -->
+            </th>          
+             <th>
+                <!-- begin_params_none_nsc_phone --><a href="{url_page}?{params_current}">{l_phone}</a><!-- end_params_none_nsc_phone -->
+                <!-- begin_params_asc_nsc_phone -->&uarr;<a href="{url_page}?{params_current}">{l_phone}</a><!-- end_params_asc_nsc_phone -->
+                <!-- begin_params_desc_nsc_phone -->&darr;<a href="{url_page}?{params_current}">{l_phone}</a><!-- end_params_desc_nsc_phone -->
+            </th>
+            <th class="last">
+                <!-- begin_params_none_carrier_provider --><a href="{url_page}?{params_current}">{l_carrier}</a><!-- end_params_none_carrier_provider -->
+                <!-- begin_params_asc_carrier_provider -->&uarr;<a href="{url_page}?{params_current}">{l_carrier}</a><!-- end_params_asc_carrier_provider -->
+                <!-- begin_params_desc_carrier_provider -->&darr;<a href="{url_page}?{params_current}">{l_carrier}</a><!-- end_params_desc_carrier_provider -->
+            </th>
+            <th class="decor_r"></th>
+        </tr>
+
+        <!-- begin_main_item -->
+        <tr class="{class}">
+            <td class="decor{decl}"></td>
+            <td class="right"><input style="margin:0px;" type="checkbox" id="chk_{user_id}"></td>
+            <td>
+                <a href="{url_main}administration/users_edit.php?id={user_id}">{l_edit}</a>
+                |
+                <a href="" onclick="if (confirm('{l_are_you_sure}')) {one_delete('{user_id}'); return false;} else return false;">{l_delete}</a>
+                <!-- begin_blog -->
+                |
+                <a href="{url_main}administration/blogs_blogger_posts.php?id={user_id}">{l_blog}</a>
+                <!-- end_blog -->
+                |
+                <a href="" onclick="if (confirm('{l_are_you_sure}')) {ban('{user_id}'); return false;} else return false;">{ban_action}</a>
+            </td>
+            <!--td>
+                < bbegin_main_photo ->
+                <img src="{url_tmpl_administration}img/icon_photo.gif" border="0">
+                <!- end_main_photo >
+            </td-->
+            <td><img src="{url_main}_files/{photo}" border="0" class="zoomphoto"></td>
+            <td><a target="_blank" href="../{url_loginas}">{name}</a></td>
+            <td>{password}</td>
+            <td>{site_access_type}</td>
+            <td>{gold_days}</td>
+            <td>{item_name}</td>
+            <td>{trial_item_name}</td>
+            <td>{mail}</td>
+            <td>{orientation}</td>
+            <td>{age}</td>
+            <td>{register}</td>           
+            <td>{last_ip}</td>            
+            <td>{nsc_phone}</td>
+            <td class="last">{carrier_provider}</td>
+            <td class="decor{decr}"></td>
+        </tr>
+        <!-- end_main_item -->
+        </table>
+        <!-- end_main_items -->
+    </div>
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_users}</div>
+    <!-- end_main_noitems -->
+    <!-- begin_no_delete -->
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) delete_user(); else return false; " href="#">{l_delete}</a>
+    </div>
+    <!-- end_no_delete -->
+    <div class="empty"></div>
+</div>
+{footer}

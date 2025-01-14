@@ -1,0 +1,36 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/flashchat_rooms.php">{l_menu_flashchat_rooms}</a></li>
+        <li><a href="{url_main}administration/flashchat_edit.php">{l_menu_flashchat_rooms_edit}</a></li>
+        <li class="active"><a href="{url_main}administration/flashchat_ban.php">{l_menu_flashchat_ban}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+        <form action="{url_page}" method="POST">
+		<input type="hidden" name="cmd" value="update">
+
+        <label>{l_name}:</label>
+        <input type="text" name="name[0]" value="" placeholder="{l_name_ban}">
+
+        <label>{l_times}:</label>
+        <input type="text" name="status[0]" value="">
+
+        <h2>{l_banned_users}</h2>
+
+        <!-- begin_item  -->
+        <label>{login}:</label>
+        <input type="text" name="status[{id}]" value="{status}">
+		<!-- end_item -->
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+    <div class="empty"></div>
+</div>
+{footer}

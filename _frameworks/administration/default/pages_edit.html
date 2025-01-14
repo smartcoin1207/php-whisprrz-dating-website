@@ -1,0 +1,145 @@
+{header}
+<script type="text/javascript" src="{url_tmpl_administration}js/tinymce/tinymce.min.js{cache_version_param}"></script>
+<script type="text/javascript">
+tinymce.init({
+        selector: "#page_content",
+        language : '{lang_vw}',
+        width : '101%',
+
+        fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
+        plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste textcolor colorpicker textpattern"
+        ],
+
+        toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+        menubar: false,
+        toolbar_items_size: 'small',
+
+        style_formats: [
+                {title: 'Line spacing 10', inline: 'span', styles: {lineHeight:'10px'}},
+                {title: 'Line spacing 12', inline: 'span', styles: {lineHeight:'12px'}},
+                {title: 'Line spacing 14', inline: 'span', styles: {lineHeight:'14px'}},
+                {title: 'Line spacing 16', inline: 'span', styles: {lineHeight:'16px'}},
+                {title: 'Line spacing 18', inline: 'span', styles: {lineHeight:'18px'}},
+                {title: 'Line spacing 20', inline: 'span', styles: {lineHeight:'20px'}},
+                {title: 'Line spacing 22', inline: 'span', styles: {lineHeight:'22px'}},
+                {title: 'Line spacing 24', inline: 'span', styles: {lineHeight:'24px'}},
+                {title: 'Line spacing 26', inline: 'span', styles: {lineHeight:'26px'}},
+                {title: 'Line spacing 28', inline: 'span', styles: {lineHeight:'28px'}},
+                {title: 'Line spacing 30', inline: 'span', styles: {lineHeight:'30px'}},
+                {title: 'Line spacing 32', inline: 'span', styles: {lineHeight:'32px'}},
+                {title: 'Line spacing 34', inline: 'span', styles: {lineHeight:'34px'}},
+                {title: 'Line spacing 36', inline: 'span', styles: {lineHeight:'36px'}},
+                {title: 'Line spacing 38', inline: 'span', styles: {lineHeight:'38px'}},
+                {title: 'Line spacing 40', inline: 'span', styles: {lineHeight:'40px'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Example 3', inline: 'span', classes: 'example3'},
+                {title: 'Example 4', inline: 'span', classes: 'example4'},
+                {title: 'Example 5', inline: 'span', classes: 'example5'}
+        ],
+
+        templates: [
+                {title: 'Test template 1', content: 'Test 1'},
+                {title: 'Test template 2', content: 'Test 2'}
+        ],
+
+        extended_valid_elements: 'script[src|async|defer|type|charset]',
+        valid_children : '+body[style|link],+p[style|link],+div[style|link]'
+
+});</script>
+<div class="block_narrow">
+<!-- begin_block_menu -->
+{menu_page}
+<!-- end_block_menu -->
+<!-- begin_block_language -->
+<ul class="lmenu_lgreen">
+    <!-- begin_language -->
+	<!-- begin_language_link -->
+	<li><a href="{url_page}?page={id}&lang={language_value}">{language_title}</a></li>
+	<!-- end_language_link -->
+	<!-- begin_language_active -->
+	<li class="active"><a href="{url_page}?page={id}&lang={language_value}">{language_title}</a></li>
+	<!-- end_language_active -->
+	<!-- end_language -->
+</ul>
+<!-- end_block_language -->
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <!-- begin_link_page -->
+    <p><b>{l_link}</b> <a target="_blank" href="{url_main}page.php?id={id}">{domain_name}page.php?id={id}</a></p>
+    <!-- end_link_page -->
+    <div class="bl_form">
+        <form id="frm_page" method="POST" action="{url_page}" enctype="multipart/form-data">
+        <input type="hidden" name="cmd" value="save">
+        <input type="hidden" name="lang" value="{lang}">
+        <input type="hidden" name="page" value="{id}">
+        <input type="hidden" name="system" value="{system}">
+        <input type="hidden" name="section" value="{page_section}">
+        <input type="hidden" name="page_key" value="{page_key}">
+        <!-- begin_block_section -->
+        <label>{l_section}:</label>
+        <select class="input" name="section" style="width:100%;">
+            {options_section}
+        </select>
+        <!-- end_block_section -->
+
+        <label>{l_the_name_of_the_menu}:</label>
+        <input id="menu_title" type="text" name="{page_key}" value="{page_menu_title}" maxlength="100" style="width:100%; padding:2px 4px;" />
+        <!-- begin_menu_style -->
+        <label>
+            <input type="checkbox" name="menu_style" {menu_style_checked} style="float: left; width: 25px;" />
+            {l_active_style}
+        </label>
+        <!-- end_menu_style -->
+
+        <!-- begin_content -->
+        <label>{l_page_title}:</label>
+        <input type="text" name="title" value="{page_title}" style="width:100%; padding:2px 4px;" />
+        <label>{l_page_content}:</label>
+        <textarea id="page_content" name="content" class="textarea_big" style="resize: vertical; width: 101%;">{page_content}</textarea>
+        <!-- end_content -->
+
+        <!-- begin_icon_upload -->
+        <div style="height:14px" class=""></div>
+        <label>{l_menu_icon}:</label>
+        <div style="margin-top: 10px; margin-bottom:10px;">
+            <!-- begin_icon -->
+            <div style="float:left; margin-right: 10px;">
+                <img src="{url_page_icon}?rand={rand}"/>
+            </div>
+            <!-- end_icon -->
+            <div style="margin-top:-1px;  float:left;">
+                <input style="height: 22px; margin-top:0px;" class="upload" type="file" name="icon">
+            </div>
+        </div>
+        <div style="height:28px" class="cl"></div>
+        <!-- end_icon_upload -->
+
+        <div style="margin-right: -10px;" class="btn fl_right"><a href="#" class="submit">{l_save}</a></div>
+        </form>
+    </div>
+    <div class="empty"></div>
+</div>
+<script>
+$(function() {
+    $('#frm_page').submit(function(){
+        var titleMenu=$('#menu_title');
+        if (!$.trim(titleMenu.val())) {
+            alert('{l_pages_field_is_required}');
+            titleMenu.focus();
+            return false;
+        }
+    })
+})
+<!-- begin_message -->
+alert('{message}');
+<!-- end_message -->
+</script>
+{footer}

@@ -1,0 +1,122 @@
+<table width=100% border=0 cellpadding=0 cellspacing=0>
+<tr>
+<td>
+
+<h2 class="txt_lower_header_color">
+<div><img src="{url_tmpl_main}img/partners.png" class="png" align="absmiddle" alt="" width="30" height="30" /> <a href="{url_main}{url_page}?{params}&display=profile&offset={offset}">{profile_name}</a>{l_name_postfix} {l_my_friends} ({num_users})</div>
+</h2>
+
+<!-- begin_invite_on -->
+<!--       <a href="{url_main}invite.php" class="invite">{l_top_invite_friends}</a><br><br>      
+ --><!-- end_invite_on -->
+
+
+<!-- begin_top_pages -->
+	    <table width=100% border=0 cellpadding=0 cellspacing=0 ><tr>
+		<td align=left width=200>{this_count} - {next_count} {l_of} {all_count}</td>
+	    <td align=center>
+<!-- begin_top_left_2 -->
+			<a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={toleft}'><< </a>
+<!-- end_top_left_2 -->
+<!-- begin_top_pages_1 -->
+<!-- begin_top_page -->
+			<a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={i}'>{l}</a>
+<!-- end_top_page -->
+<!-- begin_top_page_1 -->
+			{l}
+<!-- end_top_page_1 -->
+<!-- end_top_pages_1 -->
+<!-- begin_top_right_2 -->
+			<a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={toright}'> >></a>
+<!-- end_top_right_2 -->
+		</td><td align=right width=200>
+<!-- begin_top_prev -->
+			< <a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={back}'>{l_prev}</a>
+<!-- end_top_prev -->
+<!-- begin_top_separator -->
+			 |
+<!-- end_top_separator -->
+<!-- begin_top_next -->
+			<a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={next}'>{l_next}</a> >
+<!-- end_top_next -->
+		</td></tr></table>
+<!-- end_top_pages -->
+
+
+<!-- begin_block_users -->
+<table width=100% border=0 cellpadding=0 cellspacing=6 class="tbl_friend">
+<tr>
+<td  class="violet">{l_name}</td>
+<td  class="violet">{l_details}</td>
+</tr>
+<!-- begin_item_block_users -->
+<tr>
+	<td class="grey" style="padding:10px; width:120px;">
+		<table width="100%"  cellspacing="0" cellpadding="0">
+		<tr><td><a href="{url_main}search_results.php?name={user_name}&display=profile"><img src="{url_files}{user_photo}" class="violet" width=62px height=70px></a></td></tr>
+		<tr><td valign=top><a href="{url_main}search_results.php?name={user_name}&display=profile"><b>{user_name}</b></a></td></tr>
+		</table>
+	</td>
+	<td class="blue">{age}, {city}{location_delimiter_one}{state}{location_delimiter_second}{country}
+        <!-- begin_mutual_friend -->| {l_mutual_friend}<!-- end_mutual_friend -->
+	
+	
+	</td>
+</tr>
+<!-- begin_sep_block_users -->
+<!-- end_sep_block_users -->
+<!-- end_item_block_users -->
+</table>
+
+
+
+<!-- end_block_users -->
+
+
+
+
+
+<div style="clear: both;"></div>
+
+
+<!-- begin_down_pages -->
+	    <table width=100% border=0 cellpadding=0 cellspacing=0  ><tr>
+		<td align=left width=200>{this_count} - {next_count} {l_of} {all_count}</td>
+	    <td align=center>
+<!-- begin_down_left_2 -->
+			<a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={toleft}'><< </a>
+<!-- end_down_left_2 -->
+<!-- begin_down_pages_1 -->
+<!-- begin_down_page -->
+			<a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={i}'>{l}</a>
+<!-- end_down_page -->
+<!-- begin_down_page_1 -->
+			{l}
+<!-- end_down_page_1 -->
+<!-- end_down_pages_1 -->
+<!-- begin_down_right_2 -->
+			<a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={toright}'> >></a>
+<!-- end_down_right_2 -->
+		</td><td align=right width=200>
+<!-- begin_down_prev -->
+			< <a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={back}'>{l_prev}</a>
+<!-- end_down_prev -->
+<!-- begin_down_separator -->
+			 |
+<!-- end_down_separator -->
+<!-- begin_down_next -->
+			<a href='{url_main}{url_page}?{params}&display=friends&offset={offset}&start={next}'>{l_next}</a> >
+<!-- end_down_next -->
+		</td></tr></table>
+<!-- end_down_pages -->
+
+<!-- begin_no_friends -->
+{l_no_friends}
+<!-- end_no_friends -->
+
+</td>
+</tr>
+</table>
+
+<br><br>
+</div></div></div></div></div></div></div></div></div>

@@ -1,0 +1,101 @@
+{header}
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/autosms.php">{l_sms_auto_mailer}</a></li>
+        <li><a href="{url_main}administration/sms_carriers.php">{l_carrier}</a></li>
+        <li class="active"><a href="{url_main}administration/masssms.php">{l_sms_mass_text}</a></li>
+        <li><a href="{url_main}administration/masssms_edit.php">{l_menu_mass_add}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_mass_sms}</h2>
+
+    <div class="bl_form">
+
+        <p>{message_send}</p>
+        <form name="masssms" action="{url_page}" method="POST">
+		<input type="hidden" name="cmd" value="send">
+        <label>{l_subject}:</label>
+        <input name="subject" class="" value="{masssms_subject}">
+        <label>{l_text_sms}:</label>
+        <textarea name="text" id="sms_content" class="textarea_small">{masssms_text}</textarea>
+        <div style="margin: 0 0 15px; clear: both;"></div>
+        
+        <p><b>{l_send_to_these_languages_speakers}</b></p>
+		<!-- begin_language -->
+        <div class="bl_label">
+            <label class="fl_left" for="language_{language_value}" style="cursor: pointer;">{language_title}</label>
+            <div class="fl_right"><input class="check" type="checkbox" name="language[{language_value}]" id="language_{language_value}" value="1" {language_checked}></div>
+            <div class="justify"></div>
+        </div>
+		<!-- end_language -->
+
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_send}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        <div class="btn fl_right"><a href="#" onclick="document.forms.masssms.to.value='';document.forms.masssms.text.value='';">{l_reset}</a></div>
+        </form>
+
+        <!-- begin_masssms_items -->
+        <table class="tb">
+            <tr>
+                <th class="decor_l"></th>
+                <th>{l_action}</th>
+                <th>{l_subject}</th>
+                <th>{l_status}</th>
+                <th>{l_date}</th>
+                <th>{l_for}</th>
+                <th class="last">{l_language}</th>
+
+                <th class="decor_r"></th>
+            </tr>
+
+            <!-- begin_masssms_item -->
+            <tr class="{class}">
+                <td class="decor{decl}"></td>
+
+<td>
+                    <!-- begin_stop --><a onclick="if (confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?cmd=stop&id={id}">{l_stop}</a><!-- end_stop -->
+                    <!-- begin_start --><a onclick="if (confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?cmd=start&id={id}">{l_start}</a><!-- end_start -->
+                    |
+                    <a onclick="if (confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?cmd=delete&id={id}">{l_delete}</a></td>
+                <td><a href="{url_page}?cmd=view&id={id}">{subject}</a></td>
+                <td>{status}</td>
+                <td>{date}</td>
+                <td>{for}</td>
+                <td class="last">{languages}</td>
+                <td class="decor{decr}"></td>
+            </tr>
+            <!-- end_masssms_item -->
+
+
+        </table>
+        <!-- end_masssms_items -->
+
+
+        <!-- begin_masssms_pages -->
+        <div  style="position: relative; padding: 0px 0px; top: -14px; width: 100%; text-align: center; ">
+            {num_total} {l_count_users}
+            <br />
+            <!-- begin_masssms_prev_page --><a href="{url_page}?offset={offset}{params}" class="link">{l_prev}</a>&nbsp; | &nbsp;<!-- end_masssms_prev_page -->
+            <!-- begin_masssms_prev_page_off --><b>{l_prev}</b>&nbsp; | &nbsp;<!-- end_masssms_prev_page_off -->
+            <!-- begin_masssms_first_page --><a href="{url_page}?offset={offset}{params}" class="link">{l_page_1}</a>&nbsp;<!-- end_masssms_first_page -->
+            <!-- begin_masssms_prev_pages --><a href="{url_page}?offset={offset}{params}" class="link">&lt;&lt;</a>&nbsp;<!-- end_masssms_prev_pages -->
+            <!-- begin_masssms_page -->
+            <!-- begin_masssms_link_page --><a href="{url_page}?offset={offset}{params}" class="link">{page}</a>&nbsp;<!-- end_masssms_link_page -->
+            <!-- begin_masssms_this_page --><b>{page}</b><!-- end_masssms_this_page -->
+            <!-- end_masssms_page -->
+            <!-- begin_masssms_next_pages --><a href="{url_page}?offset={offset}{params}" class="link">&gt;&gt;</a>&nbsp;<!-- end_masssms_next_pages -->
+            <!-- begin_masssms_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}" class="link">{num_pages}</a>&nbsp;<!-- end_masssms_last_page -->
+            <!-- begin_masssms_next_page -->&nbsp; | &nbsp;<a href="{url_page}?offset={offset}{params}" class="link">{l_next}</a><!-- end_masssms_next_page -->
+            <!-- begin_masssms_next_page_off -->&nbsp; | &nbsp;<b>{l_next}</b><!-- end_masssms_next_page_off -->
+        </div>
+        <!-- end_masssms_pages -->
+
+    </div>
+
+    <div class="empty" style="clear: both;"></div>
+</div>
+{footer}

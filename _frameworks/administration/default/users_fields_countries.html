@@ -1,0 +1,149 @@
+{header}
+<script language="javascript" type="text/javascript">
+$(function() {
+    $('.location').keypress(function(e){
+        if (isKeyPressed(e, 13)) {
+            geoUpdateItem($(this).attr('id'));
+            return false;
+        };
+    }).blur(function(e){
+        geoUpdateItem($(this).attr('id'));
+    });
+
+    $('#all').change(function(){
+        choiceChkbox($(this), $('[id ^= chk_]'))
+    });
+
+    $('#language').change(function(){
+        var lang = $(this).val();
+        if (lang != 'edit_mode') {
+            window.location.href='users_fields_localization.php?mode=country&lang='+lang;
+        }
+    });
+
+
+    $('#link_add_first_countries').click(function(){
+        var el=$(this),
+            select = el.prevAll('select').first(),
+            countOption = select.find('option').length,
+            countSelect = $('.first_countries').length+1,
+            id='select_first_countries_';
+            if (countOption <= countSelect+1){$(this).hide()}
+            if (countOption > countSelect) {
+                select.clone(false).attr({id:id+(countSelect-1)}).insertAfter(select).end()
+                      .before($('</br>')).find('option').removeAttr('selected').eq(0).attr({selected:'selected'})
+            }
+            return false;
+    })
+
+    $('body').on('click', '.first_countries', function(e){
+        this.lastValue=$(this).val();
+    }).on('change', '.first_countries', function(e){
+        var el=$(this),id=el.attr('id'),
+            val=el.val(),lastValue=this.lastValue;
+        $('[id != "'+id+'"].first_countries').each(function(){
+            if ($(this).val()==val && $(this).val()!=0) {
+                el.val(lastValue);
+                alertCustom('{l_you_have_already_chosen_this_option}');
+                return false;
+            }
+        })
+    })
+
+
+
+});
+
+</script>
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+
+<style>
+input {width:44%;}
+.link {width: 45%; margin-top:5px; }
+</style>
+        <div style="margin:0px 0px 10px 27px; font-weight: bold;"><!--users_fields_first_countries.php-->
+        <form action="{url_page}" method="POST">
+            <input type="hidden" name="cmd" value="set_first">
+            {l_first_countries_in_the_list}<br>
+
+            <!-- begin_first_countries_item -->
+            <select id="select_first_countries_{num}" class="first_countries" name="first_countries[]" style="width: 410px; margin: 6px 0px 10px 0px;">
+                <option selected value="0">{l_please_choose}</option>
+                {first_countries_options}
+            </select></br>
+            <!-- end_first_countries_item -->
+            <a id="link_add_first_countries" style="display:{display_add_first}; margin-bottom: 10px;" href="#">+ {l_add}</a>
+            </br>
+            <div class="btn fl_left" style="margin:8px 0px 0px -5px; width: 46%;"><a href="#" class="submit">{l_save}</a>
+                <input type="submit" style="visibility:hidden;position:absolute;">
+            </div>
+            <br><br><br>
+        </form>
+
+        </div>
+        <div class="cl"></div>
+        <p style="padding-left:28px;">{l_language_edit_instruction}</p>
+
+        <form action="{url_page}" method="POST">
+            <p style="padding-left: 28px; font-size: 11px; padding-bottom: 0px;"><b>{l_translation}:</b> <select id="language" style="margin:0px 0px 14px 6px;" name="language">
+            <option value="edit_mode">{l_please_choose}</option>
+            {select_options_language}
+        </select></p>
+
+        <!-- begin_select_btn -->
+        <input style="border: 0 none; width: 14px; height: 14px; margin:4px 1px 10px 28px;" type="checkbox" id="all">
+        <label for="all" style="display:inline-block;">{l_select_all}</label>
+        <!-- end_select_btn -->
+        <!-- begin_country -->
+        <div id="block_{country_id}" >
+            <div style="display:inline-block;width: 22px; padding-right: 3px;">
+                <img style="display:none; margin-top:-14px;" id="preloader_{country_id}" src="{url_tmpl_administration}images/loader.gif">
+            </div>
+            <div style="display:inline-block;"><input style="border: 0 none; width: 14px; height: 14px; margin-top:1px; margin-right: 2px;" type="checkbox" id="chk_{country_id}"></div>
+            <input style="padding-left: 5px;" id="{country_id}" data-current="{country_title}" class="location" type="text" name="name" value="{country_title}">
+
+            <div class="action_links_module">
+                <a id="hide_item_{country_id}" <!-- begin_item_show -->class="hide"<!-- end_item_show --> onClick="if (confirm('{l_are_you_sure}')) geoHideItem({country_id}); return false;"  href="#">{l_hide}</a>
+                <a id="show_item_{country_id}" <!-- begin_item_hide -->class="hide"<!-- end_item_hide --> onClick="if (confirm('{l_are_you_sure}')) geoShowItem({country_id}); return false;"  href="#">{l_show}</a>
+                |
+                <a onClick="if (confirm('{l_are_you_sure}')) geoDeleteItem({country_id}); return false;"  href="#">{l_delete}</a>
+            </div>
+        </div>
+        <!-- end_country -->
+        </form>
+        <!-- begin_delete_btn -->
+        <div class="btn fl_left" style="margin-left:40px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoHideItem(0,1); else return false; " href="#">{l_hide}</a>
+        </div>
+
+        <div class="btn fl_left" style="margin-left:0px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoShowItem(0,1); else return false; " href="#">{l_show}</a>
+        </div>
+
+        <div class="btn fl_left" style="margin-left:0px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoDeleteItem(0,1); else return false; " href="#">{l_delete}</a>
+        </div>
+        <div class="cl"></div>
+        <!-- end_delete_btn -->
+        <h2>{l_add}</h2>
+        <form action="{url_page}" method="POST">
+        <input name="cmd" value="add" type="hidden">
+
+        <input style="width:50%; margin-top:5px;" type="text" name="name" value="">
+
+
+        <div class="btn fl_right" style="margin:0; margin-top: -1px; width: 46%;"><a href="#" class="submit">{l_add}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

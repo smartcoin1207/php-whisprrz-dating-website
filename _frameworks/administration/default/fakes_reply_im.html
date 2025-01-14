@@ -1,0 +1,313 @@
+{header}
+
+<script type="text/javascript" src="{url_main}_server/js/sound/soundmanager2-nodebug-jsmin-20170601.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/js/webfontloader.js{cache_version_param}"></script>
+<script>WebFont.load({custom: {families: ['FontAwesome', 'Glyphicons Halflings']},timeout:1000});</script>
+<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}css/font-awesome.min.css{cache_version_param}">
+
+<script>
+var timeoutSec = 10000;
+var status_writing = {};
+$(function() {
+    $('[id ^= msg_field_]').keydown(function(e) {
+        var d = new Date(),
+            data = $(this),
+            param = data[0]['id'].split('_');
+        if (typeof status_writing[param[3]] == 'undefined') {
+            status_writing[param[3]] = {};
+        }
+        status_writing[param[3]]['user_to'] = param[2];
+        status_writing[param[3]]['time'] = parseInt(d.getTime()/1000);
+    })
+
+    setInterval(function(){
+        if ($.isEmptyObject(status_writing) != true) {
+             $.ajax({type: 'POST',
+                     url: '{url_page}',
+                     dataType: 'json',
+                     data: {cmd: 'writing', writing: JSON.stringify(status_writing)}
+            })
+        }
+    }, timeoutSec);
+})
+
+if(typeof urlMain == 'undefined') {
+    var urlMain = '';
+}
+
+function addChildrenLoader($btn){
+    var $iconFa = $btn.find('.icon_fa, .icon');
+    if($iconFa[0]){
+        $iconFa.addChildrenLoader();
+    }else{
+        $btn.addChildrenLoader();
+    }
+}
+
+function removeChildrenLoader($btn){
+    var $iconFa = $btn.find('.icon_fa, .icon');
+    if($iconFa[0]){
+        $iconFa.removeChildrenLoader();
+    }else{
+        $btn.removeChildrenLoader();
+    }
+}
+</script>
+
+<style>
+.icon_fa.im_audio_message {
+    text-align: center;
+    display: inline-block;
+    width: 20px;
+    margin: 0 -3px;
+}
+
+.spinner {
+  position: relative;
+  display: inline-block;
+  width: 1.01em;
+  height: 1.01em;
+}
+
+.spinner.center,
+.spinnerw.center{
+  position: absolute;
+  opacity: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.css_loader:not(.hidden) .spinner .spinner-blade {
+  position: absolute;
+  opacity: 0;
+  left: 0.4629em;
+  bottom: 0;
+  width: 0.074em;
+  height: 0.267em;
+  border-radius: 0.5em;
+  background-color: #000;
+  -webkit-filter: blur(0px); filter: blur(0px);
+  -webkit-transform-origin: center -0.2222em;
+      -ms-transform-origin: center -0.2222em;
+          transform-origin: center -0.2222em;
+  -webkit-animation: spinner-fade 1s infinite linear;
+          animation: spinner-fade 1s infinite linear;
+}
+
+.css_loader:not(.hidden) .spinnerw .spinner-blade {
+    background-color: #000;
+}
+
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(1) {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(2) {
+  -webkit-animation-delay: 0.083s;
+          animation-delay: 0.083s;
+  -webkit-transform: rotate(30deg);
+      -ms-transform: rotate(30deg);
+          transform: rotate(30deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(3) {
+  -webkit-animation-delay: 0.166s;
+          animation-delay: 0.166s;
+  -webkit-transform: rotate(60deg);
+      -ms-transform: rotate(60deg);
+          transform: rotate(60deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(4) {
+  -webkit-animation-delay: 0.249s;
+          animation-delay: 0.249s;
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(5) {
+  -webkit-animation-delay: 0.332s;
+          animation-delay: 0.332s;
+  -webkit-transform: rotate(120deg);
+      -ms-transform: rotate(120deg);
+          transform: rotate(120deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(6) {
+  -webkit-animation-delay: 0.415s;
+          animation-delay: 0.415s;
+  -webkit-transform: rotate(150deg);
+      -ms-transform: rotate(150deg);
+          transform: rotate(150deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(7) {
+  -webkit-animation-delay: 0.498s;
+          animation-delay: 0.498s;
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(8) {
+  -webkit-animation-delay: 0.581s;
+          animation-delay: 0.581s;
+  -webkit-transform: rotate(210deg);
+      -ms-transform: rotate(210deg);
+          transform: rotate(210deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(9) {
+  -webkit-animation-delay: 0.664s;
+          animation-delay: 0.664s;
+  -webkit-transform: rotate(240deg);
+      -ms-transform: rotate(240deg);
+          transform: rotate(240deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(10) {
+  -webkit-animation-delay: 0.747s;
+          animation-delay: 0.747s;
+  -webkit-transform: rotate(270deg);
+      -ms-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(11) {
+  -webkit-animation-delay: 0.83s;
+          animation-delay: 0.83s;
+  -webkit-transform: rotate(300deg);
+      -ms-transform: rotate(300deg);
+          transform: rotate(300deg);
+}
+.css_loader:not(.hidden) .spinner .spinner-blade:nth-child(12) {
+  -webkit-animation-delay: 0.913s;
+          animation-delay: 0.913s;
+  -webkit-transform: rotate(330deg);
+      -ms-transform: rotate(330deg);
+          transform: rotate(330deg);
+}
+
+@-webkit-keyframes spinner-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes spinner-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.add_loader{
+  position: relative;
+}
+
+.add_loader_transparent:not(.no_transparent):not(.geo_btn){
+  color: transparent !important;
+  text-shadow: none !important;
+  position: relative !important;
+  transition: none !important;
+}
+
+.add_loader_transparent > *:not(.css_loader):not(button):not(.no_transparent):not(.geo_btn){
+  opacity: 0 !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  transition: none !important;
+}
+</style>
+
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+	<div>
+
+	<div style="color:#F00; font-weight:bold;">{message}</div>
+
+<!-- begin_mail_list_items -->
+
+	<!-- begin_mail_list_item -->
+
+        <!-- begin_mail_new -->
+        <div style="float:left; margin-top: 3px;"><img src="{url_tmpl_administration}images/new.png" width="22" height="17" border="0"></div>
+        <!-- end_mail_new -->
+        <!-- begin_mail_old -->
+        <div style="float:left; margin-top: 3px;"><img src="{url_tmpl_administration}images/icon_mail_read.png" width="22" height="17" border="0"></div>
+        <!-- end_mail_old -->
+		<div  style="width: 100%;">
+            <h2 style="padding-bottom: 1px;">{l_from} <a target="_blank" href="../search_results.php?display=profile&uid={from_user}">{user_from}</a> {l_to} <a target="_blank" href="../search_results.php?display=profile&uid={to_user}">{user_to}</a></h2>
+        </div>
+		<p><b>{l_date}:</b> {born} <!-- begin_is_read --><img style="margin-top: -2px; margin-left: 2px;" src="{url_tmpl_administration}images/checkmark.png"><!-- end_is_read --></p>
+		<div style="padding-bottom: 8px;">{msg_im}</div>
+
+        <!-- begin_reply -->
+        <div style="padding-top:10px;">
+        <form method="post">
+            <input type="hidden" name="cmd" value="reply">
+			<input type="hidden" name="user_to" value="{from_user}">
+			<input type="hidden" name="user_from" value="{to_user}">
+            <input id="msg_field_{from_user}_{to_user}" style="width: 100%;" type="text" name="text" class="w2010px" value=""><br>
+            <div class="btn fl_right" style="padding-right:0px; margin-top: 0px;"><a href="#" class="submit">{l_send}</a>
+                <input type="submit" style="visibility:hidden;position:absolute;">
+            </div>
+            <div class="cl"></div>
+        </form>
+        </div>
+        <!-- end_reply -->
+        <!-- begin_reply_block -->
+        <div style="padding:10px 0px 10px 0px; font-weight: bold; font-size: 14px;">
+        {l_you_are_in_block_list}
+        </div>
+        <!-- end_reply_block -->
+
+	<!-- end_mail_list_item -->
+<br />
+<br />
+<!-- end_mail_list_items -->
+
+	    <!-- begin_mail_list_pages -->
+			<div class="body_text" style="padding-bottom: 16px;">
+				<!-- begin_mail_list_prev_page -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+				<!-- end_mail_list_prev_page -->
+				<!-- begin_mail_list_prev_page_off -->
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+				<!-- end_mail_list_prev_page_off -->
+				<!-- begin_mail_list_first_page -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+				<!-- end_mail_list_first_page -->
+				<!-- begin_mail_list_prev_pages -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+				<!-- end_mail_list_prev_pages -->
+				<!-- begin_mail_list_page -->
+					<!-- begin_mail_list_link_page -->
+					<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+					<!-- end_mail_list_link_page -->
+					<!-- begin_mail_list_this_page -->
+					<b>{page}</b>
+					<!-- end_mail_list_this_page -->
+				<!-- end_mail_list_page -->
+				<!-- begin_mail_list_next_pages -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+				<!-- end_mail_list_next_pages -->
+				<!-- begin_mail_list_last_page -->
+				<b>{l_of}</b> <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+				<!-- end_mail_list_last_page -->
+				<!-- begin_mail_list_next_page -->
+				&nbsp; | &nbsp;<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+				<!-- end_mail_list_next_page -->
+				<!-- begin_mail_list_next_page_off -->
+				&nbsp; | &nbsp;<b>{l_next}</b>
+				<!-- end_mail_list_next_page_off -->
+			</div>
+            <!-- end_mail_list_pages -->
+</div></div>
+{footer}

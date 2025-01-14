@@ -1,0 +1,39 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#category_edit_form").validate({
+        rules: {
+            category_title: "required",
+        },
+        messages: {
+        	category_title: "{l_please_specify_title}",
+        }
+    })
+});
+
+</script>
+<div class="block_main">
+    <h2>{l_title_current} - {category_title}</h2>
+
+    <div class="bl_form">
+
+        <form method="POST" id="category_edit_form" action="{url_main}administration/vids_category_edit.php?cmd=update&category_id={category_id}">
+
+        <label>{l_category_title}:</label>
+        <input type="text" name="category_title" value="{category_title}">
+
+
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save_changes}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

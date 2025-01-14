@@ -1,0 +1,39 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_noitems --><div align="center">{l_no_users}</div><!-- end_noitems -->
+    <!-- begin_pages --><div>{itemsTotal} {l_users_with_videos}</div><div>{pager}</div><!-- end_pages -->
+    <!-- begin_items -->
+    <table class="tb">
+        <tr>
+            <th class="decor_l"></th>
+            <th>{l_user}</th>
+            <th>{l_count_videos}</th>
+            <th>{l_count_comments}</th>
+            <th class="last">{l_count_views}</th>
+            <th class="decor_r"></th>
+        </tr>
+        <!-- begin_item -->
+        <tr class="{item_class}" id="item_{item_id}">
+            <td class="decor{item_decl}"></td>
+            <td>
+                {item_name}:
+                <a href="{url_main}administration/users_edit.php?id={item_user_id}">{l_edit}</a>,
+                <a href="{url_main}administration/vids_user_videos.php?id={item_user_id}">{l_videos}</a>
+            </td>
+            <td>{item_vid_videos}</td>
+            <td>{item_vid_comments}</td>
+            <td class="last">{item_vid_visits}</td>
+            <td class="decor{item_decr}"></td>
+        </tr>
+        <!-- end_item -->
+    </table>
+    <!-- end_items -->
+
+    <div class="empty"></div>
+</div>
+{footer}

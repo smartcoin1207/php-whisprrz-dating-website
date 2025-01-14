@@ -1,0 +1,42 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/adv.php">{l_menu_adv}</a></li>
+        <li><a href="{url_main}administration/home.php">{l_home}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+
+    <!-- begin_adv -->
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right" >{l_category}</th>
+        <th class="last">{l_action}</th>
+        <th class="decor_r"></th>
+    </tr>
+    <!-- begin_adv_item -->
+    <tr>
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right">
+            {var_name}
+        </td>
+        <td class="last">
+            <a href="adv_subcats.php?id={var_id}">{l_subcategories} [{col}]</a> |
+            <a href="adv_classifieds.php?id={var_id}">{l_classifieds} [{col2}]</a>
+        </td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_adv_item -->
+    </table>
+    <!--end_adv-->
+ 
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

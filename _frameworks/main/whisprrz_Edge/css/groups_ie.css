@@ -1,0 +1,30 @@
+* html .groups .groups_pl_violet_img img,.groups .pl_violet,.groups .groups_shadow img,.groups td .groups_tb_sub td.play span a  img ,.groups .groups_pl_violet2 , .decor_l a img , .decor_r a img,.groups_come_decor a img,.groups_img .groups_delete a img,.groups_bl_dpink_delete a img, table.groups_tb_sub span a img  ,div.groups_guests .decor_l img , div.groups_guests .decor_r img   { _behavior: url("./_frameworks/main/oryx/css/iepngfix.htc");}
+.groups .groups_pl_violet2{_margin: 0 -20px 20px 5px; }
+.groups td .groups_tb_sub td.first img{ width: 40px !important; }
+.groups td .groups_tb_sub_r td{ height: 22px; padding: 3px 0 0; vertical-align: top; }
+.groups td .groups_tb_sub_r td{ height: 19px; }
+.groups td .groups_tb_sub th.th_t_c{ height: 16px; padding: 4px 0 0; }
+.groups .groups_foto ul{ _padding: 0 0 0 95px; }
+.groups .groups_img_yellow{$padding: 2px 2px 0; }
+.groups .groups_frm_come_all{ zoom: 1; }
+.groups .groups_frm_come_all .inp{ $margin: 0 0 0 20px; }  
+.groups .pl_violet_b{ _position: none; }    
+* html .groups .groups_head td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/head_l.png', sizingMethod='crop'); } 
+* html .groups .groups_head td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/head_r.png', sizingMethod='crop'); } 
+* html .groups .groups_pl_violet_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/pl_violet_l.png', sizingMethod='crop'); } 
+* html .groups .groups_pl_violet_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/pl_violet_r.png', sizingMethod='crop'); } 
+* html .groups td .groups_tb_sub th.th_t_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/tb_sub_head_l.png', sizingMethod='crop'); } 
+* html .groups td .groups_tb_sub th.th_t_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/tb_sub_head_r.png', sizingMethod='crop'); } 
+* html .groups td .groups_tb_sub th.th_b_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/tb_sub_foot_l.png', sizingMethod='crop'); } 
+* html .groups td .groups_tb_sub th.th_b_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/tb_sub_foot_r.png', sizingMethod='crop'); } 
+* html .groups .groups_pl_violet2 .groups_pl_violet_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/pl_violet2_l.png', sizingMethod='crop'); } 
+* html .groups .groups_pl_violet2 .groups_pl_violet_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/pl_violet2_r.png', sizingMethod='crop'); } 
+* html .groups .groups_foot td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/foot_l.png', sizingMethod='crop'); } 
+* html .groups .groups_foot td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/foot_r.png', sizingMethod='crop'); } 
+* html .groups .list_bg_violet {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/list_bg_violet.png', sizingMethod='crop'); } 
+* html .groups .groups_come_decor {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/foto_decor.png', sizingMethod='crop'); } 
+* html .groups .groups_bl_dpink_top {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/bl_dpink_top.png', sizingMethod='crop'); } 
+* html .groups .groups_bl_dpink_bot {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/bl_dpink_bot.png', sizingMethod='crop'); } 
+* html .groups .bl_violet_tb_top {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/bl_violet_tb_top.png', sizingMethod='crop'); } 
+* html .groups .bl_violet_tb_bot {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/groups/bl_violet_tb_bot.png', sizingMethod='crop'); } 
+

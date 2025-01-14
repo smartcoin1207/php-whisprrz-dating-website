@@ -1,0 +1,88 @@
+{header}
+<div id="oryx_content">
+{ims}
+{search}
+
+<div class="column_main frame_content">
+
+<ul class="list_btn">
+	<li><input type="button" value="{hot_button_1_text}" class="btn hot_button_1" onclick="location='./users_hon.php?offset={new_offset}&uname={name}&rset=1';" title="{hot_button_1_text}"></li>
+	<li><input type="button" value="{hot_button_2_text}" class="btn hot_button_2" onclick="location='./users_hon.php?offset={new_offset}&uname={name}&rset=2';" title="{hot_button_2_text}"></li>
+	<li><input  type="button" value="{hot_button_3_text}" class="btn hot_button_3" onclick="location='./users_hon.php?offset={new_offset}&uname={name}&rset=3';" title="{hot_button_3_text}"></li>
+	<li><input  type="button" value="{hot_button_4_text}" class="btn hot_button_4" onclick="location='./users_hon.php?offset={new_offset}&uname={name}&rset=4';" title="{hot_button_4_text}"></li>
+	<li><input  type="button" value="{hot_button_5_text}" class="btn hot_button_5" onclick="location='./users_hon.php?offset={new_offset}&uname={name}&rset=5';" title="{hot_button_5_text}"></li>
+	<li><input  type="button" value="{hot_button_6_text}" class="btn hot_button_6" onclick="location='./users_hon.php?offset={new_offset}&uname={name}&rset=6';" title="{hot_button_6_text}"></li>
+	<li><input  type="button" value="{hot_button_7_text}" class="btn hot_button_7" onclick="location='./users_hon.php?offset={new_offset}&uname={name}&rset=7';" title="{hot_button_7_text}"></li>
+</ul>
+<div class="cl"></div>
+
+<div align="center" class="contentpad content_bgrnd">
+<script type="text/javascript">
+<!-- begin_photo_b -->
+var Image{numer}= new Image({size_x},{size_y});
+Image{numer}.src = '{url_files}{photo_b}';
+var Name{numer} = '{photo_name_js}';
+var Description{numer} = '{description_js}';
+<!-- end_photo_b -->
+
+function swapPhoto(id) {
+	document.LargePhoto.src = eval('Image'+id+'.src');
+	var divRef = getRefToDiv('PhotoID');
+	if (divRef) {
+		divRef.innerHTML = id+1;
+  }
+  divRef = getRefToDiv('PhotoName');
+  if (divRef) {
+		divRef.innerHTML = eval('Name'+id);
+  }
+  divRef = getRefToDiv('PhotoDescription');
+  if (divRef) {
+		divRef.innerHTML = eval('Description'+id);
+  }
+}
+
+
+</script>
+<!-- begin_no_photo -->
+<center>
+	<h2 class=header_big>{l_no_photos}</h2>
+	<div style="width: 250px; text-align:center; padding-bottom:70px;">{l_no_photos_text}</div>
+</center>
+<!-- end_no_photo -->
+
+<!-- begin_yes_photo -->
+<table cellpadding="0" cellspacing="0" border="0">
+	<tr><td>
+	<div style="text-align:center; padding-bottom:10px; padding-top:10px;">
+		<b><span id="PhotoName">{main_photo_name}</span></b> (<span id="PhotoID">{main_numer}</span>/{num_photo}) - <span id="PhotoDescription">{main_description}</span>
+	</div>
+	</td><td></td></tr>
+	<tr>
+	<td valign="top" align="center">
+		<div style="text-align:center; width: 440px;">
+			<img style="max-width: 440px;" border="0" src="{url_files}{main_photo_b}" name="LargePhoto" class="img_border">
+		</div>
+	</td>
+	<td style="width:140px; vertical-align: top;">
+		<!-- begin_photo_s -->
+		<div style="float:right;"><a href="#"  onmouseover="swapPhoto({numer});">
+			<div id="photo_info">
+				<img src="{url_files}{photo_s}" width="90" height="100" class=img_border>
+			</div>
+		</div>
+		</a>
+		<!-- end_photo_s -->
+        <div style="float:right; padding-right:5px; margin-top:5px;"><a href="{url_main}top5.php"><img hspace="5" border="0" vspace="15" src="{url_main}tmpl_img_loader.php?tmpl={tmpl_loaded}&dirs=img&file={top_five_file}&lang={lang_loaded}" class="png_behavior" align="absmiddle" alt=""></a>  </div>
+
+	</td>
+</tr></table>
+<!-- end_yes_photo -->
+
+<script language="javascript" type="text/javascript">
+	swapPhoto(0);
+</script>
+</div>
+
+</div>
+</div>
+{footer}

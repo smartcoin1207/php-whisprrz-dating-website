@@ -1,0 +1,232 @@
+{header}
+{ims}
+{folders}
+
+<style type="text/css">
+	#complite{float: right;  margin-bottom:5px; text-align:left;}
+	#searchn{float: right;  margin-bottom:5px;}
+	.bbbr{background: url(../img/bbr.gif) no-repeat 100% 100%; padding: 15px 20px;}
+	#profile{float: left;  background: #FAFAFA; color: #000; margin-bottom: 5px;}
+
+    .userlist-column {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* Two columns */
+      grid-auto-rows: auto; /* Automatically adjust the row height */
+    }
+
+</style>
+
+<div class="frame_content">
+
+{mail_menu}
+
+<div class="cl"></div>
+<script Language="JavaScript" type="text/javascript">
+  var isPost = false;
+  var blockSubmission = false;
+  function removeSubmissionBlock() {
+    blockSubmission = false;
+  }
+  function isSubmissionAllowed() {
+    if(blockSubmission){
+       return false;
+    }
+    return;
+   }
+  document.onclick = isSubmissionAllowed;
+  document.onkeydown = isSubmissionAllowed;
+
+  function onValidateAddContactForm() {
+    var form = document.forms['AddContactForm'];
+    
+    return true;
+  }
+  function validateAddContactForm() {
+    blockSubmission = true;
+     if (typeof beforeAddContactFormValidation != 'undefined') {
+       beforeAddContactFormValidation();
+    }
+    var validated = onValidateAddContactForm();
+    if (validated && (typeof uponSuccessfulAddContactFormValidation != 'undefined')) {
+      validated = uponSuccessfulAddContactFormValidation();
+    }
+    else if (!validated && (typeof uponUnsuccessfulAddContactFormValidation != 'undefined')) {
+      uponUnsuccessfulAddContactFormValidation();
+    }
+    if (!validated) {
+      removeSubmissionBlock();
+    }
+    return validated;
+  }
+  function submitAddContactForm() {
+    if (validateAddContactForm()) 
+      isPost = true; 
+      var subject = document.AddContactForm.subject.value;
+      var text = document.AddContactForm.text.value;
+
+      saveTemplate(subject, text).then((response) => {
+      if (response) {
+              document.AddContactForm.submit();
+          } else {
+              console.log('Template not saved, form not submitted.');
+          }
+      });
+    }
+
+function setname(name)
+{
+	document.AddContactForm.name.value = name;
+}
+
+function switchdiv(div1_id, div2_id, form)
+{
+	if (document.getElementById)	{
+	    if(!document.getElementById(div1_id)) return ;
+	    if(!(document.getElementById(div1_id).style)) return ;
+	    if(!(document.getElementById(div1_id).style.display)) return ;
+
+		var state1 = document.getElementById(div1_id).style.display;
+		if(state1=="none") {
+        		document.getElementById(div1_id).style.display="block";
+        		document.getElementById(div2_id).style.display="none";
+                if (form != null)
+                {
+                   form[div1_id].value='true';
+                   form[div2_id].value='false';
+                 }
+	     }
+	    if(state1=="block") {
+        		document.getElementById(div2_id).style.display="block";
+        		document.getElementById(div1_id).style.display="none";
+                if (form != null)
+                {
+                   form[div1_id].value='false';
+                   form[div2_id].value='true';
+                 }
+	     }
+	}
+	else if (document.all)	{
+	    if(!document.all[div1_id]) return ;
+	    if(!(document.all[div1_id].style)) return ;
+	    if(!(document.all[div1_id].style.display)) return ;
+
+		var state1 = document.all[div1_id].style.display;
+		if(state1=="none") {
+		        document.all[div1_id].style.display = "block";
+		        document.all[div2_id].style.display = "none";
+                if (form != null)
+                {
+                   form[div1_id].value='true';
+                   form[div2_id].value='false';
+                 }
+		}
+		if(state1=="block") {
+        		document.getElementById(div1_id).style.display="none";
+        		document.getElementById(div2_id).style.display="block";
+                if (form != null)
+                {
+                   form[div1_id].value='false';
+                   form[div2_id].value='true';
+                 }
+	     }
+    }
+}
+
+<!-- begin_reply_js -->
+$(function () {
+    reply_text = $.trim($('#text').val()); 
+})
+<!-- end_reply_js -->
+window.onbeforeunload = function (evt) {
+    var text = $.trim($('#text').val());
+    if (text != '' && isPost == false <!-- begin_reply_compare_js -->&& text != reply_text<!-- end_reply_compare_js -->) {
+        var message = '{l_leave_this_page}';
+        if (typeof evt == "undefined") {
+            evt = window.event;
+        }
+        if (evt) {
+            evt.returnValue = message;
+        }        
+        return message;
+    } 
+}
+</script>
+
+<table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
+    <tr>
+        <td style=" margin-bottom: 5px;">
+            <h3 style="border: 0; margin-bottom: 0;">{l_title_current}</h3>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+
+<form class="" name="AddContactForm" method="POST" action="{url_page}?cmd=sent" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
+	<input type="hidden" name="page_from" value="{page_from}">
+	<input type="hidden" name="cmd" value="sent">
+
+	<table cellpadding="0" cellspacing="0" border="0" class="mail_compose">
+	    <col width="100px" />
+		<tr>
+			<td class="body_text" align="right"></td>
+			<td>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="field" style="width: 50%; margin: 0 5px 0 0; ">
+              <div class="text-left body_text" style="display: flex; justify-content: space-between;">
+                <b>{l_saved_user_list}</b>
+                <a href="{select_event_user_url}" class="body_text select_user_label_text" >{l_select_event_users}</a>
+              </div>
+              <select id="saved_user_list" name="saved_user_list" class="inp selectpicker show-tick" data-live-search="true">
+                  {saved_user_list}
+              </select>
+          </div>
+          <div style="width: 50%; margin: 0 0 0 5px;">
+            <div class="text-left body_text">
+                <b>{l_mail_templates}</b>
+            </div>
+            {mail_templates_list}
+          </div>
+        </div>
+        
+      </td>
+    </tr>
+    <!-- <tr>
+        <td></td>
+        <td>
+            {mail_templates_list}
+        </td>
+    </tr> -->
+		<tr>
+			<td class="body_text" align="right"><b>{l_subject}:</b></td>
+			<td><input class="inp" type="text" name="subject" style="width:100%" value="{subject}"  tabindex="2" required></td>
+		</tr>
+		<tr>
+			<td class="body_text" valign="top" align="right"><b>{l_text_mail}:</b></td>
+			<td><textarea id="text" name="text" style="width: 100%">{text}</textarea></td>
+			
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="left"><div style="float:left;"><input type="checkbox" name="save" id="save" value="1" checked></div>&nbsp;<label for="save" class="chk_label"><span class="dash">{l_save_mail}</span></label></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td align="left" style="padding-top: 10px;">
+				<input type="button" value="{l_sent_message}" onClick=" submitAddContactForm();" class="btn lower_header_color" tabindex="3" title="{l_sent_message}" onMouseOver="window.status='{l_sent_message}'; return true;" onMouseOut="window.status=''; return true;">
+			</td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+	    const selectElement = document.getElementById('mail_templates');
+      selectElement.addEventListener('change', function (event) {
+          const selectedValue = event.target.value;
+          handleSelectChange(selectedValue, 'AddContactForm', 'subject', 'text');
+      });
+	</script>
+</form>
+</div>
+{footer}
+

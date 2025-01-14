@@ -1,0 +1,535 @@
+{header}
+    <div class="hotdates_new">
+
+		{hotdates_header}
+
+        <table class="tb_hotdates_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+<link rel="stylesheet" href="{url_tmpl_main}css/jquery.datetimepicker.css{cache_version_param}" type="text/css" media="screen">
+<script type="text/javascript" src="{url_tmpl_main}jquery/jquery.datetimepicker.js{cache_version_param}"></script>
+<script  src="{url_tmpl_main}js/sweetalert2.js{cache_version_param}"></script><!--Divyesh-21072023-->
+
+<script language="javascript" type="text/javascript">
+var jqTransformDaySelect = true;
+$(function(){
+    //$("#hotdate_date").datepicker({ minDate: new Date() });
+    /*var picker = new Pikaday({
+        field: document.getElementById('hotdate_date'),
+        firstDay: 1,
+        format: 'MM/DD/YYYY',
+        i18n: {previousMonth : '{l_calendar_previous_month}',
+               nextMonth     : '{l_calendar_next_month}',
+               months        : [{calendar_month}],
+               weekdays      : [{calendar_weekdays}],
+               weekdaysShort : [{calendar_weekdays_short}]
+        },
+        minDate: new Date('2000-01-01')
+    });*/
+    $('#hotdate_date').datetimepicker({
+        lang: 'custom',
+        i18n:{
+            custom:{months:[{calendar_month}],dayOfWeek:[{calendar_weekdays_short}]}
+        },
+        timepicker: false,
+        format: '{edit_hotdate_date}',
+        minDate: '2000/01/01',
+        closeOnDateSelect: true
+    });
+    //$("#hotdate_time").timeEntry({show24Hours: true, spinnerImage: ''});
+    $('#hotdate_time').datetimepicker({
+        datepicker:false,
+        format:'{edit_hotdate_time}',
+        step:30
+    });
+
+    // popcorn modified 2024-05-23 start
+    '{hotdate_approval}'== '1' ? $("input[name='hotdate_approval']").prop('checked', true) : $("input[name='hotdate_approval']").prop('checked', false);
+    '{signin_couples}'== '1' ? $("input[name='signin_couples']").prop('checked', true) : $("input[name='signin_couples']").prop('checked', false);
+    '{signin_females}' == '1' ? $("input[name='signin_females']").prop('checked', true) : $("input[name='signin_females']").prop('checked', false);
+    '{signin_males}' == '1' ? $("input[name='signin_males']").prop('checked', true) : $("input[name='signin_males']").prop('checked', false);
+    '{signin_transgender}' == '1' ? $("input[name='signin_transgender']").prop('checked', true) : $("input[name='signin_transgender']").prop('checked', false);
+    '{signin_nonbinary}' == '1' ? $("input[name='signin_nonbinary']").prop('checked', true) : $("input[name='signin_nonbinary']").prop('checked', false);
+    '{signin_everyone}' == '1' ? $("input[name='signin_everyone']").prop('checked', true) : $("input[name='signin_everyone']").prop('checked', false);
+
+    // Get the checkboxes with the names "signin_females", "signin_males", and "signin_couples", signin_transgender, signin_nonbinary
+    var signin_checkboxes = $('input[type="checkbox"][name="signin_females"], input[type="checkbox"][name="signin_males"], input[type="checkbox"][name="signin_couples"], input[type="checkbox"][name="signin_transgender"], input[type="checkbox"][name="signin_nonbinary"]');
+
+    // Get the "Everyone Allowed" checkbox
+    var signin_everyoneCheckbox = $('input[name="signin_everyone"]');
+
+    // Add a click event listener to all the checkboxes
+    signin_checkboxes.click(function () {
+        // If the "Everyone Allowed" checkbox is checked, uncheck it
+        if (signin_everyoneCheckbox.prop('checked')) {
+            signin_everyoneCheckbox.prop('checked', false);
+        }
+
+        // Check if at least one checkbox is unchecked
+        var isUnchecked = false;
+        signin_checkboxes.each(function () {
+            if (!$(this).prop('checked')) {
+                isUnchecked = true;
+            }
+        });
+
+        // If at least one checkbox is unchecked, uncheck the "Everyone Allowed" checkbox
+        if (isUnchecked) {
+            signin_everyoneCheckbox.prop('checked', false);
+        } else {
+            // If all checkboxes are checked, check the "Everyone Allowed" checkbox
+            signin_everyoneCheckbox.prop('checked', true);
+        }
+    });
+
+    // Add a click event listener to the "Everyone Allowed" checkbox
+    signin_everyoneCheckbox.click(function () {
+        // If the "Everyone Allowed" checkbox is checked, check all the other checkboxes
+        if (signin_everyoneCheckbox.prop('checked')) {
+            signin_checkboxes.prop('checked', true);
+        } else {
+            // If the "Everyone Allowed" checkbox is unchecked, uncheck all the other checkboxes
+            signin_checkboxes.prop('checked', false);
+        }
+    });
+
+    // signin_everyoneCheckbox.trigger('click');
+    //popcorn modofied 2024-05-23 end
+});
+
+function on_form_submit()
+{
+    for(var i = 1; i <= 1; i++)
+    {
+        var ext = $('input[name="image_'+i+'"]').val();
+        if(ext != "")
+        {
+            ext = ext.substring(ext.length-4,ext.length);
+            ext = ext.toLowerCase();
+            if(ext != '.jpg' && ext != '.gif' && ext != '.png' && ext != 'jpeg') {
+                alert('{l_wrong_photo_types}');
+                return false;
+            }
+        }
+    }
+console.log($('[name="hotdate_date"]').val());
+    if($('input[name="hotdate_title"]').val() == "{l_hotdate_title}")
+    	$('input[name="hotdate_title"]').val('');
+    if($('textarea[name="hotdate_description"]').val() == "{l_hotdate_description}")
+        $('textarea[name="hotdate_description"]').val('');
+    if($('[name="hotdate_title"]').val() &&
+    		$('[name="hotdate_description"]').val() &&
+    		((!$('[name="city_id"]').size() || $('[name="city_id"]').val()) && $('[name="city_id"]').val() != 0) &&
+    		$('[name="hotdate_date"]').val() &&
+    		$('[name="hotdate_time"]').val() &&
+    		(!$('[name="category_id"]').size() || $('[name="category_id"]').val()) &&
+            (!$('[name="hotdate_place"]').size() || $('[name="hotdate_place"]').val()))
+    {
+        if($('input[name="image_1"]').val())
+            $('#load_animation_submit').css('visibility', 'visible');
+    }
+    else
+    {
+        if ($('[name="hotdate_title"]').val() == '') {
+            alert('{l_fill_hotdate_title}');
+        }
+        if ($('[name="hotdate_description"]').val() == '') {
+            alert('{l_fill_hotdate_description}');
+        }
+        if (!((!$('[name="city_id"]').size() || $('[name="city_id"]').val()) && $('[name="city_id"]').val() != 0)) {
+            alert('{l_fill_city_id}');
+        }
+        if ($('[name="hotdate_date"]').val() == '') {
+            alert('{l_fill_hotdate_date}');
+        }
+        if ($('[name="hotdate_time"]').val() == '') {
+            alert('{l_fill_hotdate_time}');
+        }
+        if (!(!$('[name="category_id"]').size() || $('[name="category_id"]').val())) {
+            alert('{l_fill_category_id}');
+        }
+        if (!(!$('[name="hotdate_place"]').size() || $('[name="hotdate_place"]').val())) {
+            alert('{l_fill_hotdate_place}');
+        }
+    	alert('{l_please_fill_in_all_the_fields}');
+    	return false;
+    }
+
+    return true;
+}
+function form_submit()
+{
+    if (on_form_submit()) {
+        confirm_policy();
+    }
+}
+
+</script>
+
+<!-- begin_popup_confirm_terms_policy -->
+<style type="text/css">
+    p {
+        margin-bottom: 0px;
+    }
+    .swal2-popup {
+        width: 500px;
+    }
+
+    .swal2-styled.swal2-confirm {
+        font-size: 16px;
+    }
+
+    .swal2-styled.swal2-cancel {
+        font-size: 16px;
+    }
+
+    input[type="checkbox"]:focus {
+       outline: 0px auto -webkit-focus-ring-color; 
+       outline-offset: -2px; 
+    }
+
+</style>
+<script>
+function confirm_policy () {
+    var popup_confirm_button = "{popup_confirm_button}";
+    var popup_decline_button = "{popup_decline_button}";
+    var popup_text = `{popup_text}`;
+    var popup_title = "{popup_title}";
+
+     Swal.fire({
+            footer:` <div><div style="text-align: center;">` + popup_text +`</div><div style="text-align:center;border-top: 1px solid #746b6b; padding-top: 10px; font-size : 16px;">` + popup_title + `</div></div>`,
+            confirmButtonText: `<div style="border-radius: 5px;">` + popup_confirm_button +`<div>`,
+            confirmButtonColor:'#22b14c',
+            cancelButtonText: popup_decline_button,
+            cancelButtonColor: '#ed1c24',
+            focusConfirm: false,
+            backdrop: false,
+            showCancelButton: true,
+            preConfirm: () => {
+                $("#hotdate_edit_form").submit();
+            },
+            
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.cancel) {
+            $('#load_animation_submit').css('visibility', 'hidden');
+
+        } else if (result.isConfirmed) {
+        }
+      });
+}
+
+</script>
+<!-- end_popup_confirm_terms_policy -->
+
+                    <form id="hotdate_edit_form" method="POST" action="{url_main}hotdates_hotdate_edit.php?cmd=save&hotdate_private={hotdate_private}&hotdate_id={hotdate_id}" enctype="multipart/form-data">
+
+                    <div class="hotdates_new_p pl_top">
+                        <!-- begin_create_private_title --><h1>{l_create_entry_to_calendar}</h1><!-- end_create_private_title -->
+                        <!-- begin_edit_private_title --><h1>{l_edit_entry_to_calendar}</h1><!-- end_edit_private_title -->
+                        <!-- begin_create_title --><h1>{l_hotdates_create_new_hotdate}</h1><!-- end_create_title -->
+                        <!-- begin_edit_title --><h1>{l_hotdates_edit_hotdate}</h1><!-- end_edit_title -->
+
+                        <table class="hotdates_new_tb_sub">
+                            <col width="7px"/>
+                            <col width="431px"/>
+                            <tr>
+                                <th class="th_t_l nb first">&nbsp;</th>
+                                <th class="th_t_c nb"><span>{l_hotdates_please_enter_details}</span></th>
+                                <th class="th_t_r nb first">&nbsp;</th>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" class="nb nobg_img">
+                                <div class="bl_hotdates_new_frm_color">
+                                    <!-- frm -->
+                                    <table class="tb_hotdates_new_frm">
+                                        <col width="100%"/>
+                                        <tr>
+                                            <td ><div class="hotdates_input_text2"><input  class="no_abk" type="text" name="hotdate_title" value="{hotdate_title}" onblur="javascript:if(this.value=='')this.value='{l_hotdate_title}'" onFocus="if(this.value=='{l_hotdate_title}') this.value='';"/></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td ><div class="hotdates_textarea1"><textarea class="no_abk" name="hotdate_description"  onblur="javascript:if(trim(this.value)=='')this.value='{l_no_description}'" onFocus="if(this.value=='{l_no_description}') this.value='';">{hotdate_description}</textarea></div></td>
+                                        </tr>
+                                        <!-- begin_hotdate_location -->
+                                        <tr>
+                                            <td class="hotdate_select">
+                                                <label>{l_hotdate_country}</label>
+                                                <select style="width:425px;" name="country" id="country" onchange="show_load_animation(1); xajax_states(country.value)">{country_options}</select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hotdate_select">
+                                                <label>{l_hotdate_state}<img style="visibility:hidden;position:relative;top:3px;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif"></label>
+                                                <select style="width:425px;" name="state" id="state" onchange="show_load_animation(2); xajax_cities(state.value)"><option value="0">{l_select_all}</option>{state_options}</select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hotdate_select">
+                                                <label>{l_hotdate_city}<img style="visibility:hidden;position:relative;top:3px" id="load_animation2" src="{url_tmpl_main}images/load_animation.gif"></label>
+                                                <select style="width:425px;" name="city_id" id="city"><option value="0">{l_select_all}</option>{city_options}</select>
+                                            </td>
+                                        </tr>
+                                        <!-- end_hotdate_location -->
+                                        <tr>
+                                            <td>
+                                                <div class="td_w1">
+                                                    <label>{l_hotdate_date}</label>
+                                                    <div class="hotdates_input_text3"><input class="no_abk" id="hotdate_date" autocomplete=off name="hotdate_date" type="text" value="{hotdate_date}"/></div>
+                                                </div>
+                                                <div>
+                                                    <label>{l_hotdate_time}</label>
+                                                    <div class="hotdates_input_text4 fl_right"><input class="no_abk" id="hotdate_time" autocomplete=off name="hotdate_time" type="text" value="{hotdate_time}"/></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- begin_hotdate_parameters -->
+                                        <tr>
+                                            <td class="hotdate_select">
+                                                <label>{l_hotdate_category}</label>
+                                                <select style="width:425px;" name="category_id">{category_options}</select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="td_w2">
+                                                    <label>{l_hotdate_address}</label>
+                                                   <div class="hotdates_input_text6"> <input class="no_abk" type="text" name="hotdate_address" value="{hotdate_address}"/></div>
+                                                </div>
+                                                <div class="fl_left">
+                                                    <label>{l_hotdate_place}</label>
+                                                    <div class="hotdates_input_text6 fl_right"><input class="no_abk" type="text" name="hotdate_place" value="{hotdate_place}"/></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="td_w2">
+                                                    <label>{l_hotdate_site}</label>
+                                                    <div class="hotdates_input_text6"><input class="no_abk" type="text" name="hotdate_site" value="{hotdate_site}"/></div>
+                                                </div>
+                                                <div class="fl_left">
+                                                    <label>{l_hotdate_phone}</label>
+                                                   <div class="hotdates_input_text6 fl_right"> <input class="no_abk" type="text" name="hotdate_phone" value="{hotdate_phone}"/></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- end_hotdate_parameters -->
+
+                                        <!-- popcorn added 2024-05-24 start -->
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 5px 0px;">
+                                                        {l_hotdate_approval_title}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_approval_text}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="hotdate_approval" class="control" name="hotdate_approval" />
+                                                        <label for="hotdate_approval" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 5px 0px;">
+                                                        {l_who_can_signin}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_couples_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_couples" class="control" name="signin_couples" />
+                                                        <label for="signin_couples" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_females_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_females" class="control" name="signin_females" />
+                                                        <label for="signin_females"  class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_males_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_males" class="control" name="signin_males" />
+                                                        <label for="signin_males" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_transgender_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_transgender" class="control" name="signin_transgender" />
+                                                        <label for="signin_transgender" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_nonbinary_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_nonbinary" class="control" name="signin_nonbinary" />
+                                                        <label for="signin_nonbinary" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_everyone_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_everyone" class="control" name="signin_everyone" />
+                                                        <label for="signin_everyone" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- popcorn added 2024-05-24 end -->
+
+                                        <tr>
+                                            <td>
+                                                <label>{l_hotdate_image}</label>
+												<div class="hotdate_inp_file">
+                                                <input name="image_1" class="file" type="file"/>
+                                                </div><br />
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                    <!-- /frm -->
+
+                                    <!-- begin_edit_images -->
+<script type="text/javascript">
+
+$(document).ready(function() {
+    create_gallery()
+});
+
+function create_gallery()
+{
+    initLightboxOldTemplate($('.edit_image_gallery'));
+}
+
+function edit_delete_image(image_id)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+        $('#edit_image_' + image_id).fadeOut(400, function() {
+            $('#edit_image_' + image_id).remove();
+            create_gallery();
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}hotdates_hotdate_image_delete_ajax.php?photo_cmd=hotdate_photos',
+                    data: {
+                        image_id: image_id
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+
+                                    <div class="line_dashed"></div>
+
+                                    <div>
+
+	                                    <!-- begin_image -->
+	                                    <div id="edit_image_{image_id}" class="hotdates_new_img">
+	                                        <a class="edit_image_gallery" href="{image_file}"><img src="{image_thumbnail}" width="85" height="64" alt=""/></a>
+	                                        <div class="hotdates_new_delete"><a title="{l_hotdates_delete_image}" href="javascript:edit_delete_image({image_id})"><img class="png" src="{url_tmpl_main}images/music/ico_delete.png" width="15" height="17" alt=""/></a></div>
+	                                    </div>
+	                                    <!-- end_image -->
+
+                                    <div class="justify"></div>
+                                    </div>
+                                    <!-- end_edit_images -->
+
+                                    <div class="line_dashed"></div>
+
+                                    <div class="fl_right" style="position:relative; margin: 0 0 15px; width: 100%;">
+                                        <!-- begin_edit_private_button -->
+                                        <a href="#null" onclick="form_submit(); return false;" class="btn round blue fl_right" style="color: white;">
+                                            <img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_save_entry}&nbsp;
+                                            <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" />
+                                        </a>
+                                        <!-- end_edit_private_button -->
+                                        <!-- begin_create_private_button -->
+                                        <a href="#null" onclick="form_submit(); return false;" class="btn round blue fl_right" style="color: white;">
+                                            <img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_create_entry}&nbsp;
+                                            <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" />
+                                        </a>
+                                        <a href="{url_main}hotdates_hotdate_edit.php" style="margin-left: 0px; color: white;">{l_create_hotdate_instead}</a>
+                                        <!-- end_create_private_button -->
+                                        <!-- begin_edit_button -->
+                                        <a style="float: left; margin-left: 0px; color: white;" onclick="return confirm('{l_delete_confirm}')" href="{url_main}hotdates_hotdate_delete.php?hotdate_id={hotdate_id}">{l_hotdates_delete}</a>
+                                        <a href="#" onclick="form_submit(); return false;" class="btn round blue fl_right" style="color: white;">
+                                            <img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />{l_hotdate_save}&nbsp;</a>
+                                        <!-- end_edit_button -->
+                                        <!-- begin_create_button -->
+                                        <a href="#" onclick="form_submit(); return false;" class="btn round blue fl_right" style="color: white;">
+                                            <img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />{l_hotdate_save}&nbsp;
+                                        </a>
+                                        <a href="{url_main}events_event_edit.php?event_private=1" style="margin-left: 0px; color: white;">{l_create_entry_instead}</a>
+                                        <!-- end_create_button -->
+                                        <img style="visibility:hidden; margin: 1px 5px 0 0; float:right;" id="load_animation_submit" src="{url_tmpl_main}images/load_animation.gif">
+
+                                </div>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <th class="th_b_l nb">&nbsp;</th>
+                                <th class="th_b_c nb">&nbsp;</th>
+                                <th class="th_b_r nb">&nbsp;</th>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                    </form>
+
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+
+				{hotdates_sidebar}
+
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+{footer}

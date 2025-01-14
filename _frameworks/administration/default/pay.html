@@ -1,0 +1,45 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+	
+    <div class="bl_form">
+	
+<!-- begin_pay -->	
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <input type="hidden" name="module" value="{module}">
+        <h2>{payment}</h2>
+				
+        <!-- begin_item -->
+        <!-- begin_item_text -->
+        <label>{label}:</label>
+        <input type="text" name="option[{option}]" value="{value}">
+        <!-- end_item_text -->
+        <!-- begin_item_checkbox -->
+		<div class="bl_label">
+			<input type="hidden" name="option[{option}]" value="N">
+			<label class="fl_left" for="option_{module}_{option}" style="cursor: pointer;">{label}</label>
+			<div class="fl_right"><input class="check" type="checkbox" id="option_{module}_{option}" name="option[{option}]" value="Y" {checked} ></div>	
+		<div class="justify"></div>
+		</div>
+        <!-- end_item_checkbox -->
+        <!-- end_item -->
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        <div style="height:50px"></div>  
+        <div class="cl"></div>     
+
+        </form>
+<!-- end_pay -->
+		
+    </div>
+
+
+    <div class="empty"></div>
+</div>
+{footer}

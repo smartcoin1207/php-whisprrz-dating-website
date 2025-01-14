@@ -1,0 +1,127 @@
+{header}
+<script language="javascript" type="text/javascript" src="{url_tmpl_main}js/protovis.js{cache_version_param}" ></script>
+<script language="javascript" type="text/javascript">
+    var causes = ["wounds", "other", "disease"];
+
+var crimea = [
+  { date: "0/1854", wounds: {posts_0} , {shared_1} , disease: {comments_0} },
+  { date: "1/1854", wounds: {posts_1} , other: {shared_1} , disease: {comments_1} },
+  { date: "2/1854", wounds: {posts_2} , other: {shared_2} , disease: {comments_2} },
+  { date: "3/1854", wounds: {posts_3} , other: {shared_3} , disease: {comments_3} },
+  { date: "4/1854", wounds: {posts_4} , other: {shared_4} , disease: {comments_4} },
+  { date: "5/1854", wounds: {posts_5} , other: {shared_5} , disease: {comments_5} },
+  { date: "6/1854", wounds: {posts_6} , other: {shared_6} , disease: {comments_6} },
+  { date: "7/1854", wounds: {posts_7} , other: {shared_7} , disease: {comments_7} },
+  { date: "8/1854", wounds: {posts_8} , other: {shared_8} , disease: {comments_8} },
+  { date: "9/1854", wounds: {posts_9} , other: {shared_9} , disease: {comments_9} },
+  { date: "10/1854",wounds: {posts_10} , other: {shared_10} , disease: {comments_10} },
+  { date: "11/1854",wounds: {posts_11} , other: {shared_11} , disease: {comments_11} }
+];
+
+(function() {
+  var format = pv.Format.date("%m/%y");
+  crimea.forEach(function(d) { d.date = format.parse(d.date); });
+})();
+</script>
+<div id="center"><div id="fig">
+
+<script type="text/javascript+protovis">
+
+var w = 525,
+    h = 280,
+    x = pv.Scale.linear(crimea, function(d) d.date).range(0, w),
+    y = pv.Scale.linear(0, 2200).range(0, h),
+    fill = pv.colors("#ff55d1", "#40c7db", "#6d8fff"),
+    format = pv.Format.date("%");
+
+var vis = new pv.Panel()
+    .width(w)
+    .height(h)
+    .margin(19.5)
+    .right(40);
+
+vis.add(pv.Layout.Stack)
+    .layers(causes)
+    .values(crimea)
+    .x(function(d) x(d.date))
+    .y(function(d, t) y(d[t]))
+  .layer.add(pv.Area)
+    .fillStyle(fill.by(pv.parent))
+    .strokeStyle(function() this.fillStyle().darker())
+    .lineWidth(1);
+vis.add(pv.Label)
+    .data(x.ticks())
+    .left(x)
+    .bottom(0)
+    .textBaseline("top")
+    .textMargin(5)
+    .text(pv.Format.date("%b"));
+
+vis.add(pv.Rule)
+    .data(y.ticks(5))
+    .bottom(y)
+    .strokeStyle(function(i) i ? "rgba(255, 255, 255, .7)" : "black")
+  .anchor("right").add(pv.Label)
+    .textMargin(6);
+	
+
+	
+
+vis.render();
+
+var data = [{count_f},{count_m}];
+    w = 250,
+    h = 250,
+    r = w / 2,
+    t = 50,
+	
+    a = pv.Scale.linear(0, pv.sum(data)).range(0, 2 * Math.PI);
+	
+
+var vis = new pv.Panel()
+    .width(w)
+    .height(h);
+
+vis.add(pv.Wedge)
+    .data(data)
+    .bottom(w / 2)
+    .left(w / 2)
+    .innerRadius(r - t)
+    .outerRadius(r)
+    .angle(a)
+    .title(function(d) d)
+  
+    .visible(function(d) d > .05)
+    .textMargin(t + 5)
+    .text(function(d) d.toFixed(2));
+
+vis.render();
+var data = [<!-- begin_status --> {status_item},<!-- end_status -->];
+    w = 250,
+    h = 250,
+    r = w / 2,
+    t = 50,
+	
+    a = pv.Scale.linear(0, pv.sum(data)).range(0, 2 * Math.PI);
+	
+
+var vis = new pv.Panel()
+    .width(w)
+    .height(h);
+
+vis.add(pv.Wedge)
+    .data(data)
+    .bottom(w / 2)
+    .left(w / 2)
+    .innerRadius(r - t)
+    .outerRadius(r)
+    .angle(a)
+    .title(function(d) d)
+    .visible(function(d) d > .05)
+    .textMargin(t + 5)
+    .text(function(d) d.toFixed(2));
+
+vis.render();
+</script>
+  </div></div>
+{footer}

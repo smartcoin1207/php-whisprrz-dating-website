@@ -1,0 +1,106 @@
+{header}
+<!-- START nnsscc-diamond Page Css and Js -->
+<!-- START Background Options -->
+	<link href="{url_main}_frameworks/administration/default/js/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="{url_main}_frameworks/administration/default/js/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+	<link href="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="{url_main}_frameworks/administration/default/js/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+	<link href="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+	<link href="{url_main}_frameworks/administration/default/js/global/css/components.css" rel="stylesheet" type="text/css"/>
+	<link href="{url_main}_frameworks/administration/default/js/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+
+	<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/default/js/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css" />
+	<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/default/js/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" /> 	
+	<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap-summernote/summernote.css" /> 
+
+	<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+	<!-- END CORE PLUGINS -->
+	<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="{url_main}_frameworks/administration/default/js/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
+    <script src="{url_main}_frameworks/administration/default/js/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+    <script src="{url_main}_frameworks/administration/default/js/global/scripts/datatable.js"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+	<script src="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
+  	<script src="{url_main}_frameworks/administration/default/js/global/plugins/bootstrap-summernote/lang/summernote-ko-KR.js" type="text/javascript"></script>
+	<script type="text/javascript">
+        jQuery(document).ready(function() {
+            gFn.initEditor('club-content');
+        });		
+		function saveClub(){
+			var frm = $('#clubFrm');			
+			preProcessContent();
+			frm.submit();
+		};
+		var preProcessContent = function() {
+			var content = $('<div></div>').html($('#club-content').code()),
+				imgs = content.find('img'),
+				js = content.find('script'),
+				img_cnt = 0,
+				date = new Date(),
+				r_file = String(date.getFullYear()) + String(date.getMonth()) + String(date.getDate()) + 
+						String(date.getHours()) + String(date.getMinutes()) + String(date.getSeconds());			
+			js.remove();			
+			imgs.each(function(index, ele) {
+				var src = $(this).attr('src');
+				if(src.indexOf('data:image/') == 0) {
+					img_cnt++;
+					var filename = $(this).attr('data-filename'),
+						pos_ext = filename.lastIndexOf('.'),
+						ext = filename.substr(pos_ext);
+					filename = r_file + String(img_cnt) + ext;
+					var b_pos = src.indexOf('base64,'),
+						base64 = src.substr(b_pos + 7);
+					$(this).attr('src', 'assets/mail_content/' + filename);
+					$(this).removeAttr('data-filename');
+					$(this).addClass('img-responsive');
+					var f_name = $('<input type="hidden"/>');
+					f_name.attr('name', 'img_name[]');
+					f_name.val(filename);
+					var f_src = $('<input type="hidden"/>');
+					f_src.attr('name', 'img_src[]');
+					f_src.val(base64);
+					$('#clubFrm').append(f_name);
+					$('#clubFrm').append(f_src);
+				}
+			});	
+			$("input[name='img_cnt']").val(img_cnt);
+			$("input[name='content']").val($('#club-content').code());		
+			content.remove();
+		};
+    </script>
+	
+  <script type="text/javascript" src="{url_main}_frameworks/administration/default/js/nsc_club.js"></script>
+  <script type="text/javascript" src="{url_main}_frameworks/administration/default/js/function.js"></script>
+  <!-- END Background Options -->
+  <!-- END nnsscc-diamond Page Css and Js -->
+<div class="club_main">
+    <h2>{l_title_cluboption}</h2>
+	<form id="clubFrm" action="{url_main}administration/nsc_admin_club.php" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <input type="hidden" name="module" value="{module}">
+		<input type="hidden" name="img_cnt" value="0"/>
+		<input type="hidden" name="content" value=""/>
+		
+        <div class="form-group">
+			<div class="col-lg-12">
+				<div id="club-content">{club_content}</div>
+				
+			</div>
+		</div>    
+		<div class="btn fl_right club_btn">
+            <a href="javascript:saveClub();" id="club_update" class="article_submit">update</a>
+        </div>
+    </form>
+
+<div class="empty"></div>
+{footer}

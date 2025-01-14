@@ -1,0 +1,154 @@
+{header}
+<div id="oryx_content">
+<!-- begin_mail_favorite_add_page -->
+{ims}
+{folders}
+
+<div class="column_main frame_content">
+
+{mail_menu}
+
+
+<h2 class="txt_lower_header_color">{l_add} {name} {l_add_to_favorites_list}?</h2>
+          <script Language="JavaScript" type="text/javascript">
+
+  var blockSubmission = false;
+
+  function removeSubmissionBlock() {
+
+    blockSubmission = false;
+
+  }
+
+  function isSubmissionAllowed() {
+
+    if(blockSubmission){
+
+       return false;
+
+    }
+
+    return;
+
+   }
+
+  document.onclick = isSubmissionAllowed;
+
+  document.onkeydown = isSubmissionAllowed;
+
+
+
+  function onValidateAddContactForm() {
+
+    var form = document.forms['AddContactForm'];
+
+    // "otherhandle" field validation.
+
+    if ((!(validateRequiredField(form['name'], '{l_username}')))) {
+
+      removeSubmissionBlock();
+
+      return false;
+
+    }
+
+    return true;
+
+  }
+
+  function validateAddContactForm() {
+
+    blockSubmission = true;
+
+     if (typeof beforeAddContactFormValidation != 'undefined') {
+
+       beforeAddContactFormValidation();
+
+    }
+
+    var validated = onValidateAddContactForm();
+
+    if (validated && (typeof uponSuccessfulAddContactFormValidation != 'undefined')) {
+
+      validated = uponSuccessfulAddContactFormValidation();
+
+    }
+
+    else if (!validated && (typeof uponUnsuccessfulAddContactFormValidation != 'undefined')) {
+
+      uponUnsuccessfulAddContactFormValidation();
+
+    }
+    removeSubmissionBlock();
+    return validated;
+
+  }
+
+    function submitAddContactForm() {
+
+        if (validateAddContactForm()){
+            //document.AddContactForm.submit();
+            $('#alert_span').load("mail_favorite_add.php", {
+                cmd: "add",
+                cmd_ajax: "1",
+                name: $('#name').val(),
+                fr_user_id : $('#fr_user_id').val(),
+                comment: $('#comment').val(),
+                page_from: $('#page_from').val()
+             });
+        }
+        return false;
+    }
+
+</script>
+<span id="alert_span"></span>
+<form  name="AddContactForm" method="POST" action="{url_main}mail_favorite_add.php?cmd=add" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
+<input type="hidden" id="page_from" name="page_from" value="{page_from}">
+
+        <!-- begin_add_id -->
+        <input id="name" type="hidden" name="name" value="{name}">
+        <input id="fr_user_id" type="hidden" name="fr_user_id" value="{fr_user_id}">
+
+        <!-- end_add_id -->
+
+        <table cellpadding="0" cellspacing="0" border="0">
+          <!-- begin_add_name -->
+          <tr style="padding:5px;">
+            <td class="body_text" height="30"><b>{l_username}:</b></td>
+            <td>
+            <div align="left">&nbsp;<b>{message}</b></div>
+            <input type="text" id="name" name="name" value="{name}" style="width: 290px; margin-left: 5px; margin-bottom: 5px;" tabindex="1">
+            </td>
+          </tr>
+          <!-- end_add_name -->
+          <tr style="padding:5px;">
+            <td class="body_text" height="30"><b>{l_comments}</b></td>
+            <td><input type="text" id="comment" name="comment" style="width: 290px; margin-left: 5px;" tabindex="2"></td>
+          </tr>
+        </table>
+
+    <div style="padding-top:50px; padding-bottom:70px;">
+        <!-- <input type="button" value="{l_add}" onClick=" submitAddContactForm();" class="button_small" title="{l_add}" onMouseOver="window.status='{l_add}'; return true;" onMouseOut="window.status=''; return true;"> -->
+ <input type="button" value="{l_add}" class="btn upper_header_color big" onClick=" submitAddContactForm();"  title="{l_add}" onMouseOver="window.status='{l_add}'; return true;" onMouseOut="window.status=''; return true;" />
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;
+<!--        <input type="button" value="{l_cancel}" onClick=" location.href='{url_main}mail_favorite.php';" class="button_small" title="{l_cancel}" onMouseOver="window.status='{l_cancel}'; return true;" onMouseOut="window.status=''; return true;"> -->
+ <input type="button" value="{l_cancel}" class="btn upper_header_color big" onClick=" location.href='{url_main}mail_favorite.php';"  title="{l_cancel}" onMouseOver="window.status='{l_cancel}'; return true;" onMouseOut="window.status=''; return true;" />
+
+    </div>
+    <script type="text/javascript">setFocus('AddContactForm','comment');</script>
+</form>
+
+
+</div>
+<!-- end_mail_favorite_add_page -->
+
+<!-- begin_error_alert -->
+<script type='text/javascript'>alert("{error_message}"); i='{prevent_cache}';</script>
+<!-- end_error_alert -->
+
+<!-- begin_redirect -->
+<script type='text/javascript'>document.location.href = '{page_from}';</script>
+<!-- end_redirect -->
+</div>
+{footer}

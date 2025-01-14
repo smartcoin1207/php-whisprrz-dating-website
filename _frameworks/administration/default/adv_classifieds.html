@@ -1,0 +1,59 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/adv.php">{l_menu_adv}</a></li>
+        <li><a href="{url_main}administration/home.php">{l_home}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_classifieds_in_cat}</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?id={cat_id}&offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?id={cat_id}&offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?id={cat_id}&offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?id={cat_id}&offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?id={cat_id}&offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?id={cat_id}&offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?id={cat_id}&offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+    <table class="tb" style="width: 90%;">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right">{l_subject}</th>
+        <th>{l_body}</th>
+        <th style = "width: 100px;">{l_subcategory}</th>
+        <th class="last" >{l_action}</th>
+        <th class="decor_r"></th>
+    </tr>
+    <!-- begin_main_item -->
+        <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class = "right">{subject}</td>
+        <td style="white-space: normal;">{body}</td>
+        <td >{razd_id}</td>
+        <td class = "last">
+            <a href="adv_classifieds_edit.php?id={id}&cat={cat_id}">{l_edit}</a> |
+            <a href="adv_classifieds.php?delete={id}&id={cat_id}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>          
+        </td>
+
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_main_item -->
+</table>
+
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_users}</div>
+    <!-- end_main_noitems -->
+</div>
+{footer}

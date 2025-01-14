@@ -1,0 +1,111 @@
+{header}
+
+
+    <div class="partyhouz_new">
+
+		{partyhouz_header}
+
+        <table class="tb_partyhouz_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                
+                    <div class="partyhouz_new_p pl_top">
+					
+						<!-- begin_partyhouz_i_created -->
+                        <h1 class="white">{l_partyhouz_partyhouz_i_created}</h1>
+                        
+                        {upcoming_partyhouz_list}
+                        
+                        <div style="cl"></div>
+						<!-- end_partyhouz_i_created -->
+                        
+                        <!-- begin_partyhouz_i_will_visit -->
+                      
+                        <h1 class="white">{l_partyhouz_partyhouz_i_will_visit_as_a_guest}</h1>
+                        
+                        {finished_partyhouz_list}
+                        
+                        <!-- end_partyhouz_i_will_visit -->
+                        <script>
+                            function updateDifference($element) {
+                                const sign = $element.data("sign");
+                                const formattedDifference = $element.text();
+                                const timeParts = formattedDifference.split(":");
+                                let days = parseInt(timeParts[0]);
+                                let hours = parseInt(timeParts[1]);
+                                let minutes = parseInt(timeParts[2]);
+                        
+                                if (sign === "+") {
+                                    minutes -= 1;
+                                    if (minutes < 0) {
+                                        hours -= 1;
+                                        minutes += 60;
+                                    }
+                                    if (hours < 0) {
+                                        days -= 1;
+                                        hours += 24;
+                                    }
+
+                                    if (hours == 0 && days == 0 && minutes == 0) {
+                                        $element.data("sign", "-");
+                                    }
+                                } else if (sign === "-") {
+                                    minutes += 1;
+                                    if (minutes >= 60) {
+                                        hours += 1;
+                                        minutes -= 60;
+                                    }
+                                    if (hours >= 24) {
+                                        days += 1;
+                                        hours -= 24;
+                                    }
+                                }
+
+                                if ($element.data("sign") === "+") {
+                                    $element.css("color", "green");
+                                } else {
+                                    $element.css("color", "red");
+                                }
+                        
+                                const updatedFormattedDifference = days + ":" + hours + ":" + minutes;
+                                return updatedFormattedDifference;
+                            }
+                        
+                            function refreshAllSpans() {
+                                $(".count").each(function() {
+                                    const $span = $(this);
+                                    const updatedText = updateDifference($span);
+                                    $span.text(updatedText);
+                                });
+                            }
+                        
+                            $(document).ready(function() {
+                                refreshAllSpans();
+                                setInterval(refreshAllSpans, 60000); // Update every 1 minute (60,000 milliseconds)
+                            });
+                        </script>
+                    </div>
+                    <div class="partyhouz_new_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+	
+					{partyhouz_sidebar}
+				
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+
+{footer}

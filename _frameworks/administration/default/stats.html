@@ -1,0 +1,150 @@
+{header}
+<script type="text/javascript" src="{url_tmpl_administration}js/chart.min.js{cache_version_param}"></script>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <!-- begin_column -->
+        <li class="{active}"><a href="{url_main}administration/stats.php?c={column}&y={yearActive}&m={monthActive}">{column_name}</a></li>
+        <!-- end_column -->
+    </ul>
+</div>
+<div class="block_main"  style="height: 900px;">
+
+    <h2>{l_title_current}</h2>
+<!--begin_block-->
+    <!-- begin_year -->
+        <!-- <h3><a href="{url_main}administration/stats.php?c={columnActive}&y={year}">{year}</a></h3> -->
+        <h3>{year}</h3>
+        <p>
+            <!-- begin_month -->
+                <!-- begin_month_link -->
+                <a href="{url_main}administration/stats.php?c={columnActive}&y={year}&m={month}">{month_name}</a><!-- begin_month_nl -->,<!-- end_month_nl -->
+                <!-- end_month_link -->
+                <!-- begin_month_active -->
+                <strong>{month_name}</strong><!-- begin_month_nl -->,<!-- end_month_nl -->
+                <!-- end_month_active -->
+            <!-- end_month -->
+        </p>
+    <!-- end_year -->
+
+    <!-- begin_stats -->
+    <div id="h"></div>
+    <!--<script language="JavaScript" src="grafik.js{cache_version_param}"></script>
+    <script type="text/javascript">
+        var chart = new FusionCharts("graf.swf", "ChartId", "850", "300");
+        chart.setDataURL("stats_xml.php?c={columnActive}|{yearActive}|{monthActive}");
+        chart.render("h");
+    </script>-->
+
+    <div class="stats_chart">
+        <canvas id="grafik" class="stats_chart_canvas"></canvas>
+        <div class="stats_chart_box">
+            <!-- begin_item_stats_title -->
+            <div class="stats_chart_or" style="color:{color}">{title}</div>
+            <!-- end_item_stats_title -->
+        </div>
+    </div>
+
+    <script language="javascript" type="text/javascript">
+    var labels=[], i=0, dataChar=[], stats=[], j=0, k=0;
+    <!-- begin_item_stats_date -->
+    labels[i]='{date}';
+    i++;
+    <!-- end_item_stats_date -->
+    <!-- begin_item_data -->
+    stats[{or}]=[];
+    <!-- begin_item_data_stats -->
+    stats[{or}][k]='{count}';
+    k++;
+    <!-- end_item_data_stats -->
+    dataChar[j] = { label: '{data_title}',
+					fillColor : 'rgba(220,220,220,0)',
+					strokeColor : '{color}',
+					pointColor : '{color}',
+					pointStrokeColor : '#fff',
+					pointHighlightFill : '#fff',
+					pointHighlightStroke : '{color}',
+					data : stats[{or}]
+				};
+    j++;
+    k=0;
+    <!-- end_item_data -->
+
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+	var lineChartData = {
+			labels : labels,
+			datasets : dataChar,
+    };
+
+    window.onload = function(){
+		var ctx = document.getElementById('grafik').getContext('2d');
+		window.myLine = new Chart(ctx).Line(lineChartData, {
+            //scaleShowHorizontalLines: false,
+            //scaleShowVerticalLines: false,
+            scaleFontSize: 11,
+            tooltipFontSize: 10,
+            tooltipTitleFontSize: 10,
+            tooltipTitleFontStyle: "normal",
+            scaleFontColor: "#000",
+			responsive: true,
+            animation: false,
+		});
+	}
+    </script>
+    <!--begin_table-->
+
+   <table class="tb">
+    <tr>
+        <th class = "decor_l">&nbsp;</th>
+        <th class = "right" >{l_day}:</th>
+        <!--begin_day_th-->
+	<th class="{thclass}">{day}</th>
+        <!--end_day_th-->
+        <th class="decor_r">&nbsp;</th>
+
+    </tr>
+    <!--begin_orientation-->
+    <tr class="{trclass}">
+        <td class="decor{decl}">&nbsp;</td>
+        <td class="right">{orientation}</td>
+	<!--begin_day_td-->
+        <td class="{tdclass}" style="padding:0px; text-align:center;">{value}</td>
+        <!--end_day_td-->
+        <td class="decor{decr}">&nbsp;</td>
+    </tr>
+    <!--end_orientation-->
+    </table>
+
+    <!--end_table-->
+    <!--
+    <table class="tb">
+    <tr>
+        <th class="decor_l">&nbsp;</th>
+        <th class="right" >{l_date}</th>
+        <th>{l_today}<span> ({day_title})</span></th>
+        <th>{l_this_month}<span> ({month_title})</span></th>
+        <th>{l_this_year}<span> ({year_title})</span></th>
+        <th class="last">{l_all}<span> (since {since_title})</span></th>
+        <th class="decor_r">&nbsp;</th>
+    </tr>
+    <!-- begin_row -->
+    <tr class="{class}">
+        <td class="decor{decl}">&nbsp;</td>
+        <td class="right">{name}</td>
+        <td>{day}</td>
+        <td>{month}</td>
+        <td>{year}</td>
+        <td class="last">{total}</td>
+        <td class="decor{decr}">&nbsp;</td>
+    </tr>
+    <!-- end_row -->
+    </table>
+    -->
+
+    <!-- end_stats -->
+
+ <!--end_block-->
+    <!-- begin_nostats -->
+    <p>{l_no_stats}</p>
+    <!-- end_nostats -->
+</div>
+{footer}

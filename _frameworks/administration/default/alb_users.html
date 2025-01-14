@@ -1,0 +1,43 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/alb_albums.php">{l_menu_right_alb_albums}</a></li>
+        <li><a href="{url_main}administration/alb_albums_show.php">{l_menu_right_alb_images}</a></li>
+        <li><a href="{url_main}administration/alb_comments.php">{l_menu_right_alb_comments}</a></li>
+        <li class="active"><a href="{url_main}administration/alb_users.php">{l_menu_right_alb_users}</a>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div  style="position: relative; padding: 0px 0px; top: -5px;">
+        <!-- begin_noitems --><div align="center">{l_no_users_with_albums}</div><!-- end_noitems -->
+        <!-- begin_pages --><div  align="center">{itemsTotal} {l_users_with_albums}</div><div align="center">{pager}</div><!-- end_pages -->
+    </div>
+    <!-- begin_items -->
+    <table class="tb">
+        <tr>
+            <th class="decor_l"></th>
+            <th class="right">{l_user}</th>
+            <th>{l_albums}</th>
+            <th>{l_images}</th>
+            <th>{l_comments}</th>
+            <th class="last">{l_views}</th>
+            <th class="decor_r"></th>
+        </tr>
+        <!-- begin_item -->
+        <tr class="{item_class}" id="item_{item_id}">
+            <td class="decor{item_decl}"></td>
+            <td class="right"><a href="{url_main}administration/alb_albums.php?id={item_user_id}">{item_username}</a></td>
+            <td>{item_count_albums}</td>
+            <td>{item_count_images}</td>
+            <td>{item_count_comments}</td>
+            <td class="last">{item_count_views}</td>
+            <td class="decor{item_decr}"></td>
+        </tr>
+        <!-- end_item -->
+    </table>
+    <!-- end_items -->
+
+    <div class="empty"></div>
+</div>
+{footer}

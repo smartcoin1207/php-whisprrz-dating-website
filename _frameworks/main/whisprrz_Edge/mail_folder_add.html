@@ -1,0 +1,93 @@
+{header}
+<div id="oryx_content">
+{ims}
+{folders}
+
+<div class="column_main frame_content">
+
+{mail_menu}
+<div class="cl"></div>
+
+<script type="text/javascript">
+	function validateMailFolderField(field,name) {
+		var folder = field.value.toLowerCase();
+		if(folder == 'inbox' || folder == 'trash' || folder == 'sent mail' ) {
+			alert('{l_incorrect_folder_name}');
+			field.focus();
+			return false;
+		}
+		return true;
+	}
+
+  var blockSubmission = false;
+  function removeSubmissionBlock() {
+    blockSubmission = false;
+  }
+  function isSubmissionAllowed() {
+    if(blockSubmission){
+       return false;
+    }
+    return;
+   }
+  document.onclick = isSubmissionAllowed;
+  document.onkeydown = isSubmissionAllowed;
+
+  function onValidateMailFolderForm() {
+    var form = document.forms['MailFolderForm'];
+    // "folder_name" field validation.
+    if (!(validateRequiredField(form['folder_name'], '{l_folder_name}'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    // "folder_name" field validation.
+    if (!(validateMaxLength(form['folder_name'], '{l_folder_name}','15'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    // "folder_name" field validation.
+    if (!(validateMailFolderField(form['folder_name'],'{l_folder_name}'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    return true;
+  }
+  function validateMailFolderForm() {
+    blockSubmission = true;
+     if (typeof beforeMailFolderFormValidation != 'undefined') {
+       beforeMailFolderFormValidation();
+    }
+    var validated = onValidateMailFolderForm();
+    if (validated && (typeof uponSuccessfulMailFolderFormValidation != 'undefined')) {
+      validated = uponSuccessfulMailFolderFormValidation();
+    }
+    else if (!validated && (typeof uponUnsuccessfulMailFolderFormValidation != 'undefined')) {
+      uponUnsuccessfulMailFolderFormValidation();
+    }
+    if (!validated) {
+      removeSubmissionBlock();
+    }
+    return validated;
+  }
+  function submitMailFolderForm() {
+   if (validateMailFolderForm()) document.MailFolderForm.submit();
+    }
+</script>
+<h2>{l_add_folder}</h2>
+
+<form  style="margin-bottom:70px;" name="MailFolderForm" method="GET" action="{url_main}mail_folder_add.php" onSubmit="return validateMailFolderForm();" style="padding: 0px; margin: 0px;">
+				<input type="hidden" name="cmd" value="add">
+				<div align="left">&nbsp;<b>{message}</b></div>
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td class="body_text" style="white-space: nowrap"><label for="FOLDER_NAME">{l_folder_name}</label></td>
+						<td><input type="text" name="folder_name" style="width: 240px; margin-left: 5px; padding: 1px 4px;" tabindex="1"></td>
+						<td style="padding-left: 5px;"><input type="button" value="{l_add}" onClick=" submitMailFolderForm();" class="btn lower_header_color big" tabindex="2" title="{l_add}" onMouseOver="window.status='{l_add}'; return true;" onMouseOut="window.status=''; return true;"></td>
+						<td style="padding-left: 5px;"><input type="button" value="{l_cancel}" onClick=" location.href='{page_from}';" class="btn lower_header_color big"  tabindex="3" title="{l_cancel}" onMouseOver="window.status='{l_cancel}'; return true;" onMouseOut="window.status=''; return true;"></td>
+					</tr>
+				</table>
+				<script type="text/javascript">setFocus('MailFolderForm','folder_name');</script>
+</form>
+
+</div>
+</div>
+{footer}

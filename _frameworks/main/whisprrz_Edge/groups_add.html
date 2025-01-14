@@ -1,0 +1,68 @@
+{header}
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+
+			<script language="JavaScript" type="text/javascript">
+			  function onValidateForm() {
+			    var form = document.forms['AddForm'];
+			    if (!(validateRequiredField(form['name'], '{l_name}'))) {
+			      return false;
+			    }
+			    if (!(validateRequiredField(form['dscrb'], '{l_description}'))) {
+			      return false;
+			    }
+			    return true;
+			  }
+
+			  function validateForm() {
+
+
+			    var validated = onValidateForm();
+
+			    return validated;
+			  }
+
+
+			</script>
+
+
+<input style="width: 150px;" type="button" value="{l_all_groups}" class="button" onclick="location='{url_main}groups.php';" title="{l_all_groups}">
+<input style="width: 150px;" type="button" value="{l_my_groups}" class="button" onclick="location='{url_main}groups_my.php';" title="{l_my_groups}">
+<input style="width: 150px;" type="button" value="{l_create_group}" class="button active_btn" onclick="location='{url_main}groups_add.php?cat_id={cat_id}';" title="{l_create_group}">
+<br><br>
+
+<!-- begin_add_form -->
+<form name="AddForm" method="POST" action="groups_add.php"  onsubmit="return validateForm();">
+<table border="0" width="100%">
+<tr><td>{l_category}</td><td><select name="cat_id" style="width:400px;">
+{cats_select}
+</select></td></tr>
+<tr><td>{l_name}</td><td><input type="text" name="name" style="width:397px;"></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>{l_open_join}:</td><td>
+<input type="radio" name="opened" value="1" checked="checked"/>{l_yes} <input type="radio" name="opened" value="0"/>{l_no} </td></tr>
+<tr><td>{l_hidden_gorup}:</td><td>
+<input type="radio" name="hidden" value="1" />{l_yes} <input type="radio" name="hidden" value="0" checked="checked"/>{l_no} </td></tr>
+<tr><td>{l_memmber_invite}:</td><td>
+<input type="radio" name="invite" value="1" checked="checked"/>{l_yes} <input type="radio" name="invite" value="0"/>{l_no} </td></tr>
+<tr><td>{l_public_forum}:</td><td>
+<input type="radio" name="forum" value="1" checked="checked"/>{l_yes} <input type="radio" name="forum" value="0"/>{l_no} </td></tr>
+<tr><td>{l_post_bulletin}:</td><td>
+<input type="radio" name="bulletin" value="1" />{l_yes} <input type="radio" name="bulletin" value="0" checked="checked"/>{l_no} </td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr>
+<td valign="top">{l_description}</td><td><textarea name="dscrb" style="width:400px;" rows="7"></textarea></td>
+</tr>
+<tr><td colspan=2 align="center"><br><input type="submit" value="{l_create}" class="button"></td></tr>
+</table>
+
+</form>
+<!-- end_add_form -->
+
+<!-- begin_after_added -->
+<center>
+<div class=header_big style="text-align:center;">{l_added_group}</div><br />
+<a href="groups_profile.php?gid={gid}">{l_go_to_profile}</a><br><br>
+</center>
+<!-- end_after_added -->
+</div></div></div></div></div></div></div></div></div>
+{footer}

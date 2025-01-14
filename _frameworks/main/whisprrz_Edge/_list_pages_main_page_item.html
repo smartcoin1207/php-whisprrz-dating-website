@@ -1,0 +1,33 @@
+<!-- begin_list_page_item_info -->
+<div class="col-md-{list_page_item_number_row} col-sm-6 item <!-- begin_list_page_item_info_hide -->to_hide<!-- end_list_page_item_info_hide -->">
+    <div class="cham-post users_group_item">
+        <div class="cham-post-link" onclick="goLinkGroup($(this), '{list_page_item_url}'); return false;">
+            <div class="cham-post-image list_group_image_{list_page_item_id} to_hide">
+                <div id="list_group_image_layer_action_{list_page_item_id}" data-cl-loader="layer_action_list_loader" data-no-fade-in="true" class="layer_action_list no_transparent"></div>
+                <div class="cham-overlay"></div>
+                <div id="list_group_image_{list_page_item_id}" class="pic square {list_page_item_image_no_photo}" style="background-image: url({url_files}{list_page_item_image});"></div>
+                <div class="cham-category descripton to_show">
+                    <span class="subject" title="{list_page_item_title}">
+                        <span>{list_page_item_title}</span>
+                    </span>
+                </div>
+                <script>onLoadImgFromList($('.list_group_image_{list_page_item_id}.to_hide'), '{url_files}{list_page_item_image}');</script>
+            </div>
+            <!-- <div class="cham-post-text">
+                <h3>{list_page_item_title}</h3>
+                <div class="post-text">
+                    <p>{list_page_item_description}</p>
+                </div>
+            </div> -->
+            <div data-cl-loader="loader_list_users_info" class="layer_blocked_item_list"></div>
+        </div>
+        <div class="cham-post-meta">
+            <div class="info">
+                <span class="info_item comments"><i class="fa fa-comments" aria-hidden="true"></i>{list_page_item_number_post}</span>
+                <span class="info_item time"><i class="fa fa-clock-o" aria-hidden="true"></i>{list_page_item_time_ago}</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end_list_page_item_info -->

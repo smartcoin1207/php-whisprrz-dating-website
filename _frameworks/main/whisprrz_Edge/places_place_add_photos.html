@@ -1,0 +1,104 @@
+{header}
+
+
+<script type="text/javascript">
+function on_form_submit()
+{
+	if(document.getElementById('image_0').value=="" && document.getElementById('image_1').value=="" && document.getElementById('image_2').value=="" &&
+		document.getElementById('image_3').value=="" && document.getElementById('image_4').value=="" && document.getElementById('image_5').value=="")
+	{
+		alert('{l_no_photos}');
+		return false;
+	}
+	else
+	{
+		$('#load_animation1').css('visibility', 'visible');
+
+		return true;
+	}
+}
+</script>
+<div id="oryx_content">
+
+    <div class="places_new">
+
+		{places_header}
+
+        <table class="tb_places_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+					{places_place_show}
+
+                    <div class="places_new_dark">
+
+                        <div class="line_dashed"></div>
+                        <h1 id="upl_img">{l_add_photos_for} {place_name}: </h1>
+
+                        <form method="POST" action="{url_main}places_place_add_photos.php?cmd=upload&id={place_id}" onsubmit="return on_form_submit();" enctype="multipart/form-data">
+                        
+                        <table class="tb_places_new_frm">
+                            <col width="45px"/>
+                            <col width="199px"/>
+                            <col width="199px"/>
+                            <tr>
+                                <th style="padding-top:0px">{l_pics}:</th>
+                                <td>
+                                    <div class="place_inp_file"><input size="21" name="image_0" id="image_0" class="file" type="file"/></div>
+                                </td>
+                                <td style="padding-left:10px;#padding-left:5px;">
+                                    <div class="place_inp_file"><input size="21" name="image_1" id="image_1" class="file" type="file"/></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <div class="place_inp_file"><input size="21" name="image_2" id="image_2" class="file" type="file"/></div>
+                                </td>
+                                <td style="padding-left:10px;#padding-left:5px;">
+                                    <div class="place_inp_file"><input size="21" name="image_3" id="image_3" class="file" type="file"/></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <div class="place_inp_file"><input size="21"   name="image_4" id="image_4" class="file" type="file"/></div>
+                                </td>
+                                <td style="padding-left:10px;#padding-left:5px;">
+                                    <div class="place_inp_file"><input size="21" name="image_5" id="image_5" class="file" type="file"/></div>
+                                </td>
+                            </tr>
+
+                        </table>
+                        
+                        <div class="line_dashed"></div>
+
+                  
+<!--                             <div class="places_input3 fl_right">
+                                <input  type="submit" value="{l_upload}"/>
+                            </div> -->
+
+                                <input class="btn round upper_header_color big fl_right" type="submit" value="{l_upload}"/>
+
+							<img style="visibility:hidden;position:relative;top:2px; left:345px;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif">
+             
+
+                        </form>
+
+                    <div class="justify"></div>
+                    </div>
+
+                </td>
+                <!-- /td_main -->
+
+				{places_sidebar}
+				
+            </tr>
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+    </div>
+</div>
+{footer}

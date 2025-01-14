@@ -1,0 +1,25 @@
+{header}
+<div class="wall one_column cham-project-style-1">
+    <center>
+        <div class="p-b">
+            <h3 class="cham-heading">{l_page_title}</h3>
+            <div class="signature">
+                Description
+            </div>
+        </div>
+    </center>
+
+    <div class="wrap_games">
+        <!-- begin_game -->
+        <div class="bl_games col-sm-6">
+            <div id="game_{game}" class="game {game}" style="background-image: url({url_tmpl_common}games/game_{game}_bg.jpg);"></div>
+            <script>onLoadImgToShow('{url_tmpl_common}games/game_{game}_bg.jpg',$('#game_{game}'))</script>
+            <a class="bl_link" href="{game_url}"><span class="bl_name"><span class="name">{game_title}</span></span></a>
+        </div>
+        <!-- end_game -->
+    <div class="clearfix"></div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+{footer}

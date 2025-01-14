@@ -1,0 +1,112 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<script>
+    var url_files='{url_files}';
+</script>
+<div class="block_main">
+    <h2>{l_title_current} - {group_title}</h2>
+
+    <div class="bl_form checkbox_fields_area">
+
+		<p class="error">{message}</p>
+
+        <form method="POST" action="{url_main}administration/groups_social_edit.php?cmd=update&group_id={group_id}" name="EditProfileBasicForm">
+
+
+        <label>{l_group_title}:</label>
+        <input type="text" name="title" value="{group_title}">
+
+        <label>{l_group_description}:</label>
+        <textarea style="resize:vertical;" class="textarea_small" name="description">{group_description}</textarea>
+
+
+        <div class="wrap_button fl_right">
+            <button class="button submit" type="submit">{l_update}</button>
+		</div>
+        <div class="empty"></div>
+
+
+        <h2>{l_edit_photos} ({num_photos})</h2>
+
+        <div style="width: 100%;"  class="photo_container">
+
+        <!-- begin_photo_edit -->
+            <!-- begin_photo-->
+                <!-- begin_photo_item-->
+                <div style="width:110px; vertical-align: top; display: inline-block; padding-right: 5px; overflow: hidden; position: relative;">
+                    <img id="photo_{photo_id}" data-user-id="{group_user_id}" data-photo-size="s" src="{url_files}{photo}">
+                    <!-- begin_photo_rotate -->
+					<a id="photo_rotate_{photo_id}" data-photo-id="{photo_id}" data-user-id="{group_user_id}" data-photo-size="s" class="icon_rotate" title="{a_rotate}" href="" ></a>
+					<!-- end_photo_rotate -->
+
+                    <p class="mod_bl_pending">{visible}</p>
+                    <p class="mod_bl_description" title="{description}">{description}&nbsp;</p>
+                    <div class="mod_bl_action">
+						<!-- begin_photo_edit_image -->
+						<a class="mod_link_action" onclick="openEditorImage('{photo_id}', '{group_user_id}', 'admin'); return false;">{l_edit_photo}</a>
+						<!-- end_photo_edit_image -->
+
+                        <a class="mod_link_action" onclick="if(confirm('{l_this_action}')) parent.location.href='{url_main}administration/groups_social_edit.php?cmd=delete_photo&photo_id={photo_id}&group_id={group_id}';">{l_delete}</a>
+                        <!-- begin_photo_access_1 -->
+                        <a class="mod_link_action" onclick="window.location.href='{url_main}administration/groups_social_edit.php?cmd=set_photo_access&photo_id={photo_id}&group_id={group_id}';">{photo_access}</a>
+                        <!-- end_photo_access_1 -->
+                    </div>
+                    <!-- begin_photo_approve -->
+                    <a class="mod_btn_submit_custom mod_link_profile" onclick="redirectUrl('{url_main}administration/groups_social_edit.php?cmd=approve_photo&photo_id={photo_id}&group_id={group_id}'); return false;">{l_photo_approve}</a>
+                    <!-- end_photo_approve -->
+
+                    <!-- begin_photo_odd-->
+                    <!-- end_photo_odd-->
+                    <!-- begin_photo_even-->
+                    <!-- end_photo_even-->
+                    <div style="height:20px"></div>
+                </div>
+
+				<!-- begin_photo_delimiter1 -->
+				<br clear="all">
+				<!-- end_photo_delimiter1 -->
+
+                <!-- end_photo_item-->
+                <!-- begin_nophoto_item-->
+                <div style="width:115px; float: left;">
+                    <img src="{url_files}nophoto_s.jpg" width="90" height="100">
+                    <p><b>{numer}. ({l_empty})</b></p>
+                    <!-- begin_nophoto_odd-->
+                    <!-- end_nophoto_odd-->
+                    <!-- begin_nophoto_even-->
+                    <!-- end_nophoto_even-->
+                    <div style="height:15px"></div>
+                </div>
+                <!-- end_nophoto_item-->
+
+            <!-- end_photo-->
+        <!-- end_photo_edit -->
+</div>
+
+</form>
+
+<br clear="all">
+
+<h2>{l_add_photo}</h2>
+<form method="post" action="{url_page}" enctype="multipart/form-data">
+    <input type="hidden" name="cmd" value="insert_photo">
+    <input type="hidden" name="group_id" value="{group_id}">
+    <!-- begin_photo_add_access_1 -->
+    <label for="private_photo">
+        <input type="checkbox" id="private_photo" name="private" value="1" style="margin: 0; width: auto;"> {l_private}
+    </label>
+    <br>
+    <!-- end_photo_add_access_1 -->
+    <input type="text" name="description" placeholder="{l_description}">
+    <br>
+
+    <input type="file" name="photo_file">
+    <div class="wrap_button fl_right">
+        <button class="button submit" type="submit">{l_upload}</button>
+    </div>
+</form>
+
+</div>
+{footer}

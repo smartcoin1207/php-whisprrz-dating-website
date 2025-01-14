@@ -1,0 +1,48 @@
+{header}
+
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+<input style="width: 90px;" type="button" value="{l_events_home}" class="button" onclick="location='{url_main}events_index.php';" title="{l_events_home}">
+<input style="width: 120px;" type="button" value="{l_events_posted}" class="button" onclick="location='{url_main}events_posted.php';" title="{l_events_posted}">
+<input style="width: 120px;" type="button" value="{l_events_attending}" class="button" onclick="location='{url_main}events_attending.php';" title="{l_events_attending}">
+<input style="width: 120px;" type="button" value="{l_events_add_event}" class="button" onclick="location='{url_main}events_create.php';" title="{l_events_add_event}">
+<input style="width: 90px;" type="button" value="{l_events_calendar}" class="button active_btn" onclick="location='{url_main}events_clndr.php';" title="{l_events_calendar}">
+<input style="width: 140px;" type="button" value="{l_events_add_clndr}" class="button" onclick="location='{url_main}events_clndr_create.php';" title="{l_events_add_clndr}">
+<br>
+<br class="clear">
+			<div align="center">
+			<form action="" method="post">
+				<select name="cmonth">
+				{select_month}
+			</select>
+			<select name="cyear">
+					{select_year}
+			</select>
+			<input type="submit" value="{l_go}" style="width:70px;" class="button">
+			</form>
+			</div>
+			<br>
+			<table border="0" cellspacing="0" cellpadding="0" align="center" id="calendar">
+				<tr id="week">
+					<td>{l_monday}</td>
+					<td>{l_tuesday}</td>
+					<td>{l_wednesday}</td>
+					<td>{l_thursday}</td>
+					<td>{l_friday}</td>
+					<td>{l_saturday}</td>
+					<td>{l_sunday}</td>
+				</tr>
+				<!-- begin_days -->
+				<tr>
+				<td class="{td_class1}">{td1}</td>
+				<td class="{td_class2}">{td2}</td>
+				<td class="{td_class3}">{td3}</td>
+				<td class="{td_class4}">{td4}</td>
+				<td class="{td_class5}">{td5}</td>
+				<td class="{td_class6}">{td6}</td>
+				<td class="{td_class7}">{td7}</td>
+				</tr>
+				<!-- end_days -->
+			</table>
+</div></div></div></div></div></div></div></div></div>
+
+{footer} 

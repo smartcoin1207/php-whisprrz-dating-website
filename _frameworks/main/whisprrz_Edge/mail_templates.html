@@ -1,0 +1,83 @@
+<div class="fields">
+    <div class="field" id="mail_templates_list">
+        <select id="mail_templates" name="mail_templates" class="inp selectpicker show-tick" data-live-search="true">
+            {mail_templates_list}
+        </select>
+    </div>
+    <style>
+        #mail_templates_list * {
+            box-sizing: border-box;
+        }
+    </style>
+</div>
+
+<script>
+    function handleSelectChange(selectedValue, formName, subject, text) {
+        $.ajax({
+            url: "{url_main}mail_templates_ajax.php",
+            data: { cmd: "get_template", id: selectedValue},
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    const form = document.forms[formName];
+                    const subjectInput = form[subject];
+                    const textArea = form[text];
+
+                    subjectInput.value = data?.template?.subject;
+                    textArea.value = data?.template?.text;
+                    return true;  // Successful result
+                } else {
+                    console.log("Failed");
+                    return false;  // Failed result
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;  // Error result
+            }
+        });
+    }
+
+    function saveTemplate(subject, text) {
+        console.log(subject, text);
+
+        return Swal.fire({
+            title: 'Enter Template Title',
+            input: 'text',
+            inputPlaceholder: 'Enter Template Title',
+            showCancelButton: true,          // Show the "No" button
+            confirmButtonText: 'Yes',         // Text for the "Yes" button
+            cancelButtonText: 'No',           // Text for the "No" button
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to enter a title!'; // Validation if input is empty
+                }
+            }
+        }).then((result) => {
+            if (result.value && result.isConfirmed) {
+                return $.ajax({
+                    url: "{url_main}mail_templates_ajax.php",
+                    data: { cmd: "save_template", title: result.value, subject: subject, text: text },
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status === "success") {
+                            console.log("success");
+                            return true;  // Successful result
+                        } else {
+                            console.log("Failed");
+                            return false;  // Failed result
+                        }
+                    },
+                    error: function () {
+                        alert('error');
+                        return false;  // Error result
+                    }
+                });
+            } else {
+                return true;  // No value entered
+            }
+        });
+    }
+</script>

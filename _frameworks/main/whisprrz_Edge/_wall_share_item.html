@@ -1,0 +1,43 @@
+<!-- begin_wall_share_not_shareable -->
+<div>
+    This wall item can't be share
+</div>
+<!-- end_wall_share_not_shareable -->
+
+<!-- begin_wall_share_items -->
+
+    <div class="container">
+      <h2>{l_wall_share_are_you_sure}</h2>
+      <div id="wall_share_items" class="list-group" style="max-height: 50vh; overflow-y: auto;">
+        
+        <li class="list-group-item wall_share" style="display: flex; padding: 5px 15px;">
+            <input type="checkbox" name="wall_share_field_profile" style="margin: auto 5px;">
+            <div class="wall_share_group_photo"></div>
+            <div class="group_title" style="margin: auto; font-size: 14px;">{l_wall_share_profile}</div>
+        </li>
+
+        <!-- begin_wall_share_public -->
+        <li class="list-group-item wall_share" style="display: flex; padding: 5px 15px;">
+            <input type="checkbox" name="wall_share_field_public" style="margin: auto 5px;">
+            <div class="wall_share_group_photo"></div>
+            <div class="group_title" style="margin: auto; font-size: 14px;">{l_wall_share_public}</div>
+        </li>
+        <!-- end_wall_share_public -->
+
+        <!-- <div style=""></div> -->
+
+        <!-- begin_wall_share_group_item -->
+        <li class="list-group-item wall_share" style="display: flex; padding: 5px 15px;">
+            <input type="checkbox" name="wall_share_field_{group_id}" style="margin: auto 5px;">
+            <div class="wall_share_group_photo" style="background-image: url('{url_files}{group_photo}');"></div>
+            <div class="group_title" style="margin: auto; font-size: 14px;">{group_title}</div>
+        </li>
+        <!-- end_wall_share_group_item -->
+
+
+      </div>
+      <input type="text" class="form-control" placeholder="Comment" id="share_comment_text1" name="share_comment_text1">
+
+    </div>
+
+<!-- end_wall_share_items -->

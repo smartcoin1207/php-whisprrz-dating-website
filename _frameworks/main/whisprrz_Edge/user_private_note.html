@@ -1,0 +1,36 @@
+{header}
+
+<div class="frame_content">
+
+  <div align="center">
+    <h2 class="txt_lower_header_color" style="text-align: left;">{l_private_note} on {username}</h2>
+    <div class="g-box-in{row}" style="width:100%; float:left; padding:0px; margin:0px;">
+      <form class="" action="{url_page}?cmd=save_note" method="POST">
+        <input type="hidden" name="uid" value="{user_id}">
+        <p>{l_private_note_info_top}</p>
+        
+        <textarea name="note" id="note" class="custom-input-textarea" rows="8">{note}</textarea>
+
+        <a class="custom-button red" href="{url_main}search_results.php?display=profile&uid={user_id}" title="{l_back}">{l_back}</a>
+        <input type="submit" class="custom-button" title="{l_save}" value="{l_save}" />
+        <br /><br />
+        <p>{l_private_note_info_bottom}</p>
+
+
+      </form>
+
+
+    </div>
+
+  </div>
+</div>
+  <script>
+    if ("{saved}" == "yes") {
+      Swal.fire(
+        'Saved!',
+        '',
+        'success'
+      );
+    }
+  </script>
+  {footer}

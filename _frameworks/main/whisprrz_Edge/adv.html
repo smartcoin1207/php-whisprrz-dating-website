@@ -1,0 +1,99 @@
+{header}
+<div id="oryx_content">
+
+	<script>
+		$(function(){
+			var col_fr = $('.column_main.frame_content');
+			var fr_col = $('.frame_content.column_main');
+			var search_el = $('.frame_content.fl_right');
+
+			var left_block;
+			if(col_fr) {
+				left_block = col_fr;
+			} else {
+				left_block = fr_col;
+			}
+
+			if(left_block && search_el) {
+				if(search_el.height() < (left_block.height() + 5)) {
+					search_el.height(left_block.height() + 5);
+				} else {
+					left_block.height(search_el.height() - 5);
+				}
+			}
+		})
+
+		</script>
+	<div class="frame_content fl_right"  style="padding: 15px 10px 10px; width: 140px;"><!-- <div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr" style="padding:10px;" > -->
+	<!-- begin_banner_right_column -->
+	<div class="banner_right_column_adv">
+		{banner_right_column}
+	</div>
+    <!-- end_banner_right_column -->
+	<h2>{l_search}</h2>
+	<form method="GET" action="adv_cat.php" >
+	<input style="width: 128px;" type="text" value="" name="find_str"><br><br>
+	<select style="width: 139px;" name="cat_id">{select_cats}
+	</select><br><br>
+<!-- 	<input type="image" alt="{l_find_now}" src="{url_main}tmpl_img_loader.php?tmpl={tmpl_loaded}&dirs=img&file=button-find.gif&lang={lang_loaded}" style="border:0px;" /> -->
+	<input type="submit" alt="{l_find_now}" title="{l_find_now}" onclick="" class="btn upper_header_color fl_right" value="{l_find_now}">
+	</form>    
+</div><!-- </div></div></div></div></div></div></div></div> --><!-- searchn end -->
+
+
+<div class="column_main frame_content">
+<ul class="list_btn">
+	<li><input type="button" value="{l_add}" class="btn upper_header_color big" onclick="location='{url_main}adv_edit.php';" title="{l_add}"></li>
+	<li><input type="button" value="{l_my_ads}" class="btn upper_header_color big" onclick="location='{url_main}adv_my.php';" title="{l_my_ads}"></li>
+</ul>
+
+<br><label style="float:left;">{l_No_Selling}:&nbsp;&nbsp; {l_add_catagories}:</label></br>
+
+<div class="cl"></div>
+
+
+	<table border="0" width="100%" id="adv_gl" cellspacing=6><tr><td valign="top">
+
+		<table id="adv_in">
+		<tr><td class="header">{cat_name1}</td></tr>
+		<tr><td>{goods1}</td></tr>
+		<tr><td class="header">{cat_name2}</td></tr>
+		<tr><td>{goods2}</td></tr>
+		<tr><td class="header">{cat_name3}</td></tr>
+		<tr><td>{goods3}</td></tr>
+		</table>
+
+	</td><td valign="top">
+
+		<table id="adv_in">
+		<tr><td class="header">{cat_name4}</td></tr>
+		<tr><td>{goods4}</td></tr>
+		<tr><td class="header">{cat_name5}</td></tr>
+		<tr><td>{goods5}</td></tr>
+		<tr><td class="header">{cat_name6}</td></tr>
+		<tr><td>{goods6}</td></tr>
+		<tr><td class="header">{cat_name7}</td></tr>
+		<tr><td>{goods7}</td></tr>
+		<tr><td class="header">{cat_name8}</td></tr>
+		<tr><td>{goods8}</td></tr>
+		</table>
+
+	</td><td valign="top">
+
+		<table id="adv_in">
+		<tr><td class="header">{cat_name9}</td></tr>
+		<tr><td>{goods9}</td></tr>
+		<tr><td class="header">{cat_name10}</td></tr>
+		<tr><td>{goods10}</td></tr>
+		<tr><td class="header">{cat_name11}</td></tr>
+		<tr><td>{goods11}</td></tr>
+		</table>
+
+	</td></tr></table>
+
+
+</div>
+ </div>
+
+
+{footer}

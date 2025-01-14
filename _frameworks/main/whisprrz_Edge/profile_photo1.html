@@ -1,0 +1,361 @@
+{header}
+<div id="oryx_content">
+	{ims}
+	{complite}
+	<!--<script language="javascript" type="text/javascript">
+	$(function(){
+	   $('[id ^= DescEditable_]').editable({editor: 'textarea', 
+				  empty: true,
+				  classInput: 'profile_photo_edit_editable_textarea', 
+				  classHover: 'profile_photo_edit_editable_hover',
+				  type: 'photo'});
+	});
+	</script>-->
+	
+	<div class="column_main frame_content">
+	
+		{profile_menu}
+	
+		<!-- begin_photo_edit -->
+		<div>
+			<div class="cl"></div>
+			<!-- begin_photo-->
+			<!-- Divyesh - Added on 11-04-2024 -->
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-12">
+			<h2>{l_profile_edit_photos}</h2>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<input type="button" value="{l_custom_folder}" class="btn blue" onclick="openCustomFolderPopup();" title="{l_custom_folder}">
+				</div>
+			</div>
+			<!-- Divyesh - Added on 11-04-2024 -->
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" style="padding-bottom: 20px; margin-top: 20px;">
+				<tr>
+					<td width="280" 1style="padding-left: 8px;" align="left">
+						<!-- begin_photo_item-->
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td valign="top" rowspan="2" style="padding-right: 10px;">
+									<div id="photo_info">
+										<!-- begin_photo_item_photo -->
+										<!-- <a
+											href="{url_main}search_results.php?display=photo&uid={user_id}&photo_offset={photo_offset}"> -->
+											<img class="img_border" src="{url_files}photo/{photo_id}_{hash}_s.jpg" data-profile-photo="1"  onclick="openGalleryList(event,'{photo_id}', false, '{user_id}')">
+										<!-- </a> -->
+										<!-- end_photo_item_photo -->
+
+										<!-- begin_photo_item_photo_not_approval -->
+										<img class="img_border" src="{url_files}photo/{photo_id}_{hash}_s.jpg">
+										<!-- end_photo_item_photo_not_approval -->
+									</div>
+								</td>
+								<td valign="top" class="body_little">
+									<div style="min-height: 70px; margin: 0 0 10px;">
+										<div><b>{numer}.</b>
+											<div class="profile_photo_edit_editable" id="DescEditable_{photo_id}">
+												{description}</div>
+										</div>
+										<div class="pri_little_bold">{visible}</div>
+	
+										<!-- begin_default -->{l_photo_default_sign} {default_title}<!-- end_default -->
+	
+										<!-- begin_set_default --><a
+											href="{url_page}?id={photo_id}&cmd=main">{default_title}</a><!-- end_set_default -->
+	
+										<!-- begin_set_private -->
+										<br /><a href="{url_page}?id={photo_id}&cmd=private">{private_title}</a>
+										<!-- end_set_private -->
+										<!-- begin_set_public -->
+										<br />
+										<a style="text-decoration: none;"
+											href="{url_page}?id={photo_id}&cmd=public">{l_photo_private_sign}</a>
+										<a href="{url_page}?id={photo_id}&cmd=public">{l_private}</a>
+										<!-- end_set_public -->
+										<!-- Divyesh - Added on 11-04-2024 -->
+										<br><a href="{url_page}?id={photo_id}&cmd={personal}">{personal_title}</a>
+										<!-- begin_set_custom_folder -->
+										<br><a href="{url_page}?id={photo_id}&cmd={folder}">{folder_title}</a>
+										<!-- end_set_custom_folder -->
+										<!-- Divyesh - Added on 11-04-2024 -->
+									</div>
+									<div>
+										<table border="0" cellpadding="0" cellspacing="0">
+											<tr>
+												<td class="body_little">
+													<table border="0" cellpadding="0" cellspacing="0">
+														<tr>
+															<td>
+																<div class="button_border_2">
+																	<input type="button" value="{l_delete}"
+																		onClick="if(confirm('{l_this_action_can_not_be_undone}')) parent.location.href='{url_main}profile_photo.php?cmd=delete&id={photo_id}';"
+																		class="btn dblue" title="{l_delete}"
+																		onMouseOver="window.status='{l_delete}'; return true;"
+																		onMouseOut="window.status=''; return true;">
+																</div>
+															</td>
+														</tr>
+													</table>
+												</td>
+												<td style="padding-left: 8px;">
+													<table border="0" cellpadding="0" cellspacing="0">
+														<tr>
+															<td>
+																<div class="button_border_2">
+																	<input type="button" value="{l_edit_text}"
+																		onClick="location.href='{url_main}profile_photo_edit.php?id={photo_id}';"
+																		class="btn dblue" title="{l_edit_text}"
+																		onMouseOver="window.status='{l_edit_text}'; return true;"
+																		onMouseOut="window.status=''; return true;">
+																</div>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</div>
+	
+								</td>
+							</tr>
+	
+	
+	
+							<tr>
+								<td valign="bottom" class="body_little"><!-- <div><table border="0" cellpadding="0" cellspacing="0"><tr><td class="body_little">
+							<table border="0" cellpadding="0" cellspacing="0"><tr><td>
+							<div class="button_border_2">
+							<input type="button" value="{l_delete}" onClick="if(confirm('{l_this_action_can_not_be_undone}')) parent.location.href='{url_main}profile_photo.php?cmd=delete&id={photo_id}';" class="btn dblue" title="{l_delete}" onMouseOver="window.status='{l_delete}'; return true;" onMouseOut="window.status=''; return true;">
+							</div></td></tr></table></td><td style="padding-left: 8px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2">
+							<input type="button" value="{l_edit_text}" onClick="location.href='{url_main}profile_photo_edit.php?id={photo_id}';" class="btn dblue" title="{l_edit_text}" onMouseOver="window.status='{l_edit_text}'; return true;" onMouseOut="window.status=''; return true;">
+							</div></td></tr></table></td></tr></table></div> --></td>
+							</tr>
+	
+						</table>
+						<!-- begin_photo_odd-->
+					</td>
+					<td align="left">
+						<!-- end_photo_odd-->
+						<!-- begin_photo_even-->
+					</td>
+				</tr>
+				<tr>
+					<td style="height: 20px;"></td>
+				</tr>
+				<tr>
+					<td align="left">
+						<!-- end_photo_even-->
+						<!-- end_photo_item-->
+						<!-- begin_nophoto_item-->
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td valign="top" rowspan="2" style="padding-right: 10px;">
+									<div id="photo_info">
+										<img src="{url_files}oryx_nophoto_s.jpg" width="90" height="100" class="img_border">
+									</div>
+								</td>
+								<td valign="top" class="body_little">
+									<div><b>{numer}. ({l_empty})</b></div>
+								</td>
+							</tr>
+						</table>
+						<!-- begin_nophoto_odd-->
+					</td>
+					<td align="left">
+						<!-- end_nophoto_odd-->
+						<!-- begin_nophoto_even-->
+					</td>
+				</tr>
+				<tr>
+					<td style="height: 20px;"></td>
+				</tr>
+				<tr>
+					<td style="padding-left: 8px;" align="left">
+						<!-- end_nophoto_even-->
+						<!-- end_nophoto_item-->
+					</td>
+				</tr>
+			</table>
+			<!-- end_photo-->
+		</div>
+		<!-- end_photo_edit -->
+		<div class="keyline" style="height: 1px; margin-bottom: 8px;">
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<!-- begin_photo_upload -->
+		<h2>{l_upload_your_photo}</h2>
+	
+		<div>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td valign="top" style="padding-right: 10px;" align="left">
+						<!-- begin_photo_rules -->
+						<div class="body_text">
+							{l_photo_will_be}
+							<a href="#"
+								onclick="javascript:OpenWindow('{url_main}info.php?page=photo_guidelines&lang={lang_loaded}','650','400','yes');"
+								class="pri_text_bold">{l_photo_guidelines}</a>.
+						</div>
+						<br>
+						<!-- end_photo_rules -->
+	
+						<div class="body_little">
+							<b>{l_note}:</b> {l_photo_must_be}
+						</div>
+					</td>
+					<td valign="top">
+						<script Language="JavaScript" type="text/javascript">
+							var blockSubmission = false;
+							function removeSubmissionBlock() {
+								blockSubmission = false;
+							}
+							function isSubmissionAllowed() {
+								if (blockSubmission) {
+									return false;
+								}
+								return;
+							}
+							document.onclick = isSubmissionAllowed;
+							document.onkeydown = isSubmissionAllowed;
+							function onValidateUploadPhotoForm() {
+								var form = document.forms['UploadPhotoForm'];
+								// "photo_file" field validation.
+								if (!(validateRequiredField(form['photo_file'], '{l_file_location}'))) {
+									removeSubmissionBlock();
+									return false;
+								}
+	
+								// "photo_description" field validation.
+								if (!(validateMaxLength(form['description'], '{l_photo_description}', '{profile_photo_description_length}'))) {
+									removeSubmissionBlock();
+									return false;
+								}
+								return true;
+							}
+							function validateUploadPhotoForm() {
+								blockSubmission = true;
+								if (typeof beforeUploadPhotoFormValidation != 'undefined') {
+									beforeUploadPhotoFormValidation();
+								}
+								var validated = onValidateUploadPhotoForm();
+								if (validated && (typeof uponSuccessfulUploadPhotoFormValidation != 'undefined')) {
+									validated = uponSuccessfulUploadPhotoFormValidation();
+								}
+								else if (!validated && (typeof uponUnsuccessfulUploadPhotoFormValidation != 'undefined')) {
+									uponUnsuccessfulUploadPhotoFormValidation();
+								}
+								if (!validated) {
+									removeSubmissionBlock();
+								}
+								return validated;
+							}
+							function submitUploadPhotoForm() {
+								if (validateUploadPhotoForm()) document.UploadPhotoForm.submit();
+							}
+							/* Divyesh - Added on 11-04-2024 */
+							function openCustomFolderPopup() {
+								Swal.fire({
+									title: '{l_manage_folder}',
+									html: `<input type="text" id="custom_folder" class="swal2-input" maxlength="15" placeholder="" value="{custom_folder}">`,
+									confirmButtonText: '{l_save}',
+									focusConfirm: false,
+									showCancelButton: true,
+									preConfirm: () => {
+										const custom_folder = Swal.getPopup().querySelector('#custom_folder').value
+										/*if (!custom_folder) {
+											Swal.showValidationMessage(`{l_enter_custom_folder}`)
+										} else {*/
+											return fetch(`{url_main}ajax_profile.php`, {
+												method: 'POST',
+												body: 'cmd=custom_folder&folder=' + encodeURIComponent(custom_folder),
+												headers: {
+													'Content-type': 'application/x-www-form-urlencoded'
+												}
+											}).then(response => {
+												if (!response.status) {
+													throw new Error(response.statusText)
+												}
+												return response.json()
+											}).catch(error => {
+												Swal.showValidationMessage(`{l_enter_custom_folder}`);
+											})
+										//}
+									},
+									allowOutsideClick: () => !Swal.isLoading()
+								}).then((result) => {
+									if (result.isConfirmed) {
+										if (result.value.status == "ok") {
+											Swal.fire({
+												position: "top-end",
+												icon: "success",
+												title: '{l_custom_folder_saved}',
+												showConfirmButton: false,
+												timer: 1500
+											});
+											window.location.reload();
+										} else {
+											Swal.fire(
+												'{l_there_was_an_error}',
+												'{l_custom_folder_error}',
+												'error'
+											)
+										}
+									} else {
+
+									}
+								})
+							}
+							/* Divyesh - Added on 11-04-2024 */
+						</script>
+						<form class="" name="UploadPhotoForm" method="POST" enctype="multipart/form-data"
+							action="{url_main}profile_photo.php" onSubmit="return validateUploadPhotoForm();"
+							style="padding: 0px; margin: 0px;">
+							<input type="hidden" name="cmd" value="insert">
+							<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td class="body_little" valign="bottom" align="left">
+										<label for="PHOTO_FILE">{l_file_location}</label>
+										({max_size})
+										<br><input id="PHOTO_FILE" class="no_abk file" type="file" name="photo_file"><br /><br />
+									</td>
+								</tr>
+								<tr style="padding-top: 8px;">
+									<td class="body_little" colspan="2" align="left">
+										<label for="PHOTO_DESCRIPTION">{l_photo_description}</label>
+										({l_max_100})
+										<br>
+										<textarea id="PHOTO_DESCRIPTION" class="no_abk" name="description"
+											style="width: 240px; height: 75px;"></textarea>
+									</td>
+								</tr>
+								<tr style="padding-top: 8px;">
+									<td colspan="2" align="left">
+										<div style="padding-top:14px; font-weight: bold; margin-bottom: -12px;">{message}
+										</div>
+										<br>
+										<div>
+											<input type="button" value="{l_upload_photo}"
+												onClick=" submitUploadPhotoForm();" class="btn dblue"
+												title="{l_upload_photo}"
+												onMouseOver="window.status='{l_upload_photo}'; return true;"
+												onMouseOut="window.status=''; return true;">
+											<a style="float: right;"
+												href="{url_main}search_results.php?offset=1&display=photo&name={name}">{l_view_profile_pictures}</a>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- end_photo_upload -->
+	</div>
+</div>
+
+{footer}

@@ -1,0 +1,32 @@
+<div class="music_new_head">
+<!--     <table>
+        <tr>
+            <td class="td_l">&nbsp;</td>
+            <td class="td_c"> -->
+            <div class="music_head_bl">
+                <div class="music_new_head_txt txt_upper_header_color">
+                    <strong><a href="{url_main}music.php" style="text-decoration:none;">{l_music_music}</a> <span class="dot4">::</span> </strong> {n_songs} {l_music_uploaded}
+                </div>
+
+                    <form method="post" action="{url_main}music_search_and_upload.php">
+<!--                     <div class="music_input1 fl_right"><input type="submit" value="{l_music_upload_song}"/></div> -->
+
+                    <a href="{url_main}music_search_and_upload.php" class="btn round upper_header_color fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />{l_music_upload_song} <img class="btn_arrows_right" src="{url_tmpl_main}images/blogs/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+
+                    </form>
+                </div>  
+<!--             </td>
+            <td class="td_r">&nbsp;</td>
+        </tr>
+    </table> -->
+
+    <div class="music_new_menu_bg">
+        <ul class="music_new_menu fl_left">
+            <!-- begin_categories_item --><!-- begin_categories_item_active --><li{class_last}><span class="txt_upper_header_color">{category_title}</span></li><!-- end_categories_item_active --><!-- begin_categories_item_not_active --><li{class_last}><a href="{url_main}music_settings_change.php?category_id={category_id}">{category_title}</a></li><!-- end_categories_item_not_active --><!-- end_categories_item -->
+        </ul>
+        <ul class="music_new_menu fl_right">
+            <!-- begin_limits_item --><!-- begin_limits_item_active --><li{class_last}>{limit_title}</li><!-- end_limits_item_active --><!-- begin_limits_item_not_active --><li{class_last}><a href="{url_main}music_settings_change.php?limit={limit_id}">{limit_title}</a></li><!-- end_limits_item_not_active --><!-- end_limits_item -->
+        </ul>
+    <div class="justify"></div>
+    </div>
+</div>

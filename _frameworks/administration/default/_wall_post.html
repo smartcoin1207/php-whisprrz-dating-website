@@ -1,0 +1,191 @@
+<!-- begin_wall_items -->
+<div id="wall_item_{id}" data-id="{id}" data-send="{item_send}" data-section="{item_section_real}" data-item-id="{item_id}" data-shared="{wall_item_shared_id}" data-shared-uid="{item_user_id}" class="wall_post_item  <!-- begin_report_comment -->to_hide<!-- end_report_comment -->">
+    <!-- post_info -->
+    <div class="user_wall_info">
+        <div class="photo">
+            <a href="{url_main}{url_profile_link}" target="_blank" class="pic wall_profile_photo_user_{item_user_id} profile_photo_m_{item_user_id}_{item_group_id}" style="background-image:url({url_files}{photo});"></a>
+        </div>
+        <div class="info">
+            <div class="name">
+				<span class="wall_item_group_title">{group_title_wall}</span>
+				<!-- begin_wall_item_title_urban -->
+				<a target="_blank"  href="{url_main}{url_profile_link}">{name}</a>
+                {wall_item_title}
+                <!-- end_wall_item_title_urban -->
+                <!-- begin_wall_item_name -->
+                <a target="_blank"  href="{url_main}{url_profile_link}">{name}</a>
+                <span class="wall_item_title_info">{wall_item_title_info}</span>
+                <!-- end_wall_item_name -->
+                <!-- begin_wall_item_title -->
+                {wall_item_title}
+                <!-- end_wall_item_title -->
+            </div>
+            <div class="data">
+                <span class="comment_time_ago">{time_ago}</span>
+				<!-- begin_direct_link_popup_post -->
+				<span class="separator">&bull;</span>
+				<a class="link_popup_post" target="_blank" href="{url_main}{direct_link_popup_post_url}">
+                    {l_wall_direct_link}
+                </a>
+				<!-- end_direct_link_popup_post -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /post_info -->
+    <!-- post -->
+    <div class="wall_post">
+        <!-- begin_wall_comment -->
+        <div id="wall_text_post_{id}" class="wall_item_comment">{wall_item_comment}</div>
+        <!-- end_wall_comment -->
+
+        <!-- begin_wall_group_social_created -->
+        <div class="wall_one_image">
+            <!--<h4>{wall_group_social_title}</h4>-->
+            <p class="wall_group_social_created_title">{wall_group_social_description}</p>
+            <div class="wall_image_post">
+                <a class="wall_image_post_link" href="{wall_group_social_url}">
+                    <!-- onclick="clWall.showOnePost('{id}', '{url_files}{wall_group_social_photo_url}');" -->
+                    <img class="wall_image_post_img" src="{url_files}{wall_group_social_photo_url}" alt="">
+                </a>
+            </div>
+        </div>
+        <!-- end_wall_group_social_created -->
+
+        <!-- begin_wall_blog_post -->
+        <div class="wall_one_image">
+            <div class="wall_image_post">
+                <a class="wall_image_post_link" href="{wall_blog_post_url}">
+                    <img class="wall_image_post_img" src="{wall_blog_post_photo_url}" alt="">
+                </a>
+            </div>
+        </div>
+        <!-- end_wall_blog_post -->
+
+
+        <!-- begin_wall_photo -->
+        <!-- begin_wall_photo_single -->
+        <div class="wall_one_image">
+            <div class="wall_image_post">
+                <a class="hover-brightness" id="wall_photo_{wall_photo_id}" data-wall-item-id="{id}" href="#">
+                    <img src="{url_files}{wall_photo_url}" alt="">
+                </a>
+            </div>
+            <h4 title="{wall_photo_description}">{wall_photo_description}</h4>
+        </div>
+        <!-- end_wall_photo_single -->
+
+        <!-- begin_wall_photo_images -->
+        <div class="wrap_list_photos">
+            <div class="bl_list_photos wall_list_photos_{wall_photo_images_count} wall_list_photos">
+                <ul class="list_photos">
+                    <!-- begin_wall_photo_image -->
+                    <li>
+                        <a id="wall_photo_{wall_photo_id}" href="#">
+                            <img src="{url_files}{wall_photo_url}" alt="">
+                        </a>
+                    </li>
+                    <!-- end_wall_photo_image -->
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- end_wall_photo_images -->
+        <!-- end_wall_photo -->
+
+        <!-- begin_wall_vids -->
+        <div class="wall_video_post wall_one_video">
+            {item_html_code}
+            <h4 title="{item_title_attr}">{item_title}</h4>
+        </div>
+        <!-- end_wall_vids -->
+
+        <!-- begin_wall_pics -->
+            <!-- begin_wall_album_desc -->
+            <p>{wall_album_desc}</p>
+			<!-- end_wall_album_desc -->
+            <!-- begin_wall_pics_single -->
+            <div class="wall_image_post">
+                <a class="wall_image_post_link" href="#" onclick="return false;">
+                    <img class="wall_image_post_img" src="{wall_pics_image_big}" alt="">
+                </a>
+            </div>
+            <!-- end_wall_pics_single -->
+            <!-- begin_wall_pics_images -->
+            <!-- IT SEEMS NOT USED -->
+            <ul class="list_photos">
+                <!-- begin_wall_pics_image -->
+                <li>
+                    <a target="_blank" class="lightbox lightbox_pics" href="{wall_pics_image_src}">
+                        <img src="{wall_pics_image}" alt="">
+                    </a>
+                </li>
+                <!-- end_wall_pics_image -->
+            </ul>
+            <!-- end_wall_pics_images -->
+        <!-- end_wall_pics -->
+
+        <!-- begin_wall_photo_default -->
+        <div class="wall_one_image">
+            <div class="wall_image_post">
+                <a class="hover-brightness" id="wall_photo_{wall_photo_default_photo_id}" data-wall-item-id="{id}" href="#">
+                    <img src="{url_files}{wall_photo_default_url}" alt="">
+                </a>
+            </div>
+        </div>
+        <!-- end_wall_photo_default -->
+
+        <!-- begin_wall_music -->
+        <div class="wall_one_image">
+            <div class="wall_image_post wall_image_post_music {wall_song_no_image}" >
+                <a class="wall_image_post_music_link hover-brightness" id="wall_song_image_{wall_song_id}" data-wall-item-id="{id}"  href="#">
+                    <img src="{wall_song_image}" alt="">
+                </a>
+            </div>
+            <!-- begin_wall_song_about -->
+            <h4 title="{song_about_attribute}">{song_about}</h4>
+            <!-- end_wall_song_about -->
+        </div>
+        <!-- end_wall_music -->
+    </div>
+    <!-- /post -->
+</div>
+
+<!-- begin_wall_item_comments -->
+<div class="wall_post_item bl_comments">
+	<!-- begin_wall_item_post_show -->
+	<div class="bl_show_post">
+		<a class="link_popup_post" href="" onclick="showPost($(this)); return false;">
+			{l_show_post}
+		</a>
+	</div>
+	<!-- end_wall_item_post_show -->
+
+
+	<div class="full_comment">
+		<div class="photo">
+			<a href="{url_main}{wall_item_comment_url}" target="_blank" class="pic profile_photo_r_{wall_item_comment_user_id_group} to_hide" style="background-image:url({url_files}{wall_item_comment_photo_r});"></a>
+			<div class="data">
+				<a href="{url_main}{wall_item_comment_url}" target="_blank">{wall_item_comment_name}</a>
+				<div>{wall_item_comment_time}</div>
+			</div>
+		</div>
+		<div class="cl"></div>
+		<div class="comment_title">{l_comment}:</div>
+
+		<!-- begin_wall_item_comment_audio -->
+		<span class="im_audio_message">
+			<span id="wall_item_comment_audio_{wall_item_comment_id_prf}" class="im_audio_message_loader" data-audio-message-file="{wall_item_comment_audio_file}" >
+				<i class="fa fa-play" aria-hidden="true"></i>
+			</span>
+			<span class="im_audio_message_process"></span>
+			<span class="im_audio_message_process_play"></span>
+		</span>
+		<div class="cl"></div>
+		<!-- end_wall_item_comment_audio -->
+		{wall_item_comment_text}
+	</div>
+	<!-- end_wall_item_comments -->
+</div>
+<!-- end_wall_items -->

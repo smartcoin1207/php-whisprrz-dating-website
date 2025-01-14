@@ -1,0 +1,205 @@
+{header}
+	<link rel="stylesheet" href="{url_tmpl_main}css/forum.css{cache_version_param}" type="text/css" media="screen" />
+      <div class="frame_content userinfo">     
+		<div class="content forum">
+
+<table cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center">
+	<tr>
+		<td width="100%">
+
+		<table class="navbar_bulit_color" cellpadding="0" cellspacing="0" border="0">
+			<tr valign="bottom">
+				<td><a href="#" onclick="history.back(1); return false;"><img width="17" height="13" 
+					src="{url_tmpl_main}img/forum/navbits_start.png" alt="{l_go_back}"
+					border="0" /></a></td>
+				<td>&nbsp;</td>
+				<td width="100%"><span class="navbar"><a
+					href="{url_main}forum.php" accesskey="1">{l_forum}</a></span> &gt; <span
+					class="navbar"><a href="{url_main}forum.php">{category_title}</a></span>
+				<!-- begin_navbar_level -->&gt; <span class="navbar"><a
+					href="{url_main}forum_forum.php?forum_id={subforum_id}">{subforum_title}</a></span><!-- end_navbar_level -->
+				</td>
+			</tr>
+			<tr>
+				<td class="navbar txt_lower_header_color" style="font-size: 10pt; padding: 3px 0 0 7px;"
+					colspan="3"><a
+					href="{url_main}forum_topic.php?topic_id={topic_id}"><img width="26" height="16" 
+					class="inlineimg"
+					src="{url_tmpl_main}img/forum/navbits_finallink_ltr.png"
+					alt="{l_reload_this_page}" border="0" /></a> <strong style="display: inline-block; vertical-align: bottom;">{topic_title}</strong></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+	style="margin-bottom: 12px">
+	<tr valign="bottom">
+		<td class="smallfont"><!-- <a
+			href="{url_main}forum_new_message.php?topic_id={topic_id}"
+			rel="nofollow"><img width="97" height="24" src="{url_main}tmpl_img_loader.php?tmpl={tmpl_loaded}&dirs=img,forum&file=reply.gif&lang={lang_loaded}"
+			alt="{l_post_new_reply}" border="0" /></a> -->
+			<input onclick="location.href='{url_main}forum_new_message.php?topic_id={topic_id}'" type="button" value="{l_post_new_reply}" class="btn upper_header_color big" />
+			</td>
+	</tr>
+</table>
+
+<table class="tborder_header" width="100%" border="0" cellpadding="0"
+	cellspacing="0" background="{url_tmpl_main}img/forum/cat_head_bg.gif">
+	<tr>
+		<td class="thead"><strong>{topic_title}</strong></td>
+	</tr>
+</table>
+
+<table id="post168" class="tborder" cellpadding="6" cellspacing="0"
+	border="0" width="100%" align="center">
+	<tr>
+		<td class="tcat"
+			style="font-weight: normal;  border-right: 0px"
+			id="currentPost"><!-- status icon and date -->   {topic_created_at} <!-- / status icon and date -->
+		</td>
+		<td class="tcat"
+			style="font-weight: normal;  border-left: 0px"
+			align="right">
+<span style="display: block; float: right; margin: -1px 5px 0 0;">#1</span>&nbsp;
+			<!-- begin_forum_topic_admin --><strong style="display: block; float: right; margin: -1px 5px 0 0; font-weight: normal;"><a
+			href="{url_main}forum_admin.php?cmd=delete_topic&topic_id={topic_id}"
+			onclick="return confirm('{l_topic_delete_confirm}')">{l_delete}</a></strong><!-- end_forum_topic_admin -->
+		</td>
+	</tr>
+	<tr valign="top">
+		<td class="alt2" width="145"
+			style=" border-top: 0px; border-bottom: 0px">
+		<div id="postmenu_168" class="img_radius" style="float: left; margin-right: 5px; margin-bottom: 3px;"><a
+			class="bigusername"
+			href="{url_main}search_results.php?display=profile&uid={topic_user_id}"><img
+			src="{topic_user_photo}" /></a></div>
+		<div style="margin: -2px 0 0;"><a class="bigusername"
+			href="{url_main}search_results.php?display=profile&uid={topic_user_id}">{topic_user_name}</a>
+		</div>
+		<div class="smallfont">{l_posts}: {topic_user_n_messages}</div>
+		<div class="smallfont">{l_join_date}:<br> {topic_user_register}</div>
+		</td>
+		<td class="alt1" id="td_post_168"
+			1style="border-right: 1px solid #cad3d8"><!-- icon and title -->
+		<div class="smallfont"><img class="inlineimg"
+			src="{url_tmpl_main}img/forum/icon1.gif" alt="{l_default}" border="0" />
+		<strong>{topic_title}</strong></div>
+		<hr size="1" style="color: #cad3d8; background-color: #cad3d8; margin: 0 0 5px;" />
+
+		<!-- / icon and title --> <!-- message -->
+		<div id="post_message_168" class="forum_message">{topic_message}</div>
+		<!-- / message --></td>
+	</tr>
+	<tr>
+		<td class="alt2" style="border-top: 0px">
+		<!-- <strong><font color="#1693c5">Online!</font></strong> --> &nbsp;
+		</td>
+		<td class="alt1" align="right"
+			style="border-left: 0px; border-top: 0px">
+		<!-- controls --> <!-- <a href="{url_main}forum_edit_topic.php?topic_id={topic_id}"><img src="{url_tmpl_main}img/forum/edit.gif" alt="{l_edit_message}" border="0" /></a> -->
+		<!-- / controls --></td>
+	</tr>
+</table>
+
+<!-- begin_forum_message -->
+<table id="message_{message_id}" class="tborder" cellpadding="6"
+	cellspacing="0" border="0" width="100%" align="center">
+	<tr>
+		<td class="tcat"
+			style="font-weight: normal; border-right: 0px;"
+			id="currentPost"><!-- status icon and date -->   {message_created_at} <!-- / status icon and date -->
+
+		</td>
+		<td class="tcat"
+			style="font-weight: normal; border-left: 0px"
+			align="right">
+<span style="display: block; float: right; margin: -1px 5px 0 0;">#{message_n}</span>
+            <!-- begin_forum_message_admin -->
+			<span style="display: block; float: right; margin: -1px 5px 0 0;"><a style="font-size: 11px;"
+			href="{url_main}forum_admin.php?cmd=delete_message&message_id={message_id}"
+			onclick="return confirm('{l_message_delete_confirm}')">{l_delete}</a>
+			</span><!-- end_forum_message_admin -->
+		&nbsp; </td>
+	</tr>
+	<tr valign="top">
+		<td class="alt2" width="145"
+			style="border-top: 0px; border-bottom: 0px">
+		<div id="postmenu_168" 
+			style="float: left; margin-right: 5px; margin-bottom: 3px;"><a
+			class="bigusername img_radius"
+			href="{url_main}search_results.php?display=profile&uid={message_user_id}"><img
+			src="{message_user_photo}" style="" /></a></div>
+		<div style="margin: -2px 0 0;"><a class="bigusername"
+			href="{url_main}search_results.php?display=profile&uid={message_user_id}">{message_user_name}</a>
+		</div>
+		<div class="smallfont" >{l_posts}: {message_user_n_messages}</div>
+		<div class="smallfont">{l_join_date}:<br> {message_user_register}</div>
+		</td>
+		<td class="alt1" id="td_post_168"
+			style="border-right: 1px solid #cad3d8"><!-- begin_forum_message_title -->
+		<div class="smallfont"><img class="inlineimg"
+			src="{url_tmpl_main}img/forum/icon1.gif" alt="{l_default}" border="0" />
+		<strong>{message_title}</strong></div>
+		<hr size="1" style="color: #cad3d8; background-color: #cad3d8" />
+
+		<!-- end_forum_message_title --> <!-- message -->
+                <div id="post_message_168" class="forum_message">
+				{message_message}
+		</div>
+		<!-- / message --></td>
+	</tr>
+	<tr>
+		<td class="alt2" style=" border-top: 0px">
+		<!-- <strong><font color="#1693c5">Online!</font></strong> --> &nbsp;
+		</td>
+		<td class="alt1" align="right"
+			style="border-left: 0px; border-top: 0px">
+		<!-- controls --> <!-- <a href="{url_main}forum_edit_topic.php?topic_id={message_id}"><img src="{url_tmpl_main}img/forum/edit.gif" alt="{l_edit_message}" border="0" /></a> -->
+		<!-- / controls --></td>
+	</tr>
+</table>
+<!-- end_forum_message -->
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+	style="margin-bottom: 3px">
+	<tr valign="bottom">
+		<td class="smallfont"><!-- <a
+			href="{url_main}forum_new_message.php?topic_id={topic_id}"
+			rel="nofollow"><img width="97" height="24" src="{url_main}tmpl_img_loader.php?tmpl={tmpl_loaded}&dirs=img,forum&file=reply.gif&lang={lang_loaded}"
+			alt="{l_post_new_reply}" border="0" /></a> -->
+
+			<input onclick="location.href='{url_main}forum_new_message.php?topic_id={topic_id}'" type="button" value="{l_post_new_reply}" class="btn upper_header_color big" />
+			</td>
+		<td><!-- begin_page_navigator -->
+		<ul>
+			<!-- begin_page_navigator_prev -->
+			<li><a
+				href="{url_main}forum_topic.php?topic_id={topic_id}&page={link_page}">{l_prev_page}</a></li>
+			<!-- end_page_navigator_prev -->
+			<!-- begin_page_navigator_item -->
+			<li><!-- begin_page_navigator_item_normal --><a
+				href="{url_main}forum_topic.php?topic_id={topic_id}&page={link_page}">{link_page}</a><!-- end_page_navigator_item_normal --><!-- begin_page_navigator_item_current --><b>{link_page}</b><!-- end_page_navigator_item_current --></li>
+			<!-- end_page_navigator_item -->
+			<!-- begin_page_navigator_next -->
+			<li><a
+				href="{url_main}forum_topic.php?topic_id={topic_id}&page={link_page}">{l_next_page}</a></li>
+			<!-- end_page_navigator_next -->
+		</ul>
+		<!-- end_page_navigator --></td>
+	</tr>
+</table>
+
+
+
+    </div> <!-- content -->
+
+
+
+    
+
+</div> {footer}

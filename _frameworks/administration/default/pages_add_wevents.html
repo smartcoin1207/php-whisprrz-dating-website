@@ -1,0 +1,30 @@
+{header}
+    
+<div class="frame_content">
+<script type="application/javascript">
+
+	function resizeIFrameToFitContent( iFrame ) {
+
+		const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		//iFrame.width  = vw-25;
+		iFrame.height = vh-250;
+	}
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+
+		var iFrame = document.getElementById( 'wevents' );
+		resizeIFrameToFitContent( iFrame );
+
+		// or, to resize all iframes:
+		var iframes = document.querySelectorAll("iframe");
+		for( var i = 0; i < iframes.length; i++) {
+			resizeIFrameToFitContent( iframes[i] );
+		}
+	} );
+
+</script>
+<iframe id="wevents" style="width:100%;" src="https://whisprrz.com/processing/instructions/edit/1"></iframe>
+</div>
+
+{footer}

@@ -1,0 +1,34 @@
+<!-- begin_message -->
+<div id="general_chat_msg_{message_id}" data-room="{message_room}" data-send="{message_send}" class="msg_item">
+<!-- begin_message_answer -->
+<div class="item answer">
+    <div class="data">
+        <span class="date_msg">{message_date_time_ago}</span>
+    </div>
+    <div class="msg">
+        <div class="info">
+            {message_text}
+        </div>
+        <div class="pic" title="{message_user_name}">
+            <button style="background-image: url({message_user_photo});"></button>
+        </div>
+    </div>
+</div>
+<!-- end_message_answer -->
+<!-- begin_message_responder -->
+<div class="item">
+    <div class="msg">
+        <div class="pic" onclick="redirectUrl('{url_main}{message_profile_link}')" title="{message_user_name}">
+            <button style="background-image: url({message_user_photo});"></button>
+        </div>
+        <div class="info">
+            {message_text}
+        </div>
+    </div>
+    <div class="data">
+        <span class="date_msg">{message_date_time_ago}</span>
+    </div>
+</div>
+<!-- end_message_responder -->
+</div>
+<!-- end_message -->

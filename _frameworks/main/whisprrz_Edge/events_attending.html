@@ -1,0 +1,223 @@
+{header}
+
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+
+<input style="width: 90px;" type="button" value="{l_events_home}" class="button" onclick="location='{url_main}events_index.php';" title="{l_events_home}">
+<input style="width: 120px;" type="button" value="{l_events_posted}" class="button" onclick="location='{url_main}events_posted.php';" title="{l_events_posted}">
+<input style="width: 120px;" type="button" value="{l_events_attending}" class="button active_btn" onclick="location='{url_main}events_attending.php';" title="{l_events_attending}">
+<input style="width: 120px;" type="button" value="{l_events_add_event}" class="button" onclick="location='{url_main}events_create.php';" title="{l_events_add_event}">
+<input style="width: 90px;" type="button" value="{l_events_calendar}" class="button" onclick="location='{url_main}events_clndr.php';" title="{l_events_calendar}">
+<input style="width: 140px;" type="button" value="{l_events_add_clndr}" class="button" onclick="location='{url_main}events_clndr_create.php';" title="{l_events_add_clndr}">
+<br><br><br>
+
+
+<!-- begin_events_list -->
+
+<table width=100% border=0 cellpadding=0 cellspacing=6 class="tbl_friend">
+<tr>
+	<td class="gr_header" valign="top">{l_date}</td>
+	<td class="gr_header" valign="top">{l_time}</td>
+	<td class="gr_header" valign="top">{l_event_description}</td>
+	<td class="gr_header" valign="top">{l_category}</td>
+	<td class="gr_header" valign="top">{l_place_location}</td>
+</tr>
+
+	<!-- begin_events_list_item -->
+
+		<tr>
+			<td class="gr_cell"><b>{date}</b></td>
+			<td class="gr_cell"><b>{time}</b></td>
+			<td class="gr_cell">
+				<table><tr>
+					<td valign="middle" width="290"><h1><a href="events_view.php?eid={id}">{event_name}</a></h1></td>
+					<td valign="middle" width="200"><div class="gr_info">{description}&nbsp;</div> </td>
+				</tr></table>
+		    </td>
+			<td class="gr_cell">{category}</td>
+			<td class="gr_cell">{place}</td>
+		</tr>
+
+	<!-- end_events_list_item -->
+
+</table>
+
+<!-- end_events_list -->
+
+
+
+	    <!-- begin_events_list_pages -->
+
+
+
+			<div class="body_text" style="padding-bottom: 16px; text-align:center;">
+
+
+
+				<!-- begin_events_list_prev_page -->
+
+
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+
+
+
+				<!-- end_events_list_prev_page -->
+
+
+
+				<!-- begin_events_list_prev_page_off -->
+
+
+
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+
+
+
+				<!-- end_events_list_prev_page_off -->
+
+
+
+
+
+
+
+				<!-- begin_events_list_first_page -->
+
+
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+
+
+
+				<!-- end_events_list_first_page -->
+
+
+
+
+
+
+
+				<!-- begin_events_list_prev_pages -->
+
+
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+
+
+
+				<!-- end_events_list_prev_pages -->
+
+
+
+
+
+
+
+				<!-- begin_events_list_page -->
+
+
+
+					<!-- begin_events_list_link_page -->
+
+
+
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+
+
+
+					<!-- end_events_list_link_page -->
+
+
+
+					<!-- begin_events_list_this_page -->
+
+
+
+					<b>{page}</b>
+
+
+
+					<!-- end_events_list_this_page -->
+
+
+
+				<!-- end_events_list_page -->
+
+
+
+
+
+
+
+				<!-- begin_events_list_next_pages -->
+
+
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+
+
+
+				<!-- end_events_list_next_pages -->
+
+
+
+
+
+
+
+				<!-- begin_events_list_last_page -->
+
+
+
+				<b>{l_of}</b> <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+
+
+
+				<!-- end_events_list_last_page -->
+
+
+
+
+
+
+
+				<!-- begin_events_list_next_page -->
+
+
+
+				&nbsp; | &nbsp;<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+
+
+
+				<!-- end_events_list_next_page -->
+
+
+
+				<!-- begin_events_list_next_page_off -->
+
+
+
+				&nbsp; | &nbsp;<b>{l_next}</b>
+
+
+
+				<!-- end_events_list_next_page_off -->
+
+
+
+			</div>
+
+
+
+
+
+
+
+            <!-- end_events_list_pages -->
+
+</div></div></div></div></div></div></div></div></div>
+
+{footer}      
+
+
+

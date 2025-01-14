@@ -1,0 +1,45 @@
+{header}
+<script type="text/javascript" src="{url_tmpl_main}js/vis.js{cache_version_param}"></script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $(window).load(function () {
+        network();
+    });
+
+    $('#btn_reload').click(function(){
+        $('#mygraph').html('<img id="load_animation" class="load_animation" src="{url_tmpl_main}img/load_animation_wall.gif">');
+        network();
+    });
+
+    });
+    function network()
+    {
+        $.ajax({url: 'network.php?cmd=graph',
+                dataType: 'script',
+                success: function(){
+                    $('#load_animation').css('display', 'none');
+                    draw();
+                }
+        });
+    };
+</script>
+
+<div class="frame_content" id="oryx_content">
+  <div class="head_network">
+      <div class="">
+          <strong><span class="txt_lower_header_color">{l_network}</span>
+                  <span class="dot4">::</span>
+                  <span class="txt_upper_header_color"> {l_network_thicker}</span>
+          </strong>
+
+          <input id="btn_reload" style="margin: 6px 0 0;" class="btn round upper_header_color big fl_right" type="button" value="{l_reload}" />
+
+      </div>
+      <div class="cl"></div>
+  </div>
+<div id="mygraph">
+    <img id="load_animation" class="load_animation" src="{url_tmpl_main}img/load_animation_wall.gif">
+</div>
+</div>
+
+{footer}

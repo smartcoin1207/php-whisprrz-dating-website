@@ -1,0 +1,73 @@
+{header}
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+	<div>
+
+	<div style="color:#F00; font-weight:bold;">{message}</div>
+
+<!-- begin_main_items -->
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right">
+            {l_from}
+        </th>
+        <th>{l_header_to}</th>
+        <th class="last">{l_action}</th>
+        <th class="decor_r"></th>
+    </tr>
+
+	<!-- begin_main_item -->
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right"><a target="_blank" href="../search_results.php?display=profile&uid={user_from}">{u_from}</a></td>
+        <td><a target="_blank" href="../search_results.php?display=profile&uid={user_to}">{u_to}</a></td>
+        <td class="last"><!-- begin_reply_action --><a href="{url_page}?cmd=reply&user_to={user_from}&user_from={user_to}">{l_send}</a><!-- end_reply_action --></td>
+        <td class="decor{decr}"></td>
+	</tr>
+	<!-- end_main_item -->
+</table><br />
+<br />
+<!-- end_main_items -->
+
+	    <!-- begin_main_pages -->
+			<div class="body_text" style="padding-bottom: 16px;">
+				<!-- begin_main_prev_page -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+				<!-- end_main_prev_page -->
+				<!-- begin_main_prev_page_off -->
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+				<!-- end_main_prev_page_off -->
+				<!-- begin_main_first_page -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+				<!-- end_main_first_page -->
+				<!-- begin_main_prev_pages -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+				<!-- end_main_prev_pages -->
+				<!-- begin_main_page -->
+					<!-- begin_main_link_page -->
+					<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+					<!-- end_main_link_page -->
+					<!-- begin_main_this_page -->
+					<b>{page}</b>
+					<!-- end_main_this_page -->
+				<!-- end_main_page -->
+				<!-- begin_main_next_pages -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+				<!-- end_main_next_pages -->
+				<!-- begin_main_last_page -->
+				<b>{l_of}</b> <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+				<!-- end_main_last_page -->
+				<!-- begin_main_next_page -->
+				&nbsp; | &nbsp;<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+				<!-- end_main_next_page -->
+				<!-- begin_main_next_page_off -->
+				&nbsp; | &nbsp;<b>{l_next}</b>
+				<!-- end_main_next_page_off -->
+			</div>
+            <!-- end_main_pages -->
+</div></div>
+{footer}

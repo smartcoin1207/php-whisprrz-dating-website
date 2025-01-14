@@ -1,0 +1,78 @@
+{header}
+<script language="javascript" type="text/javascript">
+$(function(){
+    var pay = $('.list_pay li a');
+    pay.click(function(){
+        pay.removeClass('checked');
+        $(this).addClass('checked');
+        $('#system').val($(this).attr('id'));
+        return false;
+    });
+    
+    $('input[type=radio][name=item]').change(function() {
+        //var item=$('#system').val();
+        var item = $('input[name=item]:checked').val();
+        $("#pay_system li").show();
+        $("#pay_system .hide_for_"+item).hide();
+        
+        var currentPay=$('#system').val();
+        if($("#"+currentPay).parent().css('display')=='none'){
+            $("#pay_system li").each(function(){
+                if($(this).css('display')!='none'){
+                    $(this).find('a').click();
+                    return false;
+                }
+            });
+        }
+
+    });
+});
+
+$(document).ready(function(){
+    $('input[type=radio][name=item]').change();
+});
+</script>
+<div  class="frame_content">
+<h2 class="txt_lower_header_color">{l_upgrade}</h2>
+
+                    {l_select_system}<br /><br />
+
+                        <div>
+						<form action="{url_main}upgrade.php?cmd=save" method="post">
+                        <input id="system" type="hidden" name="system" value="{system_default}">
+                        <table class="tb_upgrade">
+                        <col width="8px" />
+						<tr>
+                            <td colspan="3">
+                                <ul class="list_pay" id="pay_system">
+                                    <!-- begin_payment_system -->
+                                        <li style="display:none;" class="{hide_class}"><a id="{system}" class="logo_{system} {system_checked}" href=""></a></li>
+                                    <!-- end_payment_system -->
+                                </ul>
+                            </td>
+                        </tr>
+                        <!-- begin_payment_item_old -->
+						<tr>
+                            <td>
+								<input type="radio" id="gold_{item}" name="item" value="{item}" {payment_checked} />
+							</td>
+							<td width="10"></td>
+							<td>
+								<label for="gold_{item}">{type} {item_name} - <strong>{amount}</strong></label>
+							</td>
+                        </tr>
+						<!-- end_payment_item_old -->
+						</table>
+						<br />
+						<input type="submit" value="{l_do_payment}" class="btn upper_header_color big" />
+						</form>
+                    </div>
+
+</div>
+<!-- begin_payment_error -->
+<script language="javascript" type="text/javascript">
+$(function(){alert('{l_seems_there_problem_payment_processor}')});
+</script>
+<!-- end_payment_error -->
+{footer}
+

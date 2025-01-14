@@ -1,0 +1,208 @@
+<!-- Open_PartyhouZ senior-dev-1019 2024-10-18 -->
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/partyhouz_partyhouz.php">{l_menu_partyhouz}</a></li>
+        <li><a href="{url_main}administration/partyhouz_partyhou_comments.php">{l_menu_partyhou_comments}</a></li>
+        <li><a href="{url_main}administration/partyhouz_categories.php">{l_menu_categories}</a></li>
+        <li><a href="{url_main}administration/partyhouz_category_add.php">{l_menu_categories_add}</a></li>
+        <li class="active"><a href="{url_main}administration/partyhouz_open.php">{l_menu_open_partyhouz}</a></li>
+        <li><a href="{url_main}administration/partyhouz_open_add.php">{l_menu_open_partyhouz_add}</a></li>
+    </ul>
+</div>
+
+<style>
+    #ui-datepicker-div {display: none;}
+</style>
+
+<link rel="stylesheet" href="{url_tmpl_main}css/jquery.datetimepicker.css{cache_version_param}" type="text/css" media="screen">
+<script type="text/javascript" src="{url_tmpl_main}jquery/jquery.datetimepicker.js{cache_version_param}"></script>
+
+<script Language="JavaScript" type="text/javascript">
+var jqTransformDaySelect = true;
+$(document).ready(function(){
+    '{is_disabled}'== '1' ? $("input[name='is_disabled']").prop('checked', true) : $("input[name='is_disabled']").prop('checked', false);
+    '{signin_couples}'== '1' ? $("input[name='signin_couples']").prop('checked', true) : $("input[name='signin_couples']").prop('checked', false);
+    '{signin_females}' == '1' ? $("input[name='signin_females']").prop('checked', true) : $("input[name='signin_females']").prop('checked', false);
+    '{signin_males}' == '1' ? $("input[name='signin_males']").prop('checked', true) : $("input[name='signin_males']").prop('checked', false);
+    '{signin_transgender}' == '1' ? $("input[name='signin_transgender']").prop('checked', true) : $("input[name='signin_transgender']").prop('checked', false);
+    '{signin_nonbinary}' == '1' ? $("input[name='signin_nonbinary']").prop('checked', true) : $("input[name='signin_nonbinary']").prop('checked', false);
+    '{signin_everyone}' == '1' ? $("input[name='signin_everyone']").prop('checked', true) : $("input[name='signin_everyone']").prop('checked', false);
+
+    // Get the checkboxes with the names "signin_females", "signin_males", and "signin_couples"
+    var signin_checkboxes = $('input[type="checkbox"][name="signin_females"], input[type="checkbox"][name="signin_males"], input[type="checkbox"][name="signin_couples"], input[type="checkbox"][name="signin_transgender"], input[type="checkbox"][name="signin_nonbinary"]');
+
+    // Get the "Everyone Allowed" checkbox
+    var signin_everyoneCheckbox = $('input[name="signin_everyone"]');
+
+    // Add a click event listener to all the checkboxes
+    signin_checkboxes.click(function () {
+        // If the "Everyone Allowed" checkbox is checked, uncheck it
+        if (signin_everyoneCheckbox.prop('checked')) {
+            signin_everyoneCheckbox.prop('checked', false);
+        }
+
+        // Check if at least one checkbox is unchecked
+        var isUnchecked = false;
+        signin_checkboxes.each(function () {
+            if (!$(this).prop('checked')) {
+                isUnchecked = true;
+            }
+        });
+
+        // If at least one checkbox is unchecked, uncheck the "Everyone Allowed" checkbox
+        if (isUnchecked) {
+            signin_everyoneCheckbox.prop('checked', false);
+        } else {
+            // If all checkboxes are checked, check the "Everyone Allowed" checkbox
+            signin_everyoneCheckbox.prop('checked', true);
+        }
+    });
+
+    // Add a click event listener to the "Everyone Allowed" checkbox
+    signin_everyoneCheckbox.click(function () {
+        // If the "Everyone Allowed" checkbox is checked, check all the other checkboxes
+        if (signin_everyoneCheckbox.prop('checked')) {
+            signin_checkboxes.prop('checked', true);
+        } else {
+            // If the "Everyone Allowed" checkbox is unchecked, uncheck all the other checkboxes
+            signin_checkboxes.prop('checked', false);
+        }
+    });
+
+    $("#partyhou_date").datepicker({ maxDate: "+10y" });
+
+    setTimeout(function() {
+        $("#partyhou_time").timeEntry({
+            show24Hours: true,
+            spinnerImage: ''
+        });
+    }, 100);
+
+    setTimeout(function() {
+        $("#resets").timeEntry({
+            show24Hours: true,
+            spinnerImage: ''
+        });
+    }, 200);
+
+    $("#open_partyhouz_edit_form").validate({
+        rules: {
+            partyhou_title: "required",
+            partyhou_date: "required",
+            partyhou_time: "required",
+            user_max: "required",
+            resets: "required",
+        },
+        messages: {
+            partyhou_title: "{l_please_specify_partyhou_title}",
+            partyhou_date: "{l_please_specify_partyhou_date}",
+            partyhou_time: "{l_please_specify_partyhou_time}",
+            user_max: "{l_please_specify_user_max}",
+            resets: `{l_please_specify_resets}`,
+        }
+    });
+});
+
+</script>
+<div class="block_main">
+    <h2>{l_title_current} - {category_title}</h2>
+
+    <div class="bl_form">
+
+        <form method="POST" id="open_partyhouz_edit_form" action="{url_main}administration/partyhouz_open_edit.php?cmd=update&open_partyhouz_id={open_partyhouz_id}">
+
+            <div id="bl_label_is_disabled" class="bl_label">
+                <label class="fl_left" for="is_disabled" style="cursor: pointer;">Disable Open Party</label>
+                <div class="fl_right">
+                    <input class="check" type="checkbox" id="is_disabled" name="is_disabled">
+                </div>
+            </div>
+
+            <label>{l_category_title}:</label>
+            <select name="category_id" class="input">
+                {category_options}
+            </select>
+            <label>{l_partyhou_title}*:</label>
+            <input type="text" name="partyhou_title" value="{partyhou_title}">
+    
+            <label>{l_partyhou_description}:</label>
+            <textarea name="partyhou_description" id="partyhou_description" class="textarea_small">{partyhou_description}</textarea>
+            <label>{l_partyhou_date}*:</label>
+            <input type="text" class="partyhou_date" id="partyhou_date" name="partyhou_date" value="{partyhou_date}">
+            <label>{l_partyhou_time}*:</label>
+            <input id="partyhou_time" autocomplete=off name="partyhou_time" type="text" value="{partyhou_time}"/>
+            
+            <label>{l_country}:</label>
+            <select class="input" name="country" id="country" onchange="xajax_states(country.value)">
+            {country_options}
+            </select>
+    
+            <label>{l_state}:</label>
+            <select class="input" name="state" id="state" onchange="xajax_cities(state.value)">
+            <option value="-1">- {l_state_province} -</option>
+            {state_options}
+            </select>
+    
+            <label>{l_city}:</label>
+            <select class="input" name="city" id="city">
+            <option value="-1">- {l_city} -</option>
+            {city_options}
+            </select>
+            <!-- <label>{l_partyhou_address}:</label>
+            <input type="text" name="partyhou_address" value="{partyhou_address}"> -->
+            
+            <label>{l_allowed_gender}</label>
+            <div id="bl_label_signin_couples" class="bl_label">
+                <label class="fl_left" for="signin_couples" style="cursor: pointer;">Couples Allowed</label>
+                <div class="fl_right">
+                    <input class="check" type="checkbox" id="signin_couples" name="signin_couples">
+                </div>
+            </div>
+            <div id="bl_label_signin_females" class="bl_label">
+                <label class="fl_left" for="signin_females" style="cursor: pointer;">Females Allowed</label>
+                <div class="fl_right">
+                    <input class="check" type="checkbox" id="signin_females" name="signin_females">
+                </div>
+            </div>
+            <div id="bl_label_signin_males" class="bl_label">
+                <label class="fl_left" for="signin_males" style="cursor: pointer;">Males Allowed</label>
+                <div class="fl_right">
+                    <input class="check" type="checkbox" id="signin_males" name="signin_males">
+                </div>
+            </div>
+            <div id="bl_label_signin_transgender" class="bl_label">
+                <label class="fl_left" for="signin_transgender" style="cursor: pointer;">Transgender Allowed</label>
+                <div class="fl_right">
+                    <input class="check" type="checkbox" id="signin_transgender" name="signin_transgender">
+                </div>
+            </div>
+            <div id="bl_label_signin_nonbinary" class="bl_label">
+                <label class="fl_left" for="signin_nonbinary" style="cursor: pointer;">Non-binary Allowed</label>
+                <div class="fl_right">
+                    <input class="check" type="checkbox" id="signin_nonbinary" name="signin_nonbinary">
+                </div>
+            </div>
+            <div id="bl_label_signin_everyone" class="bl_label">
+                <label class="fl_left" for="signin_everyone" style="cursor: pointer;">Everyone Allowed</label>
+                <div class="fl_right">
+                    <input class="check" type="checkbox" id="signin_everyone" name="signin_everyone">
+                </div>
+            </div>
+            
+            <label>{l_user_max}*:</label>
+            <input type="text" name="user_max" value="{user_max}">
+            
+            <label>{l_resets}*:</label>
+            <input id="resets" autocomplete=off name="resets" type="text" value="{resets}"/>
+            
+    
+            <div class="btn fl_right"><a href="#" class="submit">{l_save_changes}</a>
+                <input type="submit" style="visibility:hidden;position:absolute;">
+            </div> 
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

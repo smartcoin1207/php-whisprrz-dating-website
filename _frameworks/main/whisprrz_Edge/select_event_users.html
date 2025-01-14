@@ -1,0 +1,250 @@
+{header}
+<style>
+/*.wrapper {overflow: visible;}*/
+
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination b {
+        color: black;
+        padding: 4px 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        background: #eee;
+    }
+
+    .pagination a {
+        color: black;
+        padding: 4px 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    .pagination a.active,
+    .pagination b {
+        background: linear-gradient(#a6df11, #498f00);
+        color: white;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+    }
+
+    custom-swal2-input {
+        box-sizing: border-box;
+        width: 95%;
+        transition: border-color .1s, box-shadow .1s;
+        border: 1px solid #d9d9d9;
+        border-radius: .1875em;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .06), 0 0 0 3px rgba(0, 0, 0, 0);
+        color: inherit;
+        font-size: 1.125em;
+        height: 2.625em;
+        padding: 0 .75em;
+        margin: 0.5em 0em 3px;
+    }
+    
+    .userlist-column {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two columns */
+      grid-auto-rows: auto; /* Automatically adjust the row height */
+    }
+</style>
+
+<script src="{url_tmpl_administration}js/jquery.autocomplete.js"></script>
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+    alert("{message}");
+    }
+
+    var selected_members = [];
+    $(document).ready(function(){
+        <!-- begin_script -->
+            $('.userlist-column').css('grid-template-columns', 'repeat({user_list_column}, 1fr)');
+        <!-- end_script -->
+
+        var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            } else{
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function(){
+            CBoxNote($(this), $('[id ^= chk_]'));
+            var isAllChecked = $(this).prop('checked');
+        });
+
+        $("#display_per_page").change(function () {
+            var val = $(this).val();
+            window.location.href = "{url_page}&display_p=" + val;
+        });
+
+        $('#search_box').autocomplete({
+            lookup: function (query, done) {
+                $.ajax({
+                    url: "ajax_custom.php?cmd=auto_suggest&q=" + query,
+                    dataType: "json",
+                    type: "POST",
+                    beforeSend: function () {
+                    },
+                    success: function (data) {
+                        done(data);
+                    }
+                });
+            },
+            onSelect: function (suggestion) {
+            }
+        });
+    });
+
+    function save_all (){
+        location.href = "{url_page}&save=all";
+    }
+
+    function clear_all() {
+        location.href = "{url_page}&clear=all";
+    }
+
+    function return_back() {
+        location.href = "{url_event_mail}";
+    }
+
+    function getCheckedUsers() {
+        const checkedUsers = [];
+        const checkboxes = document.querySelectorAll('form[name="SelectEventUsers"] input[type="checkbox"]:checked');
+        
+        checkboxes.forEach(function(checkbox) {
+            const userId = checkbox.name.match(/\d+/)[0]; // Extract numeric ID from name attribute
+            checkedUsers.push(userId);
+        });
+
+        console.log(checkedUsers); // Output checked user IDs to the console
+        return checkedUsers;
+    }
+
+    function saveUsersList() {
+        var checkedUsers = getCheckedUsers();
+
+        return Swal.fire({
+            title: 'Enter UserList Title',
+            input: 'text',
+            inputPlaceholder: 'Enter UserList Title',
+            showCancelButton: true,          // Show the "No" button
+            confirmButtonText: 'Yes',         // Text for the "Yes" button
+            cancelButtonText: 'No',           // Text for the "No" button
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to enter a title!'; // Validation if input is empty
+                }
+            }
+        }).then((result) => {
+            if (result.value && result.isConfirmed) {
+                return $.ajax({
+                    url: "{url_page}",
+                    data: { cmd: "save_user_list", title: result.value, users: checkedUsers },
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status === "success") {
+                            console.log(data?.users);
+                            return true;  // Successful result
+                        } else {
+                            console.log("Failed");
+                            return false;  // Failed result
+                        }
+                    },
+                    error: function () {
+                        alert('error');
+                        return false;  // Error result
+                    }
+                });
+            } else {
+                return false;  // No value entered
+            }
+        });
+    }
+</script>
+<div class="frame_content">
+    <!-- {selected_members_session} -->
+    <table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
+        <tr>
+            <td style=" margin-bottom: 5px;">
+                <h4 style="border: 0; margin-bottom: 0;">{l_title_current}</h4>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 100%; margin-bottom: 15px;">
+        <tr>
+            <input class="btn blue" style="margin-right: 20px;" onclick="return_back(); " value="{l_back}">
+            <input class="btn blue" style="width: 100px; float: right;" onclick="saveUsersList();" value="{l_save}">
+        </tr>
+    </table>
+
+    <div class="flex-header">
+        <div class="field_checkbox custom_checkbox">
+            <input id="all" type="checkbox">
+            <label id="checkall_label" for="all"><span></span>{l_check_all}</label>
+        </div>
+
+        <select id="display_per_page" class="form-select">
+            {page_option}
+        </select>
+    </div>
+
+    <div id="user_lists" style="border-top: 1px black solid; margin-top: 5px;">
+        <form method="POST" name="SelectEventUsers">
+            <input hidden text name="cmd" value="save">
+            <div class="userlist-column" style="margin-top: 10px;">
+                <!-- begin_main_item -->
+                <div class="form-group field_checkbox custom_checkbox">
+                    <input id="chk_{user_id}" name="users[{user_id}]" type="checkbox" value="1">
+                    <label for="chk_{user_id}"><span></span>{name}</label>
+                </div>
+                <!-- end_main_item -->
+            </div>
+        </form>
+    </div>
+    <td style="width: 65%; line-height: 15px;" >
+        <!-- begin_main_pages -->
+        <div style="text-align: center;" class="pagination">
+            <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}">{l_prev}</a>
+            <!-- end_main_prev_page -->
+            <!-- begin_main_prev_page_off --><span style="margin: auto 0;">{l_prev}</span> <!-- end_main_prev_page_off -->
+            <!-- begin_main_first_page --><a
+                href="{url_page}?offset={offset}">{l_page_1}</a><!-- end_main_first_page -->
+            <!-- begin_main_prev_pages --><a
+                href="{url_page}?offset={offset}">&lt;&lt;</a><!-- end_main_prev_pages -->
+            <!-- begin_main_page -->
+            <!-- begin_main_link_page --><a
+                href="{url_page}?offset={offset}">{page}</a><!-- end_main_link_page -->
+            <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+            <!-- end_main_page -->
+            <!-- begin_main_next_pages --><a
+                href="{url_page}?offset={offset}">&gt;&gt;</a><!-- end_main_next_pages -->
+            <!-- begin_main_last_page --><b>{l_of}</b> <a
+                href="{url_page}?offset={offset}">{num_pages}</a><!-- end_main_last_page -->
+            <!-- begin_main_next_page --> <a
+                href="{url_page}?offset={offset}">{l_next}</a><!-- end_main_next_page -->
+            <!-- begin_main_next_page_off --> <span style="margin: auto 0;">{l_next}</span><!-- end_main_next_page_off -->
+        </div>
+        <!-- end_main_pages -->
+    </td>
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_users}</div>
+    <!-- end_main_noitems -->
+  
+    <div class="empty"></div>
+</div>
+{footer}

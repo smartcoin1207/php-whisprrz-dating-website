@@ -1,0 +1,89 @@
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/template.php?part={part}">{l_tmpls_list}</a></li>
+        <!-- begin_mtmpl -->
+        <li <!-- begin_mtmpl_on --> class="active"<!-- end_mtmpl_on -->><a href="{url_main}administration/template_edit.php?part={part}&tmpl={tmpl_link}">{title}</a></li>
+        <!-- end_mtmpl -->
+    </ul>
+
+    <ul class="lmenu_red">
+        <!-- begin_menu_settings -->
+        <li <!-- begin_menu_settings_on -->class="active"<!-- end_menu_settings_on -->><a href="{url_main}administration/template_settings.php?part={part}&tmpl={tmpl_this}">{l_tmpl_settings}</a></li>
+        <!-- end_menu_settings -->
+        <!-- begin_area -->
+            <!-- begin_area_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area}">{title}</a></li>
+            <!-- end_area_off -->
+            <!-- begin_area_on -->
+                <li <!-- begin_main_area_on -->class="active"<!-- end_main_area_on -->><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area}">{title}</a></li>
+                <!-- begin_pages_on -->
+                <li class="active"><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}">{l_pages}</a></li>
+                <!-- end_pages_on -->
+                <!-- begin_pages_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}">{l_pages}</a></li>
+                <!-- end_pages_off -->
+                <!-- begin_css_on -->
+                <li class="active"><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=css">{l_css}</a></li>
+                <!-- end_css_on -->
+                <!-- begin_css_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=css">{l_css}</a></li>
+                <!-- end_css_off -->
+                <!-- begin_js_on -->
+                <li class="active"><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=js">{l_js}</a></li>
+                <!-- end_js_on -->
+                <!-- begin_js_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=js">{l_js}</a></li>
+                <!-- end_js_off -->
+                <!--<!-- begin_images_on -->
+                <li class="active"><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=images">{l_images}</a></li>
+                <!-- end_images_on -->
+                <!-- begin_images_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=images">{l_images}</a></li>
+                <!-- end_images_off -->-->
+            <!-- end_area_on -->
+        <!-- end_area -->
+    </ul>
+    <ul class="lmenu_blue">
+        <!-- begin_tmpl_edit -->
+            <!-- begin_tmpl -->
+                <!-- begin_tmpl_on -->
+                <li class="active"><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_page={tmpl_page}" title = "{tmpl_page}" >{title}</a></li>
+                <!-- end_tmpl_on -->
+                <!-- begin_tmpl_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_page={tmpl_page}" title = "{tmpl_page}">{title}</a></li>
+                <!-- end_tmpl_off -->
+            <!-- end_tmpl -->
+        <!-- end_tmpl_edit -->
+
+        <!-- begin_css_edit -->
+            <!-- begin_css_page -->
+                <!-- begin_css_page_on -->
+                <li class="active"><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=css&tmpl_page={tmpl_page}" title = "{tmpl_page}">{title}</a></li>
+                <!-- end_css_page_on -->
+                <!-- begin_css_page_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=css&tmpl_page={tmpl_page}" title = "{tmpl_page}">{title}</a></li>
+                <!-- end_css_page_off -->
+            <!-- end_css_page -->
+        <!-- end_css_edit -->
+
+        <!-- begin_js_edit -->
+            <!-- begin_js_page -->
+                <!-- begin_js_page_on -->
+                <li class="active"><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=js&tmpl_page={tmpl_page}" title = "{tmpl_page}">{title}</a></li>
+                <!-- end_js_page_on -->
+                <!-- begin_js_page_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=js&tmpl_page={tmpl_page}" title = "{tmpl_page}">{title}</a></li>
+                <!-- end_js_page_off -->
+            <!-- end_js_page -->
+        <!-- end_js_edit -->
+
+        <!-- begin_popup_edit -->
+            <!-- begin_popup_page -->
+                <!-- begin_popup_page_on -->
+                <li class="active"><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=popup&tmpl_page={tmpl_page}" title = "{tmpl_page}">{title}</a></li>
+                <!-- end_popup_page_on -->
+                <!-- begin_popup_page_off -->
+                <li><a href="template_edit.php?part={part}&tmpl={tmpl_this}&tmpl_area={tmpl_area_this}&tmpl_type=popup&tmpl_page={tmpl_page}" title = "{tmpl_page}">{title}</a></li>
+                <!-- end_popup_page_off -->
+            <!-- end_popup_page -->
+        <!-- end_popup_edit -->
+    </ul>

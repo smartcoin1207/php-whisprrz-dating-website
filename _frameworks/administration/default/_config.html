@@ -1,0 +1,974 @@
+<style>
+    <style>
+                .dropbtn {
+                    background-color: #3498DB;
+                    color: white;
+                    padding: 16px;
+                    font-size: 16px;
+                    border: none;
+                    cursor: pointer;
+                }
+
+                .dropbtn:hover,
+                .dropbtn:focus {
+                    background-color: #2980B9;
+                }
+
+                .dropbtn:hover,
+                .dropbtn:focus {
+                    background-color: #e0e0e0;
+                }
+
+                .dropbtn {
+                    background-color: #3498db00;
+                    color: #000;
+/*                    padding: 6px;*/
+                    font-size: 12px;
+                    border: none;
+                    cursor: pointer;
+                }
+
+
+                .dropdown {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                }
+
+                .dropdown-content {
+                    display: none;
+                
+                }
+
+
+
+                .dropdown-content.show {
+                    opacity: 1;
+                }
+
+                .dropdown a:hover {
+                    background-color: #ddd;
+                }
+
+                .show {
+                    display: block;
+                }
+</style>
+<script>
+
+$(function(){
+    /* Video main page urban */
+    var $viewMainPage=$('#map_on_main_page_urban, #main_page_background_type');
+    if($viewMainPage[0]){
+
+        var COptions = function() {
+
+            var $this=this;
+
+            this.hideCheckbox = function(el){
+                if(el[0])el.closest('.bl_label').hide();
+            }
+            this.showCheckbox = function(el){
+                if(el[0])el.closest('.bl_label').show();
+            }
+            this.hideSelectPrev = function(el){
+                if(el[0])el.hide().prev('label').hide().end().next('a').hide();
+            }
+            this.showSelectPrev = function(el){
+                if(el[0])el.show().prev('label').show().end().next('a').show();
+            }
+            //Select Text
+            this.hideInput = function(el){
+                if(el[0]){
+                    if (el.prev('.label_desc')[0]) {
+                        el.hide().prev('.label_desc').hide().prev('label').hide();
+                    } else {
+                        el.hide().prev('label').hide();
+                    }
+                }
+            }
+            this.showInput = function(el){
+                if(el[0]){
+                    if (el.prev('.label_desc')[0]) {
+                        el.show().prev('.label_desc').show().prev('label').show();
+                    } else {
+                        el.show().prev('label').show();
+                    }
+                }
+            }
+            this.hideColor = function(el){
+                el.hide();
+            }
+            this.showColor = function(el){
+                el.show();
+            }
+            this.combine = function(groupOptions, groups){
+                var obj={};
+                groups.forEach(function(key) {
+                    obj=$.extend(obj, groupOptions[key]);
+                });
+                return obj;
+            }
+            this.prepare = function(options, type){
+                for (var el in options) {
+                    var fn=(type||'hide')+options[el];
+                    $this[fn]($(el));
+                }
+            }
+            this.initOptions = function(groupOptions, notAllowOptions,type){
+                cOptions.prepare(notAllowOptions[type]);
+                cOptions.prepare(groupOptions[type], 'show');
+            }
+
+            return this;
+        }
+
+        var cOptions = new COptions();
+
+        var $code=$('#input_main_page_urban_video_code, #input_main_page_video_code'),
+            $mute=$('#option_main_page_urban_video_mute, #option_main_page_video_mute'),
+            $volume=$('#main_page_urban_video_volume, #main_page_video_volume'),
+            $videoOnce=$('#option_main_page_urban_video_show_video_once, #option_main_page_video_show_video_once'),
+            $image=$('#image_main_page_urban, #main_page_image'),
+            $imageImpact=$('#image_main_page_impact'),
+            $imageRatio=$('#input_image_main_page_compression_ratio_urban, #input_main_page_image_compression_ratio'),
+            $imageUpload=$('#upload_image_main_page_urban, #main_page_image_upload'),
+            $imageBg=$('.field_background_color_urban, .block_bg_image'),
+            type=$viewMainPage.val(),
+            $animated=$('#main_page_urban_animated'),
+            $videoStopOnJoin=$('#option_main_page_video_stop_on_join_page');
+            //$mapsService=$('#maps_service');
+
+        var groupOptions = {
+            video : {
+                '#input_main_page_urban_video_code':'Input',
+                '#option_main_page_urban_video_mute':'Checkbox',
+                '#main_page_urban_video_volume':'Input',
+                '#option_main_page_urban_video_show_video_once':'Checkbox',
+                '#option_main_page_video_stop_on_join_page':'Checkbox',
+           } ,
+           color: {
+                '.field_background_color_urban':'Color',
+           },
+           image : {
+                '#image_main_page_urban':'SelectPrev',
+                '#input_image_main_page_compression_ratio_urban':'Input',
+                '#upload_image_main_page_urban':'Input',
+           },
+           animated: {
+                '#main_page_urban_animated':'SelectPrev',
+           },
+           map : {
+                '#maps_service':'SelectPrev',
+           }
+        }
+        var notAllowOptions = {
+            map: cOptions.combine(groupOptions, ['video', 'color', 'image', 'animated']),
+        };
+
+        //Test чтоб переделать потом а то не удобно уже становится
+        if (type=='map') {
+            cOptions.initOptions(groupOptions, notAllowOptions, type);
+        }
+
+        if(type=='animated'){
+            hideInput($code);
+            hideCheckbox($mute);
+            hideInput($volume);
+            hideCheckbox($videoOnce);
+            hideCheckbox($videoStopOnJoin);
+
+            hideColor($imageBg);
+            hideSelectPrev($image);
+            hideInput($imageRatio);
+            hideInput($imageUpload);
+            //hideSelectPrev($mapsService);
+        }else if(type=='image'){
+            hideInput($code);
+            hideCheckbox($mute);
+            hideInput($volume);
+            hideCheckbox($videoOnce);
+            hideSelectPrev($animated);
+            hideCheckbox($videoStopOnJoin);
+         }else if(type=='random_image'){
+            hideInput($code);
+            hideCheckbox($mute);
+            hideInput($volume);
+            hideCheckbox($videoOnce);
+            hideSelectPrev($animated);
+            hideCheckbox($videoStopOnJoin);
+        } else {
+            hideColor($imageBg);
+            hideSelectPrev($image);
+            hideSelectPrev($imageImpact);
+            hideInput($imageRatio);
+            hideInput($imageUpload);
+            hideSelectPrev($animated);
+        }
+        $viewMainPage.change(function(){
+            if (this.value=='map') {
+                //Test чтоб переделать потом а то не удобно уже становится
+                cOptions.initOptions(groupOptions, notAllowOptions, this.value);
+            }else if(this.value=='video'){
+                showInput($code);
+                showCheckbox($mute);
+                showInput($volume);
+                showCheckbox($videoOnce);
+                showCheckbox($videoStopOnJoin);
+
+                hideColor($imageBg);
+                hideSelectPrev($image);
+                hideSelectPrev($imageImpact);
+                hideInput($imageRatio);
+                hideInput($imageUpload);
+
+                hideSelectPrev($animated);
+                //hideSelectPrev($mapsService);
+            }else if (this.value=='image'){
+                showColor($imageBg);
+                showSelectPrev($image);
+                showSelectPrev($imageImpact);
+                showInput($imageRatio);
+                showInput($imageUpload);
+
+                hideInput($code);
+                hideCheckbox($mute);
+                hideInput($volume);
+                hideCheckbox($videoOnce);
+
+                hideSelectPrev($animated);
+                hideCheckbox($videoStopOnJoin);
+                //hideSelectPrev($mapsService);
+            }else if (this.value=='random_image'){
+                showColor($imageBg);
+                showSelectPrev($image);
+                showSelectPrev($imageImpact);
+                showInput($imageRatio);
+                showInput($imageUpload);
+
+                hideInput($code);
+                hideCheckbox($mute);
+                hideInput($volume);
+                hideCheckbox($videoOnce);
+
+                hideSelectPrev($animated);
+                hideCheckbox($videoStopOnJoin);
+                //hideSelectPrev($mapsService);
+            }else{
+                hideInput($code);
+                hideCheckbox($mute);
+                hideInput($volume);
+                hideCheckbox($videoOnce);
+
+                hideColor($imageBg);
+                hideSelectPrev($image);
+                hideInput($imageRatio);
+                hideInput($imageUpload);
+                showSelectPrev($animated);
+                hideCheckbox($videoStopOnJoin);
+                //hideSelectPrev($mapsService);
+            }
+        })
+    }
+    /* Video main page urban */
+    /* App */
+    $('#option_app_ios_active, #option_app_android_active').click(function(){
+        var $el=$(this),
+            $url=~this.id.indexOf('ios')?$('#input_app_ios_url'):$('#input_app_android_url');
+        if($el.prop('checked')&&!trim($url.val())){
+            $el.prop('checked', false);
+            $url.focus();
+            alert('{l_url_application_is_empty}');
+        }
+    })
+    $('#input_app_ios_url, #input_app_android_url').on('change propertychange input', function(){
+        var $chk=~this.id.indexOf('ios')?$('#option_app_ios_active'):$('#option_app_android_active');
+        if(!trim($(this).val()))$chk.prop('checked', false);
+    })
+    /* App */
+
+    /* Translator */
+    if ($('#option_autotranslator_enabled').prop('checked')) {
+        showInput($('#input_autotranslator_key'));
+        showCheckbox($('#option_autotranslator_show_original'));
+    } else {
+        hideInput($('#input_autotranslator_key'));
+        hideCheckbox($('#option_autotranslator_show_original'));
+    }
+
+    $('input[name="option[pic_click_mode_on_map]"]').on('click change', function(e) {
+        if($("#option_pic_click_mode_on_map_single").is(':checked')) {
+            hideInput($('#input_long_click_time'));
+        }
+        if($("#option_pic_click_mode_on_map_long").is(':checked')) {
+            showInput($('#input_long_click_time'));
+        }
+    });
+
+    if($("#option_pic_click_mode_on_map_single").is(':checked')) {
+        hideInput($('#input_long_click_time'));
+    }
+    if($("#option_pic_click_mode_on_map_long").is(':checked')) {
+        showInput($('#input_long_click_time'));
+    }
+
+    
+
+    $('#option_autotranslator_enabled').click(function(){
+        var $el=$(this);
+        if($el.prop('checked')){
+            showInput($('#input_autotranslator_key'));
+            showCheckbox($('#option_autotranslator_show_original'));
+        } else {
+            hideInput($('#input_autotranslator_key'));
+            hideCheckbox($('#option_autotranslator_show_original'));
+        }
+    });
+
+
+    if($('#watermark_type').val()=='text'){
+        showInput($('#input_logo'));
+        showInput($('#input_logo_size'));
+        hideSelectPrev($('#watermark_position'));
+        $('#watermark_params').hide();
+    } else {
+        hideInput($('#input_logo'));
+        hideInput($('#input_logo_size'));
+        showSelectPrev($('#watermark_position'));
+        $('#watermark_params').show();
+    }
+
+    $('#watermark_type').click(function(){
+        var $el=$(this);
+        if($el.val()=='text'){
+            showInput($('#input_logo'));
+            showInput($('#input_logo_size'));
+            hideSelectPrev($('#watermark_position'));
+            $('#watermark_params').hide();
+        } else {
+            hideInput($('#input_logo'));
+            hideInput($('#input_logo_size'));
+            showSelectPrev($('#watermark_position'));
+            $('#watermark_params').show();
+        }
+    });
+
+    /* Translator */
+    var map_service = $('#maps_service').val();
+    if (map_service == 'Bing') {
+        showInput($('#input_bing_apikey'));
+        hideInput($('#input_google_apikey'));
+    } else {
+        showInput($('#input_google_apikey'));
+        hideInput($('#input_bing_apikey'));
+    }
+    $('#maps_service').change(function() {
+        var map_service = $('#maps_service').val();
+        if (map_service == 'Bing') {
+            showInput($('#input_bing_apikey'));
+            hideInput($('#input_google_apikey'));
+        } else {
+            showInput($('#input_google_apikey'));
+            hideInput($('#input_bing_apikey'));
+        }
+    });
+
+    var locationTitle = $("#option_default_title_with_location_urban_location").prop("checked");
+    if(locationTitle){
+        showSelectPrev($("#title_location_urban"));
+    } else {
+        hideSelectPrev($("#title_location_urban"));
+    }
+    $("#option_default_title_with_location_urban_location, #option_default_title_with_location_urban_title").change(function() {
+        var locationTitle = $("#option_default_title_with_location_urban_location").prop("checked");
+        if(locationTitle){
+            showSelectPrev($("#title_location_urban"));
+        } else {
+            hideSelectPrev($("#title_location_urban"));
+        }
+    });
+
+    /* WebRtc */
+    $('#type_media_chat').change(function(){
+        var val=$(this).val(),
+            sel={0:'#input_webrtc_camera_resolution_width_min', 1:'#input_webrtc_camera_resolution_width_ideal', 2:'#input_webrtc_camera_resolution_width_max',
+                 3:'#input_webrtc_framerate_min', 4:'#input_webrtc_framerate_ideal', 5:'#input_webrtc_framerate_max'};
+
+        for (var k in sel) {
+            if(val == 'webrtc'){
+                showInput($(sel[k]));
+            } else {
+                hideInput($(sel[k]));
+            }
+        }
+    }).change();
+    /* WebRtc */
+
+
+});
+function hideCheckbox(el){
+    if(el[0])el.closest('.bl_label').hide();
+}
+function showCheckbox(el){
+    if(el[0])el.closest('.bl_label').show();
+}
+
+function hideSelectPrev(el){
+    if(el[0])el.hide().prev('label').hide().end().next('a').hide();
+}
+function showSelectPrev(el){
+    if(el[0])el.show().prev('label').show().end().next('a').show();
+}
+
+//Select Text
+function hideInput(el){
+    if(el[0]){
+        if (el.prev('.label_desc')[0]) {
+            el.hide().prev('.label_desc').hide().prev('label').hide();
+        } else {
+            el.hide().prev('label').hide();
+        }
+    }
+}
+function showInput(el){
+    if(el[0]){
+        if (el.prev('.label_desc')[0]) {
+            el.show().prev('.label_desc').show().prev('label').show();
+        } else {
+            el.show().prev('label').show();
+        }
+    }
+}
+
+function hideColor(el){
+    el.hide();
+}
+function showColor(el){
+    el.show();
+}
+
+function dropdown_click(button) {
+    var dropdown = button.parentNode;
+    var dropdownContent = button.nextElementSibling;
+    dropdownContent.classList.toggle("show");
+}
+
+// document.addEventListener("click", function (event) {
+//     var dropdowns = document.getElementsByClassName("dropdown");
+
+//     for (var i = 0; i < dropdowns.length; i++) {
+//         var dropdown = dropdowns[i];
+
+//         if (!dropdown.contains(event.target)) {
+
+//             var dropdownContent1 = dropdown.querySelector('.dropdown-content');
+//             dropdownContent1.classList.remove("show");
+//         }
+//     }
+// });
+</script>
+
+<div style="padding-top: 20px;"></div>
+
+<!-- begin_section_dropdown -->
+
+    <!-- begin_section_dropdown_start -->
+    <div class="dropdown">
+        <div onclick="dropdown_click(this)" class="dropbtn" style="position: relative;">
+            <h2>{section_dropdown_name}</h2>
+        </div>
+        <div class="dropdown-content">
+    <!-- end_section_dropdown_start -->
+
+    <!-- begin_item -->
+        <!-- begin_item_group_options_start -->
+        <div class="group_decor_arrow group_arrow_{item_group_options_init}"></div>
+        <div class="group_options group_{item_group_options_init}">
+            <div class="decor_top"></div>
+        <!-- end_item_group_options_start -->
+        
+        <!-- begin_item_section -->
+        <h3>{section_name}</h3>
+        <!-- end_item_section -->
+        
+        <!-- begin_item_title -->
+        <label id="label_{option}">{label}:</label>
+        <!-- end_item_title -->
+        
+        <!-- begin_item_label -->
+        <div class="label">{value}</div>
+        <div style="clear: both;"></div>
+        <!-- end_item_label -->
+        
+        <!-- begin_item_text -->
+        <div class="label_desc">{label_desc}</div>
+        <input <!-- begin_item_text_max_length -->maxlength="{item_text_max_length}"<!-- end_item_text_max_length --> id="input_{option}" type="text" name="option[{option}]" value="{value}">
+        <!-- end_item_text -->
+        
+        <!-- begin_item_number -->
+        <div id="label_desc_{option}" class="label_desc">{label_desc}</div>
+        <input id="input_{option}" type="number" min="1" max="{item_number_max}" name="option[{option}]" value="{value}">
+        <!-- end_item_number -->
+        
+        <!-- begin_item_textarea -->
+        <textarea class="config_textarea" name="option[{option}]">{value}</textarea>
+        <!-- end_item_textarea -->
+        
+        <!-- begin_item_password -->
+        <input type="password" name="option[{option}]">
+        <!-- end_item_password -->
+        
+        <!-- begin_item_file -->
+            <div class="label_desc">{label_desc}</div>
+            <input id="{option}" name="{option}" type="file"/>
+            <!-- begin_item_upload_image_js -->
+            <script type="text/javascript">
+            $(function(){
+                $("#{option}").change(function(){
+                    var home_page = $("#option_restore_{option}");
+                    if(home_page.is(':checked')) {
+                        home_page.removeAttr('checked');
+                    }
+                });
+            });
+            </script>
+            <!-- end_item_upload_image_js -->
+        <!-- end_item_file -->
+        
+        <!-- begin_item_checkbox -->
+            <div id="bl_label_{option}" class="bl_label">
+                <input type="hidden" name="option[{option}]" value="N">
+                <label class="fl_left" for="option_{option}" style="cursor: pointer;">{label}</label>
+                <div class="fl_right"><input class="check" type="checkbox" id="option_{option}" name="option[{option}]" value="Y" {checked} ></div>
+                <div class="label_desc label_desc_checkbox">{label_desc}</div>
+                <div class="cl"></div>
+            </div>
+            <!-- begin_recaptcha_enabled -->
+            <script>
+            $(function(){
+                $("#option_recaptcha_enabled").change(function(){
+                    var checked=$(this).prop('checked'),
+                        siteKey=$.trim($('#input_recaptcha_site_key').val()),
+                        secretKey=$.trim($('#input_recaptcha_secret_key').val());
+                    if((!siteKey||!secretKey)&&checked){
+                        $(this).prop('checked',false);
+                        alert('{l_recaptcha_field_must_be_filled}');
+                    }
+                });
+            });
+            </script>
+            <div style="clear: both; position: relative; top:-10px;">{l_recaptcha_get_the_keys}</div>
+            <div class="cl"></div>
+            <!-- end_recaptcha_enabled -->
+        <!-- end_item_checkbox -->
+        
+        <!-- begin_item_selectbox -->
+            <select id="{option}" class="input <!-- begin_item_background_class -->input_background_config<!-- end_item_background_class -->" name="option[{option}]">{selectbox_options}</select>
+            <!-- begin_info_timezone -->
+            <script type="text/javascript">
+                $('#{option}').change(function(){
+                    var zone = $(this).val();
+                    $.post('{url_administration}ajax.php', {cmd: 'timezone', zone: zone}, function(data) {
+                        $('#info_timezone').html(data);
+                    });
+                });
+            </script>
+            <div id="info_timezone" style="margin-top: -12px; margin-left: 2px;">{info_timezone}</div>
+            <!-- end_info_timezone -->
+
+            <!-- begin_item_schema_color_js -->
+            <script type="text/javascript">
+            var colors = {
+                <!-- begin_item_color_value -->
+                '{title_color}': {upper: '{value_upper}', lower: '{value_lower}'},
+                <!-- end_item_color_value -->
+            }
+            
+            <!-- begin_item_color_scheme_by_config -->
+            var colors = {item_color_scheme_by_config};
+            <!-- end_item_color_scheme_by_config -->
+            
+            $(function(){
+                $("#{option}").change(function(){
+                    var key = $(this).val();
+                    var fieldType = '';
+                    if (key != 'custom') {
+                        $("#upper_header_color_oryx").spectrum("set", colors[key]['upper']);
+                        $("#lower_header_color_oryx").spectrum("set", colors[key]['lower']);
+                        for(index in colors[key]) {
+                            var itemSelector = '[name="option[' + index + ']"]';
+                            if(in_array_key('type', colors[key][index])) {
+                                fieldType = colors[key][index]['type'];
+                                if(fieldType == 'checkbox') {
+                                    $(itemSelector).prop('checked', colors[key][index]['value'] == 'Y' ? true : false);
+                                } else if (fieldType == 'select') {
+                                    $(itemSelector).val(colors[key][index]['value']);
+                                }
+                            } else {
+                                $(itemSelector).spectrum("set", colors[key][index]);
+                            }
+                        }
+                    }
+                });
+            });
+            </script>
+            <!-- end_item_schema_color_js -->
+        
+            <!-- begin_item_background_preview_js -->
+            <div class="block_bg_image">
+                <div id="{option}_preview" class="block_bg_image_img to_show"></div>
+                <img id="{option}_loader" class="block_bg_image_loader" src="{url_tmpl_administration}images/loader_bg_grey.gif">
+            </div>
+            
+            <script type="text/javascript">
+            $(function(){
+                if ($('#{option}').val() != '{item_background_img_current}') {
+                    $('#{option}').val('{item_background_img_default}').prop('selected', true);
+                }
+                var ${option}preview=$('#{option}_preview'),
+                    ${option}loader=$('#{option}_loader');
+                $('#{option}').change(function(){
+                    var $el=$(this), file=$(this).val(),call;
+                    $el.prop('disabled',true);
+                    ${option}preview.oneTransEnd(call=function(){
+                        ${option}loader.show();
+                        $.post('{url_administration}ajax.php', {cmd: '{ajax_cmd}', file: file, tmpl: '{tmpl}'}, function(url) {
+                            if (url == 'no_file') {
+                                ${option}loader.hide();
+                                ${option}preview.css('background-image', '').addClass('to_show');
+                                $el.prop('disabled',false);
+                            } else {
+                                $(new Image()).load(function() {
+                                    ${option}loader.hide();
+                                    ${option}preview.css('background-image', 'url('+url+')').addClass('to_show');
+                                    $el.prop('disabled',false);
+                                }).attr('src', url);
+                            }
+                        })
+                    }).removeClass('to_show')
+                    if(!${option}preview.is(':visible')){
+                        call()
+                    }
+                }).change();
+            });
+            </script>
+            <!-- end_item_background_preview_js -->
+        
+            <!-- begin_item_background_js -->
+            <a target="_blank" id="{option}_lightbox" class="{option}_lightbox_background" href="">
+                <img class="background_img_config" src="{url_tmpl_administration}images/eye.png" title="{l_view}" alt=""/>
+            </a>
+            <style>
+                #lightbox-container-image-box, #lightbox-container-image {background-color:#eeecec;}
+            </style>
+            <script type="text/javascript">
+            $(function(){
+                $('.{option}_lightbox_background').lightBox({
+                    resizeImage:    true,
+                    maxWidth:       996,
+                    imageLoading:   '{url_tmpl_administration}images/lightbox-ico-loading_blank.gif',
+                    imageBtnPrev:   '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+                    imageBtnNext:   '{url_tmpl_administration}images/lightbox-btn-next.gif',
+                    imageBtnClose:  '{url_tmpl_administration}images/lightbox-btn-close.gif',
+                    imageBlank:     '{url_tmpl_administration}images/lightbox-blank.gif'
+                });
+            
+                if ($('#{option}').val() != '{item_background_img_current}') {
+                    $('#{option}').val('{item_background_img_default}').prop('selected', true);
+                }
+            
+                $('#{option}').change(function(){
+                    var urlToFileDir = '{item_background_js_url_to_file_dir}';
+                    var file = $(this).val();
+                    var emptyAvailable = {emptyAvailable};
+                    if ($("#{option}").is(":visible")){
+                        if (file != 'None.png' && file != 'no_image'){
+                            if(urlToFileDir) {
+                                $('#{option}_lightbox').attr('href', urlToFileDir + file);
+                            }
+                            $("#{option}_lightbox").show();
+                        } else {
+                            $("#{option}_lightbox").hide();
+                        }
+                    }
+            
+                    if(!urlToFileDir) {
+                        $.post('{url_administration}ajax.php', {cmd: '{ajax_cmd}', file: file}, function(url) {
+                            if (url != 'no_file') $('#{option}_lightbox').attr('href', url);
+                        });
+                    }
+            
+                }).change();
+            });
+            </script>
+            <!-- end_item_background_js -->
+        <!-- end_item_selectbox -->
+        
+        <!-- begin_item_radio -->
+        <div id="label_{option}_{value}" class="bl_label">
+            <label class="fl_left" for="option_{option}_{value}" style="cursor: pointer;">{label}</label>
+            <div class="fl_right"><input id="option_{option}_{value}" class="check class_{option}" type="radio" name="option[{option}]" value="{value}" {checked} ></div>
+            <div class="cl"></div>
+        </div>
+        <!-- end_item_radio -->
+
+        <!-- begin_item_color -->
+        <script type="text/javascript">
+        $( document ).ready(function() {
+        $("#{option}").spectrum({               
+            color: "{value}",
+            cancelText: "{l_cancel}",
+            chooseText: "{l_ok}",
+            showInput: true,
+            change: function() {
+            // $("#color_scheme_oryx, #color_scheme_impact").val('custom');
+            },
+        });
+        });
+        </script>
+        <div class="bl_label field_{option} color_choose" style="padding-bottom: 5px; padding-top: 5px; margin-top: 5px; margin-bottom: 10px;">
+            <label class="fl_left">{label}</label>
+            <div class="fl_right">
+                <input style="opacity:0;" name="option[{option}]" type="text" id="{option}"  value="{value}"/>
+            </div>
+            <div class="label_desc label_desc_color">{label_desc}</div>
+        </div>
+        <!-- end_item_color -->
+
+        <!-- begin_item_time -->
+            <div class="bl_label field_{option} color_choose" style="padding-bottom: 5px; padding-top: 5px; margin-top: 15px; margin-bottom: 10px;">
+                <label class="fl_left">{label}</label>
+                <div class="fl_right">
+                    <script>
+                            $(document).ready(function () {
+                                // Assuming {value} is dynamically provided, replace this with real data
+                                var valueInMinutes = parseInt('{value}', 10); // Convert {value} to an integer
+
+                                // Calculate hours and minutes
+                                var hours = Math.floor(valueInMinutes / 60);
+                                var minutes = valueInMinutes % 60;
+
+                                // Format as HH:MM
+                                var formattedValue = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+                                // Dynamically update the input field
+                                $('#input_{option}').val(formattedValue);
+                            });
+                    </script>
+                    <div class="label_desc label_desc_color" style="top: -14px; right: 0; left: auto; opacity: 0.6;">{label_desc}</div>
+
+                    <input name="option[{option}]" type="text" id="input_{option}" style="width: 70px; position: absolute; top: -2px; right: 0px;" />
+                </div>
+            </div>
+        <!-- end_item_time -->
+
+        <!-- begin_item_select_multiple -->
+            <!-- begin_item_select_multiple_item -->
+                <input class="input_{option}" type="text" name="option[{option}][]" value="{value}">
+            <!-- end_item_select_multiple_item -->
+            
+            <div><a id="add_{option}" data-inp=".input_{option}" href="#" class="add">+ {l_add}</a></div>
+            <div style="clear: both;"></div>
+            <script>
+                $(function(){
+                    $('#add_{option}').click(function(){
+                        var $el=$(this), $inp=$($el.data('inp'));
+                        $inp.first().clone(true).val('').insertAfter($inp.last()).focus();
+                        /*if($inp.length==4){
+                            $el.hide();
+                        }*/
+                        return false;
+                    })
+                })
+            </script>
+        <!-- end_item_select_multiple -->
+        
+        <!-- begin_item_separator -->
+        <div class="options_separator">&nbsp;</div>
+        <!-- end_item_separator -->
+
+        <!-- begin_item_br -->
+        <div class="options_br">&nbsp;</div>
+        <!-- end_item_br -->
+        
+        <!-- begin_watermark_params -->
+            <script>
+                var watermarkWidth='{watermark_width}'*1;
+                var watermarkHeight='{watermark_height}'*1;
+
+                function sendWatermarkImage(){
+                    var fd = new FormData();
+
+                    if(typeof $('#watermark_file')[0].files[0] ==='undefined'){
+                        return false;
+                    }
+
+                    var newHeight=$("#watermark_height").val();
+                    var newWidth=$("#watermark_width").val();
+                    fd.append('cmd', 'update_watermark');
+                    fd.append('logo', $('#watermark_file')[0].files[0] );
+                    fd.append('watermark_width', newWidth);
+                    fd.append('watermark_height', newHeight);
+
+
+                    $.ajax({
+                    type: 'POST',
+                    url: 'options.php',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.url){
+                            $("#watermark_output img").attr('src',data.url+'?'+Math.random());
+                            $("#watermark_width").val(data.width);
+                            $("#watermark_height").val(data.height);
+                            $("#update").text('{j_update_size}');
+                        }else if(data.msg){
+                            alert(data.msg);
+                        }
+                    },
+                    error: function(data) {
+
+                        console.log(data);
+                    }
+                    });
+                }
+
+                function deleteWatermark()
+                {
+                    var fd = new FormData();
+                    fd.append('cmd', 'delete_watermark');
+                    $.ajax({
+                    type: 'POST',
+                    url: 'options.php',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.url){
+                            $("#watermark_output img").attr('src',data.url);
+                            $("#watermark_width").val('');
+                            $("#watermark_height").val('');
+                            $("#update").text('j_upload');
+                        }
+
+                        console.log(data);
+                    },
+                    error: function(data) {
+
+                        console.log(data);
+                    }
+                    });
+
+                }
+            </script>
+            <div id="watermark_params">
+                <div id="{block}_output" class="block_logo">
+                    <!-- begin_watermark_image -->
+                            <img src="{watermark_img}?rand={rand}" alt=""/>
+                    <!-- end_watermark_image -->
+                </div>
+
+                <div class="block_logo_params">
+                    <table>
+                        <tr>
+                            <td class="label"><span>{l_width}:</span></td>
+                            <td style="width: 40px;"><input class="logo_width" id="watermark_width" type="text" maxlength="3" name="{block}_width" value="{watermark_width}" ></td>
+                            <td class="px"><span>{l_px}</span></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><span>{l_height}:</span></td>
+                            <td style="width: 40px;"><input class="logo_height"  id="watermark_height" type="text" maxlength="3" name="{block}_height" value="{watermark_height}" ></td>
+                            <td class="px"><span>{l_px}</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="fl_left">
+                    <input class="upload" id="watermark_file" type="file" name='logo'/>
+                </div>
+                <!-- begin_delete -->
+                <div class="btn fl_right">
+                    <a href="#" id="delete" onClick="if (confirm('{l_are_you_sure}')) { deleteWatermark(); return false; } else return false;" >{l_delete}</a>
+                    <input type="hidden" name="is_delete_watermark" id="is_delete_watermark" value="0">
+                </div>
+                <!-- end_delete -->
+                <div class="btn fl_right"><a href="#" id="update" onClick="sendWatermarkImage();return false;" >{l_upload}</a>
+                    <input type="submit" style="visibility:hidden;position:absolute;">
+                </div>
+
+                <div class="cl"></div>
+            </div>
+        <!-- end_watermark_params -->
+
+        <!-- begin_item_color_scheme_options_start -->
+            <div class="color_scheme_options_start {color_scheme_options_start_class}">
+                <img class="icon_color_scheme_options" src="{url_tmpl_administration}images/edit_color_scheme_options.gif">
+                <a href="#" class="edit_color_scheme_options {edit_color_scheme_options_class}">{l_edit_color_scheme_options}</a>
+                <a href="#" class="hide_color_scheme_options {hide_color_scheme_options_class}">{l_hide_color_scheme_options}</a>
+            </div>
+            <div class="color_scheme_options {item_color_scheme_options_start_class}">
+                <script>
+                    $(function(){
+                        $('.edit_color_scheme_options').click(function(){
+                            $('.color_scheme_options').show();
+                            $('.edit_color_scheme_options').hide();
+                            $('.hide_color_scheme_options').show();
+                            $('.color_scheme_options_start').addClass('color_scheme_options_hide').removeClass('color_scheme_options_edit');
+                            setColorSchemeOptionsHide('N');
+                            return false;
+                        });
+
+                        $('.hide_color_scheme_options').click(function(){
+                            $('.color_scheme_options').hide();
+                            $('.edit_color_scheme_options').show();
+                            $('.hide_color_scheme_options').hide();
+                            $('.color_scheme_options_start').addClass('color_scheme_options_edit').removeClass('color_scheme_options_hide');
+                            setColorSchemeOptionsHide('Y');
+                            return false;
+                        });
+
+                        $('.icon_color_scheme_options').click(function(){
+                            if($('.edit_color_scheme_options').is(':visible')) {
+                                $('.edit_color_scheme_options').click();
+                            } else {
+                                $('.hide_color_scheme_options').click();
+                            }
+                        });
+
+                        function setColorSchemeOptionsHide(value)
+                        {
+                            $.get('ajax.php?cmd=color_scheme_options_hide_impact&value=' + value);
+                        }
+                    });
+                </script>
+                <div class="decor_top"></div>
+        <!-- end_item_color_scheme_options_start -->
+
+        <!-- begin_item_color_scheme_options_end -->
+                <div class="decor_bottom"></div>
+            </div>
+        <!-- end_item_color_scheme_options_end -->
+
+        <!-- begin_item_group_options_end -->
+        <script>
+            {item_group_options_init}();
+        </script>
+            <div class="decor_bottom"></div>
+        </div>
+        <!-- end_item_group_options_end -->
+    <!-- end_item -->
+
+    <!-- begin_section_dropdown_end -->
+    <div class="btn fl_right">
+                <a href="#" class="submit">{l_save}</a>
+                <input type="submit" style="visibility:hidden;position:absolute;">
+                <div class="button_submit_instruction">{l_or_use_ctrl_s}</div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <!-- end_section_dropdown_end -->
+
+<!-- end_section_dropdown -->

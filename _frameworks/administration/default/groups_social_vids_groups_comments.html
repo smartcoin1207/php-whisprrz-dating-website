@@ -1,0 +1,61 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current} {video_title}</h2>
+
+    <!-- begin_noitems --><div align="center">{l_no_comments}</div><!-- end_noitems -->
+    <!-- begin_pages -->
+    <div class="wrap_bl_pagin">
+        <div class="wrap_bl_total">{itemsTotal} {l_comments}</div>
+        <div class="wrap_bl_pager">{pager}</div>
+    </div>
+    <!-- end_pages -->
+    <!-- begin_items -->
+    <table class="tb">
+        <tr>
+            <th class="decor_l"></th>
+            <th class="right">{l_action}</th>
+            <th>{l_id}</th>
+            <th>{l_text}</th>
+            <th>{l_user}</th>
+            <th class="last">{l_dt}</th>
+            <th class="decor_r"></th>
+        </tr>
+        <!-- begin_item -->
+        <tr class="{item_class}" id="item_{item_id}">
+            <td class="decor{item_decl}"></td>
+            <td class="right">
+                <script type='text/javascript'>
+                $(document).ready(function() {
+                    $("#delete_{item_id}").click(function() {
+                        if (confirm('{l_are_you_sure}')) {
+                            $.get('{url_main}administration/vids_comment_delete_ajax.php?id={item_id}',function(){
+                                redirectUrl('{url_page}{pages_param}');
+                            });
+                            //$('#item_{item_id}').remove();
+                        }
+                        return false
+                    });
+                });
+                </script>
+                <a href="#" id="delete_{item_id}">{l_delete}</a>
+            </td>
+            <td>{item_id}</td>
+            <td class="wrap_text_td">{item_text}</td>
+            <td>
+                {item_user_name}:
+                <a href="{url_main}administration/groups_social_edit.php?group_id={item_group_id}">{l_edit}</a>,
+                <a href="{url_main}administration/groups_social_vids_groups_videos.php?id={item_group_id}">{l_videos}</a>
+            </td>
+            <td class="last">{item_dt_readable}</td>
+            <td class="decor{item_decr}"></td>
+        </tr>
+        <!-- end_item -->
+    </table>
+    <!-- end_items -->
+
+    <div class="empty"></div>
+</div>
+{footer}

@@ -1,0 +1,123 @@
+{header}
+
+<style type="text/css">
+    #complite{float: right;  margin-bottom:5px; text-align:left;}
+    #searchn{float: right;  margin-bottom:5px;}
+    .bbbr{background: url(../img/bbr.gif) no-repeat 100% 100%; padding: 15px 20px;}
+    #profile{float: left;  background: #FAFAFA; color: #000; margin-bottom: 5px;}
+
+
+    .userlist-column {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* Two columns */
+      grid-auto-rows: auto; /* Automatically adjust the row height */
+    }
+
+</style>
+
+<div class="frame_content">
+
+<div class="cl"></div>
+<script Language="JavaScript" type="text/javascript">
+  var isPost = false;
+  var blockSubmission = false;
+  function removeSubmissionBlock() {
+    blockSubmission = false;
+  }
+  function isSubmissionAllowed() {
+    if(blockSubmission){
+       return false;
+    }
+    return;
+   }
+  document.onclick = isSubmissionAllowed;
+  document.onkeydown = isSubmissionAllowed;
+
+  function onValidateAddContactForm() {
+    var form = document.forms['AddContactForm'];
+    
+    return true;
+  }
+  function validateAddContactForm() {
+    blockSubmission = true;
+     if (typeof beforeAddContactFormValidation != 'undefined') {
+       beforeAddContactFormValidation();
+    }
+    var validated = onValidateAddContactForm();
+    if (validated && (typeof uponSuccessfulAddContactFormValidation != 'undefined')) {
+      validated = uponSuccessfulAddContactFormValidation();
+    }
+    else if (!validated && (typeof uponUnsuccessfulAddContactFormValidation != 'undefined')) {
+      uponUnsuccessfulAddContactFormValidation();
+    }
+    if (!validated) {
+      removeSubmissionBlock();
+    }
+    return validated;
+  }
+
+  function submitAddContactForm() {
+    if (validateAddContactForm()) 
+       isPost = true; 
+       document.AddContactForm.submit();
+    }
+    
+
+window.onbeforeunload = function (evt) {
+    var text = $.trim($('#text').val());
+    if (text != '' && isPost == false <!-- begin_reply_compare_js -->&& text != reply_text<!-- end_reply_compare_js -->) {
+        var message = '{l_leave_this_page}';
+        if (typeof evt == "undefined") {
+            evt = window.event;
+        }
+        if (evt) {
+            evt.returnValue = message;
+        }        
+        return message;
+    } 
+}
+
+
+</script>
+
+<table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
+        <tr>
+            <td style=" margin-bottom: 5px;">
+                <h3 style="border: 0; margin-bottom: 0;">{title_current}</h3>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+
+<form name="group_moderator_options" method="POST" style="padding: 0px; margin: 0px;">
+    <input type="hidden" name="page_from" value="{page_from}">
+    <input type="hidden" name="cmd" value="save">
+
+    <div cellpadding="0" cellspacing="0" border="0" class="mail_compose">
+        <col width="100px" />
+        
+        <!-- begin_group_moderator -->
+            <!-- begin_group_moderator_item -->
+            <div >
+                <div style="display: inline-block;"><input type="checkbox" name="{moderator_name}" id="{moderator_name}_id" value="1" {checked} /></div>
+                <div style="display: inline-block;" class="body_text" valign="top" align="right"><label for="{moderator_name}_id">{moderator_label}</label></div>
+            </div>
+            <!-- end_group_moderator_item -->
+        <!-- end_group_moderator -->
+    
+        <div>
+            <div align="right" style="padding-top: 10px;">
+                <input type="submit" value="{l_save}" class="btn lower_header_color" tabindex="3" title="{l_save}">
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+</div>
+
+{footer}
+

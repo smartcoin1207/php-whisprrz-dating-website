@@ -1,0 +1,104 @@
+{header}
+{ims}
+{folders}
+
+<div id="profile" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+
+<input type="button" value="{l_menu_mail_messages}" class="button_small" onclick="location='{url_main}mail.php';" title="{l_menu_mail_messages}">
+<input type="button" value="{l_menu_mail_compose}" class="button_small" onclick="location='{url_main}mail_compose.php';" title="{l_menu_mail_compose}">
+<input type="button" value="{l_menu_mail_favorites}" class="button_small active_btn" onclick="location='{url_main}mail_favorite.php';" title="{l_menu_mail_favorites}">
+<input type="button" value="{l_menu_mail_whos_interest}" class="button_small" onclick="location='{url_main}mail_whos_interest.php';" title="{l_menu_mail_whos_interest}">
+<input type="button" value="{l_menu_mail_sent_interest}" class="button_small" onclick="location='{url_main}mail_sent_interest.php';" title="{l_menu_mail_sent_interest}">
+<center>
+
+<div class="header_big" style="padding-top:70px; padding-bottom:30px;">	{l_add_to_block_list}</div>
+
+<script Language="JavaScript" type="text/javascript">
+  var blockSubmission = false;
+  function removeSubmissionBlock() {
+    blockSubmission = false;
+  }
+  function isSubmissionAllowed() {
+    if(blockSubmission){
+       return false;
+    }
+    return;
+   }
+  document.onclick = isSubmissionAllowed;
+  document.onkeydown = isSubmissionAllowed;
+
+  function onValidateAddContactForm() {
+    var form = document.forms['AddContactForm'];
+    // "otherhandle" field validation.
+    if (!(validateRequiredField(form['name'], '{l_username}'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    return true;
+  }
+  function validateAddContactForm() {
+    blockSubmission = true;
+     if (typeof beforeAddContactFormValidation != 'undefined') {
+       beforeAddContactFormValidation();
+    }
+    var validated = onValidateAddContactForm();
+    if (validated && (typeof uponSuccessfulAddContactFormValidation != 'undefined')) {
+      validated = uponSuccessfulAddContactFormValidation();
+    }
+    else if (!validated && (typeof uponUnsuccessfulAddContactFormValidation != 'undefined')) {
+      uponUnsuccessfulAddContactFormValidation();
+    }
+    if (!validated) {
+      removeSubmissionBlock();
+    }
+    return validated;
+  }
+  function submitAddContactForm() {
+   if (validateAddContactForm()) document.AddContactForm.submit();
+    }
+</script>
+<form  name="AddContactForm" method="POST" action="{url_main}mail_block_add.php?cmd=add" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
+<input type="hidden" name="page_from" value="{page_from}">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td class="body_text"><b>{l_username}:</b></td>
+						<td>
+
+						<!-- begin_add_id -->
+						<input type="hidden" name="name" value="{name}"><div align="left">&nbsp;&nbsp;{name}</div>
+						<!-- end_add_id -->
+						<!-- begin_add_name -->
+						<div align="left">&nbsp;&nbsp;<b>{message}</b></div>
+						<input type="text" name="name" value="{name}" style="width: 290px; margin-left: 5px; margin-bottom: 5px;" tabindex="1">
+						<!-- end_add_name -->
+
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="body_text"><b>{l_comments}:</b></td>
+						<td><input type="text" name="comment" style="width: 290px; margin-left: 5px;" tabindex="2"></td>
+						<td style="padding-left: 5px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2"></div></td></tr></table></td>
+						<td style="padding-left: 5px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2"></div></td></tr></table></td>
+					</tr>
+				</table>
+				<div style="padding-top:50px; padding-bottom:70px;">
+				<input type="button" value="{l_add}" onClick=" submitAddContactForm();" class="button" style=" padding-left: 5px; padding-right: 5px; cursor: pointer; cursor: hand;" tabindex="3" title="{l_add}" onMouseOver="window.status='{l_add}'; return true;" onMouseOut="window.status=''; return true;">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="{l_cancel}" onClick=" location.href='{url_main}mail_favorite.php';" class="button" style=" padding-left: 5px; padding-right: 5px; cursor: pointer; cursor: hand;" tabindex="4" title="{l_cancel}" onMouseOver="window.status='{l_cancel}'; return true;" onMouseOut="window.status=''; return true;">
+				</div>
+
+
+						<script type="text/javascript">setFocus('AddContactForm','comment');</script>
+
+
+</form>
+</center>
+
+
+
+</div></div></div></div></div></div></div></div></div>
+
+{footer}
+

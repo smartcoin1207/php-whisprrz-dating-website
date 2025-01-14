@@ -1,0 +1,626 @@
+{header}
+<div id="oryx_content">
+{ims}
+<!-- begin_alert_email_confirmed -->
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    alert('{l_email_confirmed}');
+});
+</script>
+<!-- end_alert_email_confirmed -->
+{complite}
+<div class="frame_content column_main">
+
+    {profile_menu}
+    <style>
+        
+        .what-looking-scales {
+            display: flex;
+            flex-wrap: wrap;
+            padding-left: 50px;
+        }
+
+        .what-looking-scales .scale-item-19 {
+            width: 25%;
+        }
+    </style>
+    <div class="cl"></div>
+
+
+<div class="nav_title">
+    <!-- begin_yes_nsc_settings -->
+        <b>{l_basic}</b>        
+        <!-- begin_yes_nsc_personal -->
+            <a href="{url_main}profile_personal_nsc_couple.php"><b>{l_personal}</b></a>        
+        <!-- end_yes_nsc_personal -->
+        <!-- begin_yes_nsc_partner1 -->
+            <a href="{url_main}profile_partner.php"><b>{l_partner}</b></a>
+        <!-- end_yes_nsc_partner1 -->
+    <!-- end_yes_nsc_settings -->
+</div>
+<script Language="JavaScript" type="text/javascript">
+  jqTransformDaySelect = true;
+  var blockSubmission = false;
+  function removeSubmissionBlock() {
+    blockSubmission = false;
+  }
+  function isSubmissionAllowed() {
+    if(blockSubmission){
+       return false;
+    }
+    return;
+   }
+
+  document.onclick = isSubmissionAllowed;
+  document.onkeydown = isSubmissionAllowed;
+  function onValidateEditProfileBasicForm() {
+    var form = document.forms['profile'];
+
+                <!-- begin_name_edit_on_js -->
+                if (!(validateUserName(form['user_name'], '{l_username}', '{username_length_min}', '{username_length}'))) {
+                  removeSubmissionBlock();
+                  return false;
+                }
+                <!-- end_name_edit_on_js -->
+                <!-- begin_text_js -->
+                if (!(validateRequiredField(form['{name}'], '{field_js}', '')))
+                {
+                  removeSubmissionBlock();
+                  return false;
+                }
+                if (!(validateMaxLength(form['{name}'], '{field_js}','{maxlen}')))
+                {
+                  removeSubmissionBlock();
+                  return false;
+                }
+                <!-- end_text_js -->
+                <!-- begin_textarea_js -->
+                if (!(validateRequiredField(form['{name}'], '{field_js}', '')))
+                {
+                  removeSubmissionBlock();
+                  return false;
+                }
+                if (!(validateMaxLength(form['{name}'], '{field_js}','{maxlen}')))
+                {
+                  removeSubmissionBlock();
+                  return false;
+                }
+                <!-- end_textarea_js -->
+    // "email" field validation.
+    if (!(validateRequiredField(form['email'], '{l_email_address}'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    // "email" field validation.
+    if (!(validateMaxLength(form['email'], '{l_email_address}', '{mail_length_max}'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    // "email" field validation.
+    if (!(validateEmailField(form['email'], '{l_email_address}'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    // "country" field validation.
+    if (!(validateRequiredSelect(form['country'],'{l_country}','0'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+     // "state" field validation.
+    if (!(validateRequiredSelect(form['state'],'{l_state_province}','0'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    // "city" field validation.
+    if (!(validateRequiredSelect(form['city'],'{l_city}','0'))) {
+      removeSubmissionBlock();
+      return false;
+    }
+    <!-- begin_const_js -->
+    if (!(validateRequiredSelect(form['{name}'],'{field_js}','00')))
+    {
+      removeSubmissionBlock();
+      return false;
+    }
+    <!-- end_const_js -->
+    return true;
+  }
+  function validateEditProfileBasicForm() {
+    blockSubmission = true;
+     if (typeof beforeEditProfileBasicFormValidation != 'undefined') {
+       beforeEditProfileBasicFormValidation();
+    }
+    var validated = onValidateEditProfileBasicForm();
+    if (validated && (typeof uponSuccessfulEditProfileBasicFormValidation != 'undefined')) {
+      validated = uponSuccessfulEditProfileBasicFormValidation();
+    }
+    else if (!validated && (typeof uponUnsuccessfulEditProfileBasicFormValidation != 'undefined')) {
+      uponUnsuccessfulEditProfileBasicFormValidation();
+    }
+    if (!validated) {
+      removeSubmissionBlock();
+    }
+    return validated;
+  }
+  function submitEditProfileBasicForm() {
+    var form = document.forms['profile'];   
+   if (validateEditProfileBasicForm()) {
+        radio_submit();
+        document.profile.submit();
+   } 
+    }
+  function exitConfirm() {
+    var form = document.forms['profile'];
+    if(isFormModified(form, null, null)){
+      return(confirm('{l_leave_page}'));    };
+  return true;
+  }
+
+  //var jqTransformDaySelect = true;
+
+  </script>
+        <h2 style="text-align: center;">{l_basic_information}</h2>
+
+<form class="profile_form" name="profile" method="POST" action="{url_main}profile_nsc_couple.php?cmd=update" onSubmit="return validateEditProfileBasicForm();" >
+
+<h2 class="txt_lower_header_color" style="display: flex; justify-content: space-between; position: relative;">
+    
+    <!-- begin_nsc_couple_profile_type -->
+   
+    <img width="30" height="30" src="{url_tmpl_main}img/basic.png" alt=""> 
+
+            <div class="module_change_nickname">
+                <a class="module_change_nickname_current" onclick="return false;" href="">{nickname_current}</a>
+                <div id="module_change_nickname_item" style="position: absolute;">
+                    <ul>
+                        <!-- begin_nickname -->
+                     
+                            <li><a onclick="return false;" href=""><span class="{nickname_checked}" data-type="{nickname_id}">{nickname_title}</span></a></li>
+                        <!-- end_nickname -->
+                    </ul>
+                </div>
+            </div>
+            
+           
+            <input type="text" name="nsc_couple_type" id="nsc_couple_type_id" value="" hidden>
+        
+        <div style="font-size:14px;">{l_nickname_click_here_text} </div>
+
+          
+
+    </h2>
+    <!-- end_nsc_couple_profile_type -->
+
+    <!-- begin_nsc_couple_profile -->
+    <h1>{update_message}</h1>
+    <!-- begin_basic_fields_text -->
+    <!-- begin_fields_text -->
+    <!-- begin_text -->
+    <script type="text/javascript">
+        function init{name}Counter() {
+            characterCounter('{name}', {maxlen}, '{name}Counter');
+        }
+        addOnload(init{name}Counter);
+        function clear{name}({name}Field)
+        {
+            if ({name}Field.value == "") {name}Field.value = '';
+        }
+    </script>
+
+    <div class="bl_frm">
+        <div class="fl_left"><strong>{field}</strong></div>
+        <div class="fl_right">(<b><span id="{name}Counter">0</span></b> / {maxlen} {l_characters_used})</div>
+        <div class="cl"></div>
+        <input class="inp" type="text" name="{name}" id="{name}" value="{value}" maxlength="{maxlen}" tabindex="1" onFocus="clear{name}(this); characterCounter('{name}', 100, '{name}Counter');" onKeyUp="characterCounter('{name}', 100, '{name}Counter');">
+    </div>
+    <!-- end_text -->
+
+    <!-- begin_textarea -->
+    <div class="bl_frm">
+        <div class="fl_left"><strong>{field}</strong></div>
+        <div class="fl_right">(<b><span id="{name}Counter">0</span></b> / {maxlen} {l_characters_used})</div>
+        <div class="cl"></div>
+        <textarea name="{name}" id="{name}" tabindex="2" rows="5" onFocus="clear{name}(this); characterCounter('{name}', {maxlen}, '{name}Counter');" onKeyUp="characterCounter('{name}', {maxlen}, '{name}Counter');">{value}</textarea>
+    </div>
+
+    <script type="text/javascript">
+        function init{name}Counter() {
+            characterCounter('{name}', {maxlen}, '{name}Counter');
+        }
+        addOnload(init{name}Counter);
+        function clear{name}({name}Field) {
+            if ({name}Field.value == "") {name}Field.value = '';
+        }
+    </script>
+    <!-- end_textarea -->
+    <!-- end_fields_text -->
+    
+    <!-- end_basic_fields_text -->
+    
+    <h2 class="txt_lower_header_color" style="padding-top:20px; padding-bottom:20px;"><img src="{url_tmpl_main}img/account.png"  alt="" width="30" height="30"> 
+        {nsc_couple_type}  {l_information}
+    </h2>
+
+                    <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 0 10px;">
+                        <tr>
+                        <td valign="top" style="padding-right: 20px; 1border: 1px solid red;">
+                            <table class="body_text" border="0" cellpadding="0" cellspacing="0">
+                                <tr style="padding-bottom: 4px;">
+                                    <td align="right" style="padding-right: 10px;"><b>{l_username}:</b></td>
+                                   
+                                        <td><input class="inp_text" type="text" name="user_name" value="{nsc_couple_name}"  style="width:153px;"></td>
+                                    <!-- begin_name_error -->
+                                    <td class="body_text"><img src="{url_tmpl_main}images/danger.png" /></td>
+                                    <!-- end_name_error -->                                    
+                                </tr>
+                                <!-- begin_orientation_edit_off -->
+                                <tr style="padding-bottom: 14px;">
+                                    <td align="right" style="padding-right: 10px;"><b>{l_orientation}:</b></td>
+                                    <td class="body_text">{orientation_value}</td>
+                                </tr>
+                                <!-- end_orientation_edit_off -->
+                                <!-- begin_const -->
+                                <tr style="padding-bottom: 14px;">
+                                    <td align="right" style="padding-right: 10px;"><b>{field}:</b></td>
+                                    <td class="body">
+                                        <select class="input" style="width: 164px;" name="{name}">
+                                                {options}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <!-- end_const -->
+
+                                <!-- begin_p_orientations -->
+                                <tr>
+                                    <td align="right" valign="top" style="padding-right: 10px;">
+                                        <div style="position: relative; top: -4px;"><b>{l_im_looking_for}:</b></div>
+                                    </td>
+                                    <td align="justify" valign="top">
+                                        <!-- begin_p_orientation -->
+                                        <div class="one_checkbox">
+                                        <label style="line-height: 14px;">
+                                            <input id="p_orientation_{id}" name="{name}[]" value="{id}" {checked} type="checkbox">
+                                            <span style="display: inline-block; position: relative; top: -2px;">{title}</span>
+                                        </label>
+                                        </div>
+                                        <!-- end_p_orientation -->
+                                    </td>
+                                </tr>
+                                <!-- end_p_orientations -->
+                                <!-- begin_looking_your_orientation -->
+                                <tr>
+                                    <td align="right" style="padding-right: 10px;"><b>{l_im_looking_for}:</b></td>
+                                    <td align="justify">
+                                        <div>{name}</div>
+                                    </td>
+                                </tr>
+                                <!-- end_looking_your_orientation -->
+
+                                <tr style="padding-bottom: 10px;">
+                                    <td align="right" style="padding-right: 10px;"><b>Date of Birth:</b></td>
+                                    <td align="justify">
+
+                                                    <select name="month" onChange="updateDay('month','profile','year','month','day')" style="width: 60px;">
+                                                    {month_options}
+                                                    </select>
+
+                                                    <select id="select_day" name="day" style="width: 40px;">
+                                                    {day_options}
+                                                    </select>
+
+                                                    <select name="year" onChange="updateDay('year','profile','year','month','day')" style="width: 55px;">
+                                                    {year_options}
+                                                    </select>
+                                    </td>
+                                    <!-- begin_birthday_error -->
+                                    <td class="body_tiny"><img src="{url_tmpl_main}images/danger.png" /></td>
+                                    <!-- end_birthday_error -->
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="body_text" valign="top">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr style="padding-bottom: 4px;">
+                                        <td></td>
+                                        <td style="padding-right: 10px;" align=right width=50><b>{l_email}:</b></td>
+                                        <td></td>
+                                        <td><input class="inp_text" type="text" name="email" value="{nsc_couple_mail}"  style="width:158px;"></td>
+                                        <!-- begin_email_error -->
+                                        <td class="body_tiny"><img src="{url_tmpl_main}images/danger.png" /></td>
+                                        <!-- end_email_error -->
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td style="padding-right: 10px;" align=right width=50><b>{l_country}:</b></td>
+                                        <td></td>
+                                        <td >
+                                            <select style="width: 170px;" name="country" id="country" onchange="xajax_states(country.value, 0)">
+                                            {country_options}
+                                            </select>
+                                        </td>
+                                    <!-- begin_country_error -->
+                                    <td class="body_tiny"><img src="{url_tmpl_main}images/danger.png" /></td>
+                                    <!-- end_country_error -->
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td style="padding-right: 10px;" align=right width=50><b>State:</b></td>
+                                        <td></td>
+                                        <td>
+                                            <select name="state" style="width: 170px;" id="state" onchange="xajax_cities(state.value, 0)">
+                                            <option value="0">{l_select_all}</option>
+                                            {state_options}
+                                            </select>
+                                        </td>
+                                        <!-- begin_state_error -->
+                                        <td class="body_tiny"><img src="{url_tmpl_main}images/danger.png" /></td>
+                                        <!-- end_state_error -->
+                                    </tr>
+                                    <!-- <tr><td colspan=3 width=1 height=3></td></tr> -->
+                                    <tr>
+                                        <td></td>
+                                        <td style="padding-right: 10px;" align=right>
+                                            <label for="CITY"><b>{l_city}:</b></label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <select name="city" id="city" style="width: 170px;">
+                                            <option value="0">{l_select_all}</option>
+                                            {city_options}
+                                            </select>
+                                        </td>
+                                        <!-- begin_city_error -->
+                                        <td class="body_tiny"><img src="{url_tmpl_main}images/danger.png" /></td>
+                                        <!-- end_city_error -->
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td style="padding-right: 10px;" align=right>
+                                            <b>{l_account}</b>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <!-- begin_payment_free -->
+                                            {payment_free}
+                                            <!-- end_payment_free -->
+                                            <!-- begin_payment_paid -->
+                                            {payment_paid}
+                                            <!-- end_payment_paid -->
+                                            <!-- begin_payment_free_access -->
+                                            <b>{payment_free_access}</b>
+                                            <!-- end_payment_free_access -->
+                                        </td>
+                                    </tr>
+                                 
+                                </table>
+                </td></tr>
+                   <!-- begin_what_looking_for_relation -->
+                   <tr>
+
+                    <td colspan="2">
+                        <div style="text-align: center;"><b>{field}:</b></div>
+                        <br>
+                        <input type="text" id="{looking_name}" name="{looking_name}" value="" hidden>
+    
+                        <div class="what-looking-scales">
+                            <!-- begin_what_looking_for_relation_row -->
+                            <div class="scale-item-19" id="{slides_name}">
+                                <p>{scale_field}</p>
+    
+                                <div class="relation-row" {disabled}>
+    
+                                    <!-- begin_radio_item -->
+                                    <input type="radio" id="{relation_radio_id}" name="{slides_name}"
+                                        value="{relation_radio_value}"  {radio_checked}>
+                                    <label for="{relation_radio_id}">{relation_radio_label}</label><br>
+                                    <!-- end_radio_item -->
+    
+                                </div>
+                                <br>
+                            </div>
+    
+                            <!-- end_what_looking_for_relation_row -->
+                        </div>
+    
+    
+                    </td>
+    
+                </tr>
+    
+                <!-- end_what_looking_for_relation -->
+            </table>    
+    
+    <div class="btn_right">
+        <input type="button" value="{l_update_my_profile}" onClick="submitEditProfileBasicForm();" class="btn lower_header_color" title="{l_update_my_profile}" onMouseOver="window.status='{l_update_my_profile}'; return true;" onMouseOut="window.status=''; return true;">
+    </div>
+</form>
+<!-- end_nsc_couple_profile -->
+
+<!-- begin_couple -->
+<div class="line_ch" style="padding: 24px 12px 12px; margin-top: 24px; margin-bottom: 12px; border-top: 1px solid #ccc;">
+
+    <!-- begin_couple_request -->
+
+        <form method="POST" action="{url_main}profile_nsc_couple.php">
+
+        <input type="hidden" name="cmd" value="couple_request" />
+
+        <table>
+            <tr>
+                <td><b style="margin-right:5px; margin-right: 10px;">{l_i_am_couple}</b></td>
+
+                <td><input type="text" name="couple_mail" value="{couple_mail}" style="width: 244px; font-size:12px; padding: 2px;" /></td>
+                <!-- begin_couple_error -->
+                    <td class="body_tiny"><img src="{url_tmpl_main}images/danger.png" /></td>
+                <!-- end_couple_error -->
+                <td align=right><input type="submit" value="{l_update_my_status}" class="btn lower_header_color" style="margin-left:16px; margin-right: 0px;"></td>
+            </tr>
+        </table>
+
+        </form>
+        <div style="text-align: center; padding-top: 10px;">{l_profile_plus_instructions}</div>
+
+    <!-- end_couple_request -->
+
+    <!-- begin_couple_request_cancel -->
+
+        <form method="POST" action="{url_main}profile_nsc_couple.php">
+
+        <input type="hidden" name="cmd" value="couple_request_cancel" />
+
+        <b>{l_pending_couple_by}</b> {couple_name}<br /><br />
+
+        <input type="submit" value="{l_cancel_request}" class="btn lower_header_color">
+
+        </form>
+             <br />
+    <!-- end_couple_request_cancel -->
+
+    <!-- begin_couple_approve -->
+
+        <b>{l_pending_couple}</b> {couple_name}<br /><br />
+
+        <table><tr><td>
+
+        <form method="POST" action="{url_main}profile_nsc_couple.php">
+
+        <input type="hidden" name="cmd" value="couple_approve" />
+
+        <input type="submit" value="{l_approve_couple}" class="btn lower_header_color" style="margin-left:0px; margin-right: 20px;">
+
+        </form>
+
+        </td><td>
+
+        <form method="POST" action="{url_main}profile_nsc_couple.php">
+
+        <input type="hidden" name="cmd" value="couple_query_cancel" />
+
+        <input type="submit" value="{l_decline_couple}" class="btn lower_header_color" style="margin-left:0px; margin-right: 20px;">
+
+        </form>
+
+        </td></tr></table>
+                 <br />
+    <!-- end_couple_approve -->
+
+    <!-- begin_couple_cancel -->
+
+        <form method="POST" action="{url_main}profile_nsc_couple.php">
+
+        <input type="hidden" name="cmd" value="couple_cancel" />
+
+        <b>{l_you_are_couple}</b> {couple_name}<br /><br />
+
+        <input type="submit" value="{l_cancel_couple}" class="btn lower_header_color">
+
+        </form>
+
+    <!-- end_couple_cancel -->
+
+</div>
+<!-- end_couple -->
+
+
+<div class="nav_title">
+    <!-- begin_yes_settings -->
+        <b>{l_basic}</b>
+        <!-- begin_yes_personal -->
+            <a href="{url_main}profile_personal_nsc_couple.php"><b>{l_personal}</b></a>
+        <!-- end_yes_personal -->
+        <!-- begin_yes_partner1 -->
+            <a href="{url_main}profile_partner.php"><b>{l_partner}</b></a>
+        <!-- end_yes_partner1 -->
+    <!-- end_yes_settings -->
+</div>
+<script>
+       
+    function radio_submit() {
+        var relation_result = "";
+        var orientation_result = "";
+
+        $('div.scale-item-19').each(function () {
+            var id = $(this).attr("id");
+            var scale_value = "";
+            var radios = document.querySelectorAll('input[name="' + id + '"][type="radio"]');
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    scale_value = radios[i].value;
+                    radios[i].checked = false;
+                    break;
+                    $("input[type='radio']").prop("checked", false);
+                }
+            }
+
+                if (id.includes("p_looking_p_orientation")) {
+                    orientation_result += id.replace(/^p_looking_p_orientation_/, "") + ":" + scale_value + ", ";
+                } else if (id.includes("p_looking_relation")) {
+                    relation_result += id.replace(/^p_looking_relation_/, "") + ":" + scale_value + ", ";
+                }
+
+        });
+
+        relation_result = relation_result.includes(",") ? relation_result.slice(0, -2) : relation_result;
+        orientation_result = orientation_result.includes(",") ? orientation_result.slice(0, -2) : orientation_result;
+
+        var t_relation_hidden = document.getElementById("p_looking_relation");
+        if (t_relation_hidden) {
+            t_relation_hidden.value = relation_result;
+        }
+
+        var t_orientation_hidden = document.getElementById("p_looking_p_orientation");
+        if (t_orientation_hidden) {
+            t_orientation_hidden.value = orientation_result;
+        }
+    }
+    
+    var $changeLanguage=$('.module_change_nickname'), notShowLang=false;
+    if ($changeLanguage[0]) {
+        $changeLanguage.find('ul').autocolumnlist({columns: 8, clickEmpty:function(){
+            notShowLang=true;
+            $('#module_change_nickname_item').stop().animate({height:'toggle'},300, function(){
+                setTimeout(function(){notShowLang=false},100);
+            })
+        }});
+
+        $changeLanguage.hover(function(){
+            if(notShowLang)return;
+            var width = $('#module_change_nickname_item').width();
+            var left = (-1)*(20+(width-750)/2);
+            $('#module_change_nickname_item').css({left: left+'px', top: '20px'}).stop().animate({height: "toggle"}, 300);
+        })
+    }
+
+    var moduleNicknameChange = document.querySelector('.module_change_nickname_current');
+    
+    var nicknameChangeItem = document.getElementById('module_change_nickname_item');
+    
+    // Get all the li elements within the element
+    var liElements = nicknameChangeItem.querySelectorAll('li');
+    
+    liElements.forEach(function(li) {
+        // Add an event listener to the li element
+        li.addEventListener('click', function() {
+          // Do something when the li element is clicked, for example:
+          moduleNicknameChange.innerHTML = li.querySelector('span').textContent;
+          $('#nsc_couple_type_id').val(li.querySelector('span').dataset.type);
+
+       $('#module_change_nickname_item li span.selected').removeClass('selected');
+
+        
+           var spanElement1 = li.querySelector('span');
+           spanElement1.classList.add('selected');
+
+           var width = $('#module_change_nickname_item').width();
+           var left = (-1)*(20+(width-750)/2);
+           $('#module_change_nickname_item').css({left: left+'px', top: '20px'});
+
+        });
+      });
+
+
+</script>
+</div>
+</div>
+{footer}

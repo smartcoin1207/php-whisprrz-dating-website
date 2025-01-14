@@ -1,0 +1,46 @@
+<div class="more bl_filter">
+    <span id="filter_open" data-target="#filter_results" class="dropdown-toggle link" data-toggle="collapse" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-filter"></i>{l_filter}<span class="caret"></span>
+    </span>
+    <ul id="filter_results" class="col-lg-6 collapse">
+        <li>
+            <div class="bl_forms filter_results">
+                <input id="filter_results_page" type="hidden" name="page" value="{page_number}"/>
+                <div class="section fields">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="field_title">{l_sort_by}</div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 field">
+                        <select id="filter_results_type_order" name="type_order" class="selectpicker show-tick" data-live-search="false">
+                            {filter_order_list_options}
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-md-12 field" <!-- begin_page_filter_tags_hide -->style="display:none;"<!-- end_page_filter_tags_hide -->>
+                        <input id="filter_results_tags" name="tags" type="text" value="{tags}" class="form-control placeholder_black" placeholder="{a_enter_tags}">
+                    </div>
+                    <!-- begin_page_filter_only_friends -->
+                    <div class="col-lg-12 col-md-12 field height_auto">
+                        <div class="field_checkbox custom_checkbox with_photo">
+                            <input id="filter_results_only_friends" name="only_friends" type="checkbox" <!-- begin_module_search_only_friends -->checked<!-- end_module_search_only_friends -->>
+                            <label for="filter_results_only_friends"><span></span>{l_only_my_friends_uploads}</label>
+                        </div>
+                    </div>
+                    <!-- end_page_filter_only_friends -->
+                    <!-- begin_page_filter_only_live -->
+                    <div class="col-lg-12 col-md-12 field height_auto">
+                        <div class="field_checkbox custom_checkbox with_photo">
+                            <input id="filter_results_only_live" name="only_live" type="checkbox" <!-- begin_module_search_only_live -->checked<!-- end_module_search_only_live -->>
+                            <label for="filter_results_only_live"><span></span>{l_filter_only_live}</label>
+                        </div>
+                    </div>
+                    <!-- end_page_filter_only_live -->
+                    <div class="col-lg-12 col-md-12 field foot">
+                        <button id="filter_results_search" class="btn btn-block btn-info">
+                            <span>{l_apply_filter}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

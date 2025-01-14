@@ -1,0 +1,412 @@
+</div>
+
+
+		<!-- begin_adsense -->
+		<div id="ad">
+			<!--<img src="{url_tmpl_main}img/ads.png" width="800" height="85" alt="" />-->
+
+		</div>
+		<!-- end_adsense -->
+		<div id="footer">
+            <!-- begin_banner_footer -->
+            <div class="banner_footer">
+                {banner_footer}
+            </div>
+            <!-- end_banner_footer -->
+			<p>
+                <!-- begin_news_on -->
+				<a style="cursor: pointer;" onclick="javascript:OpenWindow('./info.php?page=term_cond&amp;lang=default','650','400');">Terms &amp; Conditions</a> |
+                <a style="cursor: pointer;" onclick="javascript:OpenWindow('./info.php?page=priv_policy&amp;lang=default','650','400','yes');">Privacy Policy</a> |
+				<a href="{url_main}news.php?view=2" title="{l_about_us}">{l_about_us}</a>
+                <!-- end_news_on -->
+                <!-- begin_help_on -->
+                {dash1}
+                    <a href="{url_main}help.php" title="{l_help}">{l_help}</a>
+                <!-- end_help_on -->
+				<!-- begin_link_partner -->
+				{dash2}
+                <a href="{url_main}partner/" target="_blank" title="{l_affiliates}">{l_affiliates}</a>
+				<!-- end_link_partner -->
+                <!-- begin_news_on1 -->
+				|
+                <a href="{url_main}news.php?view=3" title="{l_testimonials}">{l_testimonials}</a> |		 		
+                <!-- end_news_on1 -->
+                <!-- begin_contact_on -->
+                <a href="{url_main}contact.php" title="{l_contact_us}">{l_contact_us}</a>
+                <!-- end_contact_on -->
+				<!-- begin_menu_bottom_nsc_club_item -->
+				| <a {target} href="{url_main}{menu_item_page_bottom}">{menu_item_title_bottom}</a>					
+				<!-- end_menu_bottom_nsc_club_item -->
+				<br />
+			</p>
+			<p class="friends">{l_find_new_friends} <a href="{url_main}" title="{title_orig}">{title_orig}</a></p>
+            <p class="fosta">{l_this_site_does_not}</a></p>
+            <p class="fosta">{l_disclaimer}</a></p>  
+            <p class="copyrights">{l_copyrights}</a></p> 
+            <div class="footer-ssl-seal">{ssl_seal_html}</div>
+		</div>
+	</div>
+	<div id="xajax_im"></div>
+	<script>
+        $(function(){
+        try { 
+        initAjax(); 
+        initServer();
+    }
+        catch(e) {};
+        });
+  
+		{footer_custom_js}
+	</script>
+
+    <script src="{url_main}_server/videojs/video.js{cache_version_param}"></script>
+<style>
+#footer a {
+	color: {color_scheme_menu_text_color_impact};
+	border-top-color: rgba({color_scheme_menu_item_border_top_color_rgba});
+	border-bottom-color: rgba({color_scheme_menu_item_border_bottom_color_rgba});
+}
+#footer a:hover, #footer a.inactive:hover { color: {color_scheme_menu_text_hover_color_impact} }
+
+#footer a.inactive {
+	color: {color_scheme_menu_inactive_text_color_impact};
+}
+</style>
+
+<div id="footer_bl" class="cham-footer-style-3" style="display: none;">
+
+    <!-- begin_banner_footer_bl -->
+    <div class="banner_footer_bl {banner_footer_class}">
+        <!-- begin_banner_footer -->
+        <div class="banner_footer  <!-- begin_banner_footer_list_hide --><!-- end_banner_footer_list_hide -->">{banner_footer}</div>
+        <!-- end_banner_footer -->
+
+        <!-- begin_banner_footer_list_action -->
+        <div class="link banner_footer_remove">
+            <a class="link_show_banner <!-- begin_banner_footer_show -->action_show<!-- end_banner_footer_show -->" href="#" onclick="clProfile.visibleBanners($(this)); return false;">
+                <span data-cl-loader="banner_loader" class="icon_fa"></span>
+                <span class="title_bn">{banner_footer_title}</span>
+            </a>
+        </div>
+        <!-- end_banner_footer_list_action -->
+    </div>
+    <!-- end_banner_footer_bl -->
+
+
+    <div class="container">
+        <div class="row"><!-- p-b -->
+            <div class="col-md-5 col-sm-6 cham-footer-widget">
+                <div class="cham-logo">
+                    <a class="logo_main_page" href="#">
+                        <img src="{header_url_logo_footer}" alt="logo">
+                    </a>
+                </div>
+                <ul class="list">
+                    <li class="footer_title_orig">{l_footer_c}{title_orig} {year}</li>
+                </ul>
+            </div>
+            <!-- begin_footer_about -->
+            <div class="col-md-3 col-sm-6 cham-footer-widget fl_right">
+                <h3>{l_menu_bottom_about_us}</h3>
+                <p>{footer_about_content_short} <a href="{url_page_about}">{l_read_more_link}</a></p>
+                <!-- begin_footer_about_contact -->
+                <p>
+                    <a href="" onclick="contactFrmShow(); return false;" class="btn btn-success btn-sm btn-outline">{l_contact_us}</a>
+                </p>
+                <!-- end_footer_about_contact -->
+            </div>
+            <!-- end_footer_about -->
+            <!-- begin_footer_social_links -->
+            <div class="col-md-2 col-sm-6 cham-footer-widget fl_right">
+                <h3>{l_social_links_title}</h3>
+                <ul class="cham-links cham-social">
+                    <!-- begin_footer_social_links_item -->
+                    <li>
+                        <a href="{footer_social_links_item_url}" target=_blank>
+                            <i class="fa fa-{footer_social_links_item_type}{footer_social_links_item_prf}"></i>{footer_social_links_item_title}
+                        </a>
+                    </li>
+                    <!-- end_footer_social_links_item -->
+                </ul>
+            </div>
+            <!-- end_footer_social_links -->
+            <!-- begin_bottom_menu -->
+            <div class="col-md-2 col-sm-6 cham-footer-widget fl_right">
+                <h3>{l_sections}</h3>
+                <ul class="cham-links">
+                    <!-- begin_bottom_menu_item -->
+                    <li>
+                        <a <!-- begin_bottom_menu_item_target -->target="_blank"<!-- end_bottom_menu_item_target --> href="{url_main}{bottom_menu_item_url}">{bottom_menu_item_title}</a>
+                    </li>
+                    <!-- end_bottom_menu_item -->
+                </ul>
+            </div>
+            <!-- end_bottom_menu -->
+        </div>
+    </div>
+
+	<!-- begin_ssl_seal -->
+	<div class="footer-ssl-seal">{ssl_seal_html}</div>
+	<!-- end_ssl_seal -->
+
+</div>
+
+</div>
+
+<!-- begin_footer_visitor -->
+</div>
+<div id="pp_forgot" class="modal fade bs-example-modal-sm custom_modal forms_field" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">{l_forgot_password}</h3>
+        </div>
+        <div class="modal-body">
+            <div class="bl_forms">
+                <div class="section fields">
+                    <div class="col-lg-12 col-md-12 field">
+                        <input id="pp_resend_password_email" type="text" class="form-control placeholder" placeholder="{a_your_email}">
+                    </div>
+                </div>
+            </div>
+        <div class="clearfix"></div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-lg-12 col-md-12">
+                <button id="pp_resend_password_submit" type="button" class="btn btn-success" disabled>
+                    <span class="icon message"></span><span>{l_send_password}</span>
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- begin_page_info -->
+<div id="pp_term_cond" class="pp_info_page modal fade bs-example-modal-sm custom_modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">{terms_title}</h3>
+            </div>
+            <div class="pp_information" data-cl-loader="loader_pp_info_page"></div>
+        </div>
+    </div>
+</div>
+
+<div id="pp_priv_policy" class="pp_info_page modal fade bs-example-modal-sm custom_modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">{priv_title}</h3>
+            </div>
+            <div class="pp_information" data-cl-loader="loader_pp_info_page"></div>
+        </div>
+    </div>
+</div>
+<!-- end_page_info -->
+
+<!-- end_footer_visitor -->
+
+<!-- begin_footer_member -->
+{footer_custom}
+
+<div class="bl_templates">
+    {pp_galley_comment_item}
+</div>
+<!-- end_footer_member -->
+
+<div id="pp_contact" class="modal fade bs-example-modal-sm custom_modal forms_field" tabindex="-1" role="dialog" data-backdrop="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content bl_contact_frm">
+            <div class="modal-header">
+                <h3 class="modal-title">{l_contact_us}</h3>
+            </div>
+            <div class="contact_frm"></div>
+        </div>
+    </div>
+</div>
+
+<div id="pp_profile_info" class="modal fade bs-example-modal-sm custom_modal pp_profile_info" tabindex="-1" role="dialog" data-backdrop="true">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content column">
+			<div class="modal-body bl"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success">
+				<span class="icon check"></span>{l_message_action_close}</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="update_server"></div>
+<!-- begin_sound_silence_activate -->
+<iframe src="{url_main}_server/im_new/sounds/025s_silence.mp3" allow="autoplay" style="display:none"></iframe>
+<script>initNotificationSound();</script>
+<!-- end_sound_silence_activate -->
+
+<script>
+    var isModeViewingUserModerator='{is_mode_viewing_moderator}'*1;
+
+    try {
+        initServer();
+    }
+    catch(e){};
+    {footer_custom_js}
+
+    $win.load(function(){
+        <!-- begin_error_accessing_user -->
+        alertCustom('{error_accessing_user}');
+        <!-- end_error_accessing_user -->
+        <!-- begin_alert_after_page_loaded -->
+        alertCustom('{alert_after_page_loaded_msg}', '{alert_after_page_loaded_title}');
+        <!-- end_alert_after_page_loaded -->
+        <!-- begin_payment_thank -->
+        alertCustom('{j_payment_successfully_completed}','{j_alert_success}');
+        <!-- end_payment_thank -->
+    })
+</script>
+
+<script type="text/javascript" src="{url_main}_server/videojs/video.js{cache_version_param}"></script>
+<script>videojs.options.flash.swf="{url_main}_server/videojs/video-js.swf"</script>
+
+<!-- begin_facebook_invite -->
+<script src="https://connect.facebook.net/en_US/all.js"></script>
+<script type="text/javascript">
+    FB.init({
+        appId: '{facebook_appid}',
+        cookie: true,
+        status: true
+    });
+
+    var j_facebook_invite_message = '{j_facebook_invite_message}';
+    var facebookAppId = '{facebook_appid}';
+</script>
+<!-- end_facebook_invite -->
+
+<div class="page_preloader">
+    <div class="wrapper">
+        <div class="wrapper_logo">
+            <img class="header-loader-logo" src="{header_url_logo}" alt="{title}" title="{title}">
+        </div>
+        <div class="css_loader loader_layer_block_page">
+            <div class="spinner center">
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- begin_mobile_app -->
+
+<script src="{url_tmpl_common_apps}mobileapp.js{cache_version_param}"></script>
+
+<script>
+appCityLastMsgId = '{city_last_msg_id}';
+mobileAppLoaded = true;
+// global for access from all scripts
+adMobBannerConfig = false;
+
+MobileApp.isTokenUpdateRequired = {mobileAppIsTokenUpdateRequired};
+
+<!-- begin_in_app_purchase_products -->
+inAppPurchaseProducts = {};
+<!-- begin_in_app_purchase_product -->
+inAppPurchaseProducts[{in_app_purchase_item}] = {
+    id: '{in_app_purchase_product_id}',
+    type: '{in_app_purchase_product_type}'
+};
+<!-- end_in_app_purchase_product -->
+<!-- end_in_app_purchase_products -->
+
+<!-- begin_banner_admob_top -->
+adMobBannerConfig = {
+    id: '{banner_admob_top}',
+    bannerAtTop: true,
+};
+<!-- end_banner_admob_top -->
+<!-- begin_banner_admob_bottom -->
+adMobBannerConfig = {
+    id: '{banner_admob_bottom}',
+    bannerAtTop: false,
+};
+<!-- end_banner_admob_bottom -->
+
+MobileApp.init('{user_id}');
+
+var inviteFriendsBySmsMessage = '{j_invite_friends_by_sms_message}'.replace('{' + 'url' + '}', $('base').attr('href'));
+
+</script>
+<!-- end_mobile_app -->
+
+<!-- begin_mobile_app_android -->
+<script src="{url_tmpl_common_apps}android{android_app_version}/cordova.js{cache_version_param}"></script>
+<!-- end_mobile_app_android -->
+
+<!-- begin_mobile_app_ios -->
+<script src="{url_tmpl_common_apps}ios/cordova.js{cache_version_param}"></script>
+<!-- end_mobile_app_ios -->
+
+<!-- begin_show_message_js -->
+<script>
+    $win.load(function(){clMessages.show('{show_message_uid_sender}'*1,[],'{show_message_group_user_id_sender}'*1, '{show_message_group_id_sender}'*1)})
+</script>
+<!-- end_show_message_js -->
+<!-- begin_show_friend_request_js -->
+<script>
+$win.load(function(){$('#friends_notification_link').click()})
+</script>
+<!-- end_show_friend_request_js -->
+
+<script>$(function(){
+<!-- begin_payment_pop_show_refill -->
+alertCustom('{j_your_credits_have_been_refilled}', '{j_success}');
+<!-- end_payment_pop_show_refill -->
+<!-- begin_system_payment_error -->
+alertCustom('{j_seems_there_problem_with_your_payment}', '{j_problem_with_the_payment}');
+<!-- end_system_payment_error -->
+<!-- begin_payment_pop_show_video_chat -->
+//clVideoChat.checkInvite($link, onlineUser, groupId, isPage)
+//videoChatInvite('{user_id}',true);
+<!-- end_payment_pop_show_video_chat -->
+<!-- begin_payment_pop_show_audio_chat -->
+//clAudioChat.checkInvite($link, onlineUser, groupId, isPage)
+//audioChatInvite('{user_id}',true);
+<!-- end_payment_pop_show_audio_chat -->
+})
+</script>
+
+<!-- begin_gdpr_cookie_popup -->
+<script>
+    $(function(){
+        //document.cookie = 'cookiesAccepted=; path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        var options = {
+            title: '{j_cookies_accept_title}',
+            text: '{cookies_accept_text}',
+            acceptButtonText: '{j_cookies_accept_accept_button_text}',
+            theme: 'dark',
+            learnMore: false,
+            position: 'bottom',
+            class: '{cookies_class}',
+            position: '{cookies_position}',
+            width: '{cookies_width}',
+            width_unit: '{cookies_width_unit}',
+        };
+        $.acceptCookies(options);
+    })
+</script>
+<!-- end_gdpr_cookie_popup -->
+
+<script>checkMediaChatRequest();</script>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!-- begin_container_header -->
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.autosize.js{cache_version_param}"></script>
+<script type="text/javascript">
+$(function(){
+$('body').on('keydown','#partyhou_comment_text',function(e){
+    var msg=$.trim($(this).val()),
+        el_txt=$(this),
+        el=this;
+    setTimeout(function(){el.scrollTop=0}, 0);
+    if (e.which == 13){
+        if (!e.shiftKey && !e.ctrlKey && !e.metaKey) {
+            $(this).val(msg);
+            on_partyhou_comment_post(1);
+            $(this).val('').trigger('autosize');
+            return false
+        }
+        if (e.ctrlKey) enterCaret(el)
+    }
+    setTimeout(function(){el_txt.autosize()}, 0);
+})
+})
+var current_page_n = {page};
+
+function partyhou_comment_list_load_page(page_n,jump)
+{
+    $('#partyhou_comment_list_load_animation').css('visibility', 'visible');
+
+    $('#partyhou_comment_list_container').load(
+            '{url_main}partyhouz_partyhou_comment_list_ajax.php?partyhou_id={partyhou_id}&partyhou_comment_list_page=' + page_n,
+            null,
+            function(responseText, textStatus, XMLHttpRequest) {
+                current_page_n = page_n;
+
+	// UPDATE lightBox images
+    initLightboxOldTemplate();
+
+	// go to anchor of comment
+	if(jump==1) document.location.href="#partyhou_comment_"+posted_comment_id;
+            });
+}
+
+function partyhou_comment_delete(comment_id)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+	    $('#partyhou_comment_' + comment_id).fadeOut(400, function() {
+		        $.ajax({
+		            type: 'POST',
+		            url: '{url_main}partyhouz_partyhou_comment_delete_ajax.php',
+		            data: {
+		                comment_id: comment_id
+		                },
+		            success: function (data, textStatus, XMLHttpRequest)
+		                {
+		                    partyhou_comment_list_load_page(current_page_n);
+		                }
+		          });
+	        });
+    }
+}
+
+function on_partyhou_comment_post($type)
+{
+    if ($type == 1) {
+        comment_text = $('#partyhou_comment_text').val();
+    } else if ($type == 2) {
+        comment_text = $('#partyhou_comment_text_bottom').val();
+    }
+    if(comment_text === "")
+    {
+        alert('{l_please_enter_text}');
+        return false;
+    }
+
+    $('#partyhou_comment_post_button').attr('disabled', true);
+    //$('#partyhou_comment_post_animation').css('visibility', 'visible');
+
+    $.ajax({
+          type: 'POST',
+          url: '{url_main}partyhouz_partyhou_comment_create_ajax.php',
+          data: {
+              partyhou_id: {partyhou_id},
+              comment_text: comment_text
+              },
+          success: function (data, textStatus, XMLHttpRequest)
+              {
+                  redirectRequiresAuth(data);
+                  //$('#partyhou_comment_post_animation').css('visibility', 'hidden');
+                  $('#partyhou_comment_text').val('');
+                  $('#partyhou_comment_post_button').attr('disabled', false);
+                  partyhou_comment_list_load_page(1);//,1
+              }
+        });
+}
+
+function partyhou_comment_comment_delete(comment_id)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+        $('#partyhou_comment_comment_' + comment_id).fadeOut(400, function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '{url_main}partyhouz_partyhou_comment_comment_delete_ajax.php',
+                    data: {
+                        comment_id: comment_id
+                        },
+                    success: function (data, textStatus, XMLHttpRequest)
+                        {
+                            partyhou_comment_list_load_page(current_page_n);
+                        }
+                  });
+            });
+    }
+}
+
+function on_partyhou_comment_comment_post(comment_id)
+{
+    if($('#partyhou_comment_comment_text_' + comment_id).val() == '{l_partyhouz_write_a_comment}')
+        $('#partyhou_comment_comment_text_' + comment_id).val('');
+
+    comment_comment_text = $('#partyhou_comment_comment_text_' + comment_id).val();
+    if(comment_comment_text === "")
+    {
+        alert('{l_please_enter_text}');
+        return false;
+    }
+
+    //$('.partyhou_comment_comment_post_button_' + comment_id).hide();
+    //$('#partyhou_comment_comment_post_animation_' + comment_id).css('display', 'inline');
+
+    $.ajax({
+          type: 'POST',
+          url: '{url_main}partyhouz_partyhou_comment_comment_create_ajax.php',
+          data: {
+              comment_id: comment_id,
+              comment_text: comment_comment_text
+              },
+          success: function (data, textStatus, XMLHttpRequest)
+              {
+				redirectRequiresAuth(data);
+                  //$('#partyhou_comment_comment_post_animation_' + comment_id).css('visibility', 'hidden');
+                  $('#partyhou_comment_comment_text_' + comment_id).val('');
+                  $('#partyhou_comment_comment_post_button_' + comment_id).attr('disabled', false);
+                  partyhou_comment_list_load_page(current_page_n);
+              }
+        });
+
+    return false;
+}
+
+</script>
+<div id="partyhou_comment_list_container">
+<!-- end_container_header -->
+<div style="float: left; margin: 0 10px 0 0; width: 100%;">
+<textarea class="placeholder" style="overflow: hidden; word-wrap: break-word; resize: none;" placeholder="{l_partyhouz_write_to_wall}" id="partyhou_comment_text"></textarea>
+</div>
+<table class="partyhouz_new_tb_sub">
+
+<script type="text/javascript">
+var posted_comment_id = '{posted_comment_id}',
+    box_object = $('.partyhouz_video');
+    prepareVideoResize(box_object);
+    videoResize(box_object);
+</script>
+
+    <col width="7px"/>
+    <col width="30px"/>
+	<col width="1px"/>
+    <tr>
+        <th class="th_t_l nb first">&nbsp;</th>
+        <th class="th_t_c">{l_partyhouz_photo}</th>
+		<th class="th_t_b">&nbsp;</th>
+        <th class="th_t_c nb"><span>{l_partyhouz_comments}</span></th>
+        <th class="th_t_r nb first">&nbsp;</th>
+    </tr>
+
+<!-- begin_comment -->
+	<tr id="partyhou_comment_{comment_id}">
+	    <td colspan="2" class="border_b first">
+	    <a href="{url_main}search_results.php?display=profile&name={comment_user_name_full}" title="{comment_user_name_full}"><img src="{comment_user_photo}" width="37" height="41" alt="{comment_user_name_full}"/></a>
+		<!-- begin_delete_button --><div style="position:relative;">
+		 <div class="new_mode_bl_dpink_delete_foto" style="top:-14px;"><a href="javascript:partyhou_comment_delete({comment_id});"><img src="{url_tmpl_main}images/partyhouz/ico_delete_pink.png" width="13" height="14" alt=""/></a></div>
+		</div><!-- end_delete_button -->
+		</td>
+		<td class="b">&nbsp;</td>
+	    <td colspan="2" class="nb border_b">
+
+	        <div class="partyhouz_new_tb_bl_dpink">
+
+	        <div class="section_comment"><a href="{url_main}search_results.php?display=profile&name={comment_user_name_full}" title="{comment_user_name_full}">{comment_user_name}</a>
+          {comment_text}
+          </div>
+<div class="cl"></div>
+
+	        <ul class="partyhouz_new_data">
+	            <li class="decor">{comment_created_at_date}</li>
+	        </ul>
+
+
+	        <div class="cl"></div>
+
+            <!-- begin_comment_comment -->
+	        <div class="partyhouz_new_bl_dpink" id="partyhou_comment_comment_{comment_comment_id}">
+<!-- 	            <div class="partyhouz_new_bl_dpink_top"></div>
+ -->	            <div class="partyhouz_new_bl_dpink_c">
+	                <a href="{url_main}search_results.php?display=profile&name={user_name_full}"><img class="fl_left" src="{user_photo}" height="23" alt=""/></a>
+	                <div class="partyhouz_new_bl_dpink_txt" >
+	                    <a href="{url_main}search_results.php?display=profile&name={user_name_full}" title="{user_name_full}">{user_name}</a>
+                        {comment_comment_text}
+                        <br />
+	                    <span>{comment_comment_created_at_date}</span>
+	                </div>
+	            </div>
+<!-- 	            <div class="partyhouz_new_bl_dpink_bot"></div>
+ -->
+	            <!-- begin_comment_delete_button -->
+	            <div class="partyhouz_new_bl_dpink_delete" ><a href="javascript:partyhou_comment_comment_delete({comment_comment_id});"><img src="{url_tmpl_main}images/partyhouz/ico_delete_pink.png" width="13" height="14" alt=""/></a></div>
+                <!-- end_comment_delete_button -->
+	        </div>
+            <!-- end_comment_comment -->
+          <form action="#" onsubmit="return on_partyhou_comment_comment_post({comment_id});">
+          <table class="tb_streight">
+          <col width="100%" />
+          <col width="76px" />
+          <tr>
+            <td><div class="col1 partyhouz_input_text5 fl_left"><input id="partyhou_comment_comment_text_{comment_id}" style="visibility:visible;" class="no_abk" type="text" value="{l_partyhouz_write_a_comment}"  onblur="javascript:if(this.value=='')this.value='{l_partyhouz_write_a_comment}'" onFocus="this.value=''"/></div>
+            <img style="display:none; float: left;" id="partyhou_comment_comment_post_animation_{comment_id}" src="{url_tmpl_main}images/load_animation.gif">
+<!--             <div class="partyhouz_input3 fl_right partyhou_comment_comment_post_button_{comment_id}">
+              <input id="partyhou_comment_comment_post_button_{comment_id}" type="submit" value="{l_partyhouz_save}" />
+            </div> -->
+</td>
+            <td>
+
+            <div class="fl_right partyhou_comment_comment_post_button_{comment_id}">
+              <input style="min-width: 66px;" class="btn upper_header_color round" id="partyhou_comment_comment_post_button_{comment_id}" type="submit" value="{l_partyhouz_save}" />
+            </div>
+          </td>
+          </tr>
+
+	       </table>
+	       </form>
+          <div class="partyhouz_new_line"></div>
+
+	        <!-- -->
+	        </div>
+	    </td>
+	</tr>
+<!-- end_comment -->
+
+	<tr>
+	    <td colspan="2" class="border_b first"></td>
+	    <td class="b">&nbsp;</td>
+		<td colspan="2" class="nb border_b">
+
+	        <div class="partyhouz_new_tb_bl_dpink">
+
+	        <div class="partyhouz_textarea2">
+                <textarea id="partyhou_comment_text_bottom" class="no_abk placeholder"  placeholder="{l_partyhouz_write_to_wall}"></textarea></div>
+
+			<div class="fl_right" style="position:relative;"><input class="btn upper_header_color round big" id="partyhou_comment_post_button" type="button" onclick="on_partyhou_comment_post(2);" value="{l_partyhouz_write}" /></div>
+
+	        <div class="partyhouz_new_line"></div>
+
+
+	        </div>
+	    </td>
+	</tr>
+
+    <tr>
+        <th class="th_b_l nb">&nbsp;</th>
+        <th colspan="3" class="th_b_c nb">&nbsp;</th>
+        <th class="th_b_r nb">&nbsp;</th>
+    </tr>
+
+</table>
+
+<!-- begin_pager -->
+<div class="fl_right"><ul class="partyhouz_new_paging">
+    <li><img style="visibility:hidden;" id="partyhou_comment_list_load_animation" src="{url_tmpl_main}images/load_animation.gif"></li>
+    <!-- begin_pager_prev --><li><a href="javascript:partyhou_comment_list_load_page({page_n});">{l_pager_prev}</a></li>
+    <li>|&nbsp;&nbsp;</li><!-- end_pager_prev -->
+    <!-- begin_pager_link --><!-- begin_pager_link_active --><li class="active">{page_n}</li><!-- end_pager_link_active --><!-- begin_pager_link_not_active --><li><a href="javascript:partyhou_comment_list_load_page({page_n});">{page_n}</a></li><!-- end_pager_link_not_active --><!-- end_pager_link -->
+    <!-- begin_pager_next --><li>&nbsp;&nbsp;|</li>
+    <li><a href="javascript:partyhou_comment_list_load_page({page_n});">{l_pager_next}</a></li><!-- end_pager_next -->
+</ul></div><!-- end_pager -->
+
+<!-- begin_container_footer -->
+</div>
+<!-- end_container_footer -->

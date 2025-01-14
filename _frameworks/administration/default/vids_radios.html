@@ -1,0 +1,61 @@
+<!--Gregory mann modified at 7/5/ 1:09 pm.-->
+{header}
+<style>
+	#fullscreen-button {
+		position: absolute;
+		top: 15px;
+		right: 10px;
+		z-index: 1;
+		padding: 5px 5px;
+		background-color: #0b1522;
+		color: white;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		font-size: 16px;
+	}
+
+	#fullscreen-button:hover {
+		background-color: #d32f2f;
+	}
+</style>
+
+<div id="wide">
+
+
+	<iframe id="ytplayer_admin" src="https://whisprrz.com/whisp_radio/RKHM/admin/login" name="iframe_b" height="2000px" width="100%"
+		title="RHMK" onload="login()" allowfullscreen></iframe>
+		
+	<button id="fullscreen-button" onclick="toggleFullscreen()">&#9950;</button>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+	
+	<script>
+		function login() {
+			var iframe = document.getElementById("ytplayer_admin");
+			
+			var psw = localStorage.getItem('crypta');
+            var password = CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(psw));
+			
+			var payload = { email: "ericeca1@gmail.com", password: "kseven1207!@#"};
+			
+			 iframe.contentWindow.postMessage(payload, "*");
+		}
+	</script>
+	
+	<script>
+		function toggleFullscreen() {
+			var iframe = document.getElementById("ytplayer_admin");
+			if (iframe.requestFullscreen) {
+				iframe.requestFullscreen();
+			} else if (iframe.webkitRequestFullscreen) { /* Safari */
+				iframe.webkitRequestFullscreen();
+			} else if (iframe.msRequestFullscreen) { /* IE11 */
+				iframe.msRequestFullscreen();
+			}
+		}
+	</script>
+
+	{footer}

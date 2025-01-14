@@ -1,0 +1,73 @@
+{header}
+
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+
+<input style="width: 90px;" type="button" value="{l_events_home}" class="button" onclick="location='{url_main}events_index.php';" title="{l_events_home}">
+<input style="width: 120px;" type="button" value="{l_events_posted}" class="button" onclick="location='{url_main}events_posted.php';" title="{l_events_posted}">
+<input style="width: 120px;" type="button" value="{l_events_attending}" class="button" onclick="location='{url_main}events_attending.php';" title="{l_events_attending}">
+<input style="width: 120px;" type="button" value="{l_events_add_event}" class="button" onclick="location='{url_main}events_create.php';" title="{l_events_add_event}">
+<input style="width: 90px;" type="button" value="{l_events_calendar}" class="button" onclick="location='{url_main}events_clndr.php';" title="{l_events_calendar}">
+<input style="width: 140px;" type="button" value="{l_events_add_clndr}" class="button active_btn" onclick="location='{url_main}events_clndr_create.php';" title="{l_events_add_clndr}">
+<br><br><br>
+<!-- begin_create_event -->
+
+<form method="post">
+
+<input type="hidden" name="action" value="add_event">
+
+<table cellpadding="20" border="0" cellspacing="0" width="100%"><tr><td valign="top" width="50%">
+
+<h3>{l_entry_to_calendar}</h3><br>
+
+{l_title}: * <br />
+<input type="text" name="event_name" style="width:300px;" /><br><br>
+
+{l_short_description}:  <br />
+<textarea name="short_dscr"  style="width:300px;" rows="4"></textarea><br><br>
+
+{l_long_description}: <br />
+<textarea name="long_dscr"  style="width:300px;" rows="4"></textarea><br><br>
+
+</td><td valign="top">
+
+<h3>{l_when}</h3><br>
+
+{l_start_date}:
+<select name="month" >{select_month}</select>
+<select name="day" >{select_day}</select>
+<select name="year" >{select_year}</select><br><br>
+
+{l_start_time}:
+<select name="hour" >{select_hour}</select>
+<select name="minutes" >{select_minutes}</select>
+
+</td></tr>
+
+
+
+<tr><td colspan="2" align="center">
+
+<input type="submit" value="{l_save}" class="button">
+</td></tr>
+</table>
+
+
+
+</form>
+
+<!-- end_create_event -->
+
+
+
+<!-- begin_event_added -->
+<center>
+<div class=header_big style="text-align:center;">{l_entry_added}</div><br><br> 
+<a href="events_clndr_view.php?id={id}"> {l_click_here}</a><br><br><br>
+</center>
+<!-- end_event_added -->
+
+
+
+</div></div></div></div></div></div></div></div></div>
+
+{footer} 

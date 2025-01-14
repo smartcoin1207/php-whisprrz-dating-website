@@ -1,0 +1,76 @@
+{header}
+
+<style>
+	table {
+		border-collapse: collapse;
+	    font-family: Tahoma, Geneva, sans-serif;
+	}
+
+	table th {
+		padding: 15px;
+		background-color: #838689;
+		color: #ffffff;
+		font-weight: bold;
+		font-size: 18px;
+		border: 1px solid #838689;
+	}
+	table td {
+		padding: 15px;
+	}
+	table thead td {
+		background-color: #54585d;
+		color: #ffffff;
+		font-weight: bold;
+		font-size: 13px;
+		border: 1px solid #54585d;
+	}
+	table tbody td {
+		color: #636363;
+		border: 1px solid #dddfe1;
+	}
+	table tbody tr {
+		background-color: #f9fafb;
+	}
+	table tbody tr:nth-child(odd) {
+		background-color: #ffffff;
+	}
+</style>
+
+<div class="frame_content">
+	<table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
+	    <tr>
+	        <td style=" margin-bottom: 5px;">
+	            <h3 style="border: 0; margin-bottom: 0;">{title_current}</h3>
+	        </td>
+	 
+	    </tr>
+	</table>
+
+	<div>
+		<table class="ws-table-all notranslate" style="width: 100%;"> 
+			<tbody>
+				<tr>
+					<th>Group</th>
+					<th>Description</th>
+					<th>Owner</th>
+
+				</tr>
+				<!-- begin_group_items -->
+					<!-- begin_group_item -->
+					<tr>
+						<td><a href="{group_url}" style="font-size: 18px; text-decoration: underline;">{group_name}</a></td>
+						<td style="font-size: 15px;">{group_description}</td>
+						<td style="font-size: 15px;">{group_owner}</td>
+
+					</tr>
+					<!-- end_group_item -->
+				<!-- end_group_items -->
+				
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+{footer}
+

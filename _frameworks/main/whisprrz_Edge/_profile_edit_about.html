@@ -1,0 +1,21 @@
+    <div class="section fields field_about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 text-right field">
+                    <span>{field}</span>
+                </div>
+                <div class="col-lg-6 field">
+                    <input type="hidden" name="name" value="{name}" class="ajax"/>
+                    <!-- begin_textarea -->
+                    <textarea id="profile_about_{name}" name="{name}" maxlength="{maxlen}" placeholder="{field_description}" class="form-control field_profile_text">{value_input}</textarea>
+                    <!-- end_textarea -->
+                    <!-- begin_text -->
+                    <input id="profile_about_{name}" name="{name}" type="text" maxlength="{maxlen}" value="{value_input}" placeholder="{field_description}" class="form-control field_profile_text"/>
+                    <!-- end_text -->
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $('#profile_about_{name}').autosize({isSetScrollHeight:false,callback:function(){}})
+</script>

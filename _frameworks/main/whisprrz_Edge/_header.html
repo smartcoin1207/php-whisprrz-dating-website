@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="{html_language_code}" style=" background : url('') !important;"><head>
+    <script>
+    if(/IOSWebview/i.test(navigator.userAgent))document.documentElement.classList.add('ios_app');
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{title}</title>
+    <meta name="description" content="{description}">
+    <meta name="keywords" content="{keywords}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- begin_meta_viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=.345, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no<!-- begin_meta_viewport_device_dpi -->, target-densitydpi=device-dpi<!-- end_meta_viewport_device_dpi -->" />
+    <!-- end_meta_viewport -->
+    <!-- begin_city_set_viewport_js -->
+    <style id="style_mobile_city"></style>
+    <script>
+        var dpr=window.devicePixelRatio;
+        if(dpr){
+            document.write('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale='+(1/dpr)+', target-densitydpi=device-dpi">');
+        }else{
+            document.write('<meta name="viewport" content="user-scalable=no, target-densitydpi=device-dpi">');
+        }
+    </script>
+    <!-- end_city_set_viewport_js -->
+
+    <base href="{base_url_main_head}">
+    <meta name="theme-color" content="{meta_theme_color}">
+    <script language="javascript" type="text/javascript">
+    </script>
+    <!-- begin_pwa_ios_old -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="{title_orig}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <script type="text/javascript">
+        (function(document,navigator,standalone) {
+            if ((standalone in navigator) && navigator[standalone]) {
+                /* Load page */
+                var location = document.location,
+                    startUrl = 'index.php?mobile_app_type=pwa',
+                    currentUrl = localStorage['navigate_current_url'],
+                    lastUrl = localStorage['navigate_last_url'] || startUrl;
+                    //alert(lastUrl);
+
+                if(currentUrl){
+                    localStorage.removeItem('navigate_current_url');
+                } else {
+                    //alert(lastUrl + '/' + location.href);
+                    localStorage['navigate_current_url'] = lastUrl;
+                    //if(lastUrl != location.href){
+                        if(lastUrl.indexOf('?') === -1) {
+                            lastUrl = lastUrl + '?';
+                        } else {
+                            lastUrl = lastUrl + '&';
+                        }
+                        lastUrl += 'mobile_app_type=pwa';
+                        location.href = lastUrl;
+                        return;
+                    //}
+                }
+
+                window.addEventListener('pagehide', function (e) {
+                    localStorage['navigate_current_url'] = location.href;
+                })
+                localStorage['navigate_last_url'] = location.href;
+                /* Load page */
+
+                // prevents links from apps from oppening in mobile safari
+
+                /*
+                if(target.tagName === 'A') {
+                    if('href' in target && ( target.href.indexOf('http') || ~target.href.indexOf(location.host) ) ) {
+                        e.preventDefault();
+                        if(curnode.hasAttribute('onclick') || curnode.onclick) {
+                            return;
+                        }
+                        location.href = target.href;
+                    }
+                }*/
+                var curnode, stop=/^(a|html)$/i;
+                document.addEventListener('click', function(e) {
+                    curnode=e.target;
+                    while (!(stop).test(curnode.nodeName)) {
+                        curnode=curnode.parentNode;
+                    }
+                    // Condidions to do this only on links to your own app
+                    // if you want all links, use if('href' in curnode) instead.
+                    if('href' in curnode && $(curnode).attr('target') != '_blank' && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) ) {
+                        e.preventDefault();
+                        if(curnode.hasAttribute('onclick') || curnode.onclick) {
+                            return;
+                        }
+                        location.href = curnode.href;
+                    }
+                },false);
+            }
+        })(document,window.navigator,'standalone');
+    </script>
+    <!-- end_pwa_ios_old -->
+
+    <link rel="apple-touch-icon" href="{icon_pwa_url}">
+    <!-- <link rel="manifest" href="{url_main}manifest.php{cache_version_param}"> -->
+
+    {to_head_meta}
+    {header_faviconddd}
+
+    <script language="javascript" type="text/javascript">
+        var isAppAndroid = '{is_app_android}'*1,
+            isIframeDemo = false;
+        <!-- begin_main_page_video_background_head_js -->
+        var bgLast = '';
+        if(name) {
+            bgLast = name;
+            var bgLastParts = bgLast.split(',');
+            var bgLastUrl = bgLastParts[0];
+            if({main_page_video_background_head_js_is_index_page}) {
+                document.documentElement.style.background='url('+bgLastUrl+') center top / cover transparent';
+            }
+         }
+        <!-- end_main_page_video_background_head_js -->
+        <!-- begin_check_demo_iframe -->
+        if (parent.window.frames['iframe_demo']) {
+            document.documentElement.classList.add('iframe_demo');
+            isIframeDemo = true;
+            var urlDemo=window.location.href,
+                urlPageDemo='{url_page}';
+            if(urlPageDemo=='city.php' && urlDemo.indexOf('view=mobile') === -1){
+                if(urlDemo.indexOf('?') === -1) {
+                    urlDemo += '?';
+                } else {
+                    urlDemo += '&';
+        }
+                urlDemo += 'view=mobile_demo';
+                window.location.href = urlDemo;
+                console.log('Redirect mobile CITY', urlDemo);
+            }
+        }
+        <!-- end_check_demo_iframe -->
+    </script>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/bootstrap.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/bootstrap-select.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/bootstrap-slider.css{cache_version_param}">
+    <!-- start oryx2_1 css -->
+    <link rel="stylesheet" href="{url_tmpl_main}css/main.css{cache_version_param}" type="text/css" media="screen" />
+    <!-- <link rel="stylesheet" href="{url_main}_server/audiochat/audio.css{cache_version_param}" type="text/css" /> -->
+    <link rel="stylesheet" href="{url_main}_server/widgets/css/widget.css{cache_version_param}" type="text/css" /> 
+    <link rel="stylesheet" href="{url_tmpl_main}css/common.css{cache_version_param}" type="text/css" />
+    <!--<link rel="stylesheet" href="{url_tmpl_main}css/im.css{cache_version_param}" type="text/css" />-->
+    <link rel="stylesheet" href="{url_tmpl_main}css/invitee.css{cache_version_param}" type="text/css" />
+
+
+    <!-- end oryx2_1 css -->
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/font-awesome.min.css{cache_version_param}">
+
+    <script type="text/javascript" src="{url_tmpl_main}js/device.js{cache_version_param}"></script>
+        <script type="text/javascript" src="{url_main}_server/jquery/jquery-last.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery-1.11.2.min.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery-ui-1.11.4.min.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.cookie.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.rating.pack.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.editable.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.pagination.js{cache_version_param}"></script>
+    <link rel="stylesheet" href="{url_tmpl}common/lightbox/jquery.lightbox-0.5.css{cache_version_param}" type="text/css" media="screen">
+    <script type="text/javascript" src="{url_tmpl}common/lightbox/jquery.lightbox-0.5.min.js{cache_version_param}"></script>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/jquery.jscrollpane.css{cache_version_param}"/>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.jscrollpane.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.mousewheel.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_tmpl_main}js/bootstrap.min.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/bootstrap-select.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_tmpl_main}js/bootstrap-slider.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jcarousel/modernizr.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/common.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/lib.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/script.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/server_edge.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/sound/soundmanager2-20170601.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.winFocus.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/jquery.scrollTo.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/requestAnimationFrame.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/webnotification.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.lazyload.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/client.js{cache_version_param}"></script>
+
+
+    <script type="text/javascript" src="{url_main}_server/swfobject/swfobject.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/prettyCheckable.js{cache_version_param}"></script>
+    <link rel="stylesheet" href="{url_tmpl_main}css/pikaday.css{cache_version_param}" type="text/css" media="screen">
+    <script type="text/javascript" src="{url_tmpl_main}js/moment.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/pikaday.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/device.min.js{cache_version_param}"></script>
+
+
+    <script>var urlImageEditor="{url_main}_server/js/image_editor/";</script>
+    <script type="text/javascript" src="{url_main}_server/js/image_editor/image_editor.js{cache_version_param}"></script>
+    
+    <link rel="stylesheet" type="text/css" href="{url_main}_server/videojs/video-js.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/city_mobile_elements.css{cache_version_param}">
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/style.css{cache_version_param}"/>
+
+    <!-- begin_app_android_style -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/app_android.css{cache_version_param}"/>
+    <!-- end_app_android_style -->
+
+
+    <!-- begin_app_ios_style -->
+    <style type="text/css">
+    a {-webkit-touch-callout: none !important;}
+    </style>
+    <!-- end_app_ios_style -->
+
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/cookiepopup.css{cache_version_param}"/>
+    <script type="text/javascript" src="{url_tmpl_main}js/cookiepopup.js{cache_version_param}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/tinyscrollbar.css{cache_version_param}"/>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.tinyscrollbar.js{cache_version_param}"></script>
+
+
+    <!-- begin_header_visitor_js -->
+    <script type="text/javascript" src="{url_tmpl_main}js/script_visitor.js{cache_version_param}"></script>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/custom.css{cache_version_param}">
+    <script type="text/javascript" src="{url_tmpl_main}js/custom.js{cache_version_param}"></script>
+
+
+    <!-- end_header_visitor_js -->
+
+    <!-- begin_header_member_js -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/chat.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/dropzone.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/videojs.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/custom.css{cache_version_param}">
+    <link rel="stylesheet" href="{url_tmpl_main}css/donation.css" type="text/css"/>
+    <script type="text/javascript" src="{url_tmpl_main}js/donation.js"></script>
+
+    <script type="text/javascript" src="{url_main}_server/videojs/ie8/videojs-ie8.min.js{cache_version_param}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{url_main}_server/js/audioplayer/audioplayer.css{cache_version_param}">
+    <script type="text/javascript" src="{url_main}_server/js/audioplayer/audioplayer.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_tmpl_main}js/counters.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/script_member.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/mason.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_tmpl_main}js/profile.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/upgrade.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/profile_photo.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/profile_songs.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/friends.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/events.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/chat.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/messages.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/blogs.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/dropzone.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/city_street_chat.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/groups.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/custom.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.autosize.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.autosize_editable.js{cache_version_param}"></script>
+
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.touchSwipe.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/imagesloaded.pkgd.min.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/js/moment.min.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/moment_init.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/moment_hotdates_init.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/moment_partyhouz_init.js{cache_version_param}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/events_calendar.css{cache_version_param}"/>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/hotdates_calendar.css{cache_version_param}"/>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/partyhouz_calendar.css{cache_version_param}"/>
+
+    <link rel="stylesheet" href="{url_tmpl_main}bootstrap-datetimepicker/bootstrap-datetimepicker.css{cache_version_param}" type="text/css" media="screen">
+    <script type="text/javascript" src="{url_tmpl_main}bootstrap-datetimepicker/bootstrap-datetimepicker.js{cache_version_param}"></script>
+
+    <link rel="stylesheet" href="{url_tmpl_main}jquery_datetimepicker/jquery.datetimepicker.css{cache_version_param}" type="text/css" media="screen">
+    <script type="text/javascript" src="{url_tmpl_main}jquery_datetimepicker/jquery.datetimepicker.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_tmpl_main}js/events_calendar.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/hotdates_calendar.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/partyhouz_calendar.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/js/webrtc/media_utils_adapter.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/face_api/face-api.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_tmpl_main}jquery/jquery.timeentry.pack.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.validate.js{cache_version_param}"></script>
+
+    <script language="javascript" type="text/javascript">
+        var nsc_couple_id = '{nsc_couple_id}';
+        var is_nsc_couple_page = '{is_nsc_couple_page}';
+
+        var clProfile = new CProfile('{user_id}', '{header_uid}');
+        clProfile.setStatusOnline('{real_status_online}', '{user_status_online}');
+        clProfile.setData({
+            isBlocked : '{is_profile_blocked}'*1
+        })
+
+        var clProfilePhoto = new CProfilePhoto('{user_id}', '{header_param_uid}');/*{header_uid}*/
+        clProfilePhoto.setData({
+            guid : '{user_id}'*1,
+            maxphotoSize : '{photo_file_size_limit}'*1,
+            maxphotoFileSizeLimit : '{max_photo_file_size_limit}',
+            maxvideoSize : '{video_file_size_limit}'*1,
+            maxvideoFileSizeLimit : '{max_video_file_size_limit}',
+            maxsongSize : '{song_file_size_limit}'*1,
+            maxsongFileSizeLimit : '{max_song_file_size_limit}',
+            autoPlayVideo : '{auto_play_video}',
+            numberCommentsFrmShow : '{number_comments_frm_show}'*1,
+            galleryImageHeightMobile : '{gallery_image_height_mobile}'*1,
+            limitLoadMediaData : '{gallery_preload_data_number}'*1,
+            cropMinWidth : '{crop_min_width}'*1,
+            cropMinHeight : '{crop_min_height}'*1,
+            groupId : '{header_group_id}',
+            live_price : '{live_price}'*1
+        });
+
+
+        var clProfileSongs = new CProfileSongs('{user_id}', '{header_param_uid}');
+
+        var clFriends = new CFriends('{user_id}');
+        var clEvents = new CEvents('{user_id}');
+        var clCounters = new CCounters();
+        var clMessages = new CMessages('{user_id}', '{user_photo_m}', '{im_history_messages}');
+        var clBlogs = new CBlogs('{user_id}');
+        var clVideoChat = new CChat('video');
+        clVideoChat.price = '{video_chat_price}'*1;
+        clVideoChat.isDemoUser = '{is_demo_user}'*1;
+        clVideoChat.langParts = {
+            'chat_from_user' : '{video_chat_from_user}'
+        };
+        var clAudioChat = new CChat('audio');
+        clAudioChat.price = '{audio_chat_price}'*1;
+        clAudioChat.langParts = {
+           'chat_from_user' : '{audio_chat_from_user}'
+        };
+        var clCityStreetChat = new CCityStreetChat();
+        clCityStreetChat.langParts = {
+            'chat_from_user' : '{street_chat_from_user}'
+        };
+
+        var clGroups = new CGroups('{user_id}', '{header_uid}', '{header_group_id}');
+
+        var clUpgrade = new CUpgrade('{request_uri}');
+
+        var calendar_show_more_lang = '{l_show_more_calendar}';
+        var clEventsCalendar = new CEventsCalendar('{user_id}', '{header_uid}');
+        var clHotdatesCalendar = new CHotdatesCalendar('{user_id}', '{header_uid}');
+        var clPartyhouzCalendar = new CPartyhouzCalendar('{user_id}', '{header_uid}');
+
+
+        var isInAppPurchaseEnabled = '{is_in_app_purchase_enabled}'*1;
+
+        //m
+        var shareable_title  = '{l_wall_make_shareable}';
+        var shareable_not_title  = '{l_wall_make_not_shareable}';
+
+        soundManager.setup({
+            debugMode: false
+        });
+    </script>
+
+    <!-- Used only events calendar -->
+    {custom_head}
+    <!-- Used only events calendar -->
+
+    <!-- end_header_member_js -->
+
+    <script type="text/javascript" src="{url_tmpl_main}js/media_tools.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/pages.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/search.js{cache_version_param}"></script>
+    <script language="javascript" type="text/javascript">
+        var clMediaTools = new CMediaTools();
+        var clPages = new CPages('{user_id}');
+        var clSearch = new CSearch();
+    </script>
+
+    <script>
+        var user_profile_bg_video = {user_profile_bg_video};
+        var is_bg_video_all_page = {is_bg_video_all_page};
+
+        <!-- begin_main_page_video_background_js -->
+        var profile_bg_video_play_disabled = {main_page_video_play_disabled};
+        var profile_bg_video_quality = 'default';
+        var isBgVideoMute = {main_page_video_mute};
+        var bgVideoVolume = {main_page_video_volume};
+        var bgVideoOnce = {main_page_video_show_video_once};
+        var bgLast = [0, 0, 0];
+        <!-- end_main_page_video_background_js -->
+
+
+        var bgLast = [0, 0, 0];
+        
+        var bgLast=(name+',0,0').split(','),
+            bg='url('+bgLast[0]+') center/'+bgLast[1]+'px auto fixed';
+
+        // if (!bgLast[2]) document.documentElement.style.background=bg
+        // else if (bgLast[0]){} 
+        //     document.documentElement.style.background='url({url_tmpl_main}images/patterns/'+bgLast[0]+') '+
+        // (-bgLast[1])+'px '+(-bgLast[2])+'px repeat';
+    </script>
+
+
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="{url_tmpl_main}js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="{url_main}js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_runtime={tmpl_loaded}&set_language_runtime={lang_loaded}"></script>
+    <script type="text/javascript" src="{url_main}js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_runtime={tmpl_loaded}&set_language_runtime={lang_loaded}&page={current_page}"></script>
+
+    <style type="text/css">
+        @font-face{
+            font-family:'FontAwesome';
+            src:url('{url_tmpl_main}fonts/awesome/fontawesome-webfont.eot?v=4.7.0');
+            src:url('{url_tmpl_main}fonts/awesome/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),
+                url('{url_tmpl_main}fonts/awesome/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),
+                url('{url_tmpl_main}fonts/awesome/fontawesome-webfont.woff?v=4.7.0') format('woff'),
+                url('{url_tmpl_main}fonts/awesome/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),
+                url('{url_tmpl_main}fonts/awesome/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+            font-weight:normal;
+            font-style:normal
+        }
+        @font-face {
+            font-family: 'Glyphicons Halflings';
+            src: url('{url_tmpl_main}fonts/bootstrap/glyphicons-halflings-regular.eot');
+            src: url('{url_tmpl_main}fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+                 url('{url_tmpl_main}fonts/bootstrap/glyphicons-halflings-regular.woff2') format('woff2'),
+                 url('{url_tmpl_main}fonts/bootstrap/glyphicons-halflings-regular.woff') format('woff'),
+                 url('{url_tmpl_main}fonts/bootstrap/glyphicons-halflings-regular.ttf') format('truetype'),
+                 url('{url_tmpl_main}fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+        }
+        @font-face {
+            font-family: 'filerobot-image-editor-font';
+            src: url('{url_tmpl_main}fonts/image_editor/filerobot-image-editor-font.eot');
+            src: url('{url_tmpl_main}fonts/image_editor/filerobot-image-editor-font.eot?#iefix') format('embedded-opentype'),
+                 url('{url_tmpl_main}fonts/image_editor/filerobot-image-editor-font.woff') format('woff'),
+                 url('{url_tmpl_main}fonts/image_editor/filerobot-image-editor-font.ttf') format('truetype'),
+        }
+    </style>
+
+    <!-- begin_color_scheme_general -->
+    <style type="text/css">
+        .modal-dialog .modal-content{background-color: {modal_dialog_background_color};}
+        .modal-dialog .modal-content .modal-header h3, .modal-dialog .modal-content .modal-body{color: {modal_dialog_text_color};}
+
+        .pagination a:before{background-color: {pagination_background_color};}
+        .pagination a{color: {pagination_text_color};}
+        .pagination a:hover,
+        .pagination .pagination-active,
+        .pagination a .pagination-active{color: {pagination_text_color_hover};}
+        .mobile .pagination a:hover{color: {pagination_text_color};}
+        .mobile .pagination a.pagination-active:hover,
+        .mobile .pagination a:hover .pagination-active{color: {pagination_text_color_hover};}
+        .pagination a.disabled:hover, .pagination a.disabled {color: {pagination_text_color_disabled};}
+
+        .btn-success{background-color: {btn_success_background_color}; color: {btn_success_text_color}; border-color: {btn_success_border_color};}
+        .btn-success:hover, .btn-success:focus, .btn-success:active{background-color: {btn_success_background_color_hover}!important; color: {btn_success_text_color_hover}; border-color: {btn_success_border_color_hover}!important;}
+        .btn-success:disabled, .btn-success:disabled:hover, .btn-success:disabled:focus,
+        .btn-success:disabled:active{background-color: {btn_success_background_color_disabled}!important; color: {btn_success_text_color_disabled}!important; border-color: {btn_success_border_color_disabled}!important;}
+
+        .chat .content .message-input .wrap .pp_message_upload_img .count_upload_image{background-color: {btn_success_background_color};}
+        .chat .content .message-input .wrap .pp_message_upload_img .fa-camera:hover ~ .count_upload_image,
+        .chat .content .message-input .wrap .pp_message_upload_img .fa-camera ~ .count_upload_image:hover{background-color: {btn_success_background_color_hover}!important;}
+
+        .btn-info, .btn-primary, .btn_publish_page{background-color: {btn_primary_background_color}; color: {btn_primary_text_color}!important; border-color: {btn_primary_border_color};}
+        .btn-info:hover, .btn-info:focus, .btn-info:active,
+        .pp_file_upload .dz-cover-song:hover .btn-info, /* for file upload popup */
+        .btn_publish_page:hover,.btn_publish_page:focus,.btn_publish_page:active,
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active{background-color: {btn_primary_background_color_hover}!important; color: {btn_primary_text_color_hover}!important; border-color: {btn_primary_border_color_hover}!important;}
+
+        .btn-info:disabled, .btn-info:disabled:hover, .btn-info:disabled:focus, .btn-info:disabled:active,
+        .btn-primary:disabled, .btn-primary:disabled:hover, .btn-primary:disabled:focus, .btn-primary:disabled:active,
+        .btn_publish_page:disabled, .btn_publish_page:disabled:hover, .btn_publish_page:disabled:focus, .btn_publish_page:disabled:active
+        {background-color: {btn_primary_background_color_disabled}!important; color: {btn_primary_text_color_disabled}!important; border-color: {btn_primary_border_color_disabled}!important;}
+
+        .btn-primary-2{background-color: {btn_primary_2_background_color}; color: {btn_primary_2_text_color}!important; border-color: {btn_primary_2_border_color};}
+        .btn-primary-2:hover, .btn-primary-2:focus, .btn-primary-2:active{background-color: {btn_primary_2_background_color_hover}!important; color: {btn_primary_2_text_color_hover}!important; border-color: {btn_primary_2_border_color_hover}!important;}
+        .btn-primary-2:disabled, .btn-primary-2:disabled:hover, .btn-primary-2:disabled:focus,
+        .btn-primary-2:disabled:active{background-color: {btn_primary_2_background_color_disabled}!important; color: {btn_primary_2_text_color_disabled}!important; border-color: {btn_primary_2_border_color_disabled}!important;}
+
+        .btn-secondary{background-color: {btn_secondary_background_color}; color: {btn_secondary_text_color}; border-color: {btn_secondary_border_color};}
+        .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active{background-color: {btn_secondary_background_color_hover}!important; color: {btn_secondary_text_color_hover}; border-color: {btn_secondary_border_color_hover}!important;}
+
+        .btn-secondary:disabled, .btn-secondary:disabled:hover, .btn-secondary:disabled:focus, .btn-secondary:disabled:active,
+        .group_photo_upload_bl .btn:disabled, .group_photo_upload_bl .btn:disabled:hover, .group_photo_upload_bl .btn:disabled:focus, .group_photo_upload_bl .btn:disabled:active{
+            background-color: {btn_secondary_background_color_disabled}!important; color: {btn_secondary_text_color_disabled}!important; border-color: {btn_secondary_border_color_disabled}!important;}
+
+
+        .btn-secondary-2{background-color: {btn_secondary_2_background_color}; color: {btn_secondary_2_text_color}; border-color: {btn_secondary_2_border_color};}
+        .btn-secondary-2:hover, .btn-secondary-2:focus, .btn-secondary-2:active{background-color: {btn_secondary_2_background_color_hover}!important; color: {btn_secondary_2_text_color_hover}; border-color: {btn_secondary_2_border_color_hover}!important;}
+
+        .btn-secondary-2:disabled, .btn-secondary-2:disabled:hover, .btn-secondary-2:disabled:focus, .btn-secondary-2:disabled:active{
+            background-color: {btn_secondary_2_background_color_disabled}!important; color: {btn_secondary_2_text_color_disabled}!important; border-color: {btn_secondary_2_border_color_disabled}!important;}
+
+        .bl_ads{background-color: {banner_background_color}; border-color: {banner_border_color};}
+        .link_show_banner{color: {banner_btn_remove_color};}
+        .link_show_banner:hover{color: {banner_btn_remove_color_hover};}
+
+        .link .css_loader.banner_loader .spinnerw .spinner-blade{
+            background-color: {banner_btn_remove_color_hover}!important;
+        }
+        .banner_footer_bl .link .css_loader.banner_loader .spinnerw .spinner-blade{
+            background-color: rgba(255,255,255,0.3)!important;
+        }
+
+
+        .online_triangle:after{border-top-color: {color_online_user};}
+        .bl_grid_inner_photo_center .user_pic_frame .status.online{background-color:{color_1};}
+        .header .fa-star.active{color: {color_2};}
+        .chat .sidepanel .contacts ul li.contact.online .wrap span.contact-status,
+        .chat .content .contact-profile .wrap_user.online .pic span.contact-status{background: {color_1};}
+        .wall_upload_image.to_delete i.fa-camera{color: {color_2};}
+
+        body.city_body, .city_body .page_content, .bl_3dchat, .bs_main, .bl_3dchat #myIFrame,
+        #loading_screen, .mobile_keyboard, .bs_main, .mobile_keyboard .mobile_keyboard_iframe .frame,
+        .app_preloader {background-color: {3dcity_background_color}!important;}
+
+        .cookie-popup{background-color: {cookie_popup_background_color}; color: {cookie_popup_text_color};}
+
+        #footer_bl{background: {footer_background_color};}
+        .footer_title_orig{color: {footer_title_orig_color};}
+        .cham-footer-style-3 h3{color: {footer_title_h3_color}!important;}
+        .cham-footer-style-3 a{color: {footer_menu_color};}
+        .cham-footer-style-3 a:hover{color: {footer_menu_color_hover};}
+        .cham-footer-style-3 p, .footer-ssl-seal{color: {footer_text_color};}
+        .cham-footer-style-3 .btn {
+            border-color: {footer_btn_border_color};
+            color: {footer_btn_text_color};
+            background: {footer_btn_background_color};
+        }
+        .cham-footer-style-3 .btn:hover {
+            border-color: {footer_btn_border_color_hover}!important;
+            color: {footer_btn_text_color_hover};
+            background: {footer_btn_background_color_hover}!important;
+        }
+
+        :root {
+            --general_loader_color: {loader_color};
+        }
+    </style>
+    <!-- end_color_scheme_general -->
+    <!-- begin_color_scheme_visitor -->
+    <style type="text/css">
+    .body_visitor .page_content{background-color: {visitor_content_background_color};}
+    .body_visitor.body_main_page .page_content{background-color: {main_page_content_background_color};}
+
+    .background-overlay{background: {main_page_header_background_color};}
+    .background-overlay.inner{background: {main_page_header_background_color_inner};}
+    .cham-content-style-10.bl_info{background: {main_page_info_block_background_color};}
+    .cham-content-style-10.bl_info h2, .cham-content-style-10.bl_info p{color: {main_page_info_block_text_color};}
+
+    .cham-content-style-10 .btn-outline{
+        background: {main_page_info_block_btn_more_background_color};
+        color: {main_page_info_block_btn_more_text_color};
+        border-color: {main_page_info_block_btn_more_border_color};
+    }
+    .cham-content-style-10 .btn-outline:hover{
+        background: {main_page_info_block_btn_more_background_color_hover};
+        color: {main_page_info_block_btn_more_text_color_hover};
+        border-color: {main_page_info_block_btn_more_border_color_hover};
+    }
+
+    h1, h2, h3, h4, h5, h6{color: {visitor_header_tag_color};}
+    .body_main_page h1, .body_main_page h2, .body_main_page h3, .body_main_page h4, .body_main_page h5, .body_main_page h6{color: {main_page_header_tag_color};}
+
+    .bl_forms .signature{color: {visitor_signature_text_color};}
+    .body_main_page .bl_forms .signature{color: {main_page_signature_text_color};}
+
+    .bl_forms .row .cham-icon i{color: {visitor_icon_color};}
+    .body_main_page .bl_forms .row .cham-icon i{color: {main_page_icon_color};}
+
+    #frm_login_header.frm_login .bl.bl_user .fa{color: {main_page_header_login_frm_icon_color}!important;}
+    #frm_login_header.frm_login .bl{color: {main_page_header_login_frm_text_color}!important;}
+    #frm_login_header.frm_login .bl .sign a {color: {main_page_header_login_frm_text_color}!important; border-bottom: 1px solid {main_page_header_login_frm_text_color};}
+    /* #frm_login_header.frm_login .bl .sign a.link_color{color: {main_page_header_login_frm_register_link_color}!important; border-bottom: 1px solid {main_page_header_login_frm_register_link_color};} */
+    #frm_login_header.frm_login .bl_social a{color:{main_page_header_login_frm_social_icon_color}!important}
+    #frm_login_header.frm_login .bl_social a:hover{color:{main_page_header_login_frm_social_icon_color_hover}!important}
+
+    .body_main_page .cham-cover .cham-cover-text .cover-text-lead,
+    .body_main_page .cham-cover .cham-cover-text .cover-text-sublead{color:{main_page_welcome_text_color}}
+
+    .body_main_page .main_page_btn_outline{background: {main_page_btn_action_background_color}!important; border-color: {main_page_btn_action_border_color}!important;
+        color: {main_page_btn_action_text_color}!important;
+    }
+    .body_main_page .main_page_btn_outline:hover{background: {main_page_btn_action_background_color_hover}!important; border-color: {main_page_btn_action_border_color_hover}!important;
+        color: {main_page_btn_action_text_color_hover}!important;
+    }
+
+    .bl_download_apps{background: {main_page_download_apps_block_background_color};}
+    .bl_download_apps h2, .bl_download_apps p{color: {main_page_download_apps_block_text_color};}
+
+    .hr_main_page{border-top: 1px solid {main_page_separator_color};}
+
+    .body_visitor .bl_forms a{color:{visitor_form_link_color};}
+    .body_visitor .bl_forms a:hover, .body_main_page .join_agree a:focus,
+    .body_visitor .bl_forms a:hover{color:{visitor_form_link_color_hover};}
+
+    .body_main_page .bl_forms a{color:{main_page_form_link_color};}
+    .body_main_page .bl_forms a:hover, .body_main_page .join_agree a:focus,
+    .body_main_page .bl_forms a:hover{color:{main_page_form_link_color_hover};}
+
+    .body_visitor .bl_social_frm a{color:{visitor_social_btn_color};}
+    .body_visitor .bl_social_frm a:hover, .body_visitor .bl_social_frm a:focus,
+    .body_visitor .bl_social_frm a:hover{color:{visitor_social_btn_color_hover};}
+
+    .body_main_page .bl_social_frm a{color:{main_page_social_btn_color};}
+    .body_main_page .bl_social_frm a:hover, .body_main_page .bl_social_frm a:focus,
+    .body_main_page .bl_social_frm a:hover{color:{main_page_social_btn_color_hover};}
+    </style>
+    <!-- end_color_scheme_visitor -->
+    <!-- begin_color_scheme_member -->
+    <style type="text/css">
+        .wall,
+        .page_content,
+        .bl_post_wall_items .wall_post_item,
+        .bl_comments .item,
+        .bl_comments .item ul.list li{
+            background-color: {member_content_background_color};
+        }
+
+        .ls_video_title:after{
+            background: linear-gradient(to right, rgba(255, 255, 255, 0),{member_content_background_color} 86%);
+        }
+
+        .bl_wall .add_shadow{box-shadow: 0px 10px 30px 0px {member_content_background_color};}
+        .bl_wall .add_shadow_remove{box-shadow: 0px 23px 0px 0px {member_content_background_color};}
+        .bl_wall .add_shadow_post{box-shadow: 0px 10px 20px -10px {member_content_background_color};}
+
+        .timeline-item, .wrap-background-circle, .background-masker{background: {member_content_background_color};}
+        .pl_grid_count .active .bl:after{border-bottom-color: {member_content_background_color}!important;}
+
+        .column.left{background-color: {member_column_left_background_color};}
+        .column.right,
+        .column.right ul.list_photo li.more a{background-color: {member_column_right_background_color};}
+
+
+        /* Navbar */
+        .navbar-default{
+            background-color: {member_navbar_background_color};
+        }
+
+        ul.icons_info li.icon a.icon_link{color: {member_navbar_menu_short_color};}
+
+        ul.icons_info li.icon a.icon_link:hover .fa,
+        ul.icons_info li.icon a.icon_link:hover .glyphicon,
+        ul.icons_info li.icon a.icon_link:focus .fa,
+        ul.icons_info li.icon a.icon_link:focus .glyphicon,
+        ul.icons_info li.icon a.icon_link:active .fa,
+        ul.icons_info li.icon a.icon_link:active .glyphicon{color:{member_navbar_menu_short_color_hover};}
+
+        ul.icons_info li.icon a.icon_link.disabled,
+        ul.icons_info li.icon a.icon_link.disabled:hover .fa,
+        ul.icons_info li.icon a.icon_link.disabled:hover .glyphicon,
+        ul.icons_info li.icon a.icon_link.disabled:focus .fa,
+        ul.icons_info li.icon a.icon_link.disabled:focus .glyphicon{color:{member_navbar_menu_short_color_disabled};}
+
+        ul.icons_info li.icon a.icon_link figure svg{
+            fill: {member_navbar_menu_short_color};
+        }
+
+        ul.icons_info li.icon a.icon_link figure svg:hover,
+        ul.icons_info li.icon a.icon_link figure svg:focus,
+        ul.icons_info li.icon a.icon_link figure svg:active{
+            fill: {member_navbar_menu_short_color_hover};
+        }
+
+        ul.icons_info li.icon a.icon_link.disabled figure svg,
+        ul.icons_info li.icon a.icon_link.disabled figure svg:hover,
+        ul.icons_info li.icon a.icon_link.disabled figure svg:focus{
+            fill: {member_navbar_menu_short_color_disabled};
+        }
+
+        ul.icons_info li.icon a.icon_link.new_tasks_link.disabled figure svg:hover{
+            fill: {member_navbar_menu_short_color};
+        }
+
+        ul.icons_info li span.count,
+        .menu_collapse > li.link_count span.count{background-color: {member_navbar_menu_counter_background_color}; color: {member_navbar_menu_counter_text_color};}
+
+        .menu_collapse > li > a {color: {member_navbar_menu_text_color}!important;}
+        .menu_collapse > li > a:hover {color: {member_navbar_menu_text_color_hover}!important;}
+
+        .menu_collapse .dropdown-menu,
+        .more_menu_collapse li,
+        .more_menu_collapse li:first-child a::after{background-color: {member_navbar_menu_more_background_color}!important;}
+
+
+        .city_body.city_mobile .menu_collapse .dropdown-menu,
+        /* .city_body.city_mobile .more_menu_collapse li, */
+        .city_body.city_mobile .more_menu_collapse li:first-child a::after,
+        .city_body.city_mobile .navbar-collapse,
+        .city_body.city_mobile .navbar-collapse.in{
+            background-color: {member_navbar_menu_mobile_background_color} !important;
+        }
+
+        .city_body.city_mobile .navbar-collapse,
+        .city_body.city_mobile .navbar-default .navbar-nav .dropdown-menu > li > a,
+        .city_body.city_mobile ul.menu_vertical_scroll > li > a {
+            color: {member_navbar_menu_mobile_text_color} !important;
+        }
+
+        .city_body.city_mobile ul.menu_vertical_scroll > li.active > a{
+            color: {member_navbar_menu_text_color_active} !important;
+        }
+
+        .city_body.city_mobile ul.menu_vertical_scroll > li > a figure > svg{
+            fill: {member_navbar_menu_text_color};
+        }
+
+        .menu_collapse .dropdown-menu > li > a,
+        .more_menu_collapse > li > a,
+        .wall_post_access > li > a,
+        .wall_post_access > li > a:focus,
+        ul.menu_vertical_scroll > li > a{
+            color: {member_navbar_menu_more_text_color}!important;
+        }
+
+        .menu_collapse > li > a#navbar_menu_more,
+        .menu_collapse > li:not(.open) > a#navbar_menu_more,
+        .menu_collapse > li:not(.open) > a#navbar_menu_more:focus{
+            background-color: {member_navbar_menu_more_background_color_highlighted}!important;
+            color: {member_navbar_menu_more_text_color_highlighted}!important;
+        }
+
+        .menu_collapse > .open > a,
+        .menu_collapse > .open > a:hover,
+        .menu_collapse > .open > a:focus,
+        .menu_collapse li > a:hover,
+        .menu_collapse li > a:focus,
+        /* .more_menu_collapse > li > a.disabled,
+        .more_menu_collapse > li > a.disabled:hover, */
+        .menu_collapse li.active > a,
+        .menu_collapse li.active > a:hover,
+        .menu_collapse li.active > a:focus,
+        .more_menu_collapse li:first-child a:hover::after,
+        .wall_post_access > li.active > a,
+        .wall_post_access > li > a:hover,
+        ul.menu_vertical_scroll > li.active > a,
+        .menu_collapse > li > a#navbar_menu_more:hover,
+        .menu_collapse > li > a#navbar_menu_more:focus:hover,
+        .menu_collapse > .open > a#navbar_menu_more,
+        .cover_upload_edit_menu > li:hover > a:hover,
+        .cover_upload_edit_menu > li:hover > a{
+            background-color: {member_navbar_menu_background_color_active}!important;
+            color: {member_navbar_menu_text_color_active}!important;
+        }
+
+        .more_menu_collapse > li > a.disabled,
+        .more_menu_collapse > li > a.disabled:hover{
+            color: {member_navbar_menu_text_color}!important;
+        }
+
+        .more_menu_collapse > li > a.disabled:hover{
+            background-color: transparent !important;
+        }
+
+        .navbar-nav > li > a figure > svg{
+            fill: {member_navbar_menu_text_color};
+        }
+
+        /* Drag cover */
+        body.drag_cover .navbar-default .navbar-header .menu_collapse > li:not(.active) > a {
+            color: {member_navbar_menu_text_color}!important;
+            background-color: transparent!important;
+        }
+        body.drag_cover .navbar-default .navbar-header .menu_collapse > li:not(.active) > a figure > svg {
+            fill: {member_navbar_menu_text_color}!important;
+        }
+
+        body.drag_cover ul.icons_info li.icon a.icon_link figure svg{
+            fill: {member_navbar_menu_short_color}!important;
+        }
+        body.drag_cover ul.icons_info li.icon a.icon_link.disabled figure svg{
+            fill: {member_navbar_menu_short_color_disabled}!important;;
+        }
+
+        body.drag_cover ul.icons_info li.icon a.icon_link,
+        body.drag_cover ul.icons_info li.icon a.icon_link .fa,
+        body.drag_cover ul.icons_info li.icon a.icon_link .glyphicon{
+            color: {member_navbar_menu_short_color}!important;
+        }
+
+        body.drag_cover ul.icons_info li.icon a.icon_link.disabled,
+        body.drag_cover ul.icons_info li.icon a.icon_link.disabled .fa,
+        body.drag_cover ul.icons_info li.icon a.icon_link.disabled .glyphicon{
+            color:{member_navbar_menu_short_color_disabled}!important;
+        }
+        /* Drag cover */
+
+        .city_body.city_mobile ul.menu_vertical_scroll > li > a figure > svg,
+        .more_menu_collapse > li > a.disabled figure > svg,
+        .more_menu_collapse > li > a.disabled:hover figure > svg{
+            fill: {member_navbar_menu_mobile_text_color}!important;
+        }
+
+        .navbar-nav > li > a:hover figure > svg,
+        .navbar-nav > li.active > a figure > svg{
+            fill: {member_navbar_menu_text_color_active};
+        }
+
+        ul.menu_vertical_scroll > li > a figure > svg{
+            color: {member_navbar_menu_more_text_color}!important;
+        }
+
+        ul.menu_vertical_scroll > li > a:hover figure > svg,
+        ul.menu_vertical_scroll > li.active > a figure > svg,
+        .more_menu_collapse > li > a:hover figure > svg,
+        .more_menu_collapse > li.active > a figure > svg{
+            fill: {member_navbar_menu_text_color_active}!important;
+        }
+
+        /* Loader */
+        .menu_collapse > li > a  .css_loader.header_menu_loader .spinner-blade{
+            background-color: {member_navbar_menu_text_color}!important;
+        }
+
+        .menu_collapse > li > a.disabled .css_loader.more_menu_loader .spinner-blade{
+            background-color: {member_navbar_menu_text_color_active}!important;
+        }
+
+        .menu_collapse li > a .css_loader.header_menu_loader_more .spinner-blade{
+            background-color: {member_navbar_menu_more_text_color}!important;
+        }
+
+        .menu_collapse li > a:hover .css_loader.header_menu_loader .spinner-blade,
+        .menu_collapse li > a:focus .css_loader.header_menu_loader .spinner-blade,
+        .menu_collapse li.active > a .css_loader.header_menu_loader .spinner-blade,
+
+        .menu_collapse li > a:hover .css_loader.header_menu_loader_more .spinner-blade,
+        .menu_collapse li > a:focus .css_loader.header_menu_loader_more .spinner-blade,
+        .menu_collapse li.active > a .css_loader.header_menu_loader_more .spinner-blade{
+            background-color: {member_navbar_menu_text_color_active}!important;
+        }
+
+        @media (max-width: 767px){
+            .menu_collapse li > a .css_loader.header_menu_loader_more .spinner-blade{
+                background-color: {member_navbar_menu_mobile_text_color}!important;
+            }
+
+            .menu_collapse li > a:hover .css_loader.header_menu_loader_more .spinner-blade,
+            .menu_collapse li > a:focus .css_loader.header_menu_loader_more .spinner-blade{
+                background-color: {member_navbar_menu_text_color_active}!important;
+            }
+        }
+        /* Loader */
+        .wall_post_access.disabled > li:not(.active) > a:hover{
+            background-color: #fff!important;
+            color: {member_navbar_menu_more_text_color}!important;
+            cursor: default;
+        }
+
+        .navbar-nav > li > a .fa:after{
+            background-color: {member_navbar_menu_mobile_text_color};
+        }
+
+        .navbar-nav > li.active > a .fa:after{
+            background-color: {member_navbar_menu_text_color_active};
+        }
+
+        @media (max-width: 767px){
+            .navbar-default .navbar-nav .dropdown-menu,
+            .navbar-collapse,
+            .navbar-collapse.in{
+                background-color: {member_navbar_menu_mobile_background_color}!important;
+            }
+
+            .navbar-collapse,
+            .navbar-default .navbar-nav .dropdown-menu > li > a,
+            ul.menu_vertical_scroll > li > a{
+                color: {member_navbar_menu_mobile_text_color} !important;
+            }
+
+            ul.menu_vertical_scroll > li > a figure > svg{
+                fill: {member_navbar_menu_mobile_text_color}!important;
+            }
+
+            .navbar-default .navbar-nav > li > a:hover,
+            .navbar-default .navbar-nav > li > a:focus,
+            .navbar-default .navbar-nav .dropdown-menu > li.active > a,
+            .navbar-default .navbar-nav .dropdown-menu > li > a:hover,
+            .navbar-default .navbar-nav .dropdown-menu > li > a:focus{
+                background-color: {member_navbar_menu_background_color_active}!important;
+                color: {member_navbar_menu_text_color_active}!important;
+            }
+        }
+
+        /* Navbar */
+        :root {
+            --member_circular_menu_background_color: {member_circular_menu_background_color};
+            --member_circular_menu_color: {member_circular_menu_color};
+            --member_circular_menu_background_color_hover: {member_circular_menu_background_color_hover};
+            --member_circular_menu_color_hover: {member_circular_menu_color_hover};
+        }
+
+        a.mn_circle span,
+        .circles a.circle,
+        a.mn_circle:focus span,
+        .circles a.circle:focus,
+        a.mn_circle:active span,
+        .circles a.circle:active{
+            background-color: {member_circular_menu_background_color};
+            color: {member_circular_menu_color};
+        }
+        a.mn_circle:hover span,
+        .circles a.circle:hover{
+            background-color: {member_circular_menu_background_color_hover};
+            color: {member_circular_menu_color_hover};
+        }
+
+        a.mn_circle.disabled span,
+        .circles a.circle.disabled{
+            background-color: {member_circular_menu_background_color_disabled};
+            color: {member_circular_menu_color_disabled};
+        }
+
+        a.mn_circle.disabled span .css_loader .spinnerw .spinner-blade,
+        .circles a.circle span .css_loader .spinnerw .spinner-blade{
+            background-color: {member_circular_menu_color_disabled};
+        }
+
+        a.mn_circle span svg,
+        .circles a.circle svg{
+            fill: {member_circular_menu_color};
+        }
+        a.mn_circle:hover span svg,
+        .circles a.circle:hover svg{
+            fill: {member_circular_menu_color_hover};
+        }
+
+        a.mn_circle.disabled span svg,
+        .circles a.circle.disabled svg{
+            fill: {member_circular_menu_color_disabled};
+        }
+
+
+        @media (max-width: 767px){
+            .circles a.circle:hover{
+                background-color: {member_circular_menu_background_color};
+                color: {member_circular_menu_color};
+            }
+
+            .circles a.circle:active{
+                background-color: {member_circular_menu_background_color_hover};
+                color: {member_circular_menu_color_hover};
+            }
+        }
+
+        /* Media chat */
+        .chat_action button{background-color: {member_videochat_btn_background_color}; color: {member_videochat_btn_text_color};}
+        .chat_action button:hover{background-color: {member_videochat_btn_background_color_hover}; color: {member_videochat_btn_text_color_hover};}
+
+        .chat_action button.disconect{background-color: {member_videochat_btn_disconect_background_color}; color: {member_videochat_btn_disconect_text_color};}
+        .chat_action button.disconect:hover{background-color: {member_videochat_btn_disconect_background_color_hover}; color: {member_videochat_btn_disconect_text_color_hover};}
+
+        .chat_action button:disabled{background-color: {member_videochat_btn_disabled_background_color}!important; color: {member_videochat_btn_disabled_text_color}!important;}
+        .chat_action button:disabled:hover{background-color: {member_videochat_btn_disabled_background_color_hover}!important; color: {member_videochat_btn_disabled_text_color_hover}!important;}
+
+        .chat_action.processing button{background-color: {member_videochat_btn_background_color}!important; color: {member_videochat_btn_text_color}!important;}
+        .chat_action.processing button[data-action='disabled']{background-color: {member_videochat_btn_disabled_background_color}!important; color: {member_videochat_btn_disabled_text_color}!important;}
+        .chat_action.processing button.disconect{background-color: {member_videochat_btn_disconect_background_color}!important; color: {member_videochat_btn_disconect_text_color}!important;}
+        /* Media chat */
+        .chat .content .messages .pp_message_msg_item.replies .msg{
+            background: {member_message_sent_background_color};
+            color: {member_message_sent_text_color};
+        }
+        .chat .content .messages .pp_message_msg_item.replies .msg.to_send{
+            background: {member_message_background_color};
+            color: {member_message_text_color};
+        }
+        .chat .content .messages .pp_message_msg_item.sent .msg {
+            background: {member_message_answer_background_color};
+            color: {member_message_answer_text_color};
+        }
+        .chat .content .messages .pp_message_msg_item.sent.to_new .msg{
+            background:{member_new_message_background_color};
+            color: {member_new_message_text_color};
+        }
+        .chat .sidepanel .contacts ul li.contact .wrap .meta .preview.to_new{color:{member_new_message_sidepanel_text_color};}
+        .chat .content .messages .pp_message_msg_item .msg a{color:{member_message_sent_link_text_color};}
+        .chat .content .messages .pp_message_msg_item .msg a:hover{color:{member_message_sent_link_text_color_hover};}
+        .chat .content .messages .pp_message_msg_item.sent .msg a{color:{member_message_answer_link_text_color};}
+        .chat .content .messages .pp_message_msg_item.sent .msg a:hover{color:{member_message_answer_link_text_color_hover};}
+
+        .chat .content .messages .pp_message_msg_item.replies .msg .im_audio_message .css_loader:not(.hidden) .spinnerw .spinner-blade {
+            background-color: {member_message_sent_text_color};
+        }
+        .chat .content .messages .pp_message_msg_item.sent .msg .im_audio_message .css_loader:not(.hidden) .spinnerw .spinner-blade {
+            background-color: {member_message_answer_text_color};
+        }
+
+        .event_сomment_highlight{background-color: {member_event_comment_highlight_color};}
+
+        .im_audio_message {background-color: {audio_player_background_color}; border-color: {audio_player_border_color};color: {audio_player_border_color};}
+        .im_audio_message .fa.fa-play,.im_audio_message .fa.fa-pause{color: {audio_player_btn_play_color};}
+        .im_audio_message .fa.fa-play:hover,.im_audio_message .fa.fa-pause:hover{color: {audio_player_btn_play_color_hover};}
+        .im_audio_message .fa.fa-times{color: {audio_player_btn_remove_color};}
+        .im_audio_message .fa.fa-times:hover{color: {audio_player_btn_remove_color_hover};}
+        .im_audio_message .im_audio_message_process{background-color: {audio_player_background_progress};}
+        .im_audio_message .im_audio_message_process_play {background-color: {audio_player_background_progress_active};}
+    </style>
+    <!-- end_color_scheme_member -->
+
+    <!-- begin_events_settings -->
+    <style>
+        .events_calendar .my_event_color, .events_calendar .event_color_1{
+            background:{calendar_item_color_1};
+        }
+        .events_calendar .other_event_color, .events_calendar .event_color_2{
+            background:{calendar_item_color_2};
+        }
+        .events_calendar .other_event_color_1, .events_calendar .event_color_3{
+            background:{calendar_item_color_3};
+        }
+        .events_calendar .event.event_highlight .bl_event .event_title,
+        .events_calendar .event.event_highlight .bl_event .event_description{
+            background-color: {calendar_item_highlight_color};
+        }
+
+        .hotdates_calendar .my_hotdate_color, .hotdates_calendar .hotdate_color_1{
+            background:{calendar_item_color_1};
+        }
+        .hotdates_calendar .other_hotdate_color, .hotdates_calendar .hotdate_color_2{
+            background:{calendar_item_color_2};
+        }
+        .hotdates_calendar .other_hotdate_color_1, .hotdates_calendar .hotdate_color_3{
+            background:{calendar_item_color_3};
+        }
+        .hotdates_calendar .hotdate.hotdate_highlight .bl_hotdate .hotdate_title,
+        .hotdates_calendar .hotdate.hotdate_highlight .bl_hotdate .hotdate_description{
+            background-color: {calendar_item_highlight_color};
+        }
+
+        .partyhouz_calendar .my_partyhou_color, .partyhouz_calendar .partyhou_color_1{
+            background:{calendar_item_color_1};
+        }
+        .partyhouz_calendar .other_partyhou_color, .partyhouz_calendar .partyhou_color_2{
+            background:{calendar_item_color_2};
+        }
+        .partyhouz_calendar .other_partyhou_color_1, .partyhouz_calendar .partyhou_color_3{
+            background:{calendar_item_color_3};
+        }
+        .partyhouz_calendar .partyhou.partyhou_highlight .bl_partyhou .partyhou_title,
+        .partyhouz_calendar .partyhou.partyhou_highlight .bl_partyhou .partyhou_description{
+            background-color: {calendar_item_highlight_color};
+        }
+    </style>
+    <!-- end_events_settings -->
+
+    <!-- begin_live_settings -->
+    <style>
+        .navbar-nav > li.link_count .status_item,
+        .menu_more_menu_navbar_site ul > li > a .status_item{
+            background-color: {live_marker_color};
+        }
+    </style>
+    <!-- end_live_settings -->
+
+    <!-- begin_wall_settings -->
+    <style>
+        .bl_post_wall{background:{bl_wall_post_color};}
+        .pl_grid_count .menu_inner_wall_posts_edge.active .bl.show_post_input:after{
+            border-bottom-color: {bl_wall_post_color}!important;
+        }
+        button.wall_post_send svg {fill: {bl_wall_post_color_arrow};}
+
+        .bl_post_wall_items .wall_post_item .like_comment_and_share:not(.more){
+            background-color: {bl_wall_like_comment_and_share_background_color};
+        }
+
+        .bl_post_wall_items .wall_post_item .like_comment_and_share:not(.more) ul.list li,
+        .bl_post_wall_items .wall_post_item .like_comment_and_share:not(.more) ul.list li a,
+        .bl_post_wall_items .wall_post_item ul.how_many_comments_shares li,
+        .bl_post_wall_items .wall_post_item ul.how_many_comments_shares li a{
+            color: {bl_wall_like_comment_and_share_text_color_1};
+        }
+
+        .bl_post_wall_items .wall_post_item ul.how_many_comments_shares li:before{
+            background: {bl_wall_like_comment_and_share_text_color_1};
+        }
+
+        .bl_post_wall_items .wall_post_item .like_comment_and_share:not(.more) ul.list li a:hover,
+        .bl_post_wall_items .wall_post_item ul.how_many_comments_shares li a:hover{
+            color: {bl_wall_like_comment_and_share_text_color_1_hover};
+        }
+
+        .bl_post_wall_items .wall_post_item .feed_btn_like.wall_like_hidden .feed_like_unlike{
+            color: {bl_wall_like_comment_and_share_text_color_2}!important;
+        }
+
+        .bl_post_wall_items .wall_post_item .feed_btn_like.wall_like_hidden .feed_like_unlike:hover{
+            color: {bl_wall_like_comment_and_share_text_color_2_hover}!important;
+        }
+
+        .bl_post_wall_items .wall_post_item .user_wall_info .info .data{
+            color: {wall_item_info_data_color};
+        }
+        .bl_post_wall_items .wall_post_item .user_wall_info .comment_time_ago:after{
+            background: {wall_item_info_data_color};
+        }
+        .bl_post_wall_items .wall_post_item .user_wall_info .icon_chevron_down svg {
+            fill: {wall_item_info_data_color};
+        }
+
+        .wall_post .wall_image_post,
+        .bl_comments .item .comment_text_cont .image_comment,
+        .bl_comments .item .comment_text_reply_one .image_comment{
+            background-color: {wall_image_post_background_color};
+        }
+        #wall_up {
+            background-color: {wall_page_up_background_color};
+            color: {wall_page_up_arrow_color};
+        }
+        #wall_up:hover{
+            background-color: {wall_page_up_background_color_hover};
+        }
+    </style>
+    <!-- end_wall_settings -->
+    <!-- begin_stickers_scheme -->
+    <style>
+        .chat .content .messages .pp_message_msg_item.sticker_wrap_bl .msg .text {
+            padding: {sticker_block_padding}px;
+        }
+        .chat .content .messages .pp_message_msg_item .msg .sticker_one img{
+            width: {sticker_block_size}px;  height: {sticker_block_size}px;
+        }
+        .tablet .chat .content .messages .pp_message_msg_item.sticker_wrap_bl .msg .text,
+        .mobile .chat .content .messages .pp_message_msg_item.sticker_wrap_bl .msg .text {
+            padding: {sticker_block_padding_mobile}px;
+        }
+        .tablet .chat .content .messages .pp_message_msg_item .msg .sticker_one img,
+        .mobile .chat .content .messages .pp_message_msg_item .msg .sticker_one img{
+            width: {sticker_block_size_mobile}px;   height: {sticker_block_size_mobile}px;
+        }
+
+        .chat .content .messages .pp_message_msg_item.sticker_wrap_bl .msg{
+            background: {sticker_block_background}!important;
+        }
+
+        /* Comment */
+        .comment_text .full_comment .sticker_one,
+        .comment_text .comment_text_cont .sticker_one{
+            padding: {comment_sticker_block_padding}px; background-color: {comment_sticker_block_background}!important;
+        }
+        .tablet .comment_text .full_comment .sticker_one, .mobile .comment_text .full_comment .sticker_one,
+        .tablet .comment_text .comment_text_cont .sticker_one, .mobile .comment_text .comment_text_cont .sticker_one{
+            padding: {comment_sticker_block_padding_mobile}px;
+        }
+
+        .comment_text .full_comment .sticker_one img,
+        .comment_text .comment_text_cont .sticker_one img{
+            width: {comment_sticker_block_size}px;  height: {comment_sticker_block_size}px;
+        }
+        .tablet .full_comment .sticker_one img, .mobile .full_comment .sticker_one img,
+        .tablet .comment_text .comment_text_cont .sticker_one img, .mobile .comment_text .comment_text_cont .sticker_one img{
+            width: {comment_sticker_block_size_mobile}px; height: {comment_sticker_block_size_mobile}px;
+        }
+        /* Comment */
+
+        /* Reply comment */
+        .bl_comments .item .comment_text_reply_one .sticker_one{
+            padding: {comment_reply_sticker_block_padding}px; background-color: {comment_reply_sticker_block_background}!important;
+        }
+        .tablet .bl_comments .item .comment_text_reply_one .sticker_one, .mobile .bl_comments .item .comment_text_reply_one .sticker_one{
+            padding: {comment_reply_sticker_block_padding_mobile}px;
+        }
+
+        .bl_comments .item .comment_text_reply_one .sticker_one img{
+            width: {comment_reply_sticker_block_size}px; height: {comment_reply_sticker_block_size}px;
+        }
+        .tablet .bl_comments .item .comment_text_reply_one .sticker_one img, .mobile .bl_comments .item .comment_text_reply_one .sticker_one img{
+            width: {comment_reply_sticker_block_size_mobile}px; height: {comment_reply_sticker_block_size_mobile}px;
+        }
+        /* Reply comment */
+
+    </style>
+    <!-- end_stickers_scheme -->
+
+    <!-- begin_color_scheme_member_css -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/color_scheme.css{cache_version_param}"/>
+    <!-- end_color_scheme_member_css -->
+    <link rel="stylesheet" type="text/css" href="{url_main}css.php{cache_version_param}&set_template_runtime={tmpl_loaded}&page={current_page}&demo_version={demo_version}" />
+
+    <script language="javascript" type="text/javascript">
+        function OpenWindow( sUri, iWidth, iHeight )
+        {
+            var sWindowName = 'win' + Math.floor( Math.random()*1000 )
+            var iRealWidth = iWidth ? iWidth : 600
+            var iRealHeight = iHeight ? iHeight : screen.height - 300
+            var iLeft = Math.round( (screen.width-iRealWidth)/2 )
+            var iTop =  Math.round( (screen.height-iRealHeight)/2 ) - 35
+            var sWindowOptions = 'status=yes,menubar=no,toolbar=no'
+            sWindowOptions += ',resizable=yes,scrollbars=yes,location=no'
+            sWindowOptions += ',width='  + iRealWidth
+            sWindowOptions += ',height=' + iRealHeight
+            sWindowOptions += ',left='   + iLeft
+            sWindowOptions += ',top='    + iTop
+            var oWindow = window.open( sUri, sWindowName, sWindowOptions )
+            oWindow.focus()
+            return oWindow;
+        }
+        var siteGroupId='{header_group_id}'*1;
+        var siteGroupUserId='{header_group_user_id}'*1;
+        var siteGroupView='{header_group_view}';
+        var siteGroupViewList='{header_group_view_list}';
+        var siteGroupNoAccess='{header_group_no_access}'*1;
+        var siteGroupIsPage='{header_group_is_page}'*1;
+        isDemoSite='{is_demo_site}'*1;
+
+        <!-- begin_smooth_scroll -->
+        initSmoothScroll();
+        <!-- end_smooth_scroll -->
+        var ajax_login_status={xajax_login_status};
+        var urlMain=url_main='{url_main}';
+        var urlFiles=url_files='{url_files}';
+        var url_tmpl='{url_tmpl}';
+        var url_tmpl_main='{url_tmpl_main}';
+        var url_tmpl_images=url_tmpl_main+'images/';
+        var url_ajax='{url_main}ajax.php';
+        var url_server='{url_main}_server/update_server_ajax_edge.php';
+        var urlCity = '{url_city}';
+        var currentPage = '{url_page}';
+        var activePage='{current_page}';
+        var currentPageParam = '{url_get_params}';
+        var loadRouter = '{load_router}'*1;
+        var requestUserId = '{request_user_id}'*1;
+        var siteTitle = '{js_title}';
+        var isPageMyWall = false;
+        var urlSiteSubfolder = '{url_site_subfolder}';
+        var urlFaceApi = '{url_main}_server/js/face_api/';
+        var urlFaceApiWork = '{base_url_main_head}';
+        var imagesPath = "{url_tmpl_main}abkstyle/img/";
+        var is_home_widget = "{is_home_widget}";
+        var widgets_count = "{widgets_count}";
+        var widgets_calendar_long = "{widgets_calendar_long}";
+        var xajax_login_status = {xajax_login_status};        
+        var imMsgLayout = '{im_msg_layout}';     
+        var imScrollbar = true;                 
+        var user_id='{user_id}';
+        var l_partyhouz_guests = '{l_partyhouz_guests}';
+        var l_partyhouz_comments = '{l_partyhouz_comments}';
+        var l_partyhouz_category = '{l_partyhouz_category}';
+        var l_accept = '{l_accept}';
+        var l_decline = '{l_decline}';
+        var l_party_host = '{l_party_host}';
+        var l_invited = '{l_invited}';
+        var l_wait_to = '{l_wait_to}';
+
+  
+        /* App */
+        var isAppAndroid = '{is_app_android}'*1;
+        var mobileAppLoaded = false;
+        var imMessagesCount = '{number_messages}'*1;
+        var appTitle = '{js_title}';
+        var appCurrentImUserId = false;
+        var appVibrationDuration = "{app_vibration_duration}" * 1000;
+        var appCityListUser = {};
+        var appCityLastMsgId = 0;
+        var isWebglDetect = true;
+        var urlPageCity = '{url_page_city}';
+        /* App */
+        
+        var user_profile_bg='{color_scheme_styles_background_image}';
+        if('{user_profile_bg}'){//nnsscc-diamond-20200322
+            user_profile_bg='{user_profile_bg}';      
+        }
+
+        $(function(){
+            if (user_profile_bg) {
+              const user_profile_bg = '{user_profile_bg}';
+              const profileBgElement = document.querySelector('.profile_bg');
+              if(user_profile_bg) {
+                profileBgElement.style.background = `url("{url_tmpl_main}images/patterns/{user_profile_bg}") 0px 0px repeat`;
+              }
+              profileBgElement.style.transition = 'none 0s ease 0s';
+              profileBgElement.style.opacity = '1';
+            }
+        });
+
+        var userAllowedFeature={user_allowed_feature};
+        var chatsPrice={video:'{video_chat_price}'*1, audio:'{audio_chat_price}'*1};
+
+        var isPlayerNative = '{is_player_native_site}' * 1;
+
+        <!-- begin_for_not_login_user_not_exist -->
+        redirectUrl('index.php');
+        <!-- end_for_not_login_user_not_exist -->
+
+        setOptionsSite({site_options});
+        setGUserOptions({guser_options});
+
+        var smilesListDefault = {smiles_list_default};
+
+        initLocaleCalendar();
+
+        <!-- begin_watch_geo_position -->
+        setWatchPositionTimeOut('{watch_geo_position_time}');
+        watchPosition();
+        <!-- end_watch_geo_position -->
+        setGeoPointData({geo_position_data});
+
+        var faviconUrl='{header_favicon_url}ddd';
+        var cacheVersionParam='{cache_version_param}';
+        notifInit();
+    </script>
+
+    {include_city}
+
+    <!-- <style id="style_calc" style="display:none"></style> -->
+    <style id="style_gallery"></style>
+    <style id="style_header_menu"></style>
+    <style id="style_header_im"></style>
+    <style type="text/css">
+        .couple-span-name2 {
+            font-size: 16px;
+        }
+    </style>
+
+    <!-- start oryx2_1 javascript -->
+    <script language="javascript" type="text/javascript">
+    var imagesPath = "{url_tmpl_main}abkstyle/img/";
+    var is_home_widget = true;
+    var widgets_count = "{widgets_count}";
+    var widgets_calendar_long = "{widgets_calendar_long}";
+    var xajax_login_status = {xajax_login_status};
+    var ajax_login_status = {xajax_login_status};
+    var imMsgLayout = '{im_msg_layout}';
+    var dirTmplMain = '.'+'{url_tmpl_main}';
+    var imScrollbar = true;
+    var siteTitle = '{js_title}';
+    var url_main='{url_main}';
+    var url_tmpl='{url_tmpl}';
+    var url_tmpl_main='{url_tmpl_main}';
+    var user_id='{user_id}';
+    var l_partyhouz_guests = '{l_partyhouz_guests}';
+    var l_partyhouz_comments = '{l_partyhouz_comments}';
+    var l_partyhouz_category = '{l_partyhouz_category}';
+    var l_accept = '{l_accept}';
+    var l_decline = '{l_decline}';
+    var l_party_host = '{l_party_host}';
+    var l_invited = '{l_invited}';
+    var l_wait_to = '{l_wait_to}';
+    </script>
+    <script type="text/javascript" src="{url_main}_server/invitee.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/room_link.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/sweetalert2.js{cache_version_param}"></script><!--popcorn-07112023-->        
+
+    {custom_head}
+    {xajax_js}
+    {to_head}
+    <script>
+        function xinit_client1(){ alert('uuu'); console.log(xajax); return xajax.call("init_client", arguments, 1);}
+
+        var zoomLevel = 1;
+        
+        function zoom_in1() {
+            zoomLevel += 0.2;
+            document.body.style.transform = 'scale(' + zoomLevel + ')';
+            console.log("zoom in")
+        }
+        
+        function zoom_out1() {
+            if (zoomLevel > 0.2) { // Prevent zooming out too much
+                zoomLevel -= 0.2;
+                document.body.style.transform = 'scale(' + zoomLevel + ')';
+                console.log("zoom out")
+            }
+        }
+    </script>
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function() {
+        lazyLoadImage();
+    
+        $('.lazy_user').lazyload({event:'scroll',effect:'fadeIn',skip_invisible:false,effect_speed:400});
+    
+        initLightboxOldTemplate();
+        $('.js_back').click(function() {
+            history.back();
+            return false;
+        });
+        $('.submit').click(function() {
+            $(this).parents('form').submit();
+            return false;
+        });
+        $(document).on('click', '.areyousure', function() {
+            if ($(this).attr('confirm') != '' && $(this).attr('confirm') != undefined) {
+                return confirm($(this).attr('confirm'));
+            } else {
+                return confirm('{l_are_you_sure}');
+            }
+        });
+
+        var $changeLanguage=$('.module_change_language'), notShowLang=false;
+        if ($changeLanguage[0]) {
+            $changeLanguage.find('ul').autocolumnlist({columns: getSiteOption('number_of_columns_in_language_selector'), clickEmpty:function(){
+                notShowLang=true;
+                $('#module_change_language_item').stop().animate({height:'toggle'},300, function(){
+                    setTimeout(function(){notShowLang=false},100);
+                })
+            }});
+            $changeLanguage.hover(function(){
+                if(notShowLang)return;
+                var width = $(this).children('.module_change_language_current').width();
+                $('#module_change_language_item').css('left', (width + 13)+'px').stop().animate({height: "toggle"}, 300);
+            })
+        }
+    });
+    </script>
+
+<style type="text/css">
+    html, body {min-height:100%}
+    .uppper_header_container {
+        padding: 12px 10px; border-radius: 5px  ;
+    }   
+    /* .upper_header_color {background-color:{upper_header_color};} */
+    .lower_header_color {background-color   :{lower_header_color};}
+    .progress-bar {background-color:{upper_header_color};}
+    .upper_header_color_darker {background-color:{upper_header_color_darker};}
+    .lower_header_color_darker {background-color:{lower_header_color_darker};}
+    
+    .txt_color{ color: {upper_header_color}; }
+    .txt_upper_header_color{ color: {upper_header_color}; }
+    .txt_lower_header_color{ color: {lower_header_color}; }
+    
+    .nav_title a b{color: {upper_header_color}; }
+    .nav_title b{color: {lower_header_color}; }
+    
+    #menu .top-ul {
+        background-color:{upper_header_color}; padding-bottom: 0px; margin: 0px;
+        font-size: 12px;
+    }
+    
+    #menu .btn_search {
+        background: none;
+        /* Rade 2023-10-23 update */
+        /* background: {lower_header_color}; */
+        padding: 0px;
+    }
+    #menu .btn_search:hover {
+        background: none;
+        /* Rade 2023-10-23 update */
+        /* background: {lower_header_color_darker}; */
+    }
+    
+    .profile_bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: calc(100% - 14px);
+        height: 100%;
+        background: transparent 0 0 repeat;
+        transition: all 0.8s;
+        background-origin: content-box !important;
+    }
+    ul#menu-s a {
+        /* Rade 2023-10-23 delete start */
+        /* color: {color_scheme_menu_text_color_impact};  */
+        /* Rade 2023-10-23 delete end */
+        border-top-color: rgba({color_scheme_menu_item_border_top_color_rgba});
+        border-bottom-color: rgba({color_scheme_menu_item_border_bottom_color_rgba});
+    }
+    ul#menu-s a:hover, ul#menu-s a.inactive:hover { color: {color_scheme_menu_text_hover_color_impact} }
+    
+    ul#menu-s a.inactive {
+        color: {color_scheme_menu_inactive_text_color_impact};
+    }
+    #menu-l li a {
+        color: white;
+        /* Rade 2023-10-23 update */
+        /* color: {color_scheme_menu_text_color_impact}; */
+        border-top-color: rgba({color_scheme_menu_item_border_top_color_rgba});
+        border-bottom-color: rgba({color_scheme_menu_item_border_bottom_color_rgba});
+    }
+    #menu-l li a:hover, #menu-l li a.inactive:hover { color: {color_scheme_menu_text_hover_color_impact} }
+    
+    #menu-l li a.inactive {
+        color: {color_scheme_menu_inactive_text_color_impact};
+    }
+    a {
+        color: {lower_header_color};
+    }
+    a.link_profile {
+        color: #3966ae !important;
+    }
+    a.txt_upper_header_color:hover {
+        color: {upper_header_color_darker};
+    }
+    a.txt_lower_header_color:hover {
+        color: {lower_header_color_darker};
+    }
+    h2.txt_color a {
+        color: {upper_header_color};
+    }
+    h2.txt_lower_header_color a:hover { color: #000;
+    /*    color: {lower_header_color_darker};
+    */}
+    .btn.blue {
+        background: {upper_header_color};
+    }
+    .btn.blue:hover {
+        background: {upper_header_color_darker};
+    }
+    .btn.upper_header_color {
+        background: {upper_header_color};
+    }
+    .btn.upper_header_color:hover {
+        background: {upper_header_color_darker};
+    }
+    .btn.lower_header_color {
+        background: {lower_header_color};
+    }
+    .btn.lower_header_color:hover {
+        background: {lower_header_color_darker};
+    }
+    a.lower_header_color {
+        background: {lower_header_color_darker};
+    }
+    a.lower_header_color:hover {
+        background: {lower_header_color};
+    }
+    .btn.dblue {
+        background: {lower_header_color_darker};
+    }
+    .btn.dblue:hover {
+        background: {lower_header_color};
+    }
+    .btn.active_btn {
+        background: {lower_header_color};
+    }
+    .btn.button_active {
+        background: {lower_header_color};
+    }
+    .btn.active_btn:hover {
+        background: {lower_header_color_darker};
+    }
+    .btn.button_active:hover {
+        background: {lower_header_color_darker};
+    }
+    
+    .specials h3 a.txt_upper_header_color:hover{ color: {lower_header_color}; }
+    
+    table.tborder_header { background: {lower_header_color};}
+    
+    .dynamic_color { color: {upper_header_color};}
+    
+    .month_arrow_left { border-color: transparent {lower_header_color} transparent transparent;}
+    .month_arrow_right { border-color: transparent transparent transparent {lower_header_color};}
+    .year_arrow_left { border-color: transparent {upper_header_color} transparent transparent;}
+    .year_arrow_right { border-color: transparent transparent transparent {upper_header_color};}
+    
+    .events_new td .events_new_tb_sub td.calendar_num div{ color: {lower_header_color};}
+    .events_new td .events_new_tb_sub td.calendar_num_holiday div{ color: {upper_header_color};}
+    .events_new td .events_new_tb_sub td.calendar_c .calendar_foto a{ color: {lower_header_color};}
+    
+    .events_new td .events_new_tb_sub tr:hover td.calendar_num div{ color: {lower_header_color_darker};}
+    .events_new td .events_new_tb_sub tr:hover td.calendar_num div.calendar_today a.calendar_today_img{ border-color: transparent transparent transparent {lower_header_color_darker};border-style:solid; border-width:6px; width:0; height:0px; display:block;}
+    .events_new td .events_new_tb_sub tr:hover td.calendar_num_holiday div{ color: {upper_header_color_darker};}
+    .events_new td .events_new_tb_sub tr:hover td.calendar__num_holiday div.calendar_today a.calendar_today_img{ border-color: transparent transparent transparent {upper_header_color_darker};border-style:solid; border-width:6px; width:0; height:0px; display:block;}
+    
+    .calendar_num div.calendar_today a.calendar_today_img{ border-color: transparent transparent transparent {lower_header_color};border-style:solid; border-width:6px; width:0; height:0px; display:block;}
+    .calendar_num_holiday div.calendar_today a.calendar_today_img{ border-color: transparent transparent transparent {upper_header_color};border-style:solid; border-width:6px; width:0; height:0px; display:block;}
+    
+    .events_new td .events_new_tb_sub td.calendar_c_decor_holiday{ background: {upper_header_color};}
+    .events_new td .events_new_tb_sub td.calendar_c_decor{ background: {upper_header_color};}
+    
+    .list_bg_violet2 span { color: {lower_header_color};}
+    
+    .photo_new_btn a.left{display:block; background:{lower_header_color}; }
+    .photo_new_btn a.left:hover{ background: {lower_header_color_darker}; }
+    
+    .photo_new_btn a.right{display:block; background:{upper_header_color}; }
+    .photo_new_btn a.right:hover{ background: {upper_header_color_darker}; }
+    
+    .specials h3 a.txt_upper_header_color:hover{ color: {upper_header_color_darker}; }
+    
+    #adv_gl span {color: {lower_header_color};}
+    #bg_video{height:100% !important;}
+    
+    .switch-filter {
+            height: 10.375px;
+            width: 29.25px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -5.1875px;
+            margin-left: -14.625px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #d1d1d1;
+            z-index:0;
+            *zoom: 1;
+            filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFD1D1D1', endColorstr='#FFFEFBF7');
+            background-image: -moz-linear-gradient(top, #d1d1d1 0%, #fefbf7 100%);
+            background-image: -webkit-linear-gradient(top, #d1d1d1 0%, #fefbf7 100%);
+            background-image: linear-gradient(to bottom, #d1d1d1 0%, #fefbf7 100%);
+        }
+    
+        .switch-filter:after {
+            height: 8.75px;
+            width: 27.5px;
+            position: absolute;
+            top: 0.875px;
+            left: 0.875px;
+            content: '';
+            z-index: 2;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #a5a5a5;
+            *zoom: 1;
+            filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFA5A5A5', endColorstr='#FFE8D7BE');
+            background-image: -moz-linear-gradient(top, #a5a5a5 0%, #e8d7be 100%);
+            background-image: -webkit-linear-gradient(top, #a5a5a5 0%, #e8d7be 100%);
+            background-image: linear-gradient(to bottom, #a5a5a5 0%, #e8d7be 100%);
+        }
+    
+        .switch-filter .checkbox {
+            height: 7.5px;
+            width: 26.25px;
+            position: absolute;
+            top: 1.5px;
+            left: 1.5px;
+            z-index: 10000;
+            margin:0px;
+            -moz-border-radius: 4.375px;
+            -webkit-border-radius: 4.375px;
+            border-radius: 4.375px;
+            -moz-box-shadow: inset 0px 1.5px 2.5px rgba(0, 0, 0, 0.53), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.14);
+            -webkit-box-shadow: inset 0px 1.5px 2.5px rgba(0, 0, 0, 0.53), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.14);
+            box-shadow: inset 0px 1.5px 2.5px rgba(0, 0, 0, 0.53), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.14);
+            background-color: #f28a00;
+            *zoom: 1;
+            filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFF28A00', endColorstr='#FFD86517');
+            background-image: -moz-linear-gradient(top, #f28a00 0%, #e65300 67%, #d86517 100%);
+            background-image: -webkit-linear-gradient(top, #f28a00 0%, #e65300 67%, #d86517 100%);
+            background-image: linear-gradient(to bottom, #f28a00 0%, #e65300 67%, #d86517 100%);
+        }
+    
+        .switch-filter .checkbox:after {
+            height: 7.5px;
+            width: 14.625px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            z-index: 9999;
+            -moz-border-radius: 4.375px 0 0 4.375px;
+            -webkit-border-radius: 4.375px;
+            border-radius: 4.375px 0 0 4.375px;
+            -moz-box-shadow: inset 0px 1.5px 2.5px rgba(0, 0, 0, 0.53), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.14);
+            -webkit-box-shadow: inset 0px 1.5px 2.5px rgba(0, 0, 0, 0.53), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.14);
+            box-shadow: inset 0px 1.5px 2.5px rgba(0, 0, 0, 0.53), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.14);
+            background-color: #b1dd00;
+            *zoom: 1;
+            filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFB1DD00', endColorstr='#FF84AD00');
+            background-image: -moz-linear-gradient(top, #b1dd00 0%, #7eaf00 67%, #84ad00 100%);
+            background-image: -webkit-linear-gradient(top, #b1dd00 0%, #7eaf00 67%, #84ad00 100%);
+            background-image: linear-gradient(to bottom, #b1dd00 0%, #7eaf00 67%, #84ad00 100%);
+        }
+    
+        .switch-filter .control {
+            height: 9.125px;
+            width: 17.25px;
+            outline: 0;
+            position: absolute;
+            top: .75px;
+            left: .75px;
+            margin: 0.25px 0px 0px;
+            z-index: 10001;
+            -webkit-appearance: none;
+            -moz-border-radius: 8.625px;
+            -webkit-border-radius: 8.625px;
+            border-radius: 8.625px;
+            -moz-box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.3), 0 2.5px 7.5px rgba(0, 0, 0, 0.55), inset 0 1px 0 #fafafa, inset 0 -1px 0 #ada39d;
+            -webkit-box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.3), 0 2.5px 7.5px rgba(0, 0, 0, 0.55), inset 0 1px 0 #fafafa, inset 0 -1px 0 #ada39d;
+            box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.3), 0 2.5px 7.5px rgba(0, 0, 0, 0.55), inset 0 1px 0 #fafafa, inset 0 -1px 0 #ada39d;
+            background-color: #efefef;
+            *zoom: 1;
+            filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFEFEFEF', endColorstr='#FFBCB9B8');
+            background-image: -moz-linear-gradient(top, #efefef 32%, #bcb9b8 100%);
+            background-image: -webkit-linear-gradient(top, #efefef 32%, #bcb9b8 100%);
+            background-image: linear-gradient(to bottom, #efefef 32%, #bcb9b8 100%);
+            -moz-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+    
+        .switch-filter .control:checked {
+            left: 11.5px;
+        }
+    
+        .switch-filter .control:checked:focus {
+             outline: 0px auto -webkit-focus-ring-color;
+        }
+           
+        .switch-filter .control:after {
+            height: 5px;
+            width: 5px;
+            position: absolute;
+            right: 1.5px;
+            top: 1.5px;
+            content: '';
+            z-index: 10001;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            background-color: #c2c0be;
+            *zoom: 1;
+            filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFC2C0BE', endColorstr='#FFD7D7D7');
+            background-image: -moz-linear-gradient(top, #c2c0be 0%, #d7d7d7 72%);
+            background-image: -webkit-linear-gradient(top, #c2c0be 0%, #d7d7d7 72%);
+            background-image: linear-gradient(to bottom, #c2c0be 0%, #d7d7d7 72%);
+        }
+    .moderator_waiting_total_num {
+        display: block;
+        background: #c30909;
+        position: absolute;
+        top: -10px;
+        right: -12px;
+        padding: 0 6px 2px;
+        color: #fff;
+        font-size: 11px;
+        line-height: 12px;
+        border-radius: 10px;
+        box-shadow: 1px 1px 5px #837878;
+    }
+
+       .mail_waiting_num {
+            display: block;
+            background: #c30909;
+            position: absolute;
+            top: 0px;
+            right: -3px;
+            padding: 0 4px 2px;
+            color: #fff;
+            font-size: 11px;
+            line-height: 12px;
+            border-radius: 29px;
+            box-shadow: 1px 1px 5px #837878;
+            text-decoration: none !important;
+    }
+    
+    .bl_nav_js #menu-l {
+        padding-left: 0px;
+        display: -webkit-inline-box;
+    }
+
+    #oryx_content * {
+        box-sizing: unset;
+        /* text-align:left;    */
+        /* font-size: 12px; */
+    }    
+
+    .bl_widget.draggable * {
+        box-sizing: unset;
+    }
+
+    #oryx_content a {
+        text-decoration: revert;
+    } 
+    #oryx_content label {
+        /* font-weight: inherit; */
+        display: inline;
+    }
+    #oryx_content label:not(.bold){
+        font-weight: normal;
+        /* display: inline; */
+    }
+
+    #oryx_content input[type="radio"], input[type="checkbox"] {
+        margin: 0;
+        line-height: 22px;
+    }
+
+    #oryx_content input, button, select, textarea {
+        line-height: 22px;
+        font-size: 12px;
+    }
+
+    #oryx_content h1, h2, h3, h4, h5, h6 {
+        margin:auto;
+    }
+
+    #oryx_content ul, ol {
+        margin-bottom: auto;
+    }
+
+    #oryx_content .usr .a {
+        font-size: 10px;
+    }
+    </style>
+    <!-- end oryx2_1 javascript -->
+</head>
+
+<!-- begin_header_visitor -->
+<style>
+    .frame_content {
+        float: unset;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+</style>
+<body class="body_visitor <!-- begin_body_main_page -->body_main_page<!-- end_body_main_page -->">
+    <div id="cham-page">
+
+        <nav class="cham-nav-style-1" role="navigation" data-offcanvass-position="cham-offcanvass-left">
+            <div class="container none_select">
+                <div class="col-md-3 col-sm-3 col-xs-12 cham-logo">
+                    <a class="logo_main_page" href="#">
+                        <img src="{header_url_logo}" alt="">
+                        <span class="bl_loader"></span>
+                    </a>
+                </div>
+                <!-- begin_header_visitor_navbar -->
+                <!-- frm_login -->
+                <div id="frm_login_header" class="frm_login frm_login_hidden_md login_form_module">
+                    <div class="col-lg-3 hidden-md hidden-sm hidden-xs text-right bl bl_user">
+                        <div class="cham-icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <form>
+                    <div class="col-lg-2 hidden-md hidden-sm hidden-xs bl">
+                        <input tabindex="1" data-toggle="tooltip" data-placement="bottom" id="frm_login_header_name" type="text" name="user" class="form-control" placeholder="{l_email_name}">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        <span class="sign">
+                            <a href="" class="join_main_page">{l_register_now}</a>
+                        </span>
+                    </div>
+                    <div class="col-lg-2 hidden-md hidden-sm hidden-xs bl">
+                        <input id="frm_login_header_pass" tabindex="2" type="password" name="password" class="form-control" placeholder="{l_password}">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <span class="sign">
+                            <a onclick="showForgotFrm(); return false;" href="">{l_forgot_password}</a>
+                        </span>
+                    </div>
+                    </form>
+                    <div class="col-lg-2 hidden-md hidden-sm hidden-xs bl text-center">
+                        <button tabindex="3" data-type-loader="fade_btn" class="btn btn-block btn-success" onclick="loginIn($(this)); return false;">
+                            <span>{l_login}</span>
+                        </button>
+                        <input id="remember_me" class="input_remember_me" name="remember" value="1" checked="checked" type="checkbox">
+                        <label for="remember_me">{l_remember_me}</label>
+                    </div>
+                    <!-- begin_social_login -->
+                    <div class="row hidden-md hidden-sm hidden-xs">
+                        <div class="col-lg-3 text-right col-md-offset-3"></div>
+                        <div class="col-lg-2">&nbsp;</div>
+                        <div class="col-lg-2 text-left bl_social">
+                            <!-- begin_social_login_item -->
+                            <a onclick="return pwaSocialLogin(this);" href="{social_login_item_url}"><i class="fa fa-{social_login_item_type}"></i></a>
+                            <!-- end_social_login_item -->
+                        </div>
+                    </div>
+                    <!-- end_social_login -->
+                    <!-- begin_social_login_no_class -->
+                    <!-- end_social_login_no_class -->
+                </div>
+                <!-- /frm_login -->
+                <!-- end_header_visitor_navbar -->
+            </div>
+        </nav>
+
+        <!-- begin_header_visitor_main_page -->
+        <div class="cham-cover wrap_cham-cover-text">
+            <!-- begin_info_block_header_visitor -->
+            <div class="cham-cover-text">
+                <div class="container">
+                    <div class="row">
+                        <div class="<!-- begin_info_block_right-->col-md-push-6<!-- end_info_block_right--><!-- begin_info_block_central -->col-md-push-3 text-center<!-- end_info_block_central --> col-md-6 full-height">
+                            <div class="cham-cover-intro none_select">
+                                <h1 class="cover-text-lead">{info_block_header_visitor_title}</h1>
+                                <h2 class="cover-text-sublead">{info_block_header_visitor_description}</h2>
+                                <a href="#" class="btn btn-outline btn-lg join_main_page main_page_btn_outline">{l_register}</a>
+                                <a id="login_main_page" href="#" class="btn btn-outline btn-lg main_page_btn_outline">{l_login}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end_info_block_header_visitor -->
+
+            <div id="bg_video_tumb" class="bg_video tumb"></div>
+            <div class="bg_video" id="bg_video"></div>
+            <div class="bg_video_overlay {main_page_video_background_darken}"></div>
+
+        </div>
+        <div class="cham-cover-style-2 main_page_image <!-- begin_header_short -->cham-cover-style-top header_registration<!-- end_header_short -->" <!-- begin_main_page_image_pic -->style="background-image: url({main_page_image_pic});"<!-- end_main_page_image_pic -->>
+            <!-- begin_main_page_image_pic_darken -->
+            <div class="cham-overlay"></div>
+            <!-- end_main_page_image_pic_darken -->
+        </div>
+        <script>setBgResizeMainPage();</script>
+        <div class="background-overlay"></div>
+        <!-- begin_main_page_image_pic_js -->
+        <script>showBackgroundImagePage('{main_page_image_pic}')</script>
+        <!-- end_main_page_image_pic_js -->
+        <!-- end_header_visitor_main_page -->
+
+        <!-- begin_header_visitor_inner -->
+        <div class="cham-cover-style-top header_registration main_page_image" <!-- begin_main_page_image_pic_inner -->style="background-image: url({main_page_image_pic_inner});"<!-- end_main_page_image_pic_inner -->>
+
+            <div id="bg_video_tumb" class="bg_video tumb"></div>
+            <div class="bg_video" id="bg_video"></div>
+            <div class="bg_video_overlay {main_page_video_background_darken}"></div>
+
+            <!-- begin_main_page_image_pic_inner_darken -->
+            <div class="cham-overlay"></div>
+            <!-- end_main_page_image_pic_inner_darken -->
+        </div>
+        <div class="background-overlay inner"></div>
+        <!-- begin_main_page_image_pic_inner_js -->
+        <script>showBackgroundImagePage('{main_page_image_pic_inner}')</script>
+        <!-- end_main_page_image_pic_inner_js -->
+        <!-- end_header_visitor_inner -->
+
+        <!-- begin_main_page_video_background -->
+        <script>
+            pageBackgroundVideoInit();
+        </script>
+        <!-- end_main_page_video_background -->
+
+        <div class="page_content">
+<!-- end_header_visitor -->
+
+<!-- begin_header_member -->
+<body class="body_member <!-- begin_body_city -->city_body<!-- end_body_city --> {body_class} {city_class}" style="transform-origin: 50% 0;">
+
+    <!-- <div id="bg_video_tumb" class="bg_video tumb"></div>
+    <div class="bg_video" id="bg_video"></div> -->
+    <div class="profile_bg"> </div>
+
+    <!-- begin_background_img -->
+    <!-- img src="{bg_path}{src}" id="bg" oncontextmenu="return false;" alt="" / -->
+    <!-- <div class="bg_fon"> </div> -->
+     <script  type="text/javascript">
+        (function(){
+            // function bgReady() {
+            //     img.css({margin:-img.height()/2+'px -'+img.width()/2+'px'})
+            //     if (ready) img.fadeTo(1500, 1)
+            //     else img.fadeTo(0,(document.cookie.indexOf('bgOryx={src}')>=0)*1)
+            //     document.cookie='bgOryx={src}';
+            //     ready=1
+            // }
+            // var ready, img=$('<img class="bg_fon" style="display: none;" src="{bg_path}{src}" />')
+            //             .fadeTo(0,0).prependTo($('body')).load(bgReady);
+            // $(window).resize(bgReady);
+            // $(bgReady)
+
+            $("body").css({
+              "background": "url({bg_path}{src})",
+              "background-repeat": "no-repeat",
+              "background-size": "cover"
+            });
+        })()
+     </script>
+    <!-- end_background_img -->
+
+    <!-- begin_banner_top -->
+    <div style="padding-top: 8px; position: relative; text-align: center;">
+    {banner_top}
+    </div>
+    <!-- end_banner_top -->
+    <div id="wrapper">
+        <div id="header">
+            <!-- <div style="text-align:center;">
+                <div class="bl_logo">
+                    <div id="logo">
+                        <a href="{url_main}{url_home_page}">
+                            <img src="{header_url_logo}" alt="{title}" />
+                        </a>
+                    </div>
+                </div>
+            </div> -->
+            <div class="uppper_header_container lower_header_color flex justify-between items-center" style="font-size: 12px; padding: 7px 10px;">
+                <!-- begin_view -->
+                <style>
+                    .module_change_language .column {
+                        padding: inherit;
+                    }
+                </style>
+                <div class="module_change_language" style=" margin-top: 0;">
+                    <a class="module_change_language_current" onclick="return false;" href="">{language_current}</a>
+                    <div id="module_change_language_item">
+                        <ul>
+                            <!-- begin_language -->
+                            <li><a href="{url_page}?{url_page_params}set_language={language_value}" class="text-white"><span class="{language_class} ">{language_title}</span></a></li>
+                            <!-- end_language -->
+                        </ul>
+                    </div>
+                </div>
+                <!-- end_view -->
+                <li style="position: relative; right: -10px; top: 0px;">
+                    <div title="{l_filter} "class="switch-filter <!-- begin_info_mail_href -->?display=text&mid={mid}<!-- end_info_mail_href -->">
+                            
+                    <input id="nd_change_filter" type="checkbox" class="control" style="outline:0px;" name="front_checkbox"  {isnd_filter}>
+
+                    <label for="nd_change_filter" class="checkbox"></label>
+                      </div>
+                </li>
+                <div class="flex justify-between">
+                                        <!-- begin_header_block_info -->
+
+                        <ul class="top_menu flex" style="padding-top: 0; gap: 4px; margin-bottom: 0px;">
+                           
+                            <li><a title={l_menu_profile_settings} href="./profile_settings.php" style="color: white;">{l_menu_profile_settings}</a></li>
+                            <li><a title={l_menu_edit_profile} href="./profile.php">{l_menu_edit_profile}</a></li>
+                            <li><a title={l_menu_profile_view} href="./profile_view.php">{l_menu_profile_view}</a></li>
+                        </ul>
+                            <!-- end_header_block_info -->
+                            <style>
+                                .top_menu.flex a{
+                                    text-decoration: underline;
+                                }
+                            </style>
+ 
+                    <ul class="top_menu flex" style="padding-top: 0; gap: 4px; margin-bottom: 0px;">
+                        <!-- begin_auth -->
+                        <li class="first"><strong><a class="link_profile"title={l_welcome} " href="{url_main}profile_view.php">{l_hi} {name}</a></strong></li>
+                        <!-- begin_moderator -->
+                        <li><a title={l_moderator} " href="{url_main}moderator.php" style="position: relative;">
+                            {l_top_moderator}     
+                            <!-- begin_moderator_waiting_num -->
+                            <span class="moderator_waiting_total_num">{moderator_num}</span>
+                            <!-- end_moderator_waiting_num -->
+                            </a>
+                        </li>
+                        <!-- end_moderator -->
+                        <!-- begin_help_on -->
+                                        <li><a title={l_support} " href="{url_main}help.php">{l_support}</a></li>
+                                        <!-- end_help_on -->
+
+                                        <!-- begin_invite_on -->
+                                        <li><a title={l_invite_my_friends} " href="{url_main}invite.php">{l_invite_friends}</a></li>
+                                        <!-- end_invite_on -->
+
+                        <li><a title={l_logout} " href="{url_main}index.php?cmd=logout">{l_logout}</a></li>
+                        <!-- begin_menu_upgrade --><li><a href="{url_main}upgrade.php">{l_menu_upgrade}</a></li><!-- end_menu_upgrade -->
+                        <!-- begin_menu_upgrade_active --><li><a title={l_upgrade} " href="{url_main}upgrade.php">{l_menu_upgrade}</a></li><!-- end_menu_upgrade_active -->
+                        <!-- end_auth -->
+
+                        <!-- begin_loginform -->
+                        <li class="first">{l_welcome_to} <strong>{title}</strong></li>
+                        <li><a href="{url_main}join.php">{l_to_joinform}</a></li>
+                        <li><a href="{url_main}join.php">{l_to_loginform}</a></li>
+                        <!-- end_loginform -->
+                    </ul>
+                </div>
+            </div>
+        </div><!-- header end -->
+
+
+        <div id="menu" class="upper_header_color" style="padding-bottom: 0px; line-height: normal;">  
+            <ul class="top-ul" style="box-sizing: unset; " >
+                <!-- begin_news_on -->
+                <li><a href="{url_main}news.php?view=4">{l_site_tour}</a></li>
+                <li><a href="{url_main}news.php?cat=2">{l_news}</a></li>
+                <li><a href="{url_main}news.php">{l_site_info}</a></li>
+                <!-- Cobra-55555 donation START -->
+                <li><a href="{url_main}donation_cobra.php">{l_site_misc}</a></li>
+                <!-- Cobra-55555 donation END -->
+                <!-- <li><a href="{url_main}nsc_club.php?id=53">{l_podcast}</a></li> -->
+
+                <!-- end_news_on -->
+                <!-- begin_menu_top_nsc_club_item -->
+                <li>
+                    <a {target} href="{url_main}{menu_item_page_top}" onClick="this.blur();">{menu_item_title_top}</a>
+                </li>
+                <!-- end_menu_top_nsc_club_item -->
+              
+                    <!-- begin_menu_short_md -->
+                    <div class="wrap_icons_info">
+                        <div class="bl_icons_info">
+                            <ul class="icons_info">
+                                <!-- begin_menu_short_md_item -->
+                                
+                                <!-- begin_menu_short_md_item_friends_pending -->
+                                <li class="icon" style="padding: 0px;">
+                                    <a id="friends_notification_link" href="#" class="dropdown-toggle icon_link friends_pending_link <!-- begin_menu_short_md_item_friends_pending_disabled -->disabled<!-- end_menu_short_md_item_friends_pending_disabled -->" role="button" aria-haspopup="true" aria-expanded="false" >
+                                        <i title="{a_notification_title_friend_requests}" class="fa fa-users"></i>
+                                        <span data-counter="{friends_pending_count}" class="count friends_pending_counter <!-- begin_menu_short_md_item_friends_pending_count_show -->to_show<!-- end_menu_short_md_item_friends_pending_count_show -->">{friends_pending_count}</span>
+                                    </a>
+                                </li>
+                                <!-- end_menu_short_md_item_friends_pending -->
+
+                                <!-- begin_menu_short_md_item_subscribers_pending -->
+                                <li class="icon" style="padding: 0px;">
+                                    <a id="friends_notification_link" href="#" class="dropdown-toggle icon_link friends_pending_link <!-- begin_menu_short_md_item_subscribers_pending_disabled -->disabled<!-- end_menu_short_md_item_subscribers_pending_disabled -->" role="button" aria-haspopup="true" aria-expanded="false" >
+                                        <i title="{a_notification_title_subscribers_requests}" class="fa fa-users"></i>
+                                        <span data-counter="{friends_pending_count}" class="count friends_pending_counter <!-- begin_menu_short_md_item_subscribers_pending_count_show -->to_show<!-- end_menu_short_md_item_subscribers_pending_count_show -->">{subscribers_pending_count}</span>
+                                    </a>
+                                </li>
+                                <!-- end_menu_short_md_item_subscribers_pending -->
+        
+                                <!-- begin_menu_short_md_item_new_tasks -->
+                                <li class="icon" style="padding: 0px;">
+                                    <a id="new_tasks_notification_link" onclick="clEventsCalendar.goToCalendar($(this), '{new_tasks_url}'); return false;" href="#" class="icon_link new_tasks_link <!-- begin_menu_short_md_item_new_tasks_disabled -->disabled<!-- end_menu_short_md_item_new_tasks_disabled -->">
+                                        <figure title="{new_tasks_title}">
+                                            <svg viewBox="0 0 1000 1000" style="fill: white;">
+                                                <g><path d="M901.9,145.9h-74.1v25.2c0,53.6-58.3,97.1-111.9,97.1c-53.6,0-111.9-43.5-111.9-97.1v-25.2H393.8v25.2c0,53.6-58.3,97.1-111.9,97.1c-53.6,0-111.9-43.5-111.9-97.1v-25.2H98.1c-48.6,0-88.1,46.9-88.1,104.7v615.2c0,57.8,39.5,104.7,88.1,104.7h803.8c48.6,0,88.1-46.9,88.1-104.7V250.6C990,192.8,950.5,145.9,901.9,145.9z M930.6,838.1c0,40.3-33.6,73.1-75.1,73.1H139.9c-41.5,0-75.1-32.8-75.1-73.1V397.2c0-40.3,33.6-73.1,75.1-73.1h715.6c41.5,0,75.1,32.8,75.1,73.1V838.1z"/><path d="M720.4,29.4c-35,0-73.1,28.4-73.1,63.4v17.6V146v10.3c0,35,38.1,63.5,73.1,63.5s73.1-28.4,73.1-63.5v-10.4v-35.5V92.8C793.5,57.8,755.5,29.4,720.4,29.4z"/><path d="M281.8,29.4c-35,0-73.1,28.4-73.1,63.4v17.6V146v10.3c0,35,38.1,63.5,73.1,63.5c35,0,73.1-28.4,73.1-63.5v-10.4v-35.5V92.8C355,57.8,316.9,29.4,281.8,29.4z"/><path d="M251.4,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C313.3,427.2,285.6,399.5,251.4,399.5z"/><path d="M516.3,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C578.3,427.2,550.6,399.5,516.3,399.5z"/><path d="M781.3,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9l0-56.1C843.2,427.2,815.5,399.5,781.3,399.5z"/><path d="M251.4,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C313.3,676.1,285.6,648.4,251.4,648.4z"/><path d="M516.3,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C578.3,676.1,550.6,648.4,516.3,648.4z"/><path d="M781.3,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C843.2,676.1,815.5,648.4,781.3,648.4z"/></g>
+                                            </svg>
+                                        </figure>
+        
+                                        <span data-counter="{new_tasks_count}" class="count new_tasks_counter <!-- begin_menu_short_md_item_new_tasks_count_show -->to_show<!-- end_menu_short_md_item_new_tasks_count_show -->">{new_tasks_count}</span>
+                                    </a>
+                                </li>
+                                <!-- end_menu_short_md_item_new_tasks -->
+        
+        
+                                <!-- begin_menu_short_md_item_new_message -->
+                                <li class="icon" style="padding: 0px;">
+                                    <a id="message_notification_link" href="#" class="icon_link new_message_link <!-- begin_menu_short_md_item_new_message_disabled -->disabled<!-- end_menu_short_md_item_new_message_disabled -->" onclick="clMessages.show(0,$(this)); return false;">
+                                        <span title="{a_notification_title_messages}" class="glyphicon glyphicon-comment"></span>
+                                        <span data-counter="{new_message_count}" class="count new_message_counter <!-- begin_menu_short_md_item_new_message_count_show -->to_show<!-- end_menu_short_md_item_new_message_count_show -->">{new_message_count}</span>
+                                    </a>
+                                </li>
+                                <!-- end_menu_short_md_item_new_message -->
+                                <!-- begin_menu_short_md_item_new_events -->
+                                <li class="icon" style="padding: 0px;">
+                                    <a id="events_notification_link" href="#" class="dropdown-toggle icon_link <!-- begin_menu_short_md_item_new_events_disabled -->disabled<!-- end_menu_short_md_item_new_events_disabled -->" data-toggle="collapse" role="button" aria-haspopup="true" aria-expanded="false" >
+                                        <i title="{a_notification_title_events}" class="fa fa-bell"></i>
+                                        <span data-counter="{new_events_count}" class="count new_events_counter <!-- begin_menu_short_md_item_new_events_count_show -->to_show<!-- end_menu_short_md_item_new_events_count_show -->">{new_events_count}</span>
+                                    </a>
+                                </li>
+                                <!-- end_menu_short_md_item_new_events -->
+                                <!-- end_menu_short_md_item -->
+                            </ul>
+                        </div>
+        
+                        <!-- begin_notif_friends_pending -->
+                        <div id="friends_notification" class="notification friends collapse pp_hide">
+                            <div id="friends_notification_scrollbox" class="scrollbarY">
+                                <div class="scrollbar">
+                                    <div class="track">
+                                        <div class="thumb"><div class="end"></div></div>
+                                    </div>
+                                </div>
+                                <div class="viewport">
+                                    <div class="overview">
+                                        <ul id="friends_notification_list" class="notification_list">
+                                            <!-- begin_notif_friends_pending_item -->
+                                            <li id="friends_notification_{notif_friends_pending_item_user_id_sel}" class="friends_notification_item" data-created="{notif_friends_pending_item_created}">
+                                                <div class="cont">
+                                                    <a class="pic" href="{notif_friends_pending_item_url}">
+                                                        <img src="{notif_friends_pending_item_photo}" alt="" />
+                                                    </a>
+                                                    <span class="text">{notif_friends_pending_item_title}</span>
+                                                </div>
+                                                <div class="buttons">
+                                                    <button onclick="clFriends.actionNotification({notif_friends_pending_item_user_id}, 'approve', $(this), '{notif_friends_pending_item_group_id}')"  class="btn btn-success btn-sm">
+                                                        <span>{notif_friends_pending_item_btn_approve}</span>
+                                                    </button>
+                                                    <button onclick="clFriends.actionNotification({notif_friends_pending_item_user_id}, 'remove', $(this), '{notif_friends_pending_item_group_id}')" class="btn btn-secondary btn-sm">
+                                                        <span>{notif_friends_pending_item_btn_reject}</span>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                            <!-- end_notif_friends_pending_item -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end_notif_friends_pending -->
+        
+                        <!-- begin_notif_events -->
+                        <div id="events_notification" class="notification events collapse pp_hide">
+                            <div id="events_notification_scrollbox" class="scrollbarY">
+                                <div class="scrollbar">
+                                    <div class="track">
+                                        <div class="thumb"><div class="end"></div></div>
+                                    </div>
+                                </div>
+                                <div class="viewport">
+                                    <div class="overview">
+                                        <ul id="events_notification_list"  class="notification_list">
+        
+                                            <!-- begin_notif_events_item -->
+                                            <li id="{notif_events_item_alias}" data-url-page="{notif_events_item_url_page}" data-id="{notif_events_item_id}" data-date="{notif_events_item_date}" data-type="{notif_events_item_type}" data-event-id="{notif_events_item_event_id}" data-event-item-id="{notif_events_item_event_item_id}" data-event-item-parent-id="{notif_events_item_event_item_parent_id}" data-event-user-id="{notif_events_item_event_user_id}" data-event-user-name-seo="{notif_events_item_event_user_name_seo}" data-event-live-id="{notif_events_item_live_id}" data-group-id="{notif_events_item_group_id}" data-group-type="{notif_events_item_group_type}" class="events_notification_item <!-- begin_notif_events_item_new -->new<!-- end_notif_events_item_new -->">
+                                                <div class="cont">
+                                                    <a class="pic" href="{notif_events_item_url}">
+                                                        <img src="{notif_events_item_photo}" alt="" />
+                                                    </a>
+                                                    <span class="text">
+                                                        <span class="event_title">{notif_events_item_title}</span>
+                                                        <span class="event_time_ago">{notif_events_item_time_ago}</span>
+                                                    </span>
+                                                    <!-- begin_notif_events_item_menu_mark_see -->
+                                                    <span class="event_menu dropdown-toggle" data-target="#{notif_events_item_alias}_menu" data-toggle="collapse" role="button" aria-haspopup="true">
+                                                        <span class="dots_circle"></span>
+                                                        <ul id="{notif_events_item_alias}_menu" class="more_menu_collapse menu_collapse collapse">
+                                                            <li>
+                                                                <a href="#" onclick="return false">
+                                                                    <span>
+                                                                        <span data-cl-loader="more_menu_loader" class="icon_fa"><i class="fa fa-check" aria-hidden="true"></i></span><span class="btn_title">{l_mark_as_read}</span>
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </span>
+                                                    <!-- end_notif_events_item_menu_mark_see -->
+                                                </div>
+                                            </li>
+                                            <!-- end_notif_events_item -->
+        
+                                            <li id="events_notification_more" class="events_notification_item events_more <!-- begin_notif_events_hide_more -->hide_more<!-- end_notif_events_hide_more -->">
+                                                <div class="cont">
+                                                    <a id="events_notification_more_link" class="events_notification_more" data-rank="{notif_events_rank}" href="#">
+                                                        <span class="icon_fa" data-cl-loader="more_menu_loader"><i class="fa fa-chevron-down"></i></span>
+                                                        {l_load_more}
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end_notif_events -->
+        
+                    </div>
+                    <!-- end_menu_short_md -->
+                <ul class="second list_icon_notify"  style="margin-top: 0;">
+                     <li><a href="./search_advanced.php" style=" display: inline ">{l_menu_search_advanced}
+                </a>
+            </li>
+                     <li order="header_menu_people_nearby"><a href="{url_main}search_results.php?city={city_id}&radius=75" style=" display: inline ">{l_header_menu_people_nearby}</span>
+                </a>
+            </li>
+                   
+
+           </ul>   
+
+
+          </ul>       
+          
+            <div class="flex items-center justify-between" style="  ">
+                <div style="width: 10px; height: 65px; background-color:{upper_header_color};"></div>
+                <a href="{url_main}{url_home_page}" style="display: flex; width: 30%; height: 65px; justify-content: center; align-items: center;">
+                    <img src="{header_url_logo}" alt="{title}" style="max-width: 100%; width: 100%; max-height: 65px; display: block;" />
+                </a>
+                <div style="width: 62%; padding-left: 10px; padding-right: 10px; background-color:{upper_header_color}; height: 65px; display: flex; flex-direction: column;
+    justify-content: space-around;">
+                    <div class="flex" style="justify-content: space-between;">
+                        <div class="inline-flex gap-2 items-center">
+                            <div class="cursor-pointer" onclick="zoom_out1();">
+                                <img src="_files/icons/zoom_out.png" height="24px"/>
+                            </div>
+                            <div class="cursor-pointer" onclick="zoom_in1();">
+                                <img src="_files/icons/zoom_in.png" height="24px"/>
+                            </div>
+                            <div class="bl_nav_js">
+                            <!-- begin_menu_l -->
+                                <ul id="menu-l">
+                                    <!-- begin_mail_on_item -->
+                                        <!-- begin_mail_on -->
+                                        <li order="info_mail" style="padding: 0px; position: relative; margin-right: 2px;"><a class="menu_arrow" title={l_mail}  id="xajax_new_mail_menu" href="{url_main}mail.php<!-- begin_mail_one_href -->?display=text&mid={mid}<!-- end_mail_one_href -->" style="border-bottom: none;"> <i>{l_info_mail}: 
+                                            <!-- begin_new_mails_count1 -->
+                                            <span id="xajax_new_mail" class="mail_waiting_num">{new_mails}</span>
+                                            <!-- end_new_mails_count1 -->
+                                        </i></a></li>
+                                        <!-- end_mail_on -->
+                                    <!-- end_mail_on_item -->
+
+                                    <!-- begin_wink_on_item -->
+                                        <!-- begin_wink_on -->
+                                        <li order="info_interests" style="padding: 0px; position: relative; margin-right: 2px"><a class="menu_arrow"title={l_winks}  href="{url_main}mail_whos_interest.php" style="border-bottom: none;"><i>{l_info_interests}:
+                                         <!-- begin_new_winks_count -->
+                                         <span id="xajax_new_wink" class="mail_waiting_num">{new_interest}</span>
+                                         <!-- end_new_winks_count -->
+                                        </i></a></li>
+                                        <!-- end_wink_on -->
+                                        <!-- begin_favorite_on -->
+                                        <li order="info_interests" style="padding: 0px; position: relative; margin-right: 2px;"><a class="menu_arrow"title={l_winks}  href="{url_main}bookmark_friends.php?action=show" style="border-bottom: none;"><i>{l_menu_mail_favorites}:
+                                            <!-- begin_new_favorite_count -->
+                                            <span id="xajax_new_favorite" class="mail_waiting_num">{new_favorite}</span>
+                                            <!-- end_new_favorite_count -->
+                                        </i></a></li>
+                                        <!-- end_favorite_on -->
+                                        <!-- begin_friends_on -->
+                                        <li order="info_interests" style="padding: 0px; position: relative; margin-right: 2px;"><a class="menu_arrow"title={l_winks}  href="{url_main}my_friends.php" style="border-bottom: none;"><i>{l_friends}:
+                                            <!-- begin_new_friends_count -->
+                                            <span id="xajax_new_friends" class="mail_waiting_num">{new_friends}</span>
+                                            <!-- end_new_friends_count -->
+                                        </i></a></li>
+                                        <!-- end_friends_on -->
+                                 
+                                    <!-- end_wink_on_item -->
+
+                                    <!-- begin_header_your_settings_item -->
+                                        <!-- begin_submenu_widget -->
+                                            <li order="your_settings" style="padding: 0px; margin-right: 4px;"><a class="menu_settings"title={l_widgets}  href="{url_main}widgets.php" style="border-bottom: none;"><i>{l_widgets}</i></a></a></li>
+                                        <!-- end_submenu_widget -->
+                                    <!-- end_header_your_settings_item --> 
+                                                                         
+                                </ul>
+                            <!-- end_menu_l -->
+                            </div>
+                        </div>
+                        <form id="search_by_username" action="{url_main}search_results.php" method="get" class="navbar-form navbar-right custom_search ">
+                            <div class="form-group">
+                                <input type="hidden" name="search_header" value="1">
+                                <input type="text" class="form-control placeholder" style="height: 25px; font-size: 13px; margin-top: 5px;" name="keyword" placeholder="{a_field_search_for_people}">
+                                <a onclick="searchUserByName();  return false;" class="link_icon_search" href=""><span class="glyphicon glyphicon-search"></span></a>
+                            </div>
+                        </form>
+                        <script>
+                            $('#search_by_username input[name="keyword"]').autocomplete({
+                                source: function (request, response) {
+                                    var request_data = {
+                                        q: request.term,
+                                        type: 1,
+                                        user_id: user_id
+                                    };
+                                    $.ajax({
+                                        url: "{url_main}users_autocomplete_ajax.php",
+                                        dataType: "json",
+                                        data: request_data,
+                                        type: "POST",
+                                        beforeSend: function () {
+                                        },
+                                        success: function (data) {
+                                            response(data);
+                                        }
+                                    });
+                                },
+                            });
+                        </script>
+                    </div>
+                    <style>
+                        a.text-white.text-xs.font-medium {
+                            text-decoration: underline;
+                        }
+                    </style>
+                    <!-- begin_menu_r -->
+                    <div class="flex gap-1 mt-2" style="justify-content: space-between;">
+                        <!-- begin_menur_photo -->
+                        <a href="photos" class="text-white text-xs font-medium">Albums</a>
+                        <!-- end_menur_photo -->
+                        <!-- begin_menur_music -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="songs" class="text-white text-xs font-medium">Music</a>
+                        <!-- end_menur_music -->
+                        <!-- begin_menur_video -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="vids" class="text-white text-xs font-medium">Videos</a>
+                        <!-- end_menur_video -->
+                        <!-- begin_menur_forum -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="forum.php" class="text-white text-xs font-medium">Forums</a>
+                        <!-- end_menur_forum -->
+                        <!-- begin_menur_blog -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="blogs" class="text-white text-xs font-medium">Blogs</a>
+                        <!-- end_menur_blog -->
+                        <!-- begin_menur_group -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="groups_search_advanced.php" class="text-white text-xs font-medium">Groups</a>
+                        <!-- end_menur_group -->
+                        <!-- begin_menur_place -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="places.php" class="text-white text-xs font-medium">Places</a>
+                        <!-- end_menur_place -->
+                        <!-- begin_menur_network -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="network.php" class="text-white text-xs font-medium">Network</a>
+                        <!-- end_menur_network -->
+                        <!-- begin_menur_vote -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="users_hon.php" class="text-white text-xs font-medium">Vote</a>
+                        <!-- end_menur_vote -->
+                        <!-- begin_menur_top -->
+                        <span class="text-white text-xs font-medium">/</span>
+                        <a href="top5.php" class="text-white text-xs font-medium">Top</a>
+                        <!-- end_menur_top -->
+                    </div>
+                    <!-- end_menu_r -->
+                </div>
+            </div>
+            <div style="width: 100%; height: 15px; background-color:{upper_header_color};"></div>
+        </div><!-- menu end -->
+        <!-- begin_menu_site -->
+        <script language="javascript" type="text/javascript">
+        $(function(){
+            $('#menu_more_all').hover(function(){
+                $('#menu_more').stop().animate({height: "toggle"}, 300);
+            });
+        });
+        </script>
+        <ul id="menu-s" class="lower_header_color" style="line-height: normal;">
+            <!-- begin_menu_item --><li <!-- begin_menu_item_active -->class="active"<!-- end_menu_item_active -->  <!-- begin_menu_item_end --> style="border-right:none;" <!-- end_menu_item_end --> ><a {target} href="{url_main}{menu_item_page}">{menu_item_title}</a></li><!-- end_menu_item -->
+
+            <!-- begin_menu_more -->
+                <li id="menu_more_all" style="border:none;display:block; height:5px;"  >
+                    <nobr><a href="#">{l_menu_more}</a></nobr>
+                    <ul class="lower_header_color" id="menu_more"  >
+                    <!-- begin_menu_more_item -->
+                        <li class="<!-- begin_menu_more_item_active -->active<!-- end_menu_more_item_active --> {class_last}">
+                            <a {target} id="{custom_id_for_edge}" href="{url_main}{menu_item_page}" class="{custom_class_for_edge}" onClick="this.blur();">{menu_item_title}</a>
+                        </li>
+                    <!-- end_menu_more_item -->
+                    <!-- begin_menu_more_nsc_club_item -->
+                        <li class="<!-- begin_menu_more_nsc_club_item_active -->active<!-- end_menu_more_nsc_club_item_active --> {class_last}">
+                            <a {target} href="{url_main}{menu_item_page}" onClick="this.blur();">{menu_item_title}</a>
+                        </li>
+                    <!-- end_menu_more_nsc_club_item -->
+                    </ul>
+                </li>
+            <!-- end_menu_more -->
+        </ul>
+        <!-- end_menu_site -->
+
+<script type="text/javascript">
+// $(document).ready(function(){
+
+// $(".bl_nav_js ul li").hover(function(){
+//  $(this).find('a').css('background-position', '0 -29px');
+//  }, function(){
+//        $(this).find('a').css('background-position', '');
+//     })
+
+// });
+
+ </script>
+
+<div class="bl_nav_js" style="display: none;">
+        <!-- begin_menu_l -->
+            <!-- begin_submenu_container -->
+                <ul id="menu-l" >
+                    <!-- begin_submenu -->
+                    
+                    <!-- end_submenu -->
+                </ul>
+            <!-- end_submenu_container -->
+        <!-- end_menu_l -->
+<!-- menu-l end -->
+</div>
+
+
+    <!-- begin_pp_presenter_start -->
+    <div id="pp_presenter_start" class="modal fade bs-example-modal-sm custom_modal_one forms_field pp_stream_title in" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="false">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">{l_live_title_popup}</h3>
+                </div>
+                <div class="bl_modal_body">
+                    <div class="modal-body">
+                        <div class="bl_forms">
+                            <div class="section fields">
+                                <div class="col-lg-12 col-md-12 field">
+                                    <input id="pp_stream_title" maxlength="255" name="stream_title" type="text" class="form-control placeholder" placeholder="{a_live_title_placeholder}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-lg-12 col-md-12">
+                            <button id="pp-make-call" type="button" data-no-fade-in="true" class="btn btn-success" disabled>
+                                <span class="bl_title"><i class="fa fa-video-camera" aria-hidden="true"></i></span><span>{l_start_striming_presenter}</span>
+                            </button>
+
+                            <button id="pp-make-close" type="button" data-no-fade-in="true" class="btn btn-danger history_back" style="margin-top: 10px;">
+                                <span class="bl_title"><i class="fa fa-window-close" aria-hidden="true"></i></span><span style="margin-left: 5px;">{l_close_striming_presenter}</span>
+                            </button>
+                            <!-- <script>$('#pp-make-call').addChildrenLoader();</script> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end_pp_presenter_start -->
+
+    {pp_messages}
+
+    <!-- begin_check_demo_iframe_body -->
+    <script>
+        if (parent.window.frames['iframe_demo'] && '{url_page}'=='city.php'){
+           $('body').removeClass('city_mobile');
+        }
+    </script>
+    <!-- end_check_demo_iframe_body -->
+
+    <!-- nav -->
+    <nav class="navbar navbar-default navbar-fixed-top width_cl none_select" style="display: none;">
+        <div class="container-fluid  mb_ct_sc mb_ct_100_vw">
+        <div class="navbar-header">
+
+            <button id="btn_header_menu_nav" type="button" class="navbar-toggle collapsed icon_nav" data-toggle="collapse" data-target="#member_header_menu" aria-expanded="false">
+                <div class="wrap_nav">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+            </button>
+
+            <a class="navbar-brand" href="{url_profile_view}">
+                <span class="logo">
+                    <img src="{header_url_logo_inner}" alt=""/>
+                    <span class="bl_loader"></span>
+                </span>
+            </a>
+
+            <div id="member_header_menu" class="collapse navbar-collapse">
+                <!-- begin_member_header_menu -->
+                <ul class="nav navbar-nav navbar-right menu_collapse member_header_menu">
+                    <!-- begin_member_header_menu_item -->
+                    <li class="link_count navbar_{member_header_menu_item_key} <!-- begin_member_header_menu_item_active -->active<!-- end_member_header_menu_item_active -->  {member_header_menu_item_alias}">
+                        <a id="navbar_{member_header_menu_item_key}" class="{member_header_menu_item_key}" href="{member_header_menu_item_url}" data-href="{member_header_menu_item_url}">
+                            <span class="icon_fa" data-cl-loader="header_menu_loader">
+                                {member_header_menu_item_icon_svg}
+                                <!-- begin_member_header_menu_item_icon -->
+                                <i class="fa {member_header_menu_item_icon}" aria-hidden="true"></i>
+                                <!-- end_member_header_menu_item_icon -->
+                            </span>
+                            {member_header_menu_item_title}
+                            <!-- begin_member_header_menu_item_count -->
+                            <span id="{member_header_menu_item_key}_counter" class="count">{member_header_menu_item_count}</span>
+                            <!-- end_member_header_menu_item_count -->
+
+                            <!-- begin_member_header_menu_item_status -->
+                            <span id="{member_header_menu_item_key}_status_item" class="status_item"></span>
+                            <!-- end_member_header_menu_item_status -->
+                        </a>
+                    </li>
+                    <!-- end_member_header_menu_item -->
+
+                    <!-- begin_member_header_menu_more -->
+                    <li class="dropdown">
+                        <a id="navbar_menu_more" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {l_menu_more} <span class="caret"></span>
+                        </a>
+                        <div id="navbar_menu_more_dropdown" class="dropdown-menu menu_more_menu_navbar_site">
+                        <ul class="menu_vertical_scroll dragscroll" style="cursor: grab; cursor : -o-grab; cursor : -moz-grab; cursor : -webkit-grab;" >
+                        
+                            
+                            <!-- begin_member_header_menu_more_item -->
+                            <li class="link_count navbar_more_{member_header_menu_more_item_key} <!-- begin_member_header_menu_more_item_active -->active<!-- end_member_header_menu_more_item_active -->  {member_header_menu_item_alias}">
+                                <a id="navbar_{member_header_menu_more_item_key}" class="navbar_menu_more_item {member_header_menu_more_item_key}" href="{member_header_menu_more_item_url}" data-href="{member_header_menu_more_item_url}">
+                                    <span class="icon_fa" data-cl-loader="header_menu_loader_more">
+                                        {member_header_menu_more_item_icon_svg}
+                                        <!-- begin_member_header_menu_more_item_icon -->
+                                        <i class="fa {member_header_menu_more_item_icon}" aria-hidden="true"></i>
+                                        <!-- end_member_header_menu_more_item_icon -->
+                                    </span>
+                                    {member_header_menu_more_item_title}
+                                    <!-- begin_member_header_menu_more_item_count -->
+                                    <span id="{member_header_menu_more_item_key}_counter" class="count">{member_header_menu_more_item_count}</span>
+                                    <!-- end_member_header_menu_more_item_count -->
+
+                                    <!-- begin_member_header_menu_more_item_status -->
+                                    <span id="{member_header_menu_more_item_key}_status_item" class="status_item"></span>
+                                    <!-- end_member_header_menu_more_item_status -->
+                                </a>
+                            </li>
+                            <!-- end_member_header_menu_more_item -->
+                        </ul>
+
+                        <script type="text/javascript" src="{url_main}_server/js/dragscroll.js{cache_version_param}"></script>
+
+                        </div>
+                    </li>
+                    <!-- end_member_header_menu_more -->
+                </ul>
+                <!-- end_member_header_menu -->
+
+            </div>
+            <script>initNavbarMenu();</script>
+            <!-- /.navbar-collapse -->
+        </div>
+        </div>
+    </nav>
+    <!-- /nav -->
+    <script>clMessages.initMessages();</script>
+    <div id="cham-page">
+        <div id="page_top_area" class="page_top_area"></div>
+
+        <!-- begin_banner_header -->
+        <div class="banner_header">{banner_header}</div>
+        <!-- end_banner_header -->
+
+        <div class="page_content top_indent_page" style="margin-top: -6px; border-radius: 6px;">
+        {header_custom}
+
+<script type="text/javascript" src="{url_tmpl_main}js/betty_images.js{cache_version_param}"></script>
+
+<!-- end_header_member -->
+
+<script>initCustomStyle();</script>

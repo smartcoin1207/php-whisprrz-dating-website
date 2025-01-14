@@ -1,0 +1,19 @@
+<div class="general_chat_list_users">
+<!-- begin_list_user -->
+<div id="general_chat_user_{list_user_user_id}" class="user_info_bl">
+    <a class="user_info" target="_blank" href="{url_main}{list_user_profile_link}" title="{list_user_name}">
+    <span class="pic">
+        <button style="background-image: url({url_files}{list_user_photo});"></button>
+    </span>
+    <span class="info">
+        <span class="name text-overflow">{list_user_name}</span>
+        <span class="user_city text-overflow" title="{list_user_city}, {list_user_age}">
+            {list_user_city}, {list_user_age}
+        </span>
+    </span>
+    </a>
+    <div class="cl"></div>
+</div>
+<!-- end_list_user -->
+</div>
+<script>updateCounter('#narrow_general_chat_count','{number_users_visitors}');</script>

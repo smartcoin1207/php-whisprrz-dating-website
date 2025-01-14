@@ -1,0 +1,244 @@
+<!-- begin_users_list_item_default -->
+<div class="col-md-{users_list_item_number_row} col-sm-6 col-lg-4 users_list_item <!-- begin_users_list_item_default_live_now_bl -->users_list_item_live_now<!-- end_users_list_item_default_live_now_bl -->">
+
+    <div class="position-relative">
+        <div id="list_user_item_layer_action_{users_list_item_user_id}" data-cl-loader="layer_action_list_loader" data-no-fade-in="true" class="layer_action_list no_transparent"></div>
+        <!-- onclick="openGalleryList(event, '{users_list_item_user_id}'); return false;" -->
+        <a href="{url_main}{users_list_item_url_profile}"  class="cham-project-item square list_user_item_photo_{users_list_item_user_id} to_hide" style="background-image: url({users_list_item_photo});">
+            <!-- begin_users_list_item_moderator_mark -->
+            <div style="background-color: #559b54; color: #ffffff; font-size: 20px; text-align: center;">{l_moderator}</div>
+            <!-- end_users_list_item_moderator_mark -->
+
+            <!-- begin_users_list_item_owner_mark -->
+            <div style="background-color: #ca3da5; color: #ffffff; font-size: 20px; text-align: center;">{l_group_owner}</div>
+            <!-- end_users_list_item_owner_mark -->
+            
+            <script>onLoadImgFromList($('.list_user_item_photo_{users_list_item_user_id}.to_hide'), '{users_list_item_photo}');</script>
+            <div class="cham-overlay"></div>
+            <!-- begin_users_list_item_online -->
+            <div class="online_triangle" title="{a_online_now}"></div>
+            <!-- end_users_list_item_online -->
+
+            <div class="cham-text">
+                <h3>{users_list_item_name}</h3>
+                <p class="profile_info">{users_list_item_info_profile}</p>
+            </div>
+
+            <!-- begin_users_list_item_approved_mark -->
+                <div style="position: absolute; left: 0; bottom: 10px; background-image:url('{url_files}icons/approved.png'); background-repeat: no-repeat; background-position: center; background-size: cover; width: 80px; height: 60px;">
+                </div>
+            <!-- end_users_list_item_approved_mark -->
+
+            <!-- begin_users_list_item_pending_mark -->
+            <div style="position: absolute; left: 10px; bottom: 10px; padding: 12px; background-color: #e1b113; color: white; font-size: 12px; border-radius: 5px;">
+                Pending...
+            </div>
+            <!-- end_users_list_item_pending_mark -->
+             
+            <div data-cl-loader="loader_list_users_info" class="layer_blocked_item_list"></div>
+        </a>
+
+        <!-- begin_users_list_item_default_chat -->
+        <i title="{a_send_message}" onclick="sendMessages('{users_list_item_user_id}',[],true);" class="fa fa-commenting" aria-hidden="true"></i>
+        <!-- end_users_list_item_default_chat -->
+
+        <!-- begin_users_list_item_default_live_now -->
+        <figure onclick="goLinkProfile($(this), '', '{users_list_item_default_live_now_url}'); return false;" class="video_camera" title="{a_live_now_title}">
+            <svg viewBox="0 0 1792 1792">
+                <path d="M1792 352v1088q0 42-39 59-13 5-25 5-27 0-45-19l-403-403v166q0 119-84.5 203.5t-203.5 84.5h-704q-119 0-203.5-84.5t-84.5-203.5v-704q0-119 84.5-203.5t203.5-84.5h704q119 0 203.5 84.5t84.5 203.5v165l403-402q18-19 45-19 12 0 25 5 39 17 39 59z"></path>
+            </svg>
+        </figure>
+        <!-- end_users_list_item_default_live_now -->
+
+        <!-- begin_users_list_item_default_menu -->
+        <div class="item_settings">
+            <span data-no-fade-in="true" class="icon_settings">
+                <span class="" data-toggle="collapse" data-target="#list_user_item_menu_{users_list_item_user_id}">
+                </span>
+            </span>
+            <ul id="list_user_item_menu_{users_list_item_user_id}" class="more_menu_collapse more_menu_right collapse">
+                <!-- begin_users_list_item_default_menu_groups_unblocked -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-group-id="{users_list_item_group_id}" data-cmd="unblock_user_group" href="#" onclick="clGroups.confirmBlockUserFromList($(this)); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_unblock}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_default_menu_groups_unblocked -->
+
+                <!-- begin_users_list_item_default_menu_groups_unjoin -->
+                <li>
+                    <a href="#" onclick="clGroups.confirmRemoveSubscribeList($(this), '{users_list_item_group_id}', 'remove', '{users_list_item_user_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-user-times" aria-hidden="true"></i>
+                        </span>
+                        <span>{menu_groups_unjoin_title}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_default_menu_groups_unjoin -->
+
+                <!-- begin_users_list_item_default_menu_groups_blocked -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-group-id="{users_list_item_group_id}" data-cmd="block_user_group" href="#" onclick="clGroups.confirmBlockUserFromList($(this)); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_block}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_default_menu_groups_blocked -->
+
+                <!-- begin_users_list_item_default_menu_groups_moderator -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-group-id="{users_list_item_group_id}" data-cmd="group_moderator" href="#" onclick="clGroups.setGroupModerator($(this), '{users_list_item_group_id}', '{users_list_item_user_id}' ); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-user-secret" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_menu_groups_moderator}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_default_menu_groups_moderator -->
+
+                <!-- begin_users_list_item_default_menu_groups_unmoderator -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-group-id="{users_list_item_group_id}" data-cmd="group_unmoderator" href="#" onclick="clGroups.setGroupUnModerator($(this), '{users_list_item_group_id}', '{users_list_item_user_id}' ); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-user-secret" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_menu_groups_unmoderator}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_default_menu_groups_unmoderator -->
+
+                <!-- begin_users_list_item_default_menu_groups_moderator_settings -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-group-id="{users_list_item_group_id}" data-cmd="group_moderator" href="{group_moderator_url}?user_id={moderator_user_id}" >
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-user-secret" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_menu_groups_moderator_settings}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_default_menu_groups_moderator_settings -->
+
+                <!-- begin_users_list_item_default_menu_remove_guest -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-cmd="remove_guest_one" class="events_guest_users_button">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_remove}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_default_menu_remove_guest -->
+
+                <!-- begin_users_list_item_default_menu_approve_guest -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-cmd="approve_guest_one" class="events_guest_users_button">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_approve}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_default_menu_approve_guest -->
+            </ul>
+        </div>
+        <!-- end_users_list_item_default_menu -->
+    </div>
+</div>
+<!-- end_users_list_item_default -->
+<!-- begin_users_list_item_info -->
+<div class="col-md-{users_list_item_number_row} col-sm-6">
+    <div class="cham-post users_list_item users_list_item_type_info">
+        <a href="{url_main}{users_list_item_url_profile}" class="cham-post-link" onclick="goLinkProfile($(this), '{users_list_item_url_profile_params}'); return false;">
+            <div class="cham-post-image list_user_item_photo_{users_list_item_user_id} to_hide">
+                <div class="cham-overlay2"></div>
+                <div class="pic square" style="background-image: url({users_list_item_photo});"></div>
+                <script>onLoadImgFromList($('.list_user_item_photo_{users_list_item_user_id}.to_hide'), '{users_list_item_photo}');</script>
+                <div data-cl-loader="loader_list_users_info" class="layer_blocked_item_list"></div>
+            </div>
+            <div class="cham-post-text">
+                <h3 class="overflow profile_info">{users_list_item_name}</h3>
+                <!-- begin_users_list_item_about -->
+                <div class="post-text">
+                    <p>{users_list_item_about_title}</p>
+                </div>
+                <!-- end_users_list_item_about -->
+            </div>
+        </a>
+
+        <!-- begin_users_list_item_info_chat -->
+        <i title="{l_send_message}" onclick="sendMessages('{users_list_item_user_id}');" class="fa fa-commenting" aria-hidden="true"></i>
+        <!-- end_users_list_item_info_chat -->
+
+        <!-- begin_users_list_item_info_live_now -->
+        <figure onclick="goLinkProfile($(this), '', '{users_list_item_info_live_now_url}'); return false;" class="video_camera" title="{a_live_now_title}">
+            <svg viewBox="0 0 1792 1792">
+                <path d="M1792 352v1088q0 42-39 59-13 5-25 5-27 0-45-19l-403-403v166q0 119-84.5 203.5t-203.5 84.5h-704q-119 0-203.5-84.5t-84.5-203.5v-704q0-119 84.5-203.5t203.5-84.5h704q119 0 203.5 84.5t84.5 203.5v165l403-402q18-19 45-19 12 0 25 5 39 17 39 59z"></path>
+            </svg>
+        </figure>
+        <!-- end_users_list_item_info_live_now -->
+
+        <!-- begin_users_list_item_info_menu -->
+        <div class="item_settings">
+            <span data-no-fade-in="true" class="icon_settings">
+                <span class="" data-toggle="collapse" data-target="#list_user_item_menu_{users_list_item_user_id}">
+                </span>
+            </span>
+            <ul id="list_user_item_menu_{users_list_item_user_id}" class="more_menu_collapse more_menu_right collapse">
+                <!-- begin_users_list_item_info_menu_groups_unblocked -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-group-id="{users_list_item_group_id}" data-cmd="unblock_user_group" href="#" onclick="clGroups.confirmBlockUserFromList($(this)); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_unblock}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_info_menu_groups_unblocked -->
+
+
+                <!-- begin_users_list_item_info_menu_groups_unjoin -->
+                <li>
+                    <a href="#" onclick="clGroups.confirmRemoveSubscribeList($(this), '{users_list_item_group_id}', 'remove', '{users_list_item_user_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-user-times" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_menu_groups_unjoin_edge}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_info_menu_groups_unjoin -->
+                <!-- begin_users_list_item_info_menu_groups_blocked -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-group-id="{users_list_item_group_id}" data-cmd="block_user_group" href="#" onclick="clGroups.confirmBlockUserFromList($(this)); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_block}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_info_menu_groups_blocked -->
+
+                <!-- begin_users_list_item_info_menu_groups_moderator -->
+                <li>
+                    <a data-uid="{users_list_item_user_id}" data-group-id="{users_list_item_group_id}" data-cmd="group_moderator" href="#" onclick="clGroups.setGroupModerator($(this)); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_menu_groups_moderator}</span>
+                    </a>
+                </li>
+                <!-- end_users_list_item_info_menu_groups_moderator -->
+            </ul>
+        </div>
+        <!-- end_users_list_item_info_menu -->
+
+        <div class="cham-post-meta overflow">
+            <span class="info_item time"><i class="fa fa-clock-o" aria-hidden="true"></i>{users_list_item_last_visit}</span>
+        </div>
+    </div>
+</div>
+<!-- end_users_list_item_info -->

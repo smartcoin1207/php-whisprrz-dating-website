@@ -1,0 +1,37 @@
+<div id="more">
+    <div class="items">
+        <!-- begin_more_item -->
+        <div>
+            <div class="vids_new_foto">
+                <div class="vids_new_img"><a href="{url_main}vids_watch.php?id={more_item_id}"><img src="{more_item_image}" width="85" height="64" alt=""/></a></div>
+                <ul>
+                    <li class="pad"><a href="{url_main}vids_watch.php?id={more_item_id}">{more_item_subject}</a></li>
+                    <li>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_1}.png" width="16" height="16" alt=""/>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_2}.png" width="16" height="16" alt=""/>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_3}.png" width="16" height="16" alt=""/>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_4}.png" width="16" height="16" alt=""/>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_5}.png" width="16" height="16" alt=""/>
+                    </li>
+                    <li>{l_plays} {more_item_count_views}</li>
+                    <li class="pad">{l_comments}: {more_item_count_comments}</li>
+                </ul>
+                <div class="justify"></div>
+            </div>
+            <!-- begin_more_item_not_last --><div class="line_dashed"></div><!-- end_more_item_not_last -->
+        </div>
+        <!-- end_more_item -->
+    </div>
+</div>
+
+<div class="vids_new_guests">
+
+{first_video_n}-{last_video_n} {l_of} {members_vids_count}
+
+      <!-- begin_pager_prev --><div class="decor_l"><a href="#" class="prevPage browse left" onclick="return vids_more_list_load_page({page_n});"><img src="{url_tmpl_main}images/groups/new_mods_guests_decor_l.png" width="34" height="26" alt=""/></a></div><!-- end_pager_prev -->
+      <!-- begin_pager_prev_inactive --><div class="decor_l"><img src="{url_tmpl_main}images/groups/new_mods_guests_decor_l.png" width="34" height="26" alt=""/></div><!-- end_pager_prev_inactive -->
+      <!-- begin_pager_next --><div class="decor_r"><a class="nextPage browse right" href="#" onclick="return vids_more_list_load_page({page_n});"><img src="{url_tmpl_main}images/groups/new_mods_guests_decor_r.png" width="34" height="26" alt=""/></a></div><!-- end_pager_next -->
+      <!-- begin_pager_next_inactive --><div class="decor_r"><img src="{url_tmpl_main}images/groups/new_mods_guests_decor_r.png" width="34" height="26" alt=""/></div><!-- end_pager_next_inactive -->
+ 
+  
+</div>

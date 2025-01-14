@@ -1,0 +1,776 @@
+<style>
+	.btn.round {
+		padding-top:0px;
+	}
+	#wowslider-container1 .ws-title{display:{title_hidden} !important;}
+	#wowslider-container1 .ws-title{bottom:{title_bottom}% !important;}
+	#wowslider-container1 .ws-title{font-size:{title_size}em !important;}
+	#wowslider-container1 .ws-title{color:{title_color} !important;}
+	#wowslider-container1 .ws-title span, #wowslider-container1 .ws-title div {background-color: {title_back_color} !important;}
+	#wowslider-container1 a.ws_next, #wowslider-container1 a.ws_prev{width:{econtrol_size}em !important; height:{econtrol_size}em !important;}
+	.ws_controls{display:{econtrol_hidden} !important;}
+	#menu ul a { font-size: 12px; height: 14px;}
+	ul#menu-s li{ padding:0 3px !important;}
+</style>
+{header}
+    <div class="events_new">
+
+		{events_header}
+
+        <table class="tb_events_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                    <div class="events_new_decor_l">
+                        <div class="pl_top ">
+                            <!-- Start WOWSlider.com BODY section -->
+                            <!-- Start WOWSlider.com HEAD section -->
+                            <link rel="stylesheet" type="text/css" href="{url_main}wow/engine1/style.css" />
+                            <!-- End WOWSlider.com HEAD section -->
+                            <div class="wow_container">
+                                <div id="wowslider-container1">
+                                    <div class="ws_images">
+                                        <ul>
+                                            <!-- begin_forum_category1 -->
+                                            <li><a href="{link}" target="_blank"><img src="{img_path}" alt="1" title="{title}" id="wows1_0"/></a></li>
+                                            <!-- end_forum_category1 -->
+
+                                            <!--li><img src="{url_main}wow/data1/images/1.jpg" alt="1" title="1" id="wows1_0"/></li>
+                                            <li><img src="{url_main}wow/data1/images/2.jpg" alt="2" title="2" id="wows1_1"/></li>
+                                            <li><a href="http://wowslider.net"><img src="{url_main}wow/data1/images/3.jpg" alt="javascript slider" title="3" id="wows1_2"/></a></li>
+                                            <li><img src="{url_main}wow/data1/images/4.jpg" alt="4" title="4" id="wows1_3"/></li-->
+                                        </ul>
+                                    </div>
+                                    <div class="ws_bullets"><div>
+                                        <!-- begin_forum_category2 -->
+                                        <a href="#" title="{title}"><span>{zipcode}</span></a>
+                                        <!-- end_forum_category2 -->
+
+                                        <!--a href="#" title="1"><span><img src="{url_main}wow/data1/tooltips/1.jpg" alt="1"/>1</span></a>
+                                        <a href="#" title="2"><span><img src="{url_main}wow/data1/tooltips/2.jpg" alt="2"/>2</span></a>
+                                        <a href="#" title="3"><span><img src="{url_main}wow/data1/tooltips/3.jpg" alt="3"/>3</span></a>
+                                        <a href="#" title="4"><span><img src="{url_main}wow/data1/tooltips/4.jpg" alt="4"/>4</span></a-->
+                                    </div></div>
+                                    <div class="ws_script" style="position:absolute;left:-99%"><a href="http://wowslider.net">html slider</a> by WOWSlider.com v9.0</div>
+                                    <div class="ws_shadow"></div>
+                                </div>
+                            </div>	
+                            <div>
+                                <script>
+                                    var effect_option = "turn";
+                                    //if($.cookie('effect_option'))effect_option=$.cookie('effect_option');
+									var stype="{slider_type}";
+									if(stype!=""){														
+										effect_option = stype;
+									}
+                                    var effect_option_array = effect_option.split(",");                                    
+                                </script>
+                            </div>
+                            <script type="text/javascript" src="{url_main}wow/engine1/wowslider.js"></script>
+                            <script type="text/javascript" src="{url_main}wow/engine1/script.js" id="script_type"></script>
+                            <script>
+                                var typeurl="{url_main}wow/engine1/script";
+                                var site_url = "{url_main}wowslider.php";
+                                var duration_time_v = 40*100;
+								var delay_time_v = 50*100;
+								duration_time = {duration_time};
+								delay_time = {delay_time};
+								if(duration_time!=""){
+									duration_time_v = {duration_time}*1000;
+								}
+								if(delay_time!=""){
+									delay_time_v = {delay_time}*1000;
+								}
+                                var options = {
+                                        effect:effect_option,
+                                        prev:"",
+                                        next:"",
+                                        duration:duration_time_v,
+                                        delay:delay_time_v,
+                                        width:1280,
+                                        height:720,
+                                        autoPlay:true,
+                                        autoPlayVideo:false,
+                                        playPause:true,
+                                        stopOnHover:false,
+                                        loop:false,
+                                        bullets:1,
+                                        caption:true,
+                                        captionEffect:"parallax",
+                                        controls:true,
+                                        controlsThumb:false,
+                                        responsive:1,
+                                        fullScreen:false,
+                                        gestures:2,
+                                        onBeforeStep:0,
+                                        images:0
+                                    };
+                                var wowSliderContent = jQuery('.wow_container').html();
+                                var slider = jQuery("#wowslider-container1").wowSlider(options);
+
+                                $(".slider_chk").click(function(){
+                                    var param = "";
+                                    var tt = t.split(",");
+                                    for(var i=0;i<30;i++){
+                                        if($("input[name='slider_item"+i+"']").prop("checked")){
+                                            param+=tt[i]+",";
+                                        }
+                                    }
+                                    if(param=="")param = "basic";
+                                    options.effect=param;
+                                    $.cookie('effect_option', param, { expires: 365 });
+                                    slider.remove();
+                                    jQuery('.wow_container').html(wowSliderContent);
+                                    slider = jQuery('#wowslider-container1').wowSlider(options);
+                                });
+								
+                            </script>
+                            <!-- End WOWSlider.com BODY section -->
+                        </div>
+                    </div>
+
+                    <link rel="stylesheet" href="{url_tmpl_main}css/jquery.datetimepicker.css{cache_version_param}" type="text/css" media="screen">
+                    <script type="text/javascript" src="{url_tmpl_main}jquery/jquery.datetimepicker.js{cache_version_param}"></script>
+
+                    <!-- begin_current_country_code -->
+                    <script language="javascript" type="text/javascript">
+                        var current_country_code = "{current_country_code}";
+
+                        $(function(){
+                            get_zip_code();
+                        })
+                    </script>
+                    <!-- end_current_country_code -->
+
+
+                    <script language="javascript" type="text/javascript">
+                        
+
+                        function get_zip_code() {
+
+                            const form = document.getElementById('event_edit_form');
+
+                            const selectedStateText = $("#event_edit_form #state option:selected").text();
+
+                            const selectedCityText = $("#event_edit_form #city option:selected").text();
+
+
+
+                            $.ajax({
+                                url:"https://app.zipcodebase.com/api/v1/code/city",
+                                type: "GET",
+                                data: {
+                                    apikey: "2eb185b0-9b7a-11ee-b5bc-f314420298f2",
+                                    state_name: selectedStateText,
+                                    country: current_country_code,
+                                    city: selectedCityText
+                                },
+
+                                success: function(response)
+                                {
+                                    // alert(response);
+                                    // console.log(response);
+                                    var selectZipcodeElement = $('#zipcode_select');
+                                    selectZipcodeElement.empty();
+
+
+                                    var zipcodes = response.results;
+                                    zipcodes.forEach(function(zipcode){
+                                        var newOption = $('<option>', {
+                                          value: zipcode,
+                                          text: zipcode
+                                        });
+                                        selectZipcodeElement.append(newOption);
+                                    });
+                                }
+                            })
+                        }
+
+                    var jqTransformDaySelect = true;
+                    $(function(){
+                        var formData = new FormData();
+							formData.append("user_email", '{user_email}');
+							formData.append("user_name", '{user_email}');
+						// $.ajax({
+						// 	url: "https://www.whisprrz.com/processing/api/wevent_url",
+						// 	type: "POST",
+						// 	data:  formData,
+						// 	contentType: false,
+						// 	cache: false,
+						// 	processData:false,
+						// 	success: function(response)
+						// 	{
+						// 		var weventUrls = "<option value=''>Select A URL From Weventz</option>";
+						// 		for(i =0; i<response.wevents.length; i++){									
+						// 			var url = response.wevents[i].title;
+						// 			var id = response.wevents[i].id;
+						// 			var wurl = "https://www.whisprrz.com/Whisprrz_Wevents/public/e/"+id+"/"+url.toLowerCase().replace(" ", "-");
+						// 			weventUrls = weventUrls + "<option value='"+wurl+"'>"+url+"</option>";
+									
+						// 			var elink ="{elink}";
+						// 			if(i==0 && !elink){
+						// 				$("#elink").val(wurl);
+						// 			}
+						// 		}
+						// 		for(i =0; i<response.organisers.length; i++){
+									
+						// 			var url = response.organisers[i].name;
+						// 			var id = response.organisers[i].id;
+						// 			var wurl = "https://whisprrz.com/Whisprrz_Wevents/public/o/"+id;
+						// 			weventUrls = weventUrls + "<option value='"+wurl+"'>"+url+"</option>";
+									
+						// 			var elink ="{elink}";
+						// 			if(i==0 && !elink){
+						// 				$("#elink").val(wurl);
+						// 			}
+						// 		}
+						// 		$("#wevent_id").html(weventUrls);
+						// 	},
+						// 	error: function(xhr, status, error){
+						// 	    var resp = xhr.responseText;
+						// 	    resp = resp.substring(0, resp.length-3);
+
+                        //         try {
+                        //             var response = JSON.parse(resp);
+                        //         } catch(e) {
+                        //             return false;
+                        //         }
+
+						// 		var weventUrls = "<option value=''>Select A URL From Weventz</option>";
+						// 		for(i =0; i<response.wevents.length; i++){									
+						// 			var url = response.wevents[i].title;
+						// 			var id = response.wevents[i].id;
+						// 			var wurl = "https://whisprrz.com/Whisprrz_Wevents/public/e/"+id+"/"+url.toLowerCase().replace(" ", "-");
+						// 			weventUrls = weventUrls + "<option value='"+wurl+"'>"+url+"</option>";
+									
+						// 			var elink ="{elink}";
+						// 			if(i==0 && !elink){
+						// 				$("#elink").val(wurl);
+						// 			}
+						// 		}
+						// 		for(i =0; i<response.organisers.length; i++){
+									
+						// 			var url = response.organisers[i].name;
+						// 			var id = response.organisers[i].id;
+						// 			var wurl = "https://whisprrz.com/Whisprrz_Wevents/public/o/"+id;
+						// 			weventUrls = weventUrls + "<option value='"+wurl+"'>"+url+"</option>";
+									
+						// 			var elink ="{elink}";
+						// 			if(i==0 && !elink){
+						// 				$("#elink").val(wurl);
+						// 			}
+						// 		}
+						// 		$("#wevent_id").html(weventUrls);
+								
+						// 	}
+						// });
+						
+						var select = document.getElementById("wevent_id");
+						select.onchange = function(){
+							var selectedString = select.options[select.selectedIndex].value;
+							$("#elink").val(selectedString);
+						}
+						$('input[name="from_date"],input[name="end_date"]').datetimepicker({
+                            lang: 'custom',
+                            i18n:{
+                                custom:{months:[{calendar_month}],dayOfWeek:[{calendar_weekdays_short}]}
+                            },
+                            timepicker: false,
+                            format: '{edit_event_date}',
+                            minDate: '2000/01/01',
+                            closeOnDateSelect: true
+                        });
+                        //$("#event_time").timeEntry({show24Hours: true, spinnerImage: ''});
+                        $('input[name="from_time"], input[name="end_time"]').datetimepicker({
+                            datepicker:false,
+                            format:'{edit_event_time}',
+                            step:30
+                        });
+                    });
+
+                    function on_form_submit()
+                    {
+                        var event_id = $('input[name="event_id"]').val();
+                        if($('input[name="title"]').val() == "")
+                        {
+                            alert('{l_fill_title}');
+                            return false;
+                        }
+                        if($('input[name="link"]').val() == "")
+                        {
+                            alert('{l_please_fill_in_all_the_fields}');
+                            return false;
+                        }
+                        var ext = $('input[name="image_1"]').val();
+                        if(ext==""&&event_id==""){
+                            alert('{l_fill_Image}');
+                            return false;
+                        }
+                        if(ext != ""&&event_id=="")
+                        {
+                            ext = ext.substring(ext.length-4,ext.length);
+                            ext = ext.toLowerCase();
+                            if(ext != '.jpg' && ext != '.gif' && ext != '.png' && ext != 'jpeg') {
+                                alert('{l_wrong_photo_types}');
+                                return false;
+                            }
+                        }
+
+                        if($('input[name="zipcode"]').val() == "")
+                        {
+                            alert('{l_fill_Zip}');
+                            return false;
+                        }
+						if($('input[name="image_1"]').val())
+							$('#load_animation_submit').css('visibility', 'visible');
+                        return true;
+                    }
+                    function form_submit()
+                    {
+                        if (on_form_submit()){
+                            confirm_policy();
+                        }
+                    }
+					var site_url = "{url_main}wowslider.php";
+					$("#slide_search").click(function(){
+						location.href=site_url+"?distance="+$("#distance").val();
+					});
+                    </script>
+                    
+                                             
+            <!-- begin_popup_confirm_terms_policy -->
+            <style type="text/css">
+                p {
+                    margin-bottom: 0px;
+                }
+                .swal2-popup {
+                    width: 500px;
+                }
+
+                .swal2-styled.swal2-confirm {
+                    font-size: 16px;
+                }
+
+                .swal2-styled.swal2-cancel {
+                    font-size: 16px;
+                }
+
+            </style>
+            <script>
+                function confirm_policy () {
+                
+                    var popup_confirm_button = "{popup_confirm_button}";
+                    var popup_decline_button = "{popup_decline_button}";
+                    var popup_text = `{popup_text}`;
+                    var popup_title = "{popup_title}";
+                
+                     Swal.fire({
+                         width :'500px',
+                        footer:` <div><div style="text-align: center;">` + popup_text +`</div><div style="text-align:center;border-top: 1px solid #746b6b; padding-top: 10px; font-size: 16px;">` + popup_title + `</div></div>`,
+                        confirmButtonText: `<div style="border-radius: 5px;">` + popup_confirm_button +`<div>`,
+                        confirmButtonColor:'#22b14c',
+                        cancelButtonText: popup_decline_button,
+                        cancelButtonColor: '#ed1c24',
+                        focusConfirm: false,
+                        backdrop: false,
+                        showCancelButton: true,
+                        preConfirm: () => {
+            				
+                            document.getElementById('event_edit_form').submit();
+                
+                        },
+                        
+                        
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+            			if (result.dismiss === Swal.DismissReason.cancel) {
+                            $('#load_animation_submit').css('visibility', 'hidden');
+
+            			} else if (result.isConfirmed) {
+            			}
+            		  });
+                }
+                
+                </script>
+                <!-- end_popup_confirm_terms_policy -->
+
+                    
+					<form id="event_edit_form" method="POST" action="{url_main}wowslider.php" enctype="multipart/form-data">
+                        <input type="hidden" name="cmd" value="save">
+						<input type="hidden" name="slider_type" value="{slider_type}">
+                        <input type="hidden" name="event_id" value="{event_id}">
+                        <input type="hidden" name="current_country_code" value="{current_country_code}">
+                        <div class="events_new_p pl_top">
+                            <!-- begin_create_title --><h1>{l_events_create_new_slide}<a href="{url_main}wowslider_search.php" style="float:right">{l_events_search_new_slide}</a></h1><!-- end_create_title -->
+                            <!-- begin_edit_title --><h1>{user_name} {l_events_edit_slide} <a href="{url_main}wowslider.php" style="float:right">{l_events_create_new_slide}</a></h1><!-- end_edit_title -->
+                            <table class="events_new_tb_sub">
+                                <col width="7px"/>
+                                <col width="431px"/>
+                                <tr>
+                                    <th class="th_t_l nb first">&nbsp;</th>
+                                    <th class="th_t_c nb"><span><label>{l_whisp_direction_01}&nbsp;&nbsp;&nbsp;&nbsp;{l_only_one_banner_will_show_at_a_time}</span></th>
+                                    <th class="th_t_r nb first">&nbsp;</th>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3" class="nb nobg_img">
+                                    <div class="bl_events_new_frm_color">
+                                        <!-- frm -->
+                                        <table class="tb_events_new_frm">
+                                            <col width="100%"/>
+                                            <tr>
+                                                <td >
+                                                    <label>{l_whisp_direction_02}&nbsp;&nbsp;&nbsp;{l_insert_short_title}</label><div class="events_input_text2"><input  class="no_abk" type="text" value="{etitle}" name="title" placeholder="Title"/></div>
+                                                </td>
+                                            </tr>
+                                             <tr>
+                                                <td >
+													<div class="events_textarea1"><textarea class="no_abk" name="event_description"  onblur="javascript:if(trim(this.value)=='')this.value='{l_banner_notes}'" onFocus="if(this.value=='{l_banner_notes}') this.value='';">{banner_notes}</textarea></div>
+												</td>
+                                            </tr>
+											<!-- begin_event_location -->
+                                            <tr>
+                                                <td class="event_select">
+                                                    <label>{l_whisp_direction_03}&nbsp;&nbsp;&nbsp;{l_insert_country_you_want_banner}</label>
+                                                    <select style="width:425px;" name="country" id="country" onchange="show_load_animation(1); xajax_states(country.value)">{country_options}</select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="event_select">
+                                                    <label>{l_whisp_direction_04}&nbsp;&nbsp;&nbsp;{l_insert_state_you_want_banner}<img style="visibility:hidden;position:relative;top:3px;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif"></label>
+                                                    <select style="width:425px;" name="state" id="state" onchange="show_load_animation(2); xajax_cities(state.value)"><option value="0">{l_select_all}</option>{state_options}</select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="event_select">
+                                                    <label>{l_whisp_direction_05}&nbsp;&nbsp;&nbsp;{l_insert_city_you_want_banner}<img style="visibility:hidden;position:relative;top:3px" id="load_animation2" src="{url_tmpl_main}images/load_animation.gif"></label>
+                                                    <select style="width:425px;" name="city_id" id="city" onchange="get_zip_code();"><option value="0">{l_select_all}</option>{city_options}</select>
+                                                </td>
+
+                                            </tr>
+                                            <!-- end_event_location -->
+
+                                            <tr>
+                                                <td >
+                                                    <label>{l_whisp_direction_09}&nbsp;&nbsp;&nbsp;{l_insert_zipcode_you_want_banner}</label><div class="events_input_text2">
+                                                        <!-- <input  class="no_abk" type="text" name="zipcode" placeholder="zip code" value="{ezipcode}"/> -->
+                                                        <select style="width:425px;" name="zipcode" id="zipcode_select" ></select>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td style="margin-top:5px;">
+                                                    <label>{l_whisp_direction_06}&nbsp;&nbsp;&nbsp;{l_insert_website_banner_directed_to}</label><div class="events_input_text2" style="margin-bottom:5px;"><input  class="no_abk" type="text" value="{elink}" id="elink" name="link" placeholder="url"/></div>
+                                                </td>
+                                            </tr>
+											<tr>
+                                                <td class="event_select">
+                                                    <label>{l_whisp_direction_06}&nbsp;&nbsp;&nbsp;{l_insert_website_banner_wevent_url}</label>
+													<select style="width:425px;" name="wevent_id" id="wevent_id"><option value="0">{l_select_all}</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>{l_whisp_direction_07}&nbsp;&nbsp;&nbsp;{l_insert_from_date_you_want_displayed}</label>
+                                                    <div class="td_w1">
+                                                        <div class="events_input_text3"><input class="no_abk" id="event_date1" autocomplete=off name="from_date" type="text" value="{from_date}"/></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="events_input_text4 fl_right"><input class="no_abk" id="event_time1" autocomplete=off name="from_time" type="text" value="{from_time}"/></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>{l_whisp_direction_08}&nbsp;&nbsp;&nbsp;{l_insert_to_date_you_want_displayed}</label>
+                                                    <div class="td_w1">
+                                                        <div class="events_input_text3"><input class="no_abk" id="event_date2" autocomplete=off name="end_date" type="text" value="{end_date}"/></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="events_input_text4 fl_right"><input class="no_abk" id="event_time2" autocomplete=off name="end_time" type="text" value="{end_time}"/></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                           
+                                            <tr>
+                                                <td>
+                                                    <label>{l_whisp_direction_10}&nbsp;&nbsp;&nbsp;{l_insert_exact_banner_size}</label>
+                                                    <div class="event_inp_file">
+														<input name="image_1" class="file" type="file" value="{eimg_path}"/>
+													</div>
+													{l_right_image_size_instruction}
+                                                </td> 
+                                            </tr>
+											<tr class="hidden">
+                                                <td>
+                                                    <label>{l_whisp_direction_11}&nbsp;&nbsp;&nbsp;</label>
+                                                    <div class="event_inp_file">
+														<input name="_image_" class="file" type="file"/>
+													</div>
+													{l_right_image_size_instruction}
+                                                </td> 
+                                            </tr>
+                                        </table>
+                                        <!-- /frm -->
+
+                                        <!-- begin_edit_images -->
+                                            <script type="text/javascript">
+
+                                            $(document).ready(function() {
+                                                create_gallery()
+                                            });
+
+                                            function create_gallery()
+                                            {
+                                                initLightboxOldTemplate($('.edit_image_gallery'));
+                                            }
+
+                                            function edit_delete_image(image_id)
+                                            {
+                                                if(confirm('{l_are_you_sure}'))
+                                                {
+                                                    $('#edit_image_' + image_id).fadeOut(400, function() {
+                                                        $('#edit_image_' + image_id).remove();
+                                                        create_gallery();
+                                                        $.ajax({
+                                                                type: 'POST',
+                                                                url: '{url_main}events_event_image_delete_ajax.php',
+                                                                data: {
+                                                                    image_id: image_id
+                                                                    }
+                                                            });
+                                                        });
+                                                }
+                                            }
+
+                                            </script>
+
+                                        <div class="line_dashed"></div>
+
+                                        <div>
+
+                                            <!-- begin_image -->
+                                            <div id="edit_image_{image_id}" class="events_new_img">
+                                                <a class="edit_image_gallery" href="{image_file}"><img src="{image_thumbnail}" width="85" height="64" alt=""/></a>
+                                                <div class="events_new_delete"><a title="{l_events_delete_image}" href="javascript:edit_delete_image({image_id})"><img class="png" src="{url_tmpl_main}images/music/ico_delete.png" width="15" height="17" alt=""/></a></div>
+                                            </div>
+                                            <!-- end_image -->
+
+                                        <div class="justify"></div>
+                                        </div>
+                                        <!-- end_edit_images -->
+
+                                        <div class="line_dashed"></div>
+
+                                        <div class="fl_right" style="position:relative; margin: 0 0 15px; width: 100%;">
+                                            <!-- begin_edit_private_button -->
+                                            <a href="#null" onclick="form_submit(); return false;" class="btn round blue fl_right">
+                                                <img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_save_entry}&nbsp;
+                                                <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" />
+                                            </a>
+                                            <!-- end_edit_private_button -->
+                                            <!-- begin_create_private_button -->
+                                            <a href="#null" onclick="form_submit(); return false;" class="btn round blue fl_right">
+                                                <img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_create_entry}&nbsp;
+                                                <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" />
+                                            </a>
+                                            <a href="{url_main}events_event_edit.php" style="margin-left: 0px;">{l_create_event_instead}</a>
+                                            <!-- end_create_private_button -->
+                                            <!-- begin_edit_button -->
+                                            <a href="#" onclick="form_submit(); return false;" class="btn round blue fl_right">
+                                                {l_wowslider_update}&nbsp;&nbsp;<img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" /></a>
+                                            <!-- end_edit_button -->
+                                            <!-- begin_create_button -->
+                                            <button type="button" onclick="form_submit(); return false;" class="btn round blue fl_right">
+                                                {l_wowslider_create}&nbsp;&nbsp;<img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />
+                                            </button>
+                                            <a href="{url_main}events_event_edit.php?event_private=1" style="margin-left: 0px;">{l_create_entry_instead}</a>
+                                            <!-- end_create_button -->
+                                            <img style="visibility:hidden; margin: 1px 5px 0 0; float:right;" id="load_animation_submit" src="{url_tmpl_main}images/load_animation.gif">
+
+                                    </div>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <th class="th_b_l nb">&nbsp;</th>
+                                    <th class="th_b_c nb">&nbsp;</th>
+                                    <th class="th_b_r nb">&nbsp;</th>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </form>
+					<form id="event_search_form" method="POST">
+                        <input type="hidden" name="cmd" value="search">
+                        <div class="events_new_p pl_top">
+                            <h1>{l_show_distance_slide}</h1>
+                            <table class="events_new_tb_sub">
+                                <col width="7px"/>
+                                <col width="431px"/>
+                                <tr>
+                                    <td colspan="3" class="nb nobg_img">
+                                    <div class="bl_events_new_frm_color">
+                                        <!-- frm -->
+                                        <table class="tb_events_new_frm">
+                                            <col width="100%"/>
+                                            <td>
+												<div class="tb_w1 fl_left">
+													<div class="events_input_text2"><input disabled class="no_abk" type="text" value="{edistance}" id="distance" name="distance" placeholder="Distance (miles)"/></div>
+												</div>
+											</td>
+											</tr>
+                                            <!--
+											<tr>
+                                                <td ><div style="width:425px;">
+                                                    <button id="slide_search" class="btn round blue fl_right">
+                                                        <img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />
+                                                    </button>
+                                                </div></td>
+                                            </tr>
+											-->
+                                        </table>
+                                        <!-- /frm -->
+
+                                        <div class="">
+                                            
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+
+				    <div class="pl_top">
+                        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+                        <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+                        <link rel="stylesheet" type="text/css" href="{url_main}wow/custom.css">
+                        <style>
+                            .carousel {
+                                margin-bottom: 80px;
+                            }
+                            .carousel img{
+                                width:100%;
+                            }
+                        </style>
+                        <div id="carousel-pager" class="carousel slide " data-ride="carousel" data-interval="10000">
+                            <div class="carousel-inner vertical">
+                                <!-- begin_forum_category -->
+                                <div class="{cls} item">
+                                    <div>
+                                        <a href="{link}" target="_blank">
+                                            <img src="{img_path}" class="img-responsive" data-target="#carousel-main" data-slide-to="1">
+                                        </a>    
+                                        <!-- begin_edit_slide -->
+										<span style="margin-left:10px;">
+											<label><input class="ischeck" style="float:left; margin-right:5px;margin-top:2px;" type="checkbox" e_id="{eevent_id}" name="chk{eevent_id}" {is_check}>{l_show_banner}</label>										
+											<!--<input class="ischeck" style="float:left; margin-right:10px;" type="checkbox" e_id="{eevent_id}" name="chk{eevent_id}" {is_check}> <a href="{url_main}wowslider.php?cmd=edit&event_id={eevent_id}"><p style="text-overflow: ellipsis; overflow: hidden;width: 100px;white-space: nowrap; float:left;">{title}</p></a>-->
+											<a href="#" onclick="del({eevent_id})" class="fl_right">Delete</a>
+											<a href="{url_main}wowslider.php?cmd=edit&event_id={eevent_id}" style="float:right; padding-right:20px; padding-left:20px;">Edit</a></span>
+										<div style='clear:both;padding-left:10px;'>
+										<table>
+											<tr><td style="border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;">User</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{user_name}</td><td style='border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;'>Title</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{title}</td></tr>
+											<tr><td style="border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;">Country</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{country_v}</td><td style='border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;'>State</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{state_v}</td></tr>
+											<tr><td style="border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;">City</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{city_v}</td><td style='border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;'>Zip</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{zipcode}</td></tr>
+											<tr><td style="border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;">Date In</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{date_in_v}</td><td style='border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;'>Date Out</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{date_out_v}</td></tr>
+										</table>
+										</div>
+										<!-- end_edit_slide -->
+										<!-- begin_none_edit_slide -->
+										<span style="margin-left:10px;"><input class="ischeck" style="float:left; margin-right:10px;" type="checkbox" e_id="{eevent_id}" name="chk{eevent_id}" {is_check}> <p style="text-overflow: ellipsis; overflow: hidden;width: 100px;white-space: nowrap;float:left;">{title}</p><span class="fl_right">{user_name}</span></span>
+										<div style='clear:both;padding-left:10px;'>
+										<table>
+											<tr><td style="border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;">User</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{user_name}</td><td style='border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;'>Title</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{title}</td></tr>
+											<tr><td style="border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;">Country</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{country_v}</td><td style='border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;'>State</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{state_v}</td></tr>
+											<tr><td style="border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;">City</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{city_v}</td><td style='border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;'>Zip</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{zipcode}</td></tr>
+											<tr><td style="border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;">Date In</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{date_in_v}</td><td style='border:1px solid #e2e2e2; text-align:center;font-size:10px;line-height:15px;vertical-align: middle;'>Date Out</td><td style="border:1px solid #e2e2e2; text-align:center;font-weight: bolder;font-size:10px;line-height:15px;vertical-align: middle;">{date_out_v}</td></tr>
+										</table>
+										</div>
+										<!-- end_none_edit_slide -->
+                                    </div>
+                                </div>
+                                <!-- end_forum_category -->
+                            </div>
+                            <a class="left carousel-control" href="#carousel-pager" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-pager" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <script>
+                            function del(eventid){								
+								var r = confirm("Are you sure?");
+								if (r == true) {
+									location.replace("wowslider.php?cmd=del&event_id="+eventid);
+								}else{
+								}
+							};
+							var imgcount={imgcount};
+                            imgcount=(imgcount>4)?4:(imgcount-1);
+                            $('.carousel .vertical .item').each(function(){
+                                var next = $(this).next();
+                                if (!next.length) {
+                                    next = $(this).siblings(':first');
+                                }
+                                next.children(':first-child').clone().appendTo($(this));
+                                
+                                for (var i=1;i<imgcount;i++) {
+                                    next=next.next();
+                                    if (!next.length) {
+                                        next = $(this).siblings(':first');
+                                    }
+                                    next.children(':first-child').clone().appendTo($(this));
+                                }
+                            });
+                            $(".ischeck").click(function(){
+                                var chkname = $(this).attr("name");
+                                var ckb = $(this).is(':checked');
+                                var is_check = ckb?1:0;
+                                var event_id=$(this).attr("e_id");
+                                $.ajax({
+                                    url: "{url_main}wowslider.php",
+                                    data:{cmd:"ischeck", event_id:event_id, is_check:is_check},
+                                    type:"post",
+                                    dataType:"json",
+                                    success: function(data){
+                                        if(data.status=="success"){
+                                            $(".ischeck").prop("checked", false);
+											$("input[name='"+chkname+"']").prop("checked", ckb);
+                                        }else{
+                                            $(this).prop("checked", !ckb);
+                                        }
+                                    },
+                                    error: function(){
+                                        $(this).prop("checked", !ckb);
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+{footer}

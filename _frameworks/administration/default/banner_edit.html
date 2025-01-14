@@ -1,0 +1,76 @@
+{header}
+<script language="javascript" type="text/javascript">
+$(function() {
+    $('#type').change(function(){
+        window.location.href='{url_page}?type='+$(this).val();
+    });
+    $('#banner_edit').submit(function(){
+        var name = $('#name'),
+            name_val = $.trim(name.val()),
+            code = $('#code');
+        if (name_val == '') {
+            alert('{l_insert}');
+            name.focus();
+            return false;
+        } else if (code.length
+            && $.trim(code.val()) == '') {
+            alert('{l_enter_the_code}');
+            code.focus();
+            return false;
+        }
+    });
+});
+</script>
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/banner.php">{l_menu_banners}</a></li>
+        <li><a href="{url_main}administration/banner_add.php">{l_menu_add_banner}</a></li>
+		<li><a href="{url_main}administration/pages_add_banner.php">{l_menu_banner_add}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+    <form id="banner_edit" action="{url_page}" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="cmd" value="edit">
+	<input type="hidden" name="id" value="{id}">
+      <label>{l_name}*:</label>
+          <input type="text" name="name" id="name" value="{name}">
+	  <label>{l_active_place}:</label>
+          <select name="place" class="input">{place_opts}</select>
+      <!-- begin_fields -->
+        <label>{l_url}:</label>
+        <input type="text" class = "text" name='url' value="{url}"/>
+        <label>{l_alt}:</label>
+        <input type="text" class = "text" name='alt' value="{alt}"/>
+      <!-- end_fields -->
+      <!-- begin_fields_flash -->
+        <label>{l_width}:</label>
+        <input type="text" class = "text" name='width' value="{width}"/>
+        <label>{l_height}:</label>
+        <input type="text" class = "text" name='height' value="{height}"/>
+      <!-- end_fields_flash -->
+      <!-- begin_field_code -->
+        <label>{l_code}:</label>
+        <textarea id="code" class="config_textarea" name='code'>{code}</textarea>
+      <!-- end_field_code -->
+	  <label>{l_framework}:</label>
+          <select name="template" class="input">{template_opts}</select>
+	  <label>{l_language}:</label>
+          <select name="lang" class="input">{language_opts}</select>
+
+        <div class="bl_label" >
+            <label class="fl_left" for = "active" style="cursor: pointer;">{l_active}</label>
+            <div class="fl_right"><input class="check" type="checkbox" id = "active" name="active" value="1" <!--begin_checked--> checked="checked" <!--end_checked-->></div>
+        <div class="justify"></div>
+	</div>
+	<div class="btn fl_right" ><a class="submit" href="#">{l_save}</a></div>
+      </form>
+    </div>
+
+</div>
+{content}
+{footer}

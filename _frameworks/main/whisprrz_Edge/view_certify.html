@@ -1,0 +1,66 @@
+{header}
+<style>
+  tr.row1 {
+    background-color: #fff;
+    margin-top: 2px;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+  }
+
+  tr.row2 {
+    background-color: #fff;
+    margin-top: 2px;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+  }
+
+  tbody tr td {
+    padding: 12px 0 12px 4px
+  }
+</style>
+<div class="frame_content">  
+  
+  <div>
+    <h2 class="txt_lower_header_color" style="text-align: left;">{l_view_certification} {username}
+      <a class="custom-button" href="{url_main}user_certify.php?display=profile&uid={user_id}"
+            title="{l_icon_certify}<">{l_icon_certify} {username} {l_as_authentic}</a>
+      
+             
+</h2> 
+
+
+    <table cellpadding="0" cellspacing="0" border="0" class="light" style="margin-bottom:15px;" width="100%">
+      <thead>
+        <tr height="30" style="background-color: #F0F0F0;">
+          <th align="left" style="padding-left: 4px;">
+            {l_from}
+          </th>
+          <th align="left" style="padding-left: 4px;">
+            {l_remarks} {username}
+          </th>
+          <th align="left" style="padding-left: 4px;">
+            {l_date}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- begin_view_certify -->
+        <tr class="list_view1 row1">
+          <td style=" width: 100px">{name_from}</td>
+          <td>{certify_text}</td>
+          <td style=" width: 80px">{submit_date}</td>
+        </tr>
+        <!-- end_view_certify -->
+
+      </tbody>
+
+    </table>
+    <div style="text-align: right;">
+    <a class="custom-button red" href="{url_main}search_results.php?display=profile&uid={user_id}"
+            title="{l_back}">{l_back}</a>
+    </div>
+  </div>
+</div>
+
+ 
+  {footer}

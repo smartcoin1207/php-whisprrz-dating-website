@@ -1,0 +1,44 @@
+{list_viewers}
+
+{likes}
+
+<div class="update_comments_list_bl">
+<!-- begin_comment -->
+{comments_list}
+<!-- end_comment -->
+</div>
+
+<!-- begin_ls_update_like_comments -->
+<script>clStream.updateLikeComments('{ls_update_like_comments_ls_id}',{ls_update_like_comments});</script>
+<!-- end_ls_update_like_comments -->
+
+
+<!-- begin_ls_item_comments_replies_count -->
+<script class="update_item_info_set">
+clStream.updateRepliesLoadMoreStatus('{ls_item_comments_replies_count_cid}', '{ls_item_comments_replies_count_count}');
+</script>
+<!-- end_ls_item_comments_replies_count -->
+
+<!-- begin_ls_item_comments_delete_script -->
+<script>
+<!-- begin_ls_item_comment_delete_script -->
+clStream.commentDeleteFromPage('{ls_id}', '{ls_item_comment_id_delete}', '{ls_item_comment_reply_id_delete}');
+<!-- end_ls_item_comment_delete_script -->
+
+clStream.itemInfoSet('{ls_id}', '', '{ls_last_action_comment}', '{ls_comments_count}');
+</script>
+<!-- end_ls_item_comments_delete_script -->
+
+<!-- begin_ls_update_info_script -->
+<script class="update_item_info_set">
+    clStream.itemInfoSet('{ls_id}', '{ls_last_action_like}', '{ls_last_action_comment}', '{ls_comments_count}', '{ls_like_user_list}', '{ls_last_action_comment_like}');
+</script>
+<!-- end_ls_update_info_script -->
+
+<!-- begin_ls_delete_admin -->
+<script>
+	_lsDeleteAdmin();
+</script>
+<!-- end_ls_delete_admin -->
+
+{script_js}

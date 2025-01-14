@@ -1,0 +1,76 @@
+{header}
+
+
+    <div class="events_new">
+
+		{events_header}
+
+        <table class="tb_events_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                
+                    <div class="events_new_p pl_top">
+                        <!-- begin_upcoming_events_list -->
+                        <!-- begin_upcoming_events_query_title --><h1 class="txt_lower_header_color">{l_events_coming_events}: <span class="pink">“{query}”</span></h1><!-- end_upcoming_events_query_title -->
+                        <!-- begin_upcoming_events_event_place_title --><h1 class="txt_lower_header_color">{l_events_more_events_in}: <span class="pink">{event_place}</span></h1><!-- end_upcoming_events_event_place_title -->
+                        <!-- begin_upcoming_events_category_id_title --><h1 class="txt_lower_header_color">{l_events_more_upcoming} {category_title} {l_events_events}</h1><!-- end_upcoming_events_category_id_title -->
+                        <!-- begin_upcoming_events_event_datetime_title --><h1 class="txt_lower_header_color">{l_events_more_events_on} <span class="pink">{event_datetime}</span></h1><!-- end_upcoming_events_event_datetime_title -->
+                        
+                        {upcoming_events_list}
+                        
+                        <div class="cl"></div>
+                       
+                        <!-- end_upcoming_events_list -->                        
+                                
+                        <!-- begin_finished_events_list -->
+                        <!-- begin_finished_events_query_title --><h1 class="txt_upper_header_color">{l_events_finished_events}: <span class="pink">“{query}”</span></h1><!-- end_finished_events_query_title -->
+                        <!-- begin_finished_events_event_place_title --><h1 class="txt_upper_header_color">{l_events_finished_events_in}: <span class="pink">{event_place}</span></h1><!-- end_finished_events_event_place_title -->
+                        <!-- begin_finished_events_category_id_title --><h1 class="txt_upper_header_color">{l_events_finished} {category_title} {l_events_events}</span></h1><!-- end_finished_events_category_id_title -->
+                        <!-- begin_finished_events_event_datetime_title --><h1 class="txt_upper_header_color">{l_events_finished_events_on} <span class="pink">{event_datetime}</span></h1><!-- end_finished_events_event_datetime_title -->
+                        <br>
+                        {finished_events_list}
+                        
+                        <!-- end_finished_events_list -->
+
+                        <!-- begin_events_not_found -->
+                            <h1 class="pink"> {l_events_nothing_found}:</h1>
+                    <div class="1events_new_p 1pl_top">
+                        <!-- begin_upcoming_random_events_list -->
+                        <!-- begin_upcoming_random_events_event_place_title --><h1 class="white">{l_events_more_events_in}: <span class="pink">{event_place}</span></h1><!-- end_upcoming_random_events_event_place_title -->
+                        <!-- begin_upcoming_random_events_category_id_title --><h1 class="white">{l_events_more_upcoming} {category_title} {l_events_events}</h1><!-- end_upcoming_random_events_category_id_title -->
+                        <!-- begin_upcoming_random_events_event_datetime_title --><h1 class="white">{l_events_more_events_on} <span class="pink">{event_datetime}</span></h1><!-- end_upcoming_random_events_event_datetime_title -->
+                        
+                        {upcoming_random_events_list}
+                        
+                        <div style="cl"></div>
+                       <br>
+                        <!-- end_upcoming_random_events_list -->                        
+                                
+
+
+                        <!-- end_events_not_found -->
+
+                    </div>
+    
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+	
+					{events_sidebar}
+				
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+{footer}

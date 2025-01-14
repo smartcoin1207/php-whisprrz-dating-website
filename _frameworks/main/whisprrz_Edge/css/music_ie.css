@@ -1,0 +1,23 @@
+* html .music_new_pl_khaki_img img ,.pl_khaki , .music_new_play img, .music_new_play_l img, .music_new_star img, .music_new_delete img ,.music_new_shadow img,.music_new_pl_lviolet_img img ,.pl_lviolet , td.play img,.music_new_pl_violet_img img , .music_new_foto li img,.list_bg_violet ,.music_new td .music_new_tb_sub td a img,.music_new_comments_head a img,.music_new_play_b img,.music_new_bl_star img { _behavior: url("./_frameworks/main/mixer/css/iepngfix.htc");}
+.music_new_comments_frm{ _padding: 0 0 0 65px; }
+.music_new td .music_new_tb_sub td.first img{ width: 40px !important; }
+* html .decor_top {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/decor_top.png', sizingMethod='crop'); } 
+* html .music_new_head td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/places_head_l.png', sizingMethod='crop'); } 
+* html .music_new_head td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/places_head_r.png', sizingMethod='crop'); } 
+* html .music_new_pl_khaki_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/place_pl_khaki_l.png', sizingMethod='crop'); } 
+* html .music_new_pl_khaki_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/place_pl_khaki_r.png', sizingMethod='crop'); } 
+* html .music_new_pl_lviolet_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/place_pl_lviolet_l.png', sizingMethod='crop'); } 
+* html .music_new_pl_lviolet_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/place_pl_lviolet_r.png', sizingMethod='crop'); } 
+* html .music_new td .music_new_tb_sub th.th_t_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/tb_sub_head_l.png', sizingMethod='crop'); } 
+* html .music_new td .music_new_tb_sub th.th_t_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/tb_sub_head_r.png', sizingMethod='crop'); } 
+* html .music_new td .music_new_tb_sub th.th_b_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/tb_sub_foot_l.png', sizingMethod='crop'); } 
+* html .music_new td .music_new_tb_sub th.th_b_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/tb_sub_foot_r.png', sizingMethod='crop'); } 
+* html .music_new_foot td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/places_foot_l.png', sizingMethod='crop'); } 
+* html .music_new_foot td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/places_foot_r.png', sizingMethod='crop'); } 
+* html .music_new_pl_violet_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/place_pl_violet_l.png', sizingMethod='crop'); } 
+* html .music_new_pl_violet_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/place_pl_violet_r.png', sizingMethod='crop'); } 
+* html .decor_right  {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/decor_right.png', sizingMethod='crop'); } 
+* html .music_new_comments_head {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/music_new_comments_head.png', sizingMethod='crop'); } 
+* html .music_new_comments_bot {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/music_new_comments_bot.png', sizingMethod='crop'); } 
+* html .music_new_comments .violet_bot {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/music/music_new_comments_violet_bot.png', sizingMethod='crop'); } 
+

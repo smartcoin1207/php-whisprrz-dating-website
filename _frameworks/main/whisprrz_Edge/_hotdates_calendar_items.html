@@ -1,0 +1,57 @@
+<script>
+    clHotdatesCalendar.setData({
+        urlPage:'{page_url}',
+        uid:'{calendar_uid}'*1,
+        selectMonth:'{calendar_month}'*1,
+        selectYear:'{calendar_year}'*1
+    });
+    </script>
+    <script class="script_hotdates_items">
+    var hotdatesItems=[
+        <!-- begin_day -->
+        <!-- begin_hotdate -->
+        {id:'{hotdate_id}',
+         hotdateName: clHotdatesCalendar.getHtmlHotdateItem('{hotdate_id}', '{hotdate_done}', '{hotdate_user_name_js}', '{hotdate_user_url}', '{hotdate_user_photo}', '{hotdate_user_is_online}', '{hotdate_title_js}', '{hotdate_description_js}', '{hotdate_time}', 0, 0, '{hotdate_user_uid}', '{hotdate_user_to_uid}', '{hotdate_edit_url}', '{hotdate_show_url}', '{hotdate_image}', '{hotdate_category}', '{hotdate_additional_data}'),
+         date:'{hotdate_datetime_day}',
+         calendar: 'Work', color: '<!-- begin_my_hotdate_class -->my_hotdate_color<!-- end_my_hotdate_class --><!-- begin_other_hotdate_class -->other_hotdate_color<!-- end_other_hotdate_class -->'},
+        <!-- end_hotdate -->
+    
+        <!-- begin_day_action -->
+        {id:0,
+         hotdateName: clHotdatesCalendar.getHtmlHotdateItem(0, 0, '', '', '', '', '{hotdate_title_js}', '', '', '{hotdates_num}', '{url_create_new_item}', '','',''),
+         date:'{hotdate_datetime_day}',
+         calendar: 'Work', color: '',
+         owners: {day_owners}},
+        <!-- end_day_action -->
+        <!-- end_day -->
+    ];
+    <!-- begin_set_hotdates -->
+    if(typeof clCalendar=='object'){
+        clCalendar.setHotdates(hotdatesItems);
+    }
+    <!-- end_set_hotdates -->
+
+    <!-- begin_update_hotdates -->
+    if(typeof clCalendar=='object'){
+        clCalendar.updateHotdates(hotdatesItems, '{hotdate_id}');
+    }
+    <!-- end_update_hotdates -->
+    
+    <!-- begin_add_hotdates -->
+    if(typeof clCalendar=='object'){
+        clCalendar.addHotdates(hotdatesItems, '{hotdate_datetime_day}', '{hotdates_last_more}');
+    }
+    <!-- end_add_hotdates -->
+    
+    <!-- begin_no_load_more -->
+    clHotdatesCalendar.hideLoadMoreLink($('#task_{hotdate_id}'));
+    <!-- end_no_load_more -->
+    
+    <!-- begin_day_owners_update -->
+    clHotdatesCalendar.updateMarkersDay('{day_owners_update_day}', {day_owners_update});
+    <!-- end_day_owners_update -->
+    
+    <!-- begin_update_counter_my_task -->
+    clCounters.setDataOneCounter('new_tasks', '{update_counter_my_task_count}', '{update_counter_my_task_count}', false, '{update_counter_my_task_title}');
+    <!-- end_update_counter_my_task -->
+    </script>

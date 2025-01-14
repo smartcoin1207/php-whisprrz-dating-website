@@ -1,0 +1,58 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/blogs_bloggers.php">{l_menu_blogs_bloggers}</a></li>
+        <li><a href="{url_main}administration/blogs_posts.php">{l_menu_blogs_posts}</a></li>
+        <li class="active"><a href="{url_main}administration/blogs_comments.php">{l_menu_blogs_comments}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_noitems --><div align="center">{l_no_blog_comments_yet}</div><!-- end_noitems -->
+    <!-- begin_pages --><div>{itemsTotal} {l_blogs_comments}</div><div>{pager}</div><!-- end_pages -->
+    <!-- begin_items -->
+    <table class="tb">
+        <tr>
+            <th class="decor_l"></th>
+            <th class="right">{l_action}</th>
+            <th>{l_id}</th>
+            <th>{l_text}</th>
+            <th>{l_user}</th>
+            <th class="last">{l_dt}</th>
+            <th class="decor_r"></th>
+        </tr>
+        <!-- begin_item -->
+        <tr class="{item_class}" id="item_{item_id}">
+            <td class="decor{item_decl}"></td>
+            <td class="right">
+                <script type='text/javascript'>
+                $(document).ready(function() {
+                    $("#delete_{item_id}").click(function() {
+                        if (confirm('{l_are_you_sure}')) {
+                            $.get('{url_main}administration/blogs_comment_delete_ajax.php?id={item_id}');
+                            $('#item_{item_id}').remove();
+                        }
+                        return false
+                    });
+                });
+                </script>
+                <a href="#" id="delete_{item_id}">{l_delete}</a>
+            </td>
+            <td>{item_id}</td>
+            <td>{item_text}</td>
+            <td>
+                {item_user_name}:
+                <a href="{url_main}administration/users_edit.php?id={item_user_id}">{l_edit}</a>,
+                <a href="{url_main}administration/blogs_blogger_posts.php?id={item_user_id}">{l_blog}</a>
+            </td>
+            <td class="last">{item_dt_readable}</td>
+            <td class="decor{item_decr}"></td>
+        </tr>
+        <!-- end_item -->
+    </table>
+    <!-- end_items -->
+
+    <div class="empty"></div>
+</div>
+{footer}

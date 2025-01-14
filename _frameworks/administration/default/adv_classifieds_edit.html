@@ -1,0 +1,28 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/adv.php">{l_menu_adv}</a></li>
+        <li><a href="{url_main}administration/home.php">{l_home}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+      <form action="{url_page}" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="cmd" value="edit">
+      <input type="hidden" name="id" value="{id}">
+      <input type="hidden" name="cat" value="{cat}">
+      </label>{l_subject}:<label>
+      <input type="text" name="subject" value="{subject}">
+      </label>{l_subcategory}:<label>
+      <select class="input" name="subcategory">{subcats}</select></label>
+      <textarea name="body" class="textarea_small">{body}</textarea>
+       <div class="btn fl_right"><a href="#" class="submit">{l_save}</a></div>
+  </form>
+    </div>
+
+</div>
+{content}
+{footer}

@@ -1,0 +1,66 @@
+.customMarker {
+    position: absolute;
+    cursor: pointer;
+    background: #424242;
+    width: 42px;
+    height: 42px;
+    /* -width/2 */
+    margin-left: -21px;
+    /* -height + arrow */
+    margin-top: -52px;
+    border-radius: 50%;
+    padding: 0px;
+}
+.customMarker:after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: 12px;
+    border-width: 9px 9px 0;
+    border-style: solid;
+    border-color: #424242 transparent;
+    display: block;
+    width: 0;
+}
+.customMarker img {
+    width: 40px;
+    height: 40px;
+    margin: 1px;
+    border-radius: 50%;
+}
+
+#map {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#userList {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    overflow: scroll;
+}
+
+#userList table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#userList th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#userList th {
+    background-color: #f2f2f2;
+}
+
+#userList img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}

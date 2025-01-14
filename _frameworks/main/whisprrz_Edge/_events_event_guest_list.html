@@ -1,0 +1,249 @@
+<!-- begin_container_header -->
+<script type="text/javascript">
+
+function event_guest_list_load_page(page_n)
+{
+    $('#event_guest_list_container').load(
+            '{url_main}events_event_guest_list_ajax.php?event_id={event_id}&event_guest_list_page=' + page_n, 
+            null,
+            function(responseText, textStatus, XMLHttpRequest) {
+                current_page_n = page_n;     
+            });
+
+    return false;
+}
+
+function you_not_come_button(page_n)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+	    $('#you_not_come_button').hide();
+	    $.ajax({
+	        type: 'POST',
+	        url: '{url_main}events_event_guest_ajax.php',
+	        data: {
+	            cmd: "remove",
+	            event_id: {event_id}
+	            },
+	        success: function(data) {
+	            	event_guest_list_load_page(page_n);
+	        }
+	      });
+    }
+    return false;
+}
+
+function delete_guest_item(page_n)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+
+        var checkedCheckboxes = [];
+        $("input[name='guest_item_checkbox']:checked").each(function() {
+            checkedCheckboxes.push($(this).val());
+        });
+        var checkboxValuesString = checkedCheckboxes.join(",");
+
+        $('#you_not_come_button').hide();
+        $.ajax({
+            type: 'POST',
+            url: '{url_main}events_event_guest_ajax.php',
+            data: {
+                cmd: "remove_guest",
+                event_id: {event_id},
+                checkedUsers: checkboxValuesString
+                },
+            success: function(data) {
+                    event_guest_list_load_page(page_n);
+            }
+          });
+    }
+    return false;
+}
+
+function approve_guest_item(page_n)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+
+        var checkedCheckboxes = [];
+        $("input[name='guest_item_checkbox']:checked").each(function() {
+            checkedCheckboxes.push($(this).val());
+        });
+        var checkboxValuesString = checkedCheckboxes.join(",");
+
+        $('#you_not_come_button').hide();
+        $.ajax({
+            type: 'POST',
+            url: '{url_main}events_event_guest_ajax.php',
+            data: {
+                cmd: "approve_guest",
+                event_id: {event_id},
+                checkedUsers: checkboxValuesString
+                },
+            success: function(data) {
+                    event_guest_list_load_page(page_n);
+            }
+          });
+    }
+    return false;
+}
+
+function on_will_you_come_button()
+{
+    $('#will_you_come_button').hide();
+    $('#will_you_come_button_inactive').show();
+    $('#will_you_come_dialog').fadeIn(0);
+    return false;
+}
+
+function on_dialog_you_not_come()
+{
+    $('#will_you_come_button_inactive').hide();
+    $('#will_you_come_button').show();
+    $('#will_you_come_dialog').fadeOut(0);
+}
+
+function on_dialog_you_will_come(n_friends, page_n)
+{
+    $('#will_you_come_dialog').fadeOut(0, function () {
+        $.ajax({
+            type: 'POST',
+            url: '{url_main}events_event_guest_ajax.php',
+            data: {
+                cmd: "add",
+                event_id: {event_id},
+                n_friends: n_friends
+                },
+            success: function(data) {
+					redirectRequiresAuth(data);
+                	event_guest_list_load_page(page_n);
+            }
+          });
+    });
+}
+</script>
+
+<div id="event_guest_list_container">
+<!-- end_container_header -->
+
+<div style="position: relative; z-index: 2;">
+
+<!-- begin_event_finished_title -->
+<h1 class="txt_upper_header_color"><span>{l_events_event_guests_title}</span></h1>
+<!-- end_event_finished_title -->
+
+<!-- begin_event_guest_delete_title -->
+<h1 class="txt_upper_header_color" style="height: 26px;">
+    <span>{l_events_event_guests} 
+        <img style="vertical-align: top;"
+            class="border" src="{url_tmpl_main}images/events/border_img.gif" width="1" height="26" alt="" /> 
+        <a href="#" id="you_not_come_button" onclick="return delete_guest_item({page});" style="text-decoration: none;">
+            <img style="vertical-align: top; margin: -2px 0 0;" alt="{l_cancel_your_assistance}"
+                src="{url_tmpl_main}images/events/ico_delete_people.png" width="33" height="31" alt="" />
+        </a>
+        
+        <img style="vertical-align: top;" class="border" src="{url_tmpl_main}images/events/border_img.gif" width="1"
+            height="26" alt="" style="margin-left: 10px;" />
+        <a href="#" id="you_not_come_button" onclick="return approve_guest_item({page});">
+            <img style="vertical-align: top; margin: -2px 0 0;" alt="{l_cancel_your_assistance}"
+                src="{url_tmpl_main}images/events/ico_add_people.png" width="33" height="31" alt="" />
+        </a>
+    </span>
+</h1>
+<!-- end_event_guest_delete_title -->
+
+<!-- begin_event_youre_coming_title -->
+<h1 class="txt_upper_header_color" style="height: 26px;" ><span>{l_you_are_coming} <img style="vertical-align: top;" class="border" src="{url_tmpl_main}images/events/border_img.gif" width="1" height="26" alt=""/> <a href="#" id="you_not_come_button" href="#" onclick="return you_not_come_button({page});"><img style="vertical-align: top; margin: -2px 0 0;" alt="{l_cancel_your_assistance}"  src="{url_tmpl_main}images/events/ico_delete_people.png" width="33" height="31" alt=""/></a></span></h1>
+<!-- end_event_youre_coming_title -->
+
+<!-- begin_event_will_you_come_title -->
+<h1 class="txt_upper_header_color" style="height: 26px;"><span>{l_events_will_you_come}  <img style="vertical-align: top;" class="border" src="{url_tmpl_main}images/events/border_img.gif" width="1" height="26" alt=""/> <a id="will_you_come_button" href="#" onclick="return on_will_you_come_button();"><img style="vertical-align: top; margin: -2px 0 0;" src="{url_tmpl_main}images/events/ico_add_people.png" width="33" height="31" alt=""/></a><img id="will_you_come_button_inactive" style="vertical-align: top; display:none; vertical-align: top; margin: -2px 0 0;" src="{url_tmpl_main}images/events/ico_add_people.png" width="33" height="31" alt=""/></span></h1>
+
+<!-- new_mods_popup -->
+<div id="will_you_come_dialog" style="display:none;" class="events_new_popup">
+    <div class="events_new_popup_top">{l_events_will_you_come_to_this_event}</div>
+    <div class="events_new_popup_c">
+
+        <div class="events_new_popup_frm">
+            <input id="rb1" onclick="on_dialog_you_not_come();" name="rr" type="radio"/>
+            <label for="rb1"><b>{l_events_no}</b></label>
+            <div class="cl"></div>
+
+            <input id="rb2" onclick="on_dialog_you_will_come(0, {page});" name="rr" type="radio"/>
+            <label for="rb2"><b>{l_events_yes}</b></label>
+            <div class="cl"></div>
+
+            <input id="rb3" onclick="on_dialog_you_will_come(1, {page});" name="rr"  type="radio"/>
+            <label for="rb3">{l_events_yes_1_guest}</label>
+        </div>
+
+        <div class="events_new_popup_frm">
+            <input id="rb4" onclick="on_dialog_you_will_come(2, {page});" name="rr" type="radio"/>
+            <label for="rb4">{l_events_yes_2_guest}</label>
+            <div class="cl"></div>
+
+            <input id="rb5" onclick="on_dialog_you_will_come(3, {page});" name="rr" type="radio"/>
+            <label for="rb5">{l_events_yes_3_guest}</label>
+            <div class="cl"></div>
+
+            <input id="rb6" onclick="on_dialog_you_will_come(4, {page});" name="rr" type="radio"/>
+            <label for="rb6">{l_events_yes_4_guest}</label>
+        </div>
+    <div class="justify"></div>
+    </div>
+    <div class="events_new_popup_bot"></div>
+</div>
+<!-- /new_mods_popup -->
+</div>
+<!-- end_event_will_you_come_title -->
+
+<div class="events_new_come_all">
+<!-- begin_guest -->
+    <!-- begin_guest_photo -->
+    <div class="events_new_come">
+      <a title="{user_name}" href="{url_main}search_results.php?display=profile&name={user_name}" style="display: block; width: 62px; height: 70px;"><img src="{user_photo}" width="62" height="70" alt="{user_name}"/><br />
+      <!-- begin_guest_photo_with_friends --><div class="events_new_come_decor">{n_guests}</div><!-- end_guest_photo_with_friends -->
+      <!-- begin_guest_photo_alone --><div class="events_new_come_decor"><span>{n_guests}</span></div><!-- end_guest_photo_alone -->
+      </a>
+      <!-- begin_guest_delete_checkbox -->
+            <div class="guest_item_checkbox" style="top: 0px;"><input type="checkbox" name="guest_item_checkbox" value="{guest_user_id}" style="float: right;"></div>
+      <!-- end_guest_delete_checkbox -->
+      <!-- begin_guest_approve_check -->
+            <div style="position: absolute; top: 0px; left: 0px; color: #0075ff;"><i class="fa fa-check" ></i></div>
+      <!-- end_guest_approve_check -->
+    </div>
+    <!-- end_guest_photo -->
+    <!-- begin_guest_no_photo -->
+    <div class="events_new_come">
+      <img src="{url_tmpl_main}images/events/foto_empty.jpg" width="62" height="70" alt=""/><br />
+      <div class="events_new_come_decor">....</div>
+    </div>
+    <!-- end_guest_no_photo -->
+<!-- end_guest -->
+<div class="justify"></div>
+</div>
+
+<div class="events_new_guests">
+   {first_guest_n}-{last_guest_n} {l_events_of} {guests_count} {l_events_event_guests}
+
+   <!-- begin_pager_prev --><div class="decor_l"><a href="#" onclick="return event_guest_list_load_page({page_n});"><img src="{url_tmpl_main}images/events/new_mods_guests_decor_l.png" width="34" height="26" alt=""/></a></div><!-- end_pager_prev -->
+   <!-- begin_pager_prev_inactive --><div class="decor_l"><img  src="{url_tmpl_main}images/events/new_mods_guests_decor_l.png" width="34" height="26" alt=""/></div><!-- end_pager_prev_inactive -->
+   <!-- begin_pager_next --><div class="decor_r"><a href="#" onclick="return event_guest_list_load_page({page_n});"><img src="{url_tmpl_main}images/events/new_mods_guests_decor_r.png" width="34" height="26" alt=""/></a></div><!-- end_pager_next -->
+   <!-- begin_pager_next_inactive --><div class="decor_r"><img src="{url_tmpl_main}images/events/new_mods_guests_decor_r.png" width="34" height="26" alt=""/></div><!-- end_pager_next_inactive -->
+   
+   <!-- popcorn modified event guest 2024-05-23 start-->
+   <!-- begin_event_wall_buttons -->
+   <div style="display: flex; justify-content: space-around;">
+        <div style="color: black;"><a href="./events_guest_users?event_id={event_id}">{l_page_event_guest_title}</a></div>
+        <div style="color: black;"><a href="./event_wall.php?event_id={event_id}">{l_page_event_wall}</a></div>
+   </div>
+   <!-- end_event_wall_buttons -->
+   <!-- popcorn modified event guest 2024-05-23 end-->
+   
+</div>
+<!-- begin_container_footer -->
+</div>
+</div>
+<!-- end_container_footer -->
+ 

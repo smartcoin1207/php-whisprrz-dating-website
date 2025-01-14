@@ -1,0 +1,10 @@
+.places_new_pl_violet_c, .places_new_pl_dpink_c, .places_new_pl_violet_thin_c{ _margin: 0; }
+.places_new_pl_violet_l, .places_new_pl_dpink_l, .places_new_pl_violet_thin_l{ _margin: 0 -3px 0 0; }
+.places_new_pl_violet_r, .places_new_pl_dpink_r, .places_new_pl_violet_thin_r{ _margin: 0 0 0 -3px; }
+.places_new_pl_dpink{ position: relative; zoom: 1; margin: 0 0 20px; }
+.places_new_pl_pink{ zoom: 1; margin: 2px 0 0; }
+.places_new_pl_violet_img img{ _margin: 4px 0 0; }
+.places_new_pl_violet, .places_new_foto_thin{ zoom: 1; }
+
+.places_new_foto_m{ margin: 0 0 15px; zoom: 1; }
+.tb_places_new_frm th{ padding: 0 0 15px; line-height: 18px; }

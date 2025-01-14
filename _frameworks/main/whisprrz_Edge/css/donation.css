@@ -1,0 +1,70 @@
+.art-backgd {
+    text-align: center;
+    padding: 20px 10px 20px 10px;
+    background-color: #0ba1b2;
+}
+
+.art-content {
+    line-height: 120%;
+    color: white;
+}
+
+h1.art-content {
+    font-size: 30px;
+    padding-bottom: 15px;
+}
+
+p.art-content {
+    font-size: 18px;
+}
+
+td.image-left-bar {
+    width: 400px;
+}
+
+p.content-title {
+    font-size: 30px;
+}
+
+table.operation-right {
+    width: 318px;
+    text-align: center;
+}
+
+.right-panel {
+    background-color: #e3e4ec;
+}
+
+div.row-right {
+    margin-bottom: 10px;
+}
+
+input.btn-donation {
+    width: 80px;
+    height: 30px;
+    font-size: 20px;
+}
+
+input.btn250 {
+    margin-left: 32px;
+}
+
+div.row-buttons {
+    margin-top: 20px;
+}
+
+input.amount {
+    margin-right: 28px;
+}
+
+input.btn-term {
+    width: 122px;
+    height: 30px;
+    font-size: 20px;
+}
+
+input.btn-continue {
+    width: 248px;
+    height: 30px;
+    font-size: 20px;
+}

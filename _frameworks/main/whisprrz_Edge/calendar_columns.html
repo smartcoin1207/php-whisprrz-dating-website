@@ -1,0 +1,387 @@
+{header}
+<div id="bl_page_columns" class="wall_wrapper">
+<script>hideRightColumnWall();</script>
+
+<style type="text/css">
+    .btn.dropdown-toggle {
+        height: 43px;
+        padding-left: 15px;
+    }
+
+    .calendar-location {
+        display: flex;
+    }
+
+    .calendar-category {
+        display: flex;
+        margin-top: 20px;
+    }
+
+    .calendar-category .form-group {
+        margin-right: 10px;
+    }
+
+    .looking_for {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    @media (max-width: 780px) {
+        .calendar-location {
+            display: block;
+        }
+        .calendar-category {
+            display: block;
+        }
+        .looking_for {
+            display: block;
+        }
+    }
+
+    .modal-backdrop.fade {
+        display: none;
+    }
+
+    .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+        margin: 5px 10px 0 0;
+    }
+
+    .search-date-distance {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .search-date-distance .calendar-search-distance {
+        margin-left: 50px;
+    }
+
+    .calendar-date {
+        display: flex;
+    }
+
+    @media (max-width: 780px) {
+        .search-date-distance {
+            display: block;
+        }
+
+        .search-date-distance .calendar-search-distance {
+            margin-left: 0;
+        }
+        .calendar-search-distance label {
+            margin-top: 5px;
+        }
+    }
+
+</style>
+
+<script>
+    clGroups.initAddPage('{init_is_page}', '{group_photo_id}');
+</script>
+
+<div class="wall">
+    <div class="wrap_static_page wrap_calendar">
+        <div class="col-md-12 cham-heading-description">
+            <script>showRightColumnWall();</script>
+            
+            <div style="float: left; width: 80%; padding-left: 10px; ">    
+                <!-- modified Start Open PartyHouZ senior-dev-1019 2024-10-22 -->             
+                <div class="wrap_head_links" style="display: flex; float: none; justify-content: space-between; ">
+
+                    <div style="display: block; float: left; margin-left: 20px;">
+                        <h3 class="cham-heading <!-- begin_page_title_header_photo -->page_header_user_photo<!-- end_page_title_header_photo -->" style="width: 130px; word-wrap: normal; margin: 0 10px 10px !important;">
+                            <!-- begin_page_title_user_photo -->
+                            <a class="page_title_user_photo" href="" style="background-image: url({url_files}{page_title_user_photo});"></a>
+                            <!-- end_page_title_user_photo -->
+                            {page_title}
+                        </h3>
+    
+                        <div style="display: block; margin-bottom: 10px;">
+                            <span class="head_link">
+                                <a href="./profile_settings.php#set_see_my_calendar_anchor">
+                                    <span class="icon_fa">
+                                        <i class="fa fa-gear" style="color: #1784fb;"></i>
+                                    </span>{l_calendar_settings}
+                                </a>
+                            </span>
+                        </div>
+                        
+                    </div>
+                <!-- modified end Open PartyHouZ senior-dev-1019 2024-10-22 -->
+
+                    <div style="display: block; float: left; margin-left: 20px;">
+
+                        <!-- begin_url_page_task_create -->
+                        <div style="display: block; margin-bottom: 10px;">
+                            <span class="head_link">
+                                <a href="{url_page_task_create}">
+                                    <span class="icon_fa">
+                                        <figure class="fg_calendar_plus">
+                                        <svg class="sm" viewBox="0 0 1792 1792">
+                                            <path d="M1536 256q52 0 90 38t38 90v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128zm-384-96v288q0 14 9 23t23 9h64q14 0 23-9t9-23v-288q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23zm-768 0v288q0 14 9 23t23 9h64q14 0 23-9t9-23v-288q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23zm1152 1504v-1024h-1408v1024h1408zm-640-576h224q14 0 23 9t9 23v64q0 14-9 23t-23 9h-224v224q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-224h-224q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h224v-224q0-14 9-23t23-9h64q14 0 23 9t9 23v224z"></path>
+                                        </svg></figure>
+                                    </span>{l_create_task}
+                                </a>
+                            </span>
+                        </div>
+                        <!-- end_url_page_task_create -->
+
+                        <div style="display: block; margin-bottom: 10px;">
+                            <span class="head_link">
+                                <a href="{main_calendar_url}">
+                                    <span class="icon_fa">
+                                        <figure class="fg_calendar"><svg class="sm" viewBox="0 0 1792 1792">
+                                            <path d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"></path>
+                                        </svg></figure>
+                                    </span>{main_calendar_title}
+                                </a>
+                            </span>
+                        </div>
+
+                        <!-- begin_upcoming_event_url -->
+                        <div style="display: block; margin-bottom: 10px;">
+                            <span class="head_link">
+                                <a href="{upcoming_event_url}">
+                                    <span class="icon_fa">
+                                        <figure class="fg_calendar"><svg class="sm" viewBox="0 0 1792 1792">
+                                            <path d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"></path>
+                                        </svg></figure>
+                                    </span>{upcoming_event_title}
+                                </a>
+                            </span>
+                        </div>
+                        <!-- end_upcoming_event_url -->
+                        
+                        <!-- begin_partyhouz_open_url -->
+                        <div style="display: block; margin-bottom: 10px;">
+                            <span class="head_link">
+                                <a href="{partyhouz_open_url}">
+                                    <span class="icon_fa">
+                                        <figure class="fg_calendar"><svg class="sm" viewBox="0 0 1792 1792">
+                                            <path d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"></path>
+                                        </svg></figure>
+                                    </span>{partyhouz_open_title}
+                                </a>
+                            </span>
+                        </div>
+                        <!-- end_partyhouz_open_url -->
+                        
+                    </div>
+                
+                    <div  style="display: block; float: left; margin-left: 20px;">
+                        <div style="display: block; margin-bottom: 10px;">
+                            <span class="head_link">
+                                <a href="{event_calendar_url}">
+                                    <span class="icon_fa">
+                                        <figure class="fg_calendar"><svg class="sm" viewBox="0 0 1792 1792">
+                                            <path d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"></path>
+                                        </svg></figure>
+                                    </span>{event_calendar_title}
+                                </a>
+                            </span>
+                        </div>
+    
+    
+                        <div style="display: block; margin-bottom: 10px;">
+                            <span class="head_link">
+                                <a href="{hotdate_calendar_url}">
+                                    <span class="icon_fa">
+                                        <figure class="fg_calendar"><svg class="sm" viewBox="0 0 1792 1792">
+                                            <path d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"></path>
+                                        </svg></figure>
+                                    </span>{hotdate_calendar_title}
+                                </a>
+                            </span>
+                        </div>
+    
+                        <div style="display: block; margin-bottom: 10px;">
+                            <span class="head_link">
+                                <a href="{partyhou_calendar_url}">
+                                    <span class="icon_fa">
+                                        <figure class="fg_calendar"><svg class="sm" viewBox="0 0 1792 1792">
+                                            <path d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"></path>
+                                        </svg></figure>
+                                    </span>{partyhou_calendar_title}
+                                </a>
+                            </span>
+                        </div>
+
+                        <!-- begin_calendar_search -->
+                        <div style="display: block; max-width: 210px;">
+                            <span><strong>{l_current_location} :</strong></span>
+                            <div style="margin: 5px 0 5px 0; max-width: 210px; line-height: 15px;">
+                                <span>{user_city},</span>
+                                <span>{user_state},</span>
+                                <span>{user_country}</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchCalendarModal" data-whatever="@mdo">Search Calendar</button>
+
+                        <div class="modal fade" id="searchCalendarModal" tabindex="-1" role="dialog" aria-labelledby="searchCalendarModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title" id="searchCalendarModalLabel">{search_title} </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{calendar_search_url}" id="calendar-search-form" name="calendar-search-form">
+                                            <div id="bl_group_add_frm" class="form-group">
+                                                <label class="col-form-label">{l_location}:</label>
+                                                <!-- begin_location -->
+                                                <div class="calendar-location">
+                                                        <select id="country" name="country_id" data-location="geo_states" class="geo selectpicker show-tick" style="margin-right: 5px;" data-live-search="true">
+                                                            {country_options}
+                                                        </select>
+
+                                                        <select id="state" name="state_id" data-location="geo_cities" class="geo_btn geo selectpicker show-tick" style="margin-right: 5px;" data-live-search="true">
+                                                            {state_options}
+                                                        </select>
+                                                        
+                                                        <select id="city" name="city_id" class="geo_btn selectpicker show-tick" data-live-search="true">
+                                                            {city_options}
+                                                        </select>
+                                                </div>
+                                                <!-- end_location -->
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label" style="margin-bottom: 10px;">{l_looking_for}:</label>
+                                                <div class="looking_for">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="1" id="looking_for_couple" name="looking_for_couple" checked >
+                                                            <label class="form-check-label" style="font-weight: normal;" for="looking_for_couple">
+                                                                {l_couples}
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="1" id="looking_for_female" name="looking_for_female" checked >
+                                                            <label class="form-check-label" style="font-weight: normal;" for="looking_for_female">
+                                                                {l_single_female}
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="1" id="looking_for_male" name="looking_for_male" checked required>
+                                                            <label class="form-check-label" style="font-weight: normal;" for="looking_for_male">
+                                                                {l_single_male}
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="1" id="looking_for_transgender" name="looking_for_transgender" checked required>
+                                                            <label class="form-check-label" style="font-weight: normal;" for="looking_for_transgender">
+                                                                {l_transgender}
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="1" id="looking_for_nonbinary" name="looking_for_nonbinary" checked required>
+                                                            <label class="form-check-label" style="font-weight: normal;" for="looking_for_nonbinary">
+                                                                {l_nonbinary}
+                                                            </label>
+                                                        </div>
+                                                </div>
+
+                                                <div class="calendar-category">
+                                                    <!-- begin_category_event_select -->
+                                                    <div class="form-group">
+                                                        <label  class="col-form-label" style="margin-bottom: 10px;">{l_event_category}</label>
+                                                        <select id="event_category_id" name="event_category_id" class="selectpicker show-tick" data-live-search="true">
+                                                            {category_options}
+                                                        </select>
+                                                    </div>
+                                                    <!-- end_category_event_select -->
+
+                                                    <!-- begin_category_hotdate_select -->
+                                                    <div class="form-group">
+                                                        <label  class="col-form-label" style="margin-bottom: 10px;">{l_hotdate_category}</label>
+                                                        <select id="hotdate_category_id" name="hotdate_category_id" class="selectpicker show-tick" data-live-search="true">
+                                                            {category_options}
+                                                        </select>
+                                                    </div>
+                                                    <!-- end_category_hotdate_select -->
+
+                                                    <!-- begin_category_partyhou_select -->
+                                                    <div class="form-group">
+                                                        <label  class="col-form-label" style="margin-bottom: 10px;">{l_partyhou_category}</label>
+                                                        <select id="partyhou_category_id" name="partyhou_category_id" class="selectpicker show-tick" data-live-search="true">
+                                                            {category_options}
+                                                        </select>
+                                                    </div>
+                                                    <!-- end_category_partyhou_select -->
+
+                                                    <!-- begin_partyhou_lock_select -->
+                                                    <div class="form-group">
+                                                        <label  class="col-form-label" style="margin-bottom: 10px;">{l_partyhoz_locked}</label>
+                                                        <select id="partyhou_lock_id" name="partyhou_lock_id" class="selectpicker show-tick" data-live-search="true">
+                                                            {partyhouz_lock_options}
+                                                        </select>
+                                                    </div>
+                                                    <!-- end_partyhou_lock_select -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="search-date-distance">
+                                                    <div class="calendar-search-date">
+                                                        <label class="col-form-label">{l_date}</label>
+
+                                                        <div class="calendar-date">
+                                                            <select id="calendar_month" name="calendar_month" class="calendar selectpicker show-tick " data-live-search="true">
+                                                                {month_options}
+                                                            </select>
+
+                                                            <select id="calendar_year" name="calendar_year" class="calendar selectpicker show-tick" data-live-search="true">
+                                                                {year_options}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="calendar-search-distance">
+                                                        <label  class="col-form-label">{l_distance}</label>
+                                                        <select id="calendar_distance" name="calendar_distance" class="calendar selectpicker show-tick " data-live-search="true">
+                                                            {distance_options}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" id="calendar-search-submit" class="btn btn-primary" data-dismiss="modal">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
+                        <!-- end_calendar_search -->
+                    </div>
+                </div>
+            </div>
+
+            <div style="float: left; width: 20%;">
+                <!-- begin_banner_right_column -->
+                <div class="banner_right_column_search">
+                    {banner_right_column}
+                </div>
+                <style>
+                    p {
+                        margin: 0;
+                    }
+                </style>
+                <!-- end_banner_right_column -->
+            </div>
+            <hr>
+        </div>
+        <div class="wrap_events_calendar">
+            {events_calendar}
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+</div>
+{footer}

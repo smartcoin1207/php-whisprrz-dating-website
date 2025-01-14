@@ -1,0 +1,132 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/groups_groups.php">{l_menu_groups}</a></li>
+        <li><a href="{url_main}administration/groups_group_comments.php">{l_menu_group_comments}</a></li>
+        <li><a href="{url_main}administration/groups_forums.php">{l_menu_forums}</a></li>
+        <li><a href="{url_main}administration/groups_forum_comments.php">{l_menu_forum_comments}</a></li>
+        <li><a href="{url_main}administration/groups_categories.php">{l_menu_group_categories}</a></li>
+        <li><a href="{url_main}administration/groups_category_add.php">{l_menu_group_categories_add}</a></li>
+    </ul>
+</div>
+
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#group_edit_form").validate({
+        rules: {
+            group_title: "required",
+            group_description: "required",
+            group_address: "required",
+            group_place: "required",
+            city: {
+                required: true,
+                min: 1,
+                number: true
+                }
+        },
+        messages: {
+        	group_title: "{l_please_specify_title}",
+        	group_description: "{l_please_enter_text}",
+            group_address: "{l_please_specify_address}",
+        	group_place: "{l_please_specify_place}",
+        	city: "{l_please_select_city}"
+        }
+    })
+});
+
+</script>
+
+<div class="block_main">
+    <h2>{l_title_current} - {group_title}</h2>
+
+    <div class="bl_form">
+
+        <form method="POST" id="group_edit_form" action="{url_main}administration/groups_group_edit.php?cmd=update&group_id={group_id}">
+
+        <label>{l_group_private}:</label>
+        <select name="group_private" class="input">
+        {group_private_options}
+        </select>
+
+        <label>{l_category}:</label>
+        <select name="category" class="input">
+        {category_options}
+        </select>
+
+        <label>{l_group_title}:</label>
+        <input type="text" name="group_title" value="{group_title}">
+
+        <label>{l_group_description}:</label>
+        <textarea name="group_description" id="group_description" class="textarea_small">{group_description}</textarea>
+
+        <div style="height:20px"></div>
+
+        <h2>{l_edit_photos}</h2>
+
+<div style="width: 100%;  height: 180px;">
+        <!-- begin_photo_edit -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    create_gallery()
+});
+
+function create_gallery()
+{
+    $('.edit_image_gallery').lightBox({
+        imageLoading:           '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+        imageBtnPrev:           '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+        imageBtnNext:           '{url_tmpl_administration}images/lightbox-btn-next.gif',
+        imageBtnClose:          '{url_tmpl_administration}images/lightbox-btn-close.gif',
+        imageBlank:             '{url_tmpl_administration}images/lightbox-blank.gif'
+        });
+}
+
+function edit_delete_image(image_id)
+{
+    if(confirm('{l_this_action}'))
+    {
+        $('#edit_image_' + image_id).fadeOut(400, function() {
+            $('#edit_image_' + image_id).remove();
+            create_gallery();
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}administration/groups_group_image_delete_ajax.php',
+                    data: {
+                        image_id: image_id
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+
+
+            <!-- begin_photo-->
+            <div style="width:24%;float: left;" id="edit_image_{image_id}">
+                <a class="edit_image_gallery" href="{image_file}"><img src="{image_thumbnail}"></a>
+                <p><a style="cursor: pointer;" onClick="return edit_delete_image({image_id});">{l_delete}</a></p>
+                <!-- begin_photo_odd-->
+                <!-- end_photo_odd-->
+                <!-- begin_photo_even-->
+                <!-- end_photo_even-->
+                <div style="height:15px"></div>
+            </div>
+            <!-- end_photo-->
+        <!-- end_photo_edit -->
+</div>
+
+        <div class="clear" style="height:20px"></div>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save_changes}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

@@ -1,0 +1,58 @@
+<script>
+clEventsCalendar.setData({
+    urlPage:'{page_url}',
+    uid:'{calendar_uid}'*1,
+    selectMonth:'{calendar_month}'*1,
+    selectYear:'{calendar_year}'*1
+});
+</script>
+<script class="script_events_items">
+var eventsItems=[
+    <!-- begin_day -->
+        <!-- begin_event -->
+        {id:'{event_id}_{ehp_type}',
+         eventName: clEventsCalendar.getHtmlEventItem('{event_id}', '{event_done}', '{event_user_name_js}', '{event_user_url}', '{event_user_photo}', '{event_user_is_online}', '{event_title_js}', '{event_description_js}', '{event_time}', 0, 0, '{event_user_uid}', '{event_user_to_uid}', '{event_edit_url}', '{event_show_url}', '{event_image}', '{event_category}', '{event_additional_data}'),
+         date:'{event_datetime_day}',
+         type: '{ehp_type}',
+         calendar: 'Work', color: '<!-- begin_my_event_class -->my_event_color<!-- end_my_event_class --><!-- begin_other_event_class -->other_event_color<!-- end_other_event_class -->'},
+         <!-- end_event -->
+
+        <!-- begin_day_action -->
+        {id:0,
+         eventName: clEventsCalendar.getHtmlEventItem(0, 0, '', '', '', '', '{event_title_js}', '', '', '{events_num}', '{url_create_new_item}','','', ''),
+         date:'{event_datetime_day}',
+         calendar: 'Work', color: '',
+         owners: {day_owners}},
+        <!-- end_day_action -->
+    <!-- end_day -->
+];
+<!-- begin_set_events -->
+if(typeof clCalendar=='object'){
+    clCalendar.setEvents(eventsItems);
+}
+<!-- end_set_events -->
+
+<!-- begin_update_events -->
+if(typeof clCalendar=='object'){
+    clCalendar.updateEvents(eventsItems, '{event_id}', '{maincalendar_type}');
+}
+<!-- end_update_events -->
+
+<!-- begin_add_events -->
+if(typeof clCalendar=='object'){
+    clCalendar.addEvents(eventsItems, '{event_datetime_day}', '{events_last_more}');
+}
+<!-- end_add_events -->
+
+<!-- begin_no_load_more -->
+clEventsCalendar.hideLoadMoreLink($('#task_{event_id}'));
+<!-- end_no_load_more -->
+
+<!-- begin_day_owners_update -->
+clEventsCalendar.updateMarkersDay('{day_owners_update_day}', {day_owners_update});
+<!-- end_day_owners_update -->
+
+<!-- begin_update_counter_my_task -->
+clCounters.setDataOneCounter('new_tasks', '{update_counter_my_task_count}', '{update_counter_my_task_count}', false, '{update_counter_my_task_title}');
+<!-- end_update_counter_my_task -->
+</script>

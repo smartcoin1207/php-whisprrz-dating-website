@@ -1,0 +1,163 @@
+{header}
+	<link rel="stylesheet" href="{url_tmpl_main}css/forum.css{cache_version_param}" type="text/css" media="screen" />
+ <div class="frame_content userinfo">
+    <div class="content forum">
+
+<table cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center">
+	<tr>
+		<td width="100%">
+
+		<table class="navbar_bulit_color" cellpadding="0" cellspacing="0" border="0">
+			<tr valign="bottom">
+				<td><a href="#" onclick="history.back(1); return false;"><img width="17" height="13"
+					src="{url_tmpl_main}img/forum/navbits_start.png" alt="{l_go_back}"
+					border="0" /></a></td>
+				<td>&nbsp;</td>
+				<td width="100%"><span class="navbar"><a
+					href="{url_main}forum.php" accesskey="1">{l_forum}</a></span> &gt; <span
+					class="navbar"><a href="{url_main}forum.php">{category_title}</a></span>
+				<!-- begin_navbar_level -->&gt; <span class="navbar"><a
+					href="{url_main}forum_forum.php?forum_id={subforum_id}">{subforum_title}</a></span><!-- end_navbar_level -->
+				</td>
+			</tr>
+			<tr>
+				<td class="navbar txt_lower_header_color" style="font-size: 10pt; padding: 3px 0 0 7px;" colspan="3"><a href="{url_main}forum_forum.php?forum_id={forum_id}"><img width="26" height="16" class="inlineimg" src="{url_tmpl_main}img/forum/navbits_finallink_ltr.png" alt="{l_reload_this_page}" border="0" /></a> <strong style="display: inline-block; vertical-align: bottom;" >{forum_title}</strong></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+	style="margin-bottom: 12px">
+	<tr valign="bottom">
+		<td class="smallfont">
+			<input onclick="location.href='{url_main}forum_new_topic.php?forum_id={forum_id}'" type="button" value="{l_new_thread}" class="btn upper_header_color big" />
+
+<!-- 		<a
+			href="{url_main}forum_new_topic.php?forum_id={forum_id}"
+			rel="nofollow"><img height="24" src="{url_main}tmpl_img_loader.php?tmpl={tmpl_loaded}&dirs=img,forum&file=newthread.gif&lang={lang_loaded}"
+			alt="{l_post_new_thread}" border="0" /></a> --></td>
+	</tr>
+</table>
+
+<table class="tborder_header" width="100%" border="0" cellpadding="0"
+	cellspacing="0">
+	<tr>
+		<td class="thead">{l_threads_in_forum} : <strong>{forum_title}</strong>
+		<!-- begin_forum_forum_admin --><strong><font size="1"
+			face="Tahoma">(<a href="{url_main}forum_edit_forum.php?forum_id={forum_id}">{l_edit}</a>,
+		<a
+			href="{url_main}forum_admin.php?cmd=delete_forum&forum_id={forum_id}"
+			onclick="return confirm('{l_forum_delete_confirm}')">{l_delete}</a>)</font></strong><!-- end_forum_forum_admin -->
+		</td>
+	</tr>
+</table>
+
+<table class="tborder" cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center" id="threadslist" >
+	<tr>
+		<td class="tcat">&nbsp;</td>
+
+		<td class="tcat" width="100%"><span><a
+			href="{url_main}forum_settings_change.php?forum_id={forum_id}&page={page}{sort_by_thread}"
+			rel="nofollow">{l_thread}</a></span></td>
+
+		<td class="tcat" width="150" align="left" nowrap="nowrap"><span
+			style="white-space: nowrap"><a
+			href="{url_main}forum_settings_change.php?forum_id={forum_id}&page={page}{sort_by_last_post}"
+			rel="nofollow">{l_last_post}</a></span></td>
+		<td class="tcat" align="center" nowrap="nowrap"><span
+			style="white-space: nowrap"><a
+			href="{url_main}forum_settings_change.php?forum_id={forum_id}&page={page}{sort_by_replies}"
+			rel="nofollow">{l_replies}</a> </span></td>
+		<td class="tcat" align="center" nowrap="nowrap"><span
+			style="white-space: nowrap"><a
+			href="{url_main}forum_settings_change.php?forum_id={forum_id}&page={page}{sort_by_views}"
+			rel="nofollow">{l_views}</a> </span></td>
+	</tr>
+
+	<!-- begin_forum_topic -->
+	<tr>
+		<td class="alt1" id="td_threadstatusicon_40"><img style="margin:5px 0 0 1px;"
+			src="{url_tmpl_main}img/forum/forum_topic.gif" width="18" height="23" id="thread_statusicon_40"
+			alt="" border="" /></td>
+		<td class="alt1" id="td_threadtitle_40" title="{topic_description}">
+		<div class="link_title"><a href="{url_main}forum_topic.php?topic_id={topic_id}"
+			id="thread_title_40"><b>{topic_title}</b></a></div>
+		<div class="smallfont"><a class="txt_upper_header_color"
+			href="{url_main}search_results.php?display=profile&uid={topic_user_id}"
+			target="_blank">{topic_user_name}</a></div>
+		</td>
+
+		<td class="alt2"
+			title="{l_replies}: {topic_n_messages}, {l_views}: {topic_n_views}">
+		<!-- begin_forum_topic_last_message -->
+		<div class="smallfont" style="text-align: right; white-space: nowrap">
+		{last_message_created_at}<br />
+
+		{l_by} <a
+			href="{url_main}search_results.php?display=profile&uid={last_message_user_id}"
+			rel="nofollow">{last_message_user_name}</a> <a
+			href="{url_main}forum_topic.php?topic_id={topic_id}&message_id={last_message_id}"><img
+			class="inlineimg" src="{url_tmpl_main}img/forum/lastpost.gif"
+			alt="{l_go_to_last_post}" border="0" /></a></div>
+		<!-- end_forum_topic_last_message --> <!-- begin_forum_topic_last_message_none -->
+		<div class="smallfont" style="text-align: center; white-space: nowrap; padding-top: 10px;">
+		{created_topic}</div>
+		<!-- end_forum_topic_last_message_none --></td>
+        <td class="alt1" align="center" style="padding-top: 20px;">{topic_n_messages}</td>
+		<td class="alt2" align="center" style="padding-top: 20px;">{topic_n_views}</td>
+	</tr>
+	<!-- end_forum_topic -->
+
+	<!-- begin_forum_topic_none -->
+	<tr>
+		<td class="alt1" colspan="5" align="center">
+		<div style="padding: 16px"><strong>{l_no_post_in_forum}</strong>
+		</div>
+		</td>
+
+	</tr>
+	<!-- end_forum_topic_none -->
+
+</table>
+
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+	style="margin-bottom: 3px">
+	<tr valign="bottom">
+		<td class="smallfont">
+<!-- 		<a
+			href="forum_new_topic.php?forum_id={forum_id}" rel="nofollow"><img
+			src="{url_main}tmpl_img_loader.php?tmpl={tmpl_loaded}&dirs=img,forum&file=newthread.gif&lang={lang_loaded}" alt="{l_post_new_thread}"
+			border="0" /></a> -->
+			<input onclick="location.href='{url_main}forum_new_topic.php?forum_id={forum_id}'" type="button" value="{l_new_thread}" class="btn upper_header_color big" />
+			</td>
+		<td><!-- begin_page_navigator -->
+		<ul>
+			<!-- begin_page_navigator_prev -->
+			<li><a
+				href="{url_main}forum_forum.php?forum_id={forum_id}&page={link_page}">{l_prev_page}</a></li>
+			<!-- end_page_navigator_prev -->
+			<!-- begin_page_navigator_item -->
+			<li><!-- begin_page_navigator_item_normal --><a
+				href="{url_main}forum_forum.php?forum_id={forum_id}&page={link_page}">{link_page}</a><!-- end_page_navigator_item_normal --><!-- begin_page_navigator_item_current --><b>{link_page}</b><!-- end_page_navigator_item_current --></li>
+			<!-- end_page_navigator_item -->
+			<!-- begin_page_navigator_next -->
+			<li><a
+				href="{url_main}forum_forum.php?forum_id={forum_id}&page={link_page}">{l_next_page}</a></li>
+			<!-- end_page_navigator_next -->
+		</ul>
+		<!-- end_page_navigator --></td>
+	</tr>
+</table>
+
+
+
+    </div>
+
+</div> {footer}

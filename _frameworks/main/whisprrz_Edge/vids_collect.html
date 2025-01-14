@@ -1,0 +1,41 @@
+{header}
+{vids_header}
+
+
+<script type="text/javascript">
+    function pageCallback(page_index, jq){
+        var total_vids = {total_vids};
+        var on_page_vids = {on_page_vids};
+        $("#items").load("{url_main}vids_collect_ajax.php?m={mod}&id={mod_id}&offset="
+                         + page_index * on_page_vids + "&limit="
+                         + on_page_vids + "");
+        return false;
+    }
+    $(document).ready(function(){
+        $("#pagination").pagination(
+            {total_vids},
+            {
+                items_per_page:5,
+                num_edge_entries:1,
+                num_display_entries:5,
+                next_text: '{l_next}',
+                prev_text: '{l_prev}',
+                callback: pageCallback
+            }
+        );
+    });
+</script>
+<!-- begin_vids_new_p -->
+<div class="vids_new_p pl_top">
+    <h1 class="txt_upper_header_color">{collect_title}</h1>
+    <div id="items"></div>
+    <!--<ul class="vids_new_paging"></ul>-->
+<!-- begin_pages --><div id="pagination" class="pagination"></div><!-- end_pages -->
+</div>
+<!-- end_vids_new_p -->
+<div class="vids_new_empty"></div>
+
+{vids_side}
+
+{vids_footer}
+{footer}

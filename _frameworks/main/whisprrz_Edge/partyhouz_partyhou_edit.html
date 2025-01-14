@@ -1,0 +1,1489 @@
+{header}
+<div class="partyhouz_new">
+
+    {partyhouz_header}
+
+    <table class="tb_partyhouz_new">
+        <tr>
+            <!-- td_main -->
+            <td class="td_main">
+                <link rel="stylesheet" href="{url_tmpl_main}css/jquery.datetimepicker.css{cache_version_param}"
+                    type="text/css" media="screen">
+                <script type="text/javascript"
+                    src="{url_tmpl_main}jquery/jquery.datetimepicker.js{cache_version_param}"></script>
+                
+                <!-- <script type="text/javascript"
+                    src="{url_tmpl_main}js/jquery.autocomplete.js{cache_version_param}"></script> -->
+                <script language="javascript" type="text/javascript">
+                    var jqTransformDaySelect = true;
+                    var user_id = '{user_id}';
+                    $(function () {
+                        $('input[name="is_lock"]').change(function () {
+                            if ($(this).prop('checked')) {
+                                $('#lock_code_container').css('display', 'flex');
+                            } else {
+                                $('#lock_code_container').hide();
+                            }
+                        });
+
+                        $('input[name="is_saved"]').change(function () {
+                            if (this.checked) {
+                                $('#list_name_container').css('display', 'flex');
+                            } else {
+                                $('#list_name_container').hide();
+                            }
+                        });
+
+                        $('input[name="is_group"]').change(function () {
+                            if (this.checked) {
+                                $('#group_container').css('display', 'flex');
+                            } else {
+                                $('#group_container').hide();
+                            }
+                        });
+
+                        // Get the "Locked Room" checkbox and the "Open Room To All" checkbox
+                        var lockCheckbox = $('input[name="is_lock"]');
+                        var openCheckbox = $('input[name="is_open"]');
+
+                        // Add a click event listener to the "Locked Room" checkbox
+                        lockCheckbox.click(function () {
+                            // If the "Locked Room" checkbox is checked, uncheck the "Open Room To All" checkbox
+                            if (lockCheckbox.prop('checked')) {
+                                openCheckbox.prop('checked', false);
+                            } else {
+                                // If the "Locked Room" checkbox is unchecked, check the "Open Room To All" checkbox
+                                openCheckbox.prop('checked', true);
+                            }
+                        });
+
+                        // Add a click event listener to the "Open Room To All" checkbox
+                        openCheckbox.click(function () {
+                            // If the "Open Room To All" checkbox is checked, uncheck the "Locked Room" checkbox
+                            if (openCheckbox.prop('checked')) {
+                                lockCheckbox.prop('checked', false);
+                            } else {
+                                // If the "Open Room To All" checkbox is unchecked, check the "Locked Room" checkbox
+                                lockCheckbox.prop('checked', true);
+                            }
+                            lockCheckbox.trigger('change');
+                        });
+
+                        var invitees = [];
+
+                        function setInvitees(new_invitees) {
+                            new_invitees.forEach(new_invitee => {
+                                let is_exist = false;
+                                invitees.forEach(invitee => {
+                                    if (invitee.user_id == new_invitee.user_id) {
+                                        is_exist = true;
+                                    }
+                                })
+                                if (!is_exist) {
+                                    invitees.push(new_invitee);
+                                }
+                            });
+
+                            $("#invitee_list").empty();
+                            invitees.forEach(invitee => {
+                                $('<div style="display:flex; flex-direction:column; justify-content:start; gap: 10px; align-items:center"></div>').append(
+                                    $('<img class="violet" width="62px" height="70px"/>').attr("src", "./_files/" + invitee.user_photo)
+                                ).append(
+                                    $('<div style="display: flex; justify-content: start; align-items: center; gap:10px;"></div>').append($("<div></div>").attr("title", invitee.user_name).append($("<span class='invitee_username' style='margin: 0'></span>").text(invitee.user_name)))
+                                    .append($('<div class="switch1" style="position:sticky; margin-left: 0;"></div>').append($('<input type="checkbox" class="control1" name="invited_user_ids" checked/>').val(invitee.user_id))
+                                        .append($('<label for="control1" class="checkbox1"></label>'))))
+                                .appendTo($("#invitee_list"));
+                            })
+                        }
+
+                        function removeInvitee(id) {
+                            invitees.forEach((invitee, index) => {
+                                if (invitee.user_id == id) {
+                                    invitees.splice(index, 1);
+                                }
+                            })
+                            $("#invitee_list").empty();
+                            invitees.forEach(invitee => {
+                                $('<div style="display:flex; flex-direction:column; justify-content:start; gap: 10px; align-items:center"></div>').append(
+                                    $('<img class="violet" width="62px" height="70px"/>').attr("src", "./_files/" + invitee.user_photo)
+                                ).append(
+                                    $('<div style="display: flex; justify-content: start; align-items: center; gap:10px;"></div>').append($("<div></div>").attr("title", invitee.user_name).append($("<span class='invitee_username' style='margin: 0'></span>").text(invitee.user_name)))
+                                    .append($('<div class="switch1" style="position:sticky; margin-left: 0;"></div>').append($('<input type="checkbox" class="control1" name="invited_user_ids" checked/>').val(invitee.user_id))
+                                        .append($('<label for="control1" class="checkbox1"></label>'))))
+                                .appendTo($("#invitee_list"));
+                            })
+                        }
+
+                        // Get the checkboxes with the names "cum_females", "cum_males", and "cum_couples"
+                        var cum_checkboxes = $('input[type="checkbox"][name="cum_females"], input[type="checkbox"][name="cum_males"], input[type="checkbox"][name="cum_couples"], input[type="checkbox"][name="cum_transgender"], input[type="checkbox"][name="cum_nonbinary"]');
+
+                        // Get the "Everyone Allowed" checkbox
+                        var cum_everyoneCheckbox = $('input[name="cum_everyone"]');
+                        
+                        // Add a click event listener to all the checkboxes
+                        cum_checkboxes.click(function () {
+                            // If the "Everyone Allowed" checkbox is checked, uncheck it
+                            if (cum_everyoneCheckbox.prop('checked')) {
+                                cum_everyoneCheckbox.prop('checked', false);
+                            }
+
+                            // Check if at least one checkbox is unchecked
+                            var isUnchecked = false;
+                            cum_checkboxes.each(function () {
+                                if (!$(this).prop('checked')) {
+                                    isUnchecked = true;
+                                }
+                            });
+
+                            // If at least one checkbox is unchecked, uncheck the "Everyone Allowed" checkbox
+                            if (isUnchecked) {
+                                cum_everyoneCheckbox.prop('checked', false);
+                            } else {
+                                // If all checkboxes are checked, check the "Everyone Allowed" checkbox
+                                cum_everyoneCheckbox.prop('checked', true);
+                            }
+                        });
+
+                        // Add a click event listener to the "Everyone Allowed" checkbox
+                        cum_everyoneCheckbox.click(function () {
+                            // If the "Everyone Allowed" checkbox is checked, check all the other checkboxes
+                            if (cum_everyoneCheckbox.prop('checked')) {
+                                cum_checkboxes.prop('checked', true);
+                            } else {
+                                // If the "Everyone Allowed" checkbox is unchecked, uncheck all the other checkboxes
+                                cum_checkboxes.prop('checked', false);
+                            }
+                        });
+
+                        cum_everyoneCheckbox.trigger('click');
+
+                        // Get the checkboxes with the names "lookin_females", "lookin_males", and "lookin_couples"
+                        var lookin_checkboxes = $('input[type="checkbox"][name="lookin_females"], input[type="checkbox"][name="lookin_males"], input[type="checkbox"][name="lookin_couples"], input[type="checkbox"][name="lookin_transgender"], input[type="checkbox"][name="lookin_nonbinary"]');
+
+                        // Get the "Everyone Allowed" checkbox
+                        var lookin_everyoneCheckbox = $('input[name="lookin_everyone"]');
+
+                        
+                        // Add a click event listener to all the checkboxes
+                        lookin_checkboxes.click(function () {
+                            // If the "Everyone Allowed" checkbox is checked, uncheck it
+                            if (lookin_everyoneCheckbox.prop('checked')) {
+                                lookin_everyoneCheckbox.prop('checked', false);
+                            }
+
+                            // Check if at least one checkbox is unchecked
+                            var isUnchecked = false;
+                            lookin_checkboxes.each(function () {
+                                if (!$(this).prop('checked')) {
+                                    isUnchecked = true;
+                                }
+                            });
+
+                            // If at least one checkbox is unchecked, uncheck the "Everyone Allowed" checkbox
+                            if (isUnchecked) {
+                                lookin_everyoneCheckbox.prop('checked', false);
+                            } else {
+                                // If all checkboxes are checked, check the "Everyone Allowed" checkbox
+                                lookin_everyoneCheckbox.prop('checked', true);
+                            }
+                        });
+
+                        // Add a click event listener to the "Everyone Allowed" checkbox
+                        lookin_everyoneCheckbox.click(function () {
+                            // If the "Everyone Allowed" checkbox is checked, check all the other checkboxes
+                            if (lookin_everyoneCheckbox.prop('checked')) {
+                                lookin_checkboxes.prop('checked', true);
+                            } else {
+                                // If the "Everyone Allowed" checkbox is unchecked, uncheck all the other checkboxes
+                                lookin_checkboxes.prop('checked', false);
+                            }
+                        });
+
+                        lookin_everyoneCheckbox.trigger('click');
+
+                        // popcorn modified 2024-05-23 start
+                        '{partyhou_approval}'== '1' ? $("input[name='partyhou_approval']").prop('checked', true) : $("input[name='partyhou_approval']").prop('checked', false);
+                        '{signin_couples}'== '1' ? $("input[name='signin_couples']").prop('checked', true) : $("input[name='signin_couples']").prop('checked', false);
+                        '{signin_females}' == '1' ? $("input[name='signin_females']").prop('checked', true) : $("input[name='signin_females']").prop('checked', false);
+                        '{signin_males}' == '1' ? $("input[name='signin_males']").prop('checked', true) : $("input[name='signin_males']").prop('checked', false);
+                        '{signin_transgender}' == '1' ? $("input[name='signin_transgender']").prop('checked', true) : $("input[name='signin_transgender']").prop('checked', false);
+                        '{signin_nonbinary}' == '1' ? $("input[name='signin_nonbinary']").prop('checked', true) : $("input[name='signin_nonbinary']").prop('checked', false);
+                        '{signin_everyone}' == '1' ? $("input[name='signin_everyone']").prop('checked', true) : $("input[name='signin_everyone']").prop('checked', false);
+
+                        // Get the checkboxes with the names "signin_females", "signin_males", and "signin_couples"
+                        var signin_checkboxes = $('input[type="checkbox"][name="signin_females"], input[type="checkbox"][name="signin_males"], input[type="checkbox"][name="signin_couples"], input[type="checkbox"][name="signin_transgender"], input[type="checkbox"][name="signin_nonbinary"]');
+
+                        // Get the "Everyone Allowed" checkbox
+                        var signin_everyoneCheckbox = $('input[name="signin_everyone"]');
+
+                        // Add a click event listener to all the checkboxes
+                        signin_checkboxes.click(function () {
+                            // If the "Everyone Allowed" checkbox is checked, uncheck it
+                            if (signin_everyoneCheckbox.prop('checked')) {
+                                signin_everyoneCheckbox.prop('checked', false);
+                            }
+
+                            // Check if at least one checkbox is unchecked
+                            var isUnchecked = false;
+                            signin_checkboxes.each(function () {
+                                if (!$(this).prop('checked')) {
+                                    isUnchecked = true;
+                                }
+                            });
+
+                            // If at least one checkbox is unchecked, uncheck the "Everyone Allowed" checkbox
+                            if (isUnchecked) {
+                                signin_everyoneCheckbox.prop('checked', false);
+                            } else {
+                                // If all checkboxes are checked, check the "Everyone Allowed" checkbox
+                                signin_everyoneCheckbox.prop('checked', true);
+                            }
+                        });
+
+                        // Add a click event listener to the "Everyone Allowed" checkbox
+                        signin_everyoneCheckbox.click(function () {
+                            // If the "Everyone Allowed" checkbox is checked, check all the other checkboxes
+                            if (signin_everyoneCheckbox.prop('checked')) {
+                                signin_checkboxes.prop('checked', true);
+                            } else {
+                                // If the "Everyone Allowed" checkbox is unchecked, uncheck all the other checkboxes
+                                signin_checkboxes.prop('checked', false);
+                            }
+                        });
+
+                        // signin_everyoneCheckbox.trigger('click');
+                        //popcorn modofied 2024-05-23 end
+
+                        function formatDate(date) {
+                            const months = [
+                                "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                            ];
+
+                            const month = months[date.getMonth()];
+                            const day = date.getDate();
+                            const year = date.getFullYear();
+
+                            const timeFormatter = new Intl.DateTimeFormat('en-US', {
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                hour12: true
+                            });
+
+                            const formattedDate = month + "/" + day + "/" + year;
+                            const formattedTime = timeFormatter.format(date);
+
+                            return { formattedDate, formattedTime };
+                        }
+                        function set_room_info(room, invited_users) {
+                            setInvitees(invited_users);
+                            $("input[name='partyhou_title']").val(room.partyhou_title)
+                            $('input[name="category_id"][value="' + room.category_id + '"]').prop('checked', true);
+                            $('input[name="category_id"][value="' + room.category_id + '"]').trigger('change');
+                            
+                            
+                            const dateObj = new Date(room.partyhou_datetime);
+                            const { formattedDate, formattedTime } = formatDate(dateObj);
+
+                            $("input[name='partyhou_date']").val(formattedDate);
+                            $("input[name='partyhou_time']").val(formattedTime);
+                            room.is_lock == '1' ? $("input[name='is_lock']").prop('checked', true) : $("input[name='is_lock']").prop('checked', false);
+                            $("input[name='lock_code']").val(room.lock_code)
+                            room.is_open == '1' ? $("input[name='is_open']").prop('checked', true) : $("input[name='is_open']").prop('checked', false);
+                            $("input[name='is_open']").trigger('change');
+                            room.is_friends == '1' ? $("input[name='is_friends']").prop('checked', true) : $("input[name='is_friends']").prop('checked', false);
+                            room.is_group == '1' ? $("input[name='is_group']").prop('checked', true) : $("input[name='is_group']").prop('checked', false);
+                            room.cum_couples == '1' ? $("input[name='cum_couples']").prop('checked', true) : $("input[name='cum_couples']").prop('checked', false);
+                            room.cum_females == '1' ? $("input[name='cum_females']").prop('checked', true) : $("input[name='cum_females']").prop('checked', false);
+                            room.cum_males == '1' ? $("input[name='cum_males']").prop('checked', true) : $("input[name='cum_males']").prop('checked', false);
+                            room.cum_transgender == '1' ? $("input[name='cum_transgender']").prop('checked', true) : $("input[name='cum_transgender']").prop('checked', false);
+                            room.cum_nonbinary == '1' ? $("input[name='cum_nonbinary']").prop('checked', true) : $("input[name='cum_nonbinary']").prop('checked', false);
+                            room.cum_everyone == '1' ? $("input[name='cum_everyone']").prop('checked', true) : $("input[name='cum_everyone']").prop('checked', false);
+                            room.lookin_couples == '1' ? $("input[name='lookin_couples']").prop('checked', true) : $("input[name='lookin_couples']").prop('checked', false);
+                            room.lookin_females == '1' ? $("input[name='lookin_females']").prop('checked', true) : $("input[name='lookin_females']").prop('checked', false);
+                            room.lookin_males == '1' ? $("input[name='lookin_males']").prop('checked', true) : $("input[name='lookin_males']").prop('checked', false);
+                            room.lookin_transgender == '1' ? $("input[name='lookin_transgender']").prop('checked', true) : $("input[name='lookin_transgender']").prop('checked', false);
+                            room.lookin_nonbinary == '1' ? $("input[name='lookin_nonbinary']").prop('checked', true) : $("input[name='lookin_nonbinary']").prop('checked', false);
+                            room.lookin_everyone == '1' ? $("input[name='lookin_everyone']").prop('checked', true) : $("input[name='lookin_everyone']").prop('checked', false);
+                            room.is_saved == '1' ? $("input[name='is_saved']").prop('checked', true) : $("input[name='is_saved']").prop('checked', false);
+                            $("input[name='is_saved']").trigger('change');
+                            $("input[name='saved_name']").val(room.saved_name)
+                        }
+
+                        var request_data = {
+                            user_id: user_id
+                        };
+
+                        $.ajax({
+
+                            url: "{url_main}groups_my_belong.php",
+                            dataType: 'json',
+                            data: request_data,
+                            type: 'post',
+                            success: function (response) {
+                                response.groups.forEach(group => {
+                                    $("<option></option>").val(group.group_id).text(group.group_name).appendTo($("select[name='group_id']"));
+                                });
+                            },
+                            error: function () {
+                                console.log("error");
+                            }
+                        });
+
+                        $.ajax({
+                            url: "{url_main}active_rooms_list.php",
+                            dataType: 'json',
+                            data: request_data,
+                            type: 'post',
+                            success: function (response) {
+                                response.partyhouz.forEach(partyhou => {
+                                    $("<option></option>").val(partyhou.partyhou_id).text(partyhou.partyhou_title).appendTo($("select[name='room_id']"));
+                                });
+                            },
+                            error: function () {
+                                console.log("error");
+                            }
+                        });
+
+                        $("select[name='room_id']").change(function () {
+                            if ($(this).val != '0') {
+                                var request_data = {
+                                    room_id: $(this).val()
+                                }
+                                $.ajax({
+                                    url: "{url_main}room_info_by_id.php",
+                                    dataType: 'json',
+                                    data: request_data,
+                                    type: 'post',
+                                    success: function (response) {
+                                        set_room_info(response.room, response.invited_users);
+                                    },
+                                    error: function () {
+                                        console.log("error");
+                                    }
+                                });
+                            }
+                        });
+
+                        $("select[name='saved_room_id']").change(function () {
+                            if ($(this).val != '0') {
+                                var request_data = {
+                                    room_id: $(this).val()
+                                }
+                                $.ajax({
+                                    url: "{url_main}room_info_by_id.php",
+                                    dataType: 'json',
+                                    data: request_data,
+                                    type: 'post',
+                                    success: function (response) {
+                                        set_room_info(response.room, response.invited_users);
+                                    },
+                                    error: function () {
+                                        console.log("error");
+                                    }
+                                });
+                            }
+                        });
+
+                        $.ajax({
+                            url: "{url_main}saved_rooms_list.php",
+                            dataType: 'json',
+                            data: request_data,
+                            type: 'post',
+                            success: function (response) {
+                                response.partyhouz.forEach(partyhou => {
+                                    $("<option></option>").val(partyhou.partyhou_id).text(partyhou.partyhou_title).appendTo($("select[name='saved_room_id']"));
+                                });
+                            },
+                            error: function () {
+                                console.log("error");
+                            }
+                        });
+
+                        $('input[name="is_friends"]').change(function () {
+                            if ($(this).prop('checked')) {
+                                var request_data = {
+                                    user_id: user_id
+                                };
+                                $.ajax({
+                                    url: "{url_main}friends_my_list.php",
+                                    dataType: 'json',
+                                    data: request_data,
+                                    type: 'post',
+                                    success: function (response) {
+                                        setInvitees(response.friends);
+                                    },
+                                    error: function () {
+                                        console.log("error");
+                                    }
+                                });
+                            }
+                        });
+
+                        $(document).on('change', 'input[name="invited_user_ids"]:not(:checked)', function () {
+                            removeInvitee($(this).val());
+                        });
+
+                        $('select[name="group_id"]').change(function () {
+                            if ($(this).val() != "0") {
+                                var request_data = {
+                                    user_id: user_id,
+                                    group_id: $(this).val()
+                                };
+                                $.ajax({
+                                    url: "{url_main}group_users_list.php",
+                                    dataType: 'json',
+                                    data: request_data,
+                                    type: 'post',
+                                    success: function (response) {
+                                        setInvitees(response.users);
+                                    },
+                                    error: function () {
+                                        console.log("error");
+                                    }
+                                });
+                            }
+                        });
+
+                        $("input[name='room_name']").keydown(function () {
+                            $("#name_error").hide();
+                        });
+
+                        $("input[name='search_invite_users']").keydown(function (event) {
+                            $("#search_key_error").hide();
+                            if (event.keyCode === 13) {
+                                if ($(this).val().length < 3) {
+                                    $("#search_key_error").show();
+                                } else {
+
+                                    var request_data = {
+                                        user_id: user_id,
+                                        search_type: $("input[name='invite_type_item']:checked").val() || 1,
+                                        search_key: $(this).val(),
+                                    };
+                                    $.ajax({
+                                        url: "{url_main}search_invitees_list.php",
+                                        dataType: 'json',
+                                        data: request_data,
+                                        type: 'post',
+                                        success: function (response) {
+                                            setInvitees(response.users);
+                                        },
+                                        error: function () {
+                                            console.log("error");
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                        $('input[name="search_invite_users"]').autocomplete({
+                            source: function (request, response) {
+                                var request_data = {
+                                    q: request.term,
+                                    type: $('input[name="invite_type_item"]:checked').val() || 1,
+                                    user_id: user_id
+                                };
+                                $.ajax({
+                                    url: "{url_main}users_autocomplete_ajax.php",
+                                    dataType: "json",
+                                    data: request_data,
+                                    type: "POST",
+                                    beforeSend: function () {
+                                    },
+                                    success: function (data) {
+                                        response(data);
+                                    }
+                                });
+                            },
+                        });
+
+                        $("#save_party").click(function () {
+                            if ($("input[name='room_name']").val() == "") {
+                                $("#name_error").show();
+                                return;
+                            }
+                            const invited_user_ids = $('input[name="invited_user_ids"]').map(function () {
+                                return $(this).val();
+                            }).get().join(',');
+
+                            const isoDate = new Date($("input[name='party_date']").val());
+                            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric', hour12: true };
+                            const readableDateString = isoDate.toLocaleString('en-US', options);
+                            var request_data = {
+                                user_id: u,
+                                user_name: n,
+                                user_mail: m,
+                                room_name: $("input[name='room_name']").val(),
+                                room_type: $('input[name="room_type"]:checked').val(),
+                                party_date: readableDateString,
+                                is_lock: $("input[name='is_lock']").prop('checked') ? 1 : 0,
+                                lock_code: $("input[name='lock_code']").val(),
+                                is_open: $("input[name='is_open']").prop('checked') ? 1 : 0,
+                                is_friends: $("input[name='is_friends']").prop('checked') ? 1 : 0,
+                                is_group: $("input[name='is_group']").prop('checked') ? 1 : 0,
+                                invited_user_ids: invited_user_ids,
+                                cum_couples: $("input[name='cum_couples']").prop('checked') ? 1 : 0,
+                                cum_females: $("input[name='cum_females']").prop('checked') ? 1 : 0,
+                                cum_males: $("input[name='cum_males']").prop('checked') ? 1 : 0,
+                                cum_transgender: $("input[name='cum_transgender']").prop('checked') ? 1 : 0,
+                                cum_nonbinary: $("input[name='cum_nonbinary']").prop('checked') ? 1 : 0,
+                                cum_everyone: $("input[name='cum_everyone']").prop('checked') ? 1 : 0,
+                                lookin_couples: $("input[name='lookin_couples']").prop('checked') ? 1 : 0,
+                                lookin_females: $("input[name='lookin_females']").prop('checked') ? 1 : 0,
+                                lookin_males: $("input[name='lookin_males']").prop('checked') ? 1 : 0,
+                                lookin_transgender: $("input[name='lookin_transgender']").prop('checked') ? 1 : 0,
+                                lookin_nonbinary: $("input[name='lookin_nonbinary']").prop('checked') ? 1 : 0,
+                                lookin_everyone: $("input[name='lookin_everyone']").prop('checked') ? 1 : 0,
+                                is_saved: $("input[name='is_saved']").prop('checked') ? 1 : 0,
+                                saved_name: $("input[name='saved_name']").val()
+                            };
+                            $.ajax({
+                                url: "{url_main}save_video_room.php",
+                                dataType: 'json',
+                                data: request_data,
+                                type: 'post',
+                                success: function (response) {
+                                    $('body').css({
+                                        overflow: 'auto'
+                                    });
+                                    modal.style.display = "none";
+                                    get_available_rooms();
+                                },
+                                error: function () {
+                                    console.log("error");
+                                }
+                            });
+                           
+                        });
+
+                        // invite_type search box start
+                        var invite_type_items = document.getElementsByName('invite_type_item');
+                        var invite_type_selectedItem = document.getElementById('invite_type_selected_item');
+                        var invite_type_dropdown = document.getElementById('invite_type_dropdown');
+
+                        invite_type_items.forEach(item => {
+                            item.addEventListener('change', () => {
+                                if (item.checked) {
+                                    invite_type_selectedItem.innerHTML = item.getAttribute('data-title');
+                                    invite_type_dropdown.open = false;
+                                }
+                            });
+                        });
+                        // invite_type search box end
+
+                        // room_type search box start
+                        var room_type_items = document.getElementsByName('category_id');
+                        var room_type_selectedItem = document.getElementById('room_type_selected_item');
+                        var room_type_dropdown = document.getElementById('room_type_dropdown');
+
+                        room_type_items.forEach(item => {
+                            item.addEventListener('change', () => {
+                                if (item.checked) {
+                                    room_type_selectedItem.innerHTML = item.getAttribute('data-title');
+                                    room_type_dropdown.open = false;
+                                }
+                            });
+                        });
+                        // room_type search box end
+                        $('#partyhou_date').datetimepicker({
+                            lang: 'custom',
+                            i18n:{
+                                custom:{months:[{calendar_month}],dayOfWeek:[{calendar_weekdays_short}]}
+                            },
+                            timepicker: false,
+                            format: '{edit_partyhou_date}',
+                            minDate: '2000/01/01',
+                            closeOnDateSelect: true
+                        });
+                        $('#partyhou_time').datetimepicker({
+                            datepicker:false,
+                            format:'{edit_partyhou_time}',
+                            step:30
+                        });
+                    });
+
+                    function on_form_submit() {
+                        for (var i = 1; i <= 1; i++) {
+                            var ext = $('input[name="image_' + i + '"]').val();
+                            if (ext != "") {
+                                ext = ext.substring(ext.length - 4, ext.length);
+                                ext = ext.toLowerCase();
+                                if (ext != '.jpg' && ext != '.gif' && ext != '.png' && ext != 'jpeg') {
+                                    alert('{l_wrong_photo_types}');
+                                    return false;
+                                }
+                            }
+                        }
+                        category_id = $('input[name="category_id"]:checked').val();
+                        if ($('[name="partyhou_title"]').val() &&
+                            $('[name="partyhou_date"]').val() &&
+                            $('[name="partyhou_time"]').val() &&
+                            category_id != undefined) {
+                            if ($('input[name="image_1"]')[0].files.length > 0)
+                                $('#load_animation_submit').css('visibility', 'visible');
+                        }
+                        else {
+                            if ($('[name="partyhou_title"]').val() == "") {
+                                alert('{l_fill_partyhou_title}');
+                            }
+                            if ($('[name="partyhou_date"]').val() == "") {
+                                alert('{l_fill_partyhou_date}');
+                            }
+
+                            if ($('[name="partyhou_time"]').val() == "") {
+                                alert('{l_fill_partyhou_time}');
+                            }
+
+                            if (category_id == undefined) {
+                                alert('{l_category_id}');
+                            }
+                            return false;
+                        }
+                        return true;
+                    }
+                    function form_submit() {
+                        if (on_form_submit()) {
+                            const invited_user_ids = $('input[name="invited_user_ids"]').map(function () {
+                                return $(this).val();
+                            }).get().join(',');
+                            $("input[name='invited_users']").val(invited_user_ids);
+                            $("input[name='is_lock']").prop('checked') ? $("input[name='is_lock']").val('1') : $("input[name='is_lock']").val('0');
+                            $("input[name='is_open']").prop('checked') ? $("input[name='is_open']").val('1') : $("input[name='is_open']").val('0');
+                            $("input[name='is_friends']").prop('checked') ? $("input[name='is_friends']").val('1') : $("input[name='is_friends']").val('0');
+                            $("input[name='is_group']").prop('checked') ? $("input[name='is_group']").val('1') : $("input[name='is_group']").val('0');
+                            $("input[name='cum_couples']").prop('checked') ? $("input[name='cum_couples']").val('1') : $("input[name='cum_couples']").val('0');
+                            $("input[name='cum_females']").prop('checked') ? $("input[name='cum_females']").val('1') : $("input[name='cum_females']").val('0');
+                            $("input[name='cum_males']").prop('checked') ? $("input[name='cum_males']").val('1') : $("input[name='cum_males']").val('0');
+                            $("input[name='cum_transgender']").prop('checked') ? $("input[name='cum_transgender']").val('1') : $("input[name='cum_transgender']").val('0');
+                            $("input[name='cum_nonbinary']").prop('checked') ? $("input[name='cum_nonbinary']").val('1') : $("input[name='cum_nonbinary']").val('0');
+                            $("input[name='cum_everyone']").prop('checked') ? $("input[name='cum_everyone']").val('1') : $("input[name='cum_everyone']").val('0');
+                            $("input[name='lookin_couples']").prop('checked') ? $("input[name='lookin_couples']").val('1') : $("input[name='lookin_couples']").val('0');
+                            $("input[name='lookin_females']").prop('checked') ? $("input[name='lookin_females']").val('1') : $("input[name='lookin_females']").val('0');
+                            $("input[name='lookin_males']").prop('checked') ? $("input[name='lookin_males']").val('1') : $("input[name='lookin_males']").val('0');
+                            $("input[name='lookin_transgender']").prop('checked') ? $("input[name='lookin_transgender']").val('1') : $("input[name='lookin_transgender']").val('0');
+                            $("input[name='lookin_nonbinary']").prop('checked') ? $("input[name='lookin_nonbinary']").val('1') : $("input[name='lookin_nonbinary']").val('0');
+                            $("input[name='lookin_everyone']").prop('checked') ? $("input[name='lookin_everyone']").val('1') : $("input[name='lookin_everyone']").val('0');
+                            $("input[name='partyhou_approval']").prop('checked') ? $("input[name='partyhou_approval']").val('1') : $("input[name='partyhou_approval']").val('0');
+                            $("input[name='signin_couples']").prop('checked') ? $("input[name='signin_couples']").val('1') : $("input[name='signin_couples']").val('0');
+                            $("input[name='signin_females']").prop('checked') ? $("input[name='signin_females']").val('1') : $("input[name='signin_females']").val('0');
+                            $("input[name='signin_males']").prop('checked') ? $("input[name='signin_males']").val('1') : $("input[name='signin_males']").val('0');
+                            $("input[name='signin_transgender']").prop('checked') ? $("input[name='signin_transgender']").val('1') : $("input[name='signin_transgender']").val('0');
+                            $("input[name='signin_nonbinary']").prop('checked') ? $("input[name='signin_nonbinary']").val('1') : $("input[name='signin_nonbinary']").val('0');
+                            $("input[name='signin_everyone']").prop('checked') ? $("input[name='signin_everyone']").val('1') : $("input[name='signin_everyone']").val('0');
+                            $("input[name='is_saved']").prop('checked') ? $("input[name='is_saved']").val('1') : $("input[name='is_saved']").val('0');
+                            
+                            confirm_policy();
+                        }
+
+                            //document.getElementById('partyhou_edit_form').submit();
+                    }
+
+
+
+                </script>
+
+<!-- begin_popup_confirm_terms_policy -->
+<style type="text/css">
+    p {
+        margin-bottom: 0px;
+    }
+    .swal2-popup {
+        width: 500px;
+    }
+
+    .swal2-styled.swal2-confirm {
+        font-size: 16px;
+    }
+
+    .swal2-styled.swal2-cancel {
+        font-size: 16px;
+    }
+
+    input[type="checkbox"]:focus {
+       outline: 0px auto -webkit-focus-ring-color; 
+       outline-offset: -2px; 
+    }
+
+
+        
+    .dropdown {
+        box-sizing: border-box;
+        position: relative;
+        width: 25%;
+        height: 30px;
+        border: 1px solid black;
+        border-radius: 0 23px 23px 0;
+    }
+
+    .dropdown::before {
+        position: absolute;
+        top: 5px;
+        left: 0;
+        z-index: 999;
+        width: 1px;
+        height: 8px;
+        background-color: #ccc;
+        content: '';
+    }
+
+    .dropdown-button {
+        box-sizing: border-box;
+        margin: 0;
+        list-style: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 1px;
+        border-radius: 0 23px 23px 0;
+        background-color: #fff;
+        color: transparent;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .dropdown-button span {
+        padding-top: 5px;
+        font-size: 1rem!important;
+    }
+
+    .dropdown-button::-webkit-details-marker {
+        display: none;
+    }
+
+    .dropdown-button .selected-item {
+        box-sizing: border-box;
+        margin: 0;
+        padding-top: 5px;
+        color: #3d3935;
+        font-size: 1rem;
+    }
+
+    .dropdown[open] .dropdown-button::before {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        content: '';
+    }
+
+    .dropdown-button:after {
+        position: absolute;
+        top: 10px;
+        right: 8px;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        width: 6px;
+        height: 6px;
+        border-right: 2px solid #aaa;
+        border-bottom: 2px solid #aaa;
+        content: '';
+    }
+
+    .dropdown-button:hover:after {
+        border-right: 2px solid #22A7B4;
+        border-bottom: 2px solid #22A7B4;
+    }
+
+    .dropdown-menu {
+        z-index: 2;
+        position: absolute;
+        display: block;
+        top: 20px;
+        right: 2px;
+        width: 85px;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .1);
+        background-color: #fff;
+    }
+
+    .dropdown-menu-header {
+        padding-bottom: 4px;
+        line-height: 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .dropdown-menu-list {
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+    }
+
+    .dropdown-menu-item {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .dropdown-menu-item span {
+        line-height: 12px!important;
+    }
+
+    .dropdown-menu-item input:checked+span,
+    .dropdown-menu-item:hover {
+        color: #22a7b4;
+    }
+
+    .dropdown-menu-item input {
+        display: none;
+    }
+
+
+</style>
+<script>
+    function confirm_policy () {
+    
+        var popup_confirm_button = "{popup_confirm_button}";
+        var popup_decline_button = "{popup_decline_button}";
+        var popup_text = `{popup_text}`;
+        var popup_title = "{popup_title}";
+    
+         Swal.fire({
+                footer:` <div><div style="text-align: center;">` + popup_text +`</div><div style="text-align:center;border-top: 1px solid #746b6b; padding-top: 10px; font-size : 16px;">` + popup_title + `</div></div>`,
+                confirmButtonText: `<div style="border-radius: 5px;">` + popup_confirm_button +`<div>`,
+                confirmButtonColor:'#22b14c',
+                cancelButtonText: popup_decline_button,
+                cancelButtonColor: '#ed1c24',
+                focusConfirm: false,
+                backdrop: false,
+                showCancelButton: true,
+                preConfirm: () => {
+                    
+                    document.getElementById('partyhou_edit_form').submit();
+        
+                },
+                
+                
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.cancel) {
+                $('#load_animation_submit').css('visibility', 'hidden');
+    
+            } else if (result.isConfirmed) {
+            }
+          });
+    }
+    
+    </script>
+    <!-- end_popup_confirm_terms_policy -->
+                <form id="partyhou_edit_form" method="POST"
+                    action="{url_main}partyhouz_partyhou_edit.php?cmd=save&partyhou_private={partyhou_private}&partyhou_id={partyhou_id}"
+                    enctype="multipart/form-data">
+                    <input type="hidden" name="invited_users" />
+                    <div class="partyhouz_new_p pl_top">
+                        <!-- begin_create_private_title -->
+                        <h1>{l_create_entry_to_calendar}</h1><!-- end_create_private_title -->
+                        <!-- begin_edit_private_title -->
+                        <h1>{l_edit_entry_to_calendar}</h1><!-- end_edit_private_title -->
+                        <!-- begin_create_title -->
+                        <h1>{l_partyhouz_create_new_partyhou}</h1><!-- end_create_title -->
+                        <!-- begin_edit_title -->
+                        <h1>{l_partyhouz_edit_partyhou}</h1><!-- end_edit_title -->
+
+                        <table class="partyhouz_new_tb_sub">
+                            <col width="7px" />
+                            <col width="431px" />
+                            <tr>
+                                <th class="th_t_l nb first">&nbsp;</th>
+                                <th class="th_t_c nb"><span>{l_partyhouz_please_enter_details}</span></th>
+                                <th class="th_t_r nb first">&nbsp;</th>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" class="nb nobg_img">
+                                    <div class="bl_partyhouz_new_frm_color">
+                                        <div
+                                            style="width: 100%; display: flex; justify-content: space-between; margin: 10px 0px; align-items: flex-end;">
+                                            <label>
+                                                Saved Names & Settings
+                                            </label>
+                                            <div>
+                                                <select name="saved_room_id"
+                                                    style="width: 200px; height: 30px; padding: 5px; border-radius: 6px; border: solid 0.1px #44a5ff; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                                    <option value="0">Select Saved Room</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            style="width: 100%; display: flex; justify-content: space-between; margin: 10px 0px; align-items: flex-end;">
+                                            <label>
+                                                Active Parties
+                                            </label>
+                                            <div>
+                                                <select name="room_id"
+                                                    style="width: 200px; height: 30px; padding: 5px; border-radius: 6px; border: solid 0.1px #44a5ff; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                                    <option value="0">Create New Party Room</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div style="width: 100%; margin-top: 15px;">
+                                            <div style="width: 100%;">
+                                                <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 6px 0px;">
+                                                    Type A Party Name Below Or Keep Current PartyHouz Name</p>
+                                                <div class="search-box">
+                                                    <input class="search-form-input" type="text" name="partyhou_title" value="{partyhou_title}" required
+                                                        placeholder="{user_name} Party"/>
+                                                    <details id="room_type_dropdown" class="dropdown">
+                                                        <summary class="dropdown-button">
+                                                            <span id="room_type_selected_item" class="selected-item">Category</span>
+                                                        </summary>
+                                                        <details-menu class="dropdown-menu">
+                                                            <div class="dropdown-menu-header">Type Of Room</div>
+                                                            <div class="dropdown-menu-list">
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="1" data-title="Lifestyle Family">
+                                                                    <span>Lifestyle Family</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="2" data-title="Couples">
+                                                                    <span>Couples</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="3" data-title="Singles">
+                                                                    <span>Singles</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="4" data-title="Bi Female">
+                                                                    <span>Bi Female</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="5" data-title="Bi Male">
+                                                                    <span>Bi Male</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="6" data-title="Lesbians">
+                                                                    <span>Lesbians</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="7" data-title="BDSM">
+                                                                    <span>BDSM</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="8" data-title="Sub">
+                                                                    <span>Sub</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="9" data-title="Dom">
+                                                                    <span>Dom</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="10" data-title="Kink">
+                                                                    <span>Kink</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="11" data-title="Single Female">
+                                                                    <span>Single Female</span>
+                                                                </label>
+                                                                <label class="dropdown-menu-item">
+                                                                    <input type="radio" name="category_id" value="12" data-title="Single Male">
+                                                                    <span>Single Male</span>
+                                                                </label>
+                                                            </div>
+                                                        </details-menu>
+                                                    </details>
+                                                </div>
+                                                <span id="name_error" style="display: none; color: red; font-size: 0.8em;">Please enter name
+                                                    of
+                                                    party</span>
+                                            </div>
+                                            <div
+                                                style="width: 100%; display: flex; justify-content: space-between; margin: 14px 0px; align-items: flex-end;" >
+                                                <div class="td_w1">
+                                                    <label>Date</label>
+                                                    <div class="partyhouz_input_text3"><input class="no_abk" id="partyhou_date" autocomplete=off name="partyhou_date" type="text" value="{event_date}"/></div>
+                                                </div>
+                                                <div>
+                                                    <label>Time</label>
+                                                    <div class="partyhouz_input_text4 fl_right"><input class="no_abk" id="partyhou_time" autocomplete=off name="partyhou_time" type="text" value="{event_time}"/></div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                style="width: 100%; display: flex; justify-content: space-between; margin: 10px 0px; align-items: flex-end;">
+                                                <label>
+                                                    Locked Room
+                                                </label>
+                                                <div class="switch-filter" style="position:sticky;">
+                                                    <input type="checkbox" id="is_lock" class="control" name="is_lock" />
+                                                    <label for="is_lock" class="checkbox"></label>
+                                                </div>
+                                            </div>
+                                            <div id="lock_code_container"
+                                                style="width: 100%; display: none; justify-content: space-between; align-items: flex-end;">
+                                                <label>
+                                                    Enter 6-Digit Lock Code:
+                                                </label>
+                                                <div>
+                                                    <input type="text" name="lock_code" style="padding: 5px; border-radius: 6px; border: solid 0.1px #44a5ff;" />
+                                                </div>
+                                            </div>
+                                            <div
+                                                style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                <label>
+                                                    Open Room To All
+                                                </label>
+                                                <div class="switch-filter" style="position:sticky;">
+                                                    <input type="checkbox" class="control" id="is_open" name="is_open" checked value="1" />
+                                                    <label for="is_open"  class="checkbox"></label>
+                                                </div>
+                                            </div>
+                                            <div
+                                                style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                <label>
+                                                    Invite All Your Friend's
+                                                </label>
+                                                <div class="switch-filter" style="position:sticky;">
+                                                    <input type="checkbox" id="is_friends" class="control" name="is_friends" />
+                                                    <label for="is_friends" class="checkbox"></label>
+                                                </div>
+                                            </div>
+                                            <div
+                                                style="width: 100%; display: flex; justify-content: space-between; margin: 10px 0px; align-items: flex-end;">
+                                                <label>
+                                                    Invite A Group You Belong To
+                                                </label>
+                                                <div class="switch-filter" style="position:sticky;">
+                                                    <input type="checkbox" id="is_group" class="control" name="is_group" />
+                                                    <label for="is_group"  class="checkbox"></label>
+                                                </div>
+                                            </div>
+                                            <div id="group_container"
+                                                style="width: 100%; display: none; justify-content: space-between; margin: 15px 5px; align-items: flex-end;">
+                                                <label>
+                                                    Pick a Group:
+                                                </label>
+                                                <div>
+                                                    <select type="text" name="group_id"
+                                                        style="width: 200px; height: 30px; padding: 5px; border-radius: 6px; border: solid 0.1px #44a5ff;">
+                                                        <option value="0">-----------------</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div style="width: 100%; margin-top: 15px;">
+                                                <div style="width: 100%;">
+                                                    <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 6px 0px;">
+                                                        Search & Invite Individual Users</p>
+                                                    <div class="search-box">
+                                                        <input class="party-name-input" type="text" name="search_invite_users"
+                                                            placeholder="Type Here Search......">
+                                                        <details id="invite_type_dropdown" class="dropdown">
+                                                            <summary class="dropdown-button">
+                                                                <span id="invite_type_selected_item" class="selected-item">All Users</span>
+                                                            </summary>
+                                                            <details-menu class="dropdown-menu">
+                                                                <div class="dropdown-menu-header">Select category</div>
+                                                                <div class="dropdown-menu-list">
+                                                                    <label class="dropdown-menu-item">
+                                                                        <input type="radio" name="invite_type_item" value="1" data-title="Users">
+                                                                        <span>All Users</span>
+                                                                    </label>
+                                                                    <label class="dropdown-menu-item">
+                                                                        <input type="radio" name="invite_type_item" value="2" data-title="Friends">
+                                                                        <span>Friends</span>
+                                                                    </label>
+                                                                    <label class="dropdown-menu-item">
+                                                                        <input type="radio" name="invite_type_item" value="3" data-title="Groups">
+                                                                        <span>Groups</span>
+                                                                    </label>
+                                                                </div>
+                                                            </details-menu>
+                                                        </details>
+                                                    </div>
+                                                    <span id="search_key_error" style="display: none; color: red; font-size: 0.8em;">Please
+                                                        input more than 3 characters</span>
+                                                </div>
+                                                <div style="width: 100%;">
+                                                    <p
+                                                        style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 30px 0px; ">
+                                                        Your Guest List to PartyHouZ</p>
+                                                </div>
+                                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; margin: 5px 0px;"
+                                                    id="invitee_list">
+
+                                                </div>
+                                            </div>
+                                            <div style="width: 100%; margin-top: 55px;">
+                                                <div>
+                                                    <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 5px 0px;">
+                                                        Who's Allowed To Cum to Your Party</label>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_couples_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="cum_couples" class="control" name="cum_couples" />
+                                                        <label for="cum_couples" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_females_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="cum_females" class="control" name="cum_females" />
+                                                        <label for="cum_females" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_males_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="cum_males" class="control" name="cum_males" />
+                                                        <label for="cum_males" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_transgender_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="cum_transgender" class="control" name="cum_transgender" />
+                                                        <label for="cum_transgender" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_nonbinary_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="cum_nonbinary" class="control" name="cum_nonbinary" />
+                                                        <label for="cum_nonbinary" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_everyone_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="cum_everyone" class="control" name="cum_everyone" />
+                                                        <label for="cum_everyone" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 5px 0px;">
+                                                        Who Can See You In LookinGlass</label>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_couples_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="lookin_couples" class="control" name="lookin_couples" />
+                                                        <label for="lookin_couples" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_females_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="lookin_females" class="control" name="lookin_females" />
+                                                        <label for="lookin_females"  class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_males_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="lookin_males" class="control" name="lookin_males" />
+                                                        <label for="lookin_males" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_transgender_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="lookin_transgender" class="control" name="lookin_transgender" />
+                                                        <label for="lookin_transgender" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_nonbinary_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="lookin_nonbinary" class="control" name="lookin_nonbinary" />
+                                                        <label for="lookin_nonbinary" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_everyone_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="lookin_everyone" class="control" name="lookin_everyone" />
+                                                        <label for="lookin_everyone" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 30px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        Save Names & Setting For Future Parties
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="is_saved" class="control" name="is_saved" />
+                                                        <label for="is_saved" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div id="list_name_container"
+                                                    style="width: 100%; display: none; justify-content: space-between; align-items: flex-end;">
+                                                    <label>
+                                                        Enter Name To Save List:
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" name="saved_name" style="padding: 5px; border-radius: 6px; border: solid 0.1px #44a5ff;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- popcorn added 2024-05-24 start -->
+                                            <div>
+                                                <div>
+                                                    <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 5px 0px;">
+                                                        {l_partyhou_approval_title}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_approval_text}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="partyhou_approval" class="control" name="partyhou_approval" />
+                                                        <label for="partyhou_approval" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div>
+                                                    <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 5px 0px;">
+                                                        {l_who_can_signin}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_couples_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_couples" class="control" name="signin_couples" />
+                                                        <label for="signin_couples" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_females_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_females" class="control" name="signin_females" />
+                                                        <label for="signin_females"  class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_males_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_males" class="control" name="signin_males" />
+                                                        <label for="signin_males" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_transgender_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_transgender" class="control" name="signin_transgender" />
+                                                        <label for="signin_transgender" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_nonbinary_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_nonbinary" class="control" name="signin_nonbinary" />
+                                                        <label for="signin_nonbinary" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    style="width: 100%; display: flex; justify-content: space-between; margin: 6px 0px; align-items: flex-end;">
+                                                    <label>
+                                                        {l_everyone_allowed}
+                                                    </label>
+                                                    <div class="switch-filter" style="position:sticky;">
+                                                        <input type="checkbox" id="signin_everyone" class="control" name="signin_everyone" />
+                                                        <label for="signin_everyone" class="checkbox"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- popcorn added 2024-05-24 end -->
+                                            
+                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                <label>{l_partyhou_image}</label>
+                                                <div class="partyhou_inp_file">
+                                                    <input name="image_1" class="file" type="file"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- begin_edit_images -->
+                                        <script type="text/javascript">
+
+                                            $(document).ready(function () {
+                                                create_gallery();
+
+                                            });
+
+                                            function create_gallery() {
+                                                initLightboxOldTemplate($('.edit_image_gallery'));
+                                            }
+
+                                            function edit_delete_image(image_id) {
+                                                if (confirm('{l_are_you_sure}')) {
+                                                    $('#edit_image_' + image_id).fadeOut(400, function () {
+                                                        $('#edit_image_' + image_id).remove();
+                                                        create_gallery();
+                                                        $.ajax({
+                                                            type: 'POST',
+                                                            url: '{url_main}partyhouz_partyhou_image_delete_ajax.php?photo_cmd=partyhou_photos',
+                                                            data: {
+                                                                image_id: image_id
+                                                            }
+                                                        });
+                                                    });
+                                                }
+                                            }
+
+                                        </script>
+
+                                        <div class="line_dashed"></div>
+
+                                        <div>
+
+                                            <!-- begin_image -->
+                                            <div id="edit_image_{image_id}" class="partyhouz_new_img">
+                                                <a class="edit_image_gallery" href="{image_file}"><img
+                                                        src="{image_thumbnail}" width="85" height="64" alt="" /></a>
+                                                <div class="partyhouz_new_delete"><a title="{l_partyhouz_delete_image}"
+                                                        href="javascript:edit_delete_image({image_id})"><img class="png"
+                                                            src="{url_tmpl_main}images/music/ico_delete.png" width="15"
+                                                            height="17" alt="" /></a></div>
+                                            </div>
+                                            <!-- end_image -->
+
+                                            <div class="justify"></div>
+                                        </div>
+                                        <!-- end_edit_images -->
+
+                                        <div class="line_dashed"></div>
+
+                                        <div class="fl_right" style="position:relative; margin: 0 0 15px; width: 100%;">
+                                            <!-- begin_edit_private_button -->
+                                            <a href="#null" onclick="form_submit(); return false;"
+                                                class="btn round blue fl_right">
+                                                <img class="btn_arrows_top"
+                                                    src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8"
+                                                    alt="" />{l_save_entry}&nbsp;
+                                                <img class="btn_arrows_right"
+                                                    src="{url_tmpl_main}images/btn_arrows_right.png" width="10"
+                                                    height="5" alt="" />
+                                            </a>
+                                            <!-- end_edit_private_button -->
+                                            <!-- begin_create_private_button -->
+                                            <a href="#null" onclick="form_submit(); return false;"
+                                                class="btn round blue fl_right">
+                                                <img class="btn_arrows_top"
+                                                    src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8"
+                                                    alt="" />{l_create_entry}&nbsp;
+                                                <img class="btn_arrows_right"
+                                                    src="{url_tmpl_main}images/btn_arrows_right.png" width="10"
+                                                    height="5" alt="" />
+                                            </a>
+                                            <a href="{url_main}partyhouz_partyhou_edit.php"
+                                                style="margin-left: 0px;">{l_create_partyhou_instead}</a>
+                                            <!-- end_create_private_button -->
+                                            <!-- begin_edit_button -->
+                                            <a style="float: left; margin-left: 0px;"
+                                                onclick="return confirm('{l_delete_confirm}')"
+                                                href="{url_main}partyhouz_partyhou_delete.php?partyhou_id={partyhou_id}">{l_partyhouz_delete}</a>
+                                            <a href="#" onclick="form_submit(); return false;"
+                                                class="btn round blue fl_right">
+                                                <img class="btn_arrows_top"
+                                                    src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9"
+                                                    height="8" alt="" />{l_partyhou_save}&nbsp;</a>
+                                            <!-- end_edit_button -->
+                                            <!-- begin_create_button -->
+                                            <a href="#" onclick="form_submit(); return false;"
+                                                class="btn round blue fl_right">
+                                                <img class="btn_arrows_top"
+                                                    src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9"
+                                                    height="8" alt="" />{l_partyhou_save}&nbsp;
+                                            </a>
+                                            <a href="{url_main}partyhouz_partyhou_edit.php?partyhou_private=1"
+                                                style="margin-left: 0px;">{l_create_entry_instead}</a>
+                                            <!-- end_create_button -->
+                                            <img style="visibility:hidden; margin: 1px 5px 0 0; float:right;"
+                                                id="load_animation_submit"
+                                                src="{url_tmpl_main}images/load_animation.gif">
+
+                                        </div>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <th class="th_b_l nb">&nbsp;</th>
+                                <th class="th_b_c nb">&nbsp;</th>
+                                <th class="th_b_r nb">&nbsp;</th>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </form>
+
+            </td>
+            <!-- /td_main -->
+
+            <td class="td_narrow">
+
+                {partyhouz_sidebar}
+
+
+        </tr>
+
+    </table>
+
+    <div class="foot_left"></div>
+    <div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+</div>
+
+
+{footer}

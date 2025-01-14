@@ -1,0 +1,26 @@
+* html .png , .events_new_pl_violet_img img , .events_new_pl_violet2 , .events_new_delete img , .list_bg_violet , .events_new_shadow img ,.div.new_mode_bl_dpink_delete img,div.decor_l img,div.decor_r img,.events_new h1.bg span a img, .events_new_popup_c ,div.pl_violet,.events_new td .events_new_tb_sub td.first .new_mode_bl_dpink_delete_foto img { _behavior: url("./_frameworks/main/mixer/css/iepngfix.htc");}
+.events_new td .events_new_tb_sub td.first img{ width: 40px !important; }
+.events_new td .events_new_tb_sub_r td{ height: 22px; padding: 3px 0 0; vertical-align: top; }
+.events_new td .events_new_tb_sub_r td{ height: 19px; }
+.events_new td .events_new_tb_sub th.th_t_c{ height: 16px; padding: 4px 0 0; }
+.events_new_foto ul{ _padding: 0 0 0 95px; }
+.events_new_w3{ _margin: 0 -10px 20px 5px; }
+* html .events_new_head td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/head_l.png', sizingMethod='crop'); }
+* html .events_new_head td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/head_r.png', sizingMethod='crop'); }
+* html .events_new td .events_new_tb_sub th.th_t_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/tb_sub_head_l.png', sizingMethod='crop'); }
+* html .events_new td .events_new_tb_sub th.th_t_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/tb_sub_head_r.png', sizingMethod='crop'); }
+* html .events_new td .events_new_tb_sub th.th_b_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/tb_sub_foot_l.png', sizingMethod='crop'); }
+* html .events_new td .events_new_tb_sub th.th_b_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/tb_sub_foot_r.png', sizingMethod='crop'); }
+* html .events_new_foot td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/foot_l.png', sizingMethod='crop'); }
+* html .events_new_foot td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/foot_r.png', sizingMethod='crop'); }
+* html .events_new h1.bg span {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/pl_violet_title.png', sizingMethod='crop'); }
+* html .events_new_pl_violet_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/pl_violet_l.png', sizingMethod='crop'); }
+* html .events_new_pl_violet_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/pl_violet_r.png', sizingMethod='crop'); }
+* html .list_bg_violet2  {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/list_bg_violet2.png', sizingMethod='crop'); }
+* html .new_mode_bl_dpink_top {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/bl_dpink_top.png', sizingMethod='crop'); }
+* html .new_mode_bl_dpink_bot {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/bl_dpink_bot.png', sizingMethod='crop'); }
+* html .events_new_come_decor {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/foto_decor.png', sizingMethod='crop'); }
+* html .events_new_popup_top {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/popup_top.png', sizingMethod='crop'); }
+* html .events_new_popup_bot {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/mixer/images/events/popup_bot.png', sizingMethod='crop'); }
+* html .events_new_popup_c {zoom:1;left:11px;}
+* html .events_new_popup_frm {position:relative;left:-11px;}

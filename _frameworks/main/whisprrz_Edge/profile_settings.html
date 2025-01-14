@@ -1,0 +1,1429 @@
+{header}
+<!-- <link rel="stylesheet" href="{url_tmpl_main}css/partyhouz.css{cache_version_param}" type="text/css" media="screen"> -->
+
+<div id="oryx_content" style="margin-top: -17px;">
+
+{ims}
+{complite}
+<div class="column_main frame_content">
+	{profile_menu}
+
+	<div class="cl"></div>
+	<div align="center" class="contentpad content_bgrnd">
+		<div class="fullprof">
+
+
+			<style>
+				.dropbtn {
+					background-color: #3498DB;
+					color: white;
+					padding: 16px;
+					font-size: 16px;
+					border: none;
+					cursor: pointer;
+				}
+
+				.dropbtn:hover,
+				.dropbtn:focus {
+					background-color: #2980B9;
+				}
+
+				.dropbtn:hover,
+				.dropbtn:focus {
+					background-color: #e0e0e0;
+				}
+
+				.dropbtn {
+					background-color: #3498db00;
+					color: #000;
+					padding: 6px;
+					font-size: 12px;
+					border: none;
+					cursor: pointer;
+				}
+
+
+				.dropdown {
+					position: relative;
+					display: inline-block;
+					width: 100%;
+				}
+
+				.dropdown-content {
+					display: none;
+					position: relative;
+					background-color: #f1f1f1;
+					min-width: 160px;
+					width: 100%;
+/*					overflow: auto;*/
+					box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+					z-index: 1;
+				}
+
+				.dropdown-content a {
+					color: black;
+					padding: 12px 16px;
+					text-decoration: none;
+					display: block;
+				}
+
+				.dropdown-content.show {
+					opacity: 1;
+				}
+
+				.dropdown a:hover {
+					background-color: #ddd;
+				}
+
+				.show {
+					display: block;
+				}
+
+				.switch {
+					height: 20.75px;
+					width: 58.5px;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin-top: -10.375px;
+					margin-left: -29.25px;
+					-moz-border-radius: 10px;
+					-webkit-border-radius: 10px;
+					border-radius: 10px;
+					background-color: #d1d1d1;
+					*zoom: 1;
+					filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFD1D1D1', endColorstr='#FFFEFBF7');
+					background-image: -moz-linear-gradient(top, #d1d1d1 0%, #fefbf7 100%);
+					background-image: -webkit-linear-gradient(top, #d1d1d1 0%, #fefbf7 100%);
+					background-image: linear-gradient(to bottom, #d1d1d1 0%, #fefbf7 100%);
+				}
+
+				.switch:after {
+					height: 17.5px;
+					width: 55px;
+					position: absolute;
+					top: 1.75px;
+					left: 1.75px;
+					content: '';
+					z-index: 2;
+					-moz-border-radius: 10px;
+					-webkit-border-radius: 10px;
+					border-radius: 10px;
+					background-color: #a5a5a5;
+					*zoom: 1;
+					filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFA5A5A5', endColorstr='#FFE8D7BE');
+					background-image: -moz-linear-gradient(top, #a5a5a5 0%, #e8d7be 100%);
+					background-image: -webkit-linear-gradient(top, #a5a5a5 0%, #e8d7be 100%);
+					background-image: linear-gradient(to bottom, #a5a5a5 0%, #e8d7be 100%);
+				}
+
+				.checkbox {
+					height: 15px;
+					width: 52.5px;
+					position: absolute;
+					top: -8px;
+					left: 3px;
+					z-index: 10000;
+					-moz-border-radius: 8.75px;
+					-webkit-border-radius: 8.75px;
+					border-radius: 8.75px;
+					-moz-box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.53), inset 0 -3px 3px rgba(0, 0, 0, 0.14);
+					-webkit-box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.53), inset 0 -3px 3px rgba(0, 0, 0, 0.14);
+					box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.53), inset 0 -3px 3px rgba(0, 0, 0, 0.14);
+					background-color: #f28a00;
+					*zoom: 1;
+					filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFF28A00', endColorstr='#FFD86517');
+					background-image: -moz-linear-gradient(top, #f28a00 0%, #e65300 67%, #d86517 100%);
+					background-image: -webkit-linear-gradient(top, #f28a00 0%, #e65300 67%, #d86517 100%);
+					background-image: linear-gradient(to bottom, #f28a00 0%, #e65300 67%, #d86517 100%);
+				}
+
+				.checkbox:after {
+					height: 15px;
+					width: 29.25px;
+					position: absolute;
+					top: 0;
+					left: 0;
+					content: '';
+					z-index: 9999;
+					-moz-border-radius: 8.75px 0 0 8.75px;
+					-webkit-border-radius: 8.75px;
+					border-radius: 8.75px 0 0 8.75px;
+					-moz-box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.53), inset 0 -3px 3px rgba(0, 0, 0, 0.14);
+					-webkit-box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.53), inset 0 -3px 3px rgba(0, 0, 0, 0.14);
+					box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.53), inset 0 -3px 3px rgba(0, 0, 0, 0.14);
+					background-color: #b1dd00;
+					*zoom: 1;
+					filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFB1DD00', endColorstr='#FF84AD00');
+					background-image: -moz-linear-gradient(top, #b1dd00 0%, #7eaf00 67%, #84ad00 100%);
+					background-image: -webkit-linear-gradient(top, #b1dd00 0%, #7eaf00 67%, #84ad00 100%);
+					background-image: linear-gradient(to bottom, #b1dd00 0%, #7eaf00 67%, #84ad00 100%);
+				}
+
+				.control {
+					height: 18.25px;
+					width: 34.5px;
+					outline: 0;
+					position: absolute;
+					top: 1.5px;
+					left: 1.5px;
+					z-index: 10001;
+					-webkit-appearance: none;
+					-moz-border-radius: 17.25px;
+					-webkit-border-radius: 17.25px;
+					border-radius: 17.25px;
+					-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.55), inset 0 2px 0 #fafafa, inset 0 -2px 0 #ada39d;
+					-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.55), inset 0 2px 0 #fafafa, inset 0 -2px 0 #ada39d;
+					box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.55), inset 0 2px 0 #fafafa, inset 0 -2px 0 #ada39d;
+					background-color: #efefef;
+					*zoom: 1;
+					filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFEFEFEF', endColorstr='#FFBCB9B8');
+					background-image: -moz-linear-gradient(top, #efefef 32%, #bcb9b8 100%);
+					background-image: -webkit-linear-gradient(top, #efefef 32%, #bcb9b8 100%);
+					background-image: linear-gradient(to bottom, #efefef 32%, #bcb9b8 100%);
+					-moz-transition: all 0.2s ease-in-out;
+					-o-transition: all 0.2s ease-in-out;
+					-webkit-transition: all 0.2s ease-in-out;
+					transition: all 0.2s ease-in-out;
+				}
+
+				.control:checked {
+					left: 23px;
+				}
+
+				.control:after {
+					height: 10px;
+					width: 10px;
+					position: absolute;
+					right: 3px;
+					top: 3px;
+					content: '';
+					z-index: 10001;
+					-moz-border-radius: 50%;
+					-webkit-border-radius: 50%;
+					border-radius: 50%;
+					background-color: #c2c0be;
+					*zoom: 1;
+					filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFC2C0BE', endColorstr='#FFD7D7D7');
+					background-image: -moz-linear-gradient(top, #c2c0be 0%, #d7d7d7 72%);
+					background-image: -webkit-linear-gradient(top, #c2c0be 0%, #d7d7d7 72%);
+					background-image: linear-gradient(to bottom, #c2c0be 0%, #d7d7d7 72%);
+				}
+				button.checkmark{display: none;}
+				#carriers_options_wrapper::before{
+				    content: " @ ";
+				    position: absolute;
+				    width: 50px;
+				    left: -26px;
+				    bottom: 32px;
+				    font-size: 18px;
+				}
+				.custom-swal2-input {
+					box-sizing: border-box;
+					width: 95%;
+					transition: border-color .1s, box-shadow .1s;
+					border: 1px solid #d9d9d9;
+					border-radius: .1875em;
+					background: rgba(255, 255, 255, 1);
+					box-shadow: inset 0 1px 1px rgba(0, 0, 0, .06), 0 0 0 3px rgba(0, 0, 0, 0);
+					color: inherit;
+					font-size: 1.125em;
+					height: 2.625em;
+					padding: 0 .75em;
+					margin: 0.5em 0em 3px;
+				}
+
+				input[type="file"]:focus,
+				input[type="radio"]:focus,
+				input[type="checkbox"]:focus {
+				outline: thin dotted;
+				outline: 0px auto -webkit-focus-ring-color;
+				outline-offset: 0px;
+				}
+			</style>
+
+			<script>
+
+
+
+				function dropdown_click(button) {
+					var dropdown = button.parentNode;
+					var dropdownContent = button.nextElementSibling;
+					dropdownContent.classList.toggle("show");
+				}
+
+				document.addEventListener("click", function (event) {
+					// var dropdowns = document.getElementsByClassName("dropdown");
+
+					// for (var i = 0; i < dropdowns.length; i++) {
+					// 	var dropdown = dropdowns[i];
+
+					// 	if (!dropdown.contains(event.target)) {
+
+					// 		var dropdownContent1 = dropdown.querySelector('.dropdown-content');
+					// 		if(dropdownContent1)
+					// 		dropdownContent1.classList.remove("show");
+					// 	}
+					// }
+				});
+
+				var url = window.location.href;
+
+				// Get the anchor ID from the URL
+				var anchorId = url.split('#')[1];
+
+				// Wait for the page to finish loading
+				window.addEventListener('load', function() {
+				  // Use the variable in document.getElementById after the page has loaded
+				  var anchorElement = document.getElementById(anchorId);
+				   // Scroll to the anchor element
+				  anchorElement.scrollIntoView();
+				  anchorElement.querySelector('.dropdown-content').classList.add('show');
+
+				});
+				// Get the URL parameters
+				
+
+			</script>
+
+			<script Language="JavaScript" type="text/javascript">
+
+				var blockSubmission = false;
+				function removeSubmissionBlock() {
+					blockSubmission = false;
+				}
+				function isSubmissionAllowed() {
+					if (blockSubmission) {
+						return false;
+					}
+					return;
+				}
+				document.onclick = isSubmissionAllowed;
+				document.onkeydown = isSubmissionAllowed;
+				function onValidatePersonalForm() {
+					var form = document.forms['PersonalForm'];
+					return true;
+				}
+				function validatePersonalForm() {
+					blockSubmission = true;
+					if (typeof beforePersonalFormValidation != 'undefined') {
+						beforePersonalFormValidation();
+					}
+					var validated = onValidatePersonalForm();
+					if (validated && (typeof uponSuccessfulPersonalFormValidation != 'undefined')) {
+						validated = uponSuccessfulPersonalFormValidation();
+					}
+					else if (!validated && (typeof uponUnsuccessfulPersonalFormValidation != 'undefined')) {
+						uponUnsuccessfulPersonalFormValidation();
+					}
+					if (!validated) {
+						removeSubmissionBlock();
+					}
+					return validated;
+				}
+
+				function submitPersonalForm() {
+						$("#personalForm").find('input[type=checkbox]:not([name="invited_user_ids[]"])').each(function () {
+							var checkboxName = $(this).attr('name'); // Get the name of the checkbox
+							if (checkboxName.indexOf('set_my_presence') !== -1 || checkboxName.indexOf('set_profile_visitor') !== -1) {
+								$(this).attr('value', $(this).is(':checked') ? '2' : '1');
+							} else {
+								$(this).attr('value', $(this).is(':checked') ? '1' : '2');
+							}
+							$(this).prop('checked', true);
+
+							$(this).attr('checked', 'checked');
+
+							// console.log(checkboxName, $(this).val());
+						});
+					if (validatePersonalForm()) document.PersonalForm.submit();
+				}
+
+				function toggle_dropdown() {
+					var panel = document.getElementsByClassName("accordion");
+					for (var i = 0; i < panel.length; i++) {
+						if (panel[i].style.display === "block") {
+							panel[i].style.display = "none";
+						} else {
+							panel[i].style.display = "block";
+						}
+					}
+				}
+			</script>
+			<form class="" id="personalForm" name="PersonalForm" method="POST"
+				action="{url_main}profile_settings.php?cmd=mail" style="padding: 0px; margin: 0px;">
+				<h2 align="left" class="txt_lower_header_color">
+					<img src="{url_tmpl_main}img/pers_set.png" alt="" width="30" height="30" /> {l_personal_settings}
+				</h2>
+				<div>
+					<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tbl_settings">
+						<!-- begin_field -->
+						<!-- begin_field_text -->
+
+						<tr>
+							<td width="451" class="list_view1" style="" align="left">
+								{label}
+							</td>
+						</tr>
+
+						<!-- end_field_text -->
+						<!-- begin_field_select -->
+						<tr>
+							<td width="451" class="list_view1" style="" align="left">
+								{label}
+							</td>
+							<td class="list_view1" align="center" colspan=2>
+								<select name="{name_select}" style="width: 150px;">
+									<!-- begin_field_select_item -->
+
+									<option {selected} value="{value}">{title}</option>
+									<!-- end_field_select_item -->
+								</select>
+							</td>
+						</tr>
+						<!-- end_field_select -->
+
+						<!-- begin_field_radio -->
+						<tr>
+							<td width="451" class="list_view2" align="left">{label}</td>
+							<td align="center" colspan=2 class="list_view2">
+								<table cellpadding="0" cellspacing="0" border="0" height="14">
+									<tr>
+										<!-- begin_field_radio_item -->
+										<td width="10" style="padding: 0;"><input type="radio" name="{name_radio}"
+												id="radio_{name_radio}_{value}"
+												style="margin: 1px 5px 0; width:13px; height:13px; cursor: pointer;"
+												value="{value}" {checked}>
+										</td>
+										<td width="14" class="body_little" style="cursor: pointer;">{title}</td>
+										<!-- end_field_radio_item -->
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- end_field_radio -->
+
+
+						<!-- begin_field_slider -->
+						<tr>
+							<td width="451" class="list_view2" align="left">{label}</td>
+							<td align="center" colspan=2 class="list_view2" style="position: relative;">
+								<div style="position: absolute; right: 25%; top: 30%;">
+									<div class="switch">
+										<input type="checkbox" id="{name}" class="control" name="{name}" {checked}>
+										<label for="{name}"  class="checkbox"></label>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<!-- end_field_slider -->
+
+
+						<!-- begin_field_dropdown -->
+						<tr>
+							<td colspan="2">
+								<div class="dropdown" id="{anchor_id}">
+									<div onclick="dropdown_click(this)" class="dropbtn" style="position: relative;">
+										{title}
+										<div
+											style="position: absolute; right: 2.7%; top: 50%; transform: translateY(-50%);">
+											------- -> click here
+										</div>
+									</div>
+									<div class="dropdown-content">
+										<!-- begin_field_dropdown_item -->
+										<a>
+											<div style="position: relative;">
+												<div class="list_view2" aria-live="left">
+													{label}
+												</div>
+												<div style="position: absolute; right: 2.7%; top: 50%;">
+													<div class="switch">
+														<input type="checkbox" id="{name}" class="control" name="{name}" {checked}>
+														<label for="{name}"  class="checkbox"></label>
+														</div>
+												</div>
+											</div>
+										</a>
+										<!-- end_field_dropdown_item -->
+									</div>
+								</div>
+							</td>
+						</tr>
+						<!-- end_field_dropdown -->
+
+						<!-- begin_field_dropdown_see_calendar -->
+						<tr>
+							<td colspan="2">
+								<div class="dropdown" id="{anchor_id}">
+									<div onclick="dropdown_click(this)" class="dropbtn" style="position: relative;">
+										{title}
+										<div
+											style="position: absolute; right: 2.7%; top: 50%; transform: translateY(-50%);">
+											------- -> click here
+										</div>
+									</div>
+									<div class="dropdown-content">
+										<!-- begin_field_dropdown_item_calendar -->
+										<a>
+											<div style="position: relative;">
+												<div class="list_view2" aria-live="left">
+													{label}
+												</div>
+												<div style="position: absolute; right: 2.7%; top: 50%;">
+													<div class="switch">
+														<input type="checkbox" id="{name}" class="control" name="{name}" {checked}>
+														<label for="{name}"  class="checkbox"></label>
+														</div>
+												</div>
+											</div>
+										</a>
+										<!-- end_field_dropdown_item_calendar -->
+
+										<script>
+											$(function () {
+												var invitees = [];
+												if('{invitees}') {
+													var inviteesString = '{invitees}';
+													invitees = JSON.parse(inviteesString);
+													setInvitees(invitees);
+												}
+
+							                	$('#personalForm').on('keypress', function(e) {
+												    if (e.which === 13) {
+												      e.preventDefault();
+												    }
+												  });
+
+							                	 $("input[name='search_invite_users']").keydown(function (event) {
+							                        $("#search_key_error").hide();
+							                        if (event.keyCode === 13) {
+							                            if ($(this).val().length < 3) {
+							                                $("#search_key_error").show();
+							                            } else {
+							                                var request_data = {
+							                                    user_id: user_id,
+							                                    search_type: $("input[name='invite_type_item']:checked").val() || 1,
+							                                    search_key: $(this).val(),
+							                                };
+							                                $.ajax({
+							                                    url: "{url_main}search_invitees_list.php",
+							                                    dataType: 'json',
+							                                    data: request_data,
+							                                    type: 'post',
+							                                    success: function (response) {
+							                                        setInvitees(response.users);
+							                                    },
+							                                    error: function () {
+							                                        console.log("error");
+							                                    }
+							                                });
+							                            }
+							                        }
+							                    });
+
+							                    $('input[name="search_invite_users"]').autocomplete({
+							                        source: function (request, response) {
+							                            var request_data = {
+							                                q: request.term,
+							                                type: $('input[name="invite_type_item"]:checked').val() || 1,
+							                                user_id: user_id
+							                            };
+							                            $.ajax({
+							                                url: "{url_main}users_autocomplete_ajax.php",
+							                                dataType: "json",
+							                                data: request_data,
+							                                type: "POST",
+							                                beforeSend: function () {
+							                                },
+							                                success: function (data) {
+							                                    response(data);
+							                                }
+							                            });
+							                        },
+							                    });
+
+							                    $(document).on('change', 'input[name="invited_user_ids[]"]:not(:checked)', function () {
+							                        removeInvitee($(this).val());
+							                    });
+							                    
+
+							                    function setInvitees(new_invitees) {
+							                        new_invitees.forEach(new_invitee => {
+							                            let is_exist = false;
+							                            invitees.forEach(invitee => {
+							                                if (invitee.user_id == new_invitee.user_id) {
+							                                    is_exist = true;
+							                                }
+							                            })
+							                            if (!is_exist) {
+							                                invitees.push(new_invitee);
+							                            }
+							                        });
+
+							                        $("#invitee_list").empty();
+							                        invitees.forEach(invitee => {
+							                            $('<div style="display:flex; flex-direction:column; justify-content:start; gap: 10px; align-items:center"></div>').append(
+							                                $('<img class="violet" width="62px" height="70px"/>').attr("src", "./_files/" + invitee.user_photo)
+							                            ).append(
+							                                $('<div style="display: flex; justify-content: start; align-items: center; gap:10px;"></div>').append($("<div></div>").attr("title", invitee.user_name).append($("<span class='invitee_username' style='margin: 0'></span>").text(invitee.user_name)))
+							                                .append($('<div class="switch1" style="position:sticky; margin-left: 0;"></div>').append($('<input type="checkbox" class="control1" name="invited_user_ids[]" checked/>').val(invitee.user_id))
+							                                    .append($('<label for="control1" class="checkbox1"></label>'))))
+							                            .appendTo($("#invitee_list"));
+							                        })
+							                    }
+
+							                    function removeInvitee(id) {
+							                        invitees.forEach((invitee, index) => {
+							                            if (invitee.user_id == id) {
+							                                invitees.splice(index, 1);
+							                            }
+							                        })
+							                        $("#invitee_list").empty();
+							                        invitees.forEach(invitee => {
+							                            $('<div style="display:flex; flex-direction:column; justify-content:start; gap: 10px; align-items:center"></div>').append(
+							                                $('<img class="violet" width="62px" height="70px"/>').attr("src", "./_files/" + invitee.user_photo)
+							                            ).append(
+							                                $('<div style="display: flex; justify-content: start; align-items: center; gap:10px;"></div>').append($("<div></div>").attr("title", invitee.user_name).append($("<span class='invitee_username' style='margin: 0'></span>").text(invitee.user_name)))
+							                                .append($('<div class="switch1" style="position:sticky; margin-left: 0;"></div>').append($('<input type="checkbox" class="control1" name="invited_user_ids[]" checked/>').val(invitee.user_id))
+							                                    .append($('<label for="control1" class="checkbox1"></label>'))))
+							                            .appendTo($("#invitee_list"));
+							                        })
+							                    }
+							                })
+										</script>
+
+										<div style="width: 100%; margin-top: 15px;">
+                                            <div style="width: 100%;">
+                                                <p style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 6px 0px;">
+                                                    Search User to post on calendar</p>
+                                                <div class="search-box">
+                                                    <input class="party-name-input" type="text" style="margin: 0 20px; width: 80%; border-radius: 10px;" name="search_invite_users"
+                                                        placeholder="Type Here Search......">
+                                                </div>
+                                                <span id="search_key_error" style="display: none; color: red; font-size: 0.8em;">Please
+                                                    input more than 3 characters</span>
+                                            </div>
+                                            <div style="width: 100%;">
+                                                <p
+                                                    style="width: 100%; text-align: center; font-size: 13px; font-weight: 700; margin: 30px 0px; ">
+                                                    User list who can post to your calendar</p>
+                                            </div>
+                                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; margin: 5px 0px;"
+                                                id="invitee_list">
+                                            </div>
+                                        </div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<!-- end_field_dropdown_see_calendar -->
+
+						<!-- begin_field_multi_dropdown -->
+						<tr>
+							<td colspan="2">
+								<div class="dropdown">
+									<div onclick="dropdown_click(this)" class="dropbtn" style="position: relative;">
+										{title}
+										<div
+											style="position: absolute; right: 2.7%; top: 50%; transform: translateY(-50%);">
+											------- -> click here
+										</div>
+									</div>
+									<div class="dropdown-content">
+
+										<!-- begin_field_multi_dropdown_item -->
+										<a>
+											<div style="border: #000 1px;">
+												<div class="multi-itemtitle" style="font-size: 16px;">
+													{items_title}
+												</div>
+												<div class="multi-items">
+													<!-- begin_field_single_dropdown_item -->
+													<div style="position: relative; margin-top: 20px">
+														<div class="list_view2" aria-live="left">
+															{label}
+														</div>
+														<div style="position: absolute; right: 2.7%; top: 50%;">
+															<div class="switch">
+																<input type="checkbox" id="{name}" class="control" name="{name}"
+																	{checked}>
+																	<label for="{name}"  class="checkbox"></label>
+																	</div>
+														</div>
+													</div>
+													<!-- end_field_single_dropdown_item -->
+												</div>
+											</div>
+
+										</a>
+										<!-- end_field_multi_dropdown_item -->
+
+									</div>
+								</div>
+							</td>
+
+						</tr>
+
+						<!-- end_field_multi_dropdown -->
+
+
+
+						<!-- end_field -->
+
+						<!-- begin_timezone -->
+						<tr>
+							<td width="451" class="list_view1" style="" align="left">
+								{l_choose_timezone}
+
+								<!-- begin_info_timezone -->
+								<script type="text/javascript">
+									$('#timezone').change(function () {
+										var zone = $(this).val();
+										$.post('{url_administration}ajax.php', { cmd: 'timezone', zone: zone }, function (data) {
+											$('#info_timezone').html(data);
+										});
+									});
+								</script>
+								<div id="info_timezone" style="margin-left: 2px;">{info_timezone}</div>
+								<!-- end_info_timezone -->
+							</td>
+							<td class="list_view1" align="center" colspan=2>
+								<select id="timezone" class="styler_settings" style="width:150px;"
+									name="timezone">{selectbox_options}</select>
+							</td>
+						</tr>
+						<!-- end_timezone -->
+
+					</table>
+				</div>
+				<div align="right" style="padding-top: 5px; padding-bottom: 20px;">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td>
+								<div class="button_border_2"><input type="button" value="{l_update_settings}"
+										onClick="submitPersonalForm();" class="btn lower_header_color big"
+										title="{l_update_settings}"
+										onMouseOver="window.status='{l_update_settings}'; return true;"
+										onMouseOut="window.status=''; return true;"></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+
+			<form id="sms_alert_setting_form" class="" name="UpdatePhoneForm" method="POST"
+				action="{url_main}profile_settings.php?cmd=phone" onSubmit="return validateUpdatePhoneForm();"
+				style="padding: 0px; margin: 0px; display: none;">
+				<div>
+					<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tbl_settings">
+						<tr>
+							<td width="351">{l_set_sms_alert_label}</td>
+							<td style="position: relative; text-align: right;">
+								<div style="position: absolute; right: 21%; top: 30%;">
+									<div class="switch">
+										<input type="checkbox" class="control" name="set_sms_alert" id="set_sms_alert"
+											{sms_alert_checked}>
+											<label for="set_sms_alert"  class="checkbox"></label>
+											</div>
+								</div>
+								<script type="text/javascript">
+									$(document).ready(function () {
+										$("#set_sms_alert").click(function () {
+											if ($(this).is(":checked")) {
+												$("#sms_options_row").show();
+											} else {
+												$("#sms_options_row").hide();
+											}
+										});
+
+										if ($("#set_sms_alert").is(":checked")) {
+											$("#sms_options_row").show();
+										} else {
+											$("#sms_options_row").hide();
+										}
+									});
+								</script>
+							</td>
+						</tr>
+						<tr id="sms_options_row">
+							<td colspan="2" style="padding-right: 0;">
+								<div onclick="dropdown_click(this)" class="dropbtn" style="position: relative;">
+									<b>{l_sms_alert_title}</b>
+									<div
+										style="position: absolute; right: 2.7%; top: 50%; transform: translateY(-50%);">
+										------- -> click here
+									</div>
+								</div>
+								<div class="dropdown-content">
+									<h2 class="txt_lower_header_color" style="padding: 15px 15px 0 15px;">
+										<img src="{url_tmpl_main}img/ch_pass.png" alt="" width="30" height="30" />
+										{l_change_phone}
+									</h2>
+									<a>
+										<div style="position: relative;">
+											<div class="list_view2" aria-live="left">
+												{l_set_sms_alert_mi_label}
+											</div>
+											<div style="position: absolute; right: 5%; top: 50%;">
+												<div class="switch">
+													<input type="checkbox" id="sms_alert_mi" class="control" name="set_sms_alert_mi"
+														{sms_alert_mi_checked}>
+														<label for="sms_alert_mi"  class="checkbox"></label>
+												</div>
+											</div>
+										</div>
+									</a>
+									<a>
+										<div style="position: relative;">
+											<div class="list_view2" aria-live="left">
+												{l_set_sms_alert_hot_dates_label}
+											</div>
+											<div style="position: absolute; right: 5%; top: 50%;">
+												<div class="switch">
+													<input type="checkbox" id="sms_alert_hotdates" class="control" name="set_sms_alert_hd"
+														{sms_alert_hd_checked}>
+														<label for="sms_alert_hotdates"  class="checkbox"></label>
+												</div>
+											</div>
+										</div>
+									</a>
+									<a>
+										<div style="position: relative;">
+											<div class="list_view2" aria-live="left">
+												{l_set_sms_alert_partyhouz_invite_label}
+											</div>
+											<div style="position: absolute; right: 5%; top: 50%;">
+												<div class="switch">
+													<input type="checkbox" id="sms_alert_partyhouz" class="control" name="set_sms_alert_pi"
+														{sms_alert_pi_checked}>
+														<label for="sms_alert_partyhouz"  class="checkbox"></label>
+												</div>
+											</div>
+										</div>
+									</a>
+									<a>
+										<div style="position: relative;">
+											<div class="list_view2" aria-live="left">
+												{l_set_sms_alert_received_mail_label}
+											</div>
+											<div style="position: absolute; right: 5%; top: 50%;">
+												<div class="switch">
+													<input type="checkbox" id="sms_alert_received" class="control" name="set_sms_alert_rm"
+														{sms_alert_rm_checked}>
+														<label for="sms_alert_received"  class="checkbox"></label>
+												</div>
+											</div>
+										</div>
+									</a>
+									<a>
+										<div style="position: relative;">
+											<div class="list_view2" aria-live="left">
+												{l_set_sms_alert_wall_message_label}
+											</div>
+											<div style="position: absolute; right: 5%; top: 50%;">
+												<div class="switch">
+													<input type="checkbox" id="sms_alert_wall" class="control" name="set_sms_alert_wm"
+														{sms_alert_wm_checked}>
+														<label for="sms_alert_wall"  class="checkbox"></label>
+												</div>
+											</div>
+										</div>
+									</a>
+
+									<a>
+										<div style="position: relative;">
+											<div class="list_view2" aria-live="left">
+												{l_set_sms_alert_ehp_message_label}
+											</div>
+											<div style="position: absolute; right: 5%; top: 50%;">
+												<div class="switch">
+													<input type="checkbox" id="sms_alert_ehp" class="control" name="set_sms_alert_ehp"
+														{sms_alert_ehp_checked}>
+														<label for="sms_alert_wall"  class="checkbox"></label>
+												</div>
+											</div>
+										</div>
+									</a>
+									<a>
+										<div style="position: relative;">
+											<div class="list_view2" aria-live="left">
+												{l_set_sms_alert_partyhouz_advance_label}
+											</div>
+											<div style="position: absolute; right: 5%; top: 50%;">
+												<div class="switch">
+													<input type="checkbox" id="sms_alert" class="control" name="set_sms_alert_pa"
+														{sms_alert_pa_checked}>
+														<label for="sms_alert"  class="checkbox"></label>
+												</div>
+											</div>
+										</div>
+									</a>
+									<a>
+										<div style="position: relative;">
+											<div class="list_view2" aria-live="left">
+												Alert Template 
+											</div>
+											<div style="position: absolute; right: 5%; top: 50%;">
+												<div class="switch">
+													<input type="checkbox" id="alert_template" class="control" name="alert name in db">
+													<label for="alert_template"  class="checkbox"></label>
+													</div>
+											</div>
+										</div>
+									</a>
+									<a>
+										<div style="position: relative; height: 121px;" >
+											<div class="list_view2" aria-live="left">
+												<div style="width: 250px;">
+												<b>{l_to_change_phone}</b>
+												<div style="margin: 2px 0;">{l_phone_number_info}&nbsp;</div>
+												<input style="margin-top: 5px; width: 80%;" type="text" name="my_phone"
+													id="my_phone" value="{my_phone}" size="22" class="custom-swal2-input">
+												</div>
+											</div>
+
+											<div id="carriers_options_wrapper"
+												style="position: absolute; right: -19px; top: 52%; transform: translateY(-50%); width: 275px;">
+												<b>{l_choose_mobile_carrier}</b>
+												<div style="margin: 2px 0;">
+													{l_info_mobile_carrier}</div>
+												<select id="carriers_options" class="styler_settings custom-swal2-input"
+													style="width:180px;" name="carrier">{carriers_options}</select>
+
+												<button type="button" id="verifyPhone"
+													class="{is_verified_phone} {codesent} btn green">{l_verify_code}</button>
+
+												<input type="hidden" name="is_phone_verified" id="is_phone_verified"
+													value="{is_verified_c_provider}">
+												<script type="text/javascript">
+													$(document).ready(function () {
+														$("#verifyPhone").click(function () {
+															if ($(this).hasClass("check") && !$(this).hasClass("codesent")) {
+																sendcodeonphone();
+															} else if ($(this).hasClass("codesent")) {
+																openCodeVerifyPopup();
+															}
+														});
+
+														if ("{admin_sms_alert}" == "1" && "{codesent}" == "codesent") {
+															$("#verifyPhone").trigger("click");
+														}
+
+
+														$("#carriers_options").change(function () {
+															if ($("#my_phone").val() == "" && $(this).val() != "") {
+																Swal.fire({
+																	icon: 'error',
+																	title: '{l_phone}',
+																	text: '{l_to_change_phone}'
+																});
+																$(this).val("");
+															} else if ($(this).val() == "other") {
+																Swal.fire({
+																	title: '{l_add_new_mobile_carrier}',
+																	html: `<input type="text" id="carrier_name" class="swal2-input" placeholder="Like: Verizon"><br>
+																	<p style="margin-top:1em;">{l_add_carrier_info}</p>
+																	<table width="450px">
+																		<tr>
+																			<td width="185px">
+																				<input type="text" id="current_phone_number" class="custom-swal2-input" value="{my_phone}" disabled="true">
+																			</td>
+																			<td width="20px" align="center" style="font-size: 30px;">
+																				@
+																			</td>
+																			<td width="245px">
+																				<input type="text" id="carrier_email" class="custom-swal2-input" placeholder="Like: vtext.com">
+																			</td>
+																		<tr>
+																	</table>`,
+																	didOpen: () => {
+																		$("#current_phone_number").val($("#my_phone").val());
+																	},
+																	confirmButtonText: 'Save',
+																	focusConfirm: false,
+																	showCancelButton: true,
+																	denyButtonText: true,
+																	preConfirm: () => {
+																		const carrier_name = Swal.getPopup().querySelector('#carrier_name').value
+																		const carrier_email = Swal.getPopup().querySelector('#carrier_email').value
+																		if (!carrier_name || !carrier_email) {
+																			Swal.showValidationMessage(`{l_enter_name_email_message}`)
+																		} else {
+																			return fetch(`{url_main}ajax_profile.php`, {
+																				method: 'POST',
+																				body: 'cmd=addcarrier&name=' + encodeURIComponent(carrier_name) + '&email=' + encodeURIComponent(carrier_email),
+																				headers: {
+																					'Content-type': 'application/x-www-form-urlencoded'
+																				}
+																			}).then(response => {
+																				if (!response.status) {
+																					throw new Error(response.statusText)
+																				}
+																				return response.json()
+																			}).catch(error => {
+																				Swal.showValidationMessage(`{l_enter_name_email_message}`)
+																			})
+																		}
+																	},
+																	allowOutsideClick: () => !Swal.isLoading()
+																}).then((result) => {
+																	if (result.isConfirmed) {
+																		if (result.value.status == "added") {
+																			$("#carriers_options").html(result.value.options);
+																		}
+																		$("#carriers_options").val(result.value.email);
+																	} else {
+																		$("#carriers_options").val('{selected_carrier_option}');
+																	}
+																})
+															} else {
+																checkvarifyicon();
+															}
+														});
+
+														$("#my_phone").change(function () {
+															checkvarifyicon();
+														});
+													});
+
+													function checkvarifyicon() {
+														if ('{selected_carrier_option}' != $('#carriers_options').val() || '{nsc_phone}' != $("#my_phone").val()) {
+															$("#is_phone_verified").val('0');
+															$("#verifyPhone").addClass('check');
+															$("#verifyPhone").show();
+														} else if ('{selected_carrier_option}' == $('#carriers_options').val() && '{nsc_phone}' == $("#my_phone").val()) {
+															$("#is_phone_verified").val('1');
+															$("#verifyPhone").removeClass('check');
+															$("#verifyPhone").hide();
+														}
+													}
+
+													function openCodeVerifyPopup() {
+														Swal.fire({
+															title: '{l_enter_verify_code}',
+															html: `<input type="text" id="sms_code" class="swal2-input" maxlength="6" placeholder=""><input type="button" value="{l_resend_code}" id="resend_code" onclick="sendcodeonphone();" class="swal2-input">`,
+															confirmButtonText: '{l_verify}',
+															focusConfirm: false,
+															showCancelButton: true,
+															preConfirm: () => {
+																const sms_code = Swal.getPopup().querySelector('#sms_code').value
+																if (!sms_code) {
+																	Swal.showValidationMessage(`{l_enter_sms_code}`)
+																} else {
+																	return fetch(`{url_main}ajax_profile.php`, {
+																		method: 'POST',
+																		body: 'cmd=verifyphne&code=' + encodeURIComponent(sms_code),
+																		headers: {
+																			'Content-type': 'application/x-www-form-urlencoded'
+																		}
+																	}).then(response => {
+																		if (!response.status) {
+																			throw new Error(response.statusText)
+																		}
+																		return response.json()
+																	}).catch(error => {
+																		Swal.showValidationMessage(`{l_enter_sms_code}`);
+																	})
+																}
+															},
+															allowOutsideClick: () => !Swal.isLoading()
+														}).then((result) => {
+															if (result.isConfirmed) {
+																if (result.value.status == "done") {
+																	// verify phone - done
+																	$("#verifyPhone").removeClass('check');
+																	$("#verifyPhone").removeClass('codesent');
+																	$("#verifyPhone").hide();
+																	$("#is_phone_verified").val('1');
+																	Swal.fire(
+																		'{l_verify_phone}',
+																		'{l_phone_verified_done}',
+																		'success'
+																	)
+																} else {
+																	//Swal.showValidationMessage(`{l_invalid_sms_code}`);
+																	Swal.fire(
+																		'{l_there_was_an_error}',
+																		'{l_invalid_sms_code}',
+																		'error'
+																	)
+																}
+															} else {
+																// Cancel button Process
+															}
+														})
+													}
+
+													function sendcodeonphone() {
+														var phone = $("#my_phone").val();
+														var carrier = $("#carriers_options").val();
+														if (phone != "" && carrier != "") {
+															// Send code 
+															$.ajax({
+																url: '{url_main}ajax_profile.php',
+																type: 'post',
+																dataType: 'json',
+																data: { cmd: 'sendcode', phone: phone, carrier: carrier },
+																success: function (res) {
+																	if (res.status == "ok") {
+																		$("#verifyPhone").addClass('codesent');
+																		openCodeVerifyPopup();
+																	} else {
+																		Swal.fire(
+																			'{l_there_was_an_error}',
+																			'{l_valid_send_failure}',
+																			'error'
+																		)
+																	}
+																}
+															});
+														} else {
+															Swal.fire(
+																'{l_there_was_an_error}',
+																'{l_valid_phone_or_carrier}',
+																'error'
+															)
+														}
+													}
+												</script>
+											</div>
+										</div>
+									</a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align: right; padding-right: 0;">
+								<div class="button_border_2"><input type="button" id="remove_phone_info"
+										value="{l_remove_phone_info}" class="btn lower_header_color big"
+										title="{l_remove_phone_info}"></div>
+								<script type="text/javascript">
+									$(document).ready(function () {
+										$("#remove_phone_info").click(function () {
+											Swal.fire({
+												title: '{l_are_you_sure}',
+												text: "{l_you_dont_revert_back}!",
+												icon: 'warning',
+												showCancelButton: true,
+												confirmButtonColor: '#3085d6',
+												cancelButtonColor: '#d33',
+												cancelButtonText: '{l_cancel}',
+												confirmButtonText: '{l_yes_remove_it}'
+											}).then((result) => {
+												if (result.isConfirmed) {
+													$.ajax({
+														url: '{url_main}ajax_profile.php',
+														type: 'post',
+														dataType: 'json',
+														data: { cmd: 'removephone' },
+														success: function (res) {
+															if (res.status == "ok") {
+																Swal.fire({
+																	title: '{l_removed}',
+																	text: '{l_phone_info_removed}',
+																	icon: 'success',
+																	confirmButtonText: '{l_ok}'
+																});
+															} else {
+																Swal.fire({
+																	title: '{l_removed}',
+																	text: '{l_phone_info_not_removed}',
+																	icon: 'error',
+																	confirmButtonText: '{l_ok}'
+																});
+															}
+														}
+													});
+												}
+											})
+										});
+									});
+								</script>
+							</td>
+							<td style="text-align: right; padding-right: 0;">
+								<div class="button_border_2"><input type="button" value="{l_update_settings}"
+										onClick=" submitUpdatePhoneForm();" class="btn lower_header_color big"
+										title="{l_update_settings}"
+										onMouseOver="window.status='{l_update_settings}'; return true;"
+										onMouseOut="window.status=''; return true;"></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+			<script type="text/javascript">
+				if ("{admin_sms_alert}" == "") {
+					$("#sms_alert_setting_form").remove();
+				} else {
+					$("#sms_alert_setting_form").show();
+				}
+			</script>
+
+			<!--
+				<div class="keyline" style="height: 1px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td></td></tr></table></div>
+				<form  name="IMForm" method="POST" action="{url_main}profile_settings.php?cmd=im" style="padding: 0px; margin: 0px;">
+				<div align="left" class="ter_big" style="padding-top: 18px; padding-bottom: 6px;">
+					IM Settings
+				</div>
+				<div align="left">
+					<table cellpadding="0" cellspacing="0" border="0"><tr>
+						<td width="100%" align="left">
+							<div style="padding-top: 10px;">
+								<table cellpadding="0" cellspacing="0" border="0"><tr>
+									<td align="left" class="body_text" style="padding-top: 3px; padding-bottom: 2px;">
+										<b>Show new IM in:</b>
+									</td><td colspan="4" style="padding-top: 3px; padding-bottom: 2px;" align="left">
+										<select name="set_im_popup" style="width: 111px; margin-left: 5px;"><option value="N" {im_popup_off}>Message Center</option><option value="Y" {im_popup_on}>Popup Window</option></select>
+									</td>
+								</tr><tr>
+									<td align="left" class="body_text">
+										<b>Notify of missed IMs by email:</b>
+									</td>
+									<td width="20"><input type="radio" name="set_im_mail" value="Y" {im_mail_on} style="margin-left: 5px;"></td>
+									<td width="24" class="body_little">Yes</td>
+									<td width="20"><input type="radio" name="set_im_mail" value="N" {im_mail_off} style="margin-left: 5px;"></td>
+									<td width="52" class="body_little">No</td>
+								</tr><tr>
+									<td align="left" class="body_text" style="padding-top: 3px; padding-bottom: 2px;">
+									</td><td colspan="4" style="padding-top: 3px; padding-bottom: 2px;" align="left">
+									</td>
+								</tr><tr>
+									<td align="left" class="body_text" style="padding-top: 3px; padding-bottom: 2px;">
+									</td><td colspan="4" style="padding-top: 3px; padding-bottom: 2px;" align="left">
+										<table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2"><input type="submit" value="UPDATE SETTINGS" class="button_2" style="width: 127px; padding-left: 5px; padding-right: 5px; cursor: pointer; cursor: hand;" title="UPDATE SETTINGS" onMouseOver="window.status='UPDATE SETTINGS'; return true;" onMouseOut="window.status=''; return true;"></div></td></tr></table>
+										<br>
+									</td>
+								</table>
+							</div>
+						</td>
+					</tr></table>
+				</div>
+				</form>
+				<div class="keyline" style="height: 1px;"><table border="0" cellpadding="0" cellspacing="0"><tr><td></td></tr></table></div>
+				-->
+			<script Language="JavaScript" type="text/javascript">
+				function onValidateUpdatePasswordForm() {
+					var form = document.forms['UpdatePasswordForm'];
+					// "new_password" field validation.
+					if (!(validateNotTwoFields(form['new_password'], "{l_password}", form['join_handle'], 'Username'))) {
+						removeSubmissionBlock();
+						return false;
+					}
+					// "verify_new_password" field validation.
+					if (!(validateTwoFields(form['verify_new_password'], "{l_verify_password}", form['new_password'], "{l_password}"))) {
+						removeSubmissionBlock();
+						return false;
+					}
+					return true;
+				}
+				function validateUpdatePasswordForm() {
+					blockSubmission = true;
+					if (typeof beforeUpdatePasswordFormValidation != 'undefined') {
+						beforeUpdatePasswordFormValidation();
+					}
+					var validated = onValidateUpdatePasswordForm();
+					if (validated && (typeof uponSuccessfulUpdatePasswordFormValidation != 'undefined')) {
+						validated = uponSuccessfulUpdatePasswordFormValidation();
+					}
+					else if (!validated && (typeof uponUnsuccessfulUpdatePasswordFormValidation != 'undefined')) {
+						uponUnsuccessfulUpdatePasswordFormValidation();
+					}
+					if (!validated) {
+						removeSubmissionBlock();
+					}
+					return validated;
+				}
+				function submitUpdatePasswordForm() {
+					if (validateUpdatePasswordForm()) document.UpdatePasswordForm.submit();
+				}
+				function onValidateUpdatePhoneForm() {
+					var form = document.forms['UpdatePhoneForm'];
+					// "new_password" field validation.
+					if (!(validateNotTwoFields(form['my_phone'], "{l_phone}", form['join_handle'], 'Username'))) {
+						removeSubmissionBlock();
+						return false;
+					}
+					// "verify_new_password" field validation.
+					if (!(validateTwoFields(form['join_password'], "{l_join_password}", form['my_password'], "{l_password}"))) {
+						removeSubmissionBlock();
+						return false;
+					}
+					return true;
+				}
+				function validateUpdatePhoneForm() {
+					/*
+					blockSubmission = true;
+					if (typeof beforeUpdatePhoneFormValidation != 'undefined') {
+					beforeUpdatePhoneFormValidation();
+					}
+					var validated = onValidateUpdatePhoneForm();
+					if (validated && (typeof uponSuccessfulUpdatePhoneFormValidation != 'undefined')) {
+					validated = uponSuccessfulUpdatePhoneFormValidation();
+					}
+					else if (!validated && (typeof uponUnsuccessfulUpdatePhoneFormValidation != 'undefined')) {
+					uponUnsuccessfulUpdatePhoneFormValidation();
+					}
+					if (!validated) {
+					removeSubmissionBlock();
+					}
+					return validated;
+					*/
+					return true;
+				}
+				function submitUpdatePhoneForm() {
+					//if (validateUpdatePhoneForm()) document.UpdatePhoneForm.submit();
+					if ($("#my_phone").val() != "" && $("#carriers_options").val() == "") {
+						Swal.fire({
+							icon: 'error',
+							title: '{l_select_network_provider_title}',
+							text: '{l_select_network_provider_text}',
+							showConfirmButton: false,
+							timer: 2000
+						})
+						return;
+					}
+					document.UpdatePhoneForm.submit();
+				}
+			</script>
+			<form class="" name="UpdatePasswordForm" method="POST" action="{url_main}profile_settings.php?cmd=password"
+				onSubmit="return validateUpdatePasswordForm();" style="padding: 0px; margin: 0px;">
+				<input type='hidden' name='join_handle' value='pl72'>
+				<h2 align="left" class="txt_lower_header_color">
+					<img src="{url_tmpl_main}img/ch_pass.png" alt="" width="30" height="30" />
+					{l_change_password}
+				</h2>
+				<div>
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td width="312" valign="top" class="body_text" style="padding-right: 10px;" align="left">
+								{l_to_change_password}<br><br>{l_select_password}
+							</td>
+							<td width="224" valign="top" class="body_little" align="left">
+								<div style="padding-bottom: 10px;">
+									{l_enter} <b>{l_current}</b> {l_password}
+									<br>
+									<input style="margin-top: 5px;" type="password" name="old_password" size="22">
+								</div>
+								<div style="padding-bottom: 10px;">
+									{l_enter} <b>{l_new}</b> {l_password}
+									<br>
+									<input style="margin-top: 5px;" type="password" name="new_password" size="22">
+								</div>
+								<div>
+									{l_confirm} <b>{l_new}</b> {l_password}
+									<br>
+									<input style="margin-top: 5px;" type="password" name="verify_new_password"
+										size="22">
+								</div>
+								<div class="pri_little_bold">
+									{password_message}
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div align="right" style="padding-top: 20px; padding-bottom: 13px;">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td>
+								<div class="button_border_2"><input type="button" value="{l_update_settings}"
+										onClick="submitUpdatePasswordForm();" class="btn lower_header_color big"
+										title="{l_update_settings}"
+										onMouseOver="window.status='{l_update_settings}'; return true;"
+										onMouseOut="window.status=''; return true;"></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+			<!-- begin_profile_status -->
+			<h2 align="left" class="txt_lower_header_color">
+				<img src="{url_tmpl_main}img/prof_stat.png" alt="" width="30" height="30" />
+				{l_profile_status}
+			</h2>
+			<table cellpadding="0" cellspacing="0" border="0" width=100%>
+				<tr>
+					<!-- begin_hide-->
+					<td width="350" class="body_text"
+						style="padding-top: 15px; padding-bottom: 20px; padding-right: 25px;" align="left">
+						<span class="sec_med_bold">{l_hide_your_profile}</span><br>
+						{l_too_popular} <b>{l_other_members}</b> {l_30_minutes}
+					</td>
+					<td align=right>
+						<div style="width:100%; text-align:right;"><input type="button" value="{l_hide_profile}"
+								onClick=" location.href='{url_main}profile_settings.php?cmd=hide';"
+								class="btn lower_header_color big" title="{l_hide_profile}"
+								onMouseOver="window.status='{l_hide_profile}'; return true;"
+								onMouseOut="window.status=''; return true;"></div>
+					</td>
+				</tr>
+				<tr>
+					<!-- end_hide-->
+					<!-- begin_active-->
+					<td width="350" class="body_text"
+						style="padding-top: 15px; padding-bottom: 20px; padding-right: 25px;" align="left">
+						<span class="sec_med_bold">{l_active_your_profile}</span><br>
+						{l_show_yourself}
+					</td>
+					<td align=right>
+						<div style="width:100%; text-align:right;"><input type="button" value="{l_active_profile}"
+								onClick=" location.href='{url_main}profile_settings.php?cmd=active';"
+								class="btn lower_header_color big" title="{l_active_profile}"
+								onMouseOver="window.status='{l_active_profile}'; return true;"
+								onMouseOut="window.status=''; return true;"></div>
+					</td>
+				</tr>
+				<!-- end_active-->
+				<!-- begin_delete_profile -->
+				<tr>
+					<td width="350" class="body_text"
+						style="padding-top: 20px; padding-bottom: 15px; padding-right: 25px;" align="left">
+						<span class="sec_med_bold">{l_delete_your_profile}</span><br>
+						{l_we_hope}<br><br><b>{l_just_remember} {l_brand_new_profile}</b>
+					</td>
+					<td align=right>
+						<div style="width:100%; text-align:right;"><input type="button" value="{l_delete_profile}"
+								onClick=" location.href='{url_main}profile_delete.php';"
+								class="btn lower_header_color big" title="{l_delete_profile}"
+								onMouseOver="window.status='{l_delete_profile}'; return true;"
+								onMouseOut="window.status=''; return true;"></div>
+
+					</td>
+				</tr>
+				<!-- end_delete_profile -->
+			</table>
+			<!--end_profile_status -->
+		</div>
+	</div>
+</div>
+<!-- begin_save_password -->
+<script>
+	Swal.fire(
+		'Saved!',
+		'{l_save_password}',
+		'success'
+	)
+</script>
+<!-- end_save_password -->
+<!-- begin_save_phone -->
+<script>
+	Swal.fire(
+		'Saved!',
+		'{l_save_phone}',
+		'success'
+	)
+</script>
+<!-- end_save_phone -->
+<script>
+	if ("{saved_sms_setting}" == "yes") {
+		Swal.fire(
+			'Saved!',
+			'{l_save_sms}',
+			'success'
+		)
+	}
+</script>
+</div>
+
+{footer}

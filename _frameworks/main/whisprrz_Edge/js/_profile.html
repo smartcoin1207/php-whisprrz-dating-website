@@ -1,0 +1,724 @@
+<script>
+    //var vdrag = false;
+    </script>
+    <script language="javascript" type="text/javascript">
+        $('body').on('click', '[id ^= close_]', function(e){
+            var wnd = $(this).attr('id').replace('close_', '');
+            $('#xajax_' + wnd).remove();
+        })
+        <!-- begin_profile_status_edit -->
+        $(function(){
+        $('#profile_status_{user_id}').editable({lAdd: '{l_your_status_here}',
+                                        lEdit: '{l_edit_your_status}',
+                                        lSave: '{l_saving}',
+                                        classInput: 'profile_editable_input',
+                                        inputLength: 25,
+                                        empty: true,
+                                        type: 'status'
+        });
+        });
+
+        $(function(){
+        $('#profile_status_{nsc_couple_user_id}').editable({lAdd: '{l_your_status_here}',
+                                        lEdit: '{l_edit_your_status}',
+                                        lSave: '{l_saving}',
+                                        classInput: 'profile_editable_input',
+                                        inputLength: 25,
+                                        empty: true,
+                                        type: 'status'
+        });
+        });
+
+        <!-- end_profile_status_edit -->
+    </script>
+
+    <style>
+        .personal-icon {
+            display: block;	
+            width: 20px;
+            height: 20px;
+            padding-right: 10px;
+            padding-bottom: 10px;;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+        }
+
+        ul.profile_menu li a {
+            font-size: 13px;
+        }
+        .bl_profile_list ul li a {
+            font-size: 13px;
+        }
+    </style>
+    
+    <div class="contentpad content_bgrnd" style="padding: 15px; border-radius: 10px;">
+    
+    <!-- begin_users_list_item -->
+        <div class="fullprof" style="position:relative; margin: 0 0 20px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+                <td width="128" valign="top">
+    
+                <!-- begin_recorder -->
+                    <div style="position:absolute; width:auto; left:96px; margin-top:1px; height:24px;">
+                        <a href="#" onclick="showRecorder(); return false;">
+                            <img src="{url_tmpl_main}img/hi_label.png" width="29" height="24" class="png_behavior" />
+                        </a>
+                    </div>
+                <!-- end_recorder -->
+        <a href="{url_main}{name_seo}/photos" >
+            <img border="0" alt="{name}, {city}, {country}" src="{url_files}{new_photo}" width="126" height="140"  class="border_radius">
+        </a>
+        <!-- onclick="openGalleryList(event,'{new_photo_id}', false, '{user_id}')" -->
+        <!--<a class="icon_photo" href="{url_main}{url_page}?offset={offset}&display=photo{params}"></a>-->
+    
+        <!-- begin_profile_status -->
+            <div class="status_home_page profile_editable_bot">
+                <div class="profile_editable" id="profile_status_{user_id}">
+                    <a href="{url_main}{name_seo}/photos" style="text-decoration: none;">{profile_status}</a>
+                </div>
+            </div>
+        <!-- end_profile_status -->
+    
+                </td>
+                <td align="left" style="padding-left:10px; padding-top:0px; margin-top:0px;" valign="top">
+    
+                    <!-- begin_recorder_swf -->
+                    <div id="rec" class="rec_profile">
+                        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+                        codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
+                        width="220" height="140" id="myListen" align="middle">
+                        <param name="allowScriptAccess" value="sameDomain" />
+                        <param name="movie" value="{url_main}_server/recorder/myListen.swf?login={name}&unique={unique}&l_recorder_title={l_listener_title}&texter={l_listener_end}" />
+                        <param name="quality" value="high" />
+                        <param name="wmode" value="transparent" />
+                        <param name="bgcolor" value="#7ea6b6" />
+        
+                        <embed src="{url_main}_server/recorder/myListen.swf?login={name}&unique={unique}&l_recorder_title={l_listener_title}&texter={l_listener_end}" wmode="transparent"
+                        quality="high" bgcolor="#7ea6b6" width="220" height="140" name="myListen" align="middle"
+                        allowScriptAccess="sameDomain" type="application/x-shockwave-flash"
+                        pluginspage="http://www.macromedia.com/go/getflashplayer" />
+                        </object>
+                    </div>  
+                    <!-- end_recorder_swf -->
+        
+                    <div class="user_name dynamic_color" >					
+                    <!-- begin_nsc_couple_me4 -->
+                    <a style="text-decoration:none" href="{url_main}users_online.php?display=profile&uid={user_id}&offset=1">{name} <span style="font-size:12pt; color: #8123a0;">{partner_type}</span></a><!-- begin_couple --> +  <a style='color: #b0c4cb' href="{url_main}search_results.php?display=profile_info&name={couple_name}">{couple_name}</a><!-- end_couple -->
+                    <!-- end_nsc_couple_me4 -->
+                    <!-- begin_nsc_couple_me_not4 -->
+                    <a style="text-decoration:none" href="{url_main}users_online.php?display=profile&uid={user_id}&offset=1">{name} 
+                        
+                        <span style="font-size:12pt; color: #8123a0;">{partner_type}</span></a><!-- begin_nnsscc_couple --> +  <a style='color: #b0c4cb' href="{url_main}search_results.php?display=profile_info&name={couple_name}">{couple_name}</a><!-- end_nnsscc_couple -->
+                    <!-- end_nsc_couple_me_not4 -->
+                    <!-- begin_nsc_action_button -->
+                        <!-- begin_friend_add -->
+                            <a class="icons_add_friend" title="{l_add_friends}" {cannot_self_1} href="{url_main}friends_add.php?uid={user_id}"><!-- <img width=22 height=20 src="{url_tmpl_main}img/add_fr.png"  class="png_behavior" border="0" /> --></a>
+                            <!-- end_friend_add -->
+                            <!-- begin_love_calculator -->
+                                <a class="icons_calc" title="{l_interest_calculator}" {cannot_self_2} href="{url_main}love_calculator.php?id={user_id}"><!-- <img border="0" width="22" height="20" src="{url_tmpl_main}images/calc.gif" /> --></a>
+                            <!-- end_love_calculator -->
+                            <!-- begin_bookmark_add -->
+                                <a class="icon_bookmark" title="{l_bookmark}" {cannot_self_3} href="{url_main}bookmark_friends.php?action=add&id={user_id}"><!-- <img width=22 height=20 border="0" src="{url_tmpl_main}img/bookmark.png" class="png_behavior" /> --></a>
+                            <!-- end_bookmark_add -->
+                            <!-- begin_contact_blocking -->
+                                <a class="icons_block_user" title="{l_block}" {cannot_self_2} href="{url_main}user_block_edit.php?uid={user_id}"><!-- <img width=22 height=20 border="0" src="{url_tmpl_main}img/block_user.png" class="png_behavior" /> --></a>
+                            <!-- end_contact_blocking -->
+                            
+                            <a class="icons_private_note" title="{l_private_note}" href="{url_main}user_private_note.php?uid={user_id}"><!-- <img width=22 height=20 border="0" src="{url_tmpl_main}img/icon_private_notes.png" class="png_behavior" /> --></a>
+                            <a class="icons_certify" title="{l_icon_certify}" href="{url_main}user_certify.php?uid={user_id}"><!-- <img width=22 height=20 border="0" src="{url_tmpl_main}img/icon_certify.png" class="png_behavior" /> --></a>
+                            <a class="icons_sent_mail_history" title="{l_sent_mail_history}" href="{url_main}sent_mail.php?uid={user_id}"><!-- <img width=22 height=20 border="0" src="{url_tmpl_main}img/icon_sent_mail_history.png" class="png_behavior" /> --></a>
+                            <!-- begin_user_reports -->
+                            <a class="icons_report_user" title="{l_icon_report}" href="{url_main}user_report.php?uid={user_id}"><!-- <img width=22 height=20 border="0" src="{url_tmpl_main}img/icon_report_user.png" class="png_behavior" /> --></a>
+                            <!-- end_user_reports -->
+                        <!-- end_nsc_action_button -->
+                    </div>
+                    <div class="body_text">
+                    <div style="display: flex; justify-content: space-between;">
+                        <!-- begin_orientation -->
+                        <div style="float: left;">
+                        {l_i_am}: <b>{i_am}</b><br>
+                        </div>
+                        <!-- end_orientation -->
+                    </div>
+                
+                    {l_i_am}: <b>{nsc_user_other_first}</b><br>    
+                    {l_age}: <b>{age}</b>
+                    <!-- begin_biorythm -->
+                    |<span>&nbsp;<a href="{url_main}biorythm.php?id={user_id}" class="pri_little">{l_view_biorythm}</a></span>
+                    <!-- end_biorythm -->
+                    <br>{l_location}: <b>{city}{state}{country}</b>
+                                    <!-- begin_relationship -->
+                                    <br>{l_relationship}: <b>{relation}</b>
+                                    <!-- end_relationship -->
+                                    </div>
+                    <div class="body_text">
+                        <div style="display: flex; ">
+                            <div style="float: left;">
+                                {l_last_activity}: <span class="pri_text_bold"><b>{last_visit}</b></span>
+                            </div>
+
+                        <!-- begin_blog -->
+                        |<span>&nbsp;<a href="{url_main}{name_seo}/blogs" class="pri_little">{l_view_blog}</a></span>
+                        <!-- end_blog -->
+                        
+                        <!-- begin_user_logged_in -->
+                        <div style="color: red;  padding: 0px 20px 0px 20px;">{user_logged_in}</div>
+                        <!-- end_user_logged_in -->
+                    </div>
+
+    
+                        <!-- begin_friends -->
+                        <br>{l_friends}:
+                        <!-- begin_friend --><!-- begin_friend_separator -->, <!-- end_friend_separator --><a href="{url_main}search_results.php?name={fr_name}&display=profile"><b>{fr_name}</b></a><!-- end_friend --><!-- begin_friends_more -->{l_friends_more_and} <a href="search_results.php?display=friends&name={name}&uid={user_id}">{friends_more_view}</a>
+                        <!-- end_friends_more -->
+                        <!-- end_friends -->
+    
+                    </div>
+                    <!-- begin_interactive_options -->
+                    <div class="bl_profile_list">
+                        <ul>
+                            <li>
+                                <!-- begin_favorite_add -->
+                                <a href="{url_main}bookmark_friends.php?action=add&id={user_id}" class="pri_tiny ico_favorites" >{l_add_to_favorites}</a>
+
+                                <!-- end_favorite_add -->
+                            </li>
+                                <!-- begin_nsc_primary_mobile_off -->
+                                <!-- begin_games -->
+                                <!-- end_games -->
+                                
+                                
+                            <li>
+                                <a href="{url_main}games.php?id={user_id}" class="pri_tiny ico_games" ><b>{l_play_games}</b></a>
+                            </li>
+                            <!-- begin_videochat -->
+                            <li>
+                                <a href="#" data-ui onclick="clProfile.inviteVideoChatProfile($(this), {user_id}); return false;" class="pri_tiny ico_videochat" ><b>{l_have_videochat}</b></a>
+                            </li>
+                            <!-- end_videochat -->
+
+                            <!-- begin_audiochat -->
+                            <li>
+                                <a href="#" onclick="clProfile.inviteAudioChatProfile($(this), {user_id}); return false;" class="pri_tiny ico_audiochat"><b>{l_have_audiochat}</b></a>
+                            </li>
+                            <!-- end_audiochat -->
+                            
+                            <!-- end_nsc_primary_mobile_off -->                 
+                        </ul>
+                    </div>
+                <!-- end_interactive_options -->
+                </td>
+                <td>
+                    <!-- begin_icon_items -->
+                    <div>
+                        <!-- begin_icon_item -->
+                        <div class="personal-icon" style="{personal_icon_style}"></div>
+                        <!-- end_icon_item -->
+                    </div>
+                        
+                    <!-- end_icon_items -->
+                </td>
+            </tr></table>
+            <br>
+        <!-- begin_new_couple_profile -->
+    <div class="fullprof" style="position:relative; margin: 0 0 20px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+                <td width="128" valign="top">
+    
+                <!-- begin_recorder -->
+        <div style="position:absolute; width:auto; left:96px; margin-top:1px; height:24px;">
+        <a href="#" onclick="showRecorder(); return false;"><img src="{url_tmpl_main}img/hi_label.png" width="29" height="24" class="png_behavior" /></a>
+        </div>
+    <!-- end_recorder -->
+        <!-- begin_nsc_couple_me3 -->
+        <a href="{url_main}users_online.php?display=profile&uid={nsc_couple_id}&offset=1">
+            <img border="0" alt=" {city}, {country}" src="{url_files}{nsc_couple_photo}" width="126" height="140" class="border_radius">
+        </a>
+        <!-- end_nsc_couple_me3 -->
+        <!-- begin_nsc_couple_me_not3 -->
+        <a href="{url_main}users_online.php?display=profile&uid={nsc_couple_id}&offset=1">
+            <img border="0" alt=" {city}, {country}" src="{url_files}{nsc_couple_photo}" width="126" height="140" class="border_radius">
+        </a>
+        <!-- end_nsc_couple_me_not3 -->	
+        <!--<a class="icon_photo" href="{url_main}{url_page}?offset={offset}&display=photo{params}"></a>-->
+    
+        <!-- begin_nsc_couple_profile_status -->
+            <div class="status_home_page profile_editable_bot">
+                <div class="profile_editable" id="profile_status_{nsc_couple_id}">
+                    <!-- begin_nsc_couple_me -->
+                    <a href="{url_main}users_online.php?display=profile&uid={nsc_couple_id}&offset=1" style="text-decoration: none;">{nsc_couple_profile_status}</a>
+                    <!-- end_nsc_couple_me -->
+                    <!-- begin_nsc_couple_me_not -->
+                    <a href="{url_main}users_online.php?display=profile&uid={nsc_couple_id}&offset=1" style="text-decoration: none;">{nsc_couple_profile_status}</a>
+                    <!-- end_nsc_couple_me_not -->
+                </div>
+            </div>
+        <!-- end_nsc_couple_profile_status -->
+    
+                </td>
+                <td align="left" style="padding-left:10px; padding-top:0px; margin-top:0px;" valign="top">
+    
+                <!-- begin_recorder_swf -->
+    <div id="rec" class="rec_profile">
+                    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+                    codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
+                    width="220" height="140" id="myListen" align="middle">
+                    <param name="allowScriptAccess" value="sameDomain" />
+                    <param name="movie" value="{url_main}_server/recorder/myListen.swf?login={name}&unique={unique}&l_recorder_title={l_listener_title}&texter={l_listener_end}" />
+                    <param name="quality" value="high" />
+                    <param name="wmode" value="transparent" />
+                    <param name="bgcolor" value="#7ea6b6" />
+    
+                    <embed src="{url_main}_server/recorder/myListen.swf?login={name}&unique={unique}&l_recorder_title={l_listener_title}&texter={l_listener_end}" wmode="transparent"
+                    quality="high" bgcolor="#7ea6b6" width="220" height="140" name="myListen" align="middle"
+                    allowScriptAccess="sameDomain" type="application/x-shockwave-flash"
+                    pluginspage="http://www.macromedia.com/go/getflashplayer" />
+                    </object>
+                </div>
+                <!-- end_recorder_swf -->
+    
+                <div class="user_name dynamic_color" >					 
+                    <!-- begin_nsc_couple_me2 -->
+                    <a style="text-decoration:none" href="{url_main}users_online.php?display=profile&uid={nsc_couple_id}&offset=1">{nsc_couple_name} <span style="font-size:12pt; color: #8123a0;">{nsc_couple_partner_type}</span></a><!-- begin_couple --> +  <a style='color: #b0c4cb' href="{url_main}search_results.php?display=profile_info&name={couple_name}">{couple_name} </a><!-- end_couple -->
+                    <!-- end_nsc_couple_me2 -->
+                    <!-- begin_nsc_couple_me_not2 -->
+                    <a style="text-decoration:none" href="{url_main}users_online.php?display=profile&uid={nsc_couple_id}&offset=1">{nsc_couple_name} <span style="font-size:12pt; color: #8123a0;">{nsc_couple_partner_type}</span></a><!-- begin_couple --> +  <a style='color: #b0c4cb' href="{url_main}search_results.php?display=profile_info&name={couple_name}">{couple_name} </a><!-- end_couple -->
+                    <!-- end_nsc_couple_me_not2 -->
+                                    <!-- begin_action_button -->
+                                        <!-- begin_friend_add -->
+                                            <a class="icons_add_friend" {cannot_self_1} href="{url_main}friends_add.php?uid={user_id}"><!-- <img width=22 height=20 src="{url_tmpl_main}img/add_fr.png"  class="png_behavior" border="0" /> --></a>
+                                        <!-- end_friend_add -->
+                                        <!-- begin_love_calculator -->
+                                            <a class="icons_calc" {cannot_self_2} href="{url_main}love_calculator.php?id={user_id}"><!-- <img border="0" width="22" height="20" src="{url_tmpl_main}images/calc.gif" /> --></a>
+                                        <!-- end_love_calculator -->
+                                        <!-- begin_bookmark_add -->
+                                            <a class="icon_bookmark" {cannot_self_3} href="{url_main}bookmark_friends.php?action=add&id={user_id}"><!-- <img width=22 height=20 border="0" src="{url_tmpl_main}img/bookmark.png" class="png_behavior" /> --></a>
+                                        <!-- end_bookmark_add -->
+                                        <!-- begin_contact_blocking -->
+                                            <a class="icons_block_user" {cannot_self_2} href="{url_main}user_block_edit.php?uid={user_id}"><!-- <img width=22 height=20 border="0" src="{url_tmpl_main}img/block_user.png" class="png_behavior" /> --></a>
+                                        <!-- end_contact_blocking -->
+                                    <!-- end_action_button -->
+            </div>	
+                    <div class="body_text">
+                        <div style="display: flex; justify-content: space-between;">
+                            <!-- begin_nsc_orientation -->
+                            <div style="float: left;">
+                                {l_i_am}: <b>{i_am}</b><br>
+                                </div>
+                                <!-- end_nsc_orientation -->
+                        </div>
+
+                        {l_i_am}: <b>{nsc_couple_other_first}</b><br>
+
+                        {l_age}: <b>{nsc_couple_age}</b>
+                    <!-- begin_biorythm -->
+                    |<span>&nbsp;<a href="{url_main}biorythm.php?id={user_id}" class="pri_little">{l_view_biorythm}</a></span>
+                    <!-- end_biorythm -->
+                    <br>{l_location}: <b>{nsc_couple_city}, {nsc_couple_state}, {nsc_couple_country}</b>
+                                    <!-- begin_relationship -->
+                                    <br>{l_relationship}: <b>{relation}</b>
+                                    <!-- end_relationship -->
+                                    </div>
+                    <div class="body_text">
+
+                        <div class="body_text">
+                            <div style="display: flex;">
+                                <div style="float: left;">
+                                    {l_last_activity}: <span class="pri_text_bold"><b>{last_couple_visit}</b></span>
+                                </div>
+    
+                            <!-- begin_blog -->
+                            |<span>&nbsp;<a href="{url_main}{nsc_name_seo}/blogs" class="pri_little">{l_view_blog}</a></span>
+                            <!-- end_blog -->
+                            
+                                <!-- begin_user_nsc_logged_in -->
+                                <div style="color: red; padding: 0px 20px 0px 20px;">{user_nsc_logged_in}</div>
+                                <!-- end_user_nsc_logged_in -->
+                        </div>
+
+            
+                        <!-- begin_nsc_friends -->
+                        <br>{l_friends}:
+                        <!-- begin_nsc_friend --><!-- begin_nsc_friend_separator -->, <!-- end_nsc_friend_separator --><a href="{url_main}search_results.php?name={fr_name}&display=profile"><b>{fr_name}</b></a><!-- end_nsc_friend --><!-- begin_nsc_friends_more -->{l_friends_more_and} <a href="search_results.php?display=friends&name={name}&uid={user_id}">{friends_more_view}</a>
+                        <!-- end_nsc_friends_more -->
+                        <!-- end_nsc_friends -->
+    
+                    </div>
+                                    <!-- begin_nsc_interactive_options -->
+                    <div class="bl_profile_list">
+                        <ul>
+                        <li>
+                    <!-- <a href="{url_main}bookmark_friends.php?action=add&id={user_id}" class="pri_tiny ico_favorites" >{l_add_to_favorites}</a> -->
+
+    
+                        </li>
+                        <!-- begin_nsc_mobile_off -->
+                        <!-- begin_games -->
+                        <li>
+                            <a href="{url_main}games.php?id={user_id}" class="pri_tiny ico_games" ><b>{l_play_games}</b></a>
+                        </li>
+                        <!-- end_games -->
+                        <!-- begin_videochat -->
+                        <li>
+                            <a href="#" onclick="xajax_video_invite({user_id});" class="pri_tiny ico_videochat" ><b>{l_have_videochat}</b></a>
+                        </li>
+                                            <!-- end_videochat -->
+                                            <!-- begin_audiochat -->
+                        <li>
+                            <a href="#" onclick="xajax_audio_invite({user_id});" class="pri_tiny ico_audiochat" ><b>{l_have_audiochat}</b></a>
+                        </li>
+                                            <!-- end_audiochat -->
+                                        <!-- end_nsc_mobile_off -->
+                        </ul>
+                    </div>
+                                    <!-- end_nsc_interactive_options -->
+                </td>
+
+                <td>
+                    <!-- begin_nsc_icon_items -->
+                    <div>
+                        <!-- begin_nsc_icon_item -->
+                        <div class="personal-icon" style="{personal_nsc_icon_style}"></div>
+                        <!-- end_nsc_icon_item -->
+                    </div>
+                        
+                    <!-- end_nsc_icon_items -->
+                </td>
+        
+            </tr>
+        
+        </table>
+        </div>
+        <!-- end_new_couple_profile -->
+            <!--popcorn modified at 8/5/2023-->
+            <div class="pro_link" style="display: inline-flex; width: 100%; flex-wrap: wrap; justify-content: space-evenly; line-height: 15px;"> 						
+                <!-- begin_event1 -->
+                <div class="first" id="event_list_event_{event_id}" style="vertical-align:top;">
+                    <div class="link_event_hotdates">
+                        <a class="foto" href="{url_main}events_event_show.php?event_id={event_id}"><img src="{image_thumbnail}" width="50" height="50" alt=""/></a>
+                    </div>
+                    <div id="{event_id}" style="max-width:50px; padding:2px;font-size: 10px;">
+                        <a class="txt_upper_header_color" href="{url_main}events_event_show.php?event_id={event_id}">{event_title}</a>
+                    </div>
+                </div>
+                <!-- end_event1 -->	
+                <!-- begin_hotdate1 -->
+                <div class="first" id="hotdate_list_hotdate_{hotdate_id}" style="vertical-align:top;">
+                    <div class="link_event_hotdates">
+                        <a class="foto" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}"><img src="{image_thumbnail}" width="50" height="50" alt=""/></a>
+                    </div>
+                    <div id="{hotdate_id}" style="max-width:50px; padding:2px;2px;font-size: 10px;">
+                        <a class="txt_upper_header_color" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}">{hotdate_title}</a>
+                    </div>
+                </div>
+                <!-- end_hotdate1 -->	
+                <!-- begin_partyhou1 -->
+                <div class="first" id="partyhou_list_partyhou_{partyhou_id}" style="vertical-align:top;">
+                    <div class="link_event_hotdates">
+                        <a class="foto" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}"><img src="{image_thumbnail}" width="50" height="50" alt=""/></a>
+                    </div>
+                    <div id="{partyhou_id}" style="max-width:50px; padding:2px;2px;font-size: 10px;">
+                        <a class="txt_upper_header_color" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}">{partyhou_title}</a>
+                    </div>
+                </div>
+                <!-- end_partyhou1 -->
+            </div>
+        </div>
+        <div class="fullprof light" align="left" style="margin: 0 0 15px;" >
+                <ul class="profile_menu">
+                    <!-- begin_is_not_me -->
+                    <!-- begin_mail_on -->
+                    <li class="pm_mail"><a {cannot_self_2} href="{url_main}mail_compose.php?id={user_id}" title="{l_send_mail}">{l_send_mail_profile}</a></li>
+                    <!-- end_mail_on -->
+                    <!-- begin_wink_on -->
+                    <li class="pm_wink"><a {cannot_self_2} href="{url_main}show_interest.php?offset={offset}&cmd=interest&id={user_id}&display=profile{params}" title="{l_show_interest}">{l_show_interest_profile}</a></li>
+                    <!-- end_wink_on -->
+                    <!-- begin_postcard_module_xxx -->
+                    <li class="pm_postcard"><a {cannot_self_2} href="{url_main}postcard.php?user_id={user_id}" title="{l_send_postcard}">{l_send_postcard}</a></li>
+                    <!-- end_postcard_module_xxx -->
+                    <!-- begin_im -->
+                    <li class="pm_im"><a id="im_link_top" href="#" onclick="sendMessages('{user_id}'); return false;" title="{l_send_im}">{l_send_im_profile}</a></li>
+                    <!-- end_im -->
+                    <!-- begin_im_off -->
+                    <li class="pm_im pm_inactive">{l_send_im_profile}</li>
+                    <!-- end_im_off -->
+                    <!-- end_is_not_me -->
+            <!-- <li class="pm_photos"><a  class="ico_profile" href="{url_page}?offset={offset}&display=photo{params}" title="{l_profile_pics} ({num_photo})">{l_tab_photos}</a></li> -->
+            <!-- begin_gallery -->
+                    <li class="pm_gallery"><a class="ico_gallery" href="{url_main}{name_seo}/photos" title="{l_tab_photos}">{l_profile_pics}</a></li>
+            <!-- end_gallery -->
+            <!-- begin_yes_audio -->
+                    <li class="pm_music"><a class="ico_audio" href="{url_main}{name_seo}/songs" title="{l_music}">{l_music}</a></li>
+                    <!-- end_yes_audio -->
+            <!-- begin_yes_vids -->
+                    <li class="pm_vids"><a href="{url_main}videogallery_watch_view.php?id={last_vid}" title="{l_vids}">{l_vids}</a></li>
+                    <!-- end_yes_vids -->
+            <li class="pm_vids"><a class="ico_videochat" href="{url_main}{name_seo}/vids" title="{l_menu_videogallery}">{l_menu_videogallery}</a></li>
+            <li class="pm_vids"><a class="ico_videochat" href="{url_main}{name_seo}/groups" title="{l_menu_groups}">{l_groups}</a></li>
+            <li class="pm_vids"><a class="ico_videochat"  href="{url_main}{name_seo}/pages" title="{l_menu_pages}">{l_menu_pages}</a></li>
+            <li class="pm_vids"><a href="{url_main}{name_seo}/calendar" title="{l_menu_places}" style="display: inline; position: relative;">   
+                <span style="    position: absolute;
+                width: 14px;
+                height: 19px;
+                " >
+                    <figure title="{new_tasks_title}">
+                        <svg viewBox="0 0 1000 1000" style="fill: grey">
+                            <g><path d="M901.9,145.9h-74.1v25.2c0,53.6-58.3,97.1-111.9,97.1c-53.6,0-111.9-43.5-111.9-97.1v-25.2H393.8v25.2c0,53.6-58.3,97.1-111.9,97.1c-53.6,0-111.9-43.5-111.9-97.1v-25.2H98.1c-48.6,0-88.1,46.9-88.1,104.7v615.2c0,57.8,39.5,104.7,88.1,104.7h803.8c48.6,0,88.1-46.9,88.1-104.7V250.6C990,192.8,950.5,145.9,901.9,145.9z M930.6,838.1c0,40.3-33.6,73.1-75.1,73.1H139.9c-41.5,0-75.1-32.8-75.1-73.1V397.2c0-40.3,33.6-73.1,75.1-73.1h715.6c41.5,0,75.1,32.8,75.1,73.1V838.1z"/><path d="M720.4,29.4c-35,0-73.1,28.4-73.1,63.4v17.6V146v10.3c0,35,38.1,63.5,73.1,63.5s73.1-28.4,73.1-63.5v-10.4v-35.5V92.8C793.5,57.8,755.5,29.4,720.4,29.4z"/><path d="M281.8,29.4c-35,0-73.1,28.4-73.1,63.4v17.6V146v10.3c0,35,38.1,63.5,73.1,63.5c35,0,73.1-28.4,73.1-63.5v-10.4v-35.5V92.8C355,57.8,316.9,29.4,281.8,29.4z"/><path d="M251.4,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C313.3,427.2,285.6,399.5,251.4,399.5z"/><path d="M516.3,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C578.3,427.2,550.6,399.5,516.3,399.5z"/><path d="M781.3,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9l0-56.1C843.2,427.2,815.5,399.5,781.3,399.5z"/><path d="M251.4,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C313.3,676.1,285.6,648.4,251.4,648.4z"/><path d="M516.3,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C578.3,676.1,550.6,648.4,516.3,648.4z"/><path d="M781.3,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C843.2,676.1,815.5,648.4,781.3,648.4z"/></g>
+                        </svg>
+                        </figure> 
+                </span>
+                <span style="margin-left: 17px;" >
+                    {l_calendar}
+                </span>
+            </a></li>
+            <!-- begin_wall -->
+                    <li class="pm_wall"><a class="ico_wall" href="{url_page}?offset={offset}&display={display_wall}{params}" title="{l_news_feed}">{l_news_feed}</a></li>
+            <!-- end_wall --> 
+
+            <!-- begin_user_invite -->
+            <li class="pm_invitation dropdown-submenu">
+                <a class="ico_invitation" href="javascript:void();">{l_invitation}</a>
+                <ul class="custom-dd-menu">
+                    <!-- begin_show_private_photo -->
+                    <li class="pm_private"><a class="ico_private" href="{url_page}?offset={offset}&display=profile&private_set={user_id}{params}" title="{l_album_private}">{l_album_private}</a></li>
+                    <!-- end_show_private_photo -->   
+                    <!-- begin_cancel_private_photo -->
+                    <li class="pm_private"><a class="ico_private" href="{url_page}?offset={offset}&display=profile&private_set={user_id}{params}" title="{l_album_private}">{l_cancel_private}</a></li>
+                    <!-- end_cancel_private_photo -->
+
+                    <!-- begin_show_personal_photo -->
+                    <li class="pm_personal"><a class="ico_private" href="{url_page}?offset={offset}&display=profile&personal_set={user_id}{params}" title="{l_album_personal}">{l_album_personal}</a></li>
+                    <!-- end_show_personal_photo -->   
+                    <!-- begin_cancel_personal_photo -->
+                    <li class="pm_personal"><a class="ico_private" href="{url_page}?offset={offset}&display=profile&personal_set={user_id}{params}" title="{l_cancel_personal}">{l_cancel_personal}</a></li>
+                    <!-- end_cancel_personal_photo -->
+
+                    <!-- begin_invite_folder_photo -->
+                    <li class="pm_personal"><a class="ico_private" href="{url_page}?offset={offset}&display=profile&invite_folder_user={user_id}&invite_folder_type={invite_folder_type}&folder_id={folder_id}{params}" title="{invite_folder_label}">{invite_folder_label}</a></li>
+                    <!-- end_invite_folder_photo -->
+  
+                    <!-- begin_show_private_video -->
+                    <li class="pm_personal"><a class="ico_private" href="{url_page}?offset={offset}&display=profile&private_vid_set={user_id}{params}" title="{l_video_private}">{l_video_private}</a></li>
+                    <!-- end_show_private_video -->   
+                    <!-- begin_cancel_private_video -->
+                    <li class="pm_personal"><a class="ico_private" href="{url_page}?offset={offset}&display=profile&private_vid_set={user_id}{params}" title="{l_cancel_video_private}">{l_cancel_video_private}</a></li>
+                    <!-- end_cancel_private_video -->
+                </ul>
+            </li>
+            <!-- end_user_invite -->
+            
+            <!-- begin_my_certify_link--> 
+                    <li class="pm_certify">
+                        <a class="ico_certify" href="{url_main}my_certify.php" title="{l_my_certify}">
+                        {l_my_certify}
+                        <!-- begin_certify_count_yes --><span class="notification_count">{certify_count}</span><!-- end_certify_count_yes -->
+                    </a></li>
+            <!-- end_my_certify_link--> 
+            <!-- begin_view_certify_link--> 
+            <li class="pm_certify">
+                <a class="ico_certify" href="{url_main}view_certify.php?uid={user_id}" title="{l_view_certify}">{l_view_certify}</a>
+            </li>
+            <!-- end_view_certify_link--> 
+            <!-- begin_group_invite -->
+            <li class="pm_group_invite">
+                <a class="ico_group_invite" href="{url_main}groups_invite_select.php?uid={user_id}" title="{l_group_invite}"><i title="{l_group_invite}" style="margin-right: 5px;" class="fa fa-users"></i>{l_group_invite}</a>
+            </li>
+            <!-- end_group_invite -->
+                </ul>
+        </div>
+    
+        <div id="flashcontent" style="margin-left:-18px; margin-right:-20px;"></div>
+        <!-- begin_flash_profile -->
+        <!-- end_flash_profile -->
+
+        <!-- begin_profile_html -->
+        <div style="float:left; width:100%;">
+<!-- begin_what_looking_sliders -->
+
+<div class="what-looking-for-scale" style="text-align: center;">
+<b>{scales_relation}</b>
+</div>
+<div class="scale-sliders" style="position: static;">
+<!-- begin_scale_slider -->
+
+<div class="scale-slider">
+    <div class="scale-field-name">
+        {scale_field_name}
+    </div>
+    <div class="scale">
+        <div class="scale-back">
+            <!-- begin_scale_back_item -->
+            <div class="scale-back-item" style="{back_item_style}">
+
+            </div>
+            <!-- end_scale_back_item -->
+
+        </div>
+        <div class="scale-bar-back" style="{scale_bar_back_style}">
+            <p class="scale-level-name" style="margin-top: -4px;">
+                {scale_level_name}
+            </p>
+        </div>
+        
+    </div>
+</div>
+<!-- end_scale_slider -->
+</div>
+<!-- end_what_looking_sliders -->
+            
+            
+            <!-- begin_fields_text -->
+            <!-- begin_text -->
+            <div class="profcontent pri_med_bold txt_lower_header_color ">{field}</div>
+            <div class="profcontent body light txt_field">
+                    {value}
+            </div>
+            <br />
+            <!-- end_text -->
+            <!-- begin_textarea -->
+            <div class="profcontent pri_med_bold txt_lower_header_color">{field}</div>
+            <div class="profcontent body light txt_field">
+                    {value}
+            </div>
+            <br />
+            <!-- end_textarea -->
+            <!-- end_fields_text -->
+            <div <!-- begin_border_oryx --> class="fullprof_bot_border"<!-- end_border_oryx -->>
+                    <!-- begin_fields_about -->
+    
+                    <div class="pri_med_bold profcontent txt_lower_header_color">{l_about} {user_name} <span style="color: #8123a0;">{partner_type}</span></div>
+                    <div class="profcontent light">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <!-- begin_fields_about_1 -->
+                                <!-- begin_int_1 -->
+                                <tr>
+                                    <td width="250" valign="top" class="body_text" style="padding-right: 4px;">{field}:</td>
+                                    <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                                </tr>
+                                <!-- end_int_1 -->
+                                <!-- end_fields_about_1 -->
+                                <!-- begin_fields_about_2 -->
+                                <!-- begin_int_2 -->
+                                <tr>
+                                    <td width="250" valign="top" class="body_text" style="padding-right: 4px;">{field}:</td>
+                                    <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                                </tr>
+                                <!-- end_int_2 -->
+                                <!-- end_fields_about_2 -->
+                        </table>
+
+                    </div>
+                    <br />
+                    <!-- end_fields_about -->
+                    <!-- begin_fields_other -->
+                    <div class="pri_med_bold profcontent txt_lower_header_color">{l_other_information}</div>
+                    <div class="profcontent light">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <!-- begin_fields_other_3 -->
+                                <!-- begin_int_3 -->
+                                <tr>
+                                    <td width="250" valign="top" class="body_text" style="padding-right: 4px;">{field}:</td>
+                                    <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                                </tr>
+                                <!-- end_int_3 -->
+                                <!-- end_fields_other_3 -->
+                                <!-- begin_checkbox_1 -->
+                                <tr>
+                                    <td width="250" valign="top" class="body_text" style="padding-right: 4px;">{field}:</td>
+                                    <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                                </tr>
+                                <!-- end_checkbox_1 -->
+                            </table>
+                    </div>
+                    <br /><br />
+                    <!-- end_fields_other -->
+            </div>
+        </div>
+        <!-- end_profile_html -->
+    <div style="clear:both;"></div>
+        <div class="fullprof light" style="margin: 12px 0 0;" align="left">
+                <ul class="profile_menu">
+                    <!-- begin_is_not_me -->
+                    <!-- begin_mail_on -->
+                    <li class="pm_mail"><a class="ico_mail" {cannot_self_2} href="{url_main}mail_compose.php?id={user_id}" title="{l_send_mail}">{l_send_mail_profile}</a></li>
+                    <!-- end_mail_on -->
+                    <!-- begin_wink_on -->
+                    <li class="pm_wink"><a class="ico_wink" {cannot_self_2} href="{url_main}show_interest.php?offset={offset}&cmd=interest&id={user_id}&display=profile{params}" title="{l_show_interest}">{l_show_interest_profile}</a></li>
+                    <!-- end_wink_on -->
+            <!-- begin_postcard_module_xxx -->
+            <li class="pm_postcard"><a class="ico_postcard" {cannot_self_2} href="{url_main}postcard.php?user_id={user_id}" title="{l_send_postcard}">{l_send_postcard}</a></li>
+            <!-- end_postcard_module_xxx -->
+                    <!-- begin_im -->
+                    <li class="pm_im"><a class="ico_im" id="im_link_top" href="#" onclick="sendMessages('{user_id}'); return false;" title="{l_send_im}">{l_send_im_profile}</a></li>
+                    <!-- end_im -->
+                    <!-- begin_im_off -->
+                    <li class="pm_im pm_inactive">{l_send_im_profile}</li>
+                    <!-- end_im_off -->
+                    <!-- end_is_not_me -->
+            <!-- <li class="pm_photos"><a class="ico_profile" href="{url_page}?offset={offset}&display=photo{params}" title="{l_profile_pics} ({num_photo})">{l_tab_photos}</a></li> -->
+            <!-- begin_gallery -->
+            <li class="pm_gallery"><a class="ico_gallery" href="{url_main}{name_seo}/photos" title="{l_tab_photos}">{l_profile_pics}</a></li>
+            <!-- end_gallery -->
+            <!-- begin_yes_audio -->
+                    <li class="pm_music"><a class="ico_audio" href="{url_main}{name_seo}/songs" title="{l_music}">{l_music}</a></li>
+                    <!-- end_yes_audio -->
+            <!-- begin_yes_vids -->
+                    <li class="pm_vids"><a href="{url_main}videogallery_watch_view.php?id={last_vid}" title="{l_vids}">{l_vids}</a></li>
+                    <!-- end_yes_vids -->
+            <li class="pm_vids"><a class="ico_videochat" href="{url_main}{name_seo}/vids" title="{l_menu_videogallery}">{l_menu_videogallery}</a></li>
+            <li class="pm_vids"><a class="ico_videochat" href="{url_main}{name_seo}/groups" title="{l_menu_groups}">{l_groups}</a></li>
+            <li class="pm_vids"><a class="ico_videochat"  href="{url_main}{name_seo}/pages" title="{l_menu_pages}">{l_menu_pages}</a></li>
+            <li class="pm_vids"><a href="{url_main}{name_seo}/calendar" title="{l_menu_calendar}" style="display: inline; position: relative;">   
+                <span style="    position: absolute;
+                width: 14px;
+                height: 19px;
+                >
+                    <figure title="{new_tasks_title}">
+                        <svg viewBox="0 0 1000 1000" style="fill: grey">
+                            <g><path d="M901.9,145.9h-74.1v25.2c0,53.6-58.3,97.1-111.9,97.1c-53.6,0-111.9-43.5-111.9-97.1v-25.2H393.8v25.2c0,53.6-58.3,97.1-111.9,97.1c-53.6,0-111.9-43.5-111.9-97.1v-25.2H98.1c-48.6,0-88.1,46.9-88.1,104.7v615.2c0,57.8,39.5,104.7,88.1,104.7h803.8c48.6,0,88.1-46.9,88.1-104.7V250.6C990,192.8,950.5,145.9,901.9,145.9z M930.6,838.1c0,40.3-33.6,73.1-75.1,73.1H139.9c-41.5,0-75.1-32.8-75.1-73.1V397.2c0-40.3,33.6-73.1,75.1-73.1h715.6c41.5,0,75.1,32.8,75.1,73.1V838.1z"/><path d="M720.4,29.4c-35,0-73.1,28.4-73.1,63.4v17.6V146v10.3c0,35,38.1,63.5,73.1,63.5s73.1-28.4,73.1-63.5v-10.4v-35.5V92.8C793.5,57.8,755.5,29.4,720.4,29.4z"/><path d="M281.8,29.4c-35,0-73.1,28.4-73.1,63.4v17.6V146v10.3c0,35,38.1,63.5,73.1,63.5c35,0,73.1-28.4,73.1-63.5v-10.4v-35.5V92.8C355,57.8,316.9,29.4,281.8,29.4z"/><path d="M251.4,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C313.3,427.2,285.6,399.5,251.4,399.5z"/><path d="M516.3,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C578.3,427.2,550.6,399.5,516.3,399.5z"/><path d="M781.3,399.5h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9l0-56.1C843.2,427.2,815.5,399.5,781.3,399.5z"/><path d="M251.4,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C313.3,676.1,285.6,648.4,251.4,648.4z"/><path d="M516.3,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C578.3,676.1,550.6,648.4,516.3,648.4z"/><path d="M781.3,648.4h-56.1c-34.2,0-61.9,27.7-61.9,61.9v56.1c0,34.2,27.7,61.9,61.9,61.9h56.1c34.2,0,61.9-27.7,61.9-61.9v-56.1C843.2,676.1,815.5,648.4,781.3,648.4z"/></g>
+                        </svg>
+                        </figure> 
+                </span>
+                <span style="margin-left: 17px;" >
+                    {l_calendar}
+                </span>
+
+            
+            
+            </a></li>
+
+            <!-- begin_wall -->
+                    <li class="pm_wall"><a class="ico_wall" href="{url_page}?offset={offset}&display={display_wall}{params}" title="{l_news_feed}">{l_news_feed}</a></li>
+            <!-- end_wall -->
+            <!-- begin_my_certify_link--> 
+            <li class="pm_certify">
+                <a class="ico_certify" href="{url_main}my_certify.php" title="{l_my_certify}">
+                {l_my_certify}
+                <!-- begin_certify_count_yes --><span class="notification_count">{certify_count}</span><!-- end_certify_count_yes -->
+            </a></li>
+            <!-- end_my_certify_link--> 
+            <!-- begin_view_certify_link--> 
+            <li class="pm_certify">
+                <a class="ico_certify" href="{url_main}view_certify.php?uid={user_id}" title="{l_view_certify}">{l_view_certify}</a>
+            </li>
+            <!-- end_view_certify_link--> 
+                </ul>
+        </div>
+    <!-- end_users_list_item -->
+    
+        <div align="right" class="fullprof body_little" style="padding-bottom: 11px; padding-top: 6px;">
+    
+        </div>
+    </div>
+    
+    <div class="userinfo-links">
+    <!-- begin_mail_sent -->
+    <script language="javascript" type="text/javascript">
+    $(function(){
+        alert('{l_sent_mail_alert}');
+    })
+    </script>
+    <!-- end_mail_sent -->
+    
+    </div>
+

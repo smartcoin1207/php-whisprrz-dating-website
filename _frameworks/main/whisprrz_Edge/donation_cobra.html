@@ -1,0 +1,84 @@
+<!-- This file is created and built by cobra --- 2020-02-06. -->
+{header}
+
+<div class="frame_content">
+    <table>
+        <tr>
+            <td class="image-left-bar">
+                <img src="{url_main}{bg_path}" width="100%">
+                <div class="art-backgd">
+                    <h1 class="art-content">{art_title}</h1>
+                    <p class="art-content">{art_content}</p>
+                </div>
+            </td>
+            <td class="right-panel">
+                <form action="{url_main}donation_cobra.php?cmd=donate_paypal" method="post" id="donationform">
+                    <input type="hidden" id="cmd" name = "cmd" value="donate_paypal">
+                    <input type="hidden" id="amount" name="amount" value="25">
+                <table class="operation-right">
+                    <tr>
+                        <td>
+                            <div class="row-right">
+                                <a href="{url_main}{url_home_page}">
+                                    <!-- <img src="{header_url_logo}" alt="{title}" /> -->
+                                    <img src="{url_main}_files/logo/main_Popcorn_Edge.png?v=1698673829" alt="www.whisprrz.com" width="300px">
+                                </a>
+                            </div>
+                            <div class="row-right">
+                                <p class="content-title">Donation Page</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- START Operation Filed -->
+                        <tr>
+                            <td>
+                                <div class="row-buttons">
+                                    <input type="button" class="btn blue btn-donation btn25 active_btn" value="$25" title="$25">
+                                    <input type="button" class="btn blue btn-donation btn50" value="$50" title="$50">
+                                    <input type="button" class="btn blue btn-donation btn100" value="$100" title="$100">
+                                </div>
+                                <div class="row-buttons">
+                                    <table style="width: 100%;">
+                                        <tr >
+                                            <td style="width: 80px;">
+                                                <input type="button" class="btn blue btn-donation btn250" value="$250" title="$250">
+                                            </td>
+                                            <td style="width: 40px;">
+                                                <p style="font-size: 25px; margin-left: 20px;">$</p>
+                                            </td>
+                                            <td style="width: 120px;">
+                                                <input type="number" class="amount" style="width: 100px; font-size: 21px;">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row-buttons">
+                                    <input type="button" class="btn blue btn-term btn-mon" value="Monthly" title="$25">
+                                    <input type="button" class="btn blue btn-term btn-one active_btn" value="One Time" title="$50">
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- START Contine Button -->
+                            <tr>
+                                <td>
+                                    <div class="row-buttons">
+                                        <input type="button" class="btn green btn-continue" value="Donate via Paypal" title="Donate">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- START Contine Button -->
+                </table>
+                </form>
+                <div style="height: 200px;">
+                    &nbsp;
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+{footer}

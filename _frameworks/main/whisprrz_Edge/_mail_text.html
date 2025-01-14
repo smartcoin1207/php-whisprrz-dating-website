@@ -1,0 +1,268 @@
+<!-- begin_top_postcard -->
+<div class="frame_content">
+<!-- end_top_postcard -->
+<!-- begin_top_plain -->
+<div  class="column_main frame_content">
+<!-- end_top_plain -->
+
+	{mail_menu}
+
+	<div class="cl"></div>
+	<script type="text/javascript">
+		function submitListMailForm(action) {
+			var form = document.forms['MailForm'];
+			if(action == "move")
+			{
+				if (form['to_folder'][0].selectedIndex == 0 && form['to_folder'][1].selectedIndex == 0) {
+					alert("{l_select_folder}");
+					return;
+				}
+				form.cmd.value = "move";
+				form.folder.value = form.to_folder.value;
+				form.action = "{url_main}mail.php";
+				form.to_folder.value = "";
+				form.to_folder2.value = "";
+			}
+			else if(action == "delete")
+			{
+				//if (!isChecked(form['id[]'])) {
+					//alert("{l_nothing}");
+					//return;
+				//}
+				form.cmd.value = "delete";
+				form.action = "{url_main}mail.php";
+				form.to_folder.value = "";
+				form.to_folder2.value = "";
+
+			}
+			else if(action == "empty_trash")
+			{
+				if (!confirm("{l_to_trash}")) {
+					return;
+				}
+				form.cmd.value = "empty_trash";
+				form.action = "{url_main}mail.php";
+				form.to_folder.value = "";
+				form.to_folder2.value = "";
+			}
+			form.submit();
+		}
+	</script>
+	<h2 class="txt_lower_header_color">{subject}</h2>
+	<form name="MailForm" method="get" action="{url_main}mail.php" style="padding: 0px; margin: 0px;">
+		<input type="hidden" name="cmd" value="">
+		<input type="hidden" name="folder" value="{mail_folder_id}">
+		<input type="hidden" name="action" value="delete_one">
+
+		<div style="padding: 6px 20px 20px 0; ">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2">
+					<input type="button" value="{l_delete}" onclick="submitListMailForm('delete'); return false;" class="btn lower_header_color" title="{l_delete}" onmouseover="window.status='{l_delete}'; return true;" onmouseout="window.status=''; return true;"></div></td></tr></table></td>
+					<td align="right">
+						<select name="to_folder" onchange="MailForm.to_folder2.value = this.value" style="margin: 0 5px;">
+						<option>{l_select_folder}</option>
+						{folder_options}
+						</select>
+					</td>
+					<td><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2"><input type="button" value="{l_move}" onclick="submitListMailForm('move'); return false;" class="btn lower_header_color" title="{l_move}" onmouseover="window.status='{l_move}'; return true;" onmouseout="window.status=''; return true;"></div></td></tr></table></td>
+					<td align="right" class="little" width="100%">
+					<!-- begin_users_list_pages -->
+					<b>
+					<!-- begin_users_list_first_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_first}</a> |
+					<!-- end_users_list_first_page -->
+					<!-- begin_users_list_prev_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&#60;&#60;{l_prev}</a> |
+					<!-- end_users_list_prev_page -->
+					<!-- begin_users_list_prev_page_off -->
+					&#60;&#60;{l_prev} |
+					<!-- end_users_list_prev_page_off -->
+					<!-- begin_users_list_next_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}&#62;&#62;</a>
+					<!-- end_users_list_next_page -->
+					<!-- begin_users_list_next_page_off -->
+					{l_next}&#62;&#62;
+					<!-- end_users_list_next_page_off -->
+					<!-- begin_users_list_last_page -->
+						| <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_last}</a>
+					<!-- end_users_list_last_page -->
+					</b>
+					| <a href='{url_main}{url_page}?offset={offset_list}{params}&display=list' class='pri_text_bold'>{l_back_to_results}</a>
+					<!-- end_users_list_pages -->
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- begin_users_list_item -->
+		<input type="hidden" name="id[]" value="{id}">
+		<div class="searchprof_bgrnd" style="width: 536px;">
+			<!-- begin_confirm_block -->
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td>
+						<b>{l_confirm}</b>
+						{l_blocking_this_user}<br>
+						{l_sure_continue} <a href={url_main}mail.php?offset={offset}&display=text&block=yes&confirm=ok>{l_yes}</a> <a href={url_main}mail.php?offset={offset}&display=text>{l_no}</a>
+					</td>
+				</tr>
+			</table>
+			<!-- end_confirm_block -->
+
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td class="img_sml_border">
+						<div id="photo_info">
+							<a <!-- begin_photo_buble -->onmousemove="show_face_jq('usr0{num}', event)" onmouseout="hide_face_jq('usr0{num}')"<!-- end_photo_buble --> href="search_results.php?display=profile&uid={id_user}"><img  id="pic{num}" src="{url_files}{photo}" class="img_border"></a>
+						</div>
+					</td>
+					<td style="padding-left: 14px; vertical-align: top;">
+						<div class="content_bgrnd" style="width: 402px; height: 95px;">
+							<div class="body_text" style="margin: -2px 0 0; ">
+								<!-- begin_from -->
+									<b>{l_from}:</b> <a href="search_results.php?display=profile&name={name}">{user_from}</a><br>
+									<b>{l_to}:</b> {user_to}<br>
+								<!-- end_from  -->
+								<!-- begin_from_admin -->
+									<b>{l_from}:</b> <a href="contact.php">{l_website_administration}</a><br>
+									<b>{l_to}:</b> {user_to}<br>
+								<!-- end_from_admin  -->
+								<!-- begin_to -->
+									<b>{l_from}:</b> {user_from}<br>
+									<b>{l_to}:</b> <a href="search_results.php?display=profile&name={user_to}">{user_to}</a><br>
+								<!-- end_to -->
+								<!-- begin_to_admin -->
+									<b>{l_from}:</b> <a href="contact.php">{l_website_administration}</a><br>
+									<b>{l_to}:</b> {user_to}<br>
+								<!-- end_to_admin  -->
+								<b>{l_sent}:</b> {date_sent}<br>
+								<b>{l_subject}:</b> {subject}<br>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- begin_action_block -->
+		<div class="fullprof" align="left">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" class=light style="margin-top:10px; margin-bottom:20px; font-weight:bold; text-decoration:none;">
+				<tr>
+				<!-- <td height="22" width="1" class="list_button_dark"></td> -->
+				<td height="22" align="center" valign="middle" class="list_button_text_inactive" style=" padding-right: 15px; white-space: nowrap;" title="{l_reply}">
+					<span style="line-height: 18px;">
+					<a href="{url_main}mail_compose.php?cmd=reply&msg={id}" class="list_button_text icon_reaplay">{l_reply}</a>
+					</span>
+				</td>
+				<td width="1" class="list_button_darker"></td>
+				<td height="22" width="1" class="list_button_dark"></td>
+				<td height="22" align="center" valign="middle" class="list_button_text_inactive" style="padding-left: 15px; padding-right: 15px; white-space: nowrap;" title="{l_forward}">
+					<span style="line-height: 18px;">
+					<a href="{url_main}mail_compose.php?cmd=forward&msg={id}" class="list_button_text">{l_forward}</a>
+					</span>
+				</td>
+				<!-- begin_contact_blocking_add -->
+					<td width="1" class="list_button_darker"></td>
+					<td height="22" width="1" class="list_button_dark"></td>
+					<td height="22" align="center" valign="middle" class="list_button_text_inactive" style="padding-left: 15px; padding-right: 15px; white-space: nowrap;" title="{l_block_mail}">
+						<span style="line-height: 18px;">
+						<a href="{url_main}user_block_edit.php?uid={id_user}" class="list_button_text">{l_block_mail}</a>
+						</span>
+					</td>
+				<!-- end_contact_blocking_add -->
+				<!-- begin_wink_on -->
+				<td width="1" class="list_button_darker"></td>
+				<td height="22" width="1" class="list_button_dark"></td>
+				<td height="22" align="center" valign="middle" class="list_button_text_inactive" style="padding-left: 15px; padding-right: 15px; white-space: nowrap;" title="{l_show_interest}">
+					<span style="line-height: 18px;">
+						<a href="{url_main}show_interest.php?offset={offset}&display=text&cmd=interest&id={id_user}{params}" class="list_button_text">{l_show_interest}</a>
+					</span>
+				</td>
+				<!-- end_wink_on -->
+				<!-- begin_im -->
+				<td width="1" class="list_button_darker"></td>
+				<td height="22" width="1" class="list_button_dark"></td>
+				<td height="22" align="center" valign="middle" class="list_button_text_inactive" style="padding-left: 15px; padding-right: 15px; white-space: nowrap;" title="{l_send_im}"><span style="line-height: 18px;">
+					<a href="#" onclick="sendMessages({id_user}, event); return false;" class="list_button_text">{l_send_im}</a>
+				</td>
+				<!-- end_im -->
+				<td width="1" class="list_button_darker"></td>
+				</tr>
+			</table>
+		</div>
+		<!-- end_action_block -->
+		<div class="fullprof_bot_border" style="border:none;">
+			<div class="body_text" style="padding: 0px; text-align: left; word-wrap:break-word; ">
+				<!-- begin_plain -->
+				{text}
+				<!-- end_plain -->
+
+				<!-- begin_postcard -->
+				<table width="100%" height="100%">
+				<tr>
+					<td align="center" valign="middle">
+					<div style="z-index:99; position;absolute; margin: 0 0 0 -14px;">
+					{flash_postcard}
+					<!--<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="746" height="426" id="surprise" align="middle">
+					<param name="allowScriptAccess" value="sameDomain" />
+					<param name="allowFullScreen" value="false" />
+					<param name="wmode" value="transparent" />
+					<param name="movie" value="{url_main}_server/postcard/surprise.swf" />
+					<param name="quality" value="high" />
+					<param name="bgcolor" value="#ffffff" />
+					<param name="FlashVars" value="params={text}">
+					<embed wmode="transparent" FlashVars="params={text}" src="{url_main}_server/postcard/surprise.swf" quality="high" bgcolor="#ffffff" width="746" height="426" name="surprise" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+					</object>-->
+
+					</div>
+					</td>
+				</tr>
+				</table>
+				<!-- end_postcard -->
+			</div>
+		</div>
+		<!-- end_users_list_item -->
+		<div style="padding: 20px 20px 20px 0; ">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2">
+					<input type="button" value="{l_delete}" onclick="submitListMailForm('delete'); return false;" class="btn lower_header_color" title="{l_delete}" onmouseover="window.status='{l_delete}'; return true;" onmouseout="window.status=''; return true;"></div></td></tr></table></td>
+					<td align="right">
+						<select name="to_folder2" onchange="MailForm.to_folder.value = this.value" style="margin: 0 5px;">
+						<option>{l_select_folder}</option>
+						{folder_options}
+						</select>
+					</td>
+					<td><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2"><input type="button" value="{l_move}" onclick="submitListMailForm('move'); return false;" class="btn lower_header_color" title="{l_move}" onmouseover="window.status='{l_move}'; return true;" onmouseout="window.status=''; return true;"></div></td></tr></table></td>
+					<td align="right" class="little" width="100%">
+					<!-- begin_users_list_pages -->
+
+					<!-- begin_users_list_first_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_first}</a> |
+					<!-- end_users_list_first_page -->
+					<!-- begin_users_list_prev_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&#60;&#60;{l_prev}</a> |
+					<!-- end_users_list_prev_page -->
+					<!-- begin_users_list_prev_page_off -->
+					&#60;&#60;{l_prev} |
+					<!-- end_users_list_prev_page_off -->
+					<!-- begin_users_list_next_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}&#62;&#62;</a>
+					<!-- end_users_list_next_page -->
+					<!-- begin_users_list_next_page_off -->
+					{l_next}&#62;&#62;
+					<!-- end_users_list_next_page_off -->
+					<!-- begin_users_list_last_page -->
+						| <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_last}</a>
+					<!-- end_users_list_last_page -->
+
+					| <a href='{url_main}{url_page}?offset={offset_list}{params}&display=list' class='pri_text_bold'>{l_back_to_results}</a>
+					<!-- end_users_list_pages -->
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</div>
+<div class="userinfo-links">
+

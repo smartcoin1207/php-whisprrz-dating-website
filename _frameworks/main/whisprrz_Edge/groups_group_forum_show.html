@@ -1,0 +1,152 @@
+{header}
+<script language="javascript" type="text/javascript">
+$(function(){
+    var box = $("#narrow_box"),
+        hide_box = $("#hide_narrow_box"),
+        box_display = box.css('display'),
+        btn = $('[id ^= btn_groups_form_]'),
+        box_object = $('.groups_video');
+
+    prepareVideoResize(box_object);
+    videoResize(box_object);
+
+    if (box_display == 'none') {
+        hide_box.attr('title', '{l_narrow_box_expand}');
+        btn.removeClass('btn_bl_show_narrow_box');
+        btn.addClass('btn_bl_hide_narrow_box');
+    } else {
+        hide_box.attr('title', '{l_narrow_box_collapse}');
+    }
+
+    hide_box.click(function(){
+        var outside_images = $('[id ^= outside_img_]');
+
+        imageResize(box, outside_images, '{url_files}outside_images', 'orig.jpg');
+        videoResizeStep();
+
+        btn.removeClass('btn_bl_hide_narrow_box');
+        btn.addClass('btn_bl_show_narrow_box');
+
+        box.stop().animate(
+                {width: 'toggle'},
+                {duration: 350,
+                 complete: function() {
+                    var isState;
+                    imageResize(box, outside_images, '{url_files}outside_images', 'th.jpg');
+                    if ($(this).css('display') == 'none') {
+                        hide_box.attr('title', '{l_narrow_box_expand}');
+                        $('#bl_show_narrow_box').css('display', 'block');
+                        $('#bl_hide_narrow_box').css('display', 'none');
+                        btn.removeClass('btn_bl_show_narrow_box');
+                        btn.addClass('btn_bl_hide_narrow_box');
+                        isState = 0;
+                    } else {
+                        hide_box.attr('title', '{l_narrow_box_collapse}');
+                        $('#bl_hide_narrow_box').css('display', 'block');
+                        $('#bl_show_narrow_box').css('display', 'none');
+                        isState = 1;
+                    }
+                    $.post('{url_main}ajax.php', {cmd: 'save_state_narrow_box',
+                                                  type: 'groups_forum',
+                                                  state: isState}
+                    );
+                    cancelAnimationFrame(globalID);
+                    videoResize(box_object);
+                }
+        });
+        return false;
+    });
+    <!-- begin_forum_edit_js -->
+   $('#forumtitle_{forum_id}').editable({lAdd: '{l_add_desc}',
+                                 lEdit: '{l_edit_desc}',
+                                 lSave: '{l_saving}',
+                                 type: 'groups_forum',
+                                 typeData: 'forum_title',
+                                 classInput: 'forum_title_editable',
+                                 classHover: 'forum_title_editable_hov',
+                                 inputLength: 20});
+
+   $('#forumdesc_{forum_id}').editable({lAdd: '{l_add_desc}',
+                                 lEdit: '{l_edit_desc}',
+                                 lSave: '{l_saving}',
+                                 type: 'groups_forum',
+                                 typeData: 'forum_description',
+                                 classInput: 'forum_desc_editable',
+                                 classHover: 'forum_desc_editable_hov',
+                                 inputLength: 1000});
+
+    <!-- end_forum_edit_js -->
+});
+</script>
+
+    <div class="groups">
+
+		{groups_header}
+        <a id="hide_narrow_box" href="" title="" style="position:absolute; margin-top:10px; right:0;">
+            <div id="bl_hide_narrow_box" class="bl_hide_narrow_box lower_header_color" style="display: {hide_narrow_box}"></div>
+            <div id="bl_show_narrow_box" class="bl_show_narrow_box upper_header_color" style="display: {show_narrow_box}"></div>
+        </a>
+        <table class="tb_groups">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    {groups_group_show}
+
+                    <div class="groups_shadow"></div>
+
+                    <div class="groups_p pl_top_m">
+                        <div class="groups_title">
+
+                            <h1 class="txt_lower_header_color fl_left" style="1font-size: 24px; 1line-height: 26px;">
+                                <!-- begin_forum_title_edit_no -->
+                                {forum_title}
+                                <!-- end_forum_title_edit_no -->
+                                <!-- begin_forum_title_edit -->
+                                <div style="display:inline-block" title="{forum_title_full}" id="forumtitle_{forum_id}" >{forum_title}</div>
+                                <!-- end_forum_title_edit -->
+                            </h1>
+                            <a class="fl_right groups_go_forums" href="{url_main}groups_group_show.php?group_id={group_id}">{l_groups_go_to_wall}</a>
+                        <div class="cl"></div>
+                        </div>
+						<div class="cl">&nbsp;</div>
+                        <!-- begin_forum_desc_edit_no -->
+                        <p style="padding: 0 0 10px;">{forum_description}</p>
+                        <!-- end_forum_desc_edit_no -->
+                        <!-- begin_forum_desc_edit -->
+                        <div  style="padding: 0 0 10px;" id="forumdesc_{forum_id}" >{forum_description}</div>
+                        <!-- end_forum_desc_edit -->
+                        {groups_forum_comment_list}
+
+                    </div>
+                    <!-- begin_forum_delete -->
+                    <div style="margin-left:10px;">
+                    <a class="fl_left groups_go_forums" onclick="if (!confirm('{l_are_you_sure}')) {return false}" href="{url_main}groups_group_forum_show.php?cmd=delete&forum_id={forum_id}">
+                    {l_delete_forum}
+                    </a>
+                    </div>
+                    <!-- end_forum_delete -->
+                    <div class="groups_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+                <td id="narrow_box" class="td_narrow" style="display: {display}">
+
+					{groups_group_member_list}
+					{groups_group_comment_list_sidebar}
+
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div id="foot_right" class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+
+{footer}

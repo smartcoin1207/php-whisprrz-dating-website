@@ -1,0 +1,32 @@
+<ul class="list_btn">
+    <li><input value="{l_my_friends}"  title="{l_my_friends}" onclick="location='{url_main}my_friends.php?show=all';" type="button"  class="btn upper_header_color {button_oryx_friends_active}"></li>
+
+    <li><input value="{l_friends_online}"  title="{l_friends_online}" onclick="location='{url_main}friends_list_online.php';" type="button"  class="btn upper_header_color {button_oryx_friends_online_active}"></li>
+    <li><input value="{l_recently}" title="{l_recently}" onclick="location='{url_main}my_friends.php?show=recently';" type="button" class="btn upper_header_color {button_oryx_recent_active}"></li>
+    <li><input value="{l_bd}" title="{l_bd}" onclick="location='{url_main}my_friends.php?show=birthdays';" type="button" class="btn upper_header_color {button_oryx_birthdays_active}"></li>
+    <!-- begin_friend_bookmarks -->
+    <li><input value="{l_friend_bookmarks}" title="{l_bookmarks}" onclick="location='{url_main}bookmark_friends.php?action=show';" type="button" class="btn upper_header_color {button_oryx_bookmarks_active}"></li>
+    <!-- end_friend_bookmarks -->
+    <!-- begin_contact_blocking -->
+        <li><input value="{l_blocked_users}" title="{l_blocked_users}" onclick="location='{url_main}user_block_list.php';" type="button" class="btn upper_header_color {button_oryx_blocked_active}"></li>
+    <!-- end_contact_blocking -->
+    <!-- begin_friend_requests_exists -->
+    <li><input value="{l_pending_friends} ({n_friend_requests})" title="{l_pending_friends}" onclick="location='{url_main}my_friends.php?show=requests';" type="button" class="btn upper_header_color {button_oryx_pending_active}"></li>
+    <!-- end_friend_requests_exists -->
+    <!-- begin_no_friend_requests -->
+    <li><input value="{l_pending_friends}" title="{l_pending_friends}" onclick="location='{url_main}my_friends.php?show=requests';" type="button" class="btn upper_header_color {button_oryx_pending_active}"></li>
+    <!-- end_no_friend_requests -->
+    <!-- begin_invite_on -->
+             <li><input value="{l_wall_invite_friends}" title="{l_wall_invite_friends}" onclick="location='{url_main}invite.php';" type="button" class="btn upper_header_color {button_oryx_wall_invite_friends_active}"></li>
+    <!-- end_invite_on -->
+    <li><input value="{l_private_users}" title="{l_private_users}" onclick="location='{url_main}my_friends.php?show=private';" type="button" class="btn upper_header_color {button_oryx_private_active}"></li>
+     <li><input value="{l_private_videos}" title="{l_private_videos}" onclick="location='{url_main}my_friends.php?show=video_private';" type="button" class="btn upper_header_color {button_oryx_video_private_active}"></li>
+    <!-- Divyesh - 17042024 -->
+    <li><input value="{l_personal_users}" title="{l_personal_users}" onclick="location='{url_main}my_friends.php?show=personal';" type="button" class="btn upper_header_color {button_oryx_personal_active}"></li>
+    <!-- begin_folder_invite -->
+        <!-- begin_folder_item -->
+            <li><input value="{folder_name} {l_folder_invite}" title="{folder_name} {l_invite}" onclick="location='{url_main}my_friends.php?show=folder&folder_id={folder_id}';" type="button" class="btn upper_header_color {folder_active}"></li>
+        <!-- end_folder_item -->
+    <!-- end_folder_invite -->
+    <!-- Divyesh - 17042024 -->
+   </ul>

@@ -1,0 +1,126 @@
+{header}
+	
+
+<script Language="JavaScript" type="text/javascript">
+
+function on_form_submit()
+{
+    if(($('input[name="image_1"]').val() == "") && ($('input[name="image_2"]').val() == "") && 
+            ($('input[name="image_3"]').val() == "") && ($('input[name="image_4"]').val() == ""))
+    {
+        alert('{l_please_select_a_photos}');
+        return false;
+    }
+
+    for(var i = 1; i <= 4; i++)
+    {
+        var ext = $('input[name="image_'+i+'"]').val();
+        if(ext != "")
+        {
+            ext = ext.substring(ext.length-4,ext.length);
+            ext = ext.toLowerCase();
+            if(ext != '.jpg' && ext != '.gif' && ext != '.png' && ext != 'jpeg') {
+                alert('{l_wrong_photo_types}');
+                return false; 
+            }
+        }
+    }
+
+    $('#load_animation1').css('visibility', 'visible');
+
+    return true;
+}
+
+</script>
+
+    <div class="events_new">
+
+		{events_header}
+
+        <table class="tb_events_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                
+                    {events_event_show}
+                    
+                    <div class="events_new_shadow"></div>
+
+                    <div class="events_new_p pl_top_m" style="padding-right:0px;padding-left:0px;">
+
+                    <form id="musician_edit_form" method="POST" action="{url_main}events_event_add_photos.php?cmd=save&event_id={event_id}" enctype="multipart/form-data" onsubmit="return on_form_submit()">
+                    
+                        
+                    <div class="events_new_p pl_top_m"  style="margin-bottom: 20px;">
+                        <h1>{l_add_images_to} {event_title}</h1>
+
+                        <div class="bl_events_new_frm">
+                        <table class="tb_events_new_frm">
+                            <tr>
+                                <th>{l_files}:</th>
+                                <td class="event_inp_file">
+                                    <input class="file" type="file" name="image_1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td class="event_inp_file">
+                                    <input class="file" type="file" name="image_2"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td class="event_inp_file">
+                                    <input class="file" type="file" name="image_3"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td class="event_inp_file">
+                                    <input class="file" type="file" name="image_4"/>
+                                </td>
+                            </tr>
+
+                        </table>
+                        </div>
+
+                        <div class="music_new_p_btn fl_right" style="position:relative;">
+                            <img style="visibility:hidden;float:left;position:relative;top:1px; margin: 0 4px 0 0;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif">
+<!--                             <div class="events_input2 fl_right">
+                                <input class="eventsuploadpics" type="submit" value="{l_upload_pics}"/>
+                            </div> -->
+
+                    <a onclick="$('#musician_edit_form').submit(); return false;"  href="#" class="btn round blue fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_upload_pics}&nbsp;<img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+
+                        </div>
+                    <div class="cl"></div>
+                    </div>
+
+                    <div class="music_new_empty"></div>
+                    
+                    </form>
+
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+	
+					{events_event_guest_list}
+					{events_sidebar}
+				
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+
+
+{footer}

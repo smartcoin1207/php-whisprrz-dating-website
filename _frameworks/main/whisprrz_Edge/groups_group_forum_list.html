@@ -1,0 +1,156 @@
+{header}
+<script language="javascript" type="text/javascript">
+$(function(){
+    var box = $("#narrow_box"),
+        box_display = box.css('display'),
+        btn = $('[id ^= btn_groups_form_]'),
+        hide_box = $("#hide_narrow_box");
+    
+    if (box_display == 'none') {
+        hide_box.attr('title', '{l_narrow_box_expand}');
+        btn.removeClass('btn_bl_show_narrow_box');
+        btn.addClass('btn_bl_hide_narrow_box');
+    } else {
+        hide_box.attr('title', '{l_narrow_box_collapse}');
+    }  
+    
+    $("#hide_narrow_box").click(function(){
+        btn.removeClass('btn_bl_hide_narrow_box');
+        btn.addClass('btn_bl_show_narrow_box');
+
+        box.stop().animate({width: 'toggle'}, 350, function(){
+            var isState;
+            
+            if ($(this).css('display') == 'none') {
+                hide_box.attr('title', '{l_narrow_box_expand}');
+                $('#bl_show_narrow_box').css('display', 'block');
+                $('#bl_hide_narrow_box').css('display', 'none');
+                btn.removeClass('btn_bl_show_narrow_box');
+                btn.addClass('btn_bl_hide_narrow_box');
+                isState = 0;
+            } else {
+                hide_box.attr('title', '{l_narrow_box_collapse}');
+                $('#bl_hide_narrow_box').css('display', 'block');
+                $('#bl_show_narrow_box').css('display', 'none');
+                isState = 1;
+            }
+            $.post('{url_main}ajax.php', {cmd: 'save_state_narrow_box',
+                                          type: 'groups_forums',
+                                          state: isState}
+            );
+        });
+        
+        return false;
+    }); 
+});
+</script>	
+
+    <div class="groups">
+
+		{groups_header}
+        <a id="hide_narrow_box" href="" title="" style="position:absolute; margin-top:12px; right:0; ">
+            <div id="bl_hide_narrow_box" class="bl_hide_narrow_box lower_header_color" style="display: {hide_narrow_box}"></div>
+            <div id="bl_show_narrow_box" class="bl_show_narrow_box upper_header_color" style="display: {show_narrow_box}"></div>
+        </a>
+
+        <table class="tb_groups">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                
+                    {groups_group_show}
+                    
+<!--                     <div class="groups_shadow"></div>
+ -->
+
+                     <div class="" style="margin: 6px 10px 0;">
+
+                        <div class="pl_top ">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+
+                              <td><h1 class="txt_lower_header_color">{l_groups_forums}</h1></td>
+                              <td>
+                              <div class="main_pl" style="margin: 2px 0 0;">
+                                    <!-- begin_btn_creat_forum -->
+                                    <div class="cont">
+                                        <div class="pic">
+                                                <img src="{url_tmpl_main}images/groups/ico_browse.png" width="34" height="34" alt=""/>
+                                        </div>
+                                        <ul class="list">
+                                            <li>
+                                                <a href="{url_main}groups_group_forum_edit.php?group_id={group_id}">{l_groups_new_forum}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- end_btn_creat_forum -->
+                                    <div class="bg">
+                                        <ul class="list" style="padding-right: 0; margin-right: -8px;">
+                                          <li><a class="fl_right groups_go_forums_list" href="{url_main}groups_group_show.php?group_id={group_id}">{l_groups_go_to_wall}</a></li>
+                                        </ul>
+                                    </div>
+                              </div>
+                              </td>
+                            </tr>
+                          </table>
+                            </div>
+                            <!-- /bl_main_pl -->
+
+                        <div class="cl"></div>
+                        </div>
+                    </div>
+
+<!--                         <div class="groups_p pl_top_m">
+                        <div class="fl_left bl_overflow bl_overflow_w100">
+                            <h1 class="txt_lower_header_color">{l_groups_forums}</h1>
+                        </div>
+                        </div> -->
+
+                        <!-- div class="groups_pl_violet2 fl_right pl_violet_b" >
+                            <div class="groups_pl_violet_l"></div>
+                            <div class="groups_pl_violet_c">
+                                <div class="groups_pl_violet_img">
+                                    <img src="{url_tmpl_main}images/groups/ico_browse.png" width="34" height="34" alt=""/>
+                                </div>
+                                <ul class="groups_list">
+                                    <li><a href="{url_main}groups_group_forum_edit.php?group_id={group_id}">{l_groups_new_forum}</a></li>
+                                </ul>
+                            </div>
+                            <div class="groups_pl_violet_r"></div>
+                            <a class="fl_right groups_go_forums_list" href="{url_main}groups_group_show.php?group_id={group_id}">{l_groups_go_to_wall}</a>
+                        </div> -->
+                        
+                        <div class="cl"></div>
+                        
+                        {groups_group_forum_list}
+
+                    </div>
+
+                    <div class="groups_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+                <td id="narrow_box" class="td_narrow" style="display: {display}">
+	
+					{groups_group_member_list}
+					{groups_group_comment_list_sidebar}
+				
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+{footer}

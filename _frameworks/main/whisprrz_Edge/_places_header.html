@@ -1,0 +1,79 @@
+<link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/places.css{cache_version_param}" />
+<!--[if IE]>
+<link rel="stylesheet" href="{url_tmpl_main}css/places_ie.css{cache_version_param}" type="text/css" />
+<![endif]-->
+<link rel="stylesheet" type="text/css" media="all" href="{url_tmpl_main}abkstyle/abkstyle.css{cache_version_param}" />
+<script language="javascript" src="{url_tmpl_main}abkstyle/abkstyle.js{cache_version_param}"></script>
+
+<style type="text/css">
+    .star-rating-control .star-rating:nth-child(odd) a {
+      margin-left: -10px;
+    }
+
+    div.star-rating a{
+        margin-left: 0px;
+    }
+    div.star-rating {
+        width: 10px;
+    }
+</style>
+
+<div class="places_new_head">
+    <script type="text/javascript">
+    function places_header_search_on_submit()
+    {
+        where = $("#places_header_search input[name='where']").val();
+    	what = $("#places_header_search input[name='what']").val();
+    	
+        if((what != '' && what != '{l_what_question}') || (where != '' && where != '{l_where_question}'))
+        {
+            if(what == '{l_what_question}')
+            	$("#places_header_search input[name='what']").val('');
+            if(where == '{l_where_question}')
+                $("#places_header_search input[name='where']").val('');
+            
+            return true;
+        }
+
+        alert('{l_places_please_enter_what_you_search}');
+        
+        return false;
+    }
+    </script>
+
+<!--     <table>
+        <tr>
+            <td class="td_l">&nbsp;</td>
+            <td class="td_c"> -->
+            <div class="places_head_bl">
+                <div class="places_new_head_txt txt_upper_header_color">
+                    <strong><a href="{url_main}places.php" style="text-decoration:none">{l_places}</a></strong><!-- begin_places_header_location --> <span class="dot4">::</span> {l_you_are_in} <span title="{location_full}">{location}</span><!-- end_places_header_location -->
+                </div>
+                    <form action="{url_main}places_search_and_write.php" method="post">
+<!--                 <div class="places_input1 fl_right"><input  type="submit" value="{l_add_a_review}"/></div> -->
+                    <a href="#" onclick="document.location='{url_main}places_search_and_write.php'; return false;" class="btn round upper_header_color fl_right" onclick="document.location='{url_main}places_search_and_write.php'"><img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" /> {l_add_a_review} <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+
+                    </form>
+					
+                    <form id="places_header_search" autocomplete="off" action="{url_main}places_search.php" method="post" onsubmit="return places_header_search_on_submit();">
+
+<!-- 					 <div class="places_input2 fl_right" style="position:relative;left:-18px;"><input class="btn round blue big fl_right" type="submit" value="{l_search_button}"/></div> -->
+                        
+                        <input style="margin: 0 15px 0 0;" class="btn round upper_header_color big fl_right" type="submit" value="{l_search}" />
+
+                   <div class="places_input_text1 fl_right" style="position:relative;left:-21px;"><input autocomplete="off" class="no_abk" type="text" name="what" value="{l_what_question}" onFocus="if(this.value=='{l_what_question}') this.value=''" onBlur="if(this.value=='') this.value='{l_what_question}';" /></div>
+
+
+                 <div class="places_input_text1 fl_right" style="position:relative;left:-28px;"><input autocomplete="off" class="no_abk" type="text" name="where" value="{l_where_question}" onFocus="if(this.value=='{l_where_question}') this.value=''" onBlur="if(this.value=='') this.value='{l_where_question}';" /></div>
+	           
+                 </form>
+            </div>
+<!--             </td>
+            <td class="td_r">&nbsp;</td>
+        </tr>
+    </table> -->
+
+    <ul class="places_new_menu">
+        <!-- begin_places_category --><li<!-- begin_places_category_last --> class="last"<!-- end_places_category_last -->><a href="{url_main}places_search.php?category_id={category_id}">{category_title}</a></li><!-- end_places_category -->
+    </ul>
+</div>

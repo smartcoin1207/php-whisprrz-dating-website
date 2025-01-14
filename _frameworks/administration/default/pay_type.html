@@ -1,0 +1,68 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+
+<style>
+table.pay_type {
+    width: auto;
+}
+
+table.pay_type td {
+    text-align: center;
+}
+table.pay_type td input {
+    margin: 0;
+    width: auto;
+}
+</style>
+
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div style="width: 450px; font-size: 12px; border-radius: 4px; background-color:#ececec; padding: 6px 6px 6px 10px; margin-bottom: 12px;">{l_description}</div>
+    <div class="bl_form">
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <table border=0 class="pay_type">
+        <tr>
+            <!-- begin_payplan_titles -->
+                <td></td>
+                <!-- begin_payplan_title -->
+                    <td width="10"></td>
+                    <td><b>{payplan_title}</b></td>
+                <!-- end_payplan_title -->
+            <!-- end_payplan_titles -->
+
+        </tr>
+        <!-- begin_item  -->
+        <tr>
+            <td><label style="float:left;">{pay_name}</label></td>
+
+            <!-- begin_payplan_checkbox -->
+                <td></td>
+                <td><input type="checkbox" name="{payplan_id}[{item}]" value="{pay_code}" id="{payplan_id}[{item}]"{payplan_checked}></td>
+            <!-- end_payplan_checkbox -->
+
+            <!-- <td></td>
+            <td><input type="checkbox" name="silver[{item}]" value="{pay_code}" id="silver[{item}]"{silver_checked}></td>
+            <td></td>
+            <td><input type="checkbox" name="gold[{item}]" value="{pay_code}" id="gold[{item}]"{gold_checked}></td>
+            <td></td>
+            <td><input type="checkbox" name="platinum[{item}]" value="{pay_code}" id="platinum[{item}]"{platinum_checked}></td>
+			<td></td>
+            <td><input type="checkbox" name="platinum_plus[{item}]" value="{pay_code}" id="platinum_plus[{item}]"{platinum_plus_checked}></td>
+			<td></td>
+            <td><input type="checkbox" name="platinum_events[{item}]" value="{pay_code}" id="platinum_events[{item}]"{platinum_events_checked}></td> -->
+        </tr>
+        <!-- end_item -->
+		</table>
+        <div class="btn fl_left"><a href="#" class="submit">{l_save}</a>
+					<input type="submit" style="visibility:hidden;position:absolute;">
+
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

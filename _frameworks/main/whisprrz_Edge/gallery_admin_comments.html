@@ -1,0 +1,40 @@
+{header}
+{gallery_menu}
+
+	<h2 class="txt_upper_header_color">{l_comments}</h2>
+    <p>{l_intro_text}</p>
+
+	<form name="comments" action="?action=deletecomments" method="post" onsubmit="return confirm('{l_are_you_sure_to_delete_comments}');">
+        <table class="bordered">
+            <tr>
+                <th>&nbsp;</th>
+                <th>{l_image}</th>
+                <th>{l_author}</th>
+                <th>{l_datetime}</th>
+                <th>{l_comment}</th>
+                <th colspan="2">&nbsp;</th>
+            </tr>
+			<!-- begin_comment -->
+            <tr>
+                <td align="right" ><input type="checkbox" name="ids[]" value="{comment_id}" onclick="triggerAllBox(this.form, 'ids[]', this.form.allbox);" style="vertical-align:middle;" /></td>
+                <td><span>{comment_album_title} / {comment_image_filename}</span></td>
+                <td><a target="_blank" href="search_results.php?display=profile&name={comment_author_name}">{comment_author_name}</a></td>
+                <td><span>{comment_date}</span></td>
+                <td>{comment_text}</td>
+                <td><a href="gallery_admin_editcomment.php?id={comment_id}" >{l_edit}</a></td>
+                <td><a href="javascript: if(confirm('{l_are_you_sure_to_delete}')) { window.location='?action=deletecomments&id={comment_id}'; }" class="color_red">{l_delete}</a></td>
+            </tr>
+    		<!-- end_comment -->
+            <tr>
+    			<td align="right" >
+                        <input type="checkbox" id="allbox" name="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);"/>                        
+               </td>
+                <td align="left" colspan="6">                        
+                        <label for="allbox">{l_check_all}</label>
+                </td>
+            </tr>
+      </table>
+      <input type="submit" value="{l_delete_selected}" class="btn upper_header_color" />
+    </form>
+</div>
+{footer}

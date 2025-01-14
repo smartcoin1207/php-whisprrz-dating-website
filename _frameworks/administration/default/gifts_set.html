@@ -1,0 +1,99 @@
+{header}
+<script>
+/*$(function() {
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+        tolerance: 'pointer',
+        opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+        }
+    });
+
+    $('#all').change(function(){
+        choiceChkbox($(this), $('[id ^= chk_]'))
+    });
+
+});
+
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};*/
+</script>
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+        <!-- begin_sets -->
+        <form action="{url_page}" method="POST">
+        <label>{l_active}:</label>
+        <select name="id" class="input">{set_opts}</select>
+        <input type="hidden" name="cmd" value="set">
+        <table class="tb_fields" id="sortable" style="width:320px;">
+        <thead>
+                <tr id="no_sortable" >
+                    <th class="decor_l">&nbsp;</th>
+                    <!--<th class="right"><input style="margin:0px; width: 20px;" type="checkbox" id="all"></th>-->
+                    <th style="width:20px; text-align: center;">{l_id}</th>
+                    <!--<th style="width:120px; text-align:center;">{l_action}</th>-->
+                    <th style="width:190px; text-align: center;">{l_title}</th>
+                    <th style="text-align: center;" class="last">{l_image}</th>
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+        </thead>
+        <!-- begin_sets_item -->
+        <tr class="color"> <!--style="cursor:move;"-->
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+                <!--<td class="right" style="margin:0px; width: 20px;">
+                    <input style="margin:0px 0px 0px 10px; padding:0px; width: 20px;" type="checkbox" id="chk_{id}">
+                </td>-->
+                <td style="text-align: center;">
+                    {id}
+                </td>
+                <!--<td style="text-align: center;">
+                    <a href="{url_main}administration/gifts.php?cmd=delete&item={id}&set={set}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a> |
+                    <a href="{url_main}administration/gifts_edit.php?action=edit_gift&id={id}">{l_edit}</a>
+                </td>-->
+                <td style="text-align: left; margin-left: 4px;">
+                    {title}
+                </td>
+                <td class="last" style="text-align: center;">
+                    <input type="hidden" name="order[]" value="{id}">{name_block}
+                    <img style="max-width: 20px; max-height: 20px;" src="{url_set}">
+                </td>
+                <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_sets_item -->
+        </table>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+        </div>
+        </form>
+        <!--<div class="btn fl_left" style="margin-left: -7px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) actionChecked('{url_page}', 'delete', 'set={$set}'); return false;" href="#">{l_delete}</a>
+        </div>-->
+        <!-- end_sets -->
+        <!-- begin_no_sets -->
+        <div align="center">{l_no_results}</div>
+        <!-- end_no_sets -->
+    </div>
+    <div class="empty"></div>
+</div>
+{footer}

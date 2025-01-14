@@ -1,0 +1,49 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<script>
+    /*$(function(){
+        $('.pay_satus').change(function(){
+            if(!$('.pay_satus:checked')[0]){
+                $(this).prop('checked',true);
+                alert('{l_must_be_selected_one_payment_system}');
+            }
+        })
+    })*/
+</script>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+        <table class="tb_fields" style="width:300px;">
+        <thead>
+                <tr id="no_sortable" >
+                    <th class="decor_l">&nbsp;</th>
+                    <th class="right" style="border-right: none; text-align: center;" >{l_table_name}</th>
+                    <th class="last" style="text-align: center; width:30px;">{l_active}</th>
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+        </thead>
+        <!-- begin_item -->
+        <tr class="color" style=" cursor: default;">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+                <td class="left">
+                    {title}
+                </td>
+                <td  class="last" style="text-align: center; width:30px;">
+                    <input class="pay_satus" type="checkbox" name="status[{key}]" {checked} style="margin:-4px 0px 0px 0px; padding:0px; width: 20px;">
+                </td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_item -->
+		</table>
+        <div class="btn fl_right"><a href="#" class="submit">{l_save}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+<div class="empty"></div>
+</div>
+{footer}

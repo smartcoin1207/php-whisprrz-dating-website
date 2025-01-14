@@ -1,0 +1,109 @@
+{header}
+
+
+<script type="text/javascript">
+
+function on_musician_comment_post()
+{
+	comment_text = $('#musician_comment_text').val();
+	if(comment_text === "")
+	{
+	    alert('{l_please_enter_text}');
+	    return;
+	}
+
+    $('#musician_comment_post_button').attr('disabled', true);
+    $('#musician_comment_post_animation').css('visibility', 'visible');
+
+    $.ajax({
+    	  type: 'POST',
+    	  url: '{url_main}music_musician_comment_create_ajax.php',
+    	  data: {
+        	  musician_id: {musician_id},
+        	  comment_text: comment_text 
+    		  },
+    	  success: function (data, textStatus, XMLHttpRequest)
+	    	  {
+				redirectRequiresAuth(data);	
+    			  $('#musician_comment_post_animation').css('visibility', 'hidden');
+    			  $('#musician_comment_text').val('');
+    			  $('#musician_comment_post_button').attr('disabled', false);
+    			  musician_comment_list_load_page(1);
+	    	  }
+    	});
+}
+
+</script>
+
+
+    <div class="music_new">
+
+		{music_header}
+
+        <table class="tb_music_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    {music_musician_show}
+
+                    <div class="music_new_shadow"></div>
+
+                    <div class="music_new_p pl_top_m">
+                        <!-- begin_musician_songs -->
+                        <h1 class="txt_color">{l_tracks_of} "{musician_name}"</h1>
+
+                        {music_musician_song_list}
+
+                        <div class="line_dashed"></div>
+                        <!-- end_musician_songs -->
+
+                        <h1 class="txt_color">{l_musician_comments}</h1>
+
+                        {music_musician_comment_list}
+
+                        <div class="cl"></div>
+
+						<!-- new_mods_comments -->
+						<div class="music_new_comments">
+						    <div class="music_new_comments_head">
+						        <div class="music_new_comments_txt">
+						            <strong>{l_leave_your_comment}:</strong>
+						        </div>
+						    </div>
+						    <div class="music_new_comments_c">
+						        <img style="float:left;" src="{user_photo}" width="62" height="70" alt="" title="{user_name}"/>
+					
+								<div class="music_textarea2 fl_right">
+						            <textarea class="no_abk" id="musician_comment_text"></textarea>
+						        </div>
+						
+						    <div class="justify"></div>
+						    </div>
+						    <div class="music_new_comments_bot"></div>
+						</div>
+						<!-- /new_mods_comments -->
+						
+	
+						    <div class="1music_input8 fl_right"><input class="btn upper_header_color round big" id="musician_comment_post_button" type="button" value="{l_comment}" onclick="on_musician_comment_post();"/></div><img class="fl_right" style="visibility:hidden; margin: 1px 5px 0 0;" id="musician_comment_post_animation" src="{url_tmpl_main}images/load_animation.gif">
+
+
+                    </div>
+
+                    <div class="music_new_empty"></div>
+
+                </td>
+                <!-- /td_main -->
+
+				{music_sidebar}
+				
+            </tr>
+        </table>
+
+        <div class="foot_left"></div>
+		<div class="foot_right"></div>
+
+    
+    </div>
+
+{footer}

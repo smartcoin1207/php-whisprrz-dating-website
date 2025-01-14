@@ -1,0 +1,252 @@
+<div class="sidepanel">
+    <div class="search">
+        <label for="pp_messages_search"><i class="fa fa-search" aria-hidden="true"></i></label>
+        <input id="pp_messages_search" class="placeholder" type="text" placeholder="{a_message_search_user}" disabled/>
+    </div>
+    <div id="pp_messages_contacts_bl" class="contacts">
+        <ul id="pp_messages_contacts">
+            {user_list}
+        </ul>
+    </div>
+
+    <div class="hidden-xs bottom-bar" style="display: flex;">
+        <button onclick="clMessages.showOnlyOnline(false);" id="pp_messages_show_all" class="<!-- begin_status_all_active -->active<!-- end_status_all_active -->" >
+            <span class="glyphicon glyphicon-user"></span>
+            <span>{l_message_all}</span>
+        </button>
+        <button onclick="clMessages.showOnlyOnline(true);" id="pp_messages_show_online"  >
+            <span class="glyphicon glyphicon-globe"></span>
+            <span>{l_message_on_line}</span>
+        </button>
+
+        <!-- begin_show_only_group_button -->
+        <button onclick="clMessages.showOnlyGroup(true);" id="pp_messages_show_group" class="<!-- begin_status_group_active -->active<!-- end_status_group_active -->" >
+            <span class="glyphicon glyphicon-group"></span>
+            <span>{l_message_group}</span>
+        </button>
+        <!-- end_show_only_group_button -->
+    </div>
+</div>
+
+<div class="content">
+    <div id="pp_messages_user_content" class="user_content">
+        <div id="pp_message_chat_info" class="contact-profile">
+            <div id="pp_message_user_title_info">
+                {message_list_title}
+            </div>
+            <div id="pp_messages_user_menu" class="choose-chat">
+                <ul class="list_icons">
+                    <!-- begin_user_invite_streetchat -->
+                    <li id="pp_messages_user_menu_streetchat" class="icon">
+                        <a href="#" data-cl-loader="im_menu_loader" onclick="clMessages.inviteStreetChat($(this)); return false;">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <!-- end_user_invite_streetchat -->
+                    <!-- begin_user_invite_audiochat -->
+                    <li class="icon">
+                        <a href="#" data-cl-loader="im_menu_loader" onclick="clMessages.inviteAudioChat($(this)); return false;">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <!-- end_user_invite_audiochat -->
+                    <!-- begin_user_invite_videochat -->
+                    <li class="icon">
+                        <a href="#" data-cl-loader="im_menu_loader" onclick="clMessages.inviteVideoChat($(this)); return false;">
+                            <i class="fa fa-video-camera" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <!-- end_user_invite_videochat -->
+                    <!-- begin_user_menu_calendar -->
+                    <li id="pp_message_menu_calendar" class="icon">
+                        <a href="#" data-cl-loader="im_menu_loader" onclick="clMessages.toCalendar($(this)); return false;">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <!-- end_user_menu_calendar -->
+                    <li id="pp_user_more_menu_li" class="more">
+                        <span id="pp_user_more_menu" class="dots" role="button" aria-haspopup="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                        <ul id="pp_user_more_menu_bl" class="more_menu_collapse collapse">
+                            <li id="pp_user_more_menu_close_chat">
+                                <a href="#" onclick="clMessages.confirmCloseChat(); return false;">
+                                    <span class="icon_fa"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                    <span>{l_message_action_close}</span>
+                                </a>
+                            </li>
+                            <li id="pp_user_more_menu_clear_chat">
+                                <a href="#" onclick="clMessages.confirmClearChat(); return false;">
+                                    <span class="icon_fa"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                    <span>{l_message_action_clear}</span>
+                                </a>
+                            </li>
+                            <!-- begin_user_report -->
+                            <li id="pp_user_more_menu_report">
+                                <a href="#" class="menu_user_report_edge" data-uid="" onclick="$(this).data('uid', clMessages.userTo); clMessages.closeMoreMenu(); userReport($(this)); return false;">
+                                    <span class="icon_fa"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                                    <span>{l_report}</span>
+                                </a>
+                            </li>
+                            <!-- end_user_report -->
+							<!-- begin_user_blocking -->
+                            <li>
+                                <a href="#" onclick="clMessages.confirmBlockUser(); return false;">
+                                    <span class="icon_fa"><i class="fa fa-ban" aria-hidden="true"></i></span>
+                                    <span>{l_message_action_block}</span>
+                                </a>
+                            </li>
+                            <!-- end_user_blocking -->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="pp_message_list_message" class="messages">
+            {message_list}
+
+            <div id="pp_message_list_message_template_ration" class="pp_message_user_list_message scrollbarY">
+                <div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
+                <div class="viewport">
+                    <div id="im_overview_template_ration" class="overview im_trans_template_ration">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="social-media">
+        <i onclick="clMessages.closePopup();" class="fa fa-times-circle" aria-hidden="true"></i>
+    </div>
+
+    <div class="message-input">
+        <div class="wrap">
+
+			<!--<textarea id="pp_messages_msg" placeholder="{a_write_your_message}" class="placeholder {im_audio_message_enabled}" disabled></textarea>-->
+
+			<div id="pp_messages_msg" data-im-audio-message-id="0" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_your_message}" class="pp_messages_msg placeholder {im_audio_message_enabled} textarea" disabled></div>
+
+			<div id="pp_message_action" class="pp_message_action">
+				<div id="pp_message_sticker_btn" title="{a_stickers}" data-append="#pp_message_list_message" onclick="stickerBlockShow(this)" class="pp_message_sticker_btn"></div>
+				<div id="pp_message_smile_btn" title="{a_smilies}" data-input="#pp_messages_msg" data-append="#pp_message_list_message" onclick="smileBlockShow(this)" class="pp_message_smile_btn">
+					<i class="fa fa-smile-o" aria-hidden="true"></i>
+				</div>
+				<!-- begin_im_audio_message_recorder_control -->
+				<div id="im_audio_message_recorder" class="im_audio_message_recorder pp_audio_message_recorder">
+					<span id="im_audio_message_visualizer" class="audio_visualizer im_audio_visualizer"></span>
+
+					<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl" title="{a_record_audio_message}" onclick="clMessages.runAudioRecorder();">
+						<i class="fa fa-microphone" aria-hidden="true"></i>
+						<i class="fa fa-circle" aria-hidden="true"></i>
+					</span>
+				</div>
+				<!-- end_im_audio_message_recorder_control -->
+
+				<!-- begin_app_ios_im_audio_message_recorder -->
+				<div id="im_audio_message_recorder" class="im_audio_message_recorder pp_audio_message_recorder">
+					<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl app_ios_im_audio_message_recorder" title="{a_record_audio_message}" onclick="runAppIosImAudioMessageRecorder('{app_ios_auth_key}');">
+						<i class="fa fa-microphone" aria-hidden="true"></i>
+						<i class="fa fa-circle" aria-hidden="true"></i>
+					</span>
+				</div>
+				<!-- end_app_ios_im_audio_message_recorder -->
+
+				<div id="pp_message_upload_img" class="pp_message_upload_img disabled">
+					<div id="pp_message_upload_img_loader" class="pp_message_upload_img_loader"></div>
+
+					<button id="pp_message_img_editor" onclick="clMessages.openEditorImage(); return false;" title="{a_edit_image}" class="btn btn-success pp_message_img_editor">
+						<span class="btn_wrap">
+							<span class="icon_fa"  data-no-fade-in="true">
+								<svg height="24" width="24" viewBox="0 0 24 24">
+									<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+								</svg>
+							</span>
+							<span>{l_edit_image}</span>
+						</span>
+					</button>
+					<script>clMessages.initBtnImageEditor();</script>
+
+					<i class="fa fa-camera" onclick="clMessages.clearUploadImage(true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+
+					<span class="count_upload_image">
+						<i class="fa fa-check" aria-hidden="true"></i>
+						<i class="fa fa-times" aria-hidden="true"></i>
+					</span>
+
+					<form id="pp_message_upload_img_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+						<input class="pp_message_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="file_add_wall"  onclick="clMessages.clickUpload($(this));" onChange="clMessages.changeUploadImage($(this));"/>
+						<input class="inp_hide" type="reset" value=""/>
+						<input class="inp_hide" type="submit" value=""/>
+					</form>
+					<script>clMessages.initAddImage();</script>
+				</div>
+			</div>
+
+            <button id="pp_messages_send" class="submit messages_send" disabled><!--i class="fa fa-paper-plane" aria-hidden="true"></i--></button>
+        </div>
+    </div>
+    <div id="pp_messages_splash_no_chats" class="pp_messages_splash_no_chats">
+        <i class="fa fa-weixin" aria-hidden="true">
+            <span>{l_you_have_no_messages_yet}</span>
+        </i>
+    </div>
+    <script>
+        last_id={last_id};
+        clMessages.setData({
+            isInitLoad:false,
+            isShowOnlyOnline:false,
+            valSearch:false,
+            userTo:{current_user_to_id},
+            groupId:'{current_group_id}'*1,
+            fromGroupId:'{current_from_group_id}'*1,
+            toGroupId:'{current_to_group_id}'*1,
+            $ppSearch:$('#pp_messages_search'),
+            $ppShowAll:$('#pp_messages_show_all'),
+            $ppShowOnline:$('#pp_messages_show_online'),
+            $ppListContactBl:$('#pp_messages_contacts_bl'),
+            $ppListContact:$('#pp_messages_contacts'),
+            $ppUserChatContent:$('#pp_messages_content'),
+            $ppUserChatInfo:$('#pp_message_chat_info'),
+            $ppMsg:$('#pp_messages_msg'),
+            $ppSend:$('#pp_messages_send'),
+            $ppContentUser:$('#pp_messages_user_content'),
+            $ppUserTitleInfo:$('#pp_message_user_title_info'),
+            $ppListMsg:$('#pp_message_list_message'),
+            $ppUserMenu:$('#pp_messages_user_menu'),
+            $ppUserMenuStreetchat:$('#pp_messages_user_menu_streetchat'),
+            $ppUserMenuCalendar:$('#pp_message_menu_calendar'),
+            $ppSplashNoChats:$('#pp_messages_splash_no_chats'),
+            $ppUserMoreMenu:$('#pp_user_more_menu'),
+            $ppUserMoreMenuBl:$('#pp_user_more_menu_bl'),
+            $ppUserMoreMenuOneLink:$('li','#pp_user_more_menu_bl')[1],
+            $ppUserMoreMenuLi:$('#pp_user_more_menu_li'),
+			$ppUserMoreMenuReport:$('#pp_user_more_menu_report'),
+            $ppBtnOnline:$('#pp_messages_show_all, #pp_messages_show_online'),
+            $ppLinkClearChat:$('#pp_user_more_menu_clear_chat'),
+            $ppUploadImage:$('#pp_message_upload_img'),
+			$ppAudioRecord:$('#im_audio_message_recorder'),
+			$ppMessageAction:$('#pp_message_action'),
+			$ppAudioPlay:$('#pl_message_send_play'),
+			$ppAudioPlayCur:[],
+			$ppAudioPlayBtn:[],
+			$ppSmileBtn:$('#pp_message_smile_btn'),
+			$ppSmileBl:$('#pp_message_smiles')
+        })
+        clMessages.initLoad();
+
+        <!-- begin_show_only_group -->
+        clMessages.isShowOnlyGroup = false;
+            clMessages.showOnlyGroup(true);
+        <!-- end_show_only_group -->
+
+        <!-- begin_show_only_all -->
+            clMessages.isShowOnlyGroup = true;
+            clMessages.showOnlyOnline(false);
+        <!-- end_show_only_all -->
+    </script>
+
+
+</div>

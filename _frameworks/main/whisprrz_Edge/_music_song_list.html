@@ -1,0 +1,99 @@
+<!-- begin_container_header -->
+<script type="text/javascript">
+
+function musician_song_list_load_page(page_n)
+{
+	$('#musician_song_list_load_animation').css('visibility', 'visible');
+
+	$('#musician_song_list_container').load(
+			'{url_main}music_song_list_ajax.php?musician_id={musician_id}&n_results_per_page={n_results_per_page}&user_id={user_id}&list_type={list_type}&country_id={country_id}&category_id={category_id}&musician_founded={musician_founded}&song_year={song_year}&query={query}&musician_song_list_page=' + page_n);
+}
+
+function musician_song_list_delete_song(song_id, page_n)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+        $('#song_list_song_' + song_id).fadeOut(400, function() {
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}music_song_delete_ajax.php',
+                    data: {
+                        song_id: song_id
+                        },
+                    success: function (data, textStatus, XMLHttpRequest)
+                        {
+                        	musician_song_list_load_page(page_n);
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+<div id="musician_song_list_container">
+<!-- end_container_header -->
+
+<!-- begin_songs -->
+<table class="music_new_tb_sub">
+
+    <tr>
+        <th class="th_t_l nb first" width="7px">&nbsp;</th>
+        <th class="th_t_c" width="32px">{l_music_photo}</th>
+
+        <!-- begin_musician_title -->
+			<th class="th_t_c" width="130px"><span>{l_music_song_name}</span></th>
+			<th class="th_t_c" width="100px"><span>{l_music_musician}</span></th>
+		<!-- end_musician_title -->
+        <!-- begin_musician_actions_title -->
+			<th class="th_t_c" width="150px"><span>{l_music_song_name}</span></th>
+			<th class="th_t_c" width="80px"><span>{l_music_actions}</span></th>
+		<!-- end_musician_actions_title -->
+        <!-- begin_user_title -->
+			<th class="th_t_c" width="70px"><span>{l_music_uploaded_by}</span></th>
+		<!-- end_user_title -->
+        <!-- begin_user_actions_title -->
+			<th class="th_t_c" width="50px"><span>{l_music_actions}</span></th>
+		<!-- end_user_actions_title -->
+        <th class="th_t_c nb"><span>{l_music_listen}</span></th>
+        <th class="th_t_r nb first">&nbsp;</th>
+    </tr>
+
+    <!-- begin_song -->
+    <tr id="song_list_song_{song_id}">
+        <td class="first" colspan="2"><a class="foto" href="{url_main}music_song_show.php?song_id={song_id}"><img src="{image_thumbnail_s}" width="39" height="29" alt=""/></a></td>
+        <td><a href="{url_main}music_song_show.php?song_id={song_id}" title="{song_title_full}">{song_title}</a></td>
+        <td>
+        <!-- begin_musician_row --><a href="{url_main}music_musician_show.php?musician_id={musician_id}" title="{musician_name_full}">{musician_name}</a><!-- end_musician_row -->
+        <!-- begin_musician_actions_row --><a class="toptop" href="{url_main}music_song_edit.php?song_id={song_id}"><img class="png" src="{url_tmpl_main}images/music/ico_settings.png" width="17" height="17" alt=""/></a>
+        <a class="toptop" href="javascript:musician_song_list_delete_song({song_id}, {page});"><img class="png" src="{url_tmpl_main}images/music/ico_delete.png" width="15" height="17" alt=""/></a><!-- end_musician_actions_row -->
+        </td>
+        <td>
+        <!-- begin_user_row --><a href="{url_main}search_results.php?display=profile&name={user_name_full}" title="{user_name_full}">{user_name}</a><!-- end_user_row -->
+        <!-- begin_user_actions_row --><a class="toptop" href="{url_main}music_song_edit.php?song_id={song_id}"><img class="png" src="{url_tmpl_main}images/music/ico_settings.png" width="17" height="17" alt=""/></a>
+        <a class="toptop" href="javascript:musician_song_list_delete_song({song_id}, {page});"><img class="png" src="{url_tmpl_main}images/music/ico_delete.png" width="15" height="17" alt=""/></a><!-- end_user_actions_row -->
+        </td>
+        <td class="nb play" colspan="2">{song_player}</td>
+    </tr>
+    <!-- end_song -->
+</table>
+
+<!-- begin_pager -->
+<ul class="music_new_paging music_new_paging_green">
+    <li><img style="visibility:hidden;" id="musician_song_list_load_animation" src="{url_tmpl_main}images/load_animation.gif"></li>
+    <!-- begin_pager_prev --><li><a href="javascript:musician_song_list_load_page({page_n});">{l_pager_prev}</a></li>
+    <li>|&nbsp;&nbsp;</li><!-- end_pager_prev -->
+    <!-- begin_pager_link --><!-- begin_pager_link_active --><li class="active">{page_n}</li><!-- end_pager_link_active --><!-- begin_pager_link_not_active --><li><a href="javascript:musician_song_list_load_page({page_n});">{page_n}</a></li><!-- end_pager_link_not_active --><!-- end_pager_link -->
+    <!-- begin_pager_next --><li>&nbsp;&nbsp;|</li>
+    <li><a href="javascript:musician_song_list_load_page({page_n});">{l_pager_next}</a></li><!-- end_pager_next -->
+</ul><!-- end_pager -->
+<!-- end_songs -->
+
+<!-- begin_no_songs -->
+<div class="music_new_comments">
+    <!-- begin_no_songs_message --><center>{l_music_no_songs}</center><!-- end_no_songs_message -->
+</div>
+<!-- end_no_songs -->
+
+<!-- begin_container_footer -->
+</div>
+<!-- end_container_footer -->

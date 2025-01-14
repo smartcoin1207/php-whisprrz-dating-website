@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>{title} - {l_title}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  {to_head}
+  {header_favicon}
+  <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}css/style.css{cache_version_param}" />
+  <link rel="stylesheet" href="{url_tmpl_administration}trontastic/jquery-ui-1.8.custom.css{cache_version_param}" type="text/css" />
+  <link rel="stylesheet" href="{url_tmpl_administration}css/jquery.spectrum.css{cache_version_param}" type="text/css" />
+  <link rel="stylesheet" href="{url_tmpl}common/lightbox/jquery.lightbox-0.5.css{cache_version_param}" type="text/css">
+
+  <!--[if IE]><link rel="stylesheet" href="{url_tmpl_administration}css/ie.css{cache_version_param}" type="text/css" /><![endif]-->
+  <script type="text/javascript" src="{url_tmpl_administration}js/util.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_main}_server/jquery/jquery-1.9.1.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_main}_server/jquery/jquery.cookie.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_main}_server/lib.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_main}_server/jquery/jquery.MetaData.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_main}_server/jquery/jquery.validate.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_tmpl_administration}js/jquery.pngfix.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_tmpl_administration}js/jquery.easing.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_tmpl_administration}js/jquery.timeentry.pack.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_tmpl_administration}js/jquery.lavalamp.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_tmpl_administration}js/jquery.forms.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_tmpl_administration}js/jquery.spectrum.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_tmpl_administration}js/_config.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_main}_server/jquery/jquery-ui.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_main}_server/jquery/jquery.location.js{cache_version_param}"></script>
+  <!--[if IE]><script type="text/javascript" src="{url_tmpl_administration}js/iepngfix_tilebg.js{cache_version_param}"></script><![endif]-->
+
+  <script type="text/javascript" src="{url_tmpl}common/lightbox/jquery.lightbox-0.5.min.js{cache_version_param}"></script>
+  <script type="text/javascript" src="{url_tmpl_administration}js/lib.js{cache_version_param}"></script>
+
+     <link href="{url_main}_server/videojs/video-js.css{cache_version_param}" rel="stylesheet">
+    <!-- If you'd like to support IE8 -->
+    <script src="{url_main}_server/videojs/ie8/videojs-ie8.min.js{cache_version_param}"></script>
+
+     <link href="{url_tmpl_main}css/videojs.css{cache_version_param}" rel="stylesheet">
+
+<script type="text/javascript" src="{url_main}administration/js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_runtime={tmpl_loaded}&set_language_runtime={lang_loaded}"></script>
+
+{xajax_js} <!-- required for places, events, etc... -->
+
+
+<!-- begin_menu_script_auth -->
+<style>
+    .smenu{display:none;}
+    <!-- begin_data_smenu -->
+    ul[data-menu={data_smenu}]{display:block;}
+    <!-- end_data_smenu -->
+</style>
+<script type="text/javascript">
+var startTime = new Date();
+$(function(){
+    for(j=0; j<menus.length; j++){
+        uls = document.getElementsByTagName("ul");
+        for(i=0; i < uls.length; i++){
+            if((uls[i].getAttribute("class")=="lmenu_"+menus[j])){
+                uls[i].setAttribute("id","lmenu_"+menus[j]);
+                menu = uls[i];
+                lis=uls[i].getElementsByTagName("li");
+                for(k=0;k<lis.length;k++){
+                    str="lmenu_"+menus[j];
+                    lis[k].setAttribute("onMouseOver","menuover(this,\""+str+"\")");
+                    lis[k].setAttribute("onMouseOut","menuout(this,\""+str+"\")");
+                }
+            }
+        }
+    }
+
+    smenu = "{smenu}";
+    nmmenu = 0;
+    nsmenu = 0;
+    mmenu='';
+
+    mn=0;
+    uls = document.getElementsByTagName("ul");
+    for(u=0; u < uls.length; u++) {
+        if(uls[u].className == "smenu") {
+            lis = uls[u].getElementsByTagName("li");
+            for(ll=0; ll<lis.length; ll++) {
+                if(lis[ll].getAttribute("id") == smenu){
+                    nsmenu = ll;
+                    nmmenu = mn;
+                }
+            }
+            mn++;
+        }
+        if(uls[u].className=="mmenu") mmenu=uls[u];
+    }
+
+    lis = mmenu.getElementsByTagName("li");
+    var mname = $(lis[nmmenu]).children('a').attr('id');
+    //$(".smenu").hide();
+    $("#s"+mname).show();
+    $("#s"+mname).lavaLamp({
+        fx: "easeOutBack",
+        linum: nsmenu,
+        speed: 500
+    });
+
+    $(".mmenu").lavaLamp({
+        fx: "easeOutBack",
+        linum: nmmenu,
+        speed: 500
+        /*click: function(event, menuItem) {
+            var attr_id = $(menuItem).children('a').attr('id');
+            $(".smenu").hide();
+            $("#s" + attr_id).show();
+            return false;
+        }*/
+    });
+
+});
+</script>
+<!-- end_menu_script_auth -->
+
+  <script type="text/javascript">
+    var loaderBtn='<img class="loader_btn" src="{url_tmpl_administration}images/loader_small_clear.gif">';
+$(document).ready(function () {
+    /*$('a.submit').each(function(){
+        var $el=$(this), $inp=$el.next('input:submit');
+        if ($el[0].id != 'delete' && $el[0].id != 'update'
+            && $inp[0] && !$inp.next('.button_submit_instruction')[0]) {
+            $inp.after('<div class="button_submit_instruction">{j_or_use_ctrl_s}</div>');
+        }
+    })*/
+
+    $('.lightbox').lightBox({
+        imageLoading:           '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+        imageBtnPrev:           '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+        imageBtnNext:           '{url_tmpl_administration}images/lightbox-btn-next.gif',
+        imageBtnClose:          '{url_tmpl_administration}images/lightbox-btn-close.gif',
+        imageBlank:             '{url_tmpl_administration}images/lightbox-blank.gif'
+    });
+    $('.js_back').click(function() {
+        history.back();
+        return false;
+    });
+
+    $('body').on('input', 'input:text', function(){
+        customHideTip($(this));
+    }).on('focus', 'input:text', function(){
+
+    })
+
+    $('.submit').click(function() {
+        customHideAllTip();
+        var $formSubmit=$(this).parents('form'),
+            $urlVideoMainPage=$('#input_main_page_urban_video_code');
+        if($urlVideoMainPage[0]
+           &&$('#map_on_main_page_urban').val()=='video'){
+            var yCode=$.trim($urlVideoMainPage.val());
+            if(!yCode){
+                customShowTipToScroll($urlVideoMainPage,'{j_please_enter_youtube_video_id}');
+                return false;
+            }
+            yCode=(yCode.match(/(?:^|\/|v=)([\w\-]{11,11})(?:\?|&|#|$)/) || [])[1];
+            if (!yCode) {
+                customShowTipToScroll($urlVideoMainPage,'{j_youtube_video_id_not_correct}');
+                return false;
+            } else {
+                $formSubmit.submit();
+            }
+        } else {
+            $formSubmit.submit();
+        }
+        return false;
+    });
+
+    $(document).keydown(function(e) {
+        var key=e.which?e.which:e.keyCode, $target=$(e.target);
+
+        if(key === 13 && !$target.is('.lang_search') && !$target.closest('.language_words')[0] && !$target.is('textarea')){
+            $('.submit').first().click();
+            return false;
+        }
+        if (key === 83 && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault();
+            $('.submit').first().click();
+            return false;
+        }
+        return true;
+    });
+
+    $('.areyousure').click(function() {
+        if ($(this).attr('confirm') != '' && $(this).attr('confirm') != undefined) {
+            return confirm($(this).attr('confirm'));
+        } else {
+            return confirm('{l_are_you_sure}');
+        }
+    });
+
+    $('.icon_rotate').click(function(){
+       rotatePhoto(this);
+       return false;
+    });
+});
+////////////////////
+
+var menus = new Array();
+menus[0] = "lgreen";
+//menus[1] = "red";
+menus[1] = "blue";
+
+
+function menuover(obj,mn)
+{
+    menu=document.getElementById(mn);
+    lis=menu.getElementsByTagName("li");
+    for(i=0;i<lis.length;i++)
+    {
+      if(lis[i].getAttribute("class")=="active")
+      {
+	    lis[i].removeAttribute("class");
+	    lis[i].setAttribute("thispage","yes");
+      }
+    }
+    obj.setAttribute("class","active");
+}
+
+function menuout(obj,mn)
+{
+
+  if(obj.getAttribute("thispage")!="yes");
+  {
+     obj.removeAttribute("class");
+     menu=document.getElementById(mn);
+     lis=menu.getElementsByTagName("li");
+     for(i=0;i<lis.length;i++)
+     {
+        if(lis[i].getAttribute("thispage")=="yes")
+        {
+           lis[i].setAttribute("class","active");
+        }
+     }
+   }
+}
+
+  </script>
+
+  <!-- START cobra-55555 Page Css and Js -->
+  <link rel="stylesheet" href="{url_tmpl}administration/default/css/club.css" type="text/css">
+  <script type="text/javascript" src="{url_main}_frameworks/administration/default/js/nsc_club.js"></script>
+  <!-- END cobra-55555 Page Css and Js -->
+
+</head>
+<body>
+<div id="bg_video_test" class="bg_video_test"></div>
+<!--
+<!-- begin_view -->
+<select name="set_language" onchange="location='{url_main}administration/?set_language=' + set_language.value">
+    <option value="">{l_select_language}</option>
+    <!-- begin_language -->
+    <option value="{language_value}">{language_title}</option>
+    <!-- end_language -->
+</select>
+<select name="set_template" onchange="location='{url_main}administration/?set_template=' + set_template.value">
+    <option value="">{l_select_template}</option>
+    <!-- begin_template -->
+    <option value="{template_value}">{template_title}</option>
+    <!-- end_template -->
+</select>
+<!-- end_view -->
+-->
+<div class="main">
+<div class="wrapper">
+<div class="header">
+    <div class="header_top">
+
+          <div class="bl_logo">
+            <div id="logo">
+              <a href="{url_main}administration">
+                <img src="{header_url_logo}" alt="{l_title}" />
+              </a>
+            </div>
+          </div>
+
+        <div class="title">
+            <div>
+                <a href="{url_main}" target="_blank" class="site">{domain_name}</a>
+
+                <!-- begin_header_language -->
+                <div id="header_language" class="lang header_language">
+                    <div class="header_language_bl">
+                        <a class="language" href="" onclick="return false;">{header_language_item_current}</a>
+                        <div class="lang_item" id="header_language_item">
+                            <ul class="pp_small" id="pp_language" >
+                                <!-- begin_header_language_item -->
+                                <li><a href="#" onclick="siteSetLanguage('{header_language_item_value}', 'set_language_administration'); return false;"><span class="{header_language_item_class}">{header_language_item_title}</span></a></li>
+                                <!-- end_header_language_item -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <script>prepareLangAdmin();</script>
+                <!-- end_header_language -->
+            </div>
+            <div class="title_line">
+                <!-- begin_template_active -->
+                <span class="site-version">{l_active_templates} <b>{template_active}</b>
+                  <!-- begin_mode_maintenance --><span>{l_mode_maintenance}</span><!-- end_mode_maintenance -->
+                </span>
+                <!-- end_template_active -->
+                <!--<span class="site-version">{l_current_version_start}{site_version}{l_current_version_end}</span>-->
+            </div>
+        </div>
+
+<!-- begin_auth -->
+        <div class="admin_menu">
+            <ul>
+                <li><strong>{l_hello_administator}</strong> </li>
+                <li>[</li>
+                <li><a href="{url_main}administration/options.php">{l_header_settings}</a></li>
+                <li>|</li>
+                <!-- begin_support_no_multisate -->
+                <li><a target="_blank" href="http://clients.websplosion.com/index.php?_m=knowledgebase&_a=view">{l_knowledgebase}</a></li>
+                <li>|</li>
+                <li><a target="_blank" href="http://mods.chameleonsocial.com">{l_modifications}</a></li>
+                <!-- end_support_no_multisate -->
+                <!-- begin_support_multisate -->
+                <li><a target="_blank" href="http://myjoomph.freshdesk.com">{l_joomph_support}</a></li>
+                <!-- end_support_multisate -->
+                <li>|</li>
+                <li><a href="{url_main}administration/index.php?cmd=logout">{l_menu_logout}</a></li>
+                <li>]</li>
+            </ul>
+            <div>{l_last_login}: {last_login}</div>
+        </div>
+<!-- end_auth -->
+<!-- begin_replier_auth -->
+        <div class="admin_menu">
+            <ul>
+                <li><strong>{l_hello}, {replier_name}</strong> </li>
+                <li>[</li>
+                <li><a href="{url_main}administration/index.php?cmd=logout">{l_menu_logout}</a></li>
+                <li>]</li>
+            </ul>
+        </div>
+<!-- end_replier_auth -->
+
+    <div class="justify"></div>
+    </div>
+
+<!-- begin_auth_menu -->
+
+    <div class="header_bl">
+        <div class="header_l">
+            <div class="header_r">
+<ul class="mmenu">
+    <li><a href="{url_main}administration/home.php" id="main_ll_adm_menu">{l_menu_main}</a></li>
+    <!-- begin_menu_template -->
+    <li><a href="{url_main}administration/template.php" id="view_ll_adm_menu">{l_menu_templates}</a></li>
+    <!-- end_menu_template -->
+    <li><a href="{url_main}administration/language.php" id="lang_ll_adm_menu">{l_menu_languages}</a></li>
+    <li><a href="{url_main}administration/{main_menu_link_to_news}" id="news_ll_adm_menu">{l_menu_help_and_news}</a></li>
+    <li><a href="{url_main}administration/users_results.php" id="users_ll_adm_menu">{l_mmenu_users}</a></li>
+    <li><a href="{url_main}administration/partner.php" id="modules_ll_adm_menu">{l_menu_modules}</a></li>
+</ul>
+                <div class="bl_hmenu_sub">
+                    <div class="bl_hmenu_sub_l">
+                        <div class="bl_hmenu_sub_r">
+<ul class="smenu" data-menu="dt_home" id="smain_ll_adm_menu">
+    <li id = "shome"><a href="{url_main}administration/home.php">{l_menu_home}</a></li>
+    <li id = "soptions"><a href="{url_main}administration/options.php">{l_menu_options}</a></li>
+    <li id = "sstats"><a href="{url_main}administration/stats.php">{l_menu_stats}</a></li>
+    <!-- begin_menu_payment -->
+    <li id = "spay"><a href="{url_main}administration/pay.php">{l_menu_payment}</a></li>
+    <!-- end_menu_payment -->
+    <!-- START cobra-55555 donation setting page menu -->
+    <li id = "sdonation"><a href="{url_main}administration/donation_admin_cobra.php">{l_menu_donation}</a></li>
+    <!-- END cobra-55555 donation setting page menu -->
+	<!-- START nnsscc-diamond club page menu -->
+     <li id = "sclub" class="current"><a href="{url_main}administration/nsc_admin_club.php">{l_menu_club}</a></li>
+	<li id = "saddclub"><a href="{url_main}administration/pages_add_club.php">{l_menu_club_add}</a></li>
+    <!-- END nnsscc-diamond club page menu -->
+    <!-- begin_menu_import -->
+    <li id = "simport"><a href="{url_main}administration/import_dolphin.php">{l_menu_import}</a></li>
+    <!-- end_menu_import -->
+</ul>
+<!-- begin_menu_template_item -->
+<ul class="smenu" data-menu="dt_template" id="sview_ll_adm_menu">
+    <li id = "stemplate_main">
+        <!-- begin_template_main -->
+            <a href="{url_main}administration/template.php">{l_menu_main}</a>
+        <!-- end_template_main -->
+    </li>
+    <li id = "stemplate_mobile">
+        <!--begin_template_mobile -->
+            <a href="{url_main}administration/template.php?part=mobile">{l_menu_mobile}</a>
+        <!-- end_template_mobile -->
+    </li>
+    <li id = "stemplate_administration">
+        <!-- begin_template_administration-->
+            <a href="{url_main}administration/template.php?part=administration">{l_menu_admin}</a>
+        <!-- end_template_administration -->
+    </li>
+    <li id = "stemplate_partner">
+        <!-- begin_template_partner -->
+            <a href="{url_main}administration/template.php?part=partner">{l_menu_partner}</a>
+        <!-- end_template_partner -->
+    </li>
+    <!-- begin_menu_admin_template_banner -->
+    <li id = "stemplate_banner"><a href="{url_main}administration/banner.php">{l_menu_banners}</a></li>
+    <!-- end_menu_admin_template_banner -->
+</ul>
+<!-- end_menu_template_item -->
+<ul class="smenu" data-menu="dt_lang" id="slang_ll_adm_menu">
+    <li id = "slanguage_main"><a href="{url_main}administration/language.php">{l_menu_main}</a></li>
+    <li id = "slanguage_mobile"><a href="{url_main}administration/language.php?part=mobile">{l_menu_mobile}</a></li>
+    <li id = "slanguage_administration"><a href="{url_main}administration/language.php?part=administration">{l_menu_admin}</a></li>
+    <li id = "slanguage_partner"><a href="{url_main}administration/language.php?part=partner">{l_menu_partner}</a></li>
+</ul>
+<ul class="smenu" data-menu="dt_pages" id="snews_ll_adm_menu">
+    <!-- begin_menu_secondary_help -->
+    <li id = "shelp"><a href="{url_main}administration/help_topic.php">{l_menu_help}</a></li>
+    <!-- end_menu_secondary_help -->
+    <!-- begin_menu_secondary_news -->
+    <li id = "snews"><a href="{url_main}administration/news.php">{l_menu_news}</a></li>
+    <!-- end_menu_secondary_news -->
+    <!-- begin_menu_secondary_popup_pages -->
+    <li id = "spopup"><a href="{url_main}administration/popup_pages.php">{l_menu_popup_pages}</a></li>
+    <!-- end_menu_secondary_popup_pages -->
+    <!-- begin_menu_secondary_pages -->
+    <li id = "spages"><a href="{url_main}administration/pages.php">{l_menu_pages}</a></li>
+    <!-- end_menu_secondary_pages -->
+</ul>
+<ul class="smenu" data-menu="dt_users" id="susers_ll_adm_menu" style="width: 100%;">
+    <li id = "susers"><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+    <li id = "sfields"><a href="{url_main}administration/users_fields.php">{l_menu_profile_fields}</a></li>
+    <li id = "sautomail"><a href="{url_main}administration/automail.php">{l_menu_auto_mail}</a></li>
+    <li id = "smassmail"><a href="{url_main}administration/massmail.php">{l_menu_mass_mail}</a></li>
+    <li id = "smatchmail"><a href="{url_main}administration/matchmail.php">{l_menu_match_mail}</a></li>
+    <li id = "scontact"><a href="{url_main}administration/contact.php">{l_menu_contacts}</a></li>
+    <li id = "sipblock"><a href="{url_main}administration/ipblock.php">{l_menu_block}</a></li>
+    <li id = "sfakes"><a href="{url_main}administration/fakes_reply_mails.php">{l_menu_fakes_reply}</a></li>
+    <!-- begin_menu_secondary_gifts -->
+    <li id = "sgifts"><a href="{url_main}administration/gifts.php">{l_menu_gifts}</a></li>
+    <!-- end_menu_secondary_gifts -->
+</ul>
+<ul class="smenu" data-menu="dt_modules" id="smodules_ll_adm_menu" style="width: 100%;">
+    <li id = "spartner"><a href="{url_main}administration/partner.php">{l_menu_partners}</a></li>
+    <!-- begin_menu_secondary_blogs_bloggers -->
+    <li id = "sblogs"><a href="{url_main}administration/blogs_bloggers.php">{l_menu_blogs}</a></li>
+    <!-- end_menu_secondary_blogs_bloggers -->
+    <!-- begin_menu_secondary_places_results -->
+    <li id = "splaces"><a href="{url_main}administration/places_results.php">{l_menu_places}</a></li>
+    <!-- end_menu_secondary_places_results -->
+    <!-- begin_menu_secondary_music_musicians -->
+    <li id = "smusic"><a href="{url_main}administration/music_musicians.php">{l_menu_music}</a></li>
+    <!-- end_menu_secondary_music_musicians -->
+    <!-- begin_menu_secondary_flashchat_rooms -->
+    <li id = "sflashchat"><a href="{url_main}administration/flashchat_rooms.php">{l_menu_flashchat}</a></li>
+    <!-- end_menu_secondary_flashchat_rooms -->
+    <!-- begin_menu_secondary_3dchat_rooms -->
+    <li id = "s3dchat"><a href="{url_main}administration/3dchat_rooms.php">{l_menu_3dchat}</a></li>
+    <!-- end_menu_secondary_3dchat_rooms -->
+    <!-- begin_menu_secondary_vids_videos -->
+    <li id = "svids"><a href="{url_main}administration/vids_videos.php">{l_menu_vids}</a></li>
+    <!-- end_menu_secondary_vids_videos -->
+    <!-- begin_menu_secondary_adv -->
+    <li id = "sadv"><a href="{url_main}administration/adv.php">{l_menu_adv}</a></li>
+    <!-- end_menu_secondary_adv -->
+    <!-- begin_menu_secondary_groups_groups -->
+    <li id = "sgroups"><a href="{url_main}administration/groups_groups.php">{l_menu_groups}</a></li>
+    <!-- end_menu_secondary_groups_groups -->
+    <!-- begin_menu_secondary_events_events -->
+    <li id = "sevents"><a href="{url_main}administration/events_events.php">{l_menu_events}</a></li>
+    <!-- end_menu_secondary_events_events -->
+
+
+    <!-- begin_menu_secondary_forum_categories -->
+    <li id = "sforum"><a href="{url_main}administration/forum_categories.php">{l_menu_forums}</a></li>
+    <!-- end_menu_secondary_forum_categories -->
+    <!-- begin_menu_admin_banner -->
+    <li id = "sbanner"><a href="{url_main}administration/banner.php">{l_menu_banners}</a></li>
+    <!-- end_menu_admin_banner -->
+
+    <li id = "sseo"><a href="{url_main}administration/seo.php">{l_menu_seo}</a></li>
+
+    <!-- begin_menu_secondary_cityrooms -->
+    <li id = "scityrooms"><a href="{url_main}administration/city_options.php">{l_menu_3dcity}</a></li>
+    <!-- end_menu_secondary_cityrooms -->
+    <!-- begin_menu_secondary_games -->
+    <li id = "sgames"><a href="{url_main}administration/games.php">{l_menu_games}</a></li>
+    <!-- end_menu_secondary_games -->
+    <!-- begin_menu_secondary_albums -->
+    <li id = "salb"><a href="{url_main}administration/alb_albums.php">{l_menu_albums}</a></li>
+    <!-- end_menu_secondary_albums -->
+
+
+    <!-- begin_menu_secondary_groups_social -->
+    <li id = "sgroupssocial"><a href="{url_main}administration/groups_social.php">{l_menu_groups_social}</a></li>
+    <!-- end_menu_secondary_groups_social -->
+
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- end_auth_menu -->
+
+
+</div>
+<div class="content">
+
+<!-- submenu
+<li><a href="{url_main}administration/template.php">{l_menu_templates}</a></li>
+<li><a href="{url_main}administration/template_edit.php">{l_menu_edit_current_template}</a></li>
+<li><a href="{url_main}administration/language.php">{l_menu_languages}</a></li>
+<li><a href="{url_main}administration/language_add.php">{l_menu_add_language}</a></li>
+
+-->

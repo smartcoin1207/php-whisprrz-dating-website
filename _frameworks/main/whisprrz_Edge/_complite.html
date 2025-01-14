@@ -1,0 +1,389 @@
+<style>
+.bl_pp_tooltip {
+    position: absolute;
+}
+.pp_tooltip {
+    position: absolute;
+    z-index: 100;
+    cursor: auto;
+    left: -209px;
+    top: 67px;
+}
+.pp_tooltip:before, .pp_tooltip:after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(45deg);
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    z-index: 11;
+}
+.pp_tooltip_cont {
+    background: #fff;
+    box-shadow: 0 0 10px rgba(54, 54, 54, 0.5);
+    border-radius: 10px;
+    position: relative;
+    z-index: 10;
+    width: 257px;
+    padding: 0 14px 0 12px;
+}
+.pp_tooltip ul.icons_tooltip_list {
+    margin: 0;
+    padding: 0;
+}
+.pp_tooltip ul.icons_tooltip_list li {
+    background: url(./_frameworks/main/urban/images/icon_link.png) 2px 23px no-repeat;
+    margin: 0 5px 0 0;
+    padding: 0;
+    white-space: nowrap;
+    text-align: left;
+    padding: 0 0 0 30px;
+}
+.pp_tooltip .link_frm input {
+    height: 22px;
+    font-size: 12px;
+    padding: 0 10px;
+    width: 160px;
+    float: left;
+    margin: 0;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    background-image: linear-gradient(to bottom, rgb(232, 232, 232) 0%, rgb(254, 254, 254) 100%);
+}
+.pp_tooltip .link_frm {
+    padding: 19px 0;
+    width: 230px;
+    position: relative;
+}
+.pp_tooltip .link_frm a.btn_check {
+    display: block;
+    width: 36px;
+    height: 24px;
+    background: #2fa1f2 url(./_frameworks/main/urban/images/btn_capcha.png) 50% 50% no-repeat;
+    float: right;
+    border-radius: 3px;
+    padding: 0;
+    transition: all 0.3s linear;
+}
+.pp_tooltip .link_frm .video_loader {
+    display: none;
+    position: absolute;
+    right: 6px;
+    top: 20px;
+}
+.bl.profile_custom {
+    overflow: hidden;
+    padding-bottom: 8px;
+}
+.bl.profile_custom .head .title {
+    float: left;
+}
+.bl.profile_custom .head {
+    border-radius: 10px 10px 0 0;
+    text-align: right;
+    padding-right: 10px;
+}
+.bl_pp_tooltip {
+    position: absolute;
+}
+.bl .head {
+    padding: 7px 8px 10px;
+    font-size: 11px;
+}
+
+.bl.profile_custom{ overflow: hidden; padding-bottom: 4px;}
+.bl.profile_custom .head{ border-radius: 10px 10px 0 0; text-align: right; padding-right: 10px; }
+.bl.profile_custom .head .title{ float: left; }
+.bl.profile_custom .head a.link_clear{margin-right: 10px}
+.bl.profile_custom .ico_move{ float: right; margin: -4px 0 0; border: solid; border-color: #A1A1A1 transparent; border-width: 0 6.5px 10px; transition: all .3s; background-position: top}
+.bl.profile_custom .ico_move[href='#down']{border-width: 10px 6.5px 0; clear:right; margin: 4px 0 -6px}
+.bl.profile_custom .ico_move:hover{transform: scale(1.2); border-color: #999 transparent}
+.bl.profile_custom span:hover .ico_move:not(:hover), .bl.profile_custom .ico_move.disabled {border-color: #ccc transparent !important; transform: none; cursor:default}
+.bl.profile_custom .cont{ padding: 2px 0 2px 0px; margin-right: -40px; height: 120px; overflow:auto}
+
+.bl.profile_custom .cont .item{margin: 0 4px 4px 0; padding: 2px; float: left; border: 1px solid #d9d9d9; border-top: 1px solid #f2f2f2; border-bottom: 1px solid #b2b2b2; position: relative; border-radius: 7px; box-shadow: 0 1px 2px #d9d9d9; }
+.bl.profile_custom .cont .item.preloader {background-size:  auto 70%}
+.bl.profile_custom .cont button, .bl.profile_custom .cont button:before, .bl.profile_custom .cont button:after {
+	width: 56px; height: 48px; display:block !important;
+	padding:0; outline:none; overflow:hidden; border-radius:6px;
+	background: transparent center no-repeat; background-size:100% 100%;
+	box-sizing: content-box; transition: all .4s
+}
+.bl.profile_custom .cont button {cursor:pointer}
+.bl.profile_custom .cont button:before {content: ""; background:inherit}
+.bl.profile_custom .cont button:after {content:""; left:0; top:0; position:absolute; border-radius: 8px; border: 0px solid #fff; margin:-5px;}
+.bl.profile_custom .cont button:not([disabled]):hover:before { transform: scale(1.16)}
+.bl.profile_custom .cont button[disabled] {opacity:.8 !important; cursor:wait}
+.bl.profile_custom .cont button[disabled].loading {opacity:.4 !important}
+</style>
+<!-- begin_profile_completion_on -->
+<span style="margin-right: 5px;">
+    <ul>
+        <li class="gr">
+            <div>
+                <table>
+                    <tr>
+                        <td width="{profile_complite_percent}%">&nbsp;<!--  --></td>
+                        <td width="{profile_empty_percent}%" class="graph"><!--  --></td>
+                    </tr>
+                </table>
+            </div>
+        </li>
+        <li class="num">{profile_complite_percent}%</li>
+    </ul>
+</span>
+<!-- end_profile_completion_on -->
+<!-- begin_profile_completion_off -->
+<div class="frame_content fl_right" style="padding: 15px 10px 10px; width: 140px;">
+<!-- 					<div class="bbt">
+						<div class="bbb">
+							<div class="bbl">
+								<div class="bbr">
+									<div class="bbtl">
+										<div class="bbtr">
+											<div class="bbbl">
+												<div class="bbbr"> -->
+	<!-- begin_customization -->
+
+<script language="javascript" type="text/javascript">
+$(function(){
+
+		var col_fr = $('.column_main.frame_content');
+		var fr_col = $('.frame_content.column_main');
+		var search_el = $('.frame_content.fl_right');
+
+		var left_block;
+		if(col_fr) {
+			left_block = col_fr;
+		} else {
+			left_block = fr_col;
+		}
+
+		if(left_block && search_el) {
+			if(search_el.height() < (left_block.height() + 5)) {
+				search_el.height(left_block.height() + 5);
+			} else {
+				left_block.height(search_el.height() - 5);
+			}
+		}
+		
+	function rowH(){
+		if(items.length){
+			return (items.eq(3).offset().top-items.eq(0).offset().top)
+		}else{
+			return 0;
+		}
+	};
+	$('#pattern_clear').click(function(){
+        hideWinAddVideo(1);
+		if (user_profile_bg_video[1]) {
+			chProfileBgVideo('');
+		} else {
+            user_profile_bg='';
+            chProfileBg('');
+        };
+		//member_content.css({background: 'none'})
+		return false;
+	})
+
+	var cont=$('.profile_custom .cont').on('scroll', function(e){
+		$('.ico_move').removeClass('disabled');
+		var h=rowH();
+		cont.not(':animated').clearQueue().delay(200).animate({
+			scrollTop: Math.round(cont.scrollTop()/h)*h
+		}, 200, function(){
+			if (cont.scrollTop()<10) $('.ico_move[href="#up"]').addClass('disabled');
+			if (cont.scrollTop()>(items.length/3-2)*h-9) $('.ico_move[href="#down"]').addClass('disabled');
+		});
+	}).wheel(function(e){
+		e = e.originalEvent; // Access the original event object //popcorn added 12-04-2023
+
+		var dir=e.deltaY>0?'+=':'-=';
+		cont.not(':animated').animate({scrollTop: dir+(rowH()*2)},250,function(){ cont.scroll()});
+		return false
+	})
+
+	var items=$('.profile_custom .item button:not(#video_bg_user)').fadeTo(0,0).click(function(){
+		$('.profile_custom .item').addClass('preloader');
+		var pic=$(this).data('patternApply');
+		if (this.disabled||(pic===bgLast[0])) return;
+		items.prop('disabled', true);
+		$(this).addClass('loading');
+		//user_profile_bg=[pic];
+        user_profile_bg=pic;
+		if (typeof user_profile_bg_video !== 'undefined' && user_profile_bg_video[1]) {
+			chProfileBgVideo('');
+			chProfileBg(pic);
+		} else {
+			chProfileBg(pic);
+		}
+
+	}).lazyload({container:cont, effect_speed:0, load:function(){$(this).fadeTo(0,1)}});
+
+	cont.scroll();
+
+	$('.profile_custom .ico_move').click(function(){
+		if ($(this).is('.disabled')) return false;
+		var top=cont.scrollTop()
+		cont.animate({scrollTop: (this.hash=='#up'?'-=':'+=')+rowH()}, 250, function(){cont.scroll()})
+		return false;
+	})
+
+    <!-- begin_profile_customization_video_js -->
+	videoAlert={
+		empty : '{j_please_enter_youtube_video_id}',
+		exist: '{j_this_id_youtube_is_already}',
+		wrong: '{j_youtube_video_id_not_correct}',
+		disabled: '{j_youtube_video_disabled}',
+		error: '{j_youtube_player_error}'
+	}
+    if(typeof user_profile_bg_video !== 'undefined'){
+		var pp_add_video=$('#pp_add_video'),
+			pp_add_video_btn=$('#pp_add_video_bg'),
+			code=bgVideoCode=$('#pp_add_video_code')
+			 .val(user_profile_bg_video[0]).on('input propertychange keydown', function(){
+				$('#tip_'+this.id).fadeOut(200); 
+				$(this).removeClass('wrong');
+			}),
+			pp_add_video_loader=$('#pp_add_video_loader'),
+			prepareVideo=false, durV=400;
+			$('#video_bg_user').fadeTo(0,0).lazyload({container:cont, effect_speed:0, load:function(){$(this).fadeTo(0,1)}})
+		.click(function(){
+			isYError=false;
+			if (pp_add_video.is(':visible')) {
+				pp_add_video.fadeOut(durV);
+				customHideTip(bgVideoCode, '#pp_add_video_bg')
+			} else {
+				bgVideoCode.val('');//user_profile_bg_video[0]
+				//if (!user_profile_bg_video[1]) code.val(code.val()||user_profile_bg_video[0])
+				code.focus();
+				pp_add_video.fadeIn(durV);
+			}
+		})
+		pp_add_video_btn.click(function(){
+			customHideTip(code, '#pp_add_video_bg');
+			var yCode=$.trim(code.val()), alert=yCode?'':'empty';
+			yCode=(yCode.match(/(?:^|\/|v=)([\w\-]{11,11})(?:\?|&|#|$)/) || [])[1];
+			if (!yCode) alert=alert||'wrong';
+			if (yCode==user_profile_bg_video[0] && user_profile_bg_video[1]) alert='exist';
+			if (alert) {
+				customShowTip(code, $(this), videoAlert[alert], 'body');
+				return false;
+			}
+			pp_add_video_btn.hide()
+			pp_add_video_loader.show();
+			chProfileBgVideo(yCode);
+			return false;
+		})
+		bgVideoCode.keydown(function(e){
+			if(isKeyPressed(e,13))pp_add_video_btn.click()
+		})
+	}
+    <!-- end_profile_customization_video_js -->
+})
+    </script>
+    <!-- begin_banner_right_column -->
+	<div class="banner_right_column_complite">
+		{banner_right_column}
+	</div>
+	<!-- end_banner_right_column -->
+
+	<!-- begin_background_custom -->
+	<div class="bl profile_custom">
+        <div class="head">
+            <div class="title">{l_customization} </div>
+            <a id="pattern_clear" class="link_clear" href="#">{l_column_narrow_clear}</a>
+            <span><a class="ico_move" href="#up"></a>
+            <a class="ico_move" href="#down"></a></span>
+            <div class="cl"></div>
+        </div>
+
+        <!-- begin_profile_customization_video_add_tip -->
+            <div class="bl_pp_tooltip">
+				<div id="pp_add_video" class="pp_tooltip" style="display:none; z-index:5;">
+					<div class="pp_tooltip_cont" >
+						<ul class="icons_tooltip_list">
+							<li>
+								<span class="link">
+									<div class="link_frm">
+										<input type="text" autofocus="autofocus" name="add_video_code" value="" id="pp_add_video_code" placeholder="{l_paste_youtube_link}" title="{l_paste_youtube_link}">
+										<a id="pp_add_video_bg" href="#" class="btn_check"></a>
+										<img id="pp_add_video_loader" class="video_loader" src="{url_tmpl_main}images/loader_m.gif">
+										<div class="cl"></div>
+									</div>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+            </div>
+            <!-- end_profile_customization_video_add_tip -->
+
+            <div class="cont" style="display: display;">
+                <!-- begin_profile_customization_video -->
+                <div class="item">
+                    <button id="video_bg_user" data-pattern-apply="video" data-original="{url_tmpl_main}images/video_bg_btn.png"></button>
+                </div>
+                <!-- end_profile_customization_video -->
+                <!-- begin_profile_customization_item -->
+                <div class="item">
+                    <button data-pattern-apply="{pattern}" data-original="{url_tmpl_main}images/patterns_sm/{pattern}"></button>
+                </div>
+                <!-- end_profile_customization_item -->
+                <div class="cl"></div>
+            </div>
+    </div>
+    <!-- end_background_custom -->
+	<!-- end_customization -->											
+	<div class="in">
+
+		<h2>{l_profile_completion}</h2>
+
+			<div>{your_profile_is_level_completed}</div>
+			<ul>
+				<li class="gr">
+					<div>
+						<table>
+							<tr>
+								<td width="{profile_complite_percent}%">&nbsp;<!--  --></td>
+								<td width="{profile_empty_percent}%" class="graph">&nbsp;<!--  --></td>
+							</tr>
+						</table>
+					</div>
+				</li>
+			</ul>
+		<br><br>
+		<div align="left" style="font-weight:bold;">
+  <!-- begin_yes_settings -->
+		<a href="{url_main}profile.php">{l_basic_info}</a>&nbsp;&middot;&nbsp;{basic}%<br>
+        <!--begin_yes_personal -->
+            <a href="{url_main}profile_personal.php">{l_personal_info}</a>&nbsp;&middot;&nbsp;{personalc}%<br>
+		<!-- end_yes_personal -->
+        <!--begin_yes_partner -->
+            <a href="{url_main}profile_partner.php">{l_partner_info}</a>&nbsp;&middot;&nbsp;{partnerc}%<br>
+		<!-- end_yes_partner -->
+    <!-- end_yes_settings -->
+    </div>
+		<br>
+		<div>
+			{l_great_profile}
+			<br><br>
+			<a href="{url_main}profile_photo.php" style="padding-top:10px;">{l_update_photo_now}</a>
+		</div>
+		<br>
+
+													</div>
+<!-- 												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+            
+				</div>
+<!-- end_profile_completion_off -->
+

@@ -1,0 +1,321 @@
+<div align="center">
+
+	<div class="list_users_header">
+		<b>{num_total}</b> {l_within_criteria}
+		<!-- begin_sort_by_default -->
+		&nbsp;&nbsp;&nbsp;<b><a class="txt_upper_header_color <!-- begin_default_order_active -->txt_lower_header_color<!-- end_default_order_active -->" href='{url_page}?{params_no_order}' style='padding-top: 2px; padding-bottom: 2px;'>{l_sort_by_default}</a></b>
+		<!-- end_sort_by_default -->
+		<!-- begin_params_none_rating -->&nbsp;&nbsp;&nbsp;<b><a class="txt_upper_header_color <!-- begin_rating_none_order_active -->txt_lower_header_color<!-- end_rating_none_order_active -->" href='{url_main}{url_page}?{params_current}&display=gallery' style='padding-top: 2px; padding-bottom: 2px;'>{l_sort_by_rating}</a></b><!-- end_params_none_rating -->
+		<!-- begin_params_asc_rating -->&nbsp;&nbsp;&nbsp;<b><a class="txt_upper_header_color <!-- begin_rating_asc_order_active -->txt_lower_header_color<!-- end_rating_asc_order_active -->" href='{url_main}{url_page}?{params_current}&display=gallery' style='padding-top: 2px; padding-bottom: 2px;'>{l_sort_by_rating}</a></b><!-- end_params_asc_rating -->
+		<!-- begin_params_desc_rating -->&nbsp;&nbsp;&nbsp;<b><a class="txt_upper_header_color <!-- begin_rating_desc_order_active -->txt_lower_header_color<!-- end_rating_desc_order_active -->" href='{url_main}{url_page}?{params_current}&display=gallery' style='padding-top: 2px; padding-bottom: 2px;'>{l_sort_by_rating}</a></b><!-- end_params_desc_rating -->
+
+		<table border='0' cellspacing='0' cellpadding='0'><tr>
+			<td height='21' style='padding-right: 4px; padding-bottom: 4px;'>
+				<div style='padding-top: 2px; padding-bottom: 2px; padding-left: 6px; padding-right: 6px; whitespace: nowrap;'>
+					<b><a class="txt_upper_header_color" href='{url_main}{url_page}?{params}&display=info' style='padding-top: 2px; padding-bottom: 2px;'><img width="10px" height="12px" src="{url_tmpl_main}img/i_search_profile.gif" border="0" style="margin: 5px 4px 0 0;" align="left">{l_profile_view}</a></b>
+				</div>
+			</td><td height='21' style='padding-right: 4px; padding-bottom: 4px;'>
+				<div style='padding-top: 2px; padding-bottom: 2px; padding-left: 6px; padding-right: 6px; whitespace: nowrap;'>
+					<b><a class="txt_lower_header_color" href='{url_main}{url_page}?{params}&display=gallery' style='padding-top: 2px; padding-bottom: 2px;'><img width="12px" height="12px" src="{url_tmpl_main}img/i_search_gallery.gif" border="0" style="margin: 5px 4px 0 0;" align="left">{l_gallery_view}</a></b>
+				</div>
+			</td><td height='21' style='padding-right: 4px; padding-bottom: 4px;'>
+				<div style='padding-top: 2px; padding-bottom: 2px; padding-left: 6px; padding-right: 6px; whitespace: nowrap;'>
+					<b><a class="txt_upper_header_color" href='{url_main}{url_page}?{params}&display=list' style='padding-top: 2px; padding-bottom: 2px;'><img width="10px" height="12px" src="{url_tmpl_main}img/i_search_list.gif" border="0" style="margin: 5px 4px 0 0;" align="left">{l_list_view}</a></b>
+				</div>
+			</td>
+		<!-- begin_search_by_gender -->
+					<td  height='21' style='padding-right: 4px; padding-bottom: 4px;'>
+						<a href="{url_page}?{params}&gender=" class="{search_gender_active_all}"><div class="show_all" style="font-size: 16px; margin-top: -1px; ">{search_gender_all}</div></a>
+						<a href="{url_page}?{params}&gender=C" class="{search_gender_active_c}"><div class="show_couple"></div></a>
+						<a href="{url_page}?{params}&gender=M" class="{search_gender_active_m}"><div class="show_men"></div></a>
+						<a href="{url_page}?{params}&gender=F" class="{search_gender_active_f}"><div class="show_women"></div></a>
+					</td>
+		<!-- end_search_by_gender -->
+			<!-- begin_contact_blocking -->
+				<td height='21' style='padding-right: 4px; padding-bottom: 4px;'>
+					<div style='padding-top: 2px; padding-bottom: 2px; padding-left: 6px; padding-right: 6px; whitespace: nowrap;'>
+						<b>| <a class="txt_upper_header_color" href='{url_main}user_block_list.php' style='padding-top: 2px; padding-bottom: 2px;'>{l_banned_users}</a></b>
+					</div>
+				</td>
+			 <!-- end_contact_blocking -->
+
+			</tr>
+		</table>
+	</div>
+
+	<!-- begin_users_list_pages -->
+		<div class=brd>
+			<!-- begin_users_list_prev_page -->
+			<a href="{url_main}{url_page}?offset={offset}{params}">{l_prev}</a>&nbsp; | &nbsp;
+			<!-- end_users_list_prev_page -->
+			<!-- begin_users_list_prev_page_off -->
+			<b>{l_prev}</b>&nbsp; | &nbsp;
+			<!-- end_users_list_prev_page_off -->
+			<!-- begin_users_list_first_page -->
+			<a href="{url_main}{url_page}?offset={offset}{params}">{l_page_1}</a>&nbsp;
+			<!-- end_users_list_first_page -->
+			<!-- begin_users_list_prev_pages -->
+			<a href="{url_main}{url_page}?offset={offset}{params}">&lt;&lt;</a>&nbsp;
+			<!-- end_users_list_prev_pages -->
+			<!-- begin_users_list_page -->
+				<!-- begin_users_list_link_page -->
+				<a href="{url_main}{url_page}?offset={offset}{params}">{page}</a>&nbsp;
+				<!-- end_users_list_link_page -->
+				<!-- begin_users_list_this_page -->
+				<b>{page}</b>
+				<!-- end_users_list_this_page -->
+			<!-- end_users_list_page -->
+			<!-- begin_users_list_next_pages -->
+			<a href="{url_main}{url_page}?offset={offset}{params}">&gt;&gt;</a>&nbsp;
+			<!-- end_users_list_next_pages -->
+			<!-- begin_users_list_last_page -->
+			<b>{l_of}</b> <a href="{url_main}{url_page}?offset={offset}{params}">{num_pages}</a>&nbsp;
+			<!-- end_users_list_last_page -->
+			<!-- begin_users_list_next_page -->
+			&nbsp; | &nbsp;<a href="{url_main}{url_page}?offset={offset}{params}">{l_next}</a>
+			<!-- end_users_list_next_page -->
+			<!-- begin_users_list_next_page_off -->
+			&nbsp; | &nbsp;<b>{l_next}</b>
+			<!-- end_users_list_next_page_off -->
+		</div>
+	<!-- end_users_list_pages -->
+</div>
+<table width="100%" cellspacing="0" cellpadding="0" border="0"  style="margin-top:20px;"><tr>
+<!-- begin_users_list_item -->
+
+<td style="vertical-align: top;" class="users_ul" width="135" align="center" >
+	<div  style="padding-bottom: 3px; height:30px; "><a  class="pri_text_bold dynamic_color" style="font-size: 20px; line-height: 22px; text-decoration:none" href="{url_page}?display=profile&uid={user_id}{params_item}">{name_short}<span style="font-size:10px; color: #8123a0;"> {partner_type}</span></a></a></div>
+	<div id="photo_info" style="cursor:hand; margin-left: 7px; width: 90px; position: relative;" class="users_li">
+		<i title="{a_send_message}" onclick="sendMessages('{user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
+
+		<a href="{url_main}{url_page}?display=profile&uid={user_id}{params_item}" style="position: relative; text-decoration: none; display: block;">
+			<img class="lazy_user img_border" data-original="{url_files}{photo}" style="display: block; margin-bottom:3px; " src="{url_files}{photo}" onmousemove="show_face_jq('usr0{members_num_1}', event)"
+			onmouseout="hide_face_jq('usr0{members_num_1}')">
+
+			<div class="profile_gender_mile_text">
+				<span class="stroked_text" style="font-size: 12px;">{members_distance}mi</span>
+			</div>
+			<div class="profile_gender_image_container_gallery">
+				<img src="{members_gender_image}" class="gender_icon" style="width: 10px; height: 12px; margin: 0px; margin-right: 2px;" alt="gender" />
+				<span class="stroked_text_small" style="font-size: 10px;">{members_gender_text}</span>
+			</div>
+			
+			<noscript><img src="{url_files}{photo}" alt="{name}" class="img_border"></noscript>
+			<p style="position:absolute; color: red; padding-bottom: 5px; text-decoration:none;  font-size: 8px; width: 100%;">{user_online_gallery_text}</p>
+		</a>
+	</div>
+	<div style="padding-top: 12px; padding-bottom: 25px; width:100%;clear:both; text-align: center; font-size: 13px;">
+		<!-- begin_favorite_add -->
+			<a href="{url_main}bookmark_friends.php?action=add&id={user_id}" class="ico_favorites" >{l_add_to_favorites}</a>
+		<!-- end_favorite_add -->
+	</div>
+</td>
+	<!-- begin_users_list_item_after_line -->
+	</tr><tr>
+	<!-- end_users_list_item_after_line -->
+<!-- end_users_list_item -->
+</tr></table>
+<!-- begin_users_list_noitems -->
+<div style="height: 250px;"></div>
+<!-- end_users_list_noitems -->
+<div align="center">
+	<!-- begin_users_list_pages -->
+		<div>
+			<!-- begin_users_list_prev_page -->
+			<a href="{url_main}{url_page}?offset={offset}{params}">{l_prev}</a>&nbsp; | &nbsp;
+			<!-- end_users_list_prev_page -->
+			<!-- begin_users_list_prev_page_off -->
+			<b>{l_prev}</b>&nbsp; | &nbsp;
+			<!-- end_users_list_prev_page_off -->
+			<!-- begin_users_list_first_page -->
+			<a href="{url_main}{url_page}?offset={offset}{params}">{l_page_1}</a>&nbsp;
+			<!-- end_users_list_first_page -->
+			<!-- begin_users_list_prev_pages -->
+			<a href="{url_main}{url_page}?offset={offset}{params}">&lt;&lt;</a>&nbsp;
+			<!-- end_users_list_prev_pages -->
+			<!-- begin_users_list_page -->
+				<!-- begin_users_list_link_page -->
+				<a href="{url_main}{url_page}?offset={offset}{params}">{page}</a>&nbsp;
+				<!-- end_users_list_link_page -->
+				<!-- begin_users_list_this_page -->
+				<b>{page}</b>
+				<!-- end_users_list_this_page -->
+			<!-- end_users_list_page -->
+			<!-- begin_users_list_next_pages -->
+			<a href="{url_main}{url_page}?offset={offset}{params}">&gt;&gt;</a>&nbsp;
+			<!-- end_users_list_next_pages -->
+			<!-- begin_users_list_last_page -->
+			<b>{l_of}</b> <a href="{url_main}{url_page}?offset={offset}{params}">{num_pages}</a>&nbsp;
+			<!-- end_users_list_last_page -->
+			<!-- begin_users_list_next_page -->
+			&nbsp; | &nbsp;<a href="{url_main}{url_page}?offset={offset}{params}">{l_next}</a>
+			<!-- end_users_list_next_page -->
+			<!-- begin_users_list_next_page_off -->
+			&nbsp; | &nbsp;<b>{l_next}</b>
+			<!-- end_users_list_next_page_off -->
+		</div>
+	<!-- end_users_list_pages -->
+	<div>
+		<b>{num_total}</b> {l_within_criteria}
+	</div>
+</div>
+
+
+<!-- begin_users_new_item2 -->
+<span class="flip-box popup-info" id="usr0{members_num_1}">
+	<div class="flip-box-inner">
+
+        <!-- begin_fields_about -->
+        <div class="flip-box-front">
+            <div class="pri_med_bold profcontent txt_lower_header_color" style="color: #ffffff;">{l_about} {name_short}{members_orientation}</div>
+            <div class="about-row" style="height: 60%;">
+                <div class="flip-text-table" >
+                    <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed; width: 100%;">
+                        <!-- begin_fields_about_row -->
+                        <tr>
+                            <td valign="top" class="body_text" style="padding-right: 4px; width: 70px;">{field}:</td>
+                            <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                            <td style="width: 20px;">
+
+                            <!-- begin_icon_item -->
+                                    <div class="personal-icon" style="{personal_icon_style}"></div>
+                            <!-- end_icon_item -->
+                        </td>
+
+                        </tr>
+                        <!-- end_fields_about_row -->
+
+                    </table>
+
+
+                </div>
+                <div style="width: 40%; height: 100%;  float: left;">
+                    <img  src="{url_files}{members_photo}" class="flip-img" 
+                        style="visibility: inherit !important; " />
+                    <div style=" float: left; margin-left: 20px;">
+                        <div class="flip-looking-for">
+                            <!-- begin_flip_looking_for_item -->
+                            <div class="looking-for-item">
+                                <div class="field">{looking_for_field}</div>
+                                <div class="flip-progress">
+                                    <div class="flip-bar" style="{flip_bar_style}"></div>
+                                </div>
+                            </div>
+                            <!-- end_flip_looking_for_item -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+                <!-- begin_what_looking_sliders -->
+                <div class="scale-sliders">
+                    <!-- begin_scale_slider -->
+                    <div class="scale-slider">
+                        <div class="scale-field-name">
+                            {scale_field_name}
+                        </div>
+                        <div class="scale">
+                            <div class="scale-back">
+                                <!-- begin_scale_back_item -->
+                                <div class="scale-back-item" style="{back_item_style}">
+
+                                </div>
+                                <!-- end_scale_back_item -->
+
+                            </div>
+                            <div class="scale-bar-back" style="{scale_bar_back_style}">
+                                <p class="scale-level-name" style="margin-top: -4px;">
+                                    {scale_level_name}
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- end_scale_slider -->
+                </div>
+                <!-- end_what_looking_sliders -->
+                
+                <div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+                    {l_flip_other_bottom_note}
+                </div>
+            </div>
+        </div>
+        <!-- end_fields_about -->
+
+        <!-- begin_fields_other -->
+        <div class="flip-box-back" >
+
+            <div class="pri_med_bold profcontent txt_lower_header_color" style="color: white;">{l_other_information}  {name_short}  {members_orientation}</div>
+            <div class="profcontent light flip-text-table-back">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <!-- begin_fields_other_row -->
+                    <tr>
+                        <td valign="top" class="body_text" style="padding-right: 4px;">{field}:</td>
+                        <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                    </tr>
+                    <!-- end_fields_other_row -->
+
+                </table>
+            </div>
+                <!--popcorn modified at 8/5/2023-->
+        <div class="pro_link"
+        style="display: inline-flex; width: 100%; flex-wrap: wrap; justify-content: space-evenly; color: white;">
+        <!-- begin_event -->
+        <div class="first" id="event_list_event_{event_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}events_event_show.php?event_id={event_id}"><img
+                        src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+            </div>
+            <div id="{event_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}events_event_show.php?event_id={event_id}" style="color: white; font-size:10px;">{event_title}</a>
+            </div>
+        </div>
+        <!-- end_event -->
+        <!-- begin_hotdate -->
+        <div class="first" id="hotdate_list_hotdate_{hotdate_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}"><img
+                    src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+                </div>
+            <div id="{hotdate_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}" style="color: white;  font-size:10px;">{hotdate_title}</a>
+            </div>
+        </div>
+        <!-- end_hotdate -->
+        <!-- begin_partyhou -->
+        <div class="first" id="partyhou_list_partyhou_{partyhou_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}"><img
+                    src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+                </div>
+            <div id="{partyhou_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}" style="color: white;  font-size:10px;">{partyhou_title}</a>
+            </div>
+        </div>
+        <!-- end_partyhou -->
+    </div>
+            <div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+                {l_flip_other_bottom_note}
+            </div>
+            <br /><br />
+        </div>
+
+        <!-- end_fields_other -->
+	</div>
+</span>
+<!-- end_users_new_item2 -->
+
+<script>
+	
+	// (function() {
+    //     $("body").css({
+	//         "overflow-y": "visible",
+	//         "overflow-x": "visible"
+    //     });
+	// });
+
+</script>

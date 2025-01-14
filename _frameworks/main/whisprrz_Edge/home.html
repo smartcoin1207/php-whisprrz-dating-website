@@ -1,0 +1,449 @@
+{header}
+<div id="oryx_content" style="margin-top: -17px;">
+
+{ims}
+{search}
+<script language="javascript" type="text/javascript">
+	function equalHeight(group) {
+		tallest = 0;
+		group.each(function () {
+			thisHeight = $(this).height();
+			if (thisHeight > tallest) {
+				tallest = thisHeight;
+			}
+		});
+		group.height(tallest);
+	}
+	$(function () {
+		var profile_el = $('#profile');
+		var banner_el = $('#banner');
+		var search_el = $('#searchn');
+		var online_el = $('.usr.frame_content_n');
+
+		var profile_h = profile_el.height();
+		var banner_h = banner_el.height();
+		var online_h = online_el.height();
+		var search_h = search_el.height();
+		if (banner_el.length) {
+			var left_block_h = profile_h + banner_h + online_h + 40;
+			if (left_block_h > search_h) {
+				search_el.height(left_block_h);
+			} else {
+				online_el.height(online_h + search_h - left_block_h)
+			}
+
+		} else {
+			equalHeight($('#profile, #searchn'));
+		}
+	});
+
+</script>
+<style>
+	body {
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	table td:nth-child(3) {
+		width: 20px;
+	  }
+
+	h5 {
+		padding: 10px 0;
+	}
+</style>
+
+<!-- begin_myrecorder_swf -->
+<div id="rec" class="rec_home">
+	<object onfocus="this.blur();" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+		codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="220"
+		height="140" id="myRecorder" align="middle">
+		<param name="allowScriptAccess" value="sameDomain" />
+		<param name="movie"
+			value="{url_main}_server/recorder/myRecorder.swf?login={myname}&unique={unique}&l_recorder_title={l_recorder_title}" />
+		<param name="quality" value="high" />
+		<param name="wmode" value="transparent" />
+		<param name="bgcolor" value="#7ea6b6" />
+
+		<embed
+			src="{url_main}_server/recorder/myRecorder.swf?login={myname}&unique={unique}&l_recorder_title={l_recorder_title}"
+			wmode="transparent" quality="high" bgcolor="#7ea6b6" width="220" height="140" name="myRecorder"
+			align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"
+			pluginspage="http://www.macromedia.com/go/getflashplayer" />
+	</object>
+</div>
+<!-- end_myrecorder_swf -->
+<div id="profile" class="column_main frame_content" style="padding-bottom: 10px;">
+
+
+		<div style="display: inline; font-size: 10px;">
+
+			<span class="name txt_upper_header_color" style="float: left; margin-right: 5px; " > <a style="font-size: 20px; font-weight: 700; text-decoration: none;" href="{url_main}{name_seo}">{name}</a></span>
+			{complite}
+
+			<!-- begin_profile_status -->
+			<div class="status_home_page profile_editable_top" style="display: none;">
+				<div class="profile_editable" id="profile_status_{user_id}">{profile_status}</div>
+			</div>
+			<!-- end_profile_status -->
+
+			<span style="font-size: 11px; padding: 0px 5px  0px  0px;">{l_done}:</span>
+			<span style="font-size: 9px; padding: 0px 5px  0px  0px;"><strong style="font-size: inherit;">{l_age}:</strong> {age}</span>
+			<span style="font-size: 9px; padding: 0px 5px  0px  0px;"><strong style="font-size: inherit;">{l_city}:</strong> {city_title}</span>
+			<span style="font-size: 9px; padding: 0px 5px  0px  0px;"><strong style="font-size: inherit;">{l_state}:</strong> {state_title}</span>
+		</div>
+
+	<div class="links">
+	<div class="dropdown">
+		<ul>
+			<!-- begin_my_nogold -->
+			<li class="gold"><a href="{url_main}upgrade.php" class="txt_upper_header_color">{l_upgrade}</a></li>
+			<!-- end_my_nogold -->
+			<li><a href="{url_main}profile.php">{l_edit_profile}</a></li>
+			<li><a href="{url_main}profile_photo.php">{l_profile_pics}</a></li>
+			<!-- begin_hide-->
+			<li><a href="{url_main}home.php?cmd=hide">{l_hide}</a></li>
+			<!-- end_hide-->
+			<!-- begin_active-->
+			<li><a href="{url_main}home.php?cmd=active">{l_activate}</a></li>
+			<!-- end_active-->
+			<li><a  href="search_results.php?offset=1&amp;display=wall&amp;uid={user_id}" title="Swingbook">{l_profile_wall}</a></li>
+			<li><a id="goTop" name="top" href="" >{l_top_menu}</a></li>
+  		  </div>
+		</div>   
+	
+
+	<div class="usr frame_content_m">
+		<h5>{l_who_viewed_me}</h5>
+		<ul id="users_list" class="users_ul">
+			<!-- begin_users_new_item_viewed_me -->
+			<li id="popup_{members_num}" class="users_li">
+		            <i title="{a_send_message}" onclick="sendMessages('{members_user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
+				<a href="{url_main}search_results.php?display=profile&uid={members_user_id}"
+					onmousemove="show_face_jq('usr0{members_num}', event)"
+					onmouseout="hide_face_jq('usr0{members_num}')">
+
+					<!-- begin_user_status -->
+					<!-- <div class="newm_status status{members_status_style}" style="font-size: 6px;">{members_status}</div> -->
+					<!-- end_user_status -->
+
+					<img id="pic{members_num}" src="{url_files}{members_photo}" width="60" height="70"
+						alt="{members_name}" />
+					<div class="profile_gender_mile_text">
+						<span class="stroked_text">{members_distance}mi</span>
+					</div>
+					<div class="profile_gender_image_container">
+						<img src="{members_gender_image}" class="gender_icon" alt="gender" />
+						<span class="stroked_text_small">{members_gender_text}</span>
+					</div>
+					<span class="a">{members_name}</span>
+				</a>
+				<!--<span class="b"></span></a>-->
+			</li>
+			<!-- end_users_new_item_viewed_me -->
+			<li style="width:37px;"><a href="{url_main}users_viewed_me.php"><img src="{url_tmpl_main}img/usr-more.png"
+						width="47" height="85" alt="" /></a></li>
+		</ul>
+	</div>
+
+	<div class="usr frame_content_m">
+		<h5>{l_newest_matches}</h5>
+		<ul id="users_list" class="users_ul">
+			<!-- begin_users_new_item_matches -->
+			<li id="popup_{members_num}" class="users_li">
+		            <i title="{a_send_message}" onclick="sendMessages('{members_user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
+
+				<a href="{url_main}search_results.php?display=profile&uid={members_user_id}"
+					onmousemove="show_face_jq('usr0{members_num}', event)"
+					onmouseout="hide_face_jq('usr0{members_num}')">
+
+					<!-- begin_user_status -->
+					<div class="newm_status status{members_status_style}">{members_status}</div>
+					<!-- end_user_status -->
+
+
+					<img id="pic{members_num}" src="{url_files}{members_photo}" width="60" height="70"
+						alt="{members_name}" />
+					<div class="profile_gender_mile_text">
+						<span class="stroked_text">{members_distance}mi</span>
+					</div>
+					<div class="profile_gender_image_container">
+						<img src="{members_gender_image}" class="gender_icon" alt="gender" />
+						<span class="stroked_text_small">{members_gender_text}</span>
+					</div>
+					<span class="a">{members_name}</span>
+				</a>
+				<!--<span class="b"></span></a>-->
+			</li>
+			<!-- end_users_new_item_matches -->
+			<li style="width:37px;"><a href="{url_main}users_featured.php"><img src="{url_tmpl_main}img/usr-more.png"
+						width="47" height="85" alt="" /></a></li>
+		</ul>
+	</div>
+	<div class="usr frame_content_m">
+		<h5>{l_new_users}</h5>
+		<ul id="users_list" class="users_ul">
+			<!-- begin_users_new_item_new -->
+
+			<li id="popup_{members_num}" class="users_li">
+				<i title="{a_send_message}" onclick="sendMessages('{members_user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
+
+				<a href="{url_main}search_results.php?display=profile&uid={members_user_id}"
+					onmousemove="show_face_jq('usr0{members_num}', event)"
+					onmouseout="hide_face_jq('usr0{members_num}')">
+
+					<!-- begin_user_status -->
+					<div class="newm_status status{members_status_style}">{members_status}</div>
+					<!-- end_user_status -->
+
+
+					<img id="pic{members_num}" src="{url_files}{members_photo}" width="60" height="70"
+						alt="{members_name}" />
+					<div class="profile_gender_mile_text">
+						<span class="stroked_text">{members_distance}mi</span>
+					</div>
+					<div class="profile_gender_image_container">
+						<img src="{members_gender_image}" class="gender_icon" alt="gender" />
+						<span class="stroked_text_small">{members_gender_text}</span>
+					</div>
+					<span class="a">{members_name}</span>
+				</a>
+				<!--<span class="b"></span></a>-->
+			</li>
+			<!-- end_users_new_item_new -->
+			<li style="width:37px;"><a href="{url_main}users_new.php"><img src="{url_tmpl_main}img/usr-more.png"
+						width="47" height="85" alt="" /></a></li>
+		</ul>
+	</div>
+
+</div><!-- profile end -->
+
+<!-- begin_users_new --><!-- end_users_new -->
+
+<div style="float:left;">
+    <!-- begin_banner_home -->
+<div class='banner_home' id="banner">
+	{banner_home}
+</div>
+<!-- end_banner_home -->
+
+<!-- begin_people_online -->
+<div class="usr frame_content_n" style="padding: 15px 15px; box-sizing: border-box;">
+	<h5>{l_online_members_frame}</h5>
+	<ul id="users_list" class="users_ul">
+		<!-- begin_users_new_item -->
+		<li id="popup_{members_num}" class="users_li">
+
+			<i title="{a_send_message}" onclick="sendMessages('{members_user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
+
+			<a href="{url_main}{members_link}?display=profile&uid={members_user_id}" onmousemove="show_face_jq('usr0{members_num}', event)"
+				onmouseout="hide_face_jq('usr0{members_num}')">
+
+				<!-- begin_user_status -->
+				<div class="newm_status status{members_status_style}">{members_status}</div>
+				<!-- end_user_status -->
+
+
+				<img id="pic{members_num}" src="{url_files}{members_photo}" width="60" height="70"
+					alt="{members_name}" />
+				<div class="profile_gender_mile_text">
+					<span class="stroked_text">{members_distance}mi</span>
+				</div>
+				<div class="profile_gender_image_container">
+					<img src="{members_gender_image}" class="gender_icon" alt="gender" />
+					<span class="stroked_text_small">{members_gender_text}</span>
+				</div>
+				<span class="a">{members_name}</span>
+			</a>
+			<!--<span class="b"></span></a>-->
+		</li>
+		<!-- end_users_new_item -->
+		<li style="width:37px;"><a href="{url_main}users_online.php"><img src="{url_tmpl_main}img/usr-more.png"
+					width="47" height="85" alt="" /></a></li>
+	</ul>
+	
+	<!-- begin_banner_footer_additional -->
+	<div class="banner_footer_additional">{banner_footer_additional}</div>
+	<!-- end_banner_footer_additional -->
+</div>
+<!-- end_people_online -->
+
+</div>
+
+
+<div class="usr frame_content" style="box-sizing: border-box;">
+
+	<h5>{l_home_hotdates}</h5>
+	<ul id="users_list">
+		<!-- begin_users_hotdates_item -->
+		<li id="popup_{members_num}">
+			<a href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}" >
+				<img src="{image_thumbnail}" width="60" height="70" alt="hotdate" />
+
+				<span class="a" style="line-height: 12px;">{hotdate_title}</span>
+			</a>
+		</li>
+		<!-- end_users_hotdates_item -->
+		<li style="width:37px;"><a href="{url_main}hotdates_hotdate_list_upcoming.php"><img src="{url_tmpl_main}img/usr-more.png"
+					width="47" height="85" alt="" /></a></li>
+	</ul>
+</div>
+
+
+
+<div class="usr frame_content" style="box-sizing: border-box;">
+
+	<h5>{l_home_events}</h5>
+	<ul id="users_list">
+		<!-- begin_users_events_item -->
+		<li id="popup_{members_num}">
+			<a href="{url_main}events_event_show.php?event_id={event_id}" >
+				<img src="{image_thumbnail}" width="60" height="70" alt="event img" />
+
+				<span class="a" style="line-height: 12px;">{event_title}</span>
+			</a>
+		</li>
+		<!-- end_users_events_item -->
+		<li style="width:37px;"><a href="{url_main}events_event_list_upcoming.php"><img src="{url_tmpl_main}img/usr-more.png"
+					width="47" height="85" alt="" /></a></li>
+	</ul>
+</div>
+
+<!-- begin_users_new_item2 -->
+<span class="flip-box popup-info" id="usr0{members_num}">
+	<div class="flip-box-inner">
+
+		<!-- begin_fields_about -->
+		<div class="flip-box-front">
+			<div class="pri_med_bold profcontent txt_lower_header_color" style="color: #ffffff;">{l_about} {members_name}{members_orientation}</div>
+			<div class="about-row" style="height: 60%;">
+				<div class="flip-text-table" >
+					<table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed; width: 100%;">
+						<!-- begin_fields_about_row -->
+						<tr>
+							<td valign="top" class="body_text" style="padding-right: 4px; width: 70px;">{field}:</td>
+							<td align="left" valign="top" class="body_text"><b>{value}</b></td>
+							<td style="width: 20px;">
+
+							<!-- begin_icon_item -->
+									<div class="personal-icon" style="{personal_icon_style}"></div>
+							<!-- end_icon_item -->
+						</td>
+
+						</tr>
+						<!-- end_fields_about_row -->
+					</table>
+				</div>
+				<div style="width: 40%; height: 100%;  float: left;">
+					<img  src="{url_files}{members_photo}" class="flip-img" 
+						style="visibility: inherit !important; " />
+					
+				</div>
+			</div>
+			<div>
+
+				<!-- begin_what_looking_sliders -->
+				<div class="scale-sliders">
+					<!-- begin_scale_slider -->
+					<div class="scale-slider">
+						<div class="scale-field-name">
+							{scale_field_name}
+						</div>
+						<div class="scale">
+							<div class="scale-back">
+								<!-- begin_scale_back_item -->
+								<div class="scale-back-item" style="{back_item_style}">
+
+								</div>
+								<!-- end_scale_back_item -->
+
+							</div>
+							<div class="scale-bar-back" style="{scale_bar_back_style}">
+								<p class="scale-level-name" style="margin-top: -4px;">
+									{scale_level_name}
+								</p>
+							</div>
+							
+						</div>
+					</div>
+					<!-- end_scale_slider -->
+				</div>
+				<!-- end_what_looking_sliders -->
+				
+				<div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+					{l_flip_other_bottom_note}
+				</div>
+			</div>
+		</div>
+		<!-- end_fields_about -->
+
+		<!-- begin_fields_other -->
+		<div class="flip-box-back" >
+
+			<div class="pri_med_bold profcontent txt_lower_header_color" style="color: white;">{l_other_information}  {members_name}  {members_orientation}</div>
+			<div class="profcontent light flip-text-table-back">
+				<table cellpadding="0" cellspacing="0" border="0" width="100%">
+					<!-- begin_fields_other_row -->
+					<tr>
+						<td valign="top" class="body_text" style="padding-right: 4px;">{field}:</td>
+						<td align="left" valign="top" class="body_text"><b>{value}</b></td>
+					</tr>
+					<!-- end_fields_other_row -->
+
+				</table>
+			</div>
+				<!--popcorn modified at 8/5/2023-->
+		<div class="pro_link"
+		style="display: inline-flex; width: 100%; flex-wrap: wrap; justify-content: space-evenly; color: white;">
+		<!-- begin_event -->
+		<div class="first" id="event_list_event_{event_id}" style="vertical-align:top;">
+			<div class="link_event_hotdates">
+				<a class="foto" href="{url_main}events_event_show.php?event_id={event_id}"><img
+						src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+			</div>
+			<div id="{event_id}" style="max-width:50px; padding:2px;">
+				<a class="txt_upper_header_color text_length_limit"
+					href="{url_main}events_event_show.php?event_id={event_id}" style="color: white; font-size:10px;">{event_title}</a>
+			</div>
+		</div>
+		<!-- end_event -->
+		<!-- begin_hotdate -->
+		<div class="first" id="hotdate_list_hotdate_{hotdate_id}" style="vertical-align:top;">
+			<div class="link_event_hotdates">
+				<a class="foto" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}"><img
+					src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+				</div>
+			<div id="{hotdate_id}" style="max-width:50px; padding:2px;">
+				<a class="txt_upper_header_color text_length_limit"
+					href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}" style="color: white;  font-size:10px;">{hotdate_title}</a>
+			</div>
+		</div>
+		<!-- end_hotdate -->
+		<!-- begin_partyhou -->
+		<div class="first" id="partyhou_list_partyhou_{partyhou_id}" style="vertical-align:top;">
+			<div class="link_event_hotdates">
+				<a class="foto" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}"><img
+					src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+				</div>
+			<div id="{partyhou_id}" style="max-width:50px; padding:2px;">
+				<a class="txt_upper_header_color text_length_limit"
+					href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}" style="color: white;  font-size:10px;">{partyhou_title}</a>
+			</div>
+		</div>
+		<!-- end_partyhou -->
+	</div>
+			<div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+				{l_flip_other_bottom_note}
+			</div>
+			<br /><br />
+		</div>
+
+		<!-- end_fields_other -->
+
+	</div>
+</span>
+<!-- end_users_new_item2 -->
+
+</div>
+
+
+{footer}

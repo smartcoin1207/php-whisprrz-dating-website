@@ -1,0 +1,70 @@
+{header}
+	<link rel="stylesheet" href="{url_tmpl_main}css/forum.css{cache_version_param}" type="text/css" media="screen" />
+  <div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">       
+    <div class="content">
+
+<table cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center">
+	<tr>
+		<td width="100%">
+		<div class="navbar" style="font-size: 10pt"><a
+			href="{url_main}forum.php" accesskey="1"><img class="inlineimg"
+			src="{url_tmpl_main}img/forum/navbits_start.gif" alt="" border="0" /></a>
+		<strong>{l_forum}</strong></div>
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<table class="tborder" width="100%" border="0" cellpadding="0"
+	cellspacing="0" background="{url_tmpl_main}img/forum/cat_head_bg.gif">
+	<tr>
+		<td class="tcat">{l_add_new_category}</td>
+	</tr>
+</table>
+
+<table class="tborder" cellpadding="6" cellspacing="0" border="0"
+	width="100%" align="center">
+	<tr>
+		<td class="panelsurround" align="center">
+
+		<form action="forum_new_category.php?cmd=post" method="post">
+
+		<div class="panel">
+		<div style="width: 640px" align="left"><!-- title field -->
+		<table cellpadding="0" cellspacing="0" border="0" class="fieldset">
+			<tr>
+				<td class="smallfont" colspan="4">{l_title}*:</td>
+			</tr>
+			<tr>
+				<td><input type="text" class="bginput" name="category_title"
+					value="{category_title}" size="40" maxlength="85" tabindex="1"
+					style="width: 52em;" /></td>
+				<td>&nbsp;&nbsp;</td>
+				<td><img id="display_position"
+					src="{url_tmpl_main}img/forum/clear.gif" alt="" /></td>
+			</tr>
+			<tr>
+				<td><span class="forum_error">{category_title_error}&nbsp;</span></td>
+			</tr>
+		</table>
+		<!-- / title field --></div>
+
+		<div style="margin-top: 6px"><input type="submit"
+			class="forum_button" name="submit" value="{l_add_new_category}"
+			accesskey="s" tabindex="1" /></div>
+		</div>
+
+		</form>
+
+		</td>
+	</tr>
+</table>
+
+
+
+    </div>
+   
+
+</div></div></div></div></div></div></div></div></div> {footer}

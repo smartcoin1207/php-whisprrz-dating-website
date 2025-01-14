@@ -1,0 +1,95 @@
+{header}
+
+
+    <script type="text/javascript">
+    function places_search_on_submit()
+    {
+        where = $("#places_search_form input[name='where']").val();
+        what = $("#places_search_form input[name='what']").val();
+        
+        if((what != '' && what != '{l_what_question}') || (where != '' && where != '{l_where_question}'))
+        {
+            if(what == '{l_what_question}')
+                $("#places_search_form input[name='what']").val('');
+            if(where == '{l_where_question}')
+                $("#places_search_form input[name='where']").val('');
+            
+            return true;
+        }
+
+        alert('{l_places_please_enter_what_you_search}');
+        
+        return false;
+    }
+
+    function places_add_on_submit()
+    {
+        if($("#places_add_form input[name='name']").val() == '{l_name_of_the_place}')
+        {
+            $("#places_add_form input[name='name']").val('');
+        }
+       
+        return true;
+    }
+    </script>
+
+    <div id="oryx_content">
+    <div class="places_new">
+
+		{places_header}
+
+        <table class="tb_places_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    <div class="places_new_decor">
+
+                        <div class="places_new_frm_search" >
+                            <h1 class="txt_upper_header_color">{l_find_the_place}</h1>
+
+                            <form autocomplete="off" id="places_search_form" method="post" action="{url_main}places_search_and_write.php" method="post" onsubmit="return places_search_on_submit();">
+	                            <div class="places_input_text_4 fl_left"><input autocomplete="off"  name="what" type="text" class="no_abk" value="{l_what_question}" onFocus="if(this.value=='{l_what_question}') this.value=''" onBlur="if(this.value=='') this.value='{l_what_question}';" /></div>
+	                            <div class="places_input_text_4 fl_left"><input autocomplete="off"  name="where" type="text" class="no_abk" value="{l_where_question}" onFocus="if(this.value=='{l_where_question}') this.value=''" onBlur="if(this.value=='') this.value='{l_where_question}';" /></div>
+<!-- 	                            <div class="places_input4 fl_right"><input  type="submit" value="{l_search_button}"/></div> -->
+                                <input style="margin: 0 0 0 147px ;" class="btn round upper_header_color big fl_left"  type="submit" value="{l_search_button}"/>
+                            </form>
+                        </div>
+
+                        <div class="pl_top pl_right">
+                            <h1 class="txt_upper_header_color">{l_or_add_one}: </h1>
+
+                            <form autocomplete="off" id="places_add_form" action="{url_main}places_place_create.php" method="post" onsubmit="return places_add_on_submit();">
+	                         <div class="places_input_text_5 fl_right"><input autocomplete="off" name="name" type="text" class="no_abk" value="{l_name_of_the_place}" onFocus="if(this.value=='{l_name_of_the_place}') this.value=''" onBlur="if(this.value=='') this.value='{l_name_of_the_place}';" /></div>
+<!-- 	                            <div class="places_input5 fl_right"><input  type="submit" value="{l_add_button}"/></div> -->
+                                <input class="btn round upper_header_color big fl_right"  type="submit" value="{l_add_button}"/>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    {places_place_list_top}
+
+                </td>
+                <!-- /td_main -->
+
+				{places_sidebar}
+				
+            </tr>
+        </table>
+
+        <div class="foot_left">
+
+                        <!-- begin_pager --><ul class="places_new_paging">
+                            <!-- begin_pager_prev --><li><a href="{url_main}places_search.php?{search_params}sort={sort}&page={page_n}">{l_pager_prev}</a></li>
+                            <li>|&nbsp;&nbsp;</li><!-- end_pager_prev -->
+                            <!-- begin_pager_link --><!-- begin_pager_link_active --><li class="active">{page_n}</li><!-- end_pager_link_active --><!-- begin_pager_link_not_active --><li><a href="{url_main}places_search.php?{search_params}sort={sort}&page={page_n}">{page_n}</a></li><!-- end_pager_link_not_active --><!-- end_pager_link -->
+                            <!-- begin_pager_next --><li>&nbsp;&nbsp;|</li>
+                            <li><a href="{url_main}places_search.php?{search_params}sort={sort}&page={page_n}">{l_pager_next}</a></li><!-- end_pager_next -->
+                        </ul><!-- end_pager -->
+						</div>
+		<div class="foot_right"></div>
+
+    </div>
+</div>
+{footer}

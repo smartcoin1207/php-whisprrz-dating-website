@@ -1,0 +1,129 @@
+.scroll-pane{ padding: 0; /*height: 360px;*/ overflow: hidden; background: #f8f8f8; cursor: text; outline:none; }
+
+.jspContainer
+{
+	overflow: hidden;
+	position: relative;
+	/*background: #fff;*/
+}
+
+.jspPane
+{
+	position: absolute;
+	/*min-width: 300px !important;*/
+}
+
+.jspVerticalBar
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 7px;
+	height: 100%;
+	/*background: red;*/
+}
+
+.jspHorizontalBar
+{
+	/*position: absolute;*/
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 16px;
+	display: none;
+}
+
+.jspVerticalBar *,
+.jspHorizontalBar *
+{
+	margin: 0;
+	padding: 0;
+}
+
+.jspCap
+{
+	display: none;
+}
+
+.jspHorizontalBar .jspCap
+{
+	float: left;
+}
+
+.jspTrack
+{
+	/*background: #ececec;*/
+	position: relative;
+	border-radius: 5px;
+}
+
+.jspDrag
+{
+	background: #959595;
+	position: relative;
+	top: 0;
+	left: -18px;
+	cursor: pointer;
+		border-radius: 5px;
+}
+
+.jspHorizontalBar .jspTrack,
+.jspHorizontalBar .jspDrag
+{
+	float: left;
+	height: 100%;
+}
+
+.jspArrow
+{
+	background: #50506d;
+	text-indent: -20000px;
+	display: block;
+	cursor: pointer;
+}
+
+.jspArrow.jspDisabled
+{
+	cursor: default;
+	background: #80808d;
+}
+
+.jspVerticalBar .jspArrow
+{
+	height: 16px;
+}
+
+.jspHorizontalBar .jspArrow
+{
+	width: 16px;
+	float: left;
+	height: 100%;
+}
+
+.jspVerticalBar .jspArrow:focus
+{
+	outline: none;
+}
+
+.jspCorner
+{
+	background: #eeeef4;
+	float: left;
+	height: 100%;
+}
+
+/* Yuk! CSS Hack for IE6 3 pixel bug :( */
+* html .jspCorner{ margin: 0 -3px 0 0; }
+
+/**/
+.scroll-pane-rooms{  }
+.scroll-pane-rooms .jspVerticalBar{ width: 9px; }
+.scroll-pane-rooms .jspDrag{ background: #5afac0; top: 0; left: 0; border-radius: 0; }
+
+.scroll-pane-body{  }
+.scroll-pane-body .jspVerticalBar{ width: 9px; }
+.scroll-pane-body .jspDrag{ background: #5afac0; top: 0; left: 0; border-radius: 0; }
+
+.scroll-pane-face{  }
+.scroll-pane-face .jspVerticalBar{ width: 9px; }
+.scroll-pane-face .jspDrag{ background: #5afac0; top: 0; left: 0; border-radius: 0; }

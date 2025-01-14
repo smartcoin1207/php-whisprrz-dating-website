@@ -1,0 +1,11 @@
+<div id="events_calendar" class="events_calendar"></div>
+{items}
+<script>
+    <!-- begin_highlight_event -->
+    clEventsCalendar.highlightId = '{highlight_event_id}';
+    <!-- end_highlight_event -->
+    
+    var clCalendar = new Calendar('#events_calendar', eventsItems, '{calendar_init_date}', '{calendar_init_day}');
+
+</script>
+<div id="events_calendar_data" class="events_calendar_data"></div>

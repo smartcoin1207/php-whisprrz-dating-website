@@ -1,0 +1,66 @@
+{header}
+<style>
+#ui-datepicker-div {display: none;}
+</style>
+
+<script language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#news_date").datepicker({ maxDate: "+10y" });
+});
+</script>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/news.php?lang={lang}">{l_menu_news_edit}</a></li>
+        <li><a href="{url_main}administration/news_add.php?lang={lang}">{l_menu_news_add}</a></li>
+        <li><a href="{url_main}administration/news_cats.php?lang={lang}">{l_menu_news_cats}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+        <form method="POST" action="{url_main}administration/news_edit.php?cmd=edit&lang={lang}">
+            <input type="hidden" name="id" value="{id}">
+            <p>{message}</p>
+			<div class="bl_label">
+
+			<!-- begin_root_page -->
+			<div class="bl_label">
+				<input type="hidden" name="root" value="0">
+				<label class="fl_left" for="root" style="cursor: pointer;">{l_use_as_root_page}</label>
+				<div class="fl_right"><input class="check" type="checkbox" id="root" name="root" value="1" {root} ></div>
+			<div class="justify"></div>
+			</div>
+			<!-- end_root_page -->
+
+			<!-- begin_root_pages -->
+            <label>{l_analog_in_the_english_variant}:</label>
+            <select class="input" name="root_id">
+            {root_pages_options}
+            </select>
+			<!-- end_root_pages -->
+
+            <label>{l_title_word}:</label>
+            <input type="text" name="title" value="{title}" maxlength="255">
+            <label>{l_category}:</label>
+            <select class="input" name="cat">
+            {cat_options}
+            </select>
+            <label>{l_short_news}:</label>
+            <textarea name="news_short" class="textarea_small">{news_short}</textarea>
+            <label>{l_full_news}:</label>
+            <textarea name="news_long" class="textarea_big">{news_long}</textarea>
+            <label>{l_news_date}:</label>
+            <input  id="news_date" autocomplete="off" name="news_date" type="text" value="{date}"/>
+            <div class="btn fl_right"><a href="#" class="submit">{l_save}</a></div>
+            </div>
+        </form>
+
+    </div>
+
+    <br clear="all">
+    <div class="empty"></div>
+</div>
+
+{footer}

@@ -1,0 +1,262 @@
+{header}
+
+<div id="bl_page_columns" class="wall_wrapper">
+    <script>hideRightColumnWall();</script>
+
+    <div class="wall <!--begin_one_column-->one_column<!--end_one_column-->">
+        <script>
+            showRightColumnWall();
+            clEventsCalendar.initEdit();
+        </script>
+
+        <div id="bl_events_new_frm" class="bl_forms settings events_new_frm">
+            <input id="event_id" type="hidden" name="event_id" value="{event_id}">
+            <input id="event_photo_id" type="hidden" name="event_photo_id" value="{event_photo_id}">
+            <div class="item">
+                <div class="col-md-12">
+                    <h3 class="cham-heading h3_page">
+                        <span class="h3_page_title">{page_title}</span>
+                        <!-- begin_page_url_back -->
+                        <a class="link_back_media" href="{url_back}">
+                            <span class="icon_fa" data-cl-loader="back_page_loader">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            </span>{l_go_back}
+                        </a>
+                        <!-- end_page_url_back -->
+                    </h3>
+                    <div class="clearfix"></div>
+                    <hr>
+                </div>
+
+                <div class="wrap_fields">
+                    <div class="section fields field_about">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 text-right field">
+                                    <span>{l_task_owner}</span>
+                                </div>
+                                <div class="col-lg-6 field <!-- begin_list_friend_event_show -->show_friends<!-- end_list_friend_event_show -->">
+                                    <input id="event_to_user" data-uid="{user_to_id}" class="form-control  field_required" autocomplete=off name="event_to_user" type="text" value="{user_to_name}"/>
+
+                                    <div id="event_friends_show" class="bl_event_to_on">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                    </div>
+
+                                    <div id="event_search_users_bl" class="event_search_users_bl">
+                                        <ul id="event_search_users_list" class="event_search_users_list">
+                                        </ul>
+                                    </div>
+                                    <!-- begin_list_friend_event -->
+                                    <div id="event_friends_list" class="bl_event_to_list">
+                                        <ul class="list_photo_friends_event">
+                                            <!-- begin_list_friend_event_item -->
+                                            <li id="list_friend_event_{list_friend_event_user_id}" class="right_column_friend_item <!-- begin_list_friend_event_selected -->selected<!-- end_list_friend_event_selected -->">
+                                                <a data-uid="{list_friend_event_user_id}" data-name="{list_friend_event_name}" onclick="return false;" class="profile_photo_s_{list_friend_event_user_id} to_hide" href="#" title="{list_friend_event_name_title}" >
+                                                    <img onload="onLoadProfilePhoto('.profile_photo_s_{list_friend_event_user_id}')" src="{url_files}{list_friend_event_photo}" alt=""/>
+                                                </a>
+                                                <figure>
+                                                    <!-- <svg viewBox="0 0 20 20">
+                                                        <path d="M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 L10,0 Z M8,15 L3,10 L4.4,8.6 L8,12.2 L15.6,4.6 L17,6 L8,15 L8,15 Z"/>
+                                                    </svg> -->
+                                                    <svg viewBox="0 0 20 20">
+                                                        <ellipse ry="8.340139" rx="8.340139" id="svg_4" cy="10" cx="9.999999" stroke-opacity="null" stroke-width="null" stroke="null" fill="#ffffff"/>
+                                                        <path d="m10,0c-5.5,0 -10,4.5 -10,10c0,5.5 4.5,10 10,10c5.5,0 10,-4.5 10,-10c0,-5.5 -4.5,-10 -10,-10l0,0zm-2,15l-5,-5l1.400002,-1.400002l3.599998,3.599998l7.6,-7.599998l1.4,1.400002l-9,9l0,0z"/>
+                                                    </svg>
+
+                                                </figure>
+                                            </li>
+                                            <!-- end_list_friend_event_item -->
+                                        </ul>
+                                    </div>
+                                    <!-- end_list_friend_event -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="section fields">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 text-right field">
+                                    <span>{l_event_title}</span>
+                                </div>
+                                <div class="col-lg-6 field">
+                                    <input id="event_title" class="form-control field_required" type="text" name="event_title" value="{event_title}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section fields field_about">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 text-right field">
+                                    <span>{l_event_description_edge}</span>
+                                </div>
+                                <div class="col-lg-6 field">
+                                    <a id="event_description_expand" href="#" onclick="return false;" class="event_description_expand">
+                                        {event_description_btn_expand}
+                                    </a>
+                                    <div id="event_description_bl" class="event_description_bl <!-- begin_event_description_show-->to_show<!-- end_event_description_show-->">
+                                        <textarea id="event_description" class="form-control field_profile_text" name="event_description">{event_description}</textarea>
+                                    </div>
+                                    <script>clEventsCalendar.initEditDescription();</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section fields">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 text-right field">
+                                    <span>{l_event_date}</span>
+                                </div>
+                                <div class="col-lg-6 field">
+                                    <input id="event_date" class="form-control field_required" autocomplete=off name="event_date" type="text" data-current="{event_date_js}" data-start="{event_date}" value="{event_date}"/>
+                                </div>
+                                <script>clEventsCalendar.initEditCurDate();</script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section fields">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 text-right field">
+                                    <span>{l_event_time}</span>
+                                </div>
+                                <div class="col-lg-6 field">
+                                    <input id="event_time" class="form-control field_required" autocomplete=off name="event_time" type="text" value="{event_time}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="section fields">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 text-right field">
+                                    <span>{l_event_visibility}</span>
+                                </div>
+                                <div class="col-lg-6 field">
+                                    <select id="event_access" name="event_access" class="selectpicker show-tick" data-live-search="false">
+                                        <option value="0" !-- begin_public_access --selected!-- end_public_access -- >{l_public}</option>
+                                        <option value="1" !-- begin_private_access --selected!-- end_private_access -- >{l_private}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <!-- <div class="section fields">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-11 field height_fix">
+                                    <button id="event_add" class="btn btn-block btn-success btn_save {event_btn_class}" {event_btn_disabled}>
+                                        <span class="icon_fa">
+                                            <svg class="icon_event_add" viewBox="0 0 32 32">
+                                                <path d="M24,12H8v2h15h1V12z M28,15.518V4H4v24h11.518c1.614,2.411,4.361,3.999,7.482,4c4.971-0.002,8.998-4.029,9-9   C31.999,19.879,30.411,17.132,28,15.518z M15.517,18c-0.412,0.616-0.743,1.289-0.994,2H8v2h6.058C14.022,22.329,14,22.661,14,23   c0,1.054,0.19,2.061,0.523,3H6V6h20v8.523C25.061,14.19,24.054,14,23,14c-2.143,0-4.107,0.751-5.652,2H8v2H15.517z M23,29.883   c-3.801-0.009-6.876-3.084-6.885-6.883c0.009-3.801,3.084-6.876,6.885-6.884c3.799,0.008,6.874,3.083,6.883,6.884   C29.874,26.799,26.799,29.874,23,29.883z"></path>
+                                                <g>
+                                                    <polygon points="28,22 24.002,22 24.002,18 22,18 22,22 18,22 18,24 22,24 22,28 24.002,28 24.002,24 28,24   "></polygon>
+                                                </g>
+                                            </svg>
+
+                                            <svg class="icon_event_edit" viewBox="0 0 32 32">
+                                                <path d="M24,12H8v2h15h1V12z M28,15.518V4H4v24h11.518c1.614,2.411,4.361,3.999,7.482,4c4.971-0.002,8.998-4.029,9-9   C31.999,19.879,30.411,17.132,28,15.518z M15.517,18c-0.412,0.616-0.743,1.289-0.994,2H8v2h6.058C14.022,22.329,14,22.661,14,23   c0,1.054,0.19,2.061,0.523,3H6V6h20v8.523C25.061,14.19,24.054,14,23,14c-2.143,0-4.107,0.751-5.652,2H8v2H15.517z M23,29.883   c-3.801-0.009-6.876-3.084-6.885-6.883c0.009-3.801,3.084-6.876,6.885-6.884c3.799,0.008,6.874,3.083,6.883,6.884   C29.874,26.799,26.799,29.874,23,29.883z"></path>
+                                                <g>
+                                                    <polygon points="28,22 24.002,22 24.002,18 22,18 22,22 18,22 18,24 22,24 22,28 24.002,28 24.002,24 28,24   "></polygon>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <span>{event_btn_create}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="col-md-12">
+                    <h3 class="cham-heading">
+                        {l_event_image_edge}
+                    </h3>
+                    <div class="clearfix"></div>
+                    <hr>
+                </div>
+
+                <div class="wrap_fields">
+                    <div class="section fields line">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 text-right field field_auto group_photo_upload_bl_title">
+                                    <span></span>
+                                </div>
+                                <div id="event_photo_upload_bl" class="col-lg-6 field field_auto group_photo_upload_field">
+                                    <div class="group_photo_upload_img">
+                                        <img id="event_photo_upload_img" src="{event_photo_url}" alt="" />
+                                    </div>
+                                    <div class="group_photo_upload_bl first">
+                                            <form onsubmit="clEventsCalendar.submitUploadPhoto($(this)); return false;" method="post" enctype="multipart/form-data" action="{url_main}ajax.php">
+                                                <button id="event_photo_upload"  class="btn btn-block btn-info btn_upload_group_image {event_photo_btn_upload_refresh}">
+                                                    <span class="icon_fa" data-cl-loader="header_menu_loader_more">
+                                                        <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                                                    </span>
+                                                    <span class="btn_title">{event_photo_btn_upload}</span>
+                                                </button>
+                                                <input id="event_photo_file" class="group_photo_file" accept="image/*" onclick="clEventsCalendar.clickUploadPhoto($(this));" onChange="clEventsCalendar.changeUploadPhoto($(this));" type="file" title="" name="event_photo_file" />
+                                                <input type="reset" value="" class="btn_hidden"/>
+                                                <input type="submit" value="" class="btn_hidden"/>
+                                            </form>
+                                    </div>
+                                   
+                                    <div class="group_photo_upload_bl last">
+                                        <button id="event_photo_upload_delete"  onclick="clEventsCalendar.deleteUploadPhoto(); return false;" class="btn btn-block btn-secondary">
+                                            <span class="icon_fa" data-cl-loader="header_menu_loader_more">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            </span>
+                                            <span>{l_delete}</span>
+                                        </button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section fields">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-11 field height_fix">
+                                    <button id="event_add" class="btn btn-block btn-success btn_save {event_btn_class} disabled">
+                                        <span class="icon_fa">
+                                            <svg class="icon_event_add" viewBox="0 0 32 32">
+                                                <path d="M24,12H8v2h15h1V12z M28,15.518V4H4v24h11.518c1.614,2.411,4.361,3.999,7.482,4c4.971-0.002,8.998-4.029,9-9   C31.999,19.879,30.411,17.132,28,15.518z M15.517,18c-0.412,0.616-0.743,1.289-0.994,2H8v2h6.058C14.022,22.329,14,22.661,14,23   c0,1.054,0.19,2.061,0.523,3H6V6h20v8.523C25.061,14.19,24.054,14,23,14c-2.143,0-4.107,0.751-5.652,2H8v2H15.517z M23,29.883   c-3.801-0.009-6.876-3.084-6.885-6.883c0.009-3.801,3.084-6.876,6.885-6.884c3.799,0.008,6.874,3.083,6.883,6.884   C29.874,26.799,26.799,29.874,23,29.883z"></path>
+                                                <g>
+                                                    <polygon points="28,22 24.002,22 24.002,18 22,18 22,22 18,22 18,24 22,24 22,28 24.002,28 24.002,24 28,24   "></polygon>
+                                                </g>
+                                            </svg>
+
+                                            <svg class="icon_event_edit" viewBox="0 0 32 32">
+                                                <path d="M16,14c1.657,0,3-1.343,3-3s-1.343-3-3-3s-3,1.343-3,3S14.343,14,16,14z M24,8c1.657,0,3-1.343,3-3s-1.343-3-3-3   s-3,1.343-3,3S22.343,8,24,8z M12.023,14C11.39,13.162,11,12.131,11,11c0-0.343,0.035-0.677,0.101-1C8.968,10,4,10,4,10s-2,0-2,2   c0,0.778,0,12,0,12h6v-6c0-4,4-4,4-4H12.023z M8,8c1.657,0,3-1.343,3-3S9.657,2,8,2S5,3.343,5,5S6.343,8,8,8z M30,17.349V12   c0,0,0-2-2-2h-7.101C20.965,10.323,21,10.657,21,11c0,1.131-0.39,2.162-1.022,3H20c0.477,0,0.878,0.073,1.246,0.173   c-1.457,0.288-2.787,0.928-3.898,1.827C15.008,16,12,16,12,16s-2,0-2,2c0,0.778,0,12,0,12h7.349c1.545,1.248,3.51,1.999,5.651,2   c4.971-0.002,8.998-4.029,9-9C31.999,20.858,31.248,18.894,30,17.349z M23,29.883c-3.801-0.009-6.876-3.084-6.885-6.883   c0.009-3.801,3.084-6.876,6.885-6.885c3.799,0.009,6.874,3.084,6.883,6.885C29.874,26.799,26.799,29.874,23,29.883z"></path>
+                                                <polygon points="28,22 24.002,22 24.002,18 22,18 22,22 18,22 18,24 22,24 22,28 24.002,28 24.002,24 28,24   "></polygon>
+                                            </svg>
+                                        </span>
+                                        <span>{event_btn_create}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+{footer}

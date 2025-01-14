@@ -1,0 +1,1042 @@
+.wrap_calendar{
+  overflow: hidden;
+}
+
+.wrap_calendar .wrap_filter{
+margin: 0 0 10px;
+}
+
+.wrap_partyhouz_calendar {
+clear: both;
+padding: 15px 0 0;
+}
+
+.partyhouz_calendar .header {
+  margin: 0 !important;
+  text-align: center;
+  width: 45%;
+  top: -60px;
+}
+
+.partyhouz_calendar .header h1 {
+  display: inline;
+  font-size: 33px;
+}
+
+@media screen and (max-width: 767px) /*480px*/ {
+  .partyhouz_calendar .header {
+    margin: 0 !important;
+    text-align: center;
+    width: auto !important;
+  }
+  .partyhouz_calendar .header {
+    top: 0;
+  }
+}
+
+.partyhouz_calendar .header .partyhou_loader{
+position: relative;
+font-size: 40px;
+}
+
+.partyhouz_calendar .header .partyhou_loader .btn_action_loader {
+height: 28px;
+width: 28px;
+font-size: 28px;
+top: 0;
+bottom: 0;
+margin: auto;
+left: 5px;
+}
+
+.partyhouz_calendar .header .partyhou_loader .btn_action_loader .spinner .spinner-blade{
+  background-color: #000;
+}
+
+.partyhouz_calendar .left,
+.partyhouz_calendar .right {
+position: absolute;
+width: 0px;
+height: 0px;
+border-style: solid;
+top: 50%;
+margin-top: -7.5px;
+cursor: pointer;
+transition: all .5s ease;
+}
+
+.partyhouz_calendar .left {
+border-width: 7.5px 10px 7.5px 0;
+border-color: transparent #1784fb transparent transparent;
+left: 20px;
+}
+
+.partyhouz_calendar .right {
+border-width: 7.5px 0 7.5px 10px;
+border-color: transparent transparent transparent #1784fb;
+right: 20px;
+}
+
+.partyhouz_calendar .left:hover {
+border-color: transparent #334f68 transparent transparent;
+}
+
+.partyhouz_calendar .right:hover {
+border-color: transparent transparent transparent #334f68;
+}
+
+.partyhouz_calendar .month {
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  position: relative;
+  border-top: 1px solid #80808052;
+  top: -50px;
+}
+
+@media screen and (max-width: 767px) /*480px*/ {
+  .partyhouz_calendar .month {
+    top: 0;
+    border-top: none;
+  }
+}
+
+.partyhouz_calendar .month.new {
+  -webkit-animation: fadeIn 1s linear;
+          animation: fadeIn 1s linear;
+  opacity: 1;
+}
+
+
+/* Next */
+.partyhouz_calendar .month.in.next {
+  -webkit-animation: moveFromTopFadeMonth .4s ease;
+          animation: moveFromTopFadeMonth .4s ease;
+  opacity: 1;
+}
+
+@-webkit-keyframes moveFromTopFadeMonth {
+  from {opacity: 0; -webkit-transform: translateX(25%) scale(1);}
+}
+@keyframes moveFromTopFadeMonth {
+  from {opacity: 0; transform: translateX(25%) scale(1);}
+}
+
+
+.partyhouz_calendar .month.out.next {
+  -webkit-animation: moveToTopFadeMonth .4s ease;
+          animation: moveToTopFadeMonth .4s ease;
+  opacity: 1;
+}
+
+@-webkit-keyframes moveToTopFadeMonth {
+  to {opacity: 0; -webkit-transform: translateX(-25%) scale(1);}
+}
+@keyframes moveToTopFadeMonth {
+  to {opacity: 0; transform: translateX(-25%) scale(1);}
+}
+/* Next */
+
+
+/* Prev */
+.partyhouz_calendar .month.in.prev {
+  -webkit-animation: moveFromBottomFadeMonth .4s ease;
+          animation: moveFromBottomFadeMonth .4s ease;
+  opacity: 1;
+}
+
+@-webkit-keyframes moveFromBottomFadeMonth {
+  from {opacity: 0; -webkit-transform: translateX(-25%) scale(1);}
+}
+@keyframes moveFromBottomFadeMonth {
+  from {opacity: 0; transform: translateX(-25%) scale(1);}
+}
+
+
+.partyhouz_calendar .month.out.prev {
+  -webkit-animation: moveToBottomFadeMonth .4s ease;
+          animation: moveToBottomFadeMonth .4s ease;
+  opacity: 1;
+}
+
+@-webkit-keyframes moveToBottomFadeMonth {
+to { opacity: 0; -webkit-transform: translateX(25%) scale(1); }
+}
+@keyframes moveToBottomFadeMonth {
+to { opacity: 0; transform: translateX(25%) scale(1); }
+}
+/* Prev */
+
+.partyhouz_calendar .week {
+/* background: #4A4A4A; */
+}
+
+.partyhouz_calendar .day {
+display: inline-block;
+/* width: 60px; */
+width: 14.2%;
+box-sizing: border-box;
+padding: 10px;
+text-align: center;
+vertical-align: top;
+cursor: pointer;
+/* background: #4A4A4A; */
+position: relative;
+z-index: 100;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+.partyhouz_calendar .day.other {
+color: rgba(255, 255, 255, .3);
+visibility: hidden;
+}
+
+.partyhouz_calendar .day.today {
+color: rgba(156, 202, 235, 1);
+}
+
+.partyhouz_calendar .day.day_old {
+color: #bbb;
+}
+
+.partyhouz_calendar .day-name {
+font-size: 11px;
+text-transform: uppercase;
+margin-bottom: 5px;
+color: #000;
+letter-spacing: .7px;
+}
+
+.partyhouz_calendar .day.day_old .day-name{
+color: #bbb;
+}
+
+.partyhouz_calendar .day.today  .day-name{
+color: rgba(156, 202, 235, 1);
+}
+
+.partyhouz_calendar .day-number {
+font-size: 24px;
+letter-spacing: 1.5px;
+}
+
+.partyhouz_calendar .day .day-partyhouz {
+list-style: none;
+margin-top: 3px;
+text-align: center;
+height: 12px;
+line-height: 6px;
+overflow: hidden;
+}
+
+.partyhouz_calendar .day .day-partyhouz span {
+vertical-align: top;
+display: inline-block;
+padding: 0;
+margin: 0;
+width: 5px;
+height: 5px;
+line-height: 5px;
+margin: 0 1px 0 0;
+border-radius: 50%;
+}
+
+.partyhouz_calendar .day .day-partyhouz span:nth-child(2),
+.partyhouz_calendar .day .day-partyhouz span:nth-child(3){
+  margin-left: 4px;
+}
+
+
+@media (max-width: 360px){
+  .partyhouz_calendar .day .day-partyhouz span:nth-child(2),
+  .partyhouz_calendar .day .day-partyhouz span:nth-child(3){
+      margin-left: 2px;
+  }
+}
+
+@media (max-width: 320px){
+  .partyhouz_calendar .day .day-partyhouz span:nth-child(2),
+  .partyhouz_calendar .day .day-partyhouz span:nth-child(3){
+      margin-left: 1px;
+  }
+}
+
+.partyhouz_calendar .blue { background: rgba(156, 202, 235, 1); }
+.partyhouz_calendar .orange { background: rgba(247, 167, 0, 1); }
+.partyhouz_calendar .green { background: rgba(153, 198, 109, 1); }
+.partyhouz_calendar .yellow { background: rgba(249, 233, 0, 1); }
+
+.partyhouz_calendar .details_bl{
+overflow: hidden;
+position: relative;
+/*padding-bottom: 8px;
+top: -8px;*/
+transition: all .5s;
+padding-top: 8px;
+margin-top: -8px;
+}
+
+.partyhouz_calendar .details_bl.in{
+padding-bottom: 8px;
+}
+
+.partyhouz_calendar .details {
+position: relative;
+width: 100%;
+background: #636d78;
+/*margin-top: 8px;*/
+border-radius: 4px;
+/* transform: translateY(calc(-100% - 8px));
+transform: translateY(-100%);
+transition: transform .5s;
+will-change: transform;*/
+}
+
+.partyhouz_calendar .details.in {
+/*margin: 8px 0 0 0;*/
+/*transform: translateY(8px);*/
+}
+
+.partyhouz_calendar .week{
+  position: relative;
+/*transform: translateY(0);
+/*transition: transform .5s;
+will-change: transform;*/
+}
+
+/*.partyhouz_calendar .details.in {
+  -webkit-animation: moveFromTopFade_n 1s ease both;
+          animation: moveFromTopFade_n 1s ease both;
+          transform-origin: bottom center;
+}*/
+
+.partyhouz_calendar .arrow {
+position: absolute;
+/* top: -5px; */
+top: 0px;
+left: 0;
+/* margin-left: -2px; */
+margin-left: calc(7.1% - 32px);
+width: 0px;
+height: 0px;
+border-style: solid;
+border-width: 0 8px 8px 8px;
+border-color: transparent transparent #636d78 transparent;
+transition: all 0.5s ease;
+}
+
+.partyhouz_calendar .partyhouz {
+/* padding: 12px 0; */
+padding: 20px 0 22px;
+}
+
+.partyhouz_calendar .partyhouz .btn_add_page .header_menu_loader_more{
+margin-left: -14px;
+}
+
+/*.partyhouz_calendar .partyhouz.in {
+  -webkit-animation: fadeIn .4s linear both;
+          animation: fadeIn .4s linear both;
+}
+
+.partyhouz_calendar .partyhouz.out {
+  -webkit-animation: fadeOut .4s linear both;
+          animation: fadeOut .4s linear both;
+}*/
+
+.partyhouz_calendar .details.out .partyhouz {
+-webkit-animation: fadeOutShink .4s ease both;
+animation: fadeOutShink .4s ease both;
+}
+
+.partyhouz_calendar .partyhou {
+font-size: 16px;
+line-height: 22px;
+letter-spacing: .5px;
+/* padding: 2px 0; */
+/* padding-top: 20px; */
+margin: 0 16px;
+/* vertical-align: top; */
+color: #fff;
+/* display: flex; */
+border-top: 1px solid #bdc6d0;
+transition: .25s, height .25s, padding .25s;
+padding: 20px 0 10px;
+}
+
+.partyhouz_calendar .partyhou:first-child
+{/*.partyhouz_calendar .partyhou:last-child*/
+  border-top: none;
+  padding-top: 0;
+}
+
+.partyhouz_calendar .partyhou.partyhou_empty{
+padding-bottom: 0;
+}
+
+.partyhouz_calendar .partyhou.to_hide{
+  padding: 0;
+  height: 0!important;
+}
+
+.partyhouz_calendar .partyhou.no_border{
+  border-top: none;
+  padding-top: 0;
+}
+
+.partyhouz_calendar .partyhou.empty {
+/* color: #eee; */
+}
+
+.partyhouz_calendar .partyhou.empty span{
+background-image: url(../images/icons/icon_bell_off.svg);
+background-position: 0 40%;
+background-repeat: no-repeat;
+background-size: 14px auto;
+padding: 0 0 0 18px;
+}
+
+.partyhouz_calendar .partyhou-category {
+height: 10px;
+width: 10px;
+display: inline-block;
+margin: 6px 7px 0 0;
+vertical-align: top;
+border-radius: 50%;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_no_item{
+display: block;
+margin-bottom: 15px;
+padding: 0 4px;
+color: #bdc6d0;
+overflow: hidden;
+height: 22px;
+transition: all .3s;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_no_item.to_hide{
+  height: 0px;
+  margin-bottom: 0px;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_time{
+display: inline-block;
+font-size: 14px;
+}
+
+.partyhouz_calendar .partyhou .bl_partyhou{
+display: inline-block;
+/* margin-left: 4px; */
+/*width: calc(100% - 17px);*/
+width: 100%;
+position: relative;
+}
+
+.partyhouz_calendar .partyhou .bl_partyhou .partyhou_title.task_done,
+.partyhouz_calendar .partyhou .bl_partyhou .partyhou_description.task_done .partyhou_description_content{
+  text-decoration:line-through;
+  color: #bdc6d0!important;
+}
+
+
+.partyhouz_calendar .partyhou.partyhou_highlight .bl_partyhou .partyhou_title,
+.partyhouz_calendar .partyhou.partyhou_highlight .bl_partyhou .partyhou_description{
+  background-color: #e3f3da;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_num{
+margin: 0 0 10px;
+display: inline-block;
+cursor: pointer;
+transition: color .4s ease-in-out;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_num:hover{
+color: #ddd;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_num .fa{
+margin-right: 5px;
+}
+
+.partyhouz_calendar .partyhou img.partyhou_img{
+width: 39px;
+height: 29px;
+display: inline-block;
+margin: 0 7px 0 0;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_user_name{
+margin: 0;
+display: block;
+width: 100%;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_user_name a{
+/* color: rgba(217, 255, 85, 1); */
+color: #fff;
+font-weight: bold;
+}
+
+/*.partyhouz_calendar .partyhou span.partyhou_icon_edit{
+margin: 0 5px;
+color: #fff;
+cursor: pointer;
+vertical-align: middle;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_icon_delete{
+color: #fff;
+cursor: pointer;
+}*/
+
+.partyhouz_calendar .partyhou .partyhou_info_bl{
+display: table;
+width: 100%;
+/* margin: 0 0 20px; */
+/* margin: 0 0 15px; */
+margin: 0 0 6px;
+}
+
+.partyhouz_calendar .partyhou .partyhou_info_bl .more_menu_collapse > li > a > i{
+width: 18px;
+}
+
+.partyhouz_calendar .partyhou .partyhou_info_bl .partyhou_user_photo{
+display: table-cell;
+vertical-align: top;
+width: 45px;
+height: 45px;
+position: relative;
+}
+
+.partyhouz_calendar .partyhou .partyhou_info_bl .partyhou_user_photo .partyhou_user_online{
+height: 10px;
+width: 10px;
+display: inline-block;
+margin: 3px 4px 0 0;
+vertical-align: top;
+border-radius: 50%;
+position: absolute;
+top: 0;
+background: #c4e55f;
+right: -4px;
+}
+
+.partyhouz_calendar .partyhou .partyhou_info_bl .partyhou_user_photo a.pic {
+display: block;
+width: 45px;
+height: 45px;
+background-size: cover;
+background-position: center top;
+border-radius: 50%;
+background-color: #f2f4f6;
+}
+
+.partyhouz_calendar .partyhou .partyhou_info_bl .partyhou_info{
+display: table-cell;
+vertical-align: middle;
+padding: 0 0 0 10px;
+width: 100%;
+}
+
+.partyhouz_calendar .partyhou .partyhou_info_bl .partyhou_info:empty{
+display: none;
+}
+
+.partyhouz_calendar .partyhou .partyhou_title{
+display: block;
+padding: 0 4px;
+transition: .4s;
+line-height: 24px;
+}
+
+.partyhouz_calendar .partyhou .partyhou_more_menu{
+position: relative;
+top: -3px;
+}
+
+.partyhouz_calendar .partyhou .partyhou_more_menu .icon_chevron_down {
+width: 26px;
+height: 26px;
+display: inline-block;
+vertical-align: top;
+cursor: pointer;
+}
+
+.partyhouz_calendar .partyhou .partyhou_more_menu .icon_chevron_down svg {
+fill: #bdc6d0;
+opacity: .7;
+width: 26px;
+height: 26px;
+margin: 1px 0 0;
+transition: opacity .4s ease-in-out;
+}
+
+.partyhouz_calendar .partyhou .partyhou_more_menu .icon_chevron_down:hover svg {
+opacity: 1;
+}
+
+.partyhouz_calendar .partyhou .partyhou_more_menu .icon_fa {
+margin: 0 3px 0 0;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_description{
+display: block;
+padding: 3px 4px 0;
+overflow: hidden;
+max-height: 73px;
+position: relative;
+line-height: 24px;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_description .partyhou_description_content{
+color: #bdc6d0;
+transition: color .4s ease-in-out;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_description .partyhou_description_content:hover{
+color: #fff;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_description .partyhou_description_content a{
+color:#f3b700;
+text-decoration: underline;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_description .partyhou_description_content a:hover{
+text-decoration: none;
+}
+
+.partyhouz_calendar .partyhou span.partyhou_description .partyhou_description_shadow{
+position: absolute;
+bottom: -12px;
+box-shadow: 0 0 15px 20px #6f7b88;
+left: 0;
+width: 100%;
+height: 5px;
+}
+
+.partyhouz_calendar .partyhou .partyhou_description_more{
+position: absolute;
+bottom: 0;
+right: 0;
+width: 24px;
+height: 20px;
+background-color: #6f7b88;
+display: none;
+cursor: pointer;
+box-shadow: -10px 3px 10px -2px #6f7b88;
+}
+
+.partyhouz_calendar .partyhou .partyhou_description_more .fa{
+font-size: 18px;
+margin-left: 8px;
+margin-top: 3px;
+}
+
+.partyhouz_calendar .partyhou .partyhou_description_more.down .fa-chevron-circle-down,
+.partyhouz_calendar .partyhou .partyhou_description_more .fa-chevron-circle-up{
+display: block;
+}
+
+.partyhouz_calendar .partyhou .partyhou_description_more.down .fa-chevron-circle-up,
+.partyhouz_calendar .partyhou .partyhou_description_more .fa-chevron-circle-down{
+display: none;
+}
+
+.partyhouz_calendar .partyhou .btn_add_page{
+font-size: 16px;
+width: auto;
+margin-top: 6px;
+}
+
+/* .partyhouz_calendar .partyhou .btn_add_page:hover{
+} */
+
+.partyhouz_calendar .partyhou span.partyhou_separator{
+  padding: 0 5px;
+}
+
+.partyhouz_calendar .legend {
+position: absolute;
+bottom: 0;
+width: 100%;
+height: 30px;
+background: rgba(60, 60, 60, 1);
+line-height: 30px;
+}
+
+.partyhouz_calendar .entry {
+position: relative;
+padding: 0 0 0 25px;
+font-size: 13px;
+display: inline-block;
+line-height: 30px;
+background: transparent;
+}
+
+.partyhouz_calendar .entry:after {
+position: absolute;
+content: '';
+height: 5px;
+width: 5px;
+top: 12px;
+left: 14px;
+}
+
+.partyhouz_calendar .entry.blue:after { background: rgba(156, 202, 235, 1); }
+.partyhouz_calendar .entry.orange:after { background: rgba(247, 167, 0, 1); }
+.partyhouz_calendar .entry.green:after { background: rgba(153, 198, 109, 1); }
+.partyhouz_calendar .entry.yellow:after { background: rgba(249, 233, 0, 1); }
+
+/*-- Animations are cool! --*/
+@-webkit-keyframes moveFromTopFade {
+from { opacity: 0; height:0px; margin-top:0px; -webkit-transform: translateY(-100%); }
+}
+@keyframes moveFromTopFade {
+from { opacity: 0; height:0px; margin-top:0px; transform: translateY(-100%); }
+}
+
+@-webkit-keyframes moveToTopFade {
+to { opacity: 1; height:0px; margin-top:0px; -webkit-transform: translateY(-100%); }
+}
+@keyframes moveToTopFade {
+to { opacity: 1; height:0px; margin-top:0px; transform: translateY(-100%); }
+}
+
+/* @-webkit-keyframes moveFromTopFade {
+from { opacity: 0; transform: translateY(-10%);  }
+}
+@-moz-keyframes moveFromTopFade {
+from { opacity: 0;  transform: translateY(-10%); }
+}
+@keyframes moveFromTopFade {
+from { opacity: 0; transform: translateY(-10%); }
+}
+
+@-webkit-keyframes moveToTopFade {
+to { opacity: 1; height: 0; }
+}
+@-moz-keyframes moveToTopFade {
+to { opacity: 1; height: 0; }
+}
+@keyframes moveToTopFade {
+to { opacity: 1; height: 0; }
+} */
+
+
+
+
+@-webkit-keyframes fadeIn  {
+from { opacity: 0; }
+}
+@-moz-keyframes fadeIn  {
+from { opacity: 0; }
+}
+@keyframes fadeIn  {
+from { opacity: 0; }
+}
+
+@-webkit-keyframes fadeOut  {
+to { opacity: 0; }
+}
+@-moz-keyframes fadeOut  {
+to { opacity: 0; }
+}
+@keyframes fadeOut  {
+to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeOutShink  {
+to { opacity: 0; padding: 0px; height: 0px; }
+}
+@-moz-keyframes fadeOutShink  {
+to { opacity: 0; padding: 0px; height: 0px; }
+}
+@keyframes fadeOutShink  {
+to { opacity: 0; padding: 0px; height: 0px; }
+}
+
+/* Functional */
+.bl_forms.settings .item .btn_edit svg.icon_partyhou_edit,
+.bl_forms.settings .item .btn_create svg.icon_partyhou_add {
+  display: none!important;
+}
+
+#partyhou_to_user.form-control {
+width: 100%;
+display: inline-block;
+}
+
+.show_friends #partyhou_to_user.form-control{
+width: calc(100% - 40px);
+}
+
+.bl_partyhou_to_on{
+display: none;
+cursor: pointer;
+position: relative;
+top: 0;
+left: 2px;
+}
+
+.show_friends .bl_partyhou_to_on{
+display: inline-block;
+}
+
+.bl_partyhou_to_on .fa.fa-angle-down,
+.bl_partyhou_to_on .fa.fa-angle-up{
+margin: 0 0 0 -2px;
+display: inline-block;
+}
+
+.bl_partyhou_to_on .fa.fa-angle-up{
+display: none;
+}
+
+.bl_partyhou_to_on.open .fa.fa-angle-down{
+display: none;
+}
+
+.bl_partyhou_to_on.open .fa.fa-angle-up{
+display: inline-block;
+}
+
+.bl_partyhou_to_list{
+overflow: hidden;
+display: none;
+}
+
+ul.list_photo_friends_partyhou{
+display: flex;
+flex-wrap: wrap;
+margin-bottom: 0;
+padding: 20px 0px 0px;
+}
+
+ul.list_photo_friends_partyhou li {
+transition: all .38s;
+position: relative;
+padding: 0;
+list-style: none;
+margin: 0 13px 13px 0;
+}
+
+ul.list_photo_friends_partyhou li:before {
+content: '';
+background-color: #f2f4f6;
+border-radius: 50%;
+width: 45px;
+height: 45px;
+position: absolute;
+transition: width .38s;
+}
+
+ul.list_photo_friends_partyhou li a {
+transition: width .38s, margin .38s, color .5s ease, filter .5s ease, opacity .3s linear;
+/* margin-right: 13px; */
+}
+
+ul.list_photo_friends_partyhou figure{
+position: absolute;
+top: -5px;
+right: 0;
+width: 13px;
+height: 13px;
+opacity: 0;
+transition: opacity .3s linear;
+}
+
+ul.list_photo_friends_partyhou li.selected figure{
+opacity: 1;
+}
+
+ul.list_photo_friends_partyhou figure svg{
+fill: #4cae4c;
+}
+
+ul.list_photo_friends_partyhou li a {
+display: block;
+width: 45px;
+height: 45px;
+border-radius: 50%;
+overflow: hidden;
+position: relative;
+}
+
+ul.list_photo_friends_partyhou li a img {
+height: 45px;
+object-fit: cover;
+width: 45px;
+border-radius: 50%;
+}
+
+.partyhou_search_users_bl{
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+width: calc(100% - 30px);
+position: absolute;
+z-index: 1;
+margin-top: 1px;
+display: none;
+}
+
+.show_friends .partyhou_search_users_bl{
+width: calc(100% - 70px);
+}
+
+.partyhou_search_users_bl .partyhou_search_users_list{
+padding: 0;
+margin: 0;
+}
+
+.partyhou_search_users_bl .partyhou_search_users_list li{
+list-style: none;
+padding: 8px 15px;
+cursor: pointer;
+line-height: 1.42857143;
+}
+
+.partyhou_search_users_bl .partyhou_search_users_list li:hover{
+background-color: #f5f5f5;
+}
+/* Functional */
+
+.partyhouz_calendar_data{
+display: none !important;
+}
+
+@media (max-width: 480px) {
+.partyhouz_calendar .header h1{
+  font-size: 24px;
+}
+
+.partyhouz_calendar .details{
+  border-radius: 0;
+}
+
+.partyhouz_calendar .day-name{
+  letter-spacing: .4px;
+}
+
+.partyhouz_calendar .day-number {
+  font-size: 18px;
+  /* letter-spacing: 1.5px; */
+}
+}
+
+@media (max-width: 360px) {
+.partyhouz_calendar .day-name{
+  font-size: 9px;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.partyhouz_calendar .day-number {
+  font-size: 16px;
+  line-height: 16px;
+}
+}
+
+/* Popup create task */
+.custom_modal .modal-content.bl_partyhouz_new_frm .task_create_frm{
+height: 180px;
+overflow: hidden;
+margin-bottom: 35px;
+transition: height .4s;
+}
+
+.task_create_frm .modal-body {
+padding-top: 0;
+padding-bottom: 0;
+text-align: left;
+}
+
+.custom_modal .modal-content.bl_partyhouz_new_frm .task_create_frm .modal-body span {
+font-weight: bold;
+display: inline-block;
+margin: 0 0 2px;
+}
+
+.bl_forms.create_task{
+padding: 0;
+}
+
+.bl_forms.create_task .section{
+margin: 0 0 18px;
+}
+
+.task_create_frm .modal-footer .btn{
+margin: 0;
+max-width: 100%;
+}
+
+.task_create_frm .btn span svg {
+width: 22px;
+height: 22px;
+fill: #fff;
+vertical-align: middle;
+}
+
+.task_create_frm .btn_edit svg.icon_partyhou_edit,
+.task_create_frm .btn_create svg.icon_partyhou_add {
+  display: none !important;
+}
+/* Popup create task */
+
+.partyhou_description_expand{
+margin: 9px 0 5px;
+display: block;
+/* color: #9aa6ac; */
+}
+
+.partyhou_description_expand:focus{
+color: #9aa6ac;
+}
+
+.partyhou_description_expand:hover,
+.partyhou_description_expand:active{
+color: #475156;
+}
+
+.bl_modal_body .partyhou_description_expand{
+margin-top: 0;
+display: inline-block;
+margin-left: 5px;
+}
+
+.partyhou_description_bl{
+  display: none;
+}
+
+.partyhou_description_bl.to_show{
+  display: block;
+}
+
+.bootstrap-datetimepicker-widget table td.active.today:before {
+border-bottom-color: transparent !important;
+}
+
+.cham-heading-description h3.page_header_user_photo{
+margin: -8px 0 0 !important;
+}
+
+.page_title_user_photo {
+display: inline-block;
+width: 45px;
+height: 45px;
+background-size: cover;
+background-position: center top;
+border-radius: 50%;
+background-color: #f2f4f6;
+margin-right: 3px;
+vertical-align: middle;
+}

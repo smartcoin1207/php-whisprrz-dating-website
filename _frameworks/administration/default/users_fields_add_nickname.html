@@ -1,0 +1,49 @@
+{header}
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_nickname_add_title}</h2>
+
+    <div class="bl_form">
+        <form name="editLanguage" action="{url_main}administration/{url_page}" method="POST">
+            <input type="text" name="cmd" value="nickname_add" hidden>
+    
+            <!-- begin_nickname_fields_item -->
+            <label>Title: </label>
+            <input type="text" name="{nickname_fields_name}" value="{nickname_fields_value}">
+            <!-- end_nickname_fields_item -->
+      
+            <div style="font-size: 18px;
+            line-height: 20px;
+            padding: 0;
+            margin: 0 0 15px 0;
+            font-weight: normal;
+            border-bottom: 1px solid #12123b;"></div>
+
+            <!-- begin_add -->
+            <label for="">Add:</label>
+            <input type="text" name="{nickname_fields_add_name}" value="">
+
+            <!-- end_add -->
+
+            <script>
+
+                $(document).ready(function () {
+                    $('input[name="name"]').attr({ maxLength: 60 });
+                    //$('input[name="name"]').bind('keyup blur',function(){
+                    //var field = $(this);
+                    //field.val(field.val().replace(/[^_-a-zA-Z0-9\s]/g,''));
+                    //});
+                });
+
+            </script>
+
+            <div class="btn fl_right"><a href="#" class="submit">{l_add}</a>
+                <input type="submit" style="visibility:hidden;position:absolute;">
+            </div>
+        </form>
+    </div>
+    <div class="empty"></div>
+</div>
+{footer}

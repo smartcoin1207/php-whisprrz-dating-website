@@ -1,0 +1,257 @@
+<div id="oryx_content">
+<!-- begin_photo_edit -->
+<script language="javascript" type="text/javascript">
+$(function(){
+   $('#DescEditable_{photo_id}').editable({
+                                 //location: 'profile_photo.php',
+                                 lAdd: '{l_add_caption_picture}',
+                                 type: 'photo',
+                                 inputLength: 100})
+});
+</script>
+<!-- end_photo_edit -->
+
+<!-- begin_users_list_item -->
+<script type="text/javascript">
+<!-- begin_photo_b -->
+var Image{numer}= new Image({size_x},{size_y});
+Image{numer}.src = '{url_files}{photo_b}';
+var Name{numer} = '{photo_name_js}';
+var Description{numer} = '{description_js}';
+<!-- end_photo_b -->
+
+function swapPhoto(id) {
+	document.LargePhoto.src = eval('Image'+id+'.src');
+	var divRef = getRefToDiv('PhotoID');
+	if (divRef) {
+		divRef.innerHTML = id+1;
+  }
+  divRef = getRefToDiv('PhotoName');
+  if (divRef) {
+		divRef.innerHTML = eval('Name'+id);
+  }
+  divRef = getRefToDiv('PhotoDescription');
+  if (divRef) {
+		divRef.innerHTML = eval('Description'+id);
+  }
+}
+
+$(document).ready(function(){
+    $('body').on('click','.comment_del',function(){
+        if (confirm('{l_are_you_sure}')) {
+            var comment_id = $(this).attr('comment_id');
+            var photo_id = $(this).attr('photo_id');
+            $('#comment_' + comment_id).remove();
+            $('#comments_count').html(Math.floor($('#comments_count').html()) - 1);
+            $.post("{url_main}profile_comment_del_ajax.php", { id: comment_id, pid: photo_id });
+        }
+        return false;
+        });
+});
+</script>
+
+<!-- begin_no_photo -->
+<div id="gallery" class="no_photo" style="text-align:center; ">
+			 <div class="gallery_top ltc">
+				<div class="rtc">
+					<div class="buck">
+					<h2 class="noback">{l_no_photos}</h2>
+					</div>
+				</div>
+			</div>
+			<div class="no_photo_text"  >
+				<div class="left">
+					<h3>{has_no_photos}</h3>
+					{l_no_photos_text}<br /><br />
+
+
+
+            <div class="align_center">
+                <div class="align_center_to_left">
+                    <div class="button_black align_center_to_right" onclick="location='{url_main}search_results.php?name={name}&display={display}';">
+                        <span class="green">{l_view_profile}</span>
+                    </div>
+                </div>
+            </div>
+
+
+				</div>
+				<div class="right">
+					<ul>
+						<li><a href="{url_main}search_results.php?name={name}&display={display}">{l_view_profile}</a></li>
+                        <!-- begin_mail_on_no_photo -->
+                        <li><a href="{url_main}mail_compose.php?id={user_id}">{l_send_mail}</a></li>
+                        <!-- end_mail_on_no_photo -->
+                        <!-- begin_games_on_no_photo -->
+                        <li><a href="{url_main}games.php?id={user_id}">{l_play_games}</a></li>
+                        <!-- end_games_on_no_photo -->
+						<li class="green"><a href="{url_main}">{l_menu_home}</a></li>
+
+					</ul>
+				</div>
+			</div>
+
+    <div class="gallery_bottom lbc">
+		        <div class="rbc">
+        		    <div class="buck no_photo_bot">
+
+            		</div>
+		        </div>
+		    </div>
+
+		</div>
+
+<!-- end_no_photo -->
+
+<!-- begin_yes_photo -->
+
+      <div id="gallery">
+            <div class="gallery_top ltc">
+                <div class="rtc">
+                    <div class="buck">
+
+						<div class="album_title_01 profile_photo_title">
+						  <div class="album_title" style="display:block; float:left; margin: 0 0 0 -1px;">
+                <span id="DescEditable_{photo_id}" title="{main_description}" >{main_description_short}</span>
+              </div>
+            </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="image">
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#cccccc;">
+	<tr>
+		<td style="width:189px; vertical-align: top;">
+    <div style="width:189px !important;">
+			<!-- begin_photo_s -->
+            <div class="view_photo_{item}" style="float: left;">
+				<a href="{url_main}{url_page}?offset={offset}&display=photo{params}&photo_offset={photo_offset}" ><img src="{url_files}{photo_s}" width=63 height=70></a>
+			</div>
+			<!-- end_photo_s -->
+			<!-- begin_photo_no -->
+			<div class="view_photo_{item}"></div>
+			<!-- end_photo_no -->
+    </div>
+		</td>
+		<td style="vertical-align: top; text-align: left;">
+    <div style="overflow: hidden; width: 511px;">
+			<!-- begin_photo_link --><a href="{url_main}{url_page}?offset={offset}&display=photo{params}&photo_offset={photo_offset_next}" ><!-- end_photo_link --><img border="0" src="{url_files}{main_photo_b}" name="LargePhoto"><!-- begin_photo_link_2 --></a><!-- end_photo_link_2 -->
+    </div>
+		</td>
+	</tr>
+</table>
+			</div>
+
+            <div class="gallery_bottom lbc">
+                <div class="rbc">
+                    <div class="buck">
+                   <!-- begin_yes_pagination -->
+                    <div class="logerf">
+                    <i class="l"></i>
+                    <span><a class="arrow_btn" href="{url_main}{url_page}?offset={offset}&display=photo{params}&photo_offset={photo_offset_prev}">{l_prev}</a></span>
+                    <i class="r"></i>
+                    </div>
+                    <div class="logerf">
+                    <i class="l"></i>
+                    <span class="left"><a class="arrow_btn" href="{url_main}{url_page}?offset={offset}&display=photo{params}&photo_offset={photo_offset_next}">{l_next}</a></span>
+                    <i class="r"></i>
+                    </div>
+                   <!-- end_yes_pagination -->
+                    <div class="photo_links">
+                        <b><a href="{url_main}{url_page}?offset={offset}&display={display_profile}{params}">{name_profile}</a></b>
+						<!-- begin_mail_on -->
+                        | <a {cannot_self_2} href="{url_main}mail_compose.php?id={user_id}" class="list_button_text">{l_send_mail}</a>
+						<!-- end_mail_on -->
+                        <!-- begin_wink_on -->
+                        | <a {cannot_self_2} href="{url_main}show_interest.php?offset={offset}&cmd=interest&id={user_id}&display=photo{params}">{l_show_interest}</a>
+						<!-- end_wink_on -->
+                        <!-- begin_im -->
+						| <a href="#" onclick="sendMessages('{user_id}'); return false;">{l_send_im}</a>
+						<!-- end_im -->
+						<!-- begin_im_off -->
+						<!-- end_im_off -->
+                        <!-- begin_mobile_off -->
+						<!-- begin_games -->
+                            | <a href="{url_main}games.php?id={user_id}">{l_play_games}</a>
+						<!-- end_games -->
+                        <!-- end_mobile_off -->
+                        <!-- begin_edit_profile_pictures -->
+                        | <a href="{url_main}profile_photo.php">{l_edit_profile_pictures}</a>
+                        <!-- end_edit_profile_pictures -->
+					</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+	  <div id="narrow_p">
+<!-- begin_comment_form -->
+		<div id="comments">
+
+		  <h3 style="color:#000; font-size:11px; font-weight:bold; padding-left:10px; padding-bottom:5px;">{l_comments} <span style="font-weight:normal;" id="comments_count">{num_comments}</span></h3>
+
+          <ul class="comment_p">
+		  <!-- begin_comment -->
+          <li id="comment_{cid}">
+              <div class="head"><a name="{cid}" href="search_results.php?display={display_profile}&name={user_name}" class="name">{user_name}</a><span>({date})</span> <!-- begin_delete_comment --> <a href="#" comment_id='{cid}' photo_id='{pid}' class='comment_del'>{l_delete}</a> <!-- end_delete_comment --></div>
+              <div class="body">
+              <table>
+                  <tr>
+                      <td width="1" style="vertical-align: top;">
+                        <a href="search_results.php?display={display_profile}&name={user_name}"><img id="pic{num}" src="{url_files}{photo}" class="img" /></a>
+                      </td>
+                      <td style="vertical-align: top;">
+                          <p>{comment_text}</p>
+                      </td>
+                  </tr>
+              </table>
+              </div>
+<!--               <div class="bottom"></div>
+ -->          </li>
+		  <!-- end_comment -->
+          </ul>
+		  <!-- begin_error -->
+		  <div class="error" style="margin-bottom:10px;color: #C33;font-weight: bold;">{l_error}</div>
+  		  <!-- end_error -->
+
+		  <script language="javascript" type="text/javascript">
+		  function submitHandler()
+		  {
+		  	document.getElementById('make_comment').value='1';
+		  }
+		  </script>
+			<!-- If comments are on for this image AND album... -->
+
+       <ul class="comment_p">
+          <li>
+            <div class="head" style="font-weight:bold; color:#fff">{l_leave_comment}:</div>
+
+			<div class="body">
+
+                        <form id="commentform" action="#" method="post" onsubmit="javascript:submitHandler();">
+
+                            <input id="make_comment" type="hidden" name="make_comment" value="0" />
+							<input type="hidden" name="photo_id_cur" value="{photo_id_cur}" />
+
+                            <textarea name="comment"></textarea>
+							<br />
+
+								<input type="submit" value="{l_add_comment}" class="btn lower_header_color big"  />
+
+                        </form>
+
+              </div>
+<!--               <div class="bottom"></div>
+ -->          </li>
+          </ul>
+		  </div>
+<!-- end_comment_form -->
+	  </div>
+<!-- end_yes_photo -->
+<!-- end_users_list_item -->
+
+</div>

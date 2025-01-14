@@ -1,0 +1,65 @@
+{header}
+<div class="frame_content">
+
+<style>
+#gallery, #gallery .lbc {
+	width: 700px;
+}
+</style>
+<ul class="list_btn">
+    <li><input type="button" value="{l_add}" class="btn blue big" onclick="location='{url_main}adv_edit.php';" title="{l_add}"></li>
+    <li><input type="button" value="{l_all}" class="btn blue big" onclick="location='{url_main}adv.php';" title="{l_all}"></li>
+    <li><input type="button" value="{l_my_ads}" class="btn blue big" onclick="location='{url_main}adv_my.php';" title="{l_my_ads}"></li>
+</ul>
+<div class="cl"></div>
+
+{its_text}
+
+    <div id="gallery" style="margin-left:0px;">
+
+        <div class="gallery_top ltc">
+            <div class="rtc">
+                
+                    <h2 class="noback">{l_menu_adv_dating}</h2>
+                
+            </div>
+        </div>
+
+        <div class="rainbow rainbow_ad">
+            <ul class="vid_menu">
+                <li><a href="{url_main}adv_edit.php">{l_add_body}</a></li>
+                <li><a href="{url_main}adv.php">{l_all}</a></li>
+            </ul>
+
+            <div class="edit">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            {l_success}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="center">
+                <div class="align_center">
+                    <div class="align_center_to_left">
+                        <div class="button_black align_center_to_right" onclick="location='{url_main}adv_good.php?cat={cat}&id={id}';">
+                            <span class="green">{l_view}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="gallery_bottom lbc">
+            <div class="rbc">
+                <div class="buck edit">
+
+                </div>
+            </div>
+		</div>
+</div>
+</div>
+{footer}

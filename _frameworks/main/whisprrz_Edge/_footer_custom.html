@@ -1,0 +1,940 @@
+<div id="pp_task_create" class="pp_task_create modal fade custom_modal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div id="bl_events_new_frm" class="modal-content bl_events_new_frm">
+            <div class="modal-header">
+                <h3 id="bl_events_new_frm_title" class="modal-title"></h3>
+            </div>
+            <div class="task_create_frm"></div>
+        </div>
+    </div>
+</div>
+<!-- File uploаd -->
+<div id="pp_video_upload" data-type="video" class="pp_file_upload pp_video_upload modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="scrollbarY">
+                    <div class="scrollbar">
+                        <div class="track">
+                            <div class="thumb"><div class="end"></div></div>
+                        </div>
+                    </div>
+                    <div class="viewport">
+                        <div class="overview">
+                            <form id="pp_video_upload_frm" action="{url_main}ajax.php?cmd=photo_add_upload&type=video&one=1" class="dropzone dz-clickable-bl">
+
+                                <div class="dz-default dz-message">
+                                    <span class="none_select video_upload_zone">
+                                        <span class="svg_wrap">
+                                            <svg viewBox="0 0 22 22">
+                                            <g id="Icons-AV" transform="translate(-209.000000, -84.000000)">
+                                            <g transform="translate(209.000000, 84.000000)">
+                                            <path d="M2,4 L0,4 L0,20 C0,21.1 0.9,22 2,22 L18,22 L18,20 L2,20 L2,4 L2,4 Z M20,0 L6,0 C4.9,0 4,0.9 4,2 L4,16 C4,17.1 4.9,18 6,18 L20,18 C21.1,18 22,17.1 22,16 L22,2 C22,0.9 21.1,0 20,0 L20,0 Z M18,10 L14,10 L14,14 L12,14 L12,10 L8,10 L8,8 L12,8 L12,4 L14,4 L14,8 L18,8 L18,10 L18,10 Z">
+                                            </path>
+                                            </g></g>
+                                            </svg>
+                                            <span>{l_drop_files_here_or_click_to_upload}</span>
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <div title="{a_add_another}" class="dz-upload-zone-custom video_upload_zone">
+                                    <svg viewBox="0 0 22 22">
+                                        <g transform="translate(-209.000000, -84.000000)">
+                                        <g transform="translate(209.000000, 84.000000)">
+                                        <path d="M2,4 L0,4 L0,20 C0,21.1 0.9,22 2,22 L18,22 L18,20 L2,20 L2,4 L2,4 Z M20,0 L6,0 C4.9,0 4,0.9 4,2 L4,16 C4,17.1 4.9,18 6,18 L20,18 C21.1,18 22,17.1 22,16 L22,2 C22,0.9 21.1,0 20,0 L20,0 Z M18,10 L14,10 L14,14 L12,14 L12,10 L8,10 L8,8 L12,8 L12,4 L14,4 L14,8 L18,8 L18,10 L18,10 Z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="double">
+                    <button type="button" class="btn btn-secondary btn_make_private" disabled><span>{l_publish_make_private}</span></button> <!-- Divyesh - Added on 11-04-2024 -->
+                    <button type="button" class="btn btn-secondary btn_close"><span>{l_close_window}</span></button>
+                    <button type="button" class="btn btn-primary btn_publish" disabled><span>{l_publish_make_public}</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="pp_photo_upload" data-type="photo" class="pp_file_upload pp_photo_upload modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="scrollbarY">
+                    <div class="scrollbar">
+                        <div class="track">
+                            <div class="thumb"><div class="end"></div></div>
+                        </div>
+                    </div>
+                    <div class="viewport">
+                        <div class="overview">
+                            <form id="pp_photo_upload_frm" action="{url_main}ajax.php?cmd=photo_add_upload&type=public&one=1&size=mm&file_input=file_photo{photo_cmd}&is_nsc_couple_page={is_nsc_couple_page}" class="dropzone dz-clickable-bl">
+                                <div class="dz-default dz-message">
+                                    <span class="none_select photo_upload_zone">
+                                        <span class="svg_wrap">
+                                            <svg viewBox="0 0 22 22">
+                                            <g id="Icons-AV" transform="translate(-209.000000, -84.000000)">
+                                            <g transform="translate(209.000000, 84.000000)">
+                                            <path d="M2,4 L0,4 L0,20 C0,21.1 0.9,22 2,22 L18,22 L18,20 L2,20 L2,4 L2,4 Z M20,0 L6,0 C4.9,0 4,0.9 4,2 L4,16 C4,17.1 4.9,18 6,18 L20,18 C21.1,18 22,17.1 22,16 L22,2 C22,0.9 21.1,0 20,0 L20,0 Z M18,10 L14,10 L14,14 L12,14 L12,10 L8,10 L8,8 L12,8 L12,4 L14,4 L14,8 L18,8 L18,10 L18,10 Z">
+                                            </path>
+                                            </g></g>
+                                            </svg>
+                                            <span>{l_drop_files_here_or_click_to_upload}</span>
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <div title="{a_add_another}" class="dz-upload-zone-custom photo_upload_zone">
+                                    <svg viewBox="0 0 22 22">
+                                        <g transform="translate(-209.000000, -84.000000)">
+                                        <g transform="translate(209.000000, 84.000000)">
+                                        <path d="M2,4 L0,4 L0,20 C0,21.1 0.9,22 2,22 L18,22 L18,20 L2,20 L2,4 L2,4 Z M20,0 L6,0 C4.9,0 4,0.9 4,2 L4,16 C4,17.1 4.9,18 6,18 L20,18 C21.1,18 22,17.1 22,16 L22,2 C22,0.9 21.1,0 20,0 L20,0 Z M18,10 L14,10 L14,14 L12,14 L12,10 L8,10 L8,8 L12,8 L12,4 L14,4 L14,8 L18,8 L18,10 L18,10 Z">
+                                        </path>
+                                    </svg>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="photo-upload-button-group">
+                    <div class="photo-col-md-6">
+                        <div class="double">
+                            <!-- Popcorn - Added on 28-10-2024 -->
+                            <!-- begin_photo_offset_select -->
+                            <select name="photo_upload_offset_select" id="photo_upload_offset_select" class="form-control photo-upload-select">
+                                <!-- begin_photo_offset_option -->
+                                <option value="{photo_offset}">{photo_offset_label}</option>
+                                <!-- end_photo_offset_option -->
+                            </select>
+                            <!-- end_photo_offset_select -->
+                            <!-- Popcorn - Added on 28-10-2024 -->
+                        </div>
+                    </div>
+                    <div class="photo-col-md-6">
+                        <div class="double">
+                            <button type="button" class="btn btn-secondary btn_close"><span>{l_close_window}</span></button>
+                            <button type="button" class="btn btn-primary btn_publish" disabled><span>{l_add_photo_publish}</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="pp_song_upload" data-type="song" class="pp_file_upload pp_song_upload modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="scrollbarY">
+                    <div class="scrollbar">
+                        <div class="track">
+                            <div class="thumb"><div class="end"></div></div>
+                        </div>
+                    </div>
+                    <div class="viewport">
+                        <div class="overview">
+                            <form id="pp_song_upload_frm" action="{url_main}ajax.php?cmd=upload_song" class="dropzone dz-clickable-bl">
+
+                                <div class="dz-default dz-message">
+                                    <span class="none_select song_upload_zone">
+                                        <span class="svg_wrap">
+                                            <svg viewBox="0 0 22 22">
+                                                <g transform="translate(-209.000000, -84.000000)">
+                                                <g transform="translate(209.000000, 84.000000)">
+                                                <path d="M2,4 L0,4 L0,20 C0,21.1 0.9,22 2,22 L18,22 L18,20 L2,20 L2,4 L2,4 Z M20,0 L6,0 C4.9,0 4,0.9 4,2 L4,16 C4,17.1 4.9,18 6,18 L20,18 C21.1,18 22,17.1 22,16 L22,2 C22,0.9 21.1,0 20,0 L20,0 Z M18,10 L14,10 L14,14 L12,14 L12,10 L8,10 L8,8 L12,8 L12,4 L14,4 L14,8 L18,8 L18,10 L18,10 Z">
+                                                </path>
+                                            </svg>
+                                            <span>{l_drop_files_here_or_click_to_upload}</span>
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <div title="{a_add_another}" class="dz-upload-zone-custom song_upload_zone">
+                                    <svg viewBox="0 0 22 22">
+                                        <g transform="translate(-209.000000, -84.000000)">
+                                        <g transform="translate(209.000000, 84.000000)">
+                                        <path d="M2,4 L0,4 L0,20 C0,21.1 0.9,22 2,22 L18,22 L18,20 L2,20 L2,4 L2,4 Z M20,0 L6,0 C4.9,0 4,0.9 4,2 L4,16 C4,17.1 4.9,18 6,18 L20,18 C21.1,18 22,17.1 22,16 L22,2 C22,0.9 21.1,0 20,0 L20,0 Z M18,10 L14,10 L14,14 L12,14 L12,10 L8,10 L8,8 L12,8 L12,4 L14,4 L14,8 L18,8 L18,10 L18,10 Z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="double">
+                    <button type="button" class="btn btn-secondary btn_close"><span>{l_close_window}</span></button>
+                    <button type="button" class="btn btn-primary btn_publish" disabled><span>{l_add_song_publish}</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pp gallery -->
+<div id="pp_gallery_photos_content" class="wrap_one_item cham-blog-style-1 modal fade" role="dialog" data-keyboard="false" data-backdrop="false">
+    <div class="pp_gallery_overflow">
+    <div id="pp_gallery_layer_blocked" class="layer_blocked_gallery"></div>
+    <div class="container">
+        <div class="row">
+            <div class="cham-post photo_one">
+                <div class="icon_close hidden-lg hidden-md hidden-sm" onclick="clProfilePhoto.closeGalleryPopup();">
+                    <span></span>
+                </div>
+                <div class="one_item">
+                    <a id="photo_show_prev" onclick="clProfilePhoto.show('right'); return false;" href="#" class="arrows prev_p to_hide"></a>
+                    <div id="pp_gallery_photo_one_bl" oncontextmenu="return false;" class="cham-post-image photo_one_bl">
+                        <div id="pp_gallery_photos_img_box" class="photo_one_cont none_select bl_img change_photo">
+                            <img id="pp_gallery_photo_one_img" class="to_hide" src="" />
+                        </div>
+                        <div class="css_loader pp_gallery_loader">
+                            <div class="spinner spinnerw center">
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            </div>
+                        </div>
+
+						<!-- begin_gallery_friend -->
+                    <div id="gallery_friend_list" class="bl_gallery_friend_list"><!-- begin_gallery_friend_ul -->
+                        <ul class="gallery_friend_list">
+							<!-- begin_gallery_friend_item -->
+                            <li id="gallery_friend_{gallery_friend_user_id}" class="right_column_friend_item">
+                                <a data-no-fade-in="true" data-uid="{gallery_friend_user_id}" data-name="{gallery_friend_name}" onclick="clProfilePhoto.setFaceFriend($(this)); return false;" class="profile_photo_s_{gallery_friend_user_id} to_hide" href="#" title="{gallery_friend_name_title}" >
+                                    <img class="no_transparent" onload="onLoadProfilePhoto('.profile_photo_s_{gallery_friend_user_id}')" src="{url_files}{gallery_friend_photo}" alt=""/>
+                                </a>
+							</li>
+							<!-- end_gallery_friend_item -->
+                        </ul>
+                    <!-- end_gallery_friend_ul --></div>
+                    <!-- end_gallery_friend -->
+                    </div>
+                    <div id="pp_gallery_video_one_bl" class="cham-post-image video_one_bl rectangle">
+                        <div class="css_loader pp_gallery_loader">
+                            <div class="spinner spinnerw center">
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            <div class="spinner-blade"></div>
+                            </div>
+                        </div>
+                    </div>
+
+					<div id="pp_gallery_btn_additional" class="pp_gallery_btn_additional">
+						<!-- begin_image_editor -->
+						<span class="btn_additional_first">
+							<span class="pp_gallery_restore_image" title="{a_editor_restore_original}" onclick="clProfilePhoto.restoreImage($(this)); return false;">
+								<svg viewBox="0 0 16 20">
+									<g class="color_svg" transform="translate(-424.000000, -463.000000)">
+                                        <g transform="translate(424.000000, 464.000000)">
+                                            <path d="M8,3 L8,-0.5 L3,4.5 L8,9.5 L8,5 C11.3,5 14,7.7 14,11 C14,14.3 11.3,17 8,17 C4.7,17 2,14.3 2,11 L0,11 C0,15.4 3.6,19 8,19 C12.4,19 16,15.4 16,11 C16,6.6 12.4,3 8,3 L8,3 Z"/>
+                                        </g>
+                                    </g>
+                                </svg>
+							</span>
+							<button id="pp_gallery_btn_edit_image" onclick="clProfilePhoto.openEditorImageGallery(); return false;" class="btn btn-info pp_gallery_btn_edit_image">
+								<span class="icon_fa"  data-no-fade-in="true">
+									<svg height="20" width="20" viewBox="0 0 24 24">
+										<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"/>
+									</svg>
+								</span>
+								<span class="hidden-xs">{l_edit_image}</span>
+							</button>
+						</span>
+						<div class="cl"></div>
+
+                        <!-- edit image icons -->
+                        <div class="edit_image_icons hidden-xs">
+                            <div class="icon crop" title="{l_photo_crop}" onclick="clProfilePhoto.openEditorImageGallery('crop'); return false;"></div>
+                            <div class="icon adjust" title="{l_photo_adjust}" onclick="clProfilePhoto.openEditorImageGallery('adjust'); return false;"></div>
+                            <div class="icon effects" title="{l_photo_effects}" onclick="clProfilePhoto.openEditorImageGallery('effects'); return false;"></div>
+                            <div class="icon filters" title="{l_photo_filters}" onclick="clProfilePhoto.openEditorImageGallery('filters'); return false;"></div>
+                        </div>
+                        <!-- /edit image icons -->
+						<!-- end_image_editor -->
+
+						<button id="pp_gallery_btn_make_profile" onclick="clProfilePhoto.setPhotoDefault(); return false;" class="btn btn-success pp_gallery_btn_make_profile">
+							<span class="icon_fa" data-no-fade-in="true">
+								<svg height="18" width="18" viewBox="0 0 1792 1792">
+                                    <path d="M1600 1405q0 120-73 189.5t-194 69.5h-874q-121 0-194-69.5t-73-189.5q0-53 3.5-103.5t14-109 26.5-108.5 43-97.5 62-81 85.5-53.5 111.5-20q9 0 42 21.5t74.5 48 108 48 133.5 21.5 133.5-21.5 108-48 74.5-48 42-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-320-893q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"></path>
+                                </svg>
+                            </span>
+                            <span class="hidden-xs">{l_make_profile_picture}</span>
+						</button>
+					</div>
+
+                    <a id="photo_show_next" onclick="clProfilePhoto.show('left'); return false;" href="#" class="arrows next_p to_hide"></a>
+
+                    <div id="pp_gallery_info" class="cham-post-text">
+                        <div id="media_buffer_test" style="display: none;">
+                            <div id="video_progress" style="width: 0px; height: 7px; background-color: #595; margin-bottom: 2px;"></div>
+                            <div id="video_buffer" style="width: 0px; height: 7px; background-color: red; margin-bottom: 5px;"></div>
+                        </div>
+                        <div id="pp_gallery_desc_wrap" class="title">
+                            <div id="pp_gallery_desc">
+                                <span class="pen" onclick="clProfilePhoto.openEditDesc(); return false;"><i class="fa fa-pencil-square" aria-hidden="true"></i></span>
+                                <span class="text_overflow_page" onclick="clProfilePhoto.openEditDesc(); return false;">&nbsp;</span>
+                            </div>
+                            <div id="pp_gallery_desc_bl_edit" class="pp_gallery_desc_edit">
+                                <input id= "pp_gallery_desc_bl_edit_input" type="text" class="form-control">
+                                <button onclick="clProfilePhoto.cancelEditDesc(); return false;" type="button" class="btn btn-secondary">
+                                    <span class="icon remove"></span>
+                                </button>
+                                <button onclick="clProfilePhoto.saveEditDesc(); return false;" type="button" class="btn btn-success">
+                                    <span class="icon check"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="upload_user">
+                            <div class="wrap_upload_user">
+                                <span class="name">
+                                    <a id="pp_gallery_desc_user_name" href=""></a>
+                                </span>
+                                <span id="pp_gallery_date" class="date"></span>
+
+                                <div class="photo">
+                                    <a id="pp_gallery_desc_user_photo" href="" class="pic"></a>
+                                </div>
+                            </div>
+
+                            <div class="user_options">
+                                <!-- like_dislike -->
+                                <div id="pp_gallery_likes" class="like_dislike">
+                                    <div class="counters">
+                                        <div id="pp_gallery_like_count_btn" onclick="clProfilePhoto.addLike($(this), 1);" class="like"><!-- add class .active -->
+                                            <svg viewBox="0 0 48 48">
+                                                <path d="M2 42h8V18H2v24zm44-22c0-2.21-1.79-4-4-4H29.37l1.91-9.14c.04-.2.07-.41.07-.63 0-.83-.34-1.58-.88-2.12L28.34 2 15.17 15.17C14.45 15.9 14 16.9 14 18v20c0 2.21 1.79 4 4 4h18c1.66 0 3.08-1.01 3.68-2.44l6.03-14.1c.18-.46.29-.95.29-1.46v-3.83l-.02-.02L46 20z"/>
+                                            </svg>
+                                            <span id="pp_gallery_like_count"></span>
+                                        </div>
+                                        <div id="pp_gallery_dislike_count_btn" onclick="clProfilePhoto.addLike($(this), 0);" class="dislike"><!-- add class .active -->
+                                            <svg viewBox="0 0 48 48">
+                                                <path d="M30 6h-18c-1.66 0-3.08 1.01-3.68 2.44l-6.03 14.1c-.18.46-.29.95-.29 1.46v3.83l.02.02-.02.15c0 2.21 1.79 4 4 4h12.63l-1.91 9.14c-.04.2-.07.41-.07.63 0 .83.34 1.58.88 2.12l2.13 2.11 13.17-13.17c.72-.73 1.17-1.73 1.17-2.83v-20c0-2.21-1.79-4-4-4zm8 0v24h8v-24h-8z"/>
+                                            </svg>
+                                            <span id="pp_gallery_dislike_count"></span>
+                                        </div>
+                                    </div>
+                                    <div class="range"><div id="pp_gallery_likes_range"></div></div>
+                                </div>
+                                <!-- /like_dislike -->
+
+                                <div id="pp_gallery_more_menu" class="wrap_upload_menu">
+                                    <span class="upload_menu_link dropdown-toggle" data-toggle="collapse" data-target="#pp_gallery_more_options">
+                                        {l_options} <span class="caret caret-reversed"></span>
+                                    </span>
+                                    <ul id="pp_gallery_more_options" class="more_menu_collapse collapse" >
+                                        <li>
+                                            <a id="pp_gallery_make_profile_picture" onclick="clProfilePhoto.setPhotoDefault(); return false;" href="">
+                                                <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                </span>
+                                                <span>{l_make_profile_picture}</span>
+                                            </a>
+                                            <a id="pp_gallery_hide_header_picture" onclick="clProfilePhoto.hideHeaderPicture(); return false;" href="">
+                                                <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="hide_header_picture_title">{l_remove_from_header}</span>
+                                            </a>
+                                            <!-- begin_app_ios_image_editor -->
+                                            <a id="pp_gallery_edit_picture" onclick="runAppIosPhotoEditor(clProfilePhoto.curPid, false, '{app_ios_auth_key}'); return false;" class="app_ios_image_editor_link" href="">
+                                                <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                    <i class="fa fa-magic" aria-hidden="true"></i>
+                                                </span>
+                                                <span>{l_edit_photo}</span>
+                                            </a>
+                                        <!--<a id="pp_gallery_crop_picture" onclick="runAppIosPhotoCrop(clProfilePhoto.curPid); return false;" class="app_ios_image_crop_link" href="">
+                                            <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                <i class="fa fa-crop" aria-hidden="true"></i>
+                                            </span>
+                                            <span>{l_crop_photo}</span>
+                                        </a>-->
+                                            <!--end_app_ios_image_editor -->
+                                            <!-- begin_app_ios_video_editor -->
+                                            <a id="pp_gallery_edit_video" onclick="runAppIosVideoEditor(clProfilePhoto.curPid); return false;" class="app_ios_video_editor_link" href="">
+                                                <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                                                    <i class="fa fa-magic" aria-hidden="true"></i>
+                                                </span>
+                                                <span>{l_edit_video}</span>
+                                            </a>
+                                            <!--end_app_ios_video_editor -->
+                                            <a id="pp_gallery_delete_picture" onclick="clProfilePhoto.confirmPhotoDelete(); return false;" href="">
+                                                <span class="icon_fa">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </span>
+                                                <span>{l_delete}</span>
+                                            </a>
+
+                                            <!-- begin_video_report -->
+                                            <a id="pp_gallery_report" onclick="clProfilePhoto.openReport(); return false;" href="">
+                                                <span class="icon_fa">
+                                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                </span>
+                                                <span></span>
+                                            </a>
+                                            <!-- end_video_report -->
+                                            <a id="pp_gallery_direct_link" target="_blank" download href="#">
+                                                <span class="icon_fa">
+                                                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                                                </span>
+                                                <span>{l_gallery_file_download}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div id="pp_gallery_meta" class="cham-post-meta">
+                        <span id="pp_gallery_comments_count_bl" class="time">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                            <span id="pp_gallery_comments_count"></span>
+                        </span>
+                        <span class="time">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            <span id="pp_gallery_time_ago"></span>
+                        </span>
+                        <span id="pp_gallery_not_checked" class="time pp_gallery_not_checked">
+                            <i class="fa fa-check-circle"></i>
+                            <span>{l_being_checked_by_moderators}</span>
+                        </span>
+                        <span id="pp_gallery_tags_bl" class="tag hidden-xs pp_gallery_tags">
+                            <span class="pp_gallery_tags overflow">
+                                <span class="pp_gallery_tags_edit_link" onclick="return clProfilePhoto.openEditTags();" title="">
+                                    <i class="fa fa-tags" aria-hidden="true"></i>
+                                    <span data-cl-loader="pp_loader_edit_tags" class="pp_gallery_tags_list"></span>
+                                </span>
+
+                            </span>
+                            <span id="pp_gallery_tags_edit" class="pp_gallery_tags_edit">
+                                <input id="pp_gallery_desc_bl_edit_input1" type="text" class="form-control">
+                                <button onclick="clProfilePhoto.cancelEditTags(); return false;" type="button" class="btn btn-secondary">
+                                    <span class="icon remove"></span>
+                                </button>
+                                <button onclick="clProfilePhoto.saveEditTags(); return false;" type="button" class="btn btn-success">
+                                    <span class="icon check"></span>
+                                </button>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="pp_gallery_feed_comment_top" class="photo_one_comments">
+            <div class="photo_and_field_comment pp_gallery_field_comment">
+                <div class="photo">
+                    <a href="{comment_current_user_url}" title="{comment_current_user_name}" class="pic profile_photo_r_{comment_current_user_id}_{comment_current_group_id}" style="background-image:url({url_files}{comment_current_user_photo});"></a>
+                    <script>onLoadImgFromList($('.profile_photo_r_{comment_current_user_id}_{comment_current_group_id}.to_hide'), '{url_files}{comment_current_user_photo}');</script>
+                </div>
+                <div id="pp_gallery_comment_top" class="field_comment field_comment_wrap comment_container_textarea">
+					<div id="pp_gallery_comment_top_text" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_your_comment}" class="form-control textarea pp_gallery_comment_text"></div>
+
+                    <!--<textarea placeholder="{a_write_your_comment}" class="form-control placeholder pp_gallery_comment_text"></textarea>
+                    -->
+
+					<div class="comment_action">
+						<div id="pp_gallery_comment_top_sticker" title="{a_stickers}" data-input="#pp_gallery_comment_top_text" onclick="stickerBlockShowWall(this)" class="comment_sticker_btn"></div>
+
+						<div id="pp_gallery_comment_top_smile" title="{a_smilies}" data-input="#pp_gallery_comment_top_text" onclick="smileBlockShowWall(this)" class="wall_comment_smile_btn">
+							<i class="fa fa-smile-o" aria-hidden="true"></i>
+						</div>
+
+						<div class="im_audio_message_recorder">
+							<span class="audio_visualizer"></span>
+							<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl" title="{a_record_audio_message}" onclick="runAudioRecorder('#pp_gallery_comment_top');">
+								<i class="fa fa-microphone" aria-hidden="true"></i>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+
+
+						<div id="pp_gallery_comment_top_upload_img" class="comment_upload_img disabled">
+							<div id="pp_gallery_comment_top_upload_img_loader" class="comment_upload_img_loader"></div>
+
+							<button id="pp_gallery_comment_top_upload_img_edit" onclick="openEditorCommentUploadImage('pp_gallery_comment_top_upload_img'); return false;" title="{a_edit_image}" class="btn btn-success comment_upload_img_editor">
+								<span class="btn_wrap">
+									<span class="icon_fa"  data-no-fade-in="true">
+										<svg height="24" width="24" viewBox="0 0 24 24">
+											<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+										</svg>
+									</span>
+								</span>
+							</button>
+							<script>initCommentUploadImageEditor($('#pp_gallery_comment_top_upload_img_edit'));</script>
+
+							<i class="fa fa-camera" onclick="clearCommentUploadImage('pp_gallery_comment_top_upload_img', true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+
+							<span class="count_upload_image">
+								<i class="fa fa-check" aria-hidden="true"></i>
+								<i class="fa fa-times" aria-hidden="true"></i>
+							</span>
+
+							<form id="pp_gallery_comment_top_upload_img_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+								<input class="comment_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="file_add_wall_{id}" onclick="clickCommentUploadImage($(this));" onChange="changeCommentUploadImage($(this));"/>
+								<input class="inp_hide" type="reset" value=""/>
+								<input class="inp_hide" type="submit" value=""/>
+							</form>
+							<script>initCommentUploadImage('pp_gallery_comment_top_upload_img');</script>
+						</div>
+
+						<button onclick="clProfilePhoto.commentAdd(this); return false;" class="btn_comment_send">
+							<svg viewBox="0 0 24 24">
+								<path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+							</svg>
+						</button>
+					</div>
+                </div>
+            </div>
+
+            <div id="pp_gallery_comments_bl" class="gallery_comments">
+                <div id="pp_gallery_comments_hidden" class="pp_gallery_comments_hidden">
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>{l_comments_hidden}
+                </div>
+                <div id="pp_gallery_comments"></div>
+            </div>
+
+            <div id="pp_gallery_feed_comment_bottom" class="photo_and_field_comment pp_gallery_field_comment_bottom">
+                <div class="photo">
+                    <a href="{comment_current_user_url}" title="{comment_current_user_name}" class="pic profile_photo_r_{comment_current_user_id}_{comment_current_group_id}" style="background-image:url({url_files}{comment_current_user_photo});"></a>
+                    <script>onLoadImgFromList($('.profile_photo_r_{comment_current_user_id}_{comment_current_group_id}.to_hide'), '{url_files}{comment_current_user_photo}');</script>
+                </div>
+                 <div id="pp_gallery_comment_bottom" class="field_comment field_comment_wrap  comment_container_textarea">
+					<div id="pp_gallery_comment_bottom_text" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_your_comment}" class="form-control textarea pp_gallery_comment_text"></div>
+
+                    <!--<textarea placeholder="{a_write_your_comment}" class="form-control placeholder pp_gallery_comment_text"></textarea>
+                    -->
+					<div class="comment_action">
+						<div id="pp_gallery_comment_bottom_sticker" title="{a_stickers}" data-input="#pp_gallery_comment_bottom_text" onclick="stickerBlockShowWall(this)" class="comment_sticker_btn"></div>
+
+						<div id="pp_gallery_comment_bottom_smile" title="{a_smilies}" data-input="#pp_gallery_comment_bottom_text" onclick="smileBlockShowWall(this)" class="wall_comment_smile_btn">
+							<i class="fa fa-smile-o" aria-hidden="true"></i>
+						</div>
+
+						<div class="im_audio_message_recorder">
+							<span class="audio_visualizer"></span>
+							<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl" title="{a_record_audio_message}" onclick="runAudioRecorder('#pp_gallery_comment_bottom');">
+								<i class="fa fa-microphone" aria-hidden="true"></i>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+
+
+						<div id="pp_gallery_comment_bottom_upload_img" class="comment_upload_img disabled">
+							<div id="pp_gallery_comment_bottom_upload_img_loader" class="comment_upload_img_loader"></div>
+
+							<button id="pp_gallery_comment_bottom_upload_img_edit" onclick="openEditorCommentUploadImage('pp_gallery_comment_bottom_upload_img'); return false;" title="{a_edit_image}" class="btn btn-success comment_upload_img_editor">
+								<span class="btn_wrap">
+									<span class="icon_fa"  data-no-fade-in="true">
+										<svg height="24" width="24" viewBox="0 0 24 24">
+											<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+										</svg>
+									</span>
+								</span>
+							</button>
+							<script>initCommentUploadImageEditor($('#pp_gallery_comment_bottom_upload_img_edit'));</script>
+
+							<i class="fa fa-camera" onclick="clearCommentUploadImage('pp_gallery_comment_bottom_upload_img', true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+
+							<span class="count_upload_image">
+								<i class="fa fa-check" aria-hidden="true"></i>
+								<i class="fa fa-times" aria-hidden="true"></i>
+							</span>
+
+							<form id="pp_gallery_comment_bottom_upload_img_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+								<input class="comment_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="file_add_wall_{id}" onclick="clickCommentUploadImage($(this));" onChange="changeCommentUploadImage($(this));"/>
+								<input class="inp_hide" type="reset" value=""/>
+								<input class="inp_hide" type="submit" value=""/>
+							</form>
+							<script>initCommentUploadImage('pp_gallery_comment_bottom_upload_img');</script>
+						</div>
+
+						<button onclick="clProfilePhoto.commentAdd(this); return false;" class="btn_comment_send">
+							<svg viewBox="0 0 24 24">
+								<path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+							</svg>
+						</button>
+					</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- Pp gallery --->
+
+<!-- Pp image im --->
+<div id="pp_im_image" class="wrap_one_item cham-blog-style-1 modal fade pp_im_image" role="dialog" data-backdrop="false">
+    <div class="pp_gallery_overflow">
+        <div class="container pp_im_image_item">
+            <div class="row">
+                <div class="cham-post photo_one">
+                    <div class="icon_close" onclick="clMessages.closePpImageBack();"> <!-- hidden-lg hidden-md hidden-sm -->
+                        <span></span>
+                    </div>
+                    <div class="one_item">
+                        <div id="pp_im_image_photo_one_bl" oncontextmenu="return false;" class="cham-post-image photo_one_bl">
+                            <div class="photo_one_cont none_select bl_img change_photo"></div>
+                            <div class="css_loader pp_gallery_loader">
+                                <div class="spinner spinnerw center">
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cham-post-text to_show">
+                            <div class="title to_hide">
+                                <span class="text_overflow_page pp_im_image_desc"></span>
+                            </div>
+                            <div class="upload_user">
+                                <div class="wrap_upload_user">
+                                    <span class="name">
+                                        <a href="" class="pp_im_image_user_name"></a>
+                                    </span>
+                                    <span class="date pp_im_image_date"></span>
+                                    <div class="photo pp_im_image_user_photo">
+                                        <a href="" class="pic pp_im_image_user_photo_link"></a>
+                                    </div>
+                                </div>
+
+                                <div class="user_options">
+                                    <div class="wrap_upload_menu pp_im_image_more_menu">
+                                        <span class="upload_menu_link dropdown-toggle" data-toggle="collapse" data-target="">
+                                            {l_options} <span class="caret caret-reversed"></span>
+                                        </span>
+                                        <ul class="more_menu_collapse collapse pp_im_image_more_options">
+                                            <li>
+                                                <a class="pp_im_image_direct_link" target="_blank" download href="#">
+                                                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                                                    <span>{l_gallery_file_download}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="cham-post-meta to_show">
+                            <span class="time">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                <span class="pp_im_image_time_ago"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- Pp image im --->
+
+<!-- Report -->
+<div id="pp_user_report" class="modal fade bs-example-modal-sm custom_modal forms_field forms_field_report" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title"></h3>
+        </div>
+        <div class="modal-body">
+            <div class="bl_forms">
+                <div class="section fields">
+                    <div class="col-lg-12 col-md-12 field_textarea">
+                         <textarea id="pp_user_report_msg" name="comment" class="form-control placeholder"></textarea>
+                    </div>
+                </div>
+            </div>
+        <div class="clearfix"></div>
+        </div>
+        <div class="modal-footer">
+            <div class="double col-lg-12 col-md-12">
+                <button id="pp_user_report_cancel" onclick="clProfile.cancelReport(); return false;" class="btn btn-secondary">
+                    <span class="icon remove"></span><span id="pp_user_report_cancel_title">{l_cancel}</span>
+                </button>
+                <button id="pp_user_report_send" onclick="clProfile.sendReport(); return false;" class="btn btn-success" disabled>
+                    <span class="icon message"></span><span>{l_send}</span>
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Report -->
+
+<div id="pp_boost_ajax" class="pp_upgraded custom_modal pp_boost_ajax modal fade" role="dialog" data-backdrop="false">
+	<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+			<div class="modal-body">
+				<div class="cont">
+					<div class="frame_loader_search_list to_show">
+						<div class="css_loader loader_search_list">
+							<div class="spinner center">
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none;">
+    <div id="placeholder_post" class="wall_post_item">
+        <div class="timeline-wrapper">
+            <div class="timeline-item">
+                <div class="animated-background">
+                    <div class="wrap-background-circle">
+                        <div class="animated-background background-circle"></div>
+                    </div>
+                    <div class="background-masker header-top"></div>
+                    <div class="background-masker header-left"></div>
+                    <div class="background-masker header-right"></div>
+                    <div class="background-masker header-bottom"></div>
+                    <div class="background-masker subheader-left"></div>
+                    <div class="background-masker subheader-right"></div>
+                    <div class="background-masker subheader-bottom"></div>
+                    <div class="background-masker content-top"></div>
+                    <div class="background-masker content-first-end"></div>
+                    <div class="background-masker content-second-line"></div>
+                    <div class="background-masker content-second-end"></div>
+                    <div class="background-masker content-third-line"></div>
+                    <!-- <div class="background-masker content-third-end"></div> -->
+                    <div class="background-masker content-full-line"></div>
+                    <div class="background-masker content-full-line second"></div>
+                    <div class="background-masker content-full-line third"></div>
+                    <div class="background-masker content-full-line fourth"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="placeholder_comment" class="timeline-wrapper timeline-comment">
+            <div class="timeline-item">
+                <div class="animated-background">
+                    <div class="wrap-background-circle">
+                        <div class="animated-background background-circle"></div>
+                    </div>
+                    <div class="background-masker header-top"></div>
+                    <div class="background-masker header-left"></div>
+                    <div class="background-masker header-right"></div>
+                    <div class="background-masker header-bottom"></div>
+                    <div class="background-masker subheader-left"></div>
+                    <div class="background-masker subheader-right"></div>
+                    <div class="background-masker subheader-bottom"></div>
+                    <!-- <div class="background-masker content-top"></div>
+                    <div class="background-masker content-first-end"></div>
+                    <div class="background-masker content-second-line"></div>
+                    <div class="background-masker content-second-end"></div>
+                    <div class="background-masker content-third-line"></div>
+                    <div class="background-masker content-third-end"></div> -->
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<div id="pp_profile_verification" class="modal fade bs-example-modal-sm custom_modal forms_field forms_field_report" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">{l_verify_your_account_now}</h3>
+        </div>
+        <div class="modal-body to_show">
+            <div class="bl_forms">
+                <div class="section fields">
+                    <div class="col-lg-12 col-md-12">
+                        <select name="profile_verification_system" class="selectpicker show-tick" data-live-search="false">
+                            {footer_verification_system_options}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <div class="clearfix"></div>
+        </div>
+        <div class="modal-footer">
+            <div class="double col-lg-12 col-md-12">
+                <button onclick="clProfile.closePopupEditorVerification(); return false;" class="btn btn-secondary">
+                    <span class="icon remove"></span><span >{l_cancel}</span>
+                </button>
+                <button id="btn_verify_account" onclick="clProfile.verifyAccount(); return false;" class="btn btn-success">
+                    <span>{l_verify}</span>
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="player_song" class="ap">
+    <div class="ap__inner">
+        <div class="ap__item ap__item--playback">
+            <button class="ap__controls ap__controls--prev">
+                <svg fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M9.516 12l8.484-6v12zM6 6h2.016v12h-2.016v-12z"></path>
+                </svg>
+            </button>
+            <button class="ap__controls ap__controls--toggle">
+                <svg class="icon-play" fill="#fff" width="36" height="36" viewBox="0 0 36 36" data-play="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z" data-pause="M 12,26 16.33,26 16.33,10 12,10 z M 20.66,26 25,26 25,10 20.66,10 z">
+                    <path d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"></path>
+                </svg>
+            </button>
+            <button class="ap__controls ap__controls--next">
+                <svg version="1.1" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M15.984 6h2.016v12h-2.016v-12zM6 18v-12l8.484 6z"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="ap__item ap__item--track">
+            <div class="track">
+                <div class="track__title"><!--Queue is empty--></div>
+                <div class="track__time">
+                    <span class="track__time--current">--</span>
+                    <span> / </span>
+                    <span class="track__time--duration">--</span>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress">
+                        <div class="progress__bar"></div>
+                        <div class="progress__preload"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ap__item ap__item--settings">
+            <div class="ap__controls volume-container">
+                <div class="volume-container-bl">
+                    <button class="volume-btn">
+                        <svg class="icon-volume-on" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M14.016 3.234q3.047 0.656 5.016 3.117t1.969 5.648-1.969 5.648-5.016 3.117v-2.063q2.203-0.656 3.586-2.484t1.383-4.219-1.383-4.219-3.586-2.484v-2.063zM16.5 12q0 2.813-2.484 4.031v-8.063q2.484 1.219 2.484 4.031zM3 9h3.984l5.016-5.016v16.031l-5.016-5.016h-3.984v-6z"></path>
+                        </svg>
+                        <svg class="icon-volume-off" version="1.1" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M12 3.984v4.219l-2.109-2.109zM4.266 3l16.734 16.734-1.266 1.266-2.063-2.063q-1.734 1.359-3.656 1.828v-2.063q1.172-0.328 2.25-1.172l-4.266-4.266v6.75l-5.016-5.016h-3.984v-6h4.734l-4.734-4.734zM18.984 12q0-2.391-1.383-4.219t-3.586-2.484v-2.063q3.047 0.656 5.016 3.117t1.969 5.648q0 2.25-1.031 4.172l-1.5-1.547q0.516-1.266 0.516-2.625zM16.5 12q0 0.422-0.047 0.609l-2.438-2.438v-2.203q2.484 1.219 2.484 4.031z"></path>
+                        </svg>
+                    </button>
+
+
+                    <div class="volume">
+                        <div class="volume__track">
+                            <div class="volume__bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="close-btn">
+                    <svg class="icon-close-ap" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M13.4142136,12 L18.363961,7.05025253 C18.7544853,6.65972824 18.7544853,6.02656326 18.363961,5.63603897 C17.9734367,5.24551468 17.3402718,5.24551468 16.9497475,5.63603897 L12,10.5857864 L7.05025253,5.63603897 C6.65972824,5.24551468 6.02656326,5.24551468 5.63603897,5.63603897 C5.24551468,6.02656326 5.24551468,6.65972824 5.63603897,7.05025253 L10.5857864,12 L5.63603897,16.9497475 C5.24551468,17.3402718 5.24551468,17.9734367 5.63603897,18.363961 C6.02656326,18.7544853 6.65972824,18.7544853 7.05025253,18.363961 L12,13.4142136 L16.9497475,18.363961 C17.3402718,18.7544853 17.9734367,18.7544853 18.363961,18.363961 C18.7544853,17.9734367 18.7544853,17.3402718 18.363961,16.9497475 L13.4142136,12 Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- begin_smiles_tmpl_bl -->
+<div id="smile_bl_tmpl" class="emoji_bl none_select">
+	<!-- begin_smiles_tmpl -->
+	<span data-src="{smiles_tmpl_url}" data-id="{smiles_tmpl_id}" class="emoji"><img src="{smiles_tmpl_url}" alt=""/></span>
+	<!-- end_smiles_tmpl -->
+</div>
+<!-- end_smiles_tmpl_bl -->
+
+<!-- begin_stickers_tmpl_bl -->
+<div id="stickers_bl_tmpl" class="stickers_bl none_select" data-col-active="{stickers_tmpl_col_active}">
+	<div class="stickers_collection">
+		<div class="sticker_arrow left_scroll disabled"></div>
+		<div class="stickers_collection_wrap">
+			<div class="stickers_collection_bl">
+				<!-- begin_stickers_tmpl_col -->
+				<div data-src="{stickers_tmpl_col_url}" data-cid="{stickers_tmpl_col_id}" data-count="{stickers_tmpl_col_count}" class="sticker_col sticker_col_{stickers_tmpl_col_id} sticker_col_img_{stickers_tmpl_col_id}_{stickers_tmpl_col_img_id} <!-- begin_stickers_tmpl_col_active -->active<!-- end_stickers_tmpl_col_active --> <!-- begin_stickers_tmpl_col_hide -->to_hide<!-- end_stickers_tmpl_col_hide -->">
+					<img src="{stickers_tmpl_col_url}" alt=""/>
+				</div>
+				<!-- end_stickers_tmpl_col -->
+			</div>
+		</div>
+		<div class="sticker_arrow right_scroll"></div>
+	</div>
+	<!-- begin_stickers_tmpl_stik_list -->
+	<div class="stickers_list_wrap stickers_list_{stickers_tmpl_col_id} scrollbarY <!-- begin_stickers_tmpl_stik_list_show -->to_show<!-- end_stickers_tmpl_stik_list_show -->">
+		<div class="scrollbar"><div class="track"><div class="thumb sticker_trans_{stickers_tmpl_col_id}"></div></div></div>
+		<div class="viewport">
+			<div class="stickers_list_bl overview sticker_trans_{stickers_tmpl_col_id}">
+				<!-- begin_stickers_tmpl_stik -->
+				<span data-count="{stickers_tmpl_stik_count}" data-aliase="stickers_{stickers_tmpl_stik_col_id}_{stickers_tmpl_stik_id}" data-src="{stickers_tmpl_stik_url}" data-img="{stickers_tmpl_stik_img}" data-cid="{stickers_tmpl_stik_col_id}" data-id="{stickers_tmpl_stik_id}" class="sticker">
+					<img src="{stickers_tmpl_stik_url}" alt=""/>
+				</span>
+				<!-- end_stickers_tmpl_stik -->
+			</div>
+		</div>
+	</div>
+	<!-- end_stickers_tmpl_stik_list -->
+</div>
+<!-- end_stickers_tmpl_bl -->
+
+<!-- begin_pl_message_recorder_player -->
+<span id="pl_message_send_play" class="im_audio_message im_audio_message_send_play">
+	<span class="im_audio_message_loader" data-audio-message-file="">
+		<i class="fa fa-play" aria-hidden="true"></i>
+	</span>
+	<span class="im_audio_message_process"></span>
+	<span class="im_audio_message_process_play"></span>
+	<i class="fa fa-times" aria-hidden="true" title="{a_record_audio_message_delete}"></i>
+</span>
+<!-- end_pl_message_recorder_player -->

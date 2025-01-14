@@ -1,0 +1,160 @@
+{header}
+
+
+    <div class="events_new">
+
+		{events_header}
+
+        <table class="tb_events_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                
+                    <div class="events_new_p pl_top">
+                        <!-- begin_upcoming_events_list -->
+                        <!-- begin_upcoming_events_query_title --><h1 class="txt_lower_header_color">{l_events_coming_events}: <span class="pink">“{query}”</span></h1><!-- end_upcoming_events_query_title -->
+                        <!-- begin_upcoming_events_event_place_title --><h1 class="txt_lower_header_color">{l_events_more_events_in}: <span class="pink">{event_place}</span></h1><!-- end_upcoming_events_event_place_title -->
+                        <!-- begin_upcoming_events_category_id_title --><h1 class="txt_lower_header_color">{l_events_more_upcoming} {category_title} {l_events_events}</h1><!-- end_upcoming_events_category_id_title -->
+                        <!-- begin_upcoming_events_event_datetime_title --><h1 class="txt_lower_header_color">{l_events_more_events_on} <span class="pink">{event_datetime}</span></h1><!-- end_upcoming_events_event_datetime_title -->
+                        
+                        {upcoming_events_list}
+                        
+                        <div class="cl"></div>
+                       
+                        <!-- end_upcoming_events_list -->                        
+                                
+                        <!-- begin_finished_events_list -->
+                        <!-- begin_finished_events_query_title --><h1 class="txt_upper_header_color">{l_events_finished_events}: <span class="pink">“{query}”</span></h1><!-- end_finished_events_query_title -->
+                        <!-- begin_finished_events_event_place_title --><h1 class="txt_upper_header_color">{l_events_finished_events_in}: <span class="pink">{event_place}</span></h1><!-- end_finished_events_event_place_title -->
+                        <!-- begin_finished_events_category_id_title --><h1 class="txt_upper_header_color">{l_events_finished} {category_title} {l_events_events}</span></h1><!-- end_finished_events_category_id_title -->
+                        <!-- begin_finished_events_event_datetime_title --><h1 class="txt_upper_header_color">{l_events_finished_events_on} <span class="pink">{event_datetime}</span></h1><!-- end_finished_events_event_datetime_title -->
+                        <br>
+                        {finished_events_list}
+                        
+                        <!-- end_finished_events_list -->
+                    </div>
+
+                        <!-- begin_events_not_found -->
+                            <h1 class="pink"> {l_events_nothing_found}:</h1>
+                        <!-- end_events_not_found -->
+                    <div class="1events_new_p 1pl_top">
+                        <!-- begin_upcoming_random_events_list -->
+                        <!-- begin_upcoming_random_events_event_place_title --><h1 class="white">{l_events_more_events_in}: <span class="pink">{event_place}</span></h1><!-- end_upcoming_random_events_event_place_title -->
+                        <!-- begin_upcoming_random_events_category_id_title --><h1 class="white">{l_events_more_upcoming} {category_title} {l_events_events}</h1><!-- end_upcoming_random_events_category_id_title -->
+                        <!-- begin_upcoming_random_events_event_datetime_title --><h1 class="white">{l_events_more_events_on} <span class="pink">{event_datetime}</span></h1><!-- end_upcoming_random_events_event_datetime_title -->
+                        
+                        {upcoming_random_events_list}
+                        
+                        <div style="cl"></div>
+                       <br>
+                        <!-- end_upcoming_random_events_list -->                        
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="hotdates_new">
+
+        <table class="tb_hotdates_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                    <div class="hotdates_new_p pl_top">
+                        <!-- begin_upcoming_hotdates_list -->
+                        <!-- begin_upcoming_hotdates_query_title --><h1 class="txt_lower_header_color">{l_hotdates_coming_hotdates}: <span class="pink">“{query}”</span></h1><!-- end_upcoming_hotdates_query_title -->
+                        <!-- begin_upcoming_hotdates_hotdate_place_title --><h1 class="txt_lower_header_color">{l_hotdates_more_hotdates_in}: <span class="pink">{hotdate_place}</span></h1><!-- end_upcoming_hotdates_hotdate_place_title -->
+                        <!-- begin_upcoming_hotdates_category_id_title --><h1 class="txt_lower_header_color">{l_hotdates_more_upcoming} {category_title} {l_hotdates_hotdates}</h1><!-- end_upcoming_hotdates_category_id_title -->
+                        <!-- begin_upcoming_hotdates_hotdate_datetime_title --><h1 class="txt_lower_header_color">{l_hotdates_more_hotdates_on} <span class="pink">{hotdate_datetime}</span></h1><!-- end_upcoming_hotdates_hotdate_datetime_title -->
+                        
+                        {upcoming_hotdates_list}
+                        
+                        <div class="cl"></div>
+                       
+                        <!-- end_upcoming_hotdates_list -->                        
+                                
+                        <!-- begin_finished_hotdates_list -->
+                        <!-- begin_finished_hotdates_query_title --><h1 class="txt_upper_header_color">{l_hotdates_finished_hotdates}: <span class="pink">“{query}”</span></h1><!-- end_finished_hotdates_query_title -->
+                        <!-- begin_finished_hotdates_hotdate_place_title --><h1 class="txt_upper_header_color">{l_hotdates_finished_hotdates_in}: <span class="pink">{hotdate_place}</span></h1><!-- end_finished_hotdates_hotdate_place_title -->
+                        <!-- begin_finished_hotdates_category_id_title --><h1 class="txt_upper_header_color">{l_hotdates_finished} {category_title} {l_hotdates_hotdates}</span></h1><!-- end_finished_hotdates_category_id_title -->
+                        <!-- begin_finished_hotdates_hotdate_datetime_title --><h1 class="txt_upper_header_color">{l_hotdates_finished_hotdates_on} <span class="pink">{hotdate_datetime}</span></h1><!-- end_finished_hotdates_hotdate_datetime_title -->
+                        <br>
+                        {finished_hotdates_list}
+                        
+                        <!-- end_finished_hotdates_list -->
+                    </div>
+
+                    <!-- begin_hotdates_not_found -->
+                        <h1 class="pink"> {l_hotdates_nothing_found}:</h1>
+                    <!-- end_hotdates_not_found -->
+                    <div class="1hotdates_new_p 1pl_top">
+                        <!-- begin_upcoming_random_hotdates_list -->
+                        <!-- begin_upcoming_random_hotdates_hotdate_place_title --><h1 class="white">{l_hotdates_more_hotdates_in}: <span class="pink">{hotdate_place}</span></h1><!-- end_upcoming_random_hotdates_hotdate_place_title -->
+                        <!-- begin_upcoming_random_hotdates_category_id_title --><h1 class="white">{l_hotdates_more_upcoming} {category_title} {l_hotdates_hotdates}</h1><!-- end_upcoming_random_hotdates_category_id_title -->
+                        <!-- begin_upcoming_random_hotdates_hotdate_datetime_title --><h1 class="white">{l_hotdates_more_hotdates_on} <span class="pink">{hotdate_datetime}</span></h1><!-- end_upcoming_random_hotdates_hotdate_datetime_title -->
+                        
+                        {upcoming_random_hotdates_list}
+                        
+                        <div style="cl"></div>
+                       <br>
+                        <!-- end_upcoming_random_hotdates_list -->                        
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="partyhouz_new">
+
+        <table class="tb_partyhouz_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+                    <div class="partyhouz_new_p pl_top">
+                        <!-- begin_upcoming_partyhouz_list -->
+                        <!-- begin_upcoming_partyhouz_query_title --><h1 class="txt_lower_header_color">{l_partyhouz_coming_partyhouz}: <span class="pink">“{query}”</span></h1><!-- end_upcoming_partyhouz_query_title -->
+                        <!-- begin_upcoming_partyhouz_partyhou_place_title --><h1 class="txt_lower_header_color">{l_partyhouz_more_partyhouz_in}: <span class="pink">{partyhou_place}</span></h1><!-- end_upcoming_partyhouz_partyhou_place_title -->
+                        <!-- begin_upcoming_partyhouz_category_id_title --><h1 class="txt_lower_header_color">{l_partyhouz_more_upcoming} {category_title} {l_partyhouz_partyhouz}</h1><!-- end_upcoming_partyhouz_category_id_title -->
+                        <!-- begin_upcoming_partyhouz_partyhou_datetime_title --><h1 class="txt_lower_header_color">{l_partyhouz_more_partyhouz_on} <span class="pink">{partyhou_datetime}</span></h1><!-- end_upcoming_partyhouz_partyhou_datetime_title -->
+                        
+                        {upcoming_partyhouz_list}
+                        
+                        <div class="cl"></div>
+                       
+                        <!-- end_upcoming_partyhouz_list -->                        
+                                
+                        <!-- begin_finished_partyhouz_list -->
+                        <!-- begin_finished_partyhouz_query_title --><h1 class="txt_upper_header_color">{l_partyhouz_finished_partyhouz}: <span class="pink">“{query}”</span></h1><!-- end_finished_partyhouz_query_title -->
+                        <!-- begin_finished_partyhouz_partyhou_place_title --><h1 class="txt_upper_header_color">{l_partyhouz_finished_partyhouz_in}: <span class="pink">{partyhou_place}</span></h1><!-- end_finished_partyhouz_partyhou_place_title -->
+                        <!-- begin_finished_partyhouz_category_id_title --><h1 class="txt_upper_header_color">{l_partyhouz_finished} {category_title} {l_partyhouz_partyhouz}</span></h1><!-- end_finished_partyhouz_category_id_title -->
+                        <!-- begin_finished_partyhouz_partyhou_datetime_title --><h1 class="txt_upper_header_color">{l_partyhouz_finished_partyhouz_on} <span class="pink">{partyhou_datetime}</span></h1><!-- end_finished_partyhouz_partyhou_datetime_title -->
+                        <br>
+                        {finished_partyhouz_list}
+                        
+                        <!-- end_finished_partyhouz_list -->
+                    </div>
+
+                    <!-- begin_partyhouz_not_found -->
+                        <h1 class="pink"> {l_partyhouz_nothing_found}:</h1>
+                    <!-- end_partyhouz_not_found -->
+                    <div class="1partyhouz_new_p 1pl_top">
+                        <!-- begin_upcoming_random_partyhouz_list -->
+                        <!-- begin_upcoming_random_partyhouz_partyhou_place_title --><h1 class="white">{l_partyhouz_more_partyhouz_in}: <span class="pink">{partyhou_place}</span></h1><!-- end_upcoming_random_partyhouz_partyhou_place_title -->
+                        <!-- begin_upcoming_random_partyhouz_category_id_title --><h1 class="white">{l_partyhouz_more_upcoming} {category_title} {l_partyhouz_partyhouz}</h1><!-- end_upcoming_random_partyhouz_category_id_title -->
+                        <!-- begin_upcoming_random_partyhouz_partyhou_datetime_title --><h1 class="white">{l_partyhouz_more_partyhouz_on} <span class="pink">{partyhou_datetime}</span></h1><!-- end_upcoming_random_partyhouz_partyhou_datetime_title -->
+                        
+                        {upcoming_random_partyhouz_list}
+                        
+                        <div style="cl"></div>
+                       <br>
+                        <!-- end_upcoming_random_partyhouz_list -->                        
+                    </div>
+    
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="foot_left"></div><div class="foot_right"></div>
+    <div class="decor_top"></div>
+
+{footer}

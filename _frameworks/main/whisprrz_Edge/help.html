@@ -1,0 +1,97 @@
+{header}
+
+<div class="frame_content" id="oryx_content">
+{menu_help}
+<div class="cl"></div>
+<style>
+	body {
+		line-height: 12px;
+	}
+</style>
+
+  <h2><!--<img src="{url_tmpl_main}imghelp.png" style="behavior: url('./_server/design/pngbehavior.htc');" align="absmiddle" alt="" width=48 height=48>-->
+   {l_help_topics}</h2>
+			<div style="width: 650px; padding-left: 20px;">
+				<table border="0" cellpadding="0" cellspacing="0" width="100%">
+					<tr>
+						<td valign="top" width="80" style="padding-top: 8px; padding-bottom: 10px;">
+						<!-- begin_topic -->
+							<ul class="lrg_margin">
+							<li class="bullet_text_med">
+							<b><a href="{url_main}help.php?t={id}">{name}</a></b><br><br>
+							</li>
+							</ul>
+						<!-- begin_topic_column -->
+						</td>
+						<td valign="top" width="80" style="padding-top: 8px; padding-bottom: 10px;">
+						<!-- end_topic_column -->
+						<!-- end_topic -->
+						</td>
+					</tr>
+				</table>
+			</div>
+
+
+
+
+
+
+
+<div align="left" style="margin:0 0 20px 20px;">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+		<td valign="middle">
+			<h2>{topic_name}</h2>
+		</td>
+		<td class="body_little" align="right" valign="top" style="line-height: 20px;">
+
+<script type="text/javascript">
+function showAll()
+{
+	<!-- begin_show -->
+	div_show('question{id}-on');
+	div_hide('question{id}-off');
+	<!-- end_show -->
+}
+function hideAll()
+{
+	<!-- begin_hide -->
+	div_show('question{id}-off');
+	div_hide('question{id}-on');
+	<!-- end_hide -->
+}
+</script>
+
+<!-- begin_show_hide -->
+<a href="javascript:showAll();" class="view_link">{l_show_all_answers}</a> |
+<a href="javascript:hideAll();" class="view_link">{l_hide_all_answers}</a>
+<!-- end_show_hide -->
+
+		</td>
+	</tr></table>
+</div>
+
+<!-- begin_question -->
+<div id="question{id}-off" style="display: block; padding-left: 10px;" align="left">
+	<table border="0" cellpadding="0" cellspacing="0"><tr>
+	<td valign="top" style="padding: 4px 8px 14px 0;"><img src="{url_tmpl_main}images/icon_arrow_closed.gif" width="7" height="7" alt="" border="0"></td>
+	<td style="padding-bottom: 10px;">
+	<b>{name}</b>
+	- <a href="" onclick="div_show('question{id}-on'); div_hide('question{id}-off');return false;">
+	{l_show_this_answer}</a>
+	</td></tr></table>
+</div>
+<div id="question{id}-on" style="display: none; padding-left: 10px; " align="left">
+	<table border="0" cellpadding="0" cellspacing="0"><tr>
+	<td valign="top" style="padding: 4px 8px 14px 0;"><img src="{url_tmpl_main}images/icon_arrow_open.gif" width="7" height="7" alt="" border="0"></td>
+	<td style="padding-bottom: 10px;">
+	<b>{name}</b>
+	- <a href="" onclick="div_show('question{id}-off'); div_hide('question{id}-on');return false;">
+	{l_hide_this_answer}</a>
+	</td></tr><tr><td></td>
+	<td style="padding-bottom: 16px;">{text}</td>
+	</tr></table>
+</div>
+ <!-- end_question -->
+</div>
+
+{footer}

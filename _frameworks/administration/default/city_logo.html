@@ -1,0 +1,124 @@
+{header}
+<div class="block_narrow">
+{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <!-- begin_logo_block -->
+    <h2>{title_block}</h2>
+
+    <div class="bl_form">
+
+    <script>
+    $(function() {
+        var $img,${block}Frm=$('#{block}_form'),
+            ${block}File=${block}Frm.find('input.upload'),
+            ${block}Sbm=${block}Frm.find('#update');
+            ${block}Delete=${block}Frm.find('#delete');
+            ${block}Cmd=${block}Frm.find('#cmd{block}');
+
+            ${block}File.change(function(){
+                ${block}Sbm.text('{l_upload}')
+            });
+
+			$('.logo_param_{block}, .logo_param_mobile_{block}').on('input',function(){
+				if(!trim(${block}File.val()))${block}Sbm.text('{l_update_size}');
+			})
+
+            ${block}Frm.ajaxForm({
+            beforeSubmit: function(a,f,o) {
+                if (${block}Cmd.val() != 'delete_{block}'){
+                    if(!trim(${block}File.val())){
+						${block}Cmd.val('update_param_logo');
+                        //return false;
+                    }else{
+						$img=$('#{block}_output').find('img');
+						$('#{block}_output').html('{l_submitting}');
+					}
+                }else{
+					$img=$('#{block}_output').find('img');
+					$('#{block}_output').html('{l_submitting}');
+				}
+            },
+            success: function(data) {
+				if(${block}Cmd.val() == 'update_param_logo'){
+					window.location.href='{url_page}?action=saved';
+					return;
+				}
+				var url = '{url_logo}';
+				try {
+					var obj = jQuery.parseJSON(data),$out = $('#{block}_output');
+					if (obj.status == 0 || obj.url == '') {
+                        $out.html('').append($img);
+						alert(obj.msg);
+					} else {
+                        url = obj.url;
+                        var $imgNew=$('<img style="width:'+obj.width+'px; height:'+obj.height+'px;" src="'+url+'?' + Math.random() + '" alt=""/>').fadeTo(1,0).load(function(){
+                            $(this).fadeTo(100,1);
+                        });
+                        $out.html('').append($imgNew);
+                        if (${block}Cmd.val() != 'delete_{block}'){
+                            if (typeof obj.width != 'undefined' && typeof obj.height != 'undefined') {
+                                $('#{block}_form').find('.logo_width').val(obj.width).end()
+                                                  .find('.logo_height').val(obj.height);
+                            }
+                            ${block}Sbm.text('{l_update_size}');
+                        }
+                    }
+				} catch (err) {
+					alert('{l_file_type_is_incorrect}');
+				}
+            }
+        });
+    });
+    </script>
+
+    <form id="{block}_form" action="{url_page}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" id ="cmd{block}" name="cmd" value="update_{block}">
+		<input type="hidden" name="block" value="{block}">
+        <div id="{block}_output" class="block_logo" style="min-height: 80px; width:500px;">
+            <img style="width:{logo_width}px; height:{logo_height}px;" src="{url_logo}?rand={rand}" alt=""/>
+        </div>
+        <!-- begin_logo_block_params -->
+        <div class="block_logo_params" style="margin-top:15px; width:320px;">
+            <table>
+                <tr>
+					<td class="label"><span>{l_desktop}:</span></td>
+                    <td class="label" style="padding-left: 10px; font-weight: normal;"><span>{l_width}:</span></td>
+                    <td style="width: 40px; padding:0px 5px;"><input class="logo_width logo_param_{block}" type="text" maxlength="3" name="{block}_width" value="{logo_width}" ></td>
+                    <td class="px"><span style="font-weight: normal;">{l_px}</span></td>
+					<td class="label" style="padding-left: 10px; font-weight: normal;"><span>{l_height}:</span></td>
+                    <td style="width: 40px; padding:0px 5px;"><input class="logo_height logo_param_{block}" type="text" maxlength="3" name="{block}_height" value="{logo_height}" ></td>
+                    <td class="px"><span style="font-weight: normal;">{l_px}</span></td>
+				</tr>
+                <tr>
+					<td class="label"><span>{l_mobile}:</span></td>
+                    <td class="label" style="padding-left: 10px; font-weight: normal;"><span>{l_width}:</span></td>
+                    <td style="width: 40px; padding:0px 5px;"><input class="logo_param_mobile_{block}" type="text" maxlength="3" name="{block}_mobile_width" value="{logo_width_mobile}" ></td>
+                    <td class="px" colspan="3"><span style="font-weight: normal;">{l_percentage_of_the_viewport}</span></td>
+				</tr>
+            </table>
+        </div>
+        <!-- end_logo_block_params -->
+        <div class="cl"></div>
+        <div class="fl_left">
+            <input class="upload" type="file" name='logo'/>
+        </div>
+        <!-- begin_delete -->
+        <div class="btn fl_right">
+
+            <a href="#" id="delete" onClick="if (confirm('{l_are_you_sure}')) { $('#cmd{block}').val('delete_{block}'); return true; } else return false;"  class="submit">{l_delete}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+	</div>
+        <!-- end_delete -->
+        <div class="btn fl_right"><a href="#" id="update" onClick="$('#cmd{block}').val('update_{block}');" class="submit">{l_upload}</a>
+
+			<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+    </form>
+
+    </div>
+<!-- end_logo_block -->
+    <div class="empty"></div>
+</div>
+{footer}

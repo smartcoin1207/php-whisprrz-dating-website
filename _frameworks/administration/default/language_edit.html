@@ -1,0 +1,1066 @@
+{header}
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.autosize.js{cache_version_param}"></script>
+<style>
+    textarea{ font-family: Tahoma;  margin: 0 0 15px; padding: 0px; font-size: 12px; line-height: 20px; border: 1px solid #c9c9c9; height: 418px; width: 850px; color: #0b0b0b;text-align: left; }
+</style>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen" >
+        <li><a href="{url_main}administration/language.php?part={part}">{l_langs_list}</a></li>
+        <!-- begin_mlang -->
+        <li <!-- begin_mlang_on --> class="active"<!-- end_mlang_on --> ><a href="{url_main}administration/language_edit.php?part={part}&lang={language}&from_template={from_template}">{title}</a></li>
+        <!-- end_mlang -->
+    </ul>
+    <ul class="lmenu_blue">
+        <!-- begin_lang -->
+        <li <!-- begin_lang_on --> class="active"<!-- end_lang_on --> style=""><div><a href="{url_page}?part={part}&lang={lang_this}&lang_page={lang_page}&from_template={from_template}" title="{lang_page}">{lang_page_title}</a></div></li>
+        <!-- end_lang -->
+    </ul>
+</div>
+<div class="block_main block_main_lang">
+    <h2>{l_title_current} - {part_title} -  {lang_title_this} - {page_title}</h2>
+
+    {message_lang}
+
+    <!-- begin_autotranslator_header -->
+    <div>
+        <select name="translate_type" class="translate_type">
+            {translate_type_options}
+        </select>
+
+        {l_translate_from} <select name="translate_from" id="translate_from">{translate_from}</select> {l_translate_to} <select name="translate_to" id="translate_to">{translate_to}</select>
+
+        <a title="{l_google_translate_is_used}" class="translate_all_button" href="#" onclick="adminLanguageTranslator.translateAll();">
+            <span class="status">{l_translate}</span>
+            <img class="translate_all_button_preloader" id="translate_all_button_preloader" style="display: none;" src="{url_tmpl_administration}images/loader.gif">
+        </a>
+
+        <!--<input class="translate_all_button system_button" style="width: auto; padding-left: 10px; padding-right: 10px; margin-bottom: 5px; background: none; cursor: pointer;" type="button" value="{l_translate}" onclick="adminLanguageTranslator.translateAll();" />-->
+
+
+        <!--<span class="google_translate_is_used">{l_google_translate_is_used}</span>-->
+
+        <div style="padding-top:7px; padding-bottom: 20px;"><label for="withAlreadyTranslatedWords"><input style="width: auto; margin-bottom: 2px;" type="checkbox" value="1" name="translate_all" id="withAlreadyTranslatedWords"> {l_with_already_translated_words}</label></div>
+    </div>
+    <!-- end_autotranslator_header -->
+
+	<p>{l_language_edit_instruction}</p>
+	<form onsubmit="langSearch(); return false;">
+		<input type="hidden" name="part" value="{part}">
+		<input type="hidden" name="lang" value="{lang}">
+		<table>
+			<tr>
+				<td><input placeholder="{l_search_the_whole_language}" onblur="langSearchFocus();  return false;" id="input_search"   class="lang_search placeholder" type="text" name="search" value="" onclick="selectField('input_search');" ></td><!--onblur="langSearch();"-->
+			</tr>
+		</table>
+	</form>
+
+	<div class="language_search_results"></div>
+
+    <ul class="alphabet" id="alphabet">
+        <!-- begin_alphabet -->
+        <!-- begin_yes_value -->
+        <li id="li_{id_abc}" class="{class_separator} <!--begin_li_all -->active<!--end_li_all -->"><a href="" id="href_row_{id_abc}" title="{title_abc}">{abc}</a></li>
+        <!-- end_yes_value -->
+        <!-- begin_no_value -->
+        <li class="{class_separator}"><span class="no_value_language">{abc}</span></li>
+        <!-- end_no_value -->
+        <!-- end_alphabet -->
+    </ul>
+    <!-- begin_language_words -->
+    <table width="100%" class="language_words <!-- begin_language_words_show -->to_show<!-- end_language_words_show -->" id="language_words">
+        <!-- begin_field -->
+        <tr class="row_{lang_page_this_id}_{field} row_all" id="key_row_{letter}_{lang_page_this_id}_{field}">
+            <td class="td_index" width="10" valign="top"><b><span>{field_index}</span>)&nbsp;</b></td>
+            <td width="10%" valign="top">{field_title}:</td>
+			<td valign="top" style="width: 30px;"><img style="display: none;" id="preloader_{lang_page_this_id}_{field}" src="{url_tmpl_administration}images/loader.gif"></td>
+            <td style="padding-bottom: 14px;">
+                <textarea data-language-section="{lang_page_this}" data-language-item-key="{field}" onclick="selectField('{field}');" onfocus="addItemValueCache('{field}', '{lang_page_this}');" onblur="updateItem('{field}', '{lang_page_this}');" class="lang {class_field} {not_translated_class}" type="text" id="{lang_page_this_id}_{field}" name="{field}" style="height:20px; width:98.2%; overflow:hidden; resize:none; padding: 0px 4px;">{value}</textarea>
+            </td>
+            <td class="language_action_buttons" valign="top">
+                <a class="{autotranslator_hide_item_class}" onclick="adminLanguageTranslator.translateItem('{field}', '{lang_page_this}'); return false;" href="#">{l_translate_with_google}</a><span class="{autotranslator_hide_item_class}" id="delete_delimiter_{lang_page_this_id}_{field}" style="{delete_style}"> | </span><a style="{delete_style};" id="delete_{lang_page_this_id}_{field}" onclick="deleteWord('{field}', '{lang_page_this}'); return false;" href="#">{l_delete}</a>
+            </td>
+        </tr>
+        <!-- end_field -->
+        <tr><td></td><td>&nbsp;</td><td></td><td></td></tr>
+        <tr><td></td><td><b>{l_add}:</b></td><td></td><td></td></tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+               <form name="editLanguage" action="{url_main}administration/{url_page}" method="POST">
+                    <input type="hidden" name="cmd" value="update">
+                    <input type="hidden" name="part" value="{part}">
+                    <input type="hidden" name="lang" value="{lang_this}">
+                    <input type="hidden" name="lang_page" value="{lang_page_this}">
+                    <input type="hidden" name="from_template" value="{from_template}">
+
+                    <!-- begin_add -->
+                    <div style="display:inline-block; margin:0; width:30%; "><input style="width: 100%;" type="text" id="field{add_index}" name="field{add_index}" value=""></div>
+                    <div style="display:inline-block; margin:0 0 0 5px; width:calc(70% - 10px);"><input style="width: 100%;" type="text" id="new{add_index}" name="new{add_index}" value=""></div>
+                    <div style="clear:both; height:1px;"></div>
+                    <!-- end_add -->
+
+
+                    <div class="btn" style="margin-left: -8px;">
+                        <a href="#" onclick="document.forms.editLanguage.submit(); return false;" class="submit2">{l_add}</a>
+                        <input type="submit" style="visibility:hidden;position:absolute;">
+                    </div>
+               </form>
+            </td>
+        </tr>
+    </table>
+    <!-- end_language_words -->
+    <!-- begin_language_words_loader -->
+    <div id="bl_loader_words" class="bl_loader_words">
+        <img src='{url_tmpl_administration}images/lightbox-ico-loading.gif'>
+    </div>
+    <!-- end_language_words_loader -->
+
+    <div class="empty"></div>
+</div>
+
+<div class="js_loader" style="display:none;"></div>
+<script>
+    logLoadPageTime();
+    $(function(){
+        if($('#language_words')[0])return;
+        $('body, html').animate({scrollTop:0},1);
+        console.log('START LOAD WORDS');
+        var startTime1 = new Date();
+        $.post('language_edit.php?part={part}&lang={lang_this}&lang_page={lang_page_this}&from_template={from_template}',{load_words:1},
+            function(res){
+                var $data=$(res), $words=$data.find('#language_words');
+                if ($words[0]) {
+                    $words.removeClass('to_show').insertAfter('#alphabet').toggleClass('to_show',0).oneTransEnd(function(){
+                        $('#bl_loader_words').remove();
+                    });
+                    setTimeout(function(){
+                        $('.js_loader').after($data.find('script#language_words_js'));
+                    },100)
+                } else {
+                    alert('Error loading dictionary');
+                }
+                var endTime1 = new Date(), elapsedTime1 = Number(endTime1-startTime1);
+                console.log("TIME LOAD LANG WORDS AJAX: " + Number(elapsedTime1/1000) + " s (" + elapsedTime1 + " ms)");
+        })
+    })
+</script>
+<!-- begin_language_words_js -->
+<script id="language_words_js">
+
+var langCurrent = '{lang_this}';
+//var itemValuesCache = [];
+var itemValuesCacheSearch = [];
+var loaderTimers = [];
+var loaderTimeouts = [];
+var langPage = '{lang_page_this}';
+var fields = [];
+var p = false;
+var searchWord='';
+
+var translatingPleaseWait = '{j_translating_please_wait}';
+var translateAllOnThisPage = '{j_translate}';
+var translationStatusText = '{j_translation_status}';
+
+function deleteWord(wordKey, langPageParam)
+{
+    if(adminLanguageTranslator.isDemoMode()) {
+        return false;
+    }
+
+	if (!confirm('{j_are_you_sure}')) {
+		return false;
+	}
+
+	langPageParam = langPageParam || langPage;
+
+    var dataAjax = {
+        cmd: 'delete',
+        ajax: 1,
+        part: '{part}',
+        lang: '{lang_this}',
+        lang_page: langPageParam,
+        key_del: wordKey,
+    };
+
+    var wordId = adminLanguageEditor.getWordId(wordKey, langPageParam);
+
+    $('#preloader_' + wordId).show();
+
+    adminLanguageEditor.addToQueue(
+        function(next){
+            adminLanguageEditor.queueInProgress = true;
+
+            console.log('start', wordId);
+
+            $.post('{url_main}administration/{url_page}', dataAjax, function(data){
+                try {
+                    jsonData=window.JSON.parse(data);
+                    mess=jsonData['message']
+                }
+                catch (e) {
+                    jsonData=array();
+                    mess=data;
+                }
+                if(trim(mess) == 'deleted') {
+                    var defaultWord=jsonData['default_word']||'';
+                    if(defaultWord != '') {
+                        console.log('Delete wordId', wordId);
+                        $('#' + wordId).val(defaultWord).addClass('not_translated').autosize();
+
+                        adminLanguageEditor.deleteButtonHide(wordId);
+
+                        addItemValueCache(wordKey, langPageParam);
+
+                        adminLanguageTranslator.langItemsCountForTranslation++;
+                    } else {
+                        $('.row_' + wordId).remove();
+                        updateRowIndex();
+                    }
+                } else {
+                    alert(mess);
+                }
+
+                $('#preloader_' + wordId).hide();
+
+                console.log('end', wordId);
+
+                adminLanguageEditor.queueInProgress = false;
+                next();
+            });
+        }
+    );
+
+}
+
+function updateRowIndex()
+{
+	$('.td_index').each(function(index){
+		$(this).find('span').html(index + 1);
+	});
+}
+
+function wordToId(word)
+{
+	return word.replace(/\./g, '_');
+}
+
+function updateItem(wordKey, type)
+{
+
+	console.log('update item');
+
+	type = type || false;
+
+	var langPageCurrent = type || langPage;
+
+    var wordId = adminLanguageEditor.getWordId(wordKey, type);
+
+    var valueKey = '#' + wordId;
+
+    var value = $(valueKey).val();
+/*
+	if(type !== false) {
+
+		console.log('value key:', valueKey);
+		value = $(valueKey).val();
+		//preloaderType = '.';
+		console.log('type:', type);
+		if(typeof itemValuesCacheSearch[type] == 'undefined') {
+			console.log('cacheSearch not exists');
+			itemValuesCacheSearch[type] = [];
+		} else {
+			console.log('cacheSearch exists');
+			console.log('cache value:', itemValuesCacheSearch[type][wordKey]);
+		}
+		cache = itemValuesCacheSearch[type];
+	} else {
+		value = $(valueKey).val();
+		cache = itemValuesCache;
+	}
+*/
+	if(isItemValuesCached(wordId, value)) {
+		console.log('IS CACHED:', wordId, value);
+		console.log('return by cache');
+
+        //adminLanguageEditor.deleteButtonShow(wordId);
+        //adminLanguageEditor.wordPreloaderHide(wordId);
+
+        //$('#' + wordId).removeClass('not_translated');
+
+		return;
+	} else {
+        console.log('NOT CACHED', wordId, value, itemValuesCacheSearch);
+    }
+
+    adminLanguageEditor.wordPreloaderShow(wordId);
+
+    var dataAjax = {
+        cmd: 'update',
+        ajax: 1,
+        part: '{part}',
+        lang: '{lang_this}',
+        lang_page: langPageCurrent,
+        word_key: wordKey,
+    };
+    dataAjax['item_index_' + wordKey] = value;
+
+    adminLanguageEditor.addToQueue(
+        function(next){
+            adminLanguageEditor.queueInProgress = true;
+
+            console.log('start', wordId);
+
+            $.post('{url_main}administration/{url_page}', dataAjax, function(data){
+                if(trim(data) != 'updated') {
+                    alert(data);
+                } else {
+                    console.log('delete button show');
+                    adminLanguageEditor.deleteButtonShow(wordId);
+                    if($('#' + wordId).hasClass('not_translated')) {
+                        adminLanguageTranslator.langItemsCountForTranslation--;
+                    }
+                    $('#' + wordId).removeClass('not_translated');
+                }
+
+                adminLanguageEditor.wordPreloaderHide(wordId);
+
+                adminLanguageEditor.queueInProgress = false;
+                next();
+            });
+        }
+    );
+}
+
+function addItemValueCache(wordKey, type)
+{
+    var wordId = adminLanguageEditor.getWordId(wordKey, type);
+
+    itemValuesCacheSearch[wordId] = $('#' + wordId).val();
+    console.log('added to cache search:', type, wordKey, itemValuesCacheSearch[wordId]);
+
+    return;
+/*
+	type = type || false;
+	if(type) {
+		if(!itemValuesCacheSearch.hasOwnProperty(type)) {
+			itemValuesCacheSearch[type] = {};
+			console.log('init cache', type);
+		}
+
+
+
+		//item = wordToId('#' + type + '_' + wordKey);
+		console.log('wordId', wordId);
+
+		itemValuesCacheSearch[type][wordKey] = $('#' + wordId).val();
+		console.log('added to cache search:', type, wordKey, itemValuesCacheSearch[type][wordKey]);
+	} else {
+		itemValuesCache[wordKey] = $('#' + wordKey).val();
+		console.log('added to cache');
+	}
+*/
+}
+
+function isItemValuesCached(key, value)
+{
+	console.log('check cache:', key, value);
+
+	if(!(key in itemValuesCacheSearch)) {
+		console.log('key not exists');
+		itemValuesCacheSearch[key] = value;
+		return false;
+	} else {
+		if(itemValuesCacheSearch[key] == value) {
+			console.log('cached');
+			return true;
+		} else {
+			console.log('not same value in cache');
+			itemValuesCacheSearch[key] = value;
+			return false;
+		}
+	}
+
+	return false;
+}
+
+function addNewValues()
+{
+	count = 5;
+	request = [];
+	for(index = 1; index <=5; index++) {
+		request['field' + index] = $('#new' + index).val();
+	}
+
+	url = '{url_main}administration/{url_page}?part={part}&lang={lang_this}&lang_page={lang_page_this}&cmd=add&ajax=1';
+	$.post(url, request, function(data){
+		// clean field
+		for(index = 1; index <=5; index++) {
+			$('#field' + index).val('');
+			$('#new' + index).val('');
+		}
+		$('.js_loader').html(data);
+		// add rows(html code from server)
+		//$('.row_last').before(data);
+	});
+}
+
+function unixTimeNow()
+{
+	return (new Date()).getTime();
+}
+
+function langSearch()
+{
+    //if($.trim($('.lang_search').val()) == '') {
+        //return true;
+    //}else {
+    var info = "<div><span class='search_loader'>{l_search}<span><img src='{url_tmpl_administration}images/loader1.gif'></div>";
+    $('.language_search_results').html(info);
+	$('#language_words').hide();
+    $('#alphabet').hide();
+	$('.lmenu_blue li.active').removeClass('active');
+	url = '{url_main}administration/language_search.php'; //part={part}&lang={lang_this}&lang_page={lang_page_this}&cmd=add&ajax=1';
+	request = {
+		part: '{part}',
+		lang: '{lang_this}',
+        lang_page: '{lang_page_this}',
+		search: $('.lang_search').val(),
+        from_template: '{from_template}'
+	}
+	$.post(url, request, function(data){
+		$('.language_search_results').html(data);
+	});
+        p = true;
+//}
+}
+function langSearchFocus() {
+    setTimeout(function() {
+        var isBlur = $('.lang').is(':focus');
+        if (!isBlur && $("#input_search").val()!=searchWord) {
+            searchWord=$("#input_search").val();
+            langSearch();
+        }
+    }, 0)
+}
+
+function loaderHide(loader)
+{
+	$(loader).hide();
+}
+
+$(function(){
+    $('.textarea').autosize({callback:function(){
+    }})
+
+    $("body").on('keypress', '.lang',function(e){
+       var el = $(this);
+       if(typeof e == "undefined") {
+          e = window.event;
+       }
+       if (e.keyCode) key = e.keyCode;
+       else if(e.which) key = e.which;
+       console.log("key: "+key);
+       if (key == 13 || key == 10) {
+              if (e.ctrlKey || key == 17) {
+                    el.insertAtCaret('\n');
+                    el.height(1);
+                    el.height(this.scrollHeight);
+              } else if (!e.shiftKey && !e.ctrlKey && !e.metaKey)  {
+                if (p == true) {
+                    updateItem(el.attr('data-id'), el.attr('data'));
+                    addItemValueCache(el.attr('id'), el.attr('data'));
+                } else {
+                    updateItem(el.attr('id'));
+                    addItemValueCache(el.attr('id'));
+                }
+
+
+              }
+              return false;
+       }
+    })
+    //$("body").on('keyup input', '.lang',function(e){
+        //var el = $(this);
+        //el.height(1);
+        //el.height(this.scrollHeight);
+    //});
+
+    jQuery.fn.extend({
+	  insertAtCaret: function(myValue){
+	  return this.each(function(i) {
+		if (document.selection) {
+			this.focus();
+            var sel = document.selection.createRange();
+        	sel.text = myValue;
+        	this.focus();
+        } else
+		 if (this.selectionStart || this.selectionStart == '0') {
+            var startPos = this.selectionStart;
+            var endPos = this.selectionEnd;
+            var scrollTop = this.scrollTop;
+            this.value = this.value.substring(0, startPos)+myValue+this.value.substring(endPos,this.value.length);
+            this.focus();
+            this.selectionStart = startPos + myValue.length;
+            this.selectionEnd = startPos + myValue.length;
+            this.scrollTop = scrollTop;
+          } else {
+            this.value += myValue;
+            this.focus();
+          }
+      })
+   	 }
+	})
+
+    $("body").on('click','[id ^= href_row_]',function(){
+        console.time('create list');
+        $('[id ^= li_]').css('background', '#ffffff');
+        var id = $(this).attr('id').split('_');
+        if (id[2] == 'all') {
+            //$('tr[id ^= key_row_]').css('display', 'table-row');
+            $('[id ^= key_search_row_]').css('display', 'table-row');
+            $('[id ^= section_row_]').css('display', 'table-row');
+            $('tr.row_all').css('display', 'table-row');
+        } else {
+            $('[id ^= key_row_]').css('display', 'none');
+            $('[id ^= key_search_row_]').css('display', 'none');
+            $('[id ^= section_key_search_row_]').css('display', 'none');
+
+            $('[id ^= key_row_'+ id[2] + ']').css('display', 'table-row');
+            var el_search = $('[id ^= key_search_row_'+ id[2] + ']');
+            el_search.each(function(i) {
+                var id_key = $(this).attr('id'),
+                id_all = id_key.split('_');
+                if (id_all[4] == 'all') {
+                    $('[id ^= section_key_search_row_y_all_]').css('display', 'table-row');
+                } else {
+                    $('#section_' + id_key).css('display', 'table-row');
+                }
+            });
+            el_search.css('display', 'table-row');
+        }
+        $('#li_' + id[2]).css('background', '#e7e7e7');
+        console.timeEnd('create list');
+        return false;
+    })
+});
+
+function selectField(field) {
+    /*if(fields[field] == 1) {
+        return;
+    } else {
+        document.getElementById(field).select();
+        fields[field] = 1;
+    }*/
+    return;
+}
+
+
+var LanguageEditor = function () {
+
+    var $this = this;
+    var queueInProgress = false;
+
+    this.deleteButtonShow = function(wordId, visible) {
+        visible = visible || false;
+
+        if(visible) {
+            //console.log('visible', wordId);
+            $('#delete_' + wordId + ', ' + '#delete_delimiter_' + wordId).css('visibility', 'visible').css('visibility', 'inherit');
+        } else {
+            $('#delete_' + wordId + ', ' + '#delete_delimiter_' + wordId).css('visibility', 'inherit');
+        }
+    }
+
+    this.deleteButtonHide = function(wordId) {
+        $('#delete_' + wordId + ', ' + '#delete_delimiter_' + wordId).css('visibility', 'hidden');
+    }
+
+    this.wordPreloaderShow = function(wordId) {
+        $('#preloader_' + wordId).show();
+    }
+
+    this.wordPreloaderHide = function(wordId) {
+        $('#preloader_' + wordId).hide();
+    }
+
+    this.getWordId = function(wordKey, langPageCurrent)
+    {
+        var langPageCurrent = langPageCurrent || langPage;
+
+        var wordId = wordToId(langPageCurrent + '_' + wordKey);
+
+        //console.log('getWordId', wordKey, langPageCurrent);
+
+        return wordId;
+    }
+
+    // delete item, update item
+    this.addToQueue = function(item)
+    {
+        $($this).queue(
+            'LanguageEditor',
+            item
+        );
+
+        $this.runQueue();
+    }
+
+    this.runQueue = function()
+    {
+        if(!$this.queueInProgress) {
+            $($this).dequeue('LanguageEditor');
+        }
+    }
+
+    return this;
+}
+
+var adminLanguageEditor = new LanguageEditor();
+
+var LanguageTranslator = function() {
+
+    var $this = this;
+    this.batchTaskItemsLimit = 64;
+    this.batchTaskItemsLastIndex = 0;
+    this.batchTaskItemsFinished = 0;
+    this.batchTaskCurrentIndex = 0;
+    this.wordsForTranslation = 0;
+    this.wordsTranslated = 0;
+    this.langItemsCountAll = parseInt('{langItemsCount}');
+    this.langItemsCountForTranslation = parseInt('{langItemsCountForTranslation}');
+    this.translateAllLanguage = false;
+    this.translateAlreadyTranslatedWords = false;
+    this.batchSessionId = 0;
+    this.items = {};
+    this.wordKeysDeleteButtonShow = [];
+
+    this.onStart = function(wordId){
+        $('#' + wordId).attr('disabled', true);
+        adminLanguageEditor.wordPreloaderShow(wordId);
+    }
+
+    this.onFinish = function(wordId){
+        $('#' + wordId).attr('disabled', false);
+        adminLanguageEditor.wordPreloaderHide(wordId);
+    }
+
+    this.onStartBatch = function(){
+        this.batchSessionId = 0;
+        $this.setBatchTranslationButtonText();
+        $('.translate_all_button, textarea, input[type=text]').attr('disabled', true);
+        $('.google_translate_is_used').hide();
+        $('#translate_all_button_preloader').show();
+        $('.language_action_buttons').css('visibility', 'hidden');
+    }
+
+    this.onFinishBatch = function(wordKeys, isFinishedBatch){
+
+        isFinishedBatch = isFinishedBatch || false;
+
+        if(isFinishedBatch) {
+            $('.translate_all_button > span.status').html(translateAllOnThisPage);
+            $('.translate_all_button, textarea, input[type=text]').attr('disabled', false);
+            $('#translate_all_button_preloader').hide();
+            $('.google_translate_is_used').show();
+            $('.language_action_buttons').css('visibility', 'visible');
+
+            if($this.translateAllLanguage) {
+                $this.langItemsCountForTranslation = 0;
+            }
+        }
+
+        if($this.wordKeysDeleteButtonShow && isFinishedBatch) {
+            $this.wordKeysDeleteButtonShow.map(function(item) {
+                //console.log('wordKeysValue', item);
+                adminLanguageEditor.deleteButtonShow(item, true);
+            });
+        }
+    }
+
+    this.translateAll = function()
+    {
+        if($this.isDemoMode()) {
+            return false;
+        }
+
+        if($('#translate_all_button_preloader').is(':visible')) {
+            return;
+        }
+
+        if (!confirm('{j_are_you_sure}')) {
+            return false;
+        }
+
+        this.wordKeysDeleteButtonShow = [];
+
+        $this.batchTaskItemsLastIndex = 0;
+        $this.batchTaskItemsFinished = 0;
+        $this.wordsForTranslation = 0;
+        $this.wordsTranslated = 0;
+
+        $this.translateAllLanguage = ($('.translate_type').val() == 'translate_all');
+        $this.translateAlreadyTranslatedWords = $('#withAlreadyTranslatedWords').is(':checked') ? 1 : 0;
+
+        var items = {};
+
+        var index = 0;
+        var currentItemsSection = 0;
+
+        console.log('$this.batchTaskItemsLimit', $this.batchTaskItemsLimit);
+
+        // choose all items on page
+        $('textarea.lang').each(function(){
+            if(!$this.translateAlreadyTranslatedWords) {
+                if(!$(this).hasClass('not_translated')) {
+                    return;
+                }
+            }
+
+            if(!$(this).is(':visible')) {
+                return;
+            }
+
+            var languageSection = $(this).data('language-section');
+            var languageItemKey = $(this).data('language-item-key');
+
+            if(!$this.translateAllLanguage) {
+                currentItemsSection = Math.floor(index / $this.batchTaskItemsLimit);
+            }
+            //console.log('currentItemsSection', currentItemsSection);
+
+            if(!items.hasOwnProperty(currentItemsSection)) {
+                items[currentItemsSection] = {};
+            }
+
+            if(!items[currentItemsSection].hasOwnProperty(languageSection)) {
+                //console.log('add item in object', languageSection);
+                items[currentItemsSection][languageSection] = {};
+            }
+
+            items[currentItemsSection][languageSection][languageItemKey] = $(this).val();
+
+            index++;
+
+        });
+
+        $this.wordsForTranslation = index;
+
+        if($this.translateAllLanguage) {
+            $this.items = items;
+            if($this.translateAlreadyTranslatedWords) {
+                $this.wordsForTranslation = $this.langItemsCountAll;
+            } else {
+                $this.wordsForTranslation = $this.langItemsCountForTranslation;
+            }
+        }
+
+        $this.batchTaskItemsLastIndex = currentItemsSection;
+
+        //console.log('$this.batchTaskItemsLastIndex init', $this.batchTaskItemsLastIndex);
+
+        if($this.wordsForTranslation != 0 && (!$.isEmptyObject(items) || $('.translate_type').val() === 'translate_all')) {
+            $this.onStartBatch();
+            $this.translateBatch(items);
+        } else {
+            alert('{j_no_items_for_translation}');
+        }
+
+    }
+
+    this.translateBatch = function(items)
+    {
+        console.log('start translateBatch');
+
+        // console.log(items);
+
+        var request = {
+            cmd: 'translate_batch',
+            ajax: 1,
+            translate_from: $('#translate_from').val(),
+            translate_to: $('#translate_to').val(),
+            //data: window.JSON.stringify(items),
+            part: '{part}',
+            lang: langCurrent,
+            lang_page: langPage,
+            translate_type: $('.translate_type').val(),
+            translate_all: $this.translateAlreadyTranslatedWords,
+            batchSessionId: $this.batchSessionId,
+            batchTaskItemsLimit: $this.batchTaskItemsLimit
+        };
+
+        //console.log(request);
+
+        // write only by queue to prevent damage of file
+
+        console.log('start translateBatch 2');
+        console.log('$this.batchTaskItemsLastIndex', $this.batchTaskItemsLastIndex);
+
+        if($this.translateAllLanguage) {
+            request.data = window.JSON.stringify(items);
+            $this.translateRequest(request, false);
+        } else {
+            for(i = 0; i <= $this.batchTaskItemsLastIndex; i++) {
+
+                console.log('add to queue', i);
+
+                request.data = window.JSON.stringify(items[i]);
+
+                $this.translateRequest(request, i === $this.batchTaskItemsLastIndex);
+            }
+        }
+
+        console.log('return translateBatch 3');
+
+        return;
+/*
+        request.data = window.JSON.stringify(itemsForTranslation);
+        $this.translateRequest(request);
+
+        $.post('{url_page}', request, function(data) {
+
+            //console.log(data);
+
+            try {
+                var jsonData = window.JSON.parse(data);
+            } catch(e) {
+                alert('{j_translation_error_please_try_later}');
+                $this.onFinishBatch();
+                return;
+            }
+
+            var wordKeys = [];
+            if(jsonData.translate) {
+                var translate = jsonData.translate;
+
+                for(languageSection in translate) {
+                    for(languageItemKey in translate[languageSection]) {
+                        var wordKey = adminLanguageEditor.getWordId(languageItemKey, languageSection);
+
+                        wordKeys.push(wordKey);
+
+                        $('#' + wordKey).val($this.decodeHtml(translate[languageSection][languageItemKey])).removeClass('not_translated').autosize();
+
+                        adminLanguageEditor.deleteButtonShow(wordKey);
+                    }
+                }
+            } else {
+                alert('{j_translation_error_please_try_later}');
+            }
+
+            $this.onFinishBatch(wordKeys);
+        });
+*/
+    }
+
+    this.translateRequest = function(request, isLast)
+    {
+        //console.log('translateRequest start', request);
+
+        var isLast = isLast || false;
+
+        //console.log('isLast', isLast);
+
+        var requestData = request.data;
+
+        adminLanguageEditor.addToQueue(
+            function(next){
+
+                console.log('request in queue start');
+
+                adminLanguageEditor.queueInProgress = true;
+
+                request.data = requestData;
+
+                //console.log('request.data', request.data);
+
+                $.post('{url_page}', request, function(data) {
+
+                    try {
+                        var jsonData = window.JSON.parse(data);
+                    } catch(e) {
+                        console.log('json error');
+                        alert('{j_translation_error_please_try_later}');
+                        $this.onFinishBatch(false, true);
+                        return;
+                    }
+
+                    var wordKeys = [];
+                    if(jsonData.translate) {
+                        var translate = jsonData.translate;
+
+                        // isLast - depend on status of queue(current index)
+
+                        $this.batchSessionId = jsonData.batchSessionId;
+
+                        if(jsonData.error) {
+                            alert(jsonData.error);
+                            $this.onFinishBatch(false, true);
+                            adminLanguageEditor.queueInProgress = false;
+                            return;
+                        }
+
+                        for(languageSection in translate) {
+                            for(languageItemKey in translate[languageSection]) {
+
+                                $this.wordsTranslated++;
+
+                                //var wordKey = adminLanguageEditor.getWordId(languageItemKey, languageSection);
+                                var wordKey = jsonData.translateWordKeys[languageSection][languageItemKey];
+
+                                $this.wordKeysDeleteButtonShow.push(wordKey);
+
+                                wordKeys.push(wordKey);
+
+                                //$('#' + wordKey).val($this.decodeHtml(translate[languageSection][languageItemKey])).removeClass('not_translated').autosize();
+                                $('#' + wordKey).val($this.decodeHtml(translate[languageSection][languageItemKey])).removeClass('not_translated').autosize();
+
+                                adminLanguageEditor.deleteButtonShow(wordKey);
+                            }
+                        }
+                    } else {
+                        console.log('translation error');
+                        alert('{j_translation_error_please_try_later}');
+                        $this.onFinishBatch(false, true);
+                        return;
+                    }
+
+                    $this.setBatchTranslationButtonText();
+
+                    if(jsonData.isLastItemInQueue) {
+                        isLast = true;
+                    }
+
+                    if($this.translateAllLanguage && !isLast) {
+
+                        $this.onFinishBatch(wordKeys, isLast);
+
+                        request.batchSessionId = $this.batchSessionId;
+                        request.batchSessionIndex = jsonData.batchSessionIndex + 1;
+
+                        adminLanguageEditor.queueInProgress = false;
+
+                        $this.translateRequest(request, false);
+                        return;
+                    } else {
+                        console.log('is last true', isLast);
+                    }
+
+                    if(isLast) {
+                        // prepare list of all translated items to prevent higing in chrome
+                    }
+
+                    $this.onFinishBatch(wordKeys, isLast);
+
+                    adminLanguageEditor.queueInProgress = false;
+                    next();
+                });
+
+            }
+        );
+
+    }
+
+    this.translateRequestParams = function()
+    {
+
+        return request;
+    }
+
+    this.translateBatchPrepareTask = function(items, index)
+    {
+        var limit = $this.batchTaskItemsLimt;
+        // get 128 items
+    }
+
+    this.translateItem = function(wordKey, type)
+    {
+        if($this.isDemoMode()) {
+            return false;
+        }
+
+        type = type || false;
+
+        var langPageCurrent = type || langPage;
+
+        var wordId = adminLanguageEditor.getWordId(wordKey, type);
+
+        var text = $('#' + wordId).val();
+        if(trim(text) === '') {
+            return;
+        }
+
+        var request = {
+            cmd: 'translate',
+            ajax: 1,
+            translate_from: $('#translate_from').val(),
+            translate_to: $('#translate_to').val(),
+            language_section: type,
+            language_item_key: wordKey,
+            text: text,
+            lang: langCurrent,
+        };
+
+        //console.log(request);
+
+        addItemValueCache(wordKey, type);
+
+        $this.onStart(wordId);
+
+        $.post('{url_page}', request, function(data) {
+            var jsonData = window.JSON.parse(data);
+
+            //console.log(data);
+
+            if(jsonData.translate) {
+
+                if(jsonData.error) {
+                    alert(jsonData.error);
+                } else {
+                    var translate = $this.decodeHtml(jsonData.translate);
+
+                    // message on error(limit etc)
+                    $('#' + wordId).val(translate).removeClass('not_translated').autosize();
+
+                    updateItem(wordKey, type);
+                }
+            } else {
+                alert('{j_translation_error_please_try_later}');
+            }
+
+            $this.onFinish(wordId);
+        });
+    }
+
+    this.decodeHtml = function(html) {
+        return $("<textarea/>").html(html).text();
+    }
+
+    this.getTranslationStatusText = function()
+    {
+        return translationStatusText.replace('\{count\}', $this.wordsTranslated).replace('\{count_all\}', $this.wordsForTranslation);
+    }
+
+    this.setBatchTranslationButtonText = function()
+    {
+        $('.translate_all_button > span.status').html($this.getTranslationStatusText());
+    }
+
+    this.isDemoMode = function()
+    {
+        if(IS_DEMO) {
+            alert('{j_feature_disabled_in_demo_mode}');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    return this;
+}
+
+adminLanguageTranslator = new LanguageTranslator();
+
+</script>
+<!-- end_language_words_js -->
+
+{footer}

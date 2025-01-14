@@ -1,0 +1,65 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/groups_groups.php">{l_menu_groups}</a></li>
+        <li><a href="{url_main}administration/groups_group_comments.php">{l_menu_group_comments}</a></li>
+        <li class="active"><a href="{url_main}administration/groups_forums.php">{l_menu_forums}</a></li>
+        <li><a href="{url_main}administration/groups_forum_comments.php">{l_menu_forum_comments}</a></li>
+        <li><a href="{url_main}administration/groups_categories.php">{l_menu_group_categories}</a></li>		
+        <li><a href="{url_main}administration/groups_category_add.php">{l_menu_group_categories_add}</a></li>		
+    </ul>
+</div>
+
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#forum_edit_form").validate({
+        rules: {
+            forum_title: "required",
+            forum_description: "required",
+            forum_address: "required",
+            forum_place: "required",
+            city: {
+                required: true,
+                min: 1,
+                number: true
+                }
+        },
+        messages: {
+        	forum_title: "{l_please_specify_title}",
+        	forum_description: "{l_please_enter_text}",
+            forum_address: "{l_please_specify_address}",
+        	forum_place: "{l_please_specify_place}",
+        	city: "{l_please_select_city}"
+        }
+    })
+});
+
+</script>
+
+<div class="block_main">
+    <h2>{l_title_current} - {forum_title}</h2>
+
+    <div class="bl_form">
+
+        <form method="POST" id="forum_edit_form" action="{url_main}administration/groups_forum_edit.php?cmd=update&forum_id={forum_id}">
+
+        <label>{l_forum_title}:</label>
+        <input type="text" name="forum_title" value="{forum_title}">
+
+        <label>{l_forum_description}:</label>
+        <textarea name="forum_description" id="forum_description" class="textarea_small">{forum_description}</textarea>
+       
+        <div style="height:20px"></div>
+
+        <div class="clear" style="height:20px"></div>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save_changes}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div> 
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

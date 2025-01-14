@@ -1,0 +1,31 @@
+<!-- begin_ls_like -->
+<div id="ls_feed_like_result_{ls_like_id}" data-count="{ls_like_count}" class="who_liked {ls_like_class}">
+    <div class="who_liked_bl">
+        <!-- begin_link_unlike -->
+        <span id="ls_feed_like_hand" class="who_liked_link" onclick="clStream.likeDelete();" title="{a_unlike}">
+            <span class="glyphicon glyphicon-thumbs-up icon" data-no-fade-in="true" data-cl-loader="icon_wall_loader_hand"></span>
+        </span>
+        <!-- end_link_unlike -->
+        <!-- begin_icon_like -->
+        <span id="ls_feed_like_hand" class="who_liked_link" onclick="clStream.likeAdd();" title="{a_like}">
+            <span class="glyphicon glyphicon-thumbs-up icon" data-no-fade-in="true" data-cl-loader="icon_wall_loader_hand"></span>
+        </span>
+        <!-- end_icon_like -->
+
+        <!-- begin_ls_like_one -->
+        {ls_like_one}
+        <!-- end_ls_like_one -->
+
+        <!-- begin_ls_like_you -->{l_wall_you}<!-- end_ls_like_you --><!-- begin_ls_like_user -->{ls_like_delimiter}<a href="{ls_like_user_url}">{ls_like_name}</a><!-- end_ls_like_user -->
+
+        <!-- begin_ls_like_more -->
+        {ls_and_more_people_like_this}
+        <!-- end_ls_like_more -->
+
+        <!-- begin_ls_like_names -->
+        {l_wall_several_people_like_this}
+        <!-- end_ls_like_names -->
+    </div>
+    <script>clStream.itemLikeSet('{ls_like_id}', '{ls_like_last_action_like}', '{ls_like_user_list}');</script>
+</div>
+<!-- end_ls_like -->

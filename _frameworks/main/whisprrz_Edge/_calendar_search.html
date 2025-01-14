@@ -1,0 +1,241 @@
+ <!-- begin_calendar_search -->
+
+    <style type="text/css">
+        .btn.dropdown-toggle {
+            height: 43px;
+            padding-left: 15px;
+        }
+
+        .calendar-location {
+            display: flex;
+        }
+
+        .calendar-category {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .calendar-category .form-group {
+            margin-right: 10px;
+        }
+
+        .looking_for {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        @media (max-width: 780px) {
+            .calendar-location {
+                display: block;
+            }
+            .calendar-category {
+                display: block;
+            }
+            .looking_for {
+                display: block;
+            }
+        }
+
+        .modal-backdrop.fade {
+            display: none;
+        }
+
+        .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+            margin: 5px 10px 0 0;
+        }
+
+        .search-date-distance {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .search-date-distance .calendar-search-distance {
+            margin-left: 50px;
+        }
+
+        .calendar-date {
+            display: flex;
+        }
+
+        @media (max-width: 780px) {
+            .search-date-distance {
+                display: block;
+            }
+
+            .search-date-distance .calendar-search-distance {
+                margin-left: 0;
+            }
+            .calendar-search-distance label {
+                margin-top: 5px;
+            }
+        }
+
+        #calendar-search-form input {
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        clGroups.initAddPage('{init_is_page}', '{group_photo_id}');
+
+        $(document).ready(function() {
+        $('#event-calendar-search-submit').click(function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            $('#event-calendar-search-form').submit(); // Submit the form
+            });
+        });
+    </script>
+    
+    <div style="display: block; max-width: 210px; color: black;">
+        <span><strong>{l_current_location} :</strong></span>
+        <div style="margin: 5px 0 5px 0; max-width: 210px; line-height: 15px;">
+            <span>{user_city},</span>
+            <span>{user_state},</span>
+            <span>{user_country}</span>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchCalendarModal" data-whatever="@mdo">{l_search_calendar}</button>
+
+    <div class="modal fade" id="searchCalendarModal" tabindex="-1" role="dialog" aria-labelledby="searchCalendarModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="searchCalendarModalLabel">{search_title}</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{calendar_search_url}" id="event-calendar-search-form" name="calendar-search-form">
+                        <input type="text" hidden name="uid" value="{user_id}">
+                        <input type="text" hidden name="search" value="1">
+
+                        <div id="bl_group_add_frm" class="form-group">
+                            <label class="col-form-label">{l_location}:</label>
+                            <!-- begin_location -->
+                            <div class="calendar-location">
+                                    <select id="country" name="country_id" data-location="geo_states" class="geo selectpicker show-tick" style="margin-right: 5px;" data-live-search="true">
+                                        {country_options}
+                                    </select>
+
+                                    <select id="state" name="state_id" data-location="geo_cities" class="geo_btn geo selectpicker show-tick" style="margin-right: 5px;" data-live-search="true">
+                                        {state_options}
+                                    </select>
+                                    
+                                    <select id="city" name="city_id" class="geo_btn selectpicker show-tick" data-live-search="true">
+                                        {city_options}
+                                    </select>
+                            </div>
+                            <!-- end_location -->
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" style="margin-bottom: 10px;">{l_looking_for}:</label>
+                            <div class="looking_for">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" id="couple" name="couple" checked >
+                                        <label class="form-check-label" style="font-weight: normal;" for="couple">
+                                            {l_couples}
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" id="female" name="female" checked >
+                                        <label class="form-check-label" style="font-weight: normal;" for="female">
+                                            {l_single_female}
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" id="male" name="male" checked required>
+                                        <label class="form-check-label" style="font-weight: normal;" for="male">
+                                            {l_single_male}
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" id="transgender" name="male" checked required>
+                                        <label class="form-check-label" style="font-weight: normal;" for="transgender">
+                                            {l_transgender}
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" id="nonbinary" name="male" checked required>
+                                        <label class="form-check-label" style="font-weight: normal;" for="nonbinary">
+                                            {l_nonbinary}
+                                        </label>
+                                    </div>
+                            </div>
+
+                            <div class="calendar-category">
+                                <!-- begin_category_event_select -->
+                                <div class="form-group">
+                                    <label  class="col-form-label" style="margin-bottom: 10px;">{l_event_category}</label>
+                                    <select id="event_category_id" name="event_category_id" class="selectpicker show-tick" data-live-search="true">
+                                        {category_options}
+                                    </select>
+                                </div>
+                                <!-- end_category_event_select -->
+
+                                <!-- begin_category_hotdate_select -->
+                                <div class="form-group">
+                                    <label  class="col-form-label" style="margin-bottom: 10px;">{l_hotdate_category}</label>
+                                    <select id="hotdate_category_id" name="hotdate_category_id" class="selectpicker show-tick" data-live-search="true">
+                                        {category_options}
+                                    </select>
+                                </div>
+                                <!-- end_category_hotdate_select -->
+
+                                <!-- begin_category_partyhou_select -->
+                                <div class="form-group">
+                                    <label  class="col-form-label" style="margin-bottom: 10px;">{l_partyhou_category}</label>
+                                    <select id="partyhou_category_id" name="partyhou_category_id" class="selectpicker show-tick" data-live-search="true">
+                                        {category_options}
+                                    </select>
+                                </div>
+                                <!-- end_category_partyhou_select -->
+
+                                <!-- begin_partyhou_lock_select -->
+                                <div class="form-group">
+                                    <label  class="col-form-label" style="margin-bottom: 10px;">{l_partyhoz_locked}</label>
+                                    <select id="partyhouz_locked" name="partyhouz_locked" class="selectpicker show-tick" data-live-search="true">
+                                        {partyhouz_lock_options}
+                                    </select>
+                                </div>
+                                <!-- end_partyhou_lock_select -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="search-date-distance">
+                                <div class="calendar-search-date">
+                                    <label class="col-form-label">{l_date}</label>
+
+                                    <div class="calendar-date">
+                                        <select id="calendar_month" name="calendar_month" class="calendar selectpicker show-tick " data-live-search="true">
+                                            {month_options}
+                                        </select>
+
+                                        <select id="calendar_year" name="calendar_year" class="calendar selectpicker show-tick" data-live-search="true">
+                                            {year_options}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="calendar-search-distance">
+                                    <label  class="col-form-label">{l_distance}</label>
+                                    <select id="distance" name="distance" class="calendar selectpicker show-tick " data-live-search="true">
+                                        {distance_options}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="event-calendar-search-submit" class="btn btn-primary" data-dismiss="modal">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>                    
+<!-- end_calendar_search -->

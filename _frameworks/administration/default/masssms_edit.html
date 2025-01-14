@@ -1,0 +1,98 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/masssms.php">{l_menu_mass_send}</a></li>
+        <li class="active"><a href="{url_main}administration/masssms_edit.php">{l_menu_mass_add}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>Edit mass SMS</h2>
+
+    <div class="bl_form">
+        <p>{message_masssms}</p>
+
+        <!-- begin_smss -->
+
+        <!-- begin_smss_pages -->
+        <div align="center" style="height:50px">
+            {num_total} {l_count_smss}
+            <!-- begin_smss_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> |
+            <!-- end_smss_prev_page -->
+            <!-- begin_smss_prev_page_off --><b>{l_prev}</b> | <!-- end_smss_prev_page_off -->
+            <!-- begin_smss_first_page --><a
+                href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_smss_first_page -->
+            <!-- begin_smss_prev_pages --><a
+                href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_smss_prev_pages -->
+            <!-- begin_smss_page -->
+            <!-- begin_smss_link_page --><a
+                href="{url_page}?offset={offset}{params}">{page}</a><!-- end_smss_link_page -->
+            <!-- begin_smss_this_page --><b>{page}</b><!-- end_smss_this_page -->
+            <!-- end_smss_page -->
+            <!-- begin_smss_next_pages --><a
+                href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_smss_next_pages -->
+            <!-- begin_smss_last_page --><b>{l_of}</b> <a
+                href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_smss_last_page -->
+            <!-- begin_smss_next_page --> | <a
+                href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_smss_next_page -->
+            <!-- begin_smss_next_page_off --> | <b>{l_next}</b><!-- end_smss_next_page_off -->
+        </div>
+        <!-- end_smss_pages -->
+
+        <div class="btn fl_right"><a href="{url_page}?cmd=syncphone">{l_synchronize_phone}</a></div>
+
+        <!-- begin_smss_items -->
+        <table class="tb">
+            <tr>
+                <th class="decor_l">&nbsp;</th>
+                <th class="right">{l_action}</th>
+                <th>
+                    <!-- begin_params_none_id --><a
+                        href="{url_page}?{params_current}">{l_id}</a><!-- end_params_none_id -->
+                    <!-- begin_params_asc_id --><b>&darr;</b><a
+                        href="{url_page}?{params_current}">{l_id}</a><!-- end_params_asc_id -->
+                    <!-- begin_params_desc_id --><b>&uarr;</b><a
+                        href="{url_page}?{params_current}">{l_id}</a><!-- end_params_desc_id -->
+
+                </th>
+                <th>
+                    <!-- begin_params_none_sms --><a
+                        href="{url_page}?{params_current}">{l_phone}</a><!-- end_params_none_sms -->
+                    <!-- begin_params_asc_sms --><b>&darr;</b><a
+                        href="{url_page}?{params_current}">{l_phone}</a><!-- end_params_asc_sms -->
+                    <!-- begin_params_desc_sms --><b>&uarr;</b><a
+                        href="{url_page}?{params_current}">{l_phone}</a><!-- end_params_desc_sms -->
+                </th>
+                <th class="last">{l_user}</th>
+                <th class="decor_r">&nbsp;</th>
+            </tr>
+            <!-- begin_smss_item -->
+            <tr class="{class}">
+                <td class="decor{decl}">&nbsp;</td>
+                <td class="right">
+                    <a href="{url_page}?offset={offset}{params}&cmd=delete_id&id={id}"
+                        onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+                </td>
+                <td>{id}</td>
+                <td>{nsc_phone}</td>
+                <td class="last">
+                    <!-- begin_user -->
+                    <a href="{url_main}administration/users_edit.php?id={user_id}">{user_name}</a>
+                    <!-- end_user -->
+                    <!-- begin_nouser -->{l_nouser}<!-- end_nouser -->
+                </td>
+                <td class="decor{decr}">&nbsp;</td>
+            </tr>
+            <!-- end_smss_item -->
+        </table>
+        <!-- end_smss_items -->
+
+        <!-- begin_smss_noitems -->
+        <div align="center" style="height:50px">{l_no_smss}</div>
+        <!-- end_smss_noitems -->
+
+        <!-- end_smss -->
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

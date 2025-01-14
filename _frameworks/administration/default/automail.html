@@ -1,0 +1,133 @@
+{header}
+
+<script type="text/javascript" src="{url_tmpl_administration}js/language_translator.js{cache_version_param}"></script>
+
+<script type="text/javascript" src="{url_tmpl_administration}js/tinymce/tinymce.min.js{cache_version_param}"></script>
+<script type="text/javascript">
+tinymce.init({
+        selector: "#mail_content",
+        language : '{lang_vw}',
+        width : '98%',
+
+        fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
+        plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste textcolor colorpicker textpattern"
+        ],
+
+        toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+        menubar: false,
+        toolbar_items_size: 'small',
+
+        style_formats: [
+                {title: 'Line spacing 10', inline: 'span', styles: {lineHeight:'10px'}},
+                {title: 'Line spacing 12', inline: 'span', styles: {lineHeight:'12px'}},
+                {title: 'Line spacing 14', inline: 'span', styles: {lineHeight:'14px'}},
+                {title: 'Line spacing 16', inline: 'span', styles: {lineHeight:'16px'}},
+                {title: 'Line spacing 18', inline: 'span', styles: {lineHeight:'18px'}},
+                {title: 'Line spacing 20', inline: 'span', styles: {lineHeight:'20px'}},
+                {title: 'Line spacing 22', inline: 'span', styles: {lineHeight:'22px'}},
+                {title: 'Line spacing 24', inline: 'span', styles: {lineHeight:'24px'}},
+                {title: 'Line spacing 26', inline: 'span', styles: {lineHeight:'26px'}},
+                {title: 'Line spacing 28', inline: 'span', styles: {lineHeight:'28px'}},
+                {title: 'Line spacing 30', inline: 'span', styles: {lineHeight:'30px'}},
+                {title: 'Line spacing 32', inline: 'span', styles: {lineHeight:'32px'}},
+                {title: 'Line spacing 34', inline: 'span', styles: {lineHeight:'34px'}},
+                {title: 'Line spacing 36', inline: 'span', styles: {lineHeight:'36px'}},
+                {title: 'Line spacing 38', inline: 'span', styles: {lineHeight:'38px'}},
+                {title: 'Line spacing 40', inline: 'span', styles: {lineHeight:'40px'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Example 3', inline: 'span', classes: 'example3'},
+                {title: 'Example 4', inline: 'span', classes: 'example4'},
+                {title: 'Example 5', inline: 'span', classes: 'example5'}
+        ],
+
+        templates: [
+                {title: 'Test template 1', content: 'Test 1'},
+                {title: 'Test template 2', content: 'Test 2'}
+        ],
+        convert_urls: false
+});
+
+</script>
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+
+	<!-- begin_language -->
+		<!-- begin_language_link -->
+		<li><a href="{url_page}?note={note_current}&lang={language_value}">{language_title}</a></li>
+		<!-- end_language_link -->
+
+		<!-- begin_language_active -->
+		<li class="active"><a href="{url_page}?note={note_current}&lang={language_value}">{language_title}</a></li>
+		<!-- end_language_active -->
+	<!-- end_language -->
+    <li><a href="{url_main}administration/automail_settings.php?lang={lang}">{l_settings}</a></li>
+
+    </ul>
+</div>
+
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <!-- begin_mail -->
+    <!-- begin_mail_on -->
+    {note_title}&nbsp;&nbsp;
+    <!-- end_mail_on -->
+    <!-- begin_mail_off -->
+    <a href="{url_page}?note={note}&lang={lang}">{note_title}</a>&nbsp;&nbsp;
+    <!-- end_mail_off -->
+    <!-- end_mail -->
+
+    <div class="bl_form">
+		<p>{message_auto}</p>
+
+        <!-- begin_autotranslator_header -->
+        <div>
+            {l_translate_from_capital} <select name="translate_from" id="translate_from">{translate_from}</select> {l_translate_to} <select name="translate_to" id="translate_to">{translate_to}</select>
+
+            <a title="{l_google_translate_is_used}" class="translate_all_button" href="#" onclick="adminLanguageTranslator.translateAll();">
+                <span class="status">{l_translate}</span>
+                <img class="translate_all_button_preloader" id="translate_all_button_preloader" style="display: none;" src="{url_tmpl_administration}images/loader.gif">
+            </a>
+            <div style="padding-top:7px; padding-bottom: 20px;"></div>
+        </div>
+        <!-- end_autotranslator_header -->
+
+		<form action="{url_page}?note={note_current}&lang={lang}" method="POST">
+		<input type="hidden" name="cmd" value="edit">
+        <input type="hidden" name="url" value="{url}">
+        <!-- begin_mail_msg_enabled -->
+        <div class="bl_enabled">
+            <label for="enabled">{l_enabled}:</label>
+            <input id="enabled" style="width:16px;" type="checkbox" name="enabled" {checked}>
+        </div>
+        <!-- end_mail_msg_enabled -->
+        <label>{l_subject}:</label>
+        <input id="subject" type="text" name="subject" value="{subject}" class="translateable">
+        <label>{l_header}:</label>
+        <input id="header_m" type="text" name="header_m" value="{header_m}" class="translateable">
+        <label>{l_button}:</label>
+        <input id="button" type="text" name="button" value="{button}" class="translateable">
+        <label>{l_text}:</label>
+        <textarea name="text" id="mail_content" class="config_textarea translateable">{text}</textarea>
+        <!-- begin_delete -->
+        <div class="btn fl_right"><a onclick="if(confirm('{l_are_you_sure}')) return true; else return false;" href="{url_page}?note={note_current}&lang={lang}&cmd=delete">{l_delete}</a>
+		</div>
+        <!-- end_delete -->
+        <div class="btn fl_left"><a href="#" class="submit">{l_save}</a>
+		<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <!-- begin_mail_nomsg -->
+    <!-- end_mail_nomsg -->
+    <div class="empty"></div>
+</div>
+{footer}

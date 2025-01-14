@@ -1,0 +1,339 @@
+{header}
+<div id="oryx_content">
+	{ims}
+	<style>
+		table td:nth-child(3) {
+			width: 20px;
+		  }
+	</style>
+	<div class="frame_content">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="70%">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+	<td>
+		{friends_menu}
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<h2 class="txt_lower_header_color">
+	<!-- begin_all_friends -->
+	<img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {l_my_friends} ({num_users})
+	<!-- end_all_friends -->
+	<!-- begin_recently_friends -->
+	<img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {l_recently_friends} ({num_users})
+	<!-- end_recently_friends -->
+	<!-- begin_requests_friends -->
+	<img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {l_requests_friends}
+	<!-- end_requests_friends -->
+	<!-- begin_birthdays_friends -->
+	<img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {l_up_bd} ({num_users})
+	<!-- end_birthdays_friends -->
+	<!-- begin_private_users -->
+	<img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {l_private_users} ({num_users})
+	<!-- end_private_users -->
+	<!-- begin_personal_users -->
+	<img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {l_personal_users} ({num_users})
+	<!-- end_personal_users -->
+	<!-- begin_folder_users -->
+	<img src="{url_tmpl_main}img/partners.png" class="png_behavior" align="absmiddle" alt="" width="30" height="30"> {folder_name} ({num_users})
+	<!-- end_folder_users -->
+	</h2>
+	
+	<!-- <a href='{url_main}invite.php'>{l_invite}</a><br><br>
+	 -->
+	 <!-- begin_top_pages -->
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+			<td align="left" width="200"><strong>{this_count} - {next_count} {l_of} {all_count}</strong></td>
+			<td align="center"><strong>
+	<!-- begin_top_left_2 -->
+				<a href='{url_main}my_friends.php?show={show}&start={toleft}'><< </a>
+	<!-- end_top_left_2 -->
+	<!-- begin_top_pages_1 -->
+	<!-- begin_top_page -->
+				<a href='{url_main}my_friends.php?show={show}&start={i}'>{l}</a>
+	<!-- end_top_page -->
+	<!-- begin_top_page_1 -->
+				{l}
+	<!-- end_top_page_1 -->
+	<!-- end_top_pages_1 -->
+	<!-- begin_top_right_2 -->
+				<a href='{url_main}my_friends.php?show={show}&start={toright}'> >></a>
+				</strong>
+	<!-- end_top_right_2 -->
+			</td><td align=right width=200>
+	<!-- begin_top_prev -->
+				< <a href='{url_main}my_friends.php?show={show}&start={back}'>{l_prev}</a>
+	<!-- end_top_prev -->
+	<!-- begin_top_separator -->
+				 |
+	<!-- end_top_separator -->
+	<!-- begin_top_next -->
+				<a href='{url_main}my_friends.php?show={show}&start={next}'>{l_next}</a> >
+	<!-- end_top_next -->
+			</td></tr></table>
+	<!-- end_top_pages -->
+	
+	<br>
+	<!-- begin_block_users -->
+	<table width=100% border=0 cellpadding=0 cellspacing=6 class="tbl_friend">
+	<tr>
+	<td  class="violet">{l_name}</td>
+	<td  class="violet">{l_details}</td>
+	</tr>
+	<!-- begin_item_block_users -->
+	<tr>
+		<td class="grey" style="padding:10px; width:120px;">
+			<table width="100%"  cellspacing="0" cellpadding="0">
+			<tr class="users_ul" >
+				<td  >
+					<div class="users_li" style="position: relative; width: 62px; margin: auto;" >
+								        <i title="{a_send_message}" onclick="sendMessages('{user_id}');" class="fa fa-commenting open_im_user" aria-hidden="true"></i>
+
+				<a href="{url_main}search_results.php?name={user_name}&display=profile"><img src={url_files}{user_photo} class="violet" width=62px height=70px onmousemove="show_face_jq('usr0{members_num_1}', event)"
+				onmouseout="hide_face_jq('usr0{members_num_1}')"></a>
+					</div>
+
+			</td>
+
+			</tr>
+			<tr>
+			<td valign=top>
+				<a style="display:inline-block; width: 62px;" href="{url_main}search_results.php?name={user_name}&display=profile">{user_name}</a>
+			</td></tr>
+			</table>
+		</td>
+		<td class="blue">
+			<div class="fl_left" style="width:300px; text-align:left;">
+			<!-- begin_item_block_users_message -->{l_message}: <strong title="{message_full}">{message}</strong><br><!-- end_item_block_users_message -->
+			{age}{birth}<!-- begin_city_on -->, {city}<!-- end_city_on --><!-- begin_state_on -->, {state}<!--end_state_on --><!-- begin_country_on -->, {country}<!-- end_country_on -->
+			</div>
+			<div class="fl_right" style="width:210px; text-align:right; padding-right:20px;">
+			<!-- begin_item_block_users_requests -->  <a href="{url_main}friends_requests.php?action=approve&user_id={user_id}">{l_approve_request}</a> | <a href="{url_main}friends_requests.php?action=decline&user_id={user_id}">{l_decline_request}</a><!-- end_item_block_users_requests -->
+			<!-- begin_item_block_users_all -->  <a href="{url_main}friends_requests.php?action=remove&user_id={user_id}" onclick="return confirm('{l_are_you_sure}');">{l_remove_from_friends}</a><!-- end_item_block_users_all -->
+			<!-- begin_item_block_users_private -->  <a href="{url_main}private_requests.php?action=remove_private&user_id={user_id}" onclick="return confirm('{l_are_you_sure}');">{l_remove_from_private_users}</a><!-- end_item_block_users_private -->
+			<!-- Divyesh - 17042024 -->
+			<!-- begin_item_block_users_personal -->  <a href="{url_main}my_friends.php?action=remove_personal&user_id={user_id}" onclick="return confirm('{l_are_you_sure}');">{l_remove_from_personal_users}</a><!-- end_item_block_users_personal -->
+			<!-- begin_item_block_users_folder -->  <a href="{url_main}my_friends.php?action=remove_folder&user_id={user_id}&folder_id={folder_id}" onclick="return confirm('{l_are_you_sure}');">{l_remove_from} <b>{folder_name}</b></a><!-- end_item_block_users_folder -->
+			<!-- Divyesh - 17042024 -->
+		</div>
+	
+		</td>
+	</tr>
+	<!-- begin_sep_block_users -->
+	<!-- end_sep_block_users -->
+	<!-- end_item_block_users -->
+	</table>
+	<!-- end_block_users -->
+	
+	<br>
+	
+	<!-- begin_down_pages -->
+			<table width=100% border=0 cellpadding=0 cellspacing=0 ><tr>
+			<td align=left width=200><strong>{this_count} - {next_count} {l_of} {all_count}</strong></td>
+			<td align=center><strong>
+	<!-- begin_down_left_2 -->
+				<a href='{url_main}my_friends.php?show={show}&start={toleft}'><< </a>
+	<!-- end_down_left_2 -->
+	<!-- begin_down_pages_1 -->
+	<!-- begin_down_page -->
+				<a href='{url_main}my_friends.php?show={show}&start={i}'>{l}</a>
+	<!-- end_down_page -->
+	<!-- begin_down_page_1 -->
+				{l}
+	<!-- end_down_page_1 -->
+	<!-- end_down_pages_1 -->
+	<!-- begin_down_right_2 -->
+				<a href='{url_main}my_friends.php?show={show}&start={toright}'> >></a></strong>
+	<!-- end_down_right_2 -->
+			</td><td align=right width=200>
+	<!-- begin_down_prev -->
+				< <a href='{url_main}my_friends.php?show={show}&start={back}'>{l_prev}</a>
+	<!-- end_down_prev -->
+	<!-- begin_down_separator -->
+				 |
+	<!-- end_down_separator -->
+	<!-- begin_down_next -->
+				<a href='{url_main}my_friends.php?show={show}&start={next}'>{l_next}</a> >
+	<!-- end_down_next -->
+			</td></tr></table>
+	<!-- end_down_pages -->
+	
+	<!-- begin_error_all_users -->
+	{l_no_all}
+	<!-- end_error_all_users -->
+	<!-- begin_error_recently_users -->
+	{l_no_recently}
+	<!-- end_error_recently_users -->
+	<!-- begin_error_birthdays_users -->
+	{l_no_bd}
+	<!-- end_error_birthdays_users -->
+	
+	</td>
+	</tr>
+	</table>
+	</td>
+	<td style="vertical-align:top;">
+		<!-- begin_banner_right_column -->	
+		<div style="float:right">
+			{banner_right_column}
+		</div>
+		<!-- end_banner_right_column -->
+	</td></tr></table>
+	<br><br>
+	</div>
+	
+	
+	<!-- begin_users_new_item2 -->
+	<span class="flip-box popup-info" id="usr0{members_num_1}">
+		<div class="flip-box-inner">
+	
+        <!-- begin_fields_about -->
+        <div class="flip-box-front">
+            <div class="pri_med_bold profcontent txt_lower_header_color" style="color: #ffffff;">{l_about} {name_short}{members_orientation}</div>
+            <div class="about-row" style="height: 60%;">
+                <div class="flip-text-table" >
+                    <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed; width: 100%;">
+                        <!-- begin_fields_about_row -->
+                        <tr>
+                            <td valign="top" class="body_text" style="padding-right: 4px; width: 70px;">{field}:</td>
+                            <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                            <td style="width: 20px;">
+
+                            <!-- begin_icon_item -->
+                                    <div class="personal-icon" style="{personal_icon_style}"></div>
+                            <!-- end_icon_item -->
+                        </td>
+
+                        </tr>
+                        <!-- end_fields_about_row -->
+
+                    </table>
+
+
+                </div>
+                <div style="width: 40%; height: 100%;  float: left;">
+                    <img  src="{url_files}{members_photo}" class="flip-img" 
+                        style="visibility: inherit !important; " />
+                    <div style=" float: left; margin-left: 20px;">
+                        <div class="flip-looking-for">
+                            <!-- begin_flip_looking_for_item -->
+                            <div class="looking-for-item">
+                                <div class="field">{looking_for_field}</div>
+                                <div class="flip-progress">
+                                    <div class="flip-bar" style="{flip_bar_style}"></div>
+                                </div>
+                            </div>
+                            <!-- end_flip_looking_for_item -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+                <!-- begin_what_looking_sliders -->
+                <div class="scale-sliders">
+                    <!-- begin_scale_slider -->
+                    <div class="scale-slider">
+                        <div class="scale-field-name">
+                            {scale_field_name}
+                        </div>
+                        <div class="scale">
+                            <div class="scale-back">
+                                <!-- begin_scale_back_item -->
+                                <div class="scale-back-item" style="{back_item_style}">
+
+                                </div>
+                                <!-- end_scale_back_item -->
+
+                            </div>
+                            <div class="scale-bar-back" style="{scale_bar_back_style}">
+                                <p class="scale-level-name" style="margin-top: -4px;">
+                                    {scale_level_name}
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- end_scale_slider -->
+                </div>
+                <!-- end_what_looking_sliders -->
+                
+                <div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+                    {l_flip_other_bottom_note}
+                </div>
+            </div>
+        </div>
+        <!-- end_fields_about -->
+
+        <!-- begin_fields_other -->
+        <div class="flip-box-back" >
+
+            <div class="pri_med_bold profcontent txt_lower_header_color" style="color: white;">{l_other_information}  {name_short}  {members_orientation}</div>
+            <div class="profcontent light flip-text-table-back">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <!-- begin_fields_other_row -->
+                    <tr>
+                        <td valign="top" class="body_text" style="padding-right: 4px;">{field}:</td>
+                        <td align="left" valign="top" class="body_text"><b>{value}</b></td>
+                    </tr>
+                    <!-- end_fields_other_row -->
+
+                </table>
+            </div>
+                <!--popcorn modified at 8/5/2023-->
+        <div class="pro_link"
+        style="display: inline-flex; width: 100%; flex-wrap: wrap; justify-content: space-evenly; color: white;">
+        <!-- begin_event -->
+        <div class="first" id="event_list_event_{event_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}events_event_show.php?event_id={event_id}"><img
+                        src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+            </div>
+            <div id="{event_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}events_event_show.php?event_id={event_id}" style="color: white; font-size:10px;">{event_title}</a>
+            </div>
+        </div>
+        <!-- end_event -->
+        <!-- begin_hotdate -->
+        <div class="first" id="hotdate_list_hotdate_{hotdate_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}"><img
+                    src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+                </div>
+            <div id="{hotdate_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}hotdates_hotdate_show.php?hotdate_id={hotdate_id}" style="color: white;  font-size:10px;">{hotdate_title}</a>
+            </div>
+        </div>
+        <!-- end_hotdate -->
+        <!-- begin_partyhou -->
+        <div class="first" id="partyhou_list_partyhou_{partyhou_id}" style="vertical-align:top;">
+            <div class="link_event_hotdates">
+                <a class="foto" href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}"><img
+                    src="{image_thumbnail}" width="40" height="40" alt="" /></a>
+                </div>
+            <div id="{partyhou_id}" style="max-width:50px; padding:2px;">
+                <a class="txt_upper_header_color text_length_limit"
+                    href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}" style="color: white;  font-size:10px;">{partyhou_title}</a>
+            </div>
+        </div>
+        <!-- end_partyhou -->
+    </div>
+            <div style="position: absolute; bottom: 0px; text-align: center; left: 0; right: 0;">
+                {l_flip_other_bottom_note}
+            </div>
+            <br /><br />
+        </div>
+
+        <!-- end_fields_other -->
+	
+		</div>
+	</span>
+	<!-- end_users_new_item2 -->
+	
+</div>
+
+
+{footer}

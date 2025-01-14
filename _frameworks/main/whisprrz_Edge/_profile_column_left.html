@@ -1,0 +1,178 @@
+<!-- begin_column_remove -->
+<div class="column left">
+    <!-- begin_left_column -->
+    <!-- begin_left_column_item -->
+    <!-- begin_left_column_photos -->
+    <div id="left_column_photos" class="bl <!-- begin_left_column_photos_hide -->to_hide<!-- end_left_column_photos_hide -->">
+        <div class="title">
+            <a id="left_column_photos_count" href="{url_main}{left_column_photos_url}">{left_column_photos_title}</a>
+        </div>
+        <div class="wrap_width">
+            <ul class="list_photo">
+                <!-- begin_left_column_photos_item -->
+                <li class="column_photos_item_{left_column_photos_item_id}">
+                    <a class="column_photo_{left_column_photos_item_id} to_hide photo_description_{left_column_photos_item_id}" href="#null" title="{left_column_photos_item_desc_attr}" onclick="openGallery(false, '{left_column_photos_item_id}', false, '{left_column_photos_item_user_id}'); return false;">
+                        <img class="column_photo_s_{left_column_photos_item_id}" src="{left_column_photos_item_url}" alt=""/>
+                    </a>
+                    <script>
+                        onLoadImgFromList($('.column_photo_{left_column_photos_item_id}.to_hide'), '{left_column_photos_item_url}');
+                        clProfilePhoto.setVisibleMediaData('{left_column_photos_item_id}', {left_column_photos_item_info});
+                    </script>
+                </li>
+                <!-- end_left_column_photos_item -->
+            </ul>
+        </div>
+    </div>
+    <!-- end_left_column_photos -->
+
+    <!-- begin_left_column_videos -->
+    <div id="left_column_videos" class="bl <!-- begin_left_column_videos_hide -->to_hide<!-- end_left_column_videos_hide -->">
+        <div class="title">
+            <a id="left_column_videos_count" href="{url_main}{left_column_videos_url}">{left_column_videos_title}</a>
+        </div>
+        <div class="wrap_width">
+            <ul class="list_photo videos">
+                <!-- begin_left_column_videos_item -->
+                <li class="column_videos_item_{left_column_videos_item_id}">
+                    <a data-cl-children="no" class="column_video_{left_column_videos_item_id} to_hide photo_description_v_{left_column_videos_item_id}" href="#null" title="{left_column_videos_item_desc_attr}" onclick="openGallery(event, 'v_{left_column_videos_item_id}', true, '{left_column_videos_item_user_id}'); return false;">
+                        <img src="{left_column_videos_item_url}" alt=""/>
+                    </a>
+                    <script>
+                        onLoadImgFromList($('.column_video_{left_column_videos_item_id}.to_hide'), '{left_column_videos_item_url}');
+                        clProfilePhoto.setVisibleMediaData('v_{left_column_videos_item_id}', {left_column_videos_item_info});
+                    </script>
+                </li>
+                <!-- end_left_column_videos_item -->
+            </ul>
+        </div>
+    </div>
+    <!-- end_left_column_videos -->
+
+
+    <!-- begin_left_column_songs -->
+    <div id="left_column_songs" class="bl <!-- begin_left_column_songs_hide -->to_hide<!-- end_left_column_songs_hide -->">
+        <div class="title">
+            <a id="left_column_songs_count" href="{url_main}{left_column_songs_url}">{left_column_songs_title}</a>
+        </div>
+        <div class="wrap_width">
+            <ul class="list_photo songs">
+                <!-- begin_left_column_songs_item -->
+                <li class="column_songs_item_{left_column_songs_item_id}">
+                    <a class="column_songs_{left_column_songs_item_id} to_hide song_description_{left_column_songs_item_id}" href="#null" title="{left_column_songs_item_desc}" onclick="playSong('{left_column_songs_item_id}', this, event); return false;">
+                        <img src="{left_column_songs_item_url}" alt=""/>
+                    </a>
+                    <script>
+                        onLoadImgFromList($('.column_songs_{left_column_songs_item_id}.to_hide'), '{left_column_songs_item_url}');
+                        setPlayListSong('{left_column_songs_item_id}', '{left_column_songs_item_mp3}', '{left_column_songs_item_mp3_title}');
+                    </script>
+                </li>
+                <!-- end_left_column_songs_item -->
+            </ul>
+        </div>
+    </div>
+    <!-- end_left_column_songs -->
+
+    <!-- begin_left_column_groups -->
+    <div id="left_column_groups" class="bl <!-- begin_left_column_groups_hide -->to_hide<!-- end_left_column_groups_hide -->">
+        <div class="title">
+            <a id="left_column_groups_count" href="{url_main}{left_column_groups_url}">{left_column_groups_title}</a>
+        </div>
+        <div class="wrap_width">
+            <ul class="list_photo pages">
+                <!-- begin_left_column_groups_item -->
+                <li class="column_groups_item_{left_column_groups_item_id}">
+                    <a class="column_group_{left_column_groups_item_id} to_hide" href="{left_column_groups_item_url}" title="{left_column_groups_item_title_attr}">
+                        <img class="profile_photo_s_{left_column_groups_item_user_id}_{left_column_groups_item_id}" src="{left_column_groups_item_photo_url}" alt=""/>
+                    </a>
+                    <script>
+                        onLoadImgFromList($('.column_group_{left_column_groups_item_id}.to_hide'), '{left_column_groups_item_photo_url}');
+                    </script>
+                </li>
+                <!-- end_left_column_groups_item -->
+            </ul>
+        </div>
+    </div>
+    <!-- end_left_column_groups -->
+
+    <!-- begin_left_column_pages -->
+    <div id="left_column_pages" class="bl <!-- begin_left_column_pages_hide -->to_hide<!-- end_left_column_pages_hide -->">
+        <div class="title">
+            <a id="left_column_pages_count" href="{url_main}{left_column_pages_url}">{left_column_pages_title}</a>
+        </div>
+        <div class="wrap_width">
+            <ul class="list_photo pages">
+                <!-- begin_left_column_pages_item -->
+                <li class="column_pages_item_{left_column_pages_item_id}">
+                    <a class="column_page_{left_column_pages_item_id} to_hide" href="{left_column_pages_item_url}" title="{left_column_pages_item_title}">
+                        <img class="profile_photo_s_{left_column_pages_item_user_id}_{left_column_pages_item_id}" src="{left_column_pages_item_photo_url}" alt=""/>
+                    </a>
+                    <script>
+                        onLoadImgFromList($('.column_page_{left_column_pages_item_id}.to_hide'), '{left_column_pages_item_photo_url}');
+                    </script>
+                </li>
+                <!-- end_left_column_pages_item -->
+            </ul>
+        </div>
+    </div>
+    <!-- end_left_column_pages -->
+
+
+    <!-- begin_left_column_blogs -->
+    <div id="left_column_blogs" class="bl <!-- begin_left_column_blogs_hide -->to_hide<!-- end_left_column_blogs_hide -->">
+        <div class="title">
+            <a id="left_column_blogs_count" href="{url_main}{left_column_blogs_url}">{left_column_blogs_title}</a>
+        </div>
+        <div class="wrap_width">
+            <ul class="list_photo column_blogs_list">
+                <!-- begin_left_column_blogs_item -->
+                <li class="column_blog_item_{left_column_blogs_item_id}">
+                    <a class="column_page_{left_column_blogs_item_id} to_hide" href="{left_column_blogs_item_url}">
+                        <img class="blog_photo_t_{left_column_blogs_item_user_id}_{left_column_blogs_item_id}" src="{left_column_blogs_item_photo_url}" alt=""/>
+                    </a>
+                    <a href="{left_column_blogs_item_url}" title="{left_column_blogs_item_title}"  class="column_blogs_list_title">
+                        <span>{left_column_blogs_item_title}</span>
+                    </a>
+                    <script>
+                        onLoadImgFromList($('.column_page_{left_column_blogs_item_id}.to_hide'), '{left_column_blogs_item_photo_url}');
+                    </script>
+                </li>
+                <!-- end_left_column_blogs_item -->
+            </ul>
+        </div>
+    </div>
+    <!-- end_left_column_blogs -->
+
+
+    <!-- begin_left_menu -->
+    <!-- begin_left_column_menu -->
+    <div class="bl">
+        <ul class="custom_menu">
+            <!-- begin_left_column_menu_item -->
+            <li><a href="{url_main}{left_column_menu_item_url}">{left_column_menu_item_title}</a></li>
+            <!-- end_left_column_menu_item -->
+        </ul>
+    </div>
+    <!-- end_left_column_menu -->
+    <!-- end_left_menu -->
+
+    <!-- begin_left_banner -->
+    <!-- begin_banner_left_column_list -->
+    <div class="bl bl_banner_l">
+        <!-- begin_banner_left_column -->
+        <div class="bl_ads <!-- begin_banner_left_column_list_hide --><!-- end_banner_left_column_list_hide -->">{banner_left_column}</div>
+        <!-- end_banner_left_column -->
+        <div class="link">
+            <!-- begin_banner_left_column_list_action -->
+            <a class="link_show_banner <!-- begin_banner_left_column_show -->action_show<!-- end_banner_left_column_show -->" href="" onclick="clProfile.visibleBanners($(this)); return false;">
+                <span data-cl-loader="banner_loader" class="icon_fa"></span>
+                <span class="title_bn">{banner_left_column_title}</span>
+            </a>
+            <!-- end_banner_left_column_list_action -->
+        </div>
+    </div>
+    <!-- end_banner_left_column_list -->
+    <!-- end_left_banner -->
+    <!-- end_left_column_item -->
+    <!-- end_left_column -->
+</div>
+<!-- end_column_remove -->

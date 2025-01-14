@@ -1,0 +1,122 @@
+[25-Dec-2023 18:15:51 UTC] PHP Parse error:  syntax error, unexpected '",' (T_CONSTANT_ENCAPSED_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user.class.php on line 419
+[25-Dec-2023 18:18:16 UTC] PHP Parse error:  syntax error, unexpected '", ' (T_CONSTANT_ENCAPSED_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user.class.php on line 419
+[25-Dec-2023 18:18:23 UTC] PHP Parse error:  syntax error, unexpected '", ' (T_CONSTANT_ENCAPSED_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user.class.php on line 419
+[25-Dec-2023 18:18:27 UTC] PHP Parse error:  syntax error, unexpected '", ' (T_CONSTANT_ENCAPSED_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user.class.php on line 419
+[25-Dec-2023 18:18:30 UTC] PHP Parse error:  syntax error, unexpected '", ' (T_CONSTANT_ENCAPSED_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user.class.php on line 419
+[25-Dec-2023 18:18:47 UTC] PHP Fatal error:  Uncaught Error: Class 'User' not found in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_frameworks/main/Popcorn_Edge/settings.php:565
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/lib.php(3041): include()
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_start.php(72): loadTemplateSettings('main', 'Popcorn_Edge')
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/index.php(10): include('/home/eric/publ...')
+#3 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_frameworks/main/Popcorn_Edge/settings.php on line 565
+[25-Dec-2023 18:19:34 UTC] PHP Parse error:  syntax error, unexpected '", ' (T_CONSTANT_ENCAPSED_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user.class.php on line 419
+[25-Dec-2023 18:19:37 UTC] PHP Parse error:  syntax error, unexpected '", ' (T_CONSTANT_ENCAPSED_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user.class.php on line 419
+[26-Dec-2023 03:25:14 UTC] PHP Parse error:  syntax error, unexpected 'module' (T_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user_fields.class.php on line 1725
+[26-Dec-2023 03:25:42 UTC] PHP Parse error:  syntax error, unexpected 'module' (T_STRING) in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/user_fields.class.php on line 1725
+[26-Dec-2023 03:29:37 UTC] PHP Fatal error:  Uncaught Error: Class 'UserFields' not found in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/users_edit.php:23
+Stack trace:
+#0 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/users_edit.php on line 23
+[27-Dec-2023 04:11:14 UTC] PHP Fatal error:  Uncaught Error: Unsupported operand types in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2132
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2132
+[27-Dec-2023 04:11:17 UTC] PHP Fatal error:  Uncaught Error: Unsupported operand types in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2132
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2132
+[27-Dec-2023 04:11:34 UTC] PHP Fatal error:  Uncaught Error: Unsupported operand types in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2132
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2132
+[27-Dec-2023 04:16:25 UTC] PHP Fatal error:  Uncaught Error: Unsupported operand types in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2137
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2137
+[27-Dec-2023 04:17:29 UTC] PHP Fatal error:  Uncaught Error: Unsupported operand types in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2137
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2137
+[27-Dec-2023 04:18:13 UTC] PHP Fatal error:  Uncaught Error: Unsupported operand types in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2137
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2137
+[27-Dec-2023 04:45:55 UTC] PHP Fatal error:  Uncaught Error: Unsupported operand types in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2143
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2143
+[27-Dec-2023 05:08:43 UTC] PHP Fatal error:  Cannot use temporary expression in write context in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2152
+[27-Dec-2023 11:10:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function parseConfig() in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2162
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/city_options.php(47): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2162
+[27-Dec-2023 11:10:14 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function parseConfig() in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2162
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/city_options.php(47): include('/home/eric/publ...')
+#5 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2162
+[27-Dec-2023 12:04:49 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2182
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php(2864): parseConfig(Array, Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#5 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#6 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2182
+[27-Dec-2023 12:04:57 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php:2182
+Stack trace:
+#0 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php(2864): parseConfig(Array, Object(CHtml))
+#1 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(296): CAdminConfig->parseBlock(Object(CHtml))
+#2 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/lib/block.php(279): CHtmlBlock->parse(Object(CHtml))
+#3 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/main_close.php(19): CHtmlBlock->parse(NULL)
+#4 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/core/administration_close.php(10): include('/home/eric/publ...')
+#5 /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/administration/site_options.php(60): include('/home/eric/publ...')
+#6 {main}
+  thrown in /home/eric/public_html/htdocs/whisprrz.com/whisprrz_new/_include/current/common_admin.php on line 2182

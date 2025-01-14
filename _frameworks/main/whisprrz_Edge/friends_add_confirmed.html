@@ -1,0 +1,75 @@
+{header}
+{ims}
+
+<div class="frame_content">
+
+		{friends_menu}
+
+<div class="page_friend_add">
+
+		<div id="gallery">
+			 <div class="gallery_top ltc">
+				<div class="rtc_black">
+					<div class="buck">
+					<h2 class="noback">{l_add_friend}</h2>
+					</div>
+				</div>
+			</div>
+			<div class="favorite">
+				<div class="left">
+					<h3>{you_are_name_friend}</h3>
+
+
+							<table style="margin-top:10px;" 1width="100%">
+								<tr>
+                                <td width="142">&nbsp;</td>
+									<td align="center" width="226">
+
+
+                                   <table>
+		     						<tr>
+                                    <td>
+										<div class="button_black" style="float:right;">
+											<input type="button" value="{name_profile}" onClick="location='{url_main}search_results.php?display=profile&name={name}';" class="green" title="{l_add}" onMouseOver="window.status='{l_add}'; return true;" onMouseOut="window.status=''; return true;">
+										</div>
+									</td>
+									<td>
+										<div class="button_black" style="float:left;">
+											<input type="button" value="{l_home}" onclick="location='{url_main}home.php';" class="orange" title="{l_cancel}" onMouseOver="window.status='{l_cancel}'; return true;" onMouseOut="window.status=''; return true;">
+										</div>
+                                        </td>
+                                       </tr>
+                                      </table>
+
+
+									</td>
+                                    <td>&nbsp;</td>
+								</tr>
+							</table>
+
+						</form>
+				</div>
+				<div class="right">
+					<ul>
+						<li><a href="{url_main}my_friends.php?show=all">{l_my_friends}</a></li>
+						<li><a href="{url_main}my_friends.php?show=recently">{l_recently}</a></li>
+						<li class="green"><a href="{url_main}my_friends.php?show=birthdays">{l_bd}</a></li>
+					</ul>
+				</div>
+			<div class="cl"></div>
+			</div>
+
+			<div class="gallery_bottom lbc ">
+		        <div class="rbc">
+        		    <div class=" friend_bot">
+
+            		</div>
+		        </div>
+		    </div>
+
+		</div>
+</div>
+
+</div>
+
+{footer}

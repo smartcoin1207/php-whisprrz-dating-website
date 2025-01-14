@@ -1,0 +1,138 @@
+{header}
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+<input style="width: 100px;" type="button" value="{l_post_forum}" class="button" onclick="location='{url_main}groups_forum.php?gid={gid}&action=post_forum';" title="{l_post_forum}">
+<input style="width: 100px;" type="button" value="{l_group_profile}" class="button" onclick="location='{url_main}groups_profile.php?gid={gid}';" title="{l_group_profile}">
+<input style="width: 100px;" type="button" value="{l_all_groups}" class="button" onclick="location='{url_main}groups.php';" title="{l_all_groups}">
+<input style="width: 100px;" type="button" value="{l_my_groups}" class="button" onclick="location='{url_main}groups_my.php';" title="{l_my_groups}">
+<input style="width: 100px;" type="button" value="{l_create_group}" class="button" onclick="location='{url_main}groups_add.php?cat_id={cat_id}';" title="{l_create_group}">
+<br><br>
+
+<!-- begin_group_forum_add -->
+<form method="post">
+<input type="hidden" name="gid" value="{gid}" />
+<input type="hidden" name="action" value="add_forum" />
+<table border="0">
+<tr><td>{l_subject}</td><td><input type="text" name="subject" style="width:700px;"  /></td></tr>
+<tr><td>{l_body}</td><td><textarea name="body" style="width:703px;"></textarea></td></tr>
+<tr><td colspan="2" align="center"><br>
+<input class=button type="submit" value="{l_add}" /></td></tr>
+</table>
+</form>
+<!-- end_group_forum_add -->
+
+<!-- begin_group_forum_private -->
+<center><div class=header_small>{l_cant_post}</div><br><br>
+<input type="button" value="{l_back_to_group}" class="button" onclick="location='{url_main}groups_profile.php?gid={gid}';" title="{l_back_to_group}">
+</center>
+<!-- end_group_forum_private -->
+
+<!-- begin_group_forum -->
+<table width=100% border=0 cellpadding=0 cellspacing=6 class="gr_table">
+<tr>
+	<td class="gr_header" valign="top" width="75%">{l_forum_topic}</td>
+	<td class="gr_header" valign="top">{l_date}</td>
+	<td class="gr_header" valign="top">{l_topic_starter}</td>
+</tr>
+	<!-- begin_group_forum_item -->
+<tr>
+	<td class="gr_cell"><b><a href="groups_forum_view.php?gid={gid}&fid={fid}">{subject}</a></b>
+		<!-- begin_admin_del -->
+		<a href="groups_forum.php?gid={gid}&fid={fid}&action=del_topic"><img src="{url_tmpl_main}img/delete.gif" alt="{l_delete}" align="absmiddle"></a>
+		<!-- end_admin_del -->
+	</td>
+	<td class="gr_cell">{date}</td>
+	<td class="gr_image"><a href="search_results.php?display=profile&name={from}"><img src="{url_files}{user_photo}" /></a><br><b><a href="search_results.php?display=profile&name={from}">{from}</a></b></td>
+</tr>
+	<!-- end_group_forum_item -->
+	</table>
+	<br><hr class="line"><br />
+<!-- end_group_forum -->
+
+	    <!-- begin_group_forum_pages -->
+
+			<div class="body_text" style="padding-bottom: 16px; text-align:center;">
+
+				<!-- begin_group_forum_prev_page -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+
+				<!-- end_group_forum_prev_page -->
+
+				<!-- begin_group_forum_prev_page_off -->
+
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+
+				<!-- end_group_forum_prev_page_off -->
+
+
+
+				<!-- begin_group_forum_first_page -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+
+				<!-- end_group_forum_first_page -->
+
+
+
+				<!-- begin_group_forum_prev_pages -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+
+				<!-- end_group_forum_prev_pages -->
+
+
+
+				<!-- begin_group_forum_page -->
+
+					<!-- begin_group_forum_link_page -->
+
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+
+					<!-- end_group_forum_link_page -->
+
+					<!-- begin_group_forum_this_page -->
+
+					<b>{page}</b>
+
+					<!-- end_group_forum_this_page -->
+
+				<!-- end_group_forum_page -->
+
+
+
+				<!-- begin_group_forum_next_pages -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+
+				<!-- end_group_forum_next_pages -->
+
+
+
+				<!-- begin_group_forum_last_page -->
+
+				<b>{l_of}</b> <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+
+				<!-- end_group_forum_last_page -->
+
+
+
+				<!-- begin_group_forum_next_page -->
+
+				&nbsp; | &nbsp;<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+
+				<!-- end_group_forum_next_page -->
+
+				<!-- begin_group_forum_next_page_off -->
+
+				&nbsp; | &nbsp;<b>{l_next}</b>
+
+				<!-- end_group_forum_next_page_off -->
+
+			</div>
+
+
+
+            <!-- end_group_forum_pages -->
+
+</div></div></div></div></div></div></div></div></div>
+{footer}

@@ -1,0 +1,176 @@
+{header}
+
+
+<script Language="JavaScript" type="text/javascript">
+function on_form_submit()
+{
+    var fld_email = $('#invite_emails').val();
+    if (($("[id^='friend_']:checked").length == 0) && (fld_email == '')) {
+        alert('{l_select_friend_email}');
+        return false;
+    }
+
+    if ((fld_email != '') && (fld_email != undefined)) {
+        var emails = fld_email.split(',');
+        for (var i = 0; i < emails.length; i++) {
+            if (!checkEmail($.trim(emails[i])) && $.trim(emails[i]) != '') {
+                $('#invite_emails').focus();
+                alert('{l_incorrect_email}');
+                return false;
+            }
+        }
+    }
+
+    var subject = $("#invite_subject");
+    var message = $("#invite_message");
+    if($.trim(subject.val()) == ''){
+        alert('{l_please_fill_in_all_the_fields}');
+        subject.focus();
+        return false;
+    }
+    if($.trim(message.val()) == ''){
+        alert('{l_please_fill_in_all_the_fields}');
+        message.focus();
+        return false;
+    } else {
+        $('#load_animation_submit').css('visibility', 'visible');
+    }
+    return true;
+}
+</script>
+
+    <div class="groups">
+
+		{groups_header}
+
+        <table class="tb_groups">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    {groups_group_show}
+
+                    <div class="groups_shadow"></div>
+
+                    <form id="invite_form" method="POST" action="{url_main}groups_group_invite.php?cmd=save&group_id={group_id}" enctype="multipart/form-data" onsubmit="return on_form_submit()">
+
+                    <div class="groups_p pl_top_m">
+                        <h1>{l_groups_invite_friends_to} {group_title} </h1>
+
+                        <table class="groups_tb_sub">
+                            <col width="7px"/>
+                            <col width="431px"/>
+                            <tr>
+                                <th class="th_t_l nb first">&nbsp;</th>
+                                <th class="th_t_c nb">{l_groups_choose_which_friends_to_invite_and_send_your_message}</th>
+                                <th class="th_t_r nb first">&nbsp;</th>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" class="nb nobg_img">
+                                <div class="bl_groups_frm_color">
+                                    <!-- frm -->
+                                    <table class="tb_groups_frm">
+                                        <col width="100%"/>
+                                        <tr>
+                                            <td>
+
+                                                <div class="groups_frm_come_all">
+
+                                                    <!-- begin_friend -->
+                                                    <div class="fl_left">
+                                                        <div class="groups_come">
+                                                          <a href="{url_main}search_results.php?display=profile&name={user_name_full}"><img src="{user_photo}" width="62" height="70" alt=""/><br />
+                                                          <div class="groups_come_decor">{user_name}</div>
+                                                          </a>
+                                                        </div>
+                                                        <div class="inp">
+                                                            <input id="friend_{user_id}" name="friend_{user_id}" type="checkbox" checked="checked" >
+                                                        </div>
+                                                    </div>
+                                                    <!-- end_friend -->
+                                                    <!-- begin_friend_empty -->
+                                                    <div class="fl_left">
+                                                        <div class="groups_come">
+                                                          <img src="{url_tmpl_main}images/groups/foto_empty.jpg" width="62" height="70" alt=""/><br />
+                                                          <div class="groups_come_decor">---</div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end_friend_empty -->
+
+                                                <div class="justify"></div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        <!-- begin_emails -->
+                                        <tr>
+                                            <td>
+                                                <label>{l_groups_you_can_also_enter_emails_separated_by_commas} </label>
+                                               <div class="groups_input_text2"> <input id="invite_emails" name="invite_emails" class="no_abk" type="text" value='' /></div>
+                                            </td>
+                                        </tr>
+                                        <!-- end_emails -->
+                                        <tr>
+                                            <td>
+                                                <label>{l_groups_subject} </label>
+                                              <div class="groups_input_text2">  <input id="invite_subject" name="invite_subject" class="no_abk"  type="text" /></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>{l_groups_message_field}</label>
+												<div class="groups_textarea1">
+                                                <textarea id="invite_message" name="invite_message" class="no_abk"></textarea></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- /frm -->
+
+                                    <div>&nbsp;</div>
+                                    <a href="" onclick="$('#invite_form').submit(); return false;" class="btn round blue fl_right"  style="text-decoration: none;">
+                                        <img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_groups_send}&nbsp;
+                                        <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" />
+                                    </a>
+                                    <div class="groups_empty"></div>
+                                <div class="justify"></div>
+                                </div>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <th class="th_b_l nb">&nbsp;</th>
+                                <th class="th_b_c nb">&nbsp;</th>
+                                <th class="th_b_r nb">&nbsp;</th>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                    </form>
+
+                    <div class="groups_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+                <td class="td_narrow">
+
+					{groups_group_member_list}
+					{groups_group_comment_list_sidebar}
+
+				</td>
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+{footer}

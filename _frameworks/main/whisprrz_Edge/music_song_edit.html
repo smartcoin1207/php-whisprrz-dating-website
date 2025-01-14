@@ -1,0 +1,246 @@
+{header}
+<link rel="stylesheet" href="{url_tmpl_main}abkstyle/abkstyle.css{cache_version_param}" type="text/css" media="screen">
+<script language="javascript" src="{url_tmpl_main}abkstyle/abkstyle.js{cache_version_param}"></script>
+
+    <div class="music_new">
+
+		{music_header}
+
+        <table class="tb_music_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    {music_musician_show}
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/load-image.min.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/jquery.iframe-transport.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/jquery.fileupload.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/jquery.fileupload-process.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload/jquery.fileupload-validate.js{cache_version_param}"></script>
+
+<script language="javascript" type="text/javascript">
+$(function () {
+    'use strict';
+    // Change this to the location of your server-side upload handler:
+    var url = '{url_main}ajax.php?type_upload=music&file={upload_name}',
+        uploadButton = $('<button/>').css('id', 'btn_upload')
+                       .on('click', function () {
+                            var $this = $(this), data = $this.data();
+                            data.submit();
+                       });
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        autoUpload: false,
+        acceptFileTypes: /(\.|\/)(mp3)$/i,
+        maxChunkSize: {mp3_max_chunk_size},
+        maxFileSize: {mp3_file_size_limit},
+        messages: {
+                maxNumberOfFiles: '{l_maximum_number_files}',
+                acceptFileTypes: '{l_accept_file_types}',
+                maxFileSize: '{max_file_size_limit}',
+                minFileSize: '{l_min_file_size}'
+        }
+    }).on('fileuploadadd', function (e, data) {
+        $('#upload').text(data.files[0].name);
+        uploadButton.data(data);
+    }).on('fileuploadprocessalways', function (e, data) {
+        var error = data.files[0].error;
+        if (error) upload_error(error);
+    }).on('fileuploadprogress', function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $('#progress .progress-bar').css('width', progress + '%');
+    }).on('fileuploaddone', function (e, data) {
+        var error = data.result.files[0].error;
+        if (error) {
+            upload_error(error);
+        } else {
+            $('#song_edit_form').submit();
+        }
+    }).on('submit', function (e, data) {
+        $('#upload').text('').removeClass('text-overflow');
+        uploadButton.click();
+        return false;
+    });
+
+    $('#upload').click(function() {
+        $('#fileupload').click();
+    });
+});
+function upload_error(msg)
+{
+    $('#upload').text('');
+    $('#progress .progress-bar').css('width', '0px');
+    hide_load_animation();
+    alert(msg);
+}
+function form_submit()
+{
+    <!-- begin_add_js -->
+    if ($('#upload').text() != '') {
+        show_load_animation();
+        $('#fileupload').submit();
+    } else {
+    	alert('{l_please_fill_in_all_the_fields}');
+    }
+    <!-- end_add_js -->
+    <!-- begin_edit_js -->
+    if ($('#upload').text() != '') {
+        show_load_animation();
+        $('#fileupload').submit();
+    } else {
+        $('#song_edit_form').submit();
+    }
+    <!-- end_edit_js -->
+    return false;
+}
+</script>
+                    <div class="music_new_shadow"></div>
+
+                    <form id="song_edit_form" method="POST" action="{url_main}music_song_edit.php?cmd=save&musician_id={musician_id}&song_id={song_id}&upload_name={upload_name}" enctype="multipart/form-data">
+                    <div class="music_new_p pl_top_m">
+                        <!-- begin_title_edit --><h1 class="txt_lower_header_color" >{l_edit_a_track_by} "{musician_name}"</h1><!-- end_title_edit -->
+                        <!-- begin_title_create --><h1 class="txt_lower_header_color" id="music_uplodad_id">{l_upload_an_mp3_by} "{musician_name}"</h1><!-- end_title_create -->
+
+                        <div class="bl_music_new_frm" style="padding-top:0">
+                        <table class="tb_music_new_frm">
+                            <tr>
+                                <th style="padding-top:12px;">{l_file}:</th>
+                                <td style="padding-top:12px;">
+                                    <span class="fileinput-button" style="display: none;">
+                                        <input id="fileupload" accept="audio/mp3" type="file" name="files" multiple>
+                                    </span>
+                                    <div id="progress">
+                                        <div class="progress-bar"></div>
+                                        <div class="music_input_text2">
+                                            <span class="text-overflow" id="upload"></span>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </table>
+                        </div>
+                        <div class="music_new_shadow" style="height:32px;"></div>
+
+                        <div class="pl_top_m">
+                        <table class="tb_music_new_frm">
+                            <tr>
+                                <th>{l_title}:</th>
+                                <td>
+                                    <div class="music_input_text2"><input name="song_title" onblur="if(trim(this.value) == '') { this.value = '{l_untitled}'}" onFocus="if(trim(this.value) == '{l_untitled}') { this.value = ''; }" class="no_abk" type="text" value="{song_title}"/></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{l_year}:</th>
+                                <td>
+                                    <div class="music_select"><select style="width:393px;" name="song_year">
+                                        {song_year_options}
+                                    </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{l_about}:</th>
+                                <td>
+
+								<div class="music_textarea1">
+                                   <textarea class="no_abk" name="song_about" class="">{song_about}</textarea></div>
+
+								</td>
+                            </tr>
+                        </table>
+                        </div>
+
+                        <div class="line_dashed"></div>
+
+                        <!-- begin_images -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	create_gallery()
+});
+
+function create_gallery()
+{
+    initLightboxOldTemplate($('.edit_image_gallery'));
+}
+
+function edit_delete_image(image_id)
+{
+    if(confirm('{l_are_you_sure}'))
+    {
+        $('#edit_image_' + image_id).fadeOut(400, function() {
+        	$('#edit_image_' + image_id).remove();
+        	create_gallery();
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}music_song_image_delete_ajax.php',
+                    data: {
+                        image_id: image_id
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+
+
+
+                        <table class="tb_music_new_frm">
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <!-- begin_image -->
+                                    <div id="edit_image_{image_id}" class="music_new_img">
+                                        <a class="edit_image_gallery" href="{image_file}"><img src="{image_thumbnail}" width="85" height="64" alt=""/></a>
+                                        <div class="music_new_delete"><a title="{l_music_delete_image}" href="javascript:edit_delete_image({image_id})"><img class="png" src="{url_tmpl_main}images/music/ico_delete.png" width="15" height="17" alt=""/></a></div>
+                                    </div>
+                                    <!-- end_image -->
+
+                                    <div class="cl"></div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="line_dashed"></div>
+
+                        <!-- end_images -->
+
+                        <input name="upload_name" type="hidden" value="{upload_name}"/>
+
+                        <div class="fl_right">
+                            <!-- begin_submit_edit --><!-- <div class="music_input1"><input id="song_edit_button"  type="submit" value="{l_save}"/></div> -->
+                            <a href="#" onclick="form_submit(); return false;" class="btn round upper_header_color fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />{l_save} <img class="btn_arrows_right" src="{url_tmpl_main}images/blogs/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+                            <!-- end_submit_edit -->
+                            <!-- begin_submit_create -->
+                            <a href="#" onclick="form_submit(); return false;" class="btn round upper_header_color fl_right"><img class="btn_arrows_top" src="{url_tmpl_main}images/blogs/btn_arrows_top.png" width="9" height="8" alt="" />{l_music_upload_song}<img class="btn_arrows_right" src="{url_tmpl_main}images/blogs/btn_arrows_right.png" width="10" height="5" alt="" /></a>
+                            <!--<div class="music_input3"><input onclick="form_submit(); return false;" id="song_edit_button"  type="submit" value="{l_music_upload_song}"/></div>-->
+                            <!-- end_submit_create -->
+                        </div>
+                        <img  class="vishide" style="float:right; margin-right: 5px; margin-top: 1px;" id="load_animation" src="{url_tmpl_main}images/load_animation.gif" style="position:relative;top:1px; float:right; margin-right:10px;">
+
+
+                    </div>
+
+                    </form>
+
+
+
+                </td>
+                <!-- /td_main -->
+
+				{music_sidebar}
+
+            </tr>
+        </table>
+
+        <div class="foot_left"></div>
+		<div class="foot_right"></div>
+
+
+    </div>
+
+{footer}

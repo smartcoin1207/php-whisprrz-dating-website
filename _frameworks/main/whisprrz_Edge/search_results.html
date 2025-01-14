@@ -1,0 +1,28 @@
+{header}
+<script>clSearch.setPage('{url_main}{url_pages}');</script>
+<div id="oryx_content">
+{ims}
+{search}
+{complite}
+<div class="column_main frame_content">
+
+    <!-- begin_menu_search_advanced -->
+    <input type="button" value="{l_menu_search_advanced}" class="button_small hidden_button" onclick="location='{url_main}search_advanced.php';" title="{l_menu_search_advanced}">
+    <!-- end_menu_search_advanced -->
+    <!-- begin_menu_search_saved -->
+    <input type="button" value="{l_menu_search_saved}" class="button_small hidden_button" onclick="location='{url_main}search_save.php';" title="{l_menu_search_saved}">
+    <!-- end_menu_search_saved -->
+<div class="cl"></div>
+
+	{users_list}
+<!-- begin_js_show_alert_change_filter -->
+<script>
+$win.on('load', function(){
+	alertCustom('{j_no_one_to_show_please_edit_the_filters_settings}', false, ALERT_HTML_ALERT);
+})
+</script>
+<!-- end_js_show_alert_change_filter -->
+</div>
+</div>
+
+{footer}

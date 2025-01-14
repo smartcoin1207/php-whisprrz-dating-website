@@ -1,0 +1,264 @@
+<div class="col-md-7">
+    <!-- upgrade_info -->
+    <div class="upgrade_info">
+        
+        <!-- begin_feature_upgrade_lookinglass -->
+        <div class="item icon_upgrade_lookinglass">
+            <div class="bl">
+                <strong>{l_profile_lookinglass}</strong>
+                {l_feature_upgrade_lookinglass}
+            </div>
+        </div>
+        <!-- end_feature_upgrade_lookinglass -->
+
+        <!-- begin_feature_upgrade_partyhouz -->
+        <div class="item icon_upgrade_partyhouz">
+            <div class="bl">
+                <strong>{l_profile_partyhouz}</strong>
+                {l_feature_upgrade_partyhouz}
+            </div>
+        </div>
+        <!-- end_feature_upgrade_partyhouz -->
+
+        <!-- begin_feature_upgrade_hotdates -->
+        <div class="item icon_upgrade_hotdates">
+            <div class="bl">
+                <strong>{l_profile_hotdates}</strong>
+                {l_feature_upgrade_hotdates}
+            </div>
+        </div>
+        <!-- end_feature_upgrade_hotdates -->
+
+        <!-- begin_feature_upgrade_maps -->
+        <div class="item icon_upgrade_maps">
+            <div class="bl">
+                <strong>{l_profile_maps}</strong>
+                {l_feature_upgrade_maps}
+            </div>
+        </div>
+        <!-- end_feature_upgrade_maps -->
+
+        <!-- begin_feature_upgrade_profile_sms -->
+        <div class="item icon_upgrade_profile_sms">
+            <div class="bl">
+                <strong>{l_profile_sms}</strong>
+                {l_feature_upgrade_profile_sms}
+            </div>
+        </div>
+        <!-- end_feature_upgrade_profile_sms -->
+        
+        <!-- begin_feature_3d_city -->
+        <div class="item icon_upgrade_city">
+            <div class="bl">
+            <strong>{l_3dcity_a_wonderful_live_experience}</strong>
+            {l_chat_with_your_friends_and_meet_new_people_in_a_real_3d_environment}
+            </div>
+        </div>
+        <!-- end_feature_3d_city -->
+
+		<!-- begin_feature_extended_search -->
+		<div class="item icon_upgrade_search_options">
+			<div class="bl">
+				<strong>{l_extended_search_impact}</strong>
+				{l_extended_search_impact_desc}
+			</div>
+		</div>
+		<!-- end_feature_extended_search -->
+
+        <!-- begin_feature_invisible_mode -->
+        <div class="item icon_upgrade_profiles_invisibly">
+            <div class="bl">
+                <strong>{l_invisible_mode_impact}</strong>
+                {l_browse_profiles_invisibly_desc}
+            </div>
+        </div>
+        <!-- end_feature_invisible_mode -->
+
+        <!-- begin_feature_message_read_receipts -->
+        <div class="item icon_upgrade_message">
+            <div class="bl">
+                <strong>{l_message_read_receipts}</strong>
+                {l_message_read_receipts_desc}
+            </div>
+        </div>
+        <!-- end_feature_message_read_receipts -->
+
+        <!-- begin_feature_kill_the_ads -->
+        <div class="item icon_upgrade_kill_ads">
+            <div class="bl">
+                <strong>{l_kill_the_ads}</strong>
+                {l_kill_the_ads_desc}
+            </div>
+        </div>
+        <!-- end_feature_kill_the_ads -->
+
+        <!-- begin_feature_create_group_paid -->
+        <div class="item icon_upgrade_create_group">
+            <div class="bl">
+                <strong>{l_create_group_paid}</strong>
+                {l_create_group_paid_desc}
+            </div>
+        </div>
+        <!-- end_feature_create_group_paid -->
+
+        <!-- begin_feature_create_page_paid -->
+        <div class="item icon_upgrade_create_page">
+            <div class="bl">
+                <strong>{l_create_page_paid}</strong>
+                {l_create_page_paid_desc}
+            </div>
+        </div>
+        <!-- end_feature_create_page_paid -->
+
+        <!-- begin_feature_upload_image_chat_paid -->
+        <div class="item icon_upgrade_upload_image_chat">
+            <div class="bl">
+                <strong>{l_upload_image_chat_paid}</strong>
+                {l_upload_image_chat_paid_desc}
+            </div>
+        </div>
+        <!-- end_feature_upload_image_chat_paid -->
+
+        <!-- begin_feature_profile_visitors_paid -->
+        <div class="item icon_upgrade_profile_visitors">
+            <div class="bl">
+                <strong>{l_profile_visitors_paid}</strong>
+                {l_profile_visitors_paid_desc}
+            </div>
+        </div>
+        <!-- end_feature_profile_visitors_paid -->
+
+        <!-- begin_feature_audiochat -->
+        <div class="item icon_upgrade_audiochat">
+            <div class="bl">
+            <strong>{l_audiochat}</strong>
+            {l_want_to_have_long_phone}
+            </div>
+        </div>
+        <!-- end_feature_audiochat -->
+
+        <!-- begin_feature_videochat -->
+        <div class="item icon_upgrade_videochat">
+            <div class="bl">
+            <strong>{l_videochat}</strong>
+            {l_chat_with_your_friends_using_the_webcam}
+            </div>
+        </div>
+        <!-- end_feature_videochat -->
+
+        <!-- begin_feature_live_streaming -->
+        <div class="item icon_upgrade_live_streaming">
+            <div class="bl">
+            <strong>{l_live_streaming}</strong>
+            {l_live_streaming_desc}
+            </div>
+        </div>
+        <!-- end_feature_live_streaming -->
+
+    </div>
+    <!-- upgrade_info -->
+</div>
+
+<div class="col-md-5">
+    <!-- upgrade_package -->
+    <div class="upgrade_package <!-- begin_no_features -->no_features<!-- end_no_features -->">
+        <div class="items">
+            <!-- begin_payment_item_old -->
+            <label class="item <!-- begin_payment_item_old_selected -->selected<!-- end_payment_item_old_selected -->" for="rb_{item_num}">
+                <div class="bl">
+                    <div class="rb custom_radio">
+                        <input onchange="clUpgrade.selectedPaymentPlan('{item}', '{item_name_js}', '{item_total_price}');" class="niceRadio upgrade_radio_styled" id="rb_{item_num}" name="rb" <!-- begin_payment_item_old_checked -->checked<!-- end_payment_item_old_checked --> type="radio" />
+                        <label for="rb_{item_num}"><span></span></label>
+                    </div>
+                    <ul class="price">
+                        <li>{item_name}</li>
+                        <li class="old">{item_old_price}</li>
+                        <li class="new">{item_new_price}</li>
+                    </ul>
+                </div>
+            </label>
+            <!-- end_payment_item_old -->
+            <button onclick="clUpgrade.showPopupPaymentSystem(); return false;" class="btn btn-info btn_submit_upgrade">
+                <span class="btn_upgrade_title">{l_btn_upgrade}</span>
+            </button>
+        </div>
+    </div>
+    <!-- /upgrade_package -->
+</div>
+
+<div id="pp_payment" class="pp_upgraded modal fade" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="tb">
+                <div id="switch_paymant" class="switch_paymant td">
+                    <!-- begin_payment_system -->
+                    <div id="payment_{system}" class="item pp_payment_item">
+                        <div data-payment="{system}" class="frame" style="background-image: url({url_tmpl_main}images/payment_system/{system}_logo_s.png);" title="{system_name}"></div>
+                    </div>
+                    <!-- end_payment_system -->
+                    <div id="switch_paymant_arrow" class="decor"></div>
+                </div>
+                <div class="cont_pp_profile_upgraded td">
+                    <div id="profile_upgraded_system">
+                        <!-- begin_payment_system_block -->
+                        <div id="{system}" class="cont_pp_profile_upgraded_item">
+                            <img src="{url_tmpl_main}images/payment_system/{system}_logo.png" alt="{system_name}" /> <!-- width="243" height="66" -->
+                            <div class="cl"></div>
+                        </div>
+                        <!-- end_payment_system_block -->
+                        <button id="pp_payment_proceed" onclick="clUpgrade.profileUpgrade(); return false;" class="btn btn-info">
+                            <span class="btn_upgrade_title">{l_proceed}</span>
+                        </button>
+                    </div>
+                    <div id="profile_upgraded_error">
+                        <div class="wrap_upgraded_item">
+                            <span>{l_there_was_an_error}</span>
+                            <img src="{url_tmpl_main}images/profile_upgraded_error.png" width="104" height="104" alt="" />
+                            <div class="cl"></div>
+                        </div>
+                        <button onclick="clUpgrade.contactFrmShow(); return false;" class="btn btn-info">
+                            <span class="btn_upgrade_title">{l_contact_us}</span>
+                        </button>
+                    </div>
+                    <div id="profile_upgraded_sucess">
+                        <div class="wrap_upgraded_item">
+                            <span>{l_profile_upgraded}</span>
+                            <img src="{url_tmpl_main}images/profile_upgraded_sucessful.png" width="104" height="104" alt="" />
+                            <div class="cl"></div>
+                        </div>
+                        <button onclick="redirectWithLoader($(this),'{url_main}'); return false;" class="btn btn-info">
+                            <span class="btn_upgrade_title">{l_go_to_the_site}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="info_profile_upgraded td hidden-sm hidden-xs">
+                    <div class="bl">
+                        <div class="name">
+                            <strong>{l_premium_package}</strong>
+                            <span id="pp_payment_plan_name"></span>
+                        </div>
+                        <p>{l_after_the_paid_period_is_over_you_will_be_able_to_renew_the_membership}</p>
+                        <div class="price">
+                            <strong id="pp_payment_total_price"></strong>
+                        </div>
+                    </div>
+                </div>
+            <div class="cl"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script>
+<!-- begin_pay_enabled_item -->
+clUpgrade.setAvailablePaymentSystemToPlan('{plan_key}', [{pays_enabled}]);
+<!-- end_pay_enabled_item -->
+</script>
+<!-- begin_payment_error -->
+<script>
+    $(function(){alertCustom('{j_seems_there_problem_with_your_payment}', '{j_problem_with_the_payment}');})
+</script>
+<!-- end_payment_error -->

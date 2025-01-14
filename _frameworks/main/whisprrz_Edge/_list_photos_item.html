@@ -1,0 +1,258 @@
+<!-- begin_list_photos_item_small -->
+<div class="col-md-6">
+    <div class="cham-post">
+        <div class="cham-post-link" onclick="openGallery(event,'{list_photos_item_photo_id}')">
+            <div class="cham-post-image list_photos_image_{list_photos_item_photo_id} to_hide">
+                <div class="cham-category name">
+                    <a href="{url_main}{list_photos_item_0_user_url}" class="name">
+                        <span class="icon_status <!-- begin_list_photos_item_0_online -->online<!-- end_list_photos_item_0_online-->"></span>
+                        {list_photos_item_0_user_name}
+                    </a>
+                </div>
+                <div class="cham-grid cham-grid-1 hover-brightness" style="background-image: url({list_photos_item_0_src});"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="cham-post">
+                <div class="cham-post-link" onclick="openGallery(event,'{list_photos_item_photo_id}')">
+                    <div class="cham-post-image list_photos_image_{list_photos_item_photo_id} to_hide">
+                        <div class="cham-category name">
+                            <a href="{url_main}{list_photos_item_1_user_url}" class="name">
+                                <span class="icon_status <!-- begin_list_photos_item_1_online -->online<!-- end_list_photos_item_1_online-->"></span>
+                                {list_photos_item_1_user_name}
+                            </a>
+                        </div>
+                        <div class="cham-grid cham-grid-2 hover-brightness" style="background-image: url({list_photos_item_1_src});"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="cham-post">
+                <div class="cham-post-link" onclick="openGallery(event,'{list_photos_item_photo_id}')">
+                    <div class="cham-post-image list_photos_image_{list_photos_item_photo_id} to_hide">
+                        <div class="cham-category name">
+                            <a href="{url_main}{list_photos_item_2_user_url}" class="name">
+                                <span class="icon_status <!-- begin_list_photos_item_2_online -->online<!-- end_list_photos_item_2_online-->"></span>
+                                {list_photos_item_2_user_name}
+                            </a>
+                        </div>
+                        <div class="cham-grid cham-grid-2 hover-brightness" style="background-image: url({list_photos_item_2_src});"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="cham-post">
+                <div class="cham-post-link" onclick="openGallery(event,'{list_photos_item_photo_id}')">
+                    <div class="cham-post-image list_photos_image_{list_photos_item_photo_id} to_hide">
+                        <div class="cham-category name">
+                            <a href="{url_main}{list_photos_item_3_user_url}" class="name">
+                                <span class="icon_status <!-- begin_list_photos_item_3_online -->online<!-- end_list_photos_item_3_online-->"></span>
+                                {list_photos_item_3_user_name}
+                            </a>
+                        </div>
+                        <div class="cham-grid cham-grid-3 hover-brightness" style="background-image: url({list_photos_item_3_src});"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end_list_photos_item_small -->
+<!-- begin_list_photos_item_default -->
+<div class="col-md-{list_photos_item_number_row} col-sm-6 item <!-- begin_list_photos_item_default_hide -->to_hide<!-- end_list_photos_item_default_hide -->">
+    <div class="cham-post">
+        <div class="cham-post-link" onclick="openGalleryList(event,'{list_photos_item_photo_id}')">
+            <div class="cham-post-image list_photos_image_{list_photos_item_photo_id} to_hide">
+                <div id="list_image_layer_action_{list_photos_item_photo_id}" data-cl-loader="layer_action_list_loader" data-no-fade-in="true" class="layer_action_list no_transparent"></div>
+
+                <div id="list_media_description_bl_{list_photos_item_photo_id}" class="cham-category descripton <!-- begin_list_photos_item_default_description -->to_show<!-- end_list_photos_item_default_description -->">
+                    <span class="subject" title="{list_photos_item_description_attr}">
+                        <span class="overflow">{list_photos_item_description_short}</span>
+                    </span>
+                </div>
+
+                <div id="list_photos_image_photo_{list_photos_item_photo_id}" class="pic square hover-brightness pic_list_item" style="background-image: url({list_photos_item_src});"></div>
+                <script>
+                    onLoadImgFromList($('.list_photos_image_{list_photos_item_photo_id}.to_hide'), '{list_photos_item_src}');
+                    <!-- begin_set_photo_data -->
+                    clProfilePhoto.setVisibleMediaData('{list_photos_item_photo_id}', {list_photos_item_info});
+                    <!-- end_set_photo_data -->
+                </script>
+
+                <!-- <span class="tag  begin_list_photos_item_default_tags to_show end_list_photos_item_default_tags">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <span class="list_tags photo_list_tags_{list_photos_item_photo_id}">
+                    {list_photos_item_tags}
+                    </span>
+                </span> -->
+
+                <!-- begin_list_photos_item_default_not_checked -->
+                <div class="icon_time" title="{l_being_checked_by_moderators}"></div>
+                <!-- end_list_photos_item_default_not_checked -->
+            </div>
+        </div>
+
+        <div class="cham-post-meta">
+                <div class="info">
+                    <span class="info_item">
+                        <i class="fa fa-comments" aria-hidden="true"></i><span class="photo_comments_count_{list_photos_item_photo_id}">{list_photos_item_comments_count}</span>
+                    </span>
+                    <span class="info_item time"><i class="fa fa-clock-o" aria-hidden="true"></i>{list_photos_item_time_ago}</span>
+                </div>
+                <div class="info">
+                    <!-- begin_list_photos_item_default_name -->
+                    <span class="info_item user_name">
+                        <a href="{url_main}{list_photos_item_user_url}" class="name">
+                            <span class="icon_status <!-- begin_list_photos_item_default_online -->online<!-- end_list_photos_item_default_online-->"></span>
+                            {list_photos_item_user_name}
+                        </a>
+                    </span>
+                    <!-- end_list_photos_item_default_name -->
+                </div>
+                <div class="clearfix"></div>
+        </div>
+
+        <!-- begin_list_photos_item_default_menu -->
+        <div class="item_editor_image">
+            <span class="icon_editor_image {editor_hide_class}" onclick="clProfilePhoto.openEditorImage('{list_photos_item_photo_id}'); return false;">
+                <svg viewBox="0 0 24 24">
+                    <path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"/>
+                </svg>
+            </span>
+        </div>
+
+        <div class="item_settings">
+            <span data-no-fade-in="true" class="icon_settings">
+                <span class="" data-toggle="collapse" data-target="#list_photos_image_menu_{list_photos_item_photo_id}">
+                </span>
+            </span>
+
+            <ul id="list_photos_image_menu_{list_photos_item_photo_id}" class="more_menu_collapse more_menu_right collapse list_photos_image_menu">
+
+                <li id="list_photos_image_menu_profile_pic_{list_photos_item_photo_id}" class="list_photos_image_menu_profile_pic <!-- begin_list_photos_item_default_profile_pic -->to_hide<!-- end_list_photos_item_default_profile_pic -->">
+                    <a onclick="clProfilePhoto.setPhotoDefault('{list_photos_item_photo_id}',$(this)); return false;" href="">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_make_profile_picture}</span>
+                    </a>
+                </li>
+				<!-- begin_list_photos_item_default_editor -->
+				<li>
+                    <a onclick="clProfilePhoto.openEditorImage('{list_photos_item_photo_id}'); return false;" class="editor_image_li" href="#">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"/>
+							</svg>
+                        </span>
+                        <span>{l_edit_photo}</span>
+                    </a>
+                </li>
+
+				<li>
+                    <a href="#" onclick="clProfilePhoto.rotate('{list_photos_item_photo_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-repeat" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_rotate}</span>
+                    </a>
+                </li>
+				<!-- end_list_photos_item_default_editor -->
+
+                <li>
+                    <a id="list_photos_image_menu_hide_header_{list_photos_item_photo_id}" href="#" onclick="clProfilePhoto.hideHeaderPicture($(this),'{list_photos_item_photo_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa {list_photos_item_hide_header_icon}" aria-hidden="true"></i>
+                        </span>
+                        <span class="hide_header_picture_title">{list_photos_item_hide_header}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="clProfilePhoto.confirmPhotoDeleteList('{list_photos_item_photo_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_delete}</span>
+                    </a>
+                </li>
+                <!-- begin_list_photos_item_default_link_download -->
+                <li>
+                    <a target="_blank" download href="{list_photos_item_src}">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-external-link" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_gallery_file_download}</span>
+                    </a>
+                </li>
+                <!-- end_list_photos_item_default_link_download -->
+                
+                <!-- begin_list_photos_item_default_link_make_private -->
+                <li>
+                    <a onclick="clProfilePhoto.changeAccessPhoto('{photo_id}', '{cmd}', '{folder_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-user-secret" aria-hidden="true"></i>
+                        </span>
+                        <span>{photo_private_title}</span>
+                    </a>
+                </li>
+                <!-- end_list_photos_item_default_link_make_private -->
+
+                <!-- begin_list_photos_item_default_link_make_personal -->
+                <li>
+                    <a onclick="clProfilePhoto.changeAccessPhoto('{photo_id}', '{cmd}', '{folder_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        </span>
+                        <span>{photo_personal_title}</span>
+                    </a>
+                </li>
+                <!-- end_list_photos_item_default_link_make_personal -->
+
+                <!-- begin_list_photos_item_default_link_remove_customfolder -->
+                <li>
+                    <a onclick="clProfilePhoto.changeAccessPhoto('{photo_id}', '{cmd}', '{folder_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-folder" aria-hidden="true"></i>
+                        </span>
+                        <span>{photo_folder_title}</span>
+                    </a>
+                </li>
+                <!-- end_list_photos_item_default_link_remove_customfolder -->
+
+                <!-- begin_list_photos_item_default_link_make_customfolder -->
+                <li class="has-submenu">
+                    <a href="javascript:void(0);" class="submenu-toggle">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-folder" aria-hidden="true"></i>
+                        </span>
+                        <span>{photo_folder_title}</span>
+                    </a>
+                    <!-- Submenu -->
+                    <ul class="submenu">
+                        <!-- begin_folder_submenu_item -->
+                            <li>
+                                <a onclick="clProfilePhoto.changeAccessPhoto('{photo_id}', '{cmd}', '{folder_id}'); return false;">
+                                    <span class="icon_fa" data-no-fade-in="true">
+                                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                                    </span>
+                                    <span>{folder_name}</span>
+                                </a>
+                            </li>
+                        <!-- end_folder_submenu_item -->
+                    </ul>
+                </li>                
+                <!-- end_list_photos_item_default_link_make_customfolder -->
+            </ul>
+        </div>
+        <!-- end_list_photos_item_default_menu -->
+    </div>
+</div>
+<!-- end_list_photos_item_default -->

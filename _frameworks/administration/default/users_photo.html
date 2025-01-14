@@ -1,0 +1,102 @@
+{header}
+<script>
+function approvePhoto(pid){
+    var cmd=$('input[name="do['+pid+']"]:checked').val();
+    if(cmd=='del'){
+        cmd='add';
+    }
+    redirectUrl('{url_main}administration/users_photo.php?do%5B'+pid+'%5D='+cmd);
+}
+</script>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li class="active"><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <!-- begin_photos -->
+    <div class="bl_form user_photo_appove">
+        <form action="{url_main}administration/users_photo.php" method="POST" name="Admin">
+            <div style="padding: 0px; overflow: hidden; width: 100%;" class="photo_container2">
+                <!-- begin_photo -->
+                <div class="approve_photo" style="padding: 0 0px 10px 0; width: 140px; float: left;">
+                    {l_user}: <b><a href="{url_main}administration/users_edit.php?id={user_id}">{user_name}</a></b><br />
+                    {l_status}: <b>{status}</b><br />
+                    
+                    <div class="mod_bl_description" title="{description}">{description}&nbsp;</div>
+                    <div style="position:relative;">
+                        <a target="_blank" class="lightbox_photo" href="{url_files}{photo_b}">
+                            <img id="photo_{photo_id}" height="{photo_height}" src="{url_files}{photo_m}" style="max-width: 130px;">
+                        </a>
+                        <a id="photo_rotate_{photo_id}" data-photo-id="{photo_id}" data-user-id="{user_id}"  data-photo-size="m" class="icon_rotate" title="{a_rotate}" href="" ></a>
+                    </div>
+
+                    <div class="mod_bl_decor">
+                        <!-- Popcorn modified 2024-11-05 custom folders start -->
+                        <!-- begin_photo_access -->
+                            <!-- begin_photo_access_item -->
+                            <label style="margin: 5px;"><input type="radio" class="check" name="do[{photo_id}]" {photo_access_check} value="{photo_access_value}">
+                                {photo_access_label}
+                            </label>
+                            <!-- end_photo_access_item -->
+                        <!-- end_photo_access -->
+                        <!-- Popcorn modified 2024-11-05 custom folders end -->
+                        <label style="margin: 5px;"><input type="radio" class="check" name="do[{photo_id}]" value="del"> {l_delete}</label>
+                    </div>
+                    
+                    <div>
+                        <div class="mod_btn_submit_custom" onclick="approvePhoto('{photo_id}')">{l_photo_approve}</div>
+                        <div class="mod_btn_submit_custom last" onclick="if(confirm('{l_are_you_sure}')){redirectUrl('{url_main}administration/users_photo.php?do%5B{photo_id}%5D=del')}">{l_delete}</div>
+                    </div>
+                </div>
+                <!-- end_photo -->
+
+                <div class="cl" style="height: 20px;"></div>
+                <div class="btn fl_right">
+                    <a href="#" class="submit">{l_save}</a>
+                    <input type="submit" style="visibility:hidden;position:absolute;">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- end_photos -->
+    <!-- begin_msg -->
+    <div class = "msg">{l_no_photo}</div>
+    <!-- end_msg -->
+    <div class="empty"></div>
+</div>
+<script type="text/javascript">
+
+var url_files='{url_files}';
+
+$(document).ready(function() {
+   equalHeight($('.approve_photo'));
+});
+$('.lightbox_photo').lightBox({
+        resizeImage:    true,
+        maxWidth:       996,
+        imageLoading:   '{url_tmpl_administration}images/lightbox-ico-loading_blank.gif',
+        imageBtnPrev:   '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+        imageBtnNext:   '{url_tmpl_administration}images/lightbox-btn-next.gif',
+        imageBtnClose:  '{url_tmpl_administration}images/lightbox-btn-close.gif',
+        imageBlank:     '{url_tmpl_administration}images/lightbox-blank.gif'
+});
+</script>
+{footer}

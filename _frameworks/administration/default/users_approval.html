@@ -1,0 +1,194 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li <!-- begin_menu_active_activate -->class="active"<!-- end_menu_active_activate -->><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li <!-- begin_menu_active_approval -->class="active"<!-- end_menu_active_approval -->><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php"
+        >{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+        
+        
+    </ul>
+</div>
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+    alert("{message}");
+    }
+    $(document).ready(function(){
+        var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            }else{
+                chkbox.prop("checked", false);
+            }
+        }
+
+        $('#all').change(function(){
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+    });
+    function delete_user() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var user = StrID.slice(0, -1);
+        window.location.href='{url_page}?delete='+user+'{view}';
+    }
+    function approval_user() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var user = StrID.slice(0, -1);
+        window.location.href='{url_page}?approval='+user+'{view}';
+    }
+
+</script>
+<div class="block_main">
+    <h2>{title_current}</h2>
+
+    <!-- begin_main_pages -->
+    <div>{num_total} {l_count_users}</div>
+    <div  style="position: relative; padding: 0px 0px; top: -14px; left: 300px; width: 400px; ">
+    <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+    <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+    <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+    <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+    <!-- begin_main_page -->
+    <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+    <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+    <!-- end_main_page -->
+    <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+    <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+    <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+    <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+    </div>
+    <!-- end_main_pages -->
+
+
+
+    <!-- begin_main_items -->
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right">
+            <input style="margin:0px; width: 12px;" type="checkbox" id="all">
+        </th>
+        <th>{l_action}</th>
+        <!--th-->
+            <!-- bbegin_params_none_photo -><a href="{url_page}?{params_current}">{l_photo}</a><!- end_params_none_photo -->
+            <!-- bbegin_params_asc_photo ->&uarr;<a href="{url_page}?{params_current}">{l_photo}</a><!- end_params_asc_photo -->
+            <!-- bbegin_params_desc_photo ->&darr;<a href="{url_page}?{params_current}">{l_photo}</a><!- end_params_desc_photo -->
+        <!--/th-->
+        <th>
+            <!-- begin_params_none_name --><a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_none_name -->
+            <!-- begin_params_asc_name -->&uarr;<a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_asc_name -->
+            <!-- begin_params_desc_name -->&darr;<a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_desc_name -->
+        </th>
+        <th>
+            <!-- begin_params_none_password --><a href="{url_page}?{params_current}">{l_password}</a><!-- end_params_none_password -->
+            <!-- begin_params_asc_password -->&uarr;<a href="{url_page}?{params_current}">{l_password}</a><!-- end_params_asc_password -->
+            <!-- begin_params_desc_password -->&darr;<a href="{url_page}?{params_current}">{l_password}</a><!-- end_params_desc_password -->
+        </th>
+        <th>
+            <!-- begin_params_none_type --><a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_none_type -->
+            <!-- begin_params_asc_type -->&uarr;<a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_asc_type -->
+            <!-- begin_params_desc_type -->&darr;<a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_desc_type -->
+        </th>
+        <th>
+            <!-- begin_params_none_gold_days --><a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_none_gold_days -->
+            <!-- begin_params_asc_gold_days -->&uarr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_asc_gold_days -->
+            <!-- begin_params_desc_gold_days -->&darr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_desc_gold_days -->
+        </th>
+        <th>
+            <!-- begin_params_none_mail --><a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_none_mail -->
+            <!-- begin_params_asc_mail -->&uarr;<a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_asc_mail -->
+            <!-- begin_params_desc_mail -->&darr;<a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_desc_mail -->
+        </th>
+        <th>
+            <!-- begin_params_none_orientation --><a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_none_orientation -->
+            <!-- begin_params_asc_orientation -->&uarr;<a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_asc_orientation -->
+            <!-- begin_params_desc_orientation -->&darr;<a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_desc_orientation -->
+        </th>
+        <th>
+            <!-- begin_params_none_age --><a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_none_age -->
+            <!-- begin_params_asc_age -->&uarr;<a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_asc_age -->
+            <!-- begin_params_desc_age -->&darr;<a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_desc_age -->
+        </th>
+        <th>
+            <!-- begin_params_none_last_ip --><a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_none_last_ip -->
+            <!-- begin_params_asc_last_ip -->&uarr;<a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_asc_last_ip -->
+            <!-- begin_params_desc_last_ip -->&darr;<a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_desc_last_ip -->
+        </th>
+        <th class="last">
+            <!-- begin_params_none_register --><a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_none_register -->
+            <!-- begin_params_asc_register -->&uarr;<a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_asc_register -->
+            <!-- begin_params_desc_register -->&darr;<a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_desc_register -->
+        </th>
+        <th class="decor_r"></th>
+    </tr>
+
+    <!-- begin_main_item -->
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right"><input style="margin:0px;" type="checkbox" id="chk_{user_id}"></td>
+        <td style="padding: 0px 5px;">
+            <a href="{url_main}administration/users_edit.php?id={user_id}">{l_edit}</a>
+            |
+            <a href="{url_page}?delete={user_id}{view}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+            |
+            <a href="{url_page}?approval={user_id}{view}">{action_type}</a>
+        </td>
+        <!--td>
+            < bbegin_main_photo ->
+            <img src="{url_tmpl_administration}img/icon_photo.gif" border="0">
+            <!- end_main_photo >
+        </td-->
+        <td><a target="_blank" href="../{url_profile}">{name}</a></td>
+        <td>{password}</td>
+        <td>{type}</td>
+        <td>{gold_days}</td>
+        <td>{mail}</td>
+        <td>{orientation}</td>
+        <td>{age}</td>
+        <td>{last_ip}</td>
+        <td class="last">{register}</td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!-- end_main_item -->
+    </table>
+    <!-- end_main_items -->
+
+    <!-- begin_main_noitems -->
+    <div align="center">{l_no_users}</div>
+    <!-- end_main_noitems -->
+    <!-- begin_no_delete -->
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) delete_user(); else return false; " href="#">{l_delete}</a>
+    </div>
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) approval_user(); else return false; " href="#">{action_type}</a>
+    </div>
+    <div class="btn fl_left">
+        <a class="submit" onclick="if (confirm('{l_are_you_sure}')) window.location.href='{url_page}?approval=all{view}'; else return false; " href="#">{action_type_all}</a>
+    </div>
+    <!-- end_no_delete -->
+    <div class="empty"></div>
+</div>
+{footer}

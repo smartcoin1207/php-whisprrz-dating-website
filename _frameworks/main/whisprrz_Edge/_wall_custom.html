@@ -1,0 +1,235 @@
+<script type="text/javascript" src="{url_main}_server/wall_edge.js{cache_version_param}"></script>
+<script>
+    isPageMyWall = '{guid}' == '{wall_user_id}';
+    var clWall = new CWall();
+    clWall.setData({
+        guid : '{guid}',
+        guidName : '{name_guid}',
+        guidUrl : '{url_guid}',
+        guidPhoto : '{photo_guid}',
+        uid : '{wall_user_id}',
+        onlySeeFriends : '{is_only_friends_wall}',
+        isOnlyFriendsWallPosts : '{is_only_friends_wall_posts}'*1,
+        isFriend : '{is_friend}'*1,
+        lastPostId : '{wall_last_post_id}',
+        isProfileWall : '{is_profile_wall}'*1,
+        maxFileSize : '{photo_file_size_limit}',
+        lMaxFileSize : '{max_photo_file_size_limit}',
+        numberCommentsFrmShow : '{number_comments_frm_show}'*1,
+        single_item: '{wall_single_item}'*1
+    });
+
+    clWall.initScrollToNotifComment('{wall_notif_cid}', '{wall_notif_pcid}');
+
+    <!-- begin_wall_updater -->
+    $(function(){
+        clWall.updaterInit();
+    })
+    <!-- end_wall_updater -->
+</script>
+<div style="display:none;">
+    <style id="wall_custom_style"></style>
+</div>
+<div id="wall_script_ajax" style="display:none;"></div>
+
+<div id="pp_wall_one_post" class="wrap_one_item pp_wall_one_post cham-blog-style-1 modal fade" role="dialog" data-backdrop="false">
+    <div class="pp_gallery_overflow">
+        <div class="container pp_wall_post_item">
+            <div class="row">
+                <div class="cham-post photo_one">
+                    <div class="icon_close hidden-lg hidden-md hidden-sm" onclick="clWall.closePpOnePostPopup();">
+                        <span></span>
+                    </div>
+                    <div class="one_item">
+                        <div id="pp_wall_one_post_photo_one_bl" oncontextmenu="return false;" class="cham-post-image photo_one_bl">
+                            <div class="photo_one_cont none_select bl_img change_photo"></div>
+                            <div class="css_loader pp_gallery_loader">
+                                <div class="spinner spinnerw center">
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                <div class="spinner-blade"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cham-post-text to_show">
+                            <div class="title">
+                                <span class="text_overflow_page pp_wall_one_post_desc"></span>
+                            </div>
+                            <div class="upload_user">
+                                <div class="wrap_upload_user">
+                                    <span class="name">
+                                        <a href="" class="pp_wall_one_post_user_name"></a>
+                                    </span>
+                                    <span class="date pp_wall_one_post_date"></span>
+                                    <div class="photo pp_wall_one_post_user_photo"></div>
+                                </div>
+
+                                <div class="user_options">
+                                    <div id="pp_wall_one_post_more_menu" class="wrap_upload_menu">
+                                        <span class="upload_menu_link dropdown-toggle" data-toggle="collapse" data-target="#pp_wall_one_post_more_options">
+                                            {l_options} <span class="caret caret-reversed"></span>
+                                        </span>
+                                        <ul id="pp_wall_one_post_more_options" class="more_menu_collapse collapse" >
+                                            <li>
+                                                <a id="pp_wall_one_post_direct_link" target="_blank" download href="#">
+                                                    <span class="icon_fa"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+                                                    <span>{l_gallery_file_download}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="cham-post-meta to_show">
+                            <span class="time" style="display:none;">
+                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                <span class="pp_wall_one_post_comments_count"></span>
+                            </span>
+                            <span class="time">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                <span class="pp_wall_one_post_time_ago"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div id="pp_wall_feed_comment_top" class="photo_one_comments">
+                <div class="photo_and_field_comment" style="display:block;">
+                    <div class="photo"></div>
+                    <div id="pp_wall_comment_area_top" class="field_comment field_comment_wrap comment_container_textarea">
+						<div id="pp_wall_comment_area_top_text" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_your_comment}" class="form-control textarea"></div>
+                        <!--<textarea placeholder="{a_write_your_comment}" class="form-control placeholder"></textarea>
+						-->
+
+						<div class="comment_action">
+							<div id="pp_wall_comment_area_top_smile" data-input="#pp_wall_comment_area_top_text" onclick="smileBlockShowWall(this)" class="wall_comment_smile_btn">
+								<i class="fa fa-smile-o" aria-hidden="true"></i>
+							</div>
+
+							<div class="im_audio_message_recorder">
+								<span class="audio_visualizer"></span>
+								<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl" title="{a_record_audio_message}" onclick="runAudioRecorder('#pp_wall_comment_area_top');">
+									<i class="fa fa-microphone" aria-hidden="true"></i>
+									<i class="fa fa-circle" aria-hidden="true"></i>
+								</span>
+							</div>
+
+							<div id="pp_wall_comment_area_top_upload_img" class="comment_upload_img disabled">
+								<div id="pp_wall_comment_area_top_upload_img_loader" class="comment_upload_img_loader"></div>
+
+								<button id="pp_wall_comment_area_top_upload_img_edit" onclick="openEditorCommentUploadImage('pp_wall_comment_area_top_upload_img'); return false;" title="{a_edit_image}" class="btn btn-success comment_upload_img_editor">
+									<span class="btn_wrap">
+										<span class="icon_fa"  data-no-fade-in="true">
+											<svg height="24" width="24" viewBox="0 0 24 24">
+												<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+											</svg>
+										</span>
+									</span>
+								</button>
+								<script>initCommentUploadImageEditor($('#pp_wall_comment_area_top_upload_img_edit'));</script>
+
+								<i class="fa fa-camera" onclick="clearCommentUploadImage('pp_wall_comment_area_top_upload_img', true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+
+								<span class="count_upload_image">
+									<i class="fa fa-check" aria-hidden="true"></i>
+									<i class="fa fa-times" aria-hidden="true"></i>
+								</span>
+
+								<form id="pp_wall_comment_area_top_upload_img_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+									<input class="comment_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="pp_wall_file_add_top" onclick="clickCommentUploadImage($(this));" onChange="changeCommentUploadImage($(this));"/>
+									<input class="inp_hide" type="reset" value=""/>
+									<input class="inp_hide" type="submit" value=""/>
+								</form>
+								<script>initCommentUploadImage('pp_wall_comment_area_top_upload_img');</script>
+							</div>
+
+
+							<button onclick="clWall.commentAdd(this); return false;" class="btn_comment_send">
+								<svg viewBox="0 0 24 24">
+									<path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+								</svg>
+							</button>
+						</div>
+                    </div>
+                </div>
+
+                <div class="gallery_comments">
+                    <div class="pp_wall_one_post_comments"></div>
+                </div>
+
+                <div class="photo_and_field_comment">
+                    <div class="photo"></div>
+                    <div id="pp_wall_feed_comment_bottom" class="field_comment field_comment_wrap  comment_container_textarea">
+						<div id="pp_wall_comment_area_bottom_text" tabindex="0" role="textbox" aria-multiline="true" contenteditable="true" data-placeholder="{a_write_your_comment}" class="form-control textarea"></div>
+                        <!--<textarea placeholder="{a_write_your_comment}" class="form-control placeholder"></textarea>
+						-->
+
+						<div class="comment_action">
+							<div id="pp_wall_comment_area_bottom_smile" data-input="#pp_wall_comment_area_bottom_text" onclick="smileBlockShowWall(this)" class="wall_comment_smile_btn">
+								<i class="fa fa-smile-o" aria-hidden="true"></i>
+							</div>
+
+							<div class="im_audio_message_recorder">
+								<span class="audio_visualizer"></span>
+								<span data-cl-children=".fa-circle" class="im_audio_message_recorder_icon_bl" title="{a_record_audio_message}" onclick="runAudioRecorder('#pp_wall_comment_area_bottom');">
+									<i class="fa fa-microphone" aria-hidden="true"></i>
+									<i class="fa fa-circle" aria-hidden="true"></i>
+								</span>
+							</div>
+
+							<div id="pp_wall_comment_area_bottom_upload_img" class="comment_upload_img disabled">
+								<div id="pp_wall_comment_area_bottom_upload_img_loader" class="comment_upload_img_loader"></div>
+
+								<button id="pp_wall_comment_area_bottom_upload_img_edit" onclick="openEditorCommentUploadImage('pp_wall_comment_area_bottom_upload_img'); return false;" title="{a_edit_image}" class="btn btn-success comment_upload_img_editor">
+									<span class="btn_wrap">
+										<span class="icon_fa"  data-no-fade-in="true">
+											<svg height="24" width="24" viewBox="0 0 24 24">
+												<path d="M17.484 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM14.484 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM9.516 8.016c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM6.516 12c0.844 0 1.5-0.656 1.5-1.5s-0.656-1.5-1.5-1.5-1.5 0.656-1.5 1.5 0.656 1.5 1.5 1.5zM12 3c4.969 0 9 3.609 9 8.016 0 2.766-2.25 4.969-5.016 4.969h-1.734c-0.844 0-1.5 0.656-1.5 1.5 0 0.375 0.141 0.703 0.375 0.984s0.375 0.656 0.375 1.031c0 0.844-0.656 1.5-1.5 1.5-4.969 0-9-4.031-9-9s4.031-9 9-9z"></path>
+											</svg>
+										</span>
+									</span>
+								</button>
+								<script>initCommentUploadImageEditor($('#pp_wall_comment_area_bottom_upload_img_edit'));</script>
+
+								<i class="fa fa-camera" onclick="clearCommentUploadImage('pp_wall_comment_area_bottom_upload_img', true, true, event);" title="{a_upload_image}" aria-hidden="true"></i>
+
+								<span class="count_upload_image">
+									<i class="fa fa-check" aria-hidden="true"></i>
+									<i class="fa fa-times" aria-hidden="true"></i>
+								</span>
+
+								<form id="pp_wall_comment_area_bottom_upload_img_frm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">
+									<input class="comment_upload_img_input_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="pp_wall_file_add_bottom" onclick="clickCommentUploadImage($(this));" onChange="changeCommentUploadImage($(this));"/>
+									<input class="inp_hide" type="reset" value=""/>
+									<input class="inp_hide" type="submit" value=""/>
+								</form>
+								<script>initCommentUploadImage('pp_wall_comment_area_bottom_upload_img');</script>
+							</div>
+
+							<button onclick="clWall.commentAdd(this); return false;" class="btn_comment_send">
+								<svg viewBox="0 0 24 24">
+									<path d="M21.5,11.1l-17.9-9C2.7,1.7,1.7,2.5,2.1,3.4l2.5,6.7L16,12L4.6,13.9l-2.5,6.7c-0.3,0.9,0.6,1.7,1.5,1.2l17.9-9   C22.2,12.5,22.2,11.5,21.5,11.1z" />
+								</svg>
+							</button>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

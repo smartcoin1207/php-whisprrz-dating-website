@@ -1,0 +1,157 @@
+{header}
+<style>
+  tr.color {
+    background-color: #cfcfcf;
+  }
+
+  .table-tickets {
+    margin-bottom: 15px;
+  }
+
+  .table-tickets tr.table-tickets-header {
+    background-color: #F0F0F0;
+    height: 30px;
+  }
+
+  .table-tickets tr.table-tickets-header th {
+    padding-left: 4px;
+    text-align: left;
+  }
+
+  .table-tickets tr.table-tickets-header th a {
+    color: #000;
+  }
+
+  tr.row1 {
+    background-color: #fff;
+    border-bottom: 1px solid #c0c0c0;
+    border-top: 1px solid #c0c0c0;
+    margin-top: 2px;
+  }
+
+  .table-tickets td {
+    padding: 8px 0 8px 4px;
+  }
+
+  .total_message,
+  .unread_message {
+    font-size: 14px;
+    color: #000;
+    line-height: 24px;
+  }
+
+  .total_message span,
+  .unread_message span {
+    border-radius: 24px;
+    font-size: 12px;
+  }
+  .total_message span.red{
+    background-color: rgb(192, 0, 0);
+    color: #fff;
+    padding: 2px 5px;
+  }
+  .unread_message span.purple{
+    background-color: rgb(131, 0, 192);
+    color: #fff;
+    padding: 2px 5px;
+  }
+</style>
+<div class="frame_content" id="oryx_content">
+
+  <div>
+    <table style="width: 100%;">
+      <tr>
+        <td width="50%">
+          <h2 class="txt_lower_header_color" style="margin-bottom: 0;">
+            {l_support_tickets_list}
+          </h2>
+        </td>
+        <td align="center" width="25%">
+          <span style="display: block; text-align: left;">
+            <span class="total_message">
+              <span class="red">{total_messages}</span> Total Messages
+            </span>
+            <br>
+            <span class="unread_message">
+              <span class="purple">{unread_messages}</span> Unread Messages
+            </span>
+          </span>
+        </td>
+        <td align="right">
+          <button class="btn blue" onclick="location='{url_main}support_ticket.php';" title="{button_title}">
+            {l_add_ticket}
+          </button>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <table cellpadding="0" cellspacing="0" border="0" class="light table-tickets" width="100%">
+      <thead>
+        <tr class="table-tickets-header">
+          <th>{l_action}</th>
+          <th width="25px">&nbsp;</th>
+          <th>
+            {l_date}
+          </th>
+          <th>
+            {l_status}
+          </th>
+          <th>
+            {l_priority}
+          </th>
+          <th>
+            {l_title}
+          </th>
+          <th>
+            {l_message}
+          </th>
+          <th>
+            {l_image}
+          </th>
+        </tr>
+      </thead>
+
+        <!-- begin_ticket_list -->
+        <tr class="row1">
+          <td style="padding: 0px 5px; vertical-align: middle!important;">
+            <a href="{url_page}?action=delete_ticket&id={id}"
+              onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+
+            {view_reply}
+          </td>
+          <td style="text-align: center;">{unread}</td>
+          <td>{date}</td>
+          <td>{status_title}</td>
+          <td>{priority}</td>
+          <td>{title}</td>
+          <td>{msg}</td>
+          <td>{attachment}</td>
+        </tr>
+        <!-- end_ticket_list -->
+
+    </table>
+  </div>
+
+
+  <script>
+    $(document).ready(function () {
+      $('a[data-lightbox]').lightBox({
+        imageLoading: '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+        imageBtnPrev: '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+        imageBtnNext: '{url_tmpl_administration}images/lightbox-btn-next.gif',
+        imageBtnClose: '{url_tmpl_administration}images/lightbox-btn-close.gif',
+        imageBlank: '{url_tmpl_administration}images/lightbox-blank.gif'
+      });
+
+      if ("{saved}" == "yes") {
+        Swal.fire(
+          'Saved!',
+          '',
+          'success'
+        );
+      }
+    });
+  </script>
+
+</div>
+  {footer}

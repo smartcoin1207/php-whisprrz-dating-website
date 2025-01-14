@@ -1,0 +1,33 @@
+<script type="text/javascript">
+
+function on_left()
+{
+    shift=shift-1;
+    load_images();
+}
+
+function on_right()
+{
+    shift=shift+1;
+    load_images();
+}
+
+function load_images()
+{
+     actv = active-shift;
+    $('#music_musician_image_list').load('{url_main}music_musician_image_list_ajax.php?musician_id={musician_id}&images_shift=' + shift + '&active=' + actv);
+}
+
+</script>
+
+<div class="music_new_carusel">
+    <ul id="image_list">
+        <!-- begin_image --><li class = "{li_class}" > <a href="javascript:set_main_image('{image_thumbnail_b}', '{image_file}', {n});"><img src="{image_thumbnail_s}" width="39" height="29" alt="{musician_name}" title="{musician_name}"/></a></li><!-- end_image -->
+        <!-- begin_no_image --><li><img src="{url_tmpl_main}images/music/carusel_foto01.gif" width="39" height="29" alt=""/></li><!-- end_no_image -->
+    </ul>
+
+    <!-- begin_left_active --><div class="music_new_carusel_l"><a href="javascript:on_left({shift});"></a></div><!-- end_left_active -->
+    <!-- begin_left_inactive --><!-- end_left_inactive -->
+    <!-- begin_right_active --><div class="music_new_carusel_r"><a href="javascript:on_right({shift});"></a></div><!-- end_right_active -->
+    <!-- begin_right_inactive --><!-- end_right_inactive -->
+</div>

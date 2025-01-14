@@ -1,0 +1,80 @@
+{header}
+
+{search}
+
+<div class="frame_content">
+
+<script>
+    clPages.setData({
+        urlPage:'{url_main}{url_pages}',
+        pageType:'{page_type}',
+        page:'{page_number}'*1,
+        type_order:'{type_order}',
+        tags:'{tags}',
+        only_friends:'{only_friends}'*1,
+        only_live:'{only_live}'*1,
+        uid:'{page_user_id}'*1,
+        guid:'{page_guid}'*1,
+        param:'{page_param}'?'{page_param}':'page',
+        filter:'{page_filter}'*1,
+        isMyFriend:'{page_my_friends}'*1,
+        groupId:'{group_id}'*1,
+        groupType:'{group_type}'
+    });
+    clPages.initList();
+</script>
+{list}
+{users_list}
+
+<script>
+$(function(){
+    <!-- begin_show_gallery_js -->
+    clProfilePhoto.openGallery(false,'{show_photo_id}', false, false, '{show_comment_id}');
+    <!-- end_show_gallery_js -->
+    <!-- begin_show_video_gallery_js -->
+    clProfilePhoto.openGallery(false,'v_{show_video_id}', true, false, '{show_comment_id}');
+    <!-- end_show_video_gallery_js -->
+})
+/* Divyesh - Added on 11-04-2024 */
+<!-- begin_show_video_update_function -->
+function update_video_private(v_id, video) {
+    var id = v_id.split("_");
+    $.ajax({
+        type: 'POST',
+        url: 'ajax_profile.php',
+        data: {
+            cmd: 'vid_private',
+            v_id: id[1],
+            video: video
+        },
+        dataType: 'json',
+        beforeSend: function () {
+
+        },
+        success: function (res) {
+            if (res.status == "ok") {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: '{l_video_private_status}',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                window.location.reload();
+            } else {
+                Swal.fire(
+                    '{l_there_was_an_error}',
+                    '{l_private_video_error}',
+                    'error'
+                )
+            }
+        }
+    });
+    return false;
+}
+/* Divyesh - Added on 11-04-2024 */
+<!-- end_show_video_update_function -->
+</script>
+
+</div>
+{footer}

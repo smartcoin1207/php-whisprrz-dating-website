@@ -1,0 +1,101 @@
+{header}
+<style>
+    .wrapper{overflow:visible;}
+</style>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/partner.php">{l_menu_partners}</a></li>
+        <li><a href="{url_main}administration/partner_baners.php">{l_menu_partners_banners}</a></li>
+        <li><a href="{url_main}administration/contact_partner.php">{l_menu_from_partners}</a></li>
+        <li><a href="{url_main}administration/partner_main.php">{l_main_page}</a></li>
+        <li><a href="{url_main}administration/partner_tips.php">{l_page_tips}</a></li>
+        <li><a href="{url_main}administration/partner_faq.php">{l_page_faq}</a></li>
+        <li><a href="{url_main}administration/partner_terms.php">{l_page_terms}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <!-- begin_partner_pages -->
+    <div style="padding-bottom: 10px;">
+    <!-- begin_partner_prev_page -->
+    <a href="{url_main}{page_url}?offset={offset}{params}">{l_prev}</a> |
+    <!-- end_partner_prev_page -->
+    <!-- begin_partner_prev_page_off -->
+    <b>{l_prev}</b> |
+    <!-- end_partner_prev_page_off -->
+    <!-- begin_partner_first_page -->
+    <a href="{url_main}{page_url}?offset={offset}{params}">{l_page_1}</a>
+    <!-- end_partner_first_page -->
+    <!-- begin_partner_prev_pages -->
+    <a href="{url_main}{page_url}?offset={offset}{params}">&lt;&lt;</a>
+    <!-- end_partner_prev_pages -->
+    <!-- begin_partner_page -->
+        <!-- begin_partner_link_page -->
+        <a href="{url_main}{page_url}?offset={offset}{params}">{page}</a>
+        <!-- end_partner_link_page -->
+        <!-- begin_partner_this_page -->
+        <b>{page}</b>
+        <!-- end_partner_this_page -->
+    <!-- end_partner_page -->
+    <!-- begin_partner_next_pages -->
+    <a href="{url_main}{page_url}?offset={offset}{params}">&gt;&gt;</a>
+    <!-- end_partner_next_pages -->
+    <!-- begin_partner_last_page -->
+    <b>{l_of}</b> <a href="{url_main}{page_url}?offset={offset}{params}">{num_pages}</a>
+    <!-- end_partner_last_page -->
+    <!-- begin_partner_next_page -->
+     | <a href="{url_main}{page_url}?offset={offset}{params}">{l_next}</a>
+    <!-- end_partner_next_page -->
+    <!-- begin_partner_next_page_off -->
+     | <b>{l_next}</b>
+    <!-- end_partner_next_page_off -->
+    </div>
+    <!-- end_partner_pages -->
+
+    <table class="tb">
+    <tr>
+        <th class="decor_l">&nbsp;</th>
+        <th class="right" >{l_do}</th>
+        <th>{l_login}</th>
+        <!--<th>{l_email}</th>-->
+        <th>{l_payment}</th>
+        <th>{l_payment_last}</th>
+        <th>{l_payment_last_date}</th>
+        <th>{l_account}</th>
+        <th>{l_users}</th>
+        <th>{l_refers}</th>
+        <th>{l_golds}</th>
+        <th class="last">{l_domains}</th>
+        <th class="decor_r">&nbsp;</th>
+    </tr>
+    <!-- begin_partner_item -->
+    <tr class="{class}">
+        <td class="decor{decl}">&nbsp;</td>
+        <td class="right">
+            <a href="{url_main}administration/partner.php?cmd=payment&id={partner_id}"
+			<!-- begin_can_payment-->onclick='return confirm("{l_are_you_sure_to_do_this_payment}");'<!-- end_can_payment-->
+			<!-- begin_no_payment-->onclick='alert("{l_partner_has_no_money}"); return false;'<!-- end_no_payment-->
+			>{l_payment}</a>
+            <a href="{url_main}administration/partner_edit.php?id={partner_id}">{l_info}</a>
+            <a href="{url_main}administration/partner_bank.php?id={partner_id}">{l_bank}</a>
+            <a href="{url_main}administration/partner.php?cmd=delete&id={partner_id}" onClick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+        </td>
+        <td>{name}</td>
+        <!--<td>{mail}</td>-->
+        <td>{payment}</td>
+        <td>{payment_last}</td>
+        <td>{payment_last_date}</td>
+        <td>{account}</td>
+        <td>{count_users}</td>
+        <td>{count_refs}</td>
+        <td>{count_golds}</td>
+        <td class="last">{domain}</td>
+        <td class="decor{decr}">&nbsp;</td>
+    </tr>
+    <!-- end_partner_item -->
+    </table>
+
+    <div class="empty"></div>
+</div>
+{footer}

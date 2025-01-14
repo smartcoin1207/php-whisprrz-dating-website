@@ -1,0 +1,34 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/partner.php">{l_menu_partners}</a></li>
+        <li><a href="{url_main}administration/partner_baners.php">{l_menu_partners_banners}</a></li>
+        <li class="active"><a href="{url_main}administration/contact_partner.php">{l_menu_from_partners}</a></li>
+        <li><a href="{url_main}administration/partner_main.php">{l_main_page}</a></li>
+        <li><a href="{url_main}administration/partner_tips.php">{l_page_tips}</a></li>
+        <li><a href="{url_main}administration/partner_faq.php">{l_page_faq}</a></li>
+        <li><a href="{url_main}administration/partner_terms.php">{l_page_terms}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+        <!-- begin_question -->
+        <h2>{id}. {name} &lt;{mail}&gt; ({real_name}, {company}, {phone})</h2>
+        <p>{comment}</p>
+        <form method="POST" action="contact_partner.php">
+        <input type="hidden" name="cmd" value="answer">
+        <input type="hidden" name="mail" value="{mail}">
+        <label>{l_answer}:</label>
+        <textarea name="answer" class="textarea_small"></textarea>
+        <div class="btn fl_right"><a href="{url_page}?cmd=delete&id={id}">{l_delete}</a></div>
+        <div class="btn fl_right"><a href="#" class="submit">{l_answer}</a></div>
+        </form>
+        <div style="height:80px"></div>
+        <!-- end_question -->
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

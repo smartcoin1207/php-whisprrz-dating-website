@@ -1,0 +1,697 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>{title}</title>
+	 <meta name="viewport" content="width=785">
+	{header_favicon}
+	<META name="Document-state" content="Dynamic">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="Content-Type" content="text/html; charset={l_charset}" />
+	<meta name="description" content="{description}">
+        <meta name="keywords" content="{keywords}">
+	<link rel="stylesheet" href="{url_tmpl_main}css/main.css{cache_version_param}" type="text/css" media="screen" />
+	<link rel="stylesheet" href="{url_main}_server/widgets/css/widget.css{cache_version_param}" type="text/css" />
+	<link rel="stylesheet" href="{url_main}_server/games/game.css{cache_version_param}" type="text/css" />
+	<link rel="stylesheet" href="{url_main}_server/video/video.css{cache_version_param}" type="text/css" />
+	<link rel="stylesheet" href="{url_main}_server/audiochat/audio.css{cache_version_param}" type="text/css" />
+	<link rel="stylesheet" href="{url_tmpl_main}css/im.css{cache_version_param}" type="text/css" />
+	<link rel="stylesheet" href="{url_tmpl_main}css/tinyscrollbar.css{cache_version_param}" type="text/css" />
+    <link rel="stylesheet" href="{url_tmpl_main}css/jquery.file.css{cache_version_param}" type="text/css" media="screen">
+
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery-last.js{cache_version_param}"></script>
+	<script language="javascript" type="text/javascript" src="{url_main}_server/jquery/jquery-migrate-1.2.1.min.js{cache_version_param}"></script>
+
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery.MetaData.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery.rating.pack.js{cache_version_param}"></script>
+
+    <link rel="stylesheet" href="{url_tmpl}common/lightbox/jquery.lightbox-0.5.css{cache_version_param}" type="text/css" media="screen">
+    <script type="text/javascript" src="{url_tmpl}common/lightbox/jquery.lightbox-0.5.min.js{cache_version_param}"></script>
+
+	<script type="text/javascript" src="{url_tmpl_main}jquery/jquery.timeentry.pack.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery.validate.js{cache_version_param}"></script>
+
+	<script language="javascript" type="text/javascript" src="{url_tmpl_main}js/css_browser_selector.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/swfobject/swfobject.js{cache_version_param}"></script>
+
+	<script type="text/javascript" src="{url_main}_server/client.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_main}_server/im_new/sounds/sm.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery.pagination.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery.tinyscrollbar.min.js{cache_version_param}"></script>
+	<script language="javascript" type="text/javascript" src="{url_tmpl_main}js/user_info.js{cache_version_param}"></script>
+
+    <link rel="stylesheet" href="{url_tmpl_main}jquery/trontastic/jquery-ui-1.8.custom.css{cache_version_param}" type="text/css" />
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery-ui.js{cache_version_param}"></script>
+
+    <script language="javascript" type="text/javascript" src="{url_main}_server/jquery/jquery.filestyler.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.editable.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.editable_input.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/sound/soundmanager2-nodebug-jsmin.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.winFocus.js{cache_version_param}"></script>
+
+    <link rel="stylesheet" href="{url_tmpl_main}css/pikaday.css{cache_version_param}" type="text/css" media="screen">
+    <script type="text/javascript" src="{url_tmpl_main}js/moment.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/pikaday.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/requestAnimationFrame.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.autosize.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.lazyload.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/lib.js{cache_version_param}"></script>
+    <script language="javascript" type="text/javascript">
+        setOptionsSite({site_options});
+    </script>
+    <script type="text/javascript" src="{url_tmpl_main}js/script.js{cache_version_param}"></script><!--nnsscc-diamond-20200228-->
+	<script type="text/javascript" src="{url_tmpl_main}js/script_chatting.js{cache_version_param}"></script><!--nnsscc-diamond-20200228-->
+    <script type="text/javascript" src="{url_main}js.php{cache_version_param}&set_template_runtime={tmpl_loaded}&set_language_runtime={lang_loaded}"></script>
+
+    <link href="{url_main}_server/videojs/video-js.css{cache_version_param}" rel="stylesheet">
+    <!-- If you'd like to support IE8 -->
+    <script src="{url_main}_server/videojs/ie8/videojs-ie8.min.js{cache_version_param}"></script>
+
+    <link href="{url_tmpl_main}css/videojs.css{cache_version_param}" rel="stylesheet">
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.cookie.js{cache_version_param}"></script>
+
+    {include_custom_city}
+    {include_city}
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/cookiepopup.css{cache_version_param}" />
+    <script type="text/javascript" src="{url_tmpl_main}js/cookiepopup.js{cache_version_param}"></script>
+    <script type='text/javascript' src="{url_tmpl_main}js/jquery.scrollTo.js{cache_version_param}"></script>
+    <!--[if lte IE 6]>
+    <script language="javascript" type="text/javascript" src="{url_tmpl_main}js/DD_belatedPNG_0.0.8a-min.js{cache_version_param}"></script>
+    <script>DD_belatedPNG.fix('.star-rating a,div.newm_status,div.list_status');</script>
+	<script type="text/javascript" src="{url_tmpl_main}js/iepngfix_tilebg.js{cache_version_param}"></script>
+    <![endif]-->
+	<script language="JavaScript" type="text/javascript">
+		function OpenWindow( sUri, iWidth, iHeight )
+		{
+			var sWindowName = 'win' + Math.floor( Math.random()*1000 )
+			var iRealWidth = iWidth ? iWidth : 600
+			var iRealHeight = iHeight ? iHeight : screen.height - 300
+			var iLeft = Math.round( (screen.width-iRealWidth)/2 )
+			var iTop =  Math.round( (screen.height-iRealHeight)/2 ) - 35
+			var sWindowOptions = 'status=yes,menubar=no,toolbar=no'
+			sWindowOptions += ',resizable=yes,scrollbars=yes,location=no'
+			sWindowOptions += ',width='  + iRealWidth
+			sWindowOptions += ',height=' + iRealHeight
+			sWindowOptions += ',left='   + iLeft
+			sWindowOptions += ',top='    + iTop
+			var oWindow = window.open( sUri, sWindowName, sWindowOptions )
+			oWindow.focus()
+			return oWindow;
+		}
+		<!--nnsscc-diamond-20200228--start -->
+		<!-- begin_smooth_scroll -->
+        initSmoothScroll();
+        <!-- end_smooth_scroll -->
+        var ajax_login_status={xajax_login_status};
+        var siteTitle='{js_title}';
+        var siteTitleTemp='{js_title}';
+
+        var urlMain=url_main='{url_main}';
+        var urlFiles='{url_files}';
+        var url_tmpl_main='{url_tmpl_main}';
+        var url_tmpl_images=url_tmpl_main+'images/';
+        var url_ajax='{url_main}ajax.php';
+        var dirTmplMain='.'+'{url_tmpl_main}';
+        var urlPageLogin='{url_page_login}';
+        var urlPageUpgrade='{url_page_upgrade}';
+        var urlPageProfile='{url_page_profile_view}';
+        var currentPage='{url_page}';
+        var activePage='{current_page}';
+
+        var isPlayerNative='{is_player_native}'*1;
+        var isPageProfile=false;
+		var isCurUserSuperPowers='{is_super_powers}'*1;
+
+        // Server
+        var requestUserId='{request_user_id}'*1;
+        //var userAllowedFeature={user_allowed_feature};
+
+        var user_profile_bg='{color_scheme_styles_background_image}';
+		if(user_profile_bg==""){
+			user_profile_bg='{user_profile_bg}';
+		}
+		var user_profile_bg_video = {user_profile_bg_video};
+        var is_bg_video_all_page = {is_bg_video_all_page};
+        var profile_bg_video_quality = '{profile_bg_video_quality}';
+
+        //var profile_bg_video_play_disabled = {profile_bg_video_play_disabled};
+
+        <!-- begin_main_page_video_js -->
+        var isBgVideoMute = {main_page_video_mute};
+        var bgVideoVolume = {main_page_video_volume};
+        var bgVideoOnce = {main_page_video_show_video_once};
+        var bgLast = [0, 0, 0];
+        <!-- end_main_page_video_js -->
+		
+		var bgLast=(name+',0,0').split(','),
+            bg='url('+bgLast[0]+') center/'+bgLast[1]+'px auto fixed';
+        /*<!-- begin_main_page_video_header_js -->
+        bg='url('+bgLast[0]+') center 43px/'+bgLast[1]+'px no-repeat scroll';
+        <!-- end_main_page_video_header_js -->*/
+		if (!bgLast[2]) document.documentElement.style.background=bg
+		else if (bgLast[0]) document.documentElement.style.background='url({url_tmpl_main}images/patterns/'+bgLast[0]+') '+
+		(-bgLast[1])+'px '+(-bgLast[2])+'px repeat';
+		<!--nnsscc-diamond-20200228--end -->
+	
+	</script>
+
+ <script>
+        $(function() { $('input.file:not(.no_abk)').styler(); })
+</script>
+
+
+<script language="javascript" type="text/javascript">
+
+$(document).ready(function() {
+    lazyLoadImage();
+
+    $('.lazy_user').lazyload({event:'scroll',effect:'fadeIn',skip_invisible:false,effect_speed:400});
+
+    initLightboxOldTemplate();
+    $('.js_back').click(function() {
+        history.back();
+        return false;
+    });
+    $('.submit').click(function() {
+        $(this).parents('form').submit();
+        return false;
+    });
+    $(document).on('click', '.areyousure', function() {
+        if ($(this).attr('confirm') != '' && $(this).attr('confirm') != undefined) {
+            return confirm($(this).attr('confirm'));
+        } else {
+            return confirm('{l_are_you_sure}');
+        }
+    });
+	//$('#scrollbarY').tinyscrollbar();
+	//$('#scroll_test').tinyscrollbar();
+
+	//var langHoverTimeout = false;
+
+    var $changeLanguage=$('.module_change_language'), notShowLang=false;
+    if ($changeLanguage[0]) {
+        $changeLanguage.find('ul').autocolumnlist({columns: getSiteOption('number_of_columns_in_language_selector'), clickEmpty:function(){
+            notShowLang=true;
+            $('#module_change_language_item').stop().animate({height:'toggle'},300, function(){
+                setTimeout(function(){notShowLang=false},100);
+            })
+        }});
+        $changeLanguage.hover(function(){
+            if(notShowLang)return;
+            var width = $(this).children('.module_change_language_current').width();
+            $('#module_change_language_item').css('left', (width + 13)+'px').stop().animate({height: "toggle"}, 300);
+        })
+    }
+});
+</script>
+<script language="javascript" type="text/javascript">
+var imagesPath = "{url_tmpl_main}abkstyle/img/";
+var is_home_widget = "{is_home_widget}";
+var widgets_count = "{widgets_count}";
+var widgets_calendar_long = "{widgets_calendar_long}";
+var xajax_login_status = {xajax_login_status};
+var ajax_login_status = {xajax_login_status};
+var imMsgLayout = '{im_msg_layout}';
+var dirTmplMain = '.'+'{url_tmpl_main}';
+var imScrollbar = true;
+var siteTitle = '{js_title}';
+var url_main='{url_main}';
+var url_tmpl='{url_tmpl}';
+var url_tmpl_main='{url_tmpl_main}';
+</script>
+
+{custom_head}
+{xajax_js}
+{to_head}
+<script type="text/javascript"> function stopError() { return true; }; window.onError = stopError; window.status=Date();</script>
+<style type="text/css">
+html, body {height:100%}
+.upper_header_color {background-color:{upper_header_color};}
+.lower_header_color {background-color:{lower_header_color};}
+.progress-bar {background-color:{upper_header_color};}
+.upper_header_color_darker {background-color:{upper_header_color_darker};}
+.lower_header_color_darker {background-color:{lower_header_color_darker};}
+
+.txt_color{ color: {upper_header_color}; }
+.txt_upper_header_color{ color: {upper_header_color}; }
+.txt_lower_header_color{ color: {lower_header_color}; }
+
+.nav_title a b{color: {upper_header_color}; }
+.nav_title b{color: {lower_header_color}; }
+
+
+#menu .btn_search {
+	background: {lower_header_color};
+}
+#menu .btn_search:hover {
+	background: {lower_header_color_darker};
+}
+ul#menu-s a {
+	color: {color_scheme_menu_text_color_impact};
+	border-top-color: rgba({color_scheme_menu_item_border_top_color_rgba});
+	border-bottom-color: rgba({color_scheme_menu_item_border_bottom_color_rgba});
+}
+ul#menu-s a:hover, ul#menu-s a.inactive:hover { color: {color_scheme_menu_text_hover_color_impact} }
+
+ul#menu-s a.inactive {
+	color: {color_scheme_menu_inactive_text_color_impact};
+}
+#menu-l li a {
+	color: {color_scheme_menu_text_color_impact};
+	border-top-color: rgba({color_scheme_menu_item_border_top_color_rgba});
+	border-bottom-color: rgba({color_scheme_menu_item_border_bottom_color_rgba});
+}
+#menu-l li a:hover, #menu-l li a.inactive:hover { color: {color_scheme_menu_text_hover_color_impact} }
+
+#menu-l li a.inactive {
+	color: {color_scheme_menu_inactive_text_color_impact};
+}
+a {
+    color: {lower_header_color};
+}
+
+a.txt_upper_header_color:hover {
+    color: {upper_header_color_darker};
+}
+a.txt_lower_header_color:hover {
+    color: {lower_header_color_darker};
+}
+h2.txt_color a {
+    color: {upper_header_color};
+}
+h2.txt_lower_header_color a:hover { color: #000;
+/*    color: {lower_header_color_darker};
+*/}
+.btn.blue {
+    background: {upper_header_color};
+}
+.btn.blue:hover {
+    background: {upper_header_color_darker};
+}
+.btn.upper_header_color {
+    background: {upper_header_color};
+}
+.btn.upper_header_color:hover {
+    background: {upper_header_color_darker};
+}
+.btn.lower_header_color {
+    background: {lower_header_color};
+}
+.btn.lower_header_color:hover {
+    background: {lower_header_color_darker};
+}
+a.lower_header_color {
+    background: {lower_header_color_darker};
+}
+a.lower_header_color:hover {
+    background: {lower_header_color};
+}
+.btn.dblue {
+    background: {lower_header_color_darker};
+}
+.btn.dblue:hover {
+    background: {lower_header_color};
+}
+.btn.active_btn {
+	background: {lower_header_color};
+}
+.btn.button_active {
+	background: {lower_header_color};
+}
+.btn.active_btn:hover {
+	background: {lower_header_color_darker};
+}
+.btn.button_active:hover {
+	background: {lower_header_color_darker};
+}
+
+.specials h3 a.txt_upper_header_color:hover{ color: {lower_header_color}; }
+
+table.tborder_header { background: {lower_header_color};}
+
+.dynamic_color { color: {upper_header_color};}
+
+.month_arrow_left { border-color: transparent {lower_header_color} transparent transparent;}
+.month_arrow_right { border-color: transparent transparent transparent {lower_header_color};}
+.year_arrow_left { border-color: transparent {upper_header_color} transparent transparent;}
+.year_arrow_right { border-color: transparent transparent transparent {upper_header_color};}
+
+.events_new td .events_new_tb_sub td.calendar_num div{ color: {lower_header_color};}
+.events_new td .events_new_tb_sub td.calendar_num_holiday div{ color: {upper_header_color};}
+.events_new td .events_new_tb_sub td.calendar_c .calendar_foto a{ color: {lower_header_color};}
+
+.events_new td .events_new_tb_sub tr:hover td.calendar_num div{ color: {lower_header_color_darker};}
+.events_new td .events_new_tb_sub tr:hover td.calendar_num div.calendar_today a.calendar_today_img{ border-color: transparent transparent transparent {lower_header_color_darker};border-style:solid; border-width:6px; width:0; height:0px; display:block;}
+.events_new td .events_new_tb_sub tr:hover td.calendar_num_holiday div{ color: {upper_header_color_darker};}
+.events_new td .events_new_tb_sub tr:hover td.calendar__num_holiday div.calendar_today a.calendar_today_img{ border-color: transparent transparent transparent {upper_header_color_darker};border-style:solid; border-width:6px; width:0; height:0px; display:block;}
+
+.calendar_num div.calendar_today a.calendar_today_img{ border-color: transparent transparent transparent {lower_header_color};border-style:solid; border-width:6px; width:0; height:0px; display:block;}
+.calendar_num_holiday div.calendar_today a.calendar_today_img{ border-color: transparent transparent transparent {upper_header_color};border-style:solid; border-width:6px; width:0; height:0px; display:block;}
+
+.events_new td .events_new_tb_sub td.calendar_c_decor_holiday{ background: {upper_header_color};}
+.events_new td .events_new_tb_sub td.calendar_c_decor{ background: {upper_header_color};}
+
+.list_bg_violet2 span { color: {lower_header_color};}
+
+.photo_new_btn a.left{display:block; background:{lower_header_color}; }
+.photo_new_btn a.left:hover{ background: {lower_header_color_darker}; }
+
+.photo_new_btn a.right{display:block; background:{upper_header_color}; }
+.photo_new_btn a.right:hover{ background: {upper_header_color_darker}; }
+
+.specials h3 a.txt_upper_header_color:hover{ color: {upper_header_color_darker}; }
+
+#adv_gl span {color: {lower_header_color};}
+.profile_bg{
+	position:fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+</style>
+
+
+    <script type="text/javascript">
+        $(function()
+        {
+        $("img.light_pic")
+            .each(function (){
+                $(this).data('op',$(this).css('opacity'));
+            })
+            .mouseover(function (){
+                $(this).animate({opacity: 0.9}, 500 );
+            })
+            .mouseout(function (){
+                $(this).stop(true,true).animate({opacity: $(this).data('op')}, 500 );
+            });
+
+        });
+	</script>
+        <!-- begin_background_js -->
+        <!-- begin_load_js -->
+        <!-- end_load_js -->
+        <!-- end_background_js -->
+
+<script>
+preloadImages("{url_tmpl_main}images/arrow.png",
+"{url_tmpl_main}images/menu_profile.png",
+"{url_tmpl_main}images/menu_photo.png",
+"{url_tmpl_main}images/menu_music.png",
+"{url_tmpl_main}images/menu_videos.png",
+"{url_tmpl_main}images/menu_blog.png",
+"{url_tmpl_main}images/menu_settings.png",
+"{url_tmpl_main}images/menu_widgets.png"
+);
+preloadImagesWidgets('{url_main}');
+</script>
+
+<!-- START Cobra-55555 PAGE CSS and JS -->
+<link rel="stylesheet" href="{url_tmpl_main}css/donation.css" type="text/css"/>
+<script type="text/javascript" src="{url_tmpl_main}js/donation.js"></script>
+<!-- END Cobra-55555 PAGE CSS and JS -->
+
+</head>
+<body>
+<div id="bg_video_tumb" class="bg_video tumb"></div>
+<div class="bg_video" id="bg_video"></div>
+<div class="profile_bg"> </div>
+<script language="javascript" type="text/javascript">
+	$('.wrapper').height(curHiState.doc_h);
+	$('.main').scrollTop(curHiState.y).scrollLeft(curHiState.x);
+	if (bgLast[0]&&bgLast[2]) {
+		durVideoPreviev=600;
+		$('.profile_bg').css({
+			background: 'url('+url_tmpl_main+'images/patterns/'+bgLast[0]+')'
+			+ ((curHiState.x||0)-bgLast[1])+'px '+((curHiState.y||0)-bgLast[2])+'px repeat',
+			transition: 'none'
+		})
+	};
+	/*
+	var Gifts = new CGifts('{is_credits_enabled}');
+	Gifts.langParts = {'gift_free' : '{j_grab_attention_with_a_gift_free}',
+					   'gift_price' : '{j_grab_attention_with_a_gift}'}
+	*/
+</script>
+    <!-- begin_background_img -->
+ 	<!--img src="{bg_path}{src}" id="bg" oncontextmenu="return false;" alt="" /-->
+	<div class="bg_fon"> </div>
+	 <script  type="text/javascript">
+        (function(){
+            function bgReady() {
+                img.css({margin:-img.height()/2+'px -'+img.width()/2+'px'})
+                if (ready) img.fadeTo(1500, 1)
+                else img.fadeTo(0,(document.cookie.indexOf('bgOryx={src}')>=0)*1)
+                document.cookie='bgOryx={src}';
+                ready=1
+            }
+            var ready, img=$('<img class="bg_fon" src="{bg_path}{src}" />')
+                        .fadeTo(0,0).prependTo($('body')).load(bgReady);
+            $(window).resize(bgReady);
+            $(bgReady)
+        })()
+	 </script>
+        <!-- end_background_img -->
+
+	<!-- begin_banner_top -->
+	<div style="padding-top: 8px; position: relative; text-align: center;">
+	{banner_top}
+	</div>
+	<!-- end_banner_top -->
+	<div id="wrapper">
+		<div id="header">
+			<div style="text-align:center;">
+			<div class="bl_logo">
+				<div id="logo">
+					<a href="{url_main}{url_home_page}">
+						<img src="{header_url_logo}" alt="{title}" />
+					</a>
+				</div>
+			</div>
+			</div>
+			<div>
+				<!-- begin_view -->
+				<div class="module_change_language">
+					<a class="module_change_language_current" onclick="return false;" href="">{language_current}</a>
+					<div id="module_change_language_item">
+						<ul>
+							<!-- begin_language -->
+							<li><a href="{url_page}?{url_page_params}set_language={language_value}"><span class="{language_class}">{language_title}</span></a></li>
+							<!-- end_language -->
+						</ul>
+					</div>
+				</div>
+				<!-- end_view -->
+
+				<div class="bl_rebuild">
+				<ul class="top_menu">
+					<!-- begin_auth -->
+					<li class="first">{l_welcome} <strong><a class="link_profile" href="{url_main}profile_view.php">{name}</a></strong></li>
+					<!-- begin_moderator --><li><a href="{url_main}moderator.php">{l_top_moderator}</a></li><!-- end_moderator -->
+					<!-- begin_help_on -->
+									<li><a href="{url_main}help.php">{l_support}</a></li>
+									<!-- end_help_on -->
+
+									<!-- begin_invite_on -->
+									<li><a href="{url_main}invite.php">{l_invite_friends}</a></li>
+									<!-- end_invite_on -->
+
+					<li><a href="{url_main}index.php?cmd=logout">{l_logout}</a></li>
+					<!-- begin_menu_upgrade --><li><a href="{url_main}upgrade.php">{l_menu_upgrade}</a></li><!-- end_menu_upgrade -->
+					<!-- begin_menu_upgrade_active --><li><a href="{url_main}upgrade.php">{l_menu_upgrade}</a></li><!-- end_menu_upgrade_active -->
+					<!-- end_auth -->
+
+					<!-- begin_loginform -->
+					<li class="first">{l_welcome_to} <strong>{title}</strong></li>
+					<li><a href="{url_main}join.php">{l_to_joinform}</a></li>
+					<li><a href="{url_main}join.php">{l_to_loginform}</a></li>
+					<!-- end_loginform -->
+				</ul>
+
+				<!-- begin_header_block_info -->
+                <ul class="list_icon_notify">
+                    <li><a id="xajax_new_partyhouse_header_href_oryx" title="{l_partyhouse} " class="icon_notify_partyhouse" href="https://meet.partyhouz.com?u={user_id}&n={name}&m={mail}
+                    <!-- begin_info_mail_href -->?display=text&mid={mid}<!-- end_info_mail_href -->">
+                                            <!-- begin_info_mail_title --><span id="xajax_new_mail_header_oryx"></span><!-- end_info_mail_title -->
+                                        </a>
+                                    </li>
+                    <li><a id="xajax_new_zoom_header_href_oryx" title="{l_zoom} " class="icon_notify_zoom" href="https://www.whisprrz.com/LookingGlass.php<!-- begin_info_mail_href -->?display=text&mid={mid}<!-- end_info_mail_href -->">
+                                            <!-- begin_info_mail_title --><span id="xajax_new_mail_header_oryx"></span><!-- end_info_mail_title -->
+                                        </a>
+                                    </li>
+                    <li><a id="xajax_pending_header_href_oryx" title="{l_friends} "class="icon_notify_people" href="{url_main}my_friends.php<!-- begin_info_pending_href -->?show=requests<!-- end_info_pending_href -->">
+                            <!-- begin_info_pending_title --><span id="xajax_pending_header">{num_users_pending}</span><!-- end_info_pending_title -->
+                        </a>
+                    </li>
+                                    <!-- begin_info_mail -->
+                    <li><a id="xajax_new_mail_header_href_oryx" title="{l_mail} " class="icon_notify_mail" href="{url_main}mail.php<!-- begin_info_mail_href -->?display=text&mid={mid}<!-- end_info_mail_href -->">
+                                            <!-- begin_info_mail_title --><span id="xajax_new_mail_header_oryx">{info_mail_num}</span><!-- end_info_mail_title -->
+                                        </a>
+                                    </li>
+                                    <!-- end_info_mail -->
+                    <li><a id="xajax_new_mail_header_href_oryx" title="{l_podcast} " class="icon_notify_podcast" href="https://www.whisprrz.com/nsc_club.php?id=54<!-- begin_info_mail_href -->?display=text&mid={mid}<!-- end_info_mail_href -->">
+                                            <!-- begin_info_mail_title --><span id="xajax_new_mail_header_oryx">{info_mail_num}</span><!-- end_info_mail_title -->
+                                        </a>
+                                    </li>
+                    <li><a id="xajax_new_mail_header_href_oryx" title="{l_radio} " class="icon_notify_radio" href="https://www.whisprrz.com/Whisprrz%20Radio.php<!-- begin_info_mail_href -->?display=text&mid={mid}<!-- end_info_mail_href -->">
+                                            <!-- begin_info_mail_title --><span id="xajax_new_mail_header_oryx">{info_mail_num}</span><!-- end_info_mail_title -->
+                                        </a>
+                                    </li>
+                </ul>
+                            <!-- end_header_block_info -->
+				<div class="cl"></div>
+				</div>
+			</div>
+		</div><!-- header end -->
+
+
+        <div id="menu" class="upper_header_color">
+            <ul>
+				<!-- begin_news_on -->
+				<li><a href="{url_main}news.php?view=4">{l_site_tour}</a></li>
+				<li><a href="{url_main}news.php?cat=2">{l_success_stories}</a></li>
+                <li><a href="{url_main}news.php">{l_site_info}</a></li>
+                <!-- Cobra-55555 donation START -->
+                <li><a href="{url_main}donation_cobra.php">{l_site_misc}</a></li>
+                <!-- Cobra-55555 donation END -->
+				<!-- end_news_on -->
+				<!-- begin_menu_top_nsc_club_item -->
+				<li>
+					<a {target} href="{url_main}{menu_item_page_top}" onClick="this.blur();">{menu_item_title_top}</a>
+				</li>				
+				<!-- end_menu_top_nsc_club_item -->
+				<ul class="second">
+						   <li><a href="./search.php">Members Search</a></li>
+						  <li><a href="./profile.php">Edit Profile</a></li>
+						 <li><a href="./profile_view.php">My Profile</a></li>
+					 </ul>   
+			</ul>
+            
+			<form action="{url_main}search_results.php" method="get" >
+				<input type="hidden" name="search_header" value="1">
+				<input type="text" class="input no_abk" value="{topquery}" name="keyword" placeholder="{l_search_for_people}"/>
+				<input class="btn_search" type="submit" value="{l_search}" />
+			</form>
+		</div><!-- menu end -->
+        <!-- begin_menu_site -->
+        <script language="javascript" type="text/javascript">
+        $(function(){
+            $('#menu_more_all').hover(function(){
+                $('#menu_more').stop().animate({height: "toggle"}, 300);
+            });
+        });
+        </script>
+		<ul id="menu-s" class="lower_header_color">
+			<!-- begin_menu_item --><li <!-- begin_menu_item_active -->class="active"<!-- end_menu_item_active -->  <!-- begin_menu_item_end --> style="border-right:none;" <!-- end_menu_item_end --> ><a {target} href="{url_main}{menu_item_page}">{menu_item_title}</a></li><!-- end_menu_item -->
+
+			<!-- begin_menu_more -->
+				<li id="menu_more_all" style="border:none;display:block; height:5px;"  >
+					<nobr><a href="#">{l_menu_more}</a></nobr>
+                    <ul class="lower_header_color" id="menu_more"  >
+					<!-- begin_menu_more_item -->
+						<li class="<!-- begin_menu_more_item_active -->active<!-- end_menu_more_item_active --> {class_last}">
+							<a {target} href="{url_main}{menu_item_page}" onClick="this.blur();">{menu_item_title}</a>
+						</li>
+					<!-- end_menu_more_item -->
+					<!-- begin_menu_more_nsc_club_item -->
+						<li class="<!-- begin_menu_more_nsc_club_item_active -->active<!-- end_menu_more_nsc_club_item_active --> {class_last}">
+							<a {target} href="{url_main}{menu_item_page}" onClick="this.blur();">{menu_item_title}</a>
+						</li>
+					<!-- end_menu_more_nsc_club_item -->
+					
+					</ul>
+				</li>
+			<!-- end_menu_more -->
+ 		</ul>
+        <!-- end_menu_site -->
+
+<script type="text/javascript">
+// $(document).ready(function(){
+
+// $(".bl_nav_js ul li").hover(function(){
+// 	$(this).find('a').css('background-position', '0 -29px');
+// 	}, function(){
+//        $(this).find('a').css('background-position', '');
+//     })
+
+// });
+
+ </script>
+
+<div class="bl_nav_js">
+ 		<!-- begin_menu_l -->
+            <!-- begin_submenu_container -->
+                <ul id="menu-l">
+                    <!-- begin_auth_info -->
+                    <!-- end_auth_info -->
+					<!-- begin_submenu -->
+
+                    <!-- begin_mail_on_item -->
+                        <!-- begin_mail_on -->
+                        <li order="info_mail"><a class="menu_arrow" id="xajax_new_mail_menu" href="{url_main}mail.php<!-- begin_mail_one_href -->?display=text&mid={mid}<!-- end_mail_one_href -->"><b class="w"><b></b></b> <i>{l_info_mail}: <span id="xajax_new_mail">{new_mails}</span></i></a></li>
+                        <!-- end_mail_on -->
+                    <!-- end_mail_on_item -->
+
+                    <!-- begin_wink_on_item -->
+                        <!-- begin_wink_on -->
+                        <li order="info_interests"><a class="menu_arrow" href="{url_main}mail_whos_interest.php"><b class="w"><b></b></b> <i>{l_info_interests}: <span id="xajax_new_wink">{new_interest}</span></i></a></li>
+                        <!-- end_wink_on -->
+                    <!-- end_wink_on_item -->
+
+                    <!-- begin_online_tab_header_item -->
+                        <!-- begin_online_tab_header -->
+                        <li order="info_online"><a class="menu_arrow" href="{url_main}users_online.php"><b class="w"><b></b></b> <i>{l_info_online}: <span id="xajax_online_user">{users_online}</span></i></a></li>
+                        <!-- end_online_tab_header -->
+                    <!-- end_online_tab_header_item -->
+
+                    <!-- begin_profile_pics_header_item -->
+                    <li order="profile_pics"><a class="menu_profile" href="{url_main}profile_photo.php"><b class="w"><b></b></b> <i>{l_profile_pics}</i></a></li>
+                    <!-- end_profile_pics_header_item -->
+
+					<!-- begin_header_gallery_item -->
+                        <!-- begin_header_gallery -->
+                        <li order="my_photos" ><a class="menu_photo" href="{url_main}gallery_albums_user.php?user_id={user_id}" ><b class="w"><b></b></b> <i>{l_my_photos}</i></a></li>
+                        <!-- end_header_gallery -->
+					<!-- end_header_gallery_item -->
+
+                    <!-- begin_header_music_item -->
+                        <!-- begin_header_music -->
+                        <li order="your_audio" ><a class="menu_music" href="{url_main}music_my.php" ><b class="w"><b></b></b> <i>{l_your_audio}</i></a></li>
+                        <!-- end_header_music -->
+                    <!-- end_header_music_item -->
+
+                    <!-- begin_header_videogallery_item -->
+                        <!-- begin_header_videogallery -->
+                        <li order="your_vids" ><a class="menu_videos" href="{url_main}vids_collect.php?m=my" ><b class="w"><b></b></b> <i>{l_your_vids}</i></a></li>
+                        <!-- end_header_videogallery -->
+                    <!-- end_header_videogallery_item -->
+
+					<!-- begin_header_blogs_item -->
+                        <!-- begin_header_blogs -->
+                        <li order="your_blog" ><a class="menu_blog" href="{url_main}blogs_blog.php" ><b class="w"><b></b></b> <i>{l_your_blog}</i></a></li>
+                        <!-- end_header_blogs -->
+					<!-- end_header_blogs_item -->
+
+					<!-- begin_header_your_settings_item -->
+					<li order="your_settings" ><a class="menu_settings" href="{url_main}profile_settings.php"><b class="w"><b></b></b> <i>{l_your_settings}</i></a></a></li>
+					<!-- end_header_your_settings_item -->
+
+					<!-- begin_header_widgets_item -->
+                        <!-- begin_header_widgets -->
+                        <li order="menu_widgets" class="menu_widgets"><a class="menu_widgets" href="{url_main}widgets.php"><b class="w"><b></b></b> <i>{l_menu_widgets}</i></a></li>
+                        <!-- end_header_widgets -->
+					<!-- end_header_widgets_item -->
+					<!-- end_submenu -->
+				</ul>
+      		<!-- end_submenu_container -->
+        <!-- end_menu_l -->
+<!-- menu-l end -->
+</div>
+
+		<div id="content" <!-- begin_menu_l_no --> style="margin-top:1px" <!-- end_menu_l_no -->>
+			<div class="inn">
+                <!-- begin_banner_header -->
+                <div class="banner_header">{banner_header}</div>
+                <!-- end_banner_header -->

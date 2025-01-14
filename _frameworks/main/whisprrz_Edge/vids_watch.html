@@ -1,0 +1,379 @@
+{header}
+{vids_header}
+        <a id="hide_narrow_box" href="" title="" style="position:absolute; margin-top:10px; right:0;">
+            <div id="bl_hide_narrow_box" class="bl_hide_narrow_box lower_header_color" style="display: {hide_narrow_box}"></div>
+            <div id="bl_show_narrow_box" class="bl_show_narrow_box upper_header_color" style="display: {show_narrow_box}"></div>
+        </a>
+
+<script type="text/javascript">
+    function pageCommentsCallback(page_index, jq){
+        var on_page_comments = {on_page_comments};
+        $("#comments").load("{url_main}vids_comments_ajax.php?id={video_id}&offset="
+                         + page_index * on_page_comments + "&limit="
+                         + on_page_comments + "");
+        return false;
+    }
+
+    $(document).ready(function(){
+        if ($("#video_url").attr('value') == '') {
+            $("#video_url").attr('value', document.location);
+        }
+
+        if ({total_comments} == 0) {
+            $('#comments_list').hide();
+        } else if ({total_comments} <= 5) {
+            $('#pagination').hide();
+        } else {
+            ;
+        }
+        $("#pagination").pagination(
+            {total_comments},
+            {
+                items_per_page:5,
+                num_edge_entries:1,
+                num_display_entries:5,
+                next_text: 'Next',
+                prev_text: 'Prev',
+                callback: pageCommentsCallback
+            }
+        );
+
+        $('#form_comment').submit(function() {
+
+			<!-- begin_guest_comment -->
+			document.location = "{url_main}join.php?cmd=login";
+			return false;
+			<!-- end_guest_comment -->
+
+            if ($('#comment_text').val() == '') {
+                alert('{l_please_enter_comment_text}');
+                return false;
+            }
+
+            $('#comments_count').html(Math.floor($('#comments_count').html()) + 1);
+            var total_comments = $('#comments_count').html();
+
+            if (total_comments == 0) {
+                $('#comments_list').hide();
+                $('#pagination').hide();
+            } else if (total_comments <= 5) {
+                $('#comments_list').show();
+                $('#pagination').hide();
+            } else {
+                $('#comments_list').show();
+                $('#pagination').show();
+            }
+
+            $.post("{url_main}vids_comment_add_ajax.php", { id: "{video_id}", text: $('#comment_text').val() }, function(data) {
+                $('#comment_text').val('');
+                $("#pagination").pagination(
+                    total_comments,
+                    {
+                        items_per_page:5,
+                        num_edge_entries:1,
+                        num_display_entries:5,
+                        next_text: 'Next',
+                        prev_text: 'Prev',
+                        callback: pageCommentsCallback
+                    }
+                );
+            });
+
+            return false;
+        });
+        $('body').on('click','.comment_del',function(){
+            if (confirm('{l_are_you_sure}')) {
+                var comment_id = $(this).attr('comment_id');
+                $('#comment_' + comment_id).remove();
+                $('#comments_count').html(Math.floor($('#comments_count').html()) - 1);
+                $.post("{url_main}vids_comment_del_ajax.php", { id: comment_id } );
+            }
+            return false;
+        });
+
+        $('#subscribe').click(function() {
+
+			<!-- begin_guest_subscribe -->
+			document.location = "{url_main}join.php?cmd=login";
+			return false;
+			<!-- end_guest_subscribe -->
+
+            $.post("{url_main}vids_subscribe_ajax.php", { id: {video_user_id} } );
+            $('#subscribe_text').remove();
+            alert('{l_you_subscribed}');
+        });
+
+        var rate_already = '{rate_already}';
+        $('.auto-submit-star').rating({
+            callback: function(value, link){
+
+				<!-- begin_guest_rating -->
+				document.location = "{url_main}join.php?cmd=login";
+				return false;
+				<!-- end_guest_rating -->
+
+                $('#load_animation_rating').css('visibility', 'visible');
+
+                $.get('{url_main}vids_rate_ajax.php?id={video_id}&rating=' + value, function(data) {
+                    $('#load_animation_rating').css('visibility', 'hidden');
+                    if (rate_already == '') {
+                        rate_already = 1;
+                        $('.video_rating').rating('readOnly',true);
+                        //$('#rated').css('visibility', 'visible');
+                        $('#rated').css('display', 'block');
+                        $('#count_rates').html(Math.floor($('#count_rates').html()) + 1);
+                    }
+                });
+            }
+
+        });
+
+
+        var box = $("#narrow_box"),
+            hide_box = $("#hide_narrow_box"),
+            box_object = $('.vids_new_img_frame');
+        if (box.css('display') == 'none') {
+            hide_box.attr('title', '{l_narrow_box_expand}');
+        } else {
+            hide_box.attr('title', '{l_narrow_box_collapse}');
+        }
+        prepareVideoResizeParent(box_object);
+        videoResizeParent(box_object);
+
+        hide_box.click(function(){
+        videoResizeStepVideo();
+        box.stop().animate(
+                {width: 'toggle'},
+                {duration: 350,
+                 complete: function() {
+                    var isState;
+                    if ($(this).css('display') == 'none') {
+                        hide_box.attr('title', '{l_narrow_box_expand}');
+                        $('#bl_show_narrow_box').css('display', 'block');
+                        $('#bl_hide_narrow_box').css('display', 'none');
+                        isState = 0;
+                    } else {
+                        hide_box.attr('title', '{l_narrow_box_collapse}');
+                        $('#bl_hide_narrow_box').css('display', 'block');
+                        $('#bl_show_narrow_box').css('display', 'none');
+                        isState = 1;
+                    }
+                    $.post('{url_main}ajax.php', {cmd: 'save_state_narrow_box',
+                                                  type: 'vids',
+                                                  state: isState}
+                    );
+                    cancelAnimationFrame(globalID);
+                    videoResizeParent(box_object);
+               }
+        });
+        return false;
+        });
+    });
+
+function videoResizeParent(box) {
+    var newWidth = box.width();
+    box.find('embed, object, video, iframe').each(function() {
+        var el=$(this), $bl=el.closest('.vids_new_img_frame'),
+            $custom=$bl.find('.video-js'),
+            r=el.parent().attr('data-aspectRatio');
+        if($custom[0]){
+            r=$bl.find('figure').attr('data-aspectRatio');
+            $custom.width(newWidth).height(newWidth * r);
+        }
+        el.width(newWidth).height(newWidth * r);
+    })
+}
+
+function prepareVideoResizeParent(box) {
+    box.find('embed, object, video, iframe').each(function() {
+        $(this).parent().attr('data-aspectRatio', this.height / this.width);
+        $(this).removeAttr('height').removeAttr('width');
+    });
+}
+
+function videoResizeStepVideo() {
+    globalID = requestAnimationFrame(videoResizeStepVideo);
+    videoResizeParent($('.vids_new_img_frame'));
+}
+</script>
+
+<div class="vids_new_decor_violet">
+    <div class="pl_top">
+        <h1 class="txt_upper_header_color">{video_subject}</h1>
+        <div class="vids_new_img_frame <!-- begin_player_custom -->player_custom<!-- end_player_custom -->"><figure> {video_html_code}</figure></div>
+
+        <div class="fl_left" id="stars">
+
+            <input name="rating" id = "star_1" type="radio" value="1" title="1" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_1} />
+            <input name="rating" id = "star_2" type="radio" value="2" title="2" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_2} />
+            <input name="rating" id = "star_3" type="radio" value="3" title="3" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_3} />
+            <input name="rating" id = "star_4" type="radio" value="4" title="4" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_4} />
+            <input name="rating" id = "star_5" type="radio" value="5" title="5" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_5} />
+            <input name="rating" id = "star_6" type="radio" value="6" title="6" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_6} />
+            <input name="rating" id = "star_7" type="radio" value="7" title="7" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_7} />
+            <input name="rating" id = "star_8" type="radio" value="8" title="8" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_8} />
+            <input name="rating" id = "star_9" type="radio" value="9" title="9" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_9} />
+            <input name="rating" id = "star_10" type="radio" value="10" title="10" class="video_rating auto-submit-star {split:2, required:true, readOnly:{readonly}}" {video_rating_check_10}/>
+        </div>
+
+
+        <div class="vids_new_count"><span id="count_rates">{video_count_rates}</span> {l_ratings} &nbsp;</div>
+        <div class="fl_left {rated_class_oryx}" id = "rated">{l_you_have_rated_this_video}</div>
+        <div class="fl_right"><strong>{video_count_views} {l_views}</strong></div>
+        <!-- begin_video_edit -->
+        <div class="vids_new_count">
+            <a class="areyousure" href="{url_main}vids_collect.php?del={video_id}">{l_delete}</a>
+            <a href="{url_main}vids_edit.php?id={video_id}">{l_edit}</a>
+        </div>
+        <!-- end_video_edit -->
+    </div>
+<div class="cl"></div>
+</div>
+
+<div class="vids_new_shadow"></div>
+
+<div class="vids_new_p pl_top_m">
+    <div id="comments_list">
+        <h4 class="video_comment">{l_comments} <span>(<span id="comments_count">{total_comments}</span>)</span></h4>
+        <div id="comments"></div>
+        <div id="pagination" class="pagination"></div>
+        <div class="cl"></div>
+    </div>
+
+    <form id="form_comment">
+        <div class="vids_new_comments">
+            <div class="vids_new_comments_head"><div class="vids_new_comments_txt"><strong>{l_leave_your_comment}:</strong></div></div>
+            <div class="vids_new_comments_c">
+                <a href="{url_main}search_results.php?display=profile&uid={my_user_id}"><img src="{my_user_photo}" width="62" height="70" alt=""/></a>
+                <div class="vids_new_comments_frm">
+                    <textarea id="comment_text" name="text"></textarea>
+                </div>
+                <div class="justify"></div>
+            </div>
+<!--             <div class="vids_new_comments_bot"></div>
+ -->        </div>
+<!--         <div class="fl_right"><input class="btn_pink" style="height:18px;" type="submit" value="{l_comment}"/></div>
+ -->
+    <input class="btn upper_header_color round big fl_right" type="submit" value="{l_comment}"/>
+
+    </form>
+</div>
+
+
+                </td>
+                <td id="narrow_box" class="td_narrow" style="display: {display}">
+
+
+<h1>&nbsp;</h1>
+<div class="vids_new_ava_title">
+    <a href="{url_main}search_results.php?display=profile&uid={video_user_id}">{video_user_name}</a>
+    {video_dt_readable}
+</div>
+<div class="vids_new_ava">
+    <p>{video_text_readable}</p>
+    <a href="{url_main}search_results.php?display=profile&uid={video_user_id}"><img src="{video_user_photo}" alt=""/></a>
+<div class="cl"></div>
+</div>
+
+<div class="vids_new_decor_link">
+    <form>
+    <label>{l_url}</label>
+    <div class="vids_input_text5 fl_left"><input id="video_url" class="no_abk" type="text"  onclick="this.select()" value="{video_url}" readonly="true"/></div>
+    <div class="cl"></div>
+<!--
+    <label>{l_embed}</label>
+    <div class="vids_input_text5 fl_left"><input class="no_abk" type="text"  onclick="this.select()" value='{video_html_code}' readonly="true"/></div>
+-->
+    </form>
+</div>
+<div class="cl"></div>
+
+<!-- begin_more -->
+
+<script>
+function vids_more_list_load_page(page_n)
+{
+    $('#more-container').load(
+            './vids_more_list_ajax.php?user_id={user_id}&video_id={video_id}&page=' + page_n,
+            null,
+            function(responseText, textStatus, XMLHttpRequest) {
+                current_page_n = page_n;
+            });
+
+    return false;
+}
+</script>
+
+<h1 class="txt_lower_header_color">{l_more_from} {video_user_name}</h1>
+
+<div id="more-container">
+
+<div id="more">
+    <div class="items">
+        <!-- begin_more_item -->
+        <div>
+            <div class="vids_new_foto">
+                <div class="vids_new_img"><a href="{url_main}vids_watch.php?id={more_item_id}"><img src="{more_item_image}" width="85" height="64" alt=""/></a></div>
+                <ul>
+                    <li class="pad"><a href="{url_main}vids_watch.php?id={more_item_id}">{more_item_subject}</a></li>
+                    <li>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_1}.png" width="16" height="16" alt=""/>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_2}.png" width="16" height="16" alt=""/>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_3}.png" width="16" height="16" alt=""/>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_4}.png" width="16" height="16" alt=""/>
+                        <img src="{url_tmpl_main}images/vids/ico_{more_item_rating_5}.png" width="16" height="16" alt=""/>
+                    </li>
+                    <li>{l_plays} {more_item_count_views}</li>
+                    <li class="pad">{l_comments}: {more_item_count_comments}</li>
+                </ul>
+                <div class="justify"></div>
+            </div>
+            <!-- begin_more_item_not_last --><div class="line_dashed"></div><!-- end_more_item_not_last -->
+        </div>
+        <!-- end_more_item -->
+    </div>
+</div>
+
+<div class="vids_new_guests">
+
+1-{last_video_n} {l_of} {members_vids_count}
+
+   <div class="decor_l"><a class="prevPage browse left"><img src="{url_tmpl_main}images/vids/new_mods_guests_decor_l.png" width="34" height="26" alt=""/></a></div>
+
+<!-- begin_pager_next --><div class="decor_r"><a class="nextPage browse right" href="#" onclick="return vids_more_list_load_page(2);"><img src="{url_tmpl_main}images/vids/new_mods_guests_decor_r.png" width="34" height="26" alt=""/></a></div><!-- end_pager_next -->
+      <!-- begin_pager_next_inactive --><div class="decor_r"><img src="{url_tmpl_main}images/vids/new_mods_guests_decor_r.png" width="34" height="26" alt=""/></div><!-- end_pager_next_inactive -->
+
+</div>
+
+</div>
+
+<div class="cl"></div>
+<!-- end_more -->
+
+
+<div style="margin-bottom:20px;">
+    <!-- begin_subscribe --><span id="subscribe_text"><a id="subscribe" href="#">{l_subscribe}</a><!-- end_subscribe -->
+    <!-- begin_separator --> | <!-- end_separator -->
+    <!-- begin_blog --><span id="subscribe_text"><a href="{url_main}blogs_write.php?add_text={{video_code}}">{l_blog_this}</a></span><!-- end_blog -->
+</div>
+
+<div class="cl"></div>
+<br />
+					<div class="vids_new_search">
+                        <div class="bl_search">
+                            <form action="{url_main}vids_collect.php">
+                            <input type="hidden" name="m" value="search" />
+                            <div class="vids_input_text1 fl_left"><input class="no_abk" type="text" name="id" value="{search_query}" onFocus="this.value=''"/></div>
+<!--                             <div class="vids_input2 fl_left"><input  type="submit" value="{l_search}"/></div> -->
+
+                            <input class="btn upper_header_color round big" type="submit" value="{l_search}"/>
+
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+{vids_footer}
+{footer}

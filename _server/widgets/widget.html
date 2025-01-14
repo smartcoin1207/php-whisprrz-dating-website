@@ -1,0 +1,472 @@
+
+<!-- begin_widget -->
+
+<div class="bl_widget" id="widget_{widget}"
+    style="position:absolute; display:block; left:{x}px; top:{y}px; z-index:{z};">
+    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
+
+<style>
+#widget_content_{widget} {
+  position: absolute;
+}
+</style>
+
+<script>
+        var full_obj = {};
+
+        function widget_full(widget_index) {
+
+            if(!full_obj[""+ widget_index]) {
+                full_obj[""+ widget_index] = true
+            } else {
+                full_obj["" + widget_index] = false;
+            }
+            
+            if(full_obj["" + widget_index]) {
+                   
+                
+                $("#widget_"+ widget_index).css({
+                  'left': '0px',
+                  'top': '0px',
+                  'width': '99vw'
+                });
+                
+                $(".wh_" + widget_index).css({
+                    'left':'0px',
+                    'width': '99vw'
+                });
+                
+                $(".wh_" + widget_index + " .w_txt").css({
+                   'width': $("#widget_"+ widget_index).width()-90 +"px"
+                });
+                
+                $("#widget_content_"+ widget_index).css({
+                  'left': '4px',
+                  'width': '99vw',
+                  'height': '100vh'
+                });
+                
+                $("#widget_inner_"+ widget_index).css({
+                  'height': '100%'
+                });
+            
+            } else {
+
+                if(widget_index == 10 || widget_index ==9) {
+                        $("#widget_"+ widget_index).css({
+                          'left': '0px',
+                          'top': '0px',
+                          'width': '552px'
+                        });
+                        
+                        $(".wh_" + widget_index).css({
+                            'left':'0px',
+                            'width': '552px'
+                        }); 
+                        
+                        $("#widget_content_"+ widget_index).css({
+                          'left': '4px',
+                          'width': '',
+                          'height': '550px'
+                        });
+                    
+                } else {
+                    $("#widget_"+ widget_index).css({
+                      'left': '0px',
+                      'top': '0px',
+                      'width': '207px'
+                    });
+                    
+                    $(".wh_" + widget_index).css({
+                        'left':'0px',
+                        'width': '207px'
+                    });
+                    
+                
+                    
+                    
+                    $("#widget_content_"+ widget_index).css({
+                      'left': '4px',
+                      'width': '',
+                      'height': '30vh'
+                    });
+                }
+                
+                $(".wh_" + widget_index + " .w_txt").css({
+                   'width': $("#widget_"+ widget_index).width()-90 +"px"
+                });
+                
+    
+            }
+            
+        }
+        
+        function widget_show1(widget_index) {
+            
+            
+            
+            var height_inner = $(".widget_content_" + widget_index).height();
+            
+
+                if(widget_index ==9 || widget_index == 10) {
+                    
+                    $("#widget_content_" + widget_index).css({
+                        'height': '',
+                        'width': '552px'
+                    });
+                    
+                    $("#widget_inner_" + widget_index).css({
+                        'height': height_inner
+                    });
+                    
+                    $("#widget_inner_"+ widget_index + ".bl_widget_cont hidden").css({
+                    });
+                    
+                    $(".wh_" + widget_index).css({
+                        'width': '552px'
+                    });
+                    
+                    $("#widget_"+ widget_index).css({
+                  
+                      'width': '552px'
+                    }); 
+                    
+                    $("#widget_inner_"+ widget_index).css({
+                        'height': ''
+                    });
+                } else {
+                      
+                    $("#widget_content_" + widget_index).css({
+                        'height': '',
+                        'width': '207px'
+                    });
+                    
+                    $("#widget_inner_" + widget_index).css({
+                        'height': height_inner
+                    });
+                    
+                    $("#widget_inner_"+ widget_index + ".bl_widget_cont hidden").css({
+                    });
+                    
+                    $(".wh_" + widget_index).css({
+                        'width': '207px'
+                    });
+                    
+                    $("#widget_"+ widget_index).css({
+                  
+                      'width': '207px'
+                    });
+                    
+                }
+
+                
+                $(".wh_" + widget_index + " .w_txt").css({
+                   'width': $("#widget_"+ widget_index).width()-90 +"px"
+                });
+                
+                widget_show(widget_index);
+
+          
+            
+        }
+        
+        
+        
+        
+        
+        
+
+$("#widget_content_{widget}").resizable({
+  handles: "e, s, w,  se, sw ",
+  minWidth: 207,
+  minHeight: 0,
+  aspectRatio: true,
+  resize: function(event, ui) {
+    var width = ui.size.width;
+    
+    var currentPosition = ui.position;
+    var originalPosition = ui.originalPosition;
+    
+    var direction = "";
+    if (currentPosition.left > originalPosition.left) {
+      direction = "right";
+    } else if (currentPosition.left < originalPosition.left) {
+      direction = "left";
+    }
+    
+
+    if (direction === "right" || direction === "left") {
+        var originWidth = $(".wh_{widget}").width();
+        var originLeft = $(".wh_{widget}").position().left;
+        var deltaWidth = width - originWidth;
+        $(".wh_{widget}").css('left', (originLeft - deltaWidth) );
+    }
+    
+    
+    $(".wh_{widget} .w_txt").css("width", (width - 90));
+
+    $(".wh_{widget}").css("width", width);
+
+  }
+
+});
+</script>
+    <div class="bl_widget_head wh_{widget} ">
+        <div class="bl_widget_head_title w_txt pad{widget}">
+            <div id="widget_title_{widget}">{widget_title} {add_note_button}</div>
+            <div id="widget_head_{widget}" class="draggable_head2"></div>
+
+        </div>
+        <div class="bl_control">
+            <div class="ico_minimize"><a href="#" id="widget_show_{widget}"
+                    onclick="widget_show1({widget}); return false;"></a></div>
+            <div class="ico_full"><a id="widget_full_{widget}"
+                    onclick="widget_full({widget}); return false;"></a></div>
+            <div class="ico_close"><a href="#" id="widget_close_{widget}"
+                    onclick="widget_close({widget}); return false;"></a></div>
+        </div>
+    </div>
+
+    <div id="widget_content_{widget}" class="bl_widget_shadow w_{widget} {calendar2}">
+
+
+        <div id="widget_inner_{widget}" class="bl_widget_cont {widget_open}">
+            <!-- end_widget -->
+
+            <!-- begin_open_1 -->
+            <div class="bl_foto">
+                <!-- begin_row_1 -->
+                <a href="search_results.php?display=profile&name={name}" title="{name}">
+                    <img alt="{name}" src="{url_files}{photo}" width="62" height="70" />
+                    <div class="photo_decor">{name_short}</div>
+                    <!-- begin_row_1_im -->
+                    <span class="icon_chat" onclick="sendMessages('{user_id}'); return false;" ></span>
+                    <!-- end_row_1_im -->
+                </a>
+                <!-- end_row_1 -->
+                <!-- begin_row_1_no -->
+                <img class="png" src="{url_main}_server/widgets/images/foto_emrty.png" width="62" height="70" alt="" />
+                <!-- end_row_1_no -->
+            </div>
+
+            <div class="bl_scroll">
+                <a href="#" onclick="xajax_widget_friends_scroll(0); return false;"><img class="png"
+                        src="{url_main}_server/widgets/images/w_blue_scroll_top.png" width="15" height="15"></a>
+                <img class="png" src="{url_main}_server/widgets/images/w_blue_scroll_center.png" width="15" height="105"
+                    style="_height:100px;">
+                <a href="#" onclick="xajax_widget_friends_scroll(1); return false;"><img class="png"
+                        src="{url_main}_server/widgets/images/w_blue_scroll_bottom.png" width="15" height="15"></a>
+            </div>
+
+            <!-- end_open_1 -->
+
+            <!-- begin_open_2 -->
+            <div class="bl_cont">
+                <!-- begin_row_2 -->
+                <h4><a href="{url_main}blogs_post.php?id={id}">{subject}</a></h4>
+                <p>
+                    <span class="txt_hide">
+                        <a href="{url_main}blogs_post.php?id={id}">{msg}</a>
+                    </span>
+                    <span>({widget_by} <a href="{url_main}search_results.php?display=profile&name={name}">{name}</a>
+                        {dt})</span>
+                </p>
+                <!-- end_row_2 -->
+            </div>
+            <!-- end_open_2 -->
+
+            <!-- begin_open_3 -->
+            <div class="bl_tb">
+                <table cellpadding="0" cellspacing="0">
+                    <col width="75%" />
+                    <!-- begin_row_3 -->
+
+                    <!-- begin_row_3_photo -->
+                    <tr>
+                        <th>
+                            <div><a
+                                    href="{url_main}profile_view.php?display=photo&photo_offset={photo_offset}#{cid}">{comment}</a>
+                            </div>
+                        </th>
+                        <td>
+                            <div><a href="{url_main}search_results.php?display=profile&name={name}">{name_short}</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- end_row_3_photo -->
+                    <!-- begin_row_3_images -->
+                    <tr>
+                        <th>
+                            <div><a href="{url_main}gallery_image.php?img_id={photo_id}#{cid}">{comment}</a></div>
+                        </th>
+                        <td>
+                            <div><a href="{url_main}search_results.php?display=profile&name={name}">{name_short}</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- end_row_3_images -->
+
+                    <!-- end_row_3 -->
+                </table>
+            </div>
+            <!-- end_open_3 -->
+
+            <!-- begin_open_4 -->
+            <div class="bl_tb">
+                <table cellpadding="0" cellspacing="0">
+                    <col width="75%" />
+                    <!-- begin_row_4 -->
+                    <tr>
+                        <td>
+                            <div class="status">{status}</div>
+                        </td>
+                        <td>
+                            <div><a href="{url_main}search_results.php?display=profile&name={name}">{name_short}</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- end_row_4 -->
+                </table>
+            </div>
+            <!-- end_open_4 -->
+
+            <!-- begin_open_5 -->
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th>{widget_mo}</th>
+                    <th>{widget_tu}</th>
+                    <th>{widget_we}</th>
+                    <th>{widget_th}</th>
+                    <th>{widget_fr}</th>
+                    <th>{widget_sa}</th>
+                    <th class="last">{widget_su}</th>
+                </tr>
+
+                <!-- begin_row_5 -->
+                <tr>
+                    <td class="{td_class1}">{td1}</td>
+                    <td class="{td_class2}">{td2}</td>
+                    <td class="{td_class3}">{td3}</td>
+                    <td class="{td_class4}">{td4}</td>
+                    <td class="{td_class5}">{td5}</td>
+                    <td class="{td_class6}">{td6}</td>
+                    <td class="{td_class7}">{td7}</td>
+                </tr>
+                <!-- end_row_5 -->
+
+            </table>
+            <!-- end_open_5 -->
+
+            <!-- begin_open_6 -->
+            <div class="bl_tb">
+                <table cellpadding="0" cellspacing="0">
+                    <col width="15%" />
+                    <col width="60%" />
+                    <!-- begin_row_6 -->
+                    <tr>
+                        <td><a href="{url_main}mail.php?display=text&mid={mail_id}"><img
+                                    src="{url_main}_server/widgets/images/{mail_icon}.png" width="22" height="17"
+                                    alt="" /></a></td>
+                        <th>
+                            <div class="mail_txt"><a
+                                    href="{url_main}mail.php?display=text&mid={mail_id}">{mail_subject}</a></div>
+                        </th>
+                        <!-- begin_row_6_user -->
+                        <td>
+                            <div class="mail_name"><a
+                                    href="{url_main}search_results.php?display=profile&name={mail_name}">{mail_name_short}</a>
+                            </div>
+                        </td>
+                        <!-- end_row_6_user -->
+                        <!-- begin_row_6_admin -->
+                        <td>
+                            <div class="mail_name"><a href="{url_main}contact.php">{mail_name_short}</a></div>
+                        </td>
+                        <!-- end_row_6_admin -->
+                    </tr>
+                    <!-- end_row_6 -->
+                </table>
+            </div>
+            <!-- end_open_6 -->
+
+
+            <!-- begin_open_7 -->
+            <div class="bl_tb">
+                <table cellpadding="0" cellspacing="0">
+                    <col width="64%" />
+                    <col width="34%" />
+                    <!-- begin_row_7 -->
+                    <tr>
+                        <th><a href="{url_main}forum_topic.php?topic_id={forum_topic_id}">{forum_subject}</a></th>
+                        <td><a
+                                href="{url_main}search_results.php?display=profile&name={forum_name}">{forum_name_short}</a>
+                        </td>
+                        <td><a href="{url_main}forum_topic.php?topic_id={forum_topic_id}&message_id={forum_message_id}"><img
+                                    src="{url_main}_server/widgets/images/switch_post.gif" width="5" height="9"
+                                    alt="" /></a></td>
+                    </tr>
+                    <!-- end_row_7 -->
+                </table>
+            </div>
+            <!-- end_open_7 -->
+
+            <!-- begin_open_8 -->
+            <div class="bl_photo_new">
+                <!-- begin_row_8 -->
+                <div class="{row_class}">
+                    <a href="{url_main}gallery_image.php?img_id={photo_id}"><img src="{url_main}{photo_url}" width="100"
+                            height="100" alt="" /></a>
+                    <!-- begin_row_8_title -->
+                    <a href="{url_main}gallery_image.php?img_id={photo_id}">{photo_title}</a><br />
+                    <!-- end_row_8_title -->
+                    <span>({l_by} <a
+                            href="{url_main}search_results.php?display=profile&name={photo_name}">{photo_name}</a>)</span>
+                </div>
+                <!-- end_row_8 -->
+            </div>
+            <div class="photo_new_btn">
+                <a class="left" href="{url_main}gallery_index.php"><span>{l_all_albums}</span></a>
+                <a class="right" href="{url_main}gallery_admin.php"><span>{l_my_photos}</span></a>
+            </div>
+            <!-- end_open_8 -->
+            
+            <!-- begin_open_9 -->
+        
+                <div class="bl_tb">
+                
+                </div>
+
+            <!-- end_open_9 -->
+            
+            <!-- begin_open_10 -->
+            <div class="bl_tb">
+        
+                <iframe id="ytplayer_widget" src="./whisp_radio/RKHM/userAuth" name="iframe_a" height="100%" width="100%"
+                    title="RHMK" onload="login()" allowfullscreen></iframe>
+                
+                <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+                <script>
+                
+                    function login() {
+                        var value = localStorage.getItem('crypt');
+
+                        var password = CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(value));
+
+                        var iframe = document.getElementById("ytplayer_widget");
+                        var payload = { type: "login", email: "{email}", password: password };
+
+                            iframe.contentWindow.postMessage(payload, "*");
+                    }
+
+                </script>
+            </div>
+            <!-- end_open_10 -->
+
+            <!-- begin_widget_end -->
+        </div>
+    </div>
+</div>
+<!-- end_widget_end -->

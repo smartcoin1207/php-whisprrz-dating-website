@@ -1,0 +1,137 @@
+<!-- td_narrow -->
+<td class="td_narrow">
+
+    <script type="text/javascript">
+    function music_sidebar_search_on_submit()
+    {
+        value = $("#places_sidebar_search input[name='query']").val();
+
+        if(value != '')
+            return true;
+
+        alert('{l_music_please_enter_what_you_search}');
+
+        return false;
+    }
+    </script>
+
+    <!-- begin_block_1 -->
+    <h1 class="txt_lower_header_color">{block_title}</h1>
+
+    <!-- begin_song_1 -->
+    <div class="music_new_foto" >
+        <div class="music_new_img">
+            <a href="{url_main}music_song_show.php?song_id={song_id}" title="{song_title}"><img src="{image_thumbnail}" width="85" height="64" alt=""/></a>
+            <div class="music_new_play">{song_player}</div>
+        </div>
+
+        <ul>
+            <li><a class="txt_lower_header_color" href="{url_main}music_song_show.php?song_id={song_id}" title="{song_title}">{song_title_full}</a></li>
+            <li class="avtor"><a class="txt_upper_header_color" href="{url_main}music_musician_show.php?musician_id={musician_id}" title="{musician_name_full}">{musician_name}</a></li>
+            <li>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="1" title="{l_song_rating_1}" {music_song_rating_1_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="2" title="{l_song_rating_2}" {music_song_rating_2_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="3" title="{l_song_rating_3}" {music_song_rating_3_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="4" title="{l_song_rating_4}" {music_song_rating_4_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="5" title="{l_song_rating_5}" {music_song_rating_5_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="6" title="{l_song_rating_6}" {music_song_rating_6_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="7" title="{l_song_rating_7}" {music_song_rating_7_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="8" title="{l_song_rating_8}" {music_song_rating_8_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="9" title="{l_song_rating_9}" {music_song_rating_9_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="10" title="{l_song_rating_10}" {music_song_rating_10_checked} class="song_rating star {split:2, readOnly:true}"/>
+            </li>
+            
+        </ul>
+    <div class="justify"></div>
+    </div>
+
+    <!-- begin_song_1_not_last --><div class="line_dashed"></div><!-- end_song_1_not_last -->
+    <!-- end_song_1 -->
+
+    <!-- narrow_pl -->
+    <div class="narrow_pl">
+        <div class="cont">
+            <div class="pic">
+                <img class="png" src="{url_tmpl_main}images/music/ico_browse.png" width="34" height="34" alt=""/>
+            </div>
+            <ul class="list">
+                <li><a href="{url_main}music_song_list_{block_type}.php">{l_music_browse_all}</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /narrow_pl -->
+
+
+    <div class="cl"></div>
+    <!-- end_block_1 -->
+
+    <!-- begin_block_2 -->
+    <h1 class="txt_lower_header_color">{block_title}</h1>
+
+    <!-- begin_song_2 -->
+    <div class="music_new_foto" >
+        <div class="music_new_img">
+            <a href="{url_main}music_song_show.php?song_id={song_id}" title="{song_title_full}"><img src="{image_thumbnail}" width="85" height="64" alt=""/></a>
+            <div class="music_new_play">{song_player}</div>
+        </div>
+
+        <ul>
+            <li><a class="txt_lower_header_color" href="{url_main}music_song_show.php?song_id={song_id}" title="{song_title}">{song_title}</a></li>
+            <li class="avtor">
+            <a class="txt_upper_header_color" href="{url_main}music_musician_show.php?musician_id={musician_id}" title="{musician_name_full}">{musician_name}</a></li>
+            <li>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="1" title="{l_song_rating_1}" {music_song_rating_1_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="2" title="{l_song_rating_2}" {music_song_rating_2_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="3" title="{l_song_rating_3}" {music_song_rating_3_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="4" title="{l_song_rating_4}" {music_song_rating_4_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="5" title="{l_song_rating_5}" {music_song_rating_5_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="6" title="{l_song_rating_6}" {music_song_rating_6_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="7" title="{l_song_rating_7}" {music_song_rating_7_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="8" title="{l_song_rating_8}" {music_song_rating_8_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="9" title="{l_song_rating_9}" {music_song_rating_9_checked} class="song_rating star {split:2, readOnly:true}"/>
+                <input name="music_{block_type}_rating_{song_id}" type="radio" value="10" title="{l_song_rating_10}" {music_song_rating_10_checked} class="song_rating star {split:2, readOnly:true}"/>
+            </li>
+            
+        </ul>
+    <div class="justify"></div>
+    </div>
+
+    <!-- begin_song_2_not_last --><div class="line_dashed"></div><!-- end_song_2_not_last -->
+    <!-- end_song_2 -->
+
+    <!-- narrow_pl -->
+    <div class="narrow_pl">
+        <div class="cont">
+            <div class="pic">
+                <img class="png" src="{url_tmpl_main}images/music/ico_browse.png" width="34" height="34" alt=""/>
+            </div>
+            <ul class="list">
+                <li><a href="{url_main}music_song_list_{block_type}.php">{l_music_browse_all}</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /narrow_pl -->
+
+    <div class="cl"></div>
+    <!-- end_block_2 -->
+
+
+</td>
+<!-- /td_narrow -->
+
+<tr>
+    <td class="td_main">&nbsp;</td>
+    <td class="td_narrow">
+        <div class="music_new_search">
+            <div class="bl_search">
+				<br/>
+                <form id="places_sidebar_search" action="{url_main}music_search.php" method="get" onsubmit="return music_sidebar_search_on_submit();">
+                    <div class="music_input_text1 fl_left"><input class="no_abk" type="text" name="query" value=""/></div>
+<!--                    <div class="music_input8 fl_left" style="margin-left:10px;"> <input type="submit" value="{l_search}"/></div> -->
+
+<input class="btn upper_header_color round big" type="submit" value="{l_search}"/>
+
+                </form>
+            </div>
+        </div>
+    </td>

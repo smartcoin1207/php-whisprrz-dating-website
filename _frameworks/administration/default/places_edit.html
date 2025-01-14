@@ -1,0 +1,155 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/places_results.php">{l_menu_places}</a></li>
+        <li><a href="{url_main}administration/places_reviews.php">{l_menu_reviews}</a></li>
+        <li><a href="{url_main}administration/places_categories.php">{l_menu_categories}</a></li>
+        <li><a href="{url_main}administration/places_category_add.php">{l_menu_categories_add}</a></li>
+    </ul>
+</div>
+
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#place_edit_form").validate({
+        rules: {
+            place_name: "required",
+            place_address: "required",
+            place_site: "url",
+            place_about: "required",
+            place_city: {
+                required: true,
+                min: 1,
+                number: true
+                }
+        },
+        messages: {
+            place_name: "{l_please_specify_name}",
+            place_address: "{l_address_is_required}",
+            place_site: "{l_please_enter_correct_url}",
+            place_about: "{l_please_enter_about}",
+            place_city: "{l_please_select_city}"
+        }
+    })
+});
+
+</script>
+
+<div class="block_main">
+    <h2>{l_title_current} - {place_name}</h2>
+
+    <div class="bl_form">
+        <p>
+            <a href="{url_main}administration/places_reviews.php?place_id={place_id}">{l_edit_reviews}</a>
+        </p>
+
+        <form method="POST" id="place_edit_form" action="{url_main}administration/places_edit.php?cmd=update&id={place_id}">
+
+        <label>{l_category}:</label>
+        <select name="category" class="input">
+        {category_options}
+        </select>
+
+        <label>{l_place_name}:</label>
+        <input type="text" name="place_name" value="{place_name}">
+
+        <label>{l_place_about}:</label>
+        <textarea name="place_about" id="place_about" class="textarea_small">{place_about}</textarea>
+
+        <label>{l_place_address}:</label>
+        <input type="text" name="place_address" value="{place_address}">
+
+        <label>{l_place_phone}:</label>
+        <input type="text" name="place_phone" value="{place_phone}">
+
+        <label>{l_place_site}:</label>
+        <input type="text" name="place_site" value="{place_site}">
+
+        <label>{l_country}:</label>
+        <select class="input" name="country" id="country" onchange="xajax_states(country.value)">
+        {country_options}
+        </select>
+
+        <label>{l_state_province}:</label>
+        <select class="input" name="state" id="state" onchange="xajax_cities(state.value)">
+        <option value="-1">- {l_state_province} -</option>
+        {state_options}
+        </select>
+
+        <label>{l_city}:</label>
+        <select class="input" name="city" id="city">
+        <option value="-1">- {l_city} -</option>
+        {city_options}
+        </select>
+
+
+        <div style="height:20px"></div>
+
+        <h2>{l_edit_photos}</h2>
+
+<div style="width: 100%;  height: 180px;">
+        <!-- begin_photo_edit -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    create_gallery()
+});
+
+function create_gallery()
+{
+    $('.edit_image_gallery').lightBox({
+        imageLoading:           '{url_tmpl_administration}images/lightbox-ico-loading.gif',
+        imageBtnPrev:           '{url_tmpl_administration}images/lightbox-btn-prev.gif',
+        imageBtnNext:           '{url_tmpl_administration}images/lightbox-btn-next.gif',
+        imageBtnClose:          '{url_tmpl_administration}images/lightbox-btn-close.gif',
+        imageBlank:             '{url_tmpl_administration}images/lightbox-blank.gif'
+        });
+}
+
+function edit_delete_image(image_id)
+{
+    if(confirm('{l_this_action}'))
+    {
+        $('#edit_image_' + image_id).fadeOut(400, function() {
+            $('#edit_image_' + image_id).remove();
+            create_gallery();
+            $.ajax({
+                    type: 'POST',
+                    url: '{url_main}administration/places_place_image_delete_ajax.php',
+                    data: {
+                        image_id: image_id
+                        }
+                  });
+            });
+    }
+}
+
+</script>
+
+
+            <!-- begin_photo-->
+            <div style="width:24%;float: left;" id="edit_image_{image_id}">
+                <a class="edit_image_gallery" href="{image_file}"><img src="{image_thumbnail}"></a>
+                <p><a style="cursor: pointer;" onClick="return edit_delete_image({image_id});">{l_delete}</a></p>
+                <!-- begin_photo_odd-->
+                <!-- end_photo_odd-->
+                <!-- begin_photo_even-->
+                <!-- end_photo_even-->
+                <div style="height:15px"></div>
+            </div>
+            <!-- end_photo-->
+        <!-- end_photo_edit -->
+</div>
+
+        <div class="clear" style="height:20px"></div>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_save_changes}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

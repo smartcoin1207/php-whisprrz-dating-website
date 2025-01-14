@@ -1,0 +1,103 @@
+{header}
+<script language="javascript" type="text/javascript">
+$(function() {
+    $('.location').keypress(function(e){
+        if (isKeyPressed(e, 13)) {
+            updateItem($(this).attr('id'));
+            return false;
+        };
+    }).blur(function(e){
+        geoUpdateItem($(this).attr('id'));
+    });
+
+    $('#all').change(function(){
+        choiceChkbox($(this), $('[id ^= chk_]'))
+    });
+
+    $('#language').change(function(){
+        var lang = $(this).val();
+        if (lang != 'edit_mode') {
+            window.location.href='users_fields_localization.php?mode=state&country_id='+$('#select_country').val()+'&lang='+lang;
+        }
+    });
+
+});
+</script>
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+
+<style>
+input {width:44%;}
+.link {width:45%; margin-top:5px; }
+</style>
+        <p style="padding-left:28px;">{l_language_edit_instruction}</p>
+        <p style="padding-left: 28px; font-size: 11px; padding-bottom: 0px;"><b>{l_translation}:</b> <select id="language" style="margin:0px 0px 14px 6px;" name="language">
+            <option value="edit_mode">{l_please_choose}</option>
+            {select_options_language}
+        </select></p>
+
+        <form style="padding-left:28px;" name="geo_country" method="get" action="{url_page}">
+            <b>{l_country}:</b>
+            <select id="select_country" style="margin-left:4px;" name="country_id" onchange="document.forms.geo_country.submit()">
+                {geo_countries}
+            </select>
+        </form>
+        <br>
+        <form action="{url_page}" method="POST">
+        <!-- begin_select_btn -->
+        <input style="border: 0 none; width: 14px; height: 14px; margin:4px 1px 10px 28px;" type="checkbox" id="all">
+        <label for="all" style="display:inline-block;">{l_select_all}</label>
+        <!-- end_select_btn -->
+        <!-- begin_state -->
+        <div id="block_{state_id}" >
+            <div style="display:inline-block; width: 22px; padding-right: 3px;">
+                <img style="display:none; margin-top:-14px;" id="preloader_{state_id}" src="{url_tmpl_administration}images/loader.gif">
+            </div>
+            <div style="display:inline-block;"><input style="border: 0 none; width: 14px; height: 14px; margin-top:1px; margin-right: 2px;" type="checkbox" id="chk_{state_id}"></div>
+            <input style="padding-left: 5px;" id="{state_id}" data-current="{state_title}" class="location" type="text" name="name" value="{state_title}">
+
+            <div class="action_links_module">
+                <a id="hide_item_{state_id}" <!-- begin_item_show -->class="hide"<!-- end_item_show --> onClick="if (confirm('{l_are_you_sure}')) geoHideItem({state_id}); return false;"  href="#">{l_hide}</a>
+                <a id="show_item_{state_id}" <!-- begin_item_hide -->class="hide"<!-- end_item_hide --> onClick="if (confirm('{l_are_you_sure}')) geoShowItem({state_id}); return false;"  href="#">{l_show}</a>
+                |
+                <a onClick="if (confirm('{l_are_you_sure}')) geoDeleteItem({state_id}); return false;"  href="#">{l_delete}</a>
+            </div>
+        </div>
+        <!-- end_state -->
+        </form>
+        <!-- begin_delete_btn -->
+        <div class="btn fl_left" style="margin-left:40px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoHideItem(0,1); else return false; " href="#">{l_hide}</a>
+        </div>
+
+        <div class="btn fl_left" style="margin-left:0px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoShowItem(0,1); else return false; " href="#">{l_show}</a>
+        </div>
+
+        <div class="btn fl_left" style="margin-left:0px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoDeleteItem(0,1); else return false; " href="#">{l_delete}</a>
+        </div>
+        <div class="cl"></div>
+        <!-- end_delete_btn -->
+        <h2>{l_add}</h2>
+        <form action="{url_page}" method="POST">
+        <input name="country_id" value="{country_id}" type="hidden">
+        <input name="cmd" value="add" type="hidden">
+
+        <input style="width:50%; margin-top:5px;" type="text" name="name" value="">
+
+
+        <div class="btn fl_right" style="margin:0px; margin-top: -1px; width: 46%;"><a href="#" class="submit">{l_add}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

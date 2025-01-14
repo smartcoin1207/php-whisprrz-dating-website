@@ -1,0 +1,122 @@
+{header}
+
+<script>
+$(document).ready(function () {
+    $(".bl_form form").submit(function(e){
+        var id=$(this).attr('id');
+        
+        var n=trim($("#username_"+id).val());
+        if(n==''){
+            alert('{l_field_is_required}');
+            $("#username_"+id).focus();
+            return false;
+        }
+        if(id=="add"){
+            var p=trim($("#password_"+id).val());
+            if(p==''){
+                alert('{l_field_is_required}');
+                $("#password_"+id).focus();
+                return false;
+            }
+        }
+        return true;
+    });
+});
+
+
+</script>
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+	<div style="color:#F00; font-weight:bold; padding-bottom: 10px;">{message}</div>
+    
+
+    <div class="bl_form">	
+		
+			<table>				
+	
+
+				<tr>
+					<td>{l_username}</td>
+					<td>{l_password}</td>					 
+					<td width="10"></td>
+					<td>{l_action}</td>					
+				</tr> 
+	
+<!-- begin_mail_list -->
+
+	<!-- begin_mail_list_item -->
+			<form id="{id}" action="{url_page}" method="post">
+			<input type="hidden" value="{id}" name="id" >
+			<input type="hidden" value="update" name="cmd" >
+				<tr>
+					<td><input id="username_{id}" name="username" value="{username}"></td>
+					<td><input id="password_{id}" name="password" value="" placeholder="{l_input_the_new_password_here}"></td>					 
+					<td width="10"></td>
+					<td nowrap>
+					<input class="button" type="submit" value="{l_save}">  <a href="{url_page}?cmd=delete&id={id}" onClick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+					</td>
+				</tr>
+			</form>
+	<!-- end_mail_list_item -->
+
+<!-- end_mail_list -->
+		
+			<form id="add" action="{url_page}" method="post">
+				<input type="hidden" value="add" name="cmd" >				
+				<tr>
+					<td><input id="username_add" name="username" value=""></td>
+					<td><input id="password_add" name="password" value=""></td>
+					<td width="10"></td>
+					<td><input class="button" type="submit" value="{l_add}"></td> 
+				</tr>
+			</form>
+		</table>
+
+
+	    <!-- begin_mail_list_pages -->
+			<div class="body_text" style="padding-bottom: 16px;">
+				<!-- begin_mail_list_prev_page -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+				<!-- end_mail_list_prev_page -->
+				<!-- begin_mail_list_prev_page_off -->
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+				<!-- end_mail_list_prev_page_off -->
+				<!-- begin_mail_list_first_page -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+				<!-- end_mail_list_first_page -->
+				<!-- begin_mail_list_prev_pages -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+				<!-- end_mail_list_prev_pages -->
+				<!-- begin_mail_list_page -->
+					<!-- begin_mail_list_link_page -->
+					<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+					<!-- end_mail_list_link_page -->
+					<!-- begin_mail_list_this_page -->
+					<b>{page}</b>
+					<!-- end_mail_list_this_page -->
+				<!-- end_mail_list_page -->
+				<!-- begin_mail_list_next_pages -->
+				<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+				<!-- end_mail_list_next_pages -->
+				<!-- begin_mail_list_last_page -->
+				<b>{l_of}</b> <a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+				<!-- end_mail_list_last_page -->
+				<!-- begin_mail_list_next_page -->
+				&nbsp; | &nbsp;<a href="{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+				<!-- end_mail_list_next_page -->
+				<!-- begin_mail_list_next_page_off -->
+				&nbsp; | &nbsp;<b>{l_next}</b>
+				<!-- end_mail_list_next_page_off -->
+			</div>
+            <!-- end_mail_list_pages -->	
+	
+
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

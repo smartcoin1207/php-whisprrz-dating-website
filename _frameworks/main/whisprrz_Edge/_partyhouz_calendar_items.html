@@ -1,0 +1,57 @@
+<script>
+    clPartyhouzCalendar.setData({
+        urlPage:'{page_url}',
+        uid:'{calendar_uid}'*1,
+        selectMonth:'{calendar_month}'*1,
+        selectYear:'{calendar_year}'*1
+    });
+    </script>
+    <script class="script_partyhouz_items">
+    var partyhouzItems=[
+        <!-- begin_day -->
+        <!-- begin_partyhou -->
+        {id:'{partyhou_id}',
+         partyhouName: clPartyhouzCalendar.getHtmlPartyhouItem('{partyhou_id}', '{partyhou_done}', '{partyhou_user_name_js}', '{partyhou_user_url}', '{partyhou_user_photo}', '{partyhou_user_is_online}', '{partyhou_title_js}', '{partyhou_description_js}', '{partyhou_time}', 0, 0, '{partyhou_user_uid}', '{partyhou_user_to_uid}', '{partyhou_edit_url}', '{partyhou_show_url}', '{partyhou_image}', '{partyhou_category}', '{partyhou_additional_data}'),
+         date:'{partyhou_datetime_day}',
+         calendar: 'Work', color: '<!-- begin_my_partyhou_class -->my_partyhou_color<!-- end_my_partyhou_class --><!-- begin_other_partyhou_class -->other_partyhou_color<!-- end_other_partyhou_class -->'},
+        <!-- end_partyhou -->
+    
+        <!-- begin_day_action -->
+        {id:0,
+         partyhouName: clPartyhouzCalendar.getHtmlPartyhouItem(0, 0, '', '', '', '', '{partyhou_title_js}', '', '', '{partyhouz_num}', '{url_create_new_item}', '','',''),
+         date:'{partyhou_datetime_day}',
+         calendar: 'Work', color: '',
+         owners: {day_owners}},
+        <!-- end_day_action -->
+        <!-- end_day -->
+    ];
+    <!-- begin_set_partyhouz -->
+    if(typeof clCalendar=='object'){
+        clCalendar.setPartyhouz(partyhouzItems);
+    }
+    <!-- end_set_partyhouz -->
+
+    <!-- begin_update_partyhouz -->
+    if(typeof clCalendar=='object'){
+        clCalendar.updatePartyhouz(partyhouzItems, '{partyhou_id}');
+    }
+    <!-- end_update_partyhouz -->
+    
+    <!-- begin_add_partyhouz -->
+    if(typeof clCalendar=='object'){
+        clCalendar.addPartyhouz(partyhouzItems, '{partyhou_datetime_day}', '{partyhouz_last_more}');
+    }
+    <!-- end_add_partyhouz -->
+    
+    <!-- begin_no_load_more -->
+    clPartyhouzCalendar.hideLoadMoreLink($('#task_{partyhou_id}'));
+    <!-- end_no_load_more -->
+    
+    <!-- begin_day_owners_update -->
+    clPartyhouzCalendar.updateMarkersDay('{day_owners_update_day}', {day_owners_update});
+    <!-- end_day_owners_update -->
+    
+    <!-- begin_update_counter_my_task -->
+    clCounters.setDataOneCounter('new_tasks', '{update_counter_my_task_count}', '{update_counter_my_task_count}', false, '{update_counter_my_task_title}');
+    <!-- end_update_counter_my_task -->
+    </script>

@@ -1,0 +1,64 @@
+{header}
+<script>
+$(function() {
+	var $colorBg=$('#sticker_block_background'),
+		changeColor=$colorBg.val();
+	$('#option_sticker_block_background_transparent').change(function(){
+		var $el=$(this).prop('disabled', true);
+		if ($el.prop('checked')) {
+			changeColor=$colorBg.val();
+			$colorBg.spectrum('set', 'transparent');
+		} else {
+			$colorBg.spectrum('set', changeColor);
+		}
+		$el.prop('disabled', false);
+	})
+
+	var $colorBgWall=$('#comment_sticker_block_background'),
+		changeColorWall=$colorBgWall.val();
+	$('#option_comment_sticker_block_background_transparent').change(function(){
+		var $el=$(this).prop('disabled', true);
+		if ($el.prop('checked')) {
+			changeColor=$colorBgWall.val();
+			$colorBgWall.spectrum('set', 'transparent');
+		} else {
+			$colorBgWall.spectrum('set', changeColorWall);
+		}
+		$el.prop('disabled', false);
+	})
+
+	var $colorBgReply=$('#comment_reply_sticker_block_background'),
+		changeColorReply=$colorBgReply.val();
+	$('#option_comment_reply_sticker_block_background_transparent').change(function(){
+		var $el=$(this).prop('disabled', true);
+		if ($el.prop('checked')) {
+			changeColorReply=$colorBgReply.val();
+			$colorBgReply.spectrum('set', 'transparent');
+		} else {
+			$colorBgReply.spectrum('set', changeColorReply);
+		}
+		$el.prop('disabled', false);
+	})
+})
+</script>
+<div class="block_narrow">
+    {menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+    <div class="bl_form">
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update">
+		{config_fields}
+
+        <div class="wrap_button fl_right">
+            <button class="button submit" type="submit">{l_save}</button>
+            <div class="button_submit_instruction">{l_or_use_ctrl_s}</div>
+        </div>
+
+        </form>
+    </div>
+    <div class="empty"></div>
+</div>
+
+{footer}

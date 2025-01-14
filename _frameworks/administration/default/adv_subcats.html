@@ -1,0 +1,44 @@
+{header}
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active"><a href="{url_main}administration/adv.php">{l_menu_adv}</a></li>
+        <li><a href="{url_main}administration/home.php">{l_home}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+   <div class="bl_form">
+
+    <table class="tb">
+    <tr>
+        <th class="decor_l"></th>
+        <th class="right" >{l_category}</th>
+        <th class="last">{l_action}</th>
+        <th class="decor_r"></th>
+    </tr>
+    <!--begin_sub_item-->
+    <tr>
+    <tr class="{class}">
+        <td class="decor{decl}"></td>
+        <td class="right">
+            {var_name}
+        </td>
+        <td class="last">
+            <a href="adv_subcat_edit.php?id={var_id}">{l_edit}</a> |
+            <a href="adv_subcats.php?delete={var_id}&cat_id={cat_id}" onclick="if (confirm('{l_are_you_sure}')) return true; else return false;">{l_delete}</a>
+        </td>
+        <td class="decor{decr}"></td>
+    </tr>
+    <!--end_sub_item-->
+    </table>
+<h2>{l_add_subcategory}</h2>
+    <form action="{url_page}?table={table}" method="POST">
+      <input type="hidden" name="cmd" value="add">
+      <input type="hidden" name="cat_id" value="{cat_id}">
+      <label>{l_name}:</label>
+      <input type="text" name="name">
+        <div class="btn fl_right"><a href="#" class="submit">{l_add}</a></div>
+</form>
+</div>
+</div>
+{footer}

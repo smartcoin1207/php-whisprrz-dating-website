@@ -1,0 +1,128 @@
+		<div class="label_home_page">{l_homepage_of_the_website}</div>
+
+        <table class="tb_fields" id="sortable" style="width: 230px;">
+        <thead>
+                <tr class="no_sortable"  data-sortable="no_sortable">
+                    <th class="decor_l">&nbsp;</th>
+                    <th class="right" >{l_table_name}</th>
+                    <th class="last" style="text-align: center; width:30px; padding:0px 10px;">{l_table_active}</th>
+                    <!-- begin_home_page_th -->
+                    <th class="left last home_page_menu" style="padding-left:10px; border-left: 1px solid #fff;">{l_home_page}</th>
+                    <!-- end_home_page_th -->
+                    <!-- begin_default_page_th -->
+                    <th class="left last" style="padding-left:10px; border-left: 1px solid #fff;">{l_default}</th>
+                    <!-- end_default_page_th -->
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+        </thead>
+        <!-- begin_order_item -->
+        <tr class="{no_sortable} color" style="cursor:move;" data-sortable="{no_sortable}">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+            <td class="right">
+                <input type="hidden" name="order[]" value="{menu_key}">{menu_title}
+            </td>
+            <td class="last" style="text-align: center; width:40px; padding-left: 3px;">
+                <!-- begin_order_item_status -->
+                <input id="status_{menu_key}" type="checkbox" name="status[{menu_key}]" {checked} style="margin:0px; padding:0px; width: 20px;">
+                <!-- end_order_item_status -->
+            </td>
+            <!-- begin_home_page_item -->
+            <td class="last home_page_menu" style="text-align: center; width:40px; ">
+                <input style="text-align: center; width:40px; padding-left: 3px; margin:0;" type="radio" name="set_home_page" value="{menu_key}">
+            </td>
+            <!-- end_home_page_item -->
+            <!-- begin_default_page_item -->
+            <td class="last" style="text-align: center; width:40px; ">
+                <input style="text-align: center; width:40px; padding-left: 3px; margin:0;" type="radio" name="set_default_profile_tab" value="{menu_key}">
+            </td>
+            <!-- end_default_page_item -->
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_order_item -->
+		</table>
+<script>
+//$('#status_menu_inner_wall_posts_edge').hide();
+var moduleCurrent = '{current_module}';
+    radio='';
+$(function(){
+    if (moduleCurrent == 'member_profile_tabs' || moduleCurrent == 'member_groups_tabs') {
+        var option='set_default_profile_tab';
+        if (moduleCurrent == 'member_groups_tabs') {
+            option='set_default_groups_tab';
+            $('input:radio[name=set_default_profile_tab]').attr('name', option);
+        }
+        $('input:radio[name='+option+']').filter('[value={current_checked}]').prop('checked',true);
+        $('input:radio[name='+option+']').filter('[value={current_checked}]').addClass('active');
+
+        var $option=$('form input[type=checkbox]', '.member_profile_tabs');
+        $option.change(function(){
+            var $el = $(this), nC=$option.filter(':checked').length;
+            if(nC==0){
+                $el.prop('checked',true);
+                alert('{j_it_must_be_selected_at_least_one_item}');
+                return;
+            }
+            if(nC>4){
+                $(this).prop('checked',false);
+                alert('{j_a_maximum_of_4_items_can_be_selected}');
+                return;
+            }
+            var val=this.id.replace('status_',''),
+                $def=$('input:radio[name=set_default_profile_tab]').filter('[value='+val+']');
+            if($el.prop('checked')){
+                $def.prop('disabled', false);
+            } else {
+                if($def.prop('checked')){
+                    var valf=$option.filter(':checked:first')[0].id.replace('status_','');
+                    $('input:radio[name=set_default_profile_tab]').filter('[value='+valf+']').click();
+                }
+                $def.prop('disabled', true);
+            }
+        }).change();
+    } else if (moduleCurrent == 'member_home_page') {
+        $('input:radio[name=set_home_page]').filter('[value={current_checked}]').prop('checked',true);
+        $('input:radio[name=set_home_page]').filter('[value={current_checked}]').addClass('active');
+
+        $('input[name=set_home_page]').on('click',function(){
+            if($(this).hasClass('active')){
+                $(this).prop('checked',false);
+                $(this).removeClass('active');
+            } else {
+                $('input[name=set_home_page]').removeClass('active');
+                $(this).addClass('active');
+            }
+        })
+        return;
+    }
+
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '.no_sortable',
+        cursor: 'move',
+        items: 'tr[data-sortable!=no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+            var myradio = $('input:radio[name=set_home_page]');
+            myradio.filter('[value='+radio+']').prop('checked', true);
+        }
+    });
+});
+
+var fixHelperModified = function(e, tr) {
+    radio = $('input[name=set_home_page]:checked').val();
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+</script>

@@ -1,0 +1,140 @@
+{header}
+{blogs_header}
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+    $('.form').submit(function() {
+    var id = $(this).find("input[name='post_id']").val();
+        if ($('#write_comment'+id).val() == '{l_blog_write_a_comment}') {
+            alert('{l_please_enter_text}');
+            return false;
+        };
+        return true;
+    });
+});
+</script>
+<div class="blogs_new_p pl_top">
+    <div>
+        <h1 class="txt_upper_header_color fl_left">
+            <!-- begin_friends -->{l_blogs_my_friends_blog}<!-- end_friends -->
+            <!-- begin_subscriptions -->{l_blogs_my_subscriptions}<!-- end_subscriptions -->
+        </h1>
+    <div class="justify"></div>
+    </div>
+
+    <table class="blogs_new_tb_sub">
+        <!-- begin_pager_block -->
+        <tr>
+            <th class="th_t_l nb first no_header">&nbsp;</th>
+            <th class="th_t_c nb no_header">
+
+                <ul class="blogs_new_paging">{pager}</ul>
+            </th>
+            <th class="th_t_r nb first no_header">&nbsp;</th>
+        </tr>
+        <!-- end_pager_block -->
+        <tr>
+            <td colspan="3" class="nb nobg_img">
+            <div class="bl_blogs_new_frm">
+
+            <!-- begin_post -->
+                <div class="blogs_new_bl_m">
+
+                    <div class="blogs_new_bl_infa">
+                    <div style="margin: 0 0 10px;">
+					<a class="blogs_new_bl_m_img" href="{url_main}blogs_blog.php?id={post_user_id}"><img align="left" src="{post_user_photo}" width="37" height="41" alt=""/></a>
+					<!-- begin_post_is_subject -->
+                        <a class="blogs_new_title" href="{url_main}blogs_post.php?id={post_id}">{post_subject}</a>
+                    <!-- end_post_is_subject -->
+						<br />
+						   {l_by} <a href="{url_main}search_results.php?display=profile&uid={post_user_id}">{post_user_name}</a>
+						   ( <a href="{url_main}blogs_blog.php?id={post_user_id}"><strong>{l_read_blog}</strong></a>
+						   <!-- begin_post_unsubscribe -->
+						   | <a href="{url_main}blogs_collect.php?t={t}&unsubscribe={post_user_id}">{l_unsubscribe}</a>
+						   <!-- end_post_unsubscribe -->
+						   )
+						<!-- <br /><br /> -->
+                        <div class="cl"></div>
+                        </div>
+                            <p>
+                            {post_text_short_readable}
+							<!-- begin_post_short_link -->
+                            <a class="arrow_r_txt" href="{url_main}blogs_post.php?id={post_id}"><img src="{url_tmpl_main}images/blogs/arrow_r_txt.png" width="16" height="16" alt=""/></a>
+                            </p>
+                            {post_text_short_onlymedia}
+                            <!-- end_post_short_link -->
+                        <ul class="blogs_new_data">
+                            <li class="decor">{post_dt_readable}</li>
+                            <!-- begin_post_edit -->
+                                <li><a class="areyousure" href="{url_main}blogs_blog.php?del={post_id}">{l_blog_delete_post}</a></li>
+                                <li class="list"><a href="{url_main}blogs_write.php?id={post_id}">{l_blog_edit_post}</a></li>
+                            <!-- end_post_edit -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="cl"></div>
+                <!-- begin_post_comment -->
+                    <div class="new_mode_bl_dblue">
+                        <div class="new_mode_bl_dblue_top"></div>
+                        <div class="new_mode_bl_dblue_c">
+                            <a href="{url_main}blogs_blog.php?id={post_comment_user_id}"><img class="fl_left" src="{post_comment_user_photo}" width="21" height="23" alt=""/></a>
+                            <div class="new_mode_bl_dblue_txt" id="comment{post_comment_id}" >
+                                <a href="{url_main}search_results.php?display=profile&uid={post_comment_user_id}">{post_comment_user_name}</a>
+                                {post_comment_text_readable}<br />
+                                <span>{post_comment_dt_readable}</span>
+                            </div>
+                        </div>
+                        <div class="new_mode_bl_dblue_bot"></div>
+                        <!-- begin_post_comment_is_my -->
+                        <div class="new_mode_bl_dblue_delete" ><a class="areyousure" href="{url_main}blogs_post.php?id={post_id}&del={post_comment_id}"><img src="{url_tmpl_main}images/blogs/ico_delete_blue.png" width="13" height="14" alt=""/></a></div>
+                        <!-- end_post_comment_is_my -->
+                    </div>
+                <!-- end_post_comment -->
+                <form class="form" action="{url_main}blogs_post.php?id={post_id}" method="post">
+
+          <table class="tb_streight">
+          <col width="100%" />
+          <col width="76px" />
+          <tr>
+            <td>
+                    <div class="blog_input_text_box3 fl_left"> <input id="write_comment{post_id}" name="text" class="no_abk" type="text" value="{l_blog_write_a_comment}" onFocus="this.value=''"/></div>
+                    <!-- <div class="blog_input_box4 fl_right"> <input type="submit" value="{l_save}" /></div> -->
+                    </td>
+                    <td>
+                    <div class="fl_right">
+
+                    <input type="hidden" value="{post_id}" name="post_id">
+                    <input style="min-width: 66px;" class="btn upper_header_color round" type="submit" value="{l_save}" />
+                    </div>
+</td>
+</tr>
+</table>
+                </form>
+                <!-- begin_post_not_last -->
+                    <div class="new_mode_line"></div>
+                <!-- end_post_not_last -->
+            <!-- end_post -->
+
+            </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th class="th_b_l nb">&nbsp;</th>
+            <th class="th_b_c nb">&nbsp;</th>
+            <th class="th_b_r nb">&nbsp;</th>
+        </tr>
+
+    </table>
+
+	</div>
+
+
+
+
+{blogs_side}
+<ul class="blogs_new_paging">{pager}</ul>
+{blogs_footer}
+{footer}

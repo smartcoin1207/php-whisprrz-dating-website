@@ -1,0 +1,95 @@
+{header}
+<div class="frame_content">
+ <div id="gallery">
+
+
+                        <div class="my_pic">
+                            <a style="background: none; padding-right:10px;" href="{url_main}gallery_admin_upload.php" style="font-weight: normal">{l_add_photos}</a>
+                            <span>|</span>
+                            <a href="{url_main}gallery_admin.php">{l_your_gallery}</a>
+                        </div>
+
+						<h2 class="txt_color" style="margin-top:-5px; float: left;"><!-- begin_albums_user -->{name}<!-- end_albums_user --><!-- begin_albums_all -->{l_albums_all}<!-- end_albums_all --></h2>
+						<div class="sort_by">
+                            {l_sort_by} &nbsp;&nbsp;
+
+							<!-- begin_sort_views --><a href="{url_page}?{params}&sort=views"><!-- end_sort_views -->{l_views}<!-- begin_sort_views_end --></a><!-- end_sort_views_end -->
+						    |
+                            <!-- begin_sort_date --><a href="{url_page}?{params}&sort=date"><!-- end_sort_date -->{l_date}<!-- begin_sort_date_end --></a><!-- end_sort_date_end -->
+							|
+                            <!-- begin_sort_title --><a href="{url_page}?{params}&sort=title"><!-- end_sort_title -->{l_title}<!-- begin_sort_title_end --></a><!-- end_sort_title_end -->
+                        </div>
+
+            <ul class="alb">
+            <!-- begin_albums -->
+            <li>
+                <div class="trans">
+                <a href="gallery_album.php?album_id={album_id}" class="name">{album_name}</a>
+                <!--<span class="txt_upper_header_color"> <a class="txt_upper_header_color" target="_blank" href="search_results.php?display=profile&name={user_name}">{user_name}</a></span>-->
+                </div>
+                <a href="gallery_album.php?album_id={album_id}"><img src="{url_files}{gallery_thumb_path}" width="100" height="100" /></a>
+            </li>
+            <!-- end_albums -->
+			<!-- begin_no_albums -->
+			<li>
+            <div style="height:84px; width:99px; border-left:1px solid #585858;"></div>
+            <div class="trans"></div>
+            </li>
+			<!-- end_no_albums -->
+            </ul>
+
+			<!-- begin_gallery_albums_all_pages -->
+                        <div class="list">
+                        <!-- begin_gallery_albums_all_prev_page -->
+                        <a href="./{url_page}?offset={offset}{params}">{l_prev}</a>&nbsp; | &nbsp;
+                        <!-- end_gallery_albums_all_prev_page -->
+
+                        <!-- begin_gallery_albums_all_prev_page_off -->
+                        <b>{l_prev}</b>&nbsp; | &nbsp;
+                        <!-- end_gallery_albums_all_prev_page_off -->
+
+                        <!-- begin_gallery_albums_all_first_page -->
+                        <a href="./{url_page}?offset={offset}{params}">{l_page_1}</a>&nbsp;
+                        <!-- end_gallery_albums_all_first_page -->
+
+                        <!-- begin_gallery_albums_all_prev_pages -->
+                        <a href="./{url_page}?offset={offset}{params}">&lt;&lt;</a>&nbsp;
+                        <!-- end_gallery_albums_all_prev_pages -->
+
+                        <!-- begin_gallery_albums_all_page -->
+                            <!-- begin_gallery_albums_all_link_page -->
+                            <a href="./{url_page}?offset={offset}{params}">{page}</a>&nbsp;
+                            <!-- end_gallery_albums_all_link_page -->
+
+                            <!-- begin_gallery_albums_all_this_page -->
+                            <b>{page}</b>
+                            <!-- end_gallery_albums_all_this_page -->
+                        <!-- end_gallery_albums_all_page -->
+
+                        <!-- begin_gallery_albums_all_next_pages -->
+                        <a href="./{url_page}?offset={offset}{params}">&gt;&gt;</a>&nbsp;
+                        <!-- end_gallery_albums_all_next_pages -->
+
+                        <!-- begin_gallery_albums_all_last_page -->
+                        <b>{l_of}</b> <a href="./{url_page}?offset={offset}{params}">{num_pages}</a>&nbsp;
+                        <!-- end_gallery_albums_all_last_page -->
+
+                        <!-- begin_gallery_albums_all_next_page -->
+                        &nbsp; | &nbsp;<a href="./{url_page}?offset={offset}{params}">{l_next}</a>
+                        <!-- end_gallery_albums_all_next_page -->
+
+                        <!-- begin_gallery_albums_all_next_page_off -->
+                        &nbsp; | &nbsp;<b>{l_next}</b>
+                        <!-- end_gallery_albums_all_next_page_off -->
+                        </div>
+                        <!-- end_gallery_albums_all_pages -->
+
+            <br/>
+            <div class="fl_right" >
+                <input type="button" value="{l_back}" class="btn lower_header_color big" onclick="location='javascript:history.back()';" title="{l_back}" />
+            </div>
+
+        </div>
+</div>
+
+{footer}

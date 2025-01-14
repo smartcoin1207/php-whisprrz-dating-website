@@ -1,0 +1,111 @@
+    <script type="text/javascript">
+    function partyhouz_sidebar_search_on_submit()
+    {
+        value = $("#partyhouz_sidebar_search input[name='query']").val();
+
+        if((value != '')&&(value != '{l_partyhouz_default_search_query}'))
+        {
+            return true;
+        }
+
+        alert('{l_partyhouz_please_enter_what_you_search}');
+
+        return false;
+    }
+    </script>
+	<!-- begin_banner_right_column -->	
+	<div class="banner_right_column_partyhouz">
+		{banner_right_column}
+	</div>
+	<!-- end_banner_right_column -->
+    <!-- begin_block_1 -->
+    <h1 class="txt_lower_header_color">{block_title}</h1>
+
+    <!-- begin_partyhou_1 -->
+    <div class="partyhouz_new_foto" >
+        <div class="partyhouz_new_img">
+            <a href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}" style="display: block; width: 85px; height: 64px;"><img src="{image_thumbnail}" width="85" height="64" alt="{partyhou_title_full}"/></a>
+        </div>
+
+        <ul>
+            <li><strong><a href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}">{partyhou_title}</a></strong></li>
+            <li>{l_partyhouz_guests}: {partyhou_n_guests}</li>
+            <li>{l_partyhouz_comments}: {partyhou_n_comments}</li>
+            <li><a class="txt_upper_header_color" href="{url_main}partyhouz_search.php?partyhou_place={partyhou_place_full}" title="{partyhou_place_full}">{partyhou_place}</a></li>
+            <li class="data"><a class="txt_upper_header_color" href="{url_main}partyhouz_search.php?partyhou_datetime={partyhou_datetime_raw}">{partyhou_date}</a> | {partyhou_time}</li>
+        </ul>
+    <div class="justify"></div>
+    </div>
+
+    <!-- begin_partyhou_1_not_last --><div class="line_dashed"></div><!-- end_partyhou_1_not_last -->
+    <!-- end_partyhou_1 -->
+
+    <!-- narrow_pl -->
+    <div class="narrow_pl">
+        <div class="cont">
+            <div class="pic">
+                <img src="{url_tmpl_main}images/partyhouz/ico_browse.png" width="34" height="34" alt=""/>
+            </div>
+            <ul class="list">
+                <li><a href="{url_main}partyhouz_partyhou_list_{block_type}.php">{l_partyhouz_browse_all}</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /narrow_pl -->
+
+    <!-- end_block_1 -->
+
+    <!-- begin_block_2 -->
+    <div class="cl"></div>
+    <h1 class="txt_lower_header_color">{block_title}</h1>
+
+    <!-- begin_partyhou_2 -->
+    <div class="partyhouz_new_foto" >
+        <div class="partyhouz_new_img">
+            <a href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}" style="width: 85px; height: 64px;"><img src="{image_thumbnail}" width="85" height="64" alt="{partyhou_title_full}"/></a>
+        </div>
+
+        <ul>
+            <li><strong><a href="{url_main}partyhouz_partyhou_show.php?partyhou_id={partyhou_id}">{partyhou_title}</a></strong></li>
+            <li>{l_partyhouz_guests}: {partyhou_n_guests}</li>
+            <li>{l_partyhouz_comments}: {partyhou_n_comments}</li>
+            <li><a class="txt_upper_header_color" href="{url_main}partyhouz_search.php?partyhou_place={partyhou_place_full}" title="{partyhou_place_full}">{partyhou_place}</a></li>
+            <li class="data"><a class="txt_upper_header_color" href="{url_main}partyhouz_search.php?partyhou_datetime={partyhou_datetime_raw}">{partyhou_date}</a> | {partyhou_time}</li>
+        </ul>
+    <div class="justify"></div>
+    </div>
+
+    <!-- begin_partyhou_2_not_last --><div class="line_dashed"></div><!-- end_partyhou_2_not_last -->
+    <!-- end_partyhou_2 -->
+
+    <!-- narrow_pl -->
+    <div class="narrow_pl">
+        <div class="cont">
+            <div class="pic">
+                <img src="{url_tmpl_main}images/partyhouz/ico_browse.png" width="34" height="34" alt=""/>
+            </div>
+            <ul class="list">
+                <li><a href="{url_main}partyhouz_partyhou_list_{block_type}.php{browse_all_params}">{l_browse_all}</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /narrow_pl -->
+
+    <!-- end_block_2 -->
+	<div class="partyhouz_new_search">
+        <div class="bl_search">
+            <form id="partyhouz_sidebar_search" action="{url_main}partyhouz_search.php" method="get" onsubmit="return partyhouz_sidebar_search_on_submit();">
+				<div class="partyhouz_input_text1 fl_left">
+					<input class="no_abk" name="query" type="text" /> <!--value="{l_partyhouz_default_search_query}"  onblur="javascript:if(this.value=='')this.value='{l_partyhouz_default_search_query}'"      onFocus="this.value=''"-->
+				</div>
+<!--              <div class="partyhouz_input1 fl_left" style="margin-left:10px;"><input type="submit" value="{l_partyhouz_search}"/></div> -->
+
+<input class="btn upper_header_color round big" type="submit" value="{l_partyhouz_search}"/>
+            </form>
+</div>
+	</div>
+</td>
+
+</tr>
+
+

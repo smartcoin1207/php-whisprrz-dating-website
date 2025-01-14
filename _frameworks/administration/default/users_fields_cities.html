@@ -1,0 +1,178 @@
+{header}
+<style>
+.link-set-default-city {
+    display: inline-block;
+    font-size: 12px;
+    padding-left: 15px;
+    padding-top: 8px;
+    vertical-align: top;
+}
+</style>
+<script language="javascript" type="text/javascript">
+$(function() {
+    $('.location, .coords').keypress(function(e){
+        if (isKeyPressed(e, 13)) {
+            var id = $(this).attr('id').split('_');
+            updateItem(id[1]);
+            return false;
+        };
+    }).blur(function(e){
+        var id = $(this).attr('id').split('_');
+        updateItem(id[1]);
+    });
+
+    $('#all').change(function(){
+        choiceChkbox($(this), $('[id ^= chk_]'))
+    });
+
+    $('#language').change(function(){
+        var lang = $(this).val();
+        if (lang != 'edit_mode') {
+            window.location.href='users_fields_localization.php?mode=city&country_id='+$('#select_country').val()+'&state_id='+$('#select_state').val()+'&lang='+lang;
+        }
+    });
+
+});
+function updateItem(id_item) {
+    var city = $('#city_'+id_item),
+        lat = $('#lat_'+id_item),
+        long = $('#long_'+id_item),
+        val_city = city.val(),
+        val_lat = lat.val(),
+        val_long = long.val();
+    if (val_city != city.data('current')
+            || val_lat != lat.data('current')
+            || val_long != long.data('current')) {
+        $('#preloader_'+id_item).show();
+        $.post('{url_page}', {cmd: 'edit', id: id_item, name: val_city, lat: val_lat, long: val_long}, function(data){
+            $('#preloader_'+id_item).hide();
+            if (data == 'ok') {
+                city.data('current', val_city);
+                lat.data('current', val_lat);
+                long.data('current', val_long);
+            }
+        });
+    }
+}
+</script>
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form">
+
+<style>
+input {width:60%;}
+.link {margin-top:5px; width: 20%;}
+
+input.coords {width:15%;}
+.table-header td {
+	font-family: Arial;
+	font-size: 11px;
+}
+
+</style>
+
+        <p style="padding-left:28px;">{l_language_edit_instruction}</p>
+        <p style="padding-left: 28px; font-size: 11px; padding-bottom: 0px;"><b>{l_translation}:</b> <select id="language" style="margin:0px 0px 14px 6px;" name="language">
+            <option value="edit_mode">{l_please_choose}</option>
+            {select_options_language}
+        </select></p>
+        <form style="padding-left:28px; padding-right: 10px;" name="geo_country" method="get" action="{url_page}">
+            <b>{l_country}:&nbsp;</b>
+            <select id="select_country" style="margin-left:2px;" name="country_id" onchange="document.forms.geo_country.submit()">
+                {geo_countries}
+            </select>
+        </form>
+        <br>
+        <form style="padding-left:28px; padding-bottom:10px;" name="geo_state" method="get" action="{url_page}">
+            <b>{l_state}:&nbsp;</b>
+            <select id="select_state" style="margin-left:2px;" name="state_id" onchange="document.forms.geo_state.submit()">
+                {geo_states}
+            </select>
+        </form>
+        <div clas="cl" style="padding-top:10px;"></div>
+        <!-- begin_main_items -->
+        <form action="{url_page}" method="POST">
+        <input style="margin:4px 1px 10px 28px; border: 0 none; width: 14px; height: 14px; " type="checkbox" id="all">
+        <div style="display:inline-block; width:30%; padding-left: 4px;"><b>{l_item_title}</b></div>
+		<div style="display:inline-block; width:8%; padding-left: 8px;"><b>{l_latitude}</b></div>
+		<div style="display:inline-block; width:8%; padding-left: 8px;"><b>{l_longitude}</b></div>
+        <!-- begin_main_item -->
+        <div id="block_{city_id}" >
+            <div style="display:inline-block; width: 22px; padding-right: 3px;">
+                <img style="display:none; margin-top:-14px;" id="preloader_{city_id}" src="{url_tmpl_administration}images/loader.gif">
+            </div>
+            <div style="display:inline-block;"><input style="border: 0 none; width: 14px; height: 14px; margin-top:1px; margin-right: 2px;" type="checkbox" id="chk_{city_id}"></div>
+            <input style="width:30%; padding-left: 5px;" id="city_{city_id}" data-current="{city_title}" class="location" type="text" name="name" value="{city_title}">
+            <input style="width:8%;" id="lat_{city_id}" data-current="{lat}" class="coords" type="text" name="lat" value="{lat}">
+            <input style="width:8%;" id="long_{city_id}" data-current="{long}" class="coords" type="text" name="long" value="{long}">
+
+            <div class="action_links_module">
+                <a id="hide_item_{city_id}" <!-- begin_item_show -->class="hide"<!-- end_item_show --> onClick="if (confirm('{l_are_you_sure}')) geoHideItem({city_id}); return false;"  href="#">{l_hide}</a>
+                <a id="show_item_{city_id}" <!-- begin_item_hide -->class="hide"<!-- end_item_hide --> onClick="if (confirm('{l_are_you_sure}')) geoShowItem({city_id}); return false;"  href="#">{l_show}</a>
+                |
+                <a onClick="if (confirm('{l_are_you_sure}')) geoDeleteItem({city_id}); return false;"  href="#">{l_delete}</a>
+
+                <!-- begin_set_as_default_city -->
+                | <a onClick="if (!confirm('{l_are_you_sure}')) return false;" href="{url_page}?cmd=default&city_id={city_id}&state_id={state_id}&country_id={country_id}&offset={offset_current}">{l_set_as_default_city}</a>
+                <!-- end_set_as_default_city -->
+            </div>
+
+        </div>
+        <!-- end_main_item -->
+        </form>
+        <!-- end_main_items -->
+
+        <!-- begin_main_pages -->
+        <div  style="position: relative; padding-bottom: 20px; left: 27px; width: 400px;">
+        <!-- begin_main_prev_page --><a href="{url_page}?offset={offset}{params}">{l_prev}</a> | <!-- end_main_prev_page -->
+        <!-- begin_main_prev_page_off --><b>{l_prev}</b> | <!-- end_main_prev_page_off -->
+        <!-- begin_main_first_page --><a href="{url_page}?offset={offset}{params}">{l_page_1}</a><!-- end_main_first_page -->
+        <!-- begin_main_prev_pages --><a href="{url_page}?offset={offset}{params}">&lt;&lt;</a><!-- end_main_prev_pages -->
+        <!-- begin_main_page -->
+        <!-- begin_main_link_page --><a href="{url_page}?offset={offset}{params}">{page}</a><!-- end_main_link_page -->
+        <!-- begin_main_this_page --><b>{page}</b><!-- end_main_this_page -->
+        <!-- end_main_page -->
+        <!-- begin_main_next_pages --><a href="{url_page}?offset={offset}{params}">&gt;&gt;</a><!-- end_main_next_pages -->
+        <!-- begin_main_last_page --><b>{l_of}</b> <a href="{url_page}?offset={offset}{params}">{num_pages}</a><!-- end_main_last_page -->
+        <!-- begin_main_next_page --> | <a href="{url_page}?offset={offset}{params}">{l_next}</a><!-- end_main_next_page -->
+        <!-- begin_main_next_page_off --> | <b>{l_next}</b><!-- end_main_next_page_off -->
+        </div>
+        <!-- end_main_pages -->
+
+        <!-- begin_delete_btn -->
+        <div class="btn fl_left" style="margin-left:40px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoHideItem(0,1); else return false; " href="#">{l_hide}</a>
+        </div>
+
+        <div class="btn fl_left" style="margin-left:0px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoShowItem(0,1); else return false; " href="#">{l_show}</a>
+        </div>
+
+        <div class="btn fl_left" style="margin-left:0px; margin-top: 0px;">
+            <a class="submit" onclick="if (confirm('{l_are_you_sure}')) geoDeleteItem(0,1); else return false; " href="#">{l_delete}</a>
+        </div>
+        <div class="cl"></div>
+        <!-- end_delete_btn -->
+        <h2>{l_add}</h2>
+        <form action="{url_page}" method="POST">
+        <input name="cmd" value="add" type="hidden">
+        <input name="state_id" value="{state_id}" type="hidden">
+        <input name="country_id" value="{country_id_real}" type="hidden">
+
+        <input style="margin-top:5px; width:30%;" type="text" name="name" value="">
+		<input style="margin-top:5px; width:8%;" class="coords" type="text" name="lat" value="">
+        <input style="margin-top:5px; width:8%;" class="coords" type="text" name="long" value="">
+
+        <div class="btn fl_right" style="margin:0; margin-top: -1px;"><a href="#" class="submit">{l_add}</a>
+            <input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+        </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

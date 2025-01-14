@@ -1,0 +1,103 @@
+{header}
+<style>
+table.tb_groups_frm .ABKFileLeft {width:auto;}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    {alert_script}
+});
+</script>	
+<script Language="JavaScript" type="text/javascript">
+function on_form_submit()
+{
+    if(($('input[name="image_1"]').val() == "") && ($('input[name="image_2"]').val() == "") && 
+            ($('input[name="image_3"]').val() == "") && ($('input[name="image_4"]').val() == ""))
+    {
+        alert('{l_please_select_a_photos}');
+        return false;
+    }
+    for(var i = 1; i <= 4; i++)
+    {
+        var ext = $('input[name="image_'+i+'"]').val();
+        if(ext != "")
+        {
+            ext = ext.substring(ext.length-4,ext.length);
+            ext = ext.toLowerCase();
+            if(ext != '.jpg' && ext != '.gif' && ext != '.png' && ext != 'jpeg') {
+                alert('{l_wrong_photo_types}');
+                return false; 
+            }
+        }
+    }
+  $('#load_animation1').css('visibility', 'visible');
+    return true;
+}
+</script>
+    <div class="groups">
+		{groups_header}
+        <table class="tb_groups">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+        
+                   {groups_group_show}
+                
+                    <div class="groups_shadow"></div>
+                   <div class="groups_p pl_top_m">
+                        <h1>{l_groups_add_images_to} {group_title}</h1>
+                        <form id="musician_edit_form" method="POST" action="{url_main}groups_group_add_photos.php?cmd=save&group_id={group_id}" enctype="multipart/form-data" onsubmit="return on_form_submit()">
+                        <div class="bl_groups_frm" style="margin: 0 0 20px;">
+                        <table class="tb_groups_frm">
+                            <tr>
+                                <th>{l_groups_files}:</th>
+                                <td>
+                                    <input size="3" class="file" type="file" name="image_1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <input size="3" class="file" type="file" name="image_2"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <input size="3" class="file" type="file" name="image_3"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <input size="3" class="file" type="file" name="image_4"/>
+                                </td>
+                            </tr>
+                        </table>
+                        </div>
+<!--                         <div class="groups_shadow"></div>
+ -->                        <div class="groups_p_btn fl_right">
+           
+                            <a onclick="$('#musician_edit_form').submit(); return false;"  href="#" class="btn round upper_header_color fl_right" style="text-decoration: none;">
+                                    <img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8" alt="" />{l_groups_upload_pics}&nbsp;
+                                    <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5" alt="" />
+                                </a>
+
+                                 <img style="visibility:hidden; margin: 1px 5px 0 0; float: right;" id="load_animation1" src="{url_tmpl_main}images/load_animation.gif">
+                        </div>
+                        </form>
+                   </div>
+                    <div class="groups_empty"></div>
+                </td>
+                <!-- /td_main -->
+                <td class="td_narrow">
+				{groups_group_member_list}
+				{groups_group_forum_list_sidebar}
+				</td>
+            </tr>
+        </table>
+        <div class="foot_left"></div><div class="foot_right"></div>
+    
+    </div>
+
+{footer}

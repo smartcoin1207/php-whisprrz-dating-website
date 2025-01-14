@@ -1,0 +1,1775 @@
+.city_body.city_mobile .top_indent_page{
+  margin: 7.6vh 0 0;
+}
+
+@supports(-webkit-overflow-scrolling:touch){
+    .ios .city_body.city_mobile .top_indent_page{
+        top: 0;
+    }
+}
+
+.city_body.city_mobile .navbar-default .container-fluid{
+  width: auto;
+}
+
+.city_body.city_mobile .navbar-default{
+  height: 150px;
+  border-width: 0 0 0;
+}
+
+.city_body.city_mobile ul.icons_info li.icon .glyphicon,
+.city_body.city_mobile ul.icons_info li.icon .fa{
+  font-size: 2.9vh;
+  width: auto;
+}
+
+.city_body.city_mobile ul.icons_info li.icon a.icon_link figure,
+.city_body.city_mobile ul.icons_info li.icon a.icon_link figure svg{
+  width: 3vh;
+  height: 3vh;
+}
+
+.city_body.city_mobile .navbar > .container .navbar-brand,
+.city_body.city_mobile .navbar > .container-fluid .navbar-brand{
+  margin-left: 0;
+}
+
+.city_body.city_mobile .navbar-toggle{
+  display: block;
+}
+
+.city_body.city_mobile button.icon_nav{
+  width: 7.6vh;
+}
+
+.city_body.city_mobile button.icon_nav .wrap_nav{
+  width: 7.6vh;
+  height: 7.6vh;
+  top: 1.8vh;
+}
+
+.city_body.city_mobile button.icon_nav .wrap_nav div{
+  width: 4.6vh;
+  height: .5vh;
+}
+
+.city_body.city_mobile button.icon_nav .wrap_nav div:nth-child(1){
+  top: 0;
+}
+
+.city_body.city_mobile button.icon_nav .wrap_nav div:nth-child(2){
+  top: 1.6vh;
+}
+
+.city_body.city_mobile button.icon_nav .wrap_nav div:nth-child(3){
+  top: 3.2vh;
+}
+
+.city_body.city_mobile .navbar-collapse.collapse {
+  display: none !important;
+  float: none;
+}
+
+.city_body.city_mobile .navbar-collapse.collapse.in {
+  display: block !important;
+  clear: both;
+}
+
+.city_body.city_mobile .navbar-collapse.in {
+  overflow: visible;
+  /* background-color: #000; */
+}
+
+.city_body.city_mobile .navbar-fixed-top .navbar-collapse,
+.city_body.city_mobile .navbar-fixed-bottom .navbar-collapse {
+  /* margin-top: 149px;
+  float: none; */
+  width: calc(100% + 30px);
+  margin: 0 -15px;
+}
+
+.city_body.city_mobile .navbar-nav {
+  margin-top: 0;
+  margin-bottom: .5px;
+  margin-left: 0;
+  margin-right: 0;
+  /* width: calc(100% + 30px); */
+  width: 100%;
+}
+
+.city_body.city_mobile .navbar-nav > li{
+  float: none;
+}
+
+.city_body.city_mobile .navbar > .container .navbar-brand,
+.city_body.city_mobile .navbar > .container-fluid .navbar-brand{
+  margin: 0 0 0 18px;
+  padding: 0;
+}
+
+.city_body.city_mobile ul.menu_vertical_scroll{
+  max-height: initial;
+}
+
+.city_body.city_mobile .navbar-collapse .navbar-nav > li > a,
+.city_body.city_mobile ul.menu_vertical_scroll > li > a {
+  max-width: 100%;
+  width: 100%;
+  font-size: 2.2vh;
+  padding: 0 2vh;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+}
+
+.city_body.city_mobile .navbar-collapse .navbar-nav > li > a .caret{
+  border-top: .6vh solid;
+  border-right: .6vh solid transparent;
+  border-left: .6vh solid transparent;
+  margin: .3vh 0 0 .5vh;
+}
+
+.city_body.city_mobile .navbar-nav > li > a figure{
+  width: 2.4vh;
+  margin: 0 .6vh 0 0;
+}
+
+.city_body.city_mobile .navbar-nav > li > a figure > svg{
+  width: 2.4vh;
+}
+
+.city_body.city_mobile .navbar-nav .header_menu_loader{
+  height: 2.4vh;
+  width: 2.4vh;
+  font-size: 3vh;
+  margin-left: -2vh;
+  margin-top: -1.2vh;
+}
+
+.city_body.city_mobile .navbar-nav > li > a .fa{
+  font-size: 2.4vh;
+  line-height: 2vh;
+  height: 2.4vh;
+  width: 3.4vh;
+}
+
+.city_body.city_mobile ul.menu_vertical_scroll > li > a i.fa{
+  width: 3.4vh;
+}
+
+.city_body.city_mobile .navbar-nav > li > a .fa.fa-film{
+  font-size: 2vh;
+}
+
+.city_body.city_mobile .navbar-nav > li > a figure{
+  width: 2.4vh;
+  margin: 0 1vh 0 0;
+}
+
+.city_body.city_mobile .menu_more_menu_navbar_site ul > li > a figure{
+  width: 2.4vh;
+  height: 2.4vh;
+  margin: 0 1vh 0 0;
+}
+
+.city_body.city_mobile .navbar-nav > li > a figure > svg{
+  width: 2.4vh;
+}
+
+.city_body.city_mobile .menu_more_menu_navbar_site ul > li > a figure > svg{
+  width: 2.4vh;
+  height: 2.4vh;
+  vertical-align: top;
+}
+
+.city_body.city_mobile .wrap_icons_info {
+  float: none;
+}
+
+.city_body.city_mobile .bl_icons_info {
+  position: absolute;
+  top: 0;
+  right: 9vh;
+  margin: 0;
+}
+
+.city_body.city_mobile ul.icons_info {
+  margin: 0;
+}
+
+.city_body.city_mobile ul.icons_info li.icon {
+  padding: 2.2vh 0 0;
+}
+
+.city_body.city_mobile ul.icons_info li.icon a.icon_link{
+  padding: 0 2vw;
+}
+
+@media (max-width: 1280px) {
+  .city_body.city_mobile ul.icons_info li.icon a.icon_link.new_tasks_link{
+    display: none;
+  }
+}
+
+.city_body.city_mobile ul.icons_info li.icon span.count{
+  border-radius: 1vh;
+  top: -.5vh;
+  left: 3vh;
+  padding: 0 .6vh;
+  font-size: 1.7vh;
+  line-height: 2.1vh;
+  height: 2.2vh;
+}
+
+.city_body.city_mobile ul.icons_info li.icon span.count.friends_pending_counter{
+  left: 4.2vh;
+}
+
+.city_body.city_mobile .navbar-default,
+.city_body.city_mobile .navbar-header,
+.city_body.city_mobile.navbar-brand,
+.city_body.city_mobile button.icon_nav,
+.city_body.city_mobile .navbar-brand .logo,
+.city_body.city_mobile ul.icons_info {
+  height: 7.6vh;
+}
+
+.city_body.city_mobile .navbar-brand .logo{
+  height: 7.6vh;
+  width: 26vh;
+  overflow: hidden;
+}
+
+.city_body.city_mobile .navbar-brand .logo img{
+  min-height: 3vh;
+  max-height: 6vh;
+  max-width: 24vh;
+}
+
+.city_body.city_mobile ul.icons_info li.icon .glyphicon,
+.city_body.city_mobile ul.icons_info li.icon .fa{
+  transition: none;
+}
+
+/*-- city_show_map --*/
+.city_body.city_mobile.city_show_map{
+    /*top: 6px;*/
+}
+
+.city_body.city_mobile.city_show_map .navbar-default,
+.city_body.city_mobile.city_show_map .navbar-header{
+  height: 49px;
+}
+
+.city_body.city_mobile.city_show_map .top_indent_page{
+  margin: 49px 0 0;
+}
+
+.city_body.city_mobile.city_show_map .navbar > .container .navbar-brand,
+.city_body.city_mobile.city_show_map .navbar > .container-fluid .navbar-brand{
+  margin: 0 0 0 10px;
+}
+
+.city_body.city_mobile.city_show_map .navbar-brand .logo{
+  width: auto;
+}
+
+.city_body.city_mobile.city_show_map .navbar-brand .logo img{
+  max-width: 24vh;
+}
+
+.city_body.city_mobile.city_show_map button.icon_nav{
+  width: 60px;
+}
+
+.city_body.city_mobile.city_show_map ul.icons_info li.icon a.icon_link{
+  padding: 0 5px;
+}
+/* -- /.city_show_map -- */
+
+.city_body.city_mobile .dropdown.open .dropdown-menu{
+  top: 8vh;
+}
+
+.city_body.city_mobile .navbar-default .navbar-nav .dropdown-menu {
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.city_body.city_mobile .notification{
+  width: 100%;
+  left: 0;
+  font-size: 2.2vh;
+  line-height: 3.4vh;
+  top: 7.6vh;
+}
+
+.city_body.city_mobile .notification li {
+  padding: 2vh 2.7vh 2.2vh;
+  width: 100%;
+  border-bottom: .1vh solid #eee;
+}
+
+.city_body.city_mobile .notification.friends li{
+  padding: 2vh 2.7vh 3vh;
+}
+
+.city_body.city_mobile ul.notification_list{
+  margin: 0;
+}
+
+.city_body.city_mobile .notification.events li span.text{
+  padding: 0 0 0 2.7vh;
+}
+
+.city_body.city_mobile .notification.friends li span.text{
+  padding: 0 0 0 1.7vh;
+}
+
+.city_body.city_mobile .notification.events li span.text span.event_time_ago{
+  font-size: 2.2vh;
+  line-height: 3.4vh;
+  width: 100%;
+}
+
+.city_body.city_mobile .notification.events li a.pic{
+  width: 8.6vh;
+  height: 8.6vh;
+}
+
+.city_body.city_mobile .notification.events li a.pic img{
+  height: 8.6vh;
+}
+
+.city_body.city_mobile .notification.friends li a.pic{
+  width: 7vh;
+  height: 7vh;
+}
+
+.city_body.city_mobile .notification.friends li a.pic img{
+  height: 7vh;
+}
+
+.city_body.city_mobile .notification.friends li .buttons{
+  margin: 2.2vh 0 0;
+}
+
+.city_body.city_mobile ul.notification_list li button{
+  width: calc(50% - 1vh);
+  font-size: 2.2vh;
+  line-height: 2.4vh;
+  padding: 1.8vh 2.5vh;
+  border-radius: .4vh;
+}
+
+.city_body.city_mobile .frame_loader_page{
+  width: 12.5vh;
+  height: 12.5vh;
+  border-radius: .3vh;
+  box-shadow: 0 0 3vh rgba(0, 0, 0, 0.34);
+  font-size: 7vh;
+  line-height: 12vh;
+}
+
+.city_body.city_mobile .modal-dialog{
+  width: auto;
+  margin: 0 2vh;
+}
+
+.city_body.city_mobile .modal-content{
+  margin: 0 0 4vh;
+  box-shadow: 0 0 4vh rgba(0, 0, 0, 0.4);
+  border-radius: 1vh;
+}
+
+.city_body.city_mobile .custom_modal .modal-header{
+  padding: 4vh 1.5vh 3.6vh;
+}
+
+.city_body.city_mobile .modal-title{
+  font-size: 3.4vh;
+  line-height: 3.6vh;
+}
+
+.city_body.city_mobile .custom_modal .modal-body{
+  padding: 4vh 1.5vh 4.2vh;
+  font-size: 2.5vh;
+  line-height: 3vh;
+}
+
+.city_body.city_mobile .custom_modal .modal-body .info {
+  padding: 0;
+}
+
+.city_body.city_mobile .modal-footer {
+  padding: 3.8vh 2vh 4vh;
+}
+
+.city_body.city_mobile .modal-footer .btn{
+  font-size: 2.2vh;
+  padding: 1.7vh 2.5vh 1.8vh;
+  border-radius: .4vh;
+  height: auto;
+  max-width: calc(50% - 1.5vh);
+}
+
+.city_body.city_mobile .modal-footer .double .btn:first-child{
+  margin: 0 1.5vh 0 0;
+}
+
+.city_body.city_mobile .modal-footer .double .btn:last-child {
+  margin: 0 0 0 1.5vh;
+}
+
+.city_body.city_mobile .custom_modal .modal-footer .btn span.icon{
+  margin: 0 1vh 0 0;
+  height: 3vh;
+}
+
+.city_body.city_mobile .custom_modal .modal-footer .btn .icon.remove{
+  width: 2vh;
+}
+
+.city_body.city_mobile .custom_modal .modal-footer .btn .icon.check{
+  width: 2.4vh;
+  background-position: 50% 33%;
+}
+
+.city_body.city_mobile .pp_file_upload .modal-dialog.modal-sm,
+.city_body.city_mobile .pp_file_upload .modal-dialog.modal-md{
+  width: auto;
+  min-width: auto;
+  max-width: 100%;
+}
+
+.city_body.city_mobile .pp_file_upload .scrollbarY .viewport{
+  border-width: .2vh;
+  min-height: 27vh;
+}
+
+.city_body.city_mobile .pp_file_upload .modal-dialog .modal-body{
+  padding: 2vh;
+}
+
+.city_body.city_mobile .pp_file_upload .dropzone.dz-clickable .dz-message span{
+  padding: 16vh 0 0;
+  font-size: 2.4vh;
+  line-height: 3.6vh;
+  display: flex;
+  justify-content: center;
+}
+
+.city_body.city_mobile .pp_file_upload .dropzone.dz-clickable .dz-message span:before{
+  background-size: 13.5vh auto;
+}
+
+.city_body.city_mobile .pp_file_upload .dropzone{
+  padding: 2.8vh;
+}
+
+.city_body.city_mobile .pp_file_upload .dropzone .dz-message{
+  margin: 4vh 0;
+}
+
+.city_body.city_mobile .pp_file_upload.pp_photo_upload .dropzone .dz-preview .dz-image{
+  width: 15vh;
+  height: 15vh;
+}
+
+.city_body.city_mobile .dropzone .dz-preview{
+  margin: 3vh;
+}
+
+.city_body.city_mobile .pp_file_upload .dropzone .dz-preview .dz-cancel{
+  height: 3.6vh;
+  width: 3.6vh;
+}
+
+.city_body.city_mobile .pp_file_upload .dropzone .dz-preview .dz-cancel .fa{
+  height: 3.6vh;
+  width: 3.6vh;
+  background-size: 130% auto;
+}
+
+.city_body.city_mobile .pp_file_upload .dropzone .dz-preview .dz-progress{
+  height: .4vh;
+  border-radius: .2vh;
+}
+
+.city_body.city_mobile .dropzone .dz-preview.dz-processing .dz-converting{
+  margin-top: .5vh;
+  font-size: 2vh;
+  line-height: 3vh;
+  padding: 0 1vh;
+}
+
+.city_body.city_mobile .dropzone .dz-preview.dz-processing .dz-converting .fa{
+  top: -4vh;
+  font-size: 4vh;
+  width: 4vh;
+}
+
+.city_body.city_mobile .dropzone .dz-preview.dz-processing .dz-converting-complete{
+  padding: 0 1.8vh;
+}
+
+.city_body.city_mobile .dropzone .dz-preview.dz-processing .dz-converting-complete .icon_check{
+  width: 5vh;
+  height: 5vh;
+  margin: 0 0 2vh;
+}
+
+.city_body.city_mobile .pp_file_upload.pp_video_upload .dropzone .dz-preview .dz-image{
+  width: 36vh;
+  height: 20vh;
+}
+
+.city_body.city_mobile .dropzone .dz-preview .dz-error-message .dz-error-wrap span{
+  font-size: 2vh;
+  line-height: 3vh;
+  max-width: 90%;
+  background-size: 2vh auto;
+  padding: .5vh 1vh .5vh 3vh;
+}
+
+.city_body.city_mobile .pp_file_upload .modal-footer{
+  padding: 2vh 2vh 4vh;
+}
+
+.city_body.city_mobile .pp_file_upload .modal-footer .double{
+  white-space: nowrap;
+}
+
+.city_body.city_mobile .pp_file_upload .modal-footer .double .btn{
+  width: calc(50% - 1vh);
+  max-width: calc(50% - 1vh);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.city_body.city_mobile .pp_file_upload .modal-footer .double .btn:first-child{
+  margin: 0 1vh 0 0;
+  float: left;
+}
+
+.city_body.city_mobile .pp_file_upload .modal-footer .double .btn:last-child{
+  margin: 0 0 0 1vh;
+  float: right;
+}
+
+.city_body.city_mobile .chat_wrap{
+  height: calc(100% - 7.6vh);
+  top: 7.6vh;
+  margin: 0;
+}
+
+.city_body.city_mobile .chat .content {
+  width: calc(100% - 9vh);
+  min-width: calc(100% - 9vh) !important;
+}
+
+.city_body.city_mobile .pp_messages_loader{
+  font-size: 7vh;
+  height: 7vh;
+  width: 7vh;
+}
+
+.city_body.city_mobile .chat .sidepanel,
+.city_body.city_mobile .chat .sidepanel .contacts ul{
+  width: 9vh;
+  min-width: 9vh;
+}
+
+.city_body.city_mobile .chat .content .contact-profile{
+  height: 8.3vh;
+}
+
+.city_body.city_mobile .chat .content .social-media i:nth-last-child(1){
+  padding-top: 1.2vh;
+  margin-right: 2.2vh;
+}
+
+.city_body.city_mobile .chat .content .contact-profile .choose-chat {
+  padding: 2.8vh 0 0;
+}
+
+.city_body.city_mobile .chat .content .social-media i{
+  margin-left: 3vh;
+  font-size: 4.5vh;
+  width: 4.5vh;
+  height: 4.5vh;
+}
+
+.city_body.city_mobile .chat .content .messages {
+  height: calc(100% - 8.3vh);
+  top: 8.3vh;
+  font-size: 2.2vh;
+}
+
+/* .city_body.city_mobile .chat .content .message-input .wrap .attachment {
+  margin-top: 17px;
+  right: 65px;
+} */
+
+.city_body.city_mobile .chat .pp_message_user_title_info{
+  display: none;
+}
+
+.city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons{
+  margin: 0 0 0 1vh;
+}
+
+.city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons li.icon a{
+  display: inline-block;
+  padding: 0 1.4vh;
+}
+
+.city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons li.icon a .fa{
+  font-size: 2.5vh;
+}
+
+.city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons li.more span.dots{
+  padding: 0 1vh;
+  height: 3vh;
+}
+
+.city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons li.more span.dots span{
+  width: .6vh;
+  height: .6vh;
+  margin: 1vh .4vh 0 0;
+}
+
+.city_body.city_mobile .chat .more_menu_collapse{
+  font-size: 1.8vh;
+  border-radius: .6vh;
+  box-shadow: 0 1vh 3vh rgba(0, 0, 0, .175);
+}
+
+.city_body.city_mobile .chat .more_menu_collapse > li > a{
+  padding: 1vh 1.4vh 1vh 1.4vh;
+}
+
+.city_body.city_mobile .chat  .more_menu_collapse > li > a > i {
+  padding-right: 1vh;
+  width: 2vh;
+}
+
+.city_body.city_mobile .chat .more_menu_collapse > li > a > span.icon_fa .fa{
+  width: 2vh;
+  margin-right: 1vh;
+}
+
+/* .city_body.city_mobile .menu_more_menu_navbar_site ul > li > a figure{
+  width: 2.4vh;
+  height: 2.4vh;
+  margin: 0 .6vh 0 0;
+  top: -.6vh;
+}
+
+.city_body.city_mobile .menu_more_menu_navbar_site ul > li > a figure svg{
+  width: 2.4vh;
+  height: 2.4vh;
+}
+
+.city_body.city_mobile .menu_more_menu_navbar_site ul > li > a figure svg.sm{
+  width: 2.2vh;
+} */
+
+.city_body.city_mobile .chat .sidepanel .contacts ul li.contact .wrap {
+  width: 100%;
+  margin: 0;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts ul li.contact .wrap .meta {
+  display: none;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts ul li.contact .wrap img {
+  margin-right: 0;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts ul li.contact .wrap button{
+  width: 6.3vh;
+  height: 6.3vh;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts ul li.contact {
+  padding: 1vh 0 1vh 1.2vh;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts ul li.contact:hover {
+  background-color: transparent;
+  border-right: none;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts ul li.contact.active{
+  border-right-width: .8vh;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts ul li.contact .wrap span.contact-status{
+  top: .2vh;
+  left: .2vh;
+  width: 1.5vh;
+  height: 1.5vh;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.city_body.city_mobile .chat .sidepanel .contacts::-webkit-scrollbar {
+  display: none;
+}
+
+.city_body.city_mobile .chat .sidepanel .search {
+  display: none;
+}
+
+.city_body.city_mobile .chat {
+  width: 100%;
+  margin: 0;
+  max-height: 100% !important;
+  height: calc(100% - 7.6vh) !important;
+  min-height: auto;
+  max-width: 100%;
+}
+
+.city_body.city_mobile .chat .content .messages .scrollbarY .overview{
+  padding-right: 0;
+  padding-bottom: 1vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item{
+  margin: 2.2vh 0 0;
+  /* width: calc(100% - 20.5vh); */
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item.sent{
+  margin-left: 2vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item.replies{
+  margin: 2.2vh 0 0 2.2vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item button{
+  width: 6.3vh;
+  height: 6.3vh;
+  margin: 0 1.2vh 0 0;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item.sent button{
+  left: -7.8vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item.replies button{
+  right: -7.8vh;
+  margin: 0 0 0 1.2vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .msg{
+  padding: 1.5vh 2.5vh;
+  border-radius: 60px;
+  line-height: 150%;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item.sent .msg{
+  max-width: calc(100% - 14.8vh);
+  margin: 0 0 0 7.4vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item.replies .msg{
+  max-width: calc(100% - 14.8vh);
+  margin: 0 7.4vh 0 0;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .msg .text{
+  padding: 0;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .message_extension{
+  top: 1.2vh;
+  left: -10.5vh;
+  width: 10vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item.sent .message_extension {
+  right: -4vh;
+  left: initial;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .message_more_menu{
+  width: 4vh;
+  height: 3vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .ellipsis span{
+  width: .5vh;
+  height: .5vh;
+  margin: 0 0 0 2vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .ellipsis span:before{
+  right: -1vh;
+  width: .5vh;
+  height: .5vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .ellipsis span:after{
+  left: -1vh;
+  width: .5vh;
+  height: .5vh;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .icon_check_msg{
+  background-size: 3vh auto;
+  width: 3vh;
+  height: 4vh;
+  margin: .2vh 0 0;
+}
+
+.city_body.city_mobile .chat .content .messages .pp_message_msg_item .icon_check_msg.to_hide{
+  width: 0vh;
+}
+
+.city_body.city_mobile .chat .sidepanel .bottom-bar{
+  display: none;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap textarea{
+  padding: 2.2vh 8vh 2.2vh 2vh;
+  font-size: 2.2vh;
+  line-height: 2.8vh;
+  width: calc(100% - 8vh);
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .app_ios_im_audio_message_recorder ~
+textarea{
+  padding: 2.2vh 12vh 2.2vh 2vh;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap button{
+  width: 8vh;
+  padding: 0;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img{
+  width: 8vh;
+  right: 8vh;
+  height: 8vh;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .pp_message_upload_img_loader{
+  width: 5vh;
+  height: 5vh;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .pp_message_upload_img_loader .btn_action_loader{
+  width: 4vh;
+  height: 4vh;
+  font-size: 3vh;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .pp_message_upload_img_loader .css_loader:not(.hidden) .spinnerw .spinner-blade{
+  font-size: 4vh;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .fa.fa-camera{
+  font-size: 3.6vh;
+  width: 4vh;
+  height: 4vh;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .app_ios_im_audio_message_recorder{
+  width: 4vh;
+  height: 8vh;
+  right: 16vh;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .app_ios_im_audio_message_recorder .fa.fa-microphone {
+  font-size: 3.6vh;
+  height: 4vh;
+}
+
+.city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .count_upload_image{
+  bottom: 2vh;
+  left: 1vh;
+  font-size: 1.4vh;
+  line-height: 2.2vh;
+  width: 2.2vh;
+}
+
+/*-- pp_im_image --*/
+.city_body.city_mobile .wrap_one_item{
+  margin: 7.6vh 0 0;
+}
+
+.city_body.city_mobile .cham-blog-style-1.pp_im_image .container {
+  max-width: 100%;
+}
+
+.city_body.city_mobile .wrap_one_item.pp_im_image .icon_close span {
+  width: 3.8vh;
+  height: 3.8vh;
+  top: 2.6vh;
+  right: 2.6vh;
+}
+
+.city_body.city_mobile .wrap_one_item.pp_im_image .icon_close span:before {
+  background-size: 1.8vh auto;
+  width: 3.8vh;
+  height: 3.8vh;
+}
+
+.city_body.city_mobile .cham-blog-style-1.pp_im_image .cham-post.photo_one .photo_one_bl{
+  height: calc(80vh - 7.6vh);
+  max-height: auto;
+}
+
+.city_body.city_mobile .cham-blog-style-1.pp_im_image .cham-post.photo_one .one_item .cham-post-image img{
+  max-height: calc(80vh - 7.6vh);
+  min-height: auto;
+}
+
+.city_body.city_mobile .cham-blog-style-1.pp_im_image .cham-post .cham-post-text {
+  padding: 3vh;
+  height: 14vh;
+  min-height: 14vh;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .photo{
+  width: 6vh;
+  height: 6vh;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .photo .pic{
+  width: 6vh;
+  height: 6vh;
+}
+
+.city_body.city_mobile .wrap_one_item .cham-post .cham-post-meta{
+  height: 6vh;
+  border-top: .1vh solid #514d52;
+  padding: 1.8vh 2vh;
+}
+
+.city_body.city_mobile .wrap_upload_user{
+  padding: 0 0 0 7vh;
+  height: 6vh;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .name {
+  font-size: 2.8vh;
+  line-height: 3.4vh;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .date {
+  font-size: 2.2vh;
+  line-height: 2.6vh;
+  padding: .1vh 0 0;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .user_options{
+  font-size: 2.2vh;
+  line-height: 2.6vh;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .user_options .upload_menu_link {
+  padding: .5vh 0;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .user_options .upload_menu_link .caret{
+  margin-left: .2vh;
+  border-top: .7vh solid;
+  border-right: .7vh solid transparent;
+  border-left: .7vh solid transparent;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .user_options .more_menu_collapse {
+  font-size: 2vh;
+  line-height: 2.2vh;
+  border-radius: .6vh;
+  bottom: 3vh;
+  margin: 0;
+}
+
+.city_body.city_mobile .wrap_one_item .upload_user .user_options .more_menu_collapse > li > a {
+  padding: 1vh 2vh;
+}
+
+.city_body.city_mobile .wrap_one_item .more_menu_collapse > li > a > i.fa-external-link,
+.city_body.city_mobile .wrap_one_item .more_menu_collapse > li > a > i.fa-pencil-square-o {
+  padding-top: .5vh;
+}
+
+.city_body.city_mobile .wrap_one_item .more_menu_collapse > li > a > i {
+  width: 2vh;
+}
+
+.city_body.city_mobile .wrap_one_item .cham-post .cham-post-meta span.time {
+  font-size: 2vh;
+  line-height: 2.2vh;
+}
+
+/*-- landscape --*/
+@media (orientation:landscape) {
+  .city_body.city_mobile .top_indent_page{
+    margin: 7.6vw 0 0;
+  }
+
+  .city_body.city_mobile .bl_icons_info{
+    right: 9vw;
+  }
+
+  .city_body.city_mobile button.icon_nav{
+    width: 7.6vw;
+  }
+
+  .city_body.city_mobile button.icon_nav .wrap_nav{
+    width: 7.6vw;
+    height: 7.6vw;
+    top: 1.8vw;
+  }
+
+  .city_body.city_mobile button.icon_nav .wrap_nav div{
+    width: 5.5vw;
+    height: .5vw;
+  }
+
+  .city_body.city_mobile button.icon_nav .wrap_nav div:nth-child(2){
+    top: 1.6vw;
+  }
+
+  .city_body.city_mobile button.icon_nav .wrap_nav div:nth-child(3){
+    top: 3.2vw;
+  }
+
+  .city_body.city_mobile .navbar-default,
+  .city_body.city_mobile .navbar-header,
+  .city_body.city_mobile.navbar-brand,
+  .city_body.city_mobile button.icon_nav,
+  .city_body.city_mobile .navbar-brand .logo,
+  .city_body.city_mobile ul.icons_info {
+    height: 7.6vw;
+  }
+
+  .city_body.city_mobile .navbar-brand .logo{
+    height: 7.6vw;
+    width: 26vw;
+  }
+
+  .city_body.city_mobile .navbar-brand .logo img{
+    min-height: 3vw;
+    max-height: 6vw;
+    max-width: 26vw;
+  }
+
+  .city_body.city_mobile .dropdown.open .dropdown-menu{
+    top: 8vw;
+  }
+
+  .city_body.city_mobile .notification{
+    font-size: 2.2vw;
+    line-height: 3.4vw;
+    top: 7.6vw;
+  }
+
+  .city_body.city_mobile ul.icons_info li.icon .glyphicon,
+  .city_body.city_mobile ul.icons_info li.icon .fa{
+    font-size: 3.2vw;
+  }
+
+  .city_body.city_mobile ul.icons_info li.icon {
+    padding: 2.2vw 0 0;
+  }
+
+  .city_body.city_mobile .navbar-collapse .navbar-nav > li > a,
+  .city_body.city_mobile ul.menu_vertical_scroll > li > a {
+    font-size: 2.2vw;
+    padding: 0 2vw;
+    height: 8vw;
+  }
+
+  .city_body.city_mobile .navbar-collapse .navbar-nav > li > a .caret{
+    border-top: .6vw solid;
+    border-right: .6vw solid transparent;
+    border-left: .6vw solid transparent;
+    margin: .3vw 0 0 .5vw;
+  }
+
+  .city_body.city_mobile .navbar-nav .header_menu_loader{
+    height: 2.4vw;
+    width: 2.4vw;
+    font-size: 3vw;
+    margin-left: -2vw;
+    margin-top: -1.2vw;
+  }
+
+  .city_body.city_mobile .navbar-nav > li > a .fa{
+    font-size: 2.4vw;
+    line-height: 2vw;
+    height: 2.4vw;
+    width: 3.4vw;
+  }
+
+  .city_body.city_mobile .navbar-nav > li > a .fa.fa-film{
+    font-size: 2vw;
+  }
+
+  .city_body.city_mobile ul.menu_vertical_scroll > li > a i.fa{
+    width: 3.4vw;
+  }
+
+  .city_body.city_mobile ul.icons_info li.icon span.count{
+    border-radius: 1vw;
+    top: -.5vw;
+    left: 3vw;
+    padding: 0 .6vw;
+    font-size: 1.7vw;
+    line-height: 2.1vw;
+    height: 2.2vw;
+  }
+
+  .city_body.city_mobile ul.icons_info li.icon a.icon_link figure,
+  .city_body.city_mobile ul.icons_info li.icon a.icon_link figure svg{
+    width: 3vw;
+    height: 3vw;
+  }
+
+  .city_body.city_mobile ul.icons_info li.icon span.count.friends_pending_counter{
+    left: 4.5vw;
+  }
+
+  .city_body.city_mobile .notification{
+    font-size: 2.2vw;
+    line-height: 3.4vw;
+  }
+
+  .city_body.city_mobile .notification.events li {
+    padding: 2vw 2.7vw 2.2vw;
+    border-bottom: .1vw solid #eee;
+  }
+
+  .city_body.city_mobile .notification.friends li{
+    padding: 2vw 2.7vw 3vw;
+  }
+
+  .city_body.city_mobile .notification.events li span.text{
+    padding: 0 0 0 2.7vw;
+  }
+
+  .city_body.city_mobile .notification.friends li span.text{
+    padding: 0 0 0 1.7vw;
+  }
+
+  .city_body.city_mobile .notification.events li span.text span.event_time_ago{
+    font-size: 2.2vw;
+    line-height: 3.4vw;
+  }
+
+  .city_body.city_mobile .notification.events li a.pic{
+    width: 8.6vw;
+    height: 8.6vw;
+  }
+
+  .city_body.city_mobile .notification.events li a.pic img{
+    height: 8.6vw;
+  }
+
+  .city_body.city_mobile .notification.friends li a.pic{
+    width: 7vw;
+    height: 7vw;
+  }
+
+  .city_body.city_mobile .notification.friends li a.pic img{
+    height: 7vw;
+  }
+
+  .city_body.city_mobile .notification.friends li .buttons{
+    margin: 2.2vw 0 0;
+  }
+
+  .city_body.city_mobile ul.notification_list li button{
+    width: calc(50% - 1vw);
+    font-size: 2.2vw;
+    line-height: 2.4vw;
+    padding: 1.8vw 2.5vw;
+    border-radius: .4vw;
+  }
+
+  .city_body.city_mobile .frame_loader_page{
+    width: 12.5vw;
+    height: 12.5vw;
+    border-radius: .3vw;
+    box-shadow: 0 0 3vw rgba(0, 0, 0, 0.34);
+    font-size: 7vw;
+    line-height: 12vw;
+  }
+
+  .city_body.city_mobile .modal-dialog{
+    margin: 0 2vw;
+  }
+
+  .city_body.city_mobile .custom_modal .modal-content{
+    margin: 0 0 4vw;
+    box-shadow: 0 0 4vw rgba(0, 0, 0, 0.4);
+    border-radius: 1vw;
+  }
+
+  .city_body.city_mobile .custom_modal .modal-header{
+    padding: 4vw 1.5vw 3.6vw;
+  }
+
+  .city_body.city_mobile .modal-title{
+    font-size: 3.4vw;
+    line-height: 3.6vw;
+  }
+
+  .city_body.city_mobile .custom_modal .modal-body{
+    padding: 4vw 1.5vw 4.2vw;
+    font-size: 2.5vw;
+    line-height: 3vw;
+  }
+
+  .city_body.city_mobile .custom_modal .modal-footer {
+    padding: 3.8vw 1.5vw 4vw;
+  }
+
+  .city_body.city_mobile .custom_modal .modal-footer .btn{
+    font-size: 2.2vw;
+    padding: 1.7vw 2.5vw 1.8vw;
+    border-radius: .4vw;
+    max-width: calc(50% - 1.5vw);
+  }
+
+  .city_body.city_mobile .custom_modal.custom_modal_alert .modal-footer .double .btn:first-child{
+    margin: 0 1.5vw 0 0;
+  }
+
+  .city_body.city_mobile .custom_modal.custom_modal_alert .modal-footer .double .btn:last-child {
+    margin: 0 0 0 1.5vw;
+  }
+
+  .city_body.city_mobile .custom_modal .modal-footer .btn span.icon{
+    margin: 0 1vw 0 0;
+    height: 3vw;
+  }
+
+  .city_body.city_mobile .custom_modal .modal-footer .btn .icon.remove{
+    width: 2vw;
+  }
+
+  .city_body.city_mobile .custom_modal .modal-footer .btn .icon.check{
+    width: 2.4vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .scrollbarY .viewport{
+    border-width: .2vw;
+    min-height: 27vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .modal-dialog .modal-body{
+    padding: 2vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .dropzone{
+    padding: 2.8vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .dropzone.dz-clickable .dz-message span{
+    padding: 16vw 0 0;
+    font-size: 2.4vw;
+    line-height: 3.6vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .dropzone.dz-clickable .dz-message span:before{
+    background-size: 13.5vw auto;
+  }
+
+  .city_body.city_mobile .pp_file_upload .dropzone .dz-message{
+    margin: 4vw 0;
+  }
+
+  .city_body.city_mobile .pp_file_upload.pp_photo_upload .dropzone .dz-preview .dz-image{
+    width: 15vw;
+    height: 15vw;
+  }
+
+  .city_body.city_mobile .dropzone .dz-preview{
+    margin: 3vh;
+  }
+
+  .city_body.city_mobile .pp_file_upload .dropzone .dz-preview .dz-cancel{
+    height: 3.6vw;
+    width: 3.6vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .dropzone .dz-preview .dz-cancel .fa{
+    height: 3.6vw;
+    width: 3.6vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .dropzone .dz-preview .dz-progress{
+    height: .4vw;
+    border-radius: .2vw;
+  }
+
+  .city_body.city_mobile .dropzone .dz-preview.dz-processing .dz-converting{
+    margin-top: .5vw;
+    font-size: 2vw;
+    line-height: 3vw;
+    padding: 0 1vw;
+  }
+
+  .city_body.city_mobile .dropzone .dz-preview.dz-processing .dz-converting .fa{
+    top: -4vw;
+    font-size: 4vw;
+    width: 4vw
+  }
+
+  .city_body.city_mobile .dropzone .dz-preview.dz-processing .dz-converting-complete{
+    padding: 0 1.8vw;
+  }
+
+  .city_body.city_mobile .dropzone .dz-preview.dz-processing .dz-converting-complete .icon_check{
+    width: 5vw;
+    height: 5vw;
+    margin: 0 0 2vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload.pp_video_upload .dropzone .dz-preview .dz-image{
+    width: 36vw;
+    height: 20vw;
+  }
+
+  .city_body.city_mobile .dropzone .dz-preview .dz-error-message .dz-error-wrap span{
+    font-size: 2vw;
+    line-height: 3vw;
+    background-size: 2vw auto;
+    padding: .5vw 1vw .5vw 3vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .modal-footer{
+    padding: 2vw 2vw 4vw;
+  }
+
+  .city_body.city_mobile .pp_file_upload .modal-footer .double .btn{
+    width: calc(50% - 1vw);
+    max-width: calc(50% - 1vw);
+  }
+
+  .city_body.city_mobile .pp_file_upload .modal-footer .double .btn:first-child{
+    margin: 0 1vw 0 0;
+  }
+
+  .city_body.city_mobile .pp_file_upload .modal-footer .double .btn:last-child{
+    margin: 0 0 0 1vw;
+  }
+
+  .city_body.city_mobile .chat_wrap{
+    height: calc(100% - 7.6vw);
+    top: 7.6vw;
+  }
+
+  .city_body.city_mobile .chat .content {
+    width: calc(100% - 9vw);
+    min-width: calc(100% - 9vw) !important;
+  }
+
+  .city_body.city_mobile .pp_messages_loader{
+    font-size: 7vw;
+    height: 7vw;
+    width: 7vw;
+  }
+
+  .city_body.city_mobile .chat .sidepanel,
+  .city_body.city_mobile .chat .sidepanel .contacts ul{
+    width: 9vw;
+    min-width: 9vw;
+  }
+
+  .city_body.city_mobile .chat .content .contact-profile{
+    height: 8.3vw;
+  }
+
+  .city_body.city_mobile .chat .content .social-media i:nth-last-child(1){
+    padding-top: 1.2vw;
+    margin-right: 2.2vw;
+  }
+
+  .city_body.city_mobile .chat .content .contact-profile .choose-chat {
+    padding: 2.8vw 0 0;
+  }
+
+  .city_body.city_mobile .chat .content .social-media i{
+    margin-left: 3vw;
+    font-size: 4.5vw;
+    width: 4.5vw;
+    height: 4.5vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages {
+    height: calc(100% - 8.3vw);
+    top: 8.3vw;
+    font-size: 2.2vw;
+  }
+
+  /* .city_body.city_mobile .chat .content .message-input .wrap .attachment {
+    margin-top: 17px;
+    right: 65px;
+  } */
+
+  .city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons{
+    margin: 0 0 0 1vw;
+  }
+
+  .city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons li.icon a{
+    padding: 0 1.4vw;
+  }
+
+  .city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons li.icon a .fa{
+    font-size: 2.5vw;
+  }
+
+  .city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons li.more span.dots{
+    padding: 0 1vw;
+    height: 3vw;
+  }
+
+  .city_body.city_mobile .chat .content .contact-profile .choose-chat ul.list_icons li.more span.dots span{
+    width: .6vw;
+    height: .6vw;
+    margin: 1vw .4vw 0 0;
+  }
+
+  .city_body.city_mobile .chat .more_menu_collapse{
+    font-size: 1.8vw;
+    border-radius: .6vw;
+    box-shadow: 0 1vw 3vw rgba(0, 0, 0, .175);
+  }
+
+  .city_body.city_mobile .chat .more_menu_collapse > li > a{
+    padding: 1vw 1.4vw;
+  }
+
+  .city_body.city_mobile .chat  .more_menu_collapse > li > a > i {
+    padding-right: 1vw;
+    width: 2vw;
+  }
+
+  .city_body.city_mobile .chat .more_menu_collapse > li > a > span.icon_fa .fa{
+    width: 2vw;
+    margin-right: 1vw;
+  }
+
+  .city_body.city_mobile .chat .sidepanel .contacts ul li.contact .wrap button{
+    width: 6.3vw;
+    height: 6.3vw;
+  }
+
+  .city_body.city_mobile .chat .sidepanel .contacts ul li.contact {
+    padding: 1vw 0 1vw 1.2vw;
+  }
+
+  .city_body.city_mobile .chat .sidepanel .contacts ul li.contact.active{
+    border-right-width: .8vw;
+  }
+
+  .city_body.city_mobile .chat .sidepanel .contacts ul li.contact .wrap span.contact-status{
+    top: .2vw;
+    left: .2vw;
+    width: 1.5vw;
+    height: 1.5vw;
+  }
+
+  .city_body.city_mobile .chat {
+    height: calc(100% - 7.6vw) !important;
+  }
+
+  .city_body.city_mobile .chat .content .messages .scrollbarY .overview{
+    padding-bottom: 1vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item{
+    margin: 2.2vw 0 0;
+    width: calc(100% - 20.5vw);
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item.sent{
+    margin-left: 10vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item.replies{
+    margin: 2.2vw 0 0 10.7vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item button{
+    width: 6.3vw;
+    height: 6.3vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item.sent button{
+    left: -7.8vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item.replies button{
+    right: -7.8vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item .msg{
+    padding: 1.5vw 2.5vw;
+    border-radius: 60px;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item .icon_check_msg{
+    background-size: 3vw auto;
+    width: 3vw;
+    height: 4vw;
+    margin: .2vw 0 0;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item .message_more_menu {
+    width: 4vw;
+    height: 3vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item .message_extension {
+    top: 1.2vw;
+    left: -10.5vw;
+    width: 10vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item .ellipsis span {
+    width: .5vw;
+    height: .5vw;
+    margin: 0 0 0 2vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item .ellipsis span:before {
+    right: -1vw;
+    width: .5vw;
+    height: .5vw;
+  }
+
+  .city_body.city_mobile .chat .content .messages .pp_message_msg_item .ellipsis span:after {
+    left: -1vw;
+    width: .5vw;
+    height: .5vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap textarea{
+    padding: 2.2vw 8vw 2.2vw 2vw;
+    font-size: 2.2vw;
+    line-height: 2.8vw;
+    width: calc(100% - 8vw);
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .app_ios_im_audio_message_recorder ~
+  textarea{
+    padding: 2.2vw 12vw 2.2vw 2vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap button{
+    width: 8vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img{
+    width: 8vw;
+    right: 8vw;
+    height: 8vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .pp_message_upload_img_loader{
+    width: 5vw;
+    height: 5vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .pp_message_upload_img_loader .btn_action_loader{
+    width: 4vw;
+    height: 4vw;
+    font-size: 3vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .pp_message_upload_img_loader .css_loader:not(.hidden) .spinnerw .spinner-blade{
+    font-size: 4vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .fa.fa-camera{
+    font-size: 3.6vw;
+    width: 4vw;
+    height: 4vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .app_ios_im_audio_message_recorder{
+    width: 4vw;
+    height: 8vw;
+    right: 16vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .app_ios_im_audio_message_recorder .fa.fa-microphone {
+    font-size: 3.6vw;
+    height: 4vw;
+  }
+
+  .city_body.city_mobile .chat .content .message-input .wrap .pp_message_upload_img .count_upload_image{
+    bottom: 2vw;
+    left: 1vw;
+    font-size: 1.4vw;
+    line-height: 2.2vw;
+    width: 2.2vw;
+  }
+
+  /*-- pp_im_image --*/
+  .city_body.city_mobile .wrap_one_item{
+    margin: 7.6vw 0 0;
+  }
+
+  .city_body.city_mobile .wrap_one_item.pp_im_image .icon_close span {
+    width: 3.8vw;
+    height: 3.8vw;
+    top: 2.6vw;
+    right: 2.6vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item.pp_im_image .icon_close span:before {
+    background-size: 1.8vw auto;
+    width: 3.8vw;
+    height: 3.8vw;
+  }
+
+  .city_body.city_mobile .cham-blog-style-1.pp_im_image .cham-post.photo_one .photo_one_bl{
+    height: calc(64.5vh - 7.6vw);
+    max-height: auto;
+  }
+
+  .city_body.city_mobile .cham-blog-style-1.pp_im_image .cham-post.photo_one .one_item .cham-post-image img{
+    max-height: calc(64.5vh - 7.6vw);
+    min-height: auto;
+  }
+
+  .city_body.city_mobile .cham-blog-style-1.pp_im_image .cham-post .cham-post-text {
+    padding: 3vw;
+    height: 14vw;
+    min-height: 14vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .upload_user .photo{
+    width: 6vw;
+    height: 6vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .upload_user .photo .pic{
+    width: 6vw;
+    height: 6vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .cham-post .cham-post-meta{
+    height: 6vw;
+    border-top: .1vw solid #514d52;
+    padding: 1.8vw 2vw;
+  }
+
+  .city_body.city_mobile .wrap_upload_user{
+    padding: 0 0 0 7vw;
+    height: 6vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .upload_user .name {
+    font-size: 2.8vw;
+    line-height: 3.4vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .upload_user .date {
+    font-size: 2.2vw;
+    line-height: 2.6vw;
+    padding: .1vw 0 0;
+  }
+
+
+  .city_body.city_mobile .wrap_one_item .upload_user .user_options{
+    font-size: 2.2vw;
+    line-height: 2.6vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .upload_user .user_options .upload_menu_link {
+    padding: .5vw 0;
+  }
+
+  .city_body.city_mobile .wrap_one_item .upload_user .user_options .upload_menu_link .caret{
+    margin-left: .2vw;
+    border-top: .7vw solid;
+    border-right: .7vw solid transparent;
+    border-left: .7vw solid transparent;
+  }
+
+  .city_body.city_mobile .wrap_one_item .upload_user .user_options .more_menu_collapse {
+    font-size: 2vw;
+    line-height: 2.2vw;
+    border-radius: .6vw;
+    bottom: 3vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .upload_user .user_options .more_menu_collapse > li > a {
+    padding: 1vw 2vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .more_menu_collapse > li > a > i.fa-external-link,
+  .city_body.city_mobile .wrap_one_item .more_menu_collapse > li > a > i.fa-pencil-square-o {
+    padding-top: .5vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .more_menu_collapse > li > a > i {
+    width: 2vw;
+  }
+
+  .city_body.city_mobile .wrap_one_item .cham-post .cham-post-meta span.time {
+    font-size: 2vw;
+    line-height: 2.2vw;
+  }
+
+  /* -- request_youtube -- */
+  .mobile_keyboard  .placeholder::-webkit-input-placeholder {font-size: 2.4vw !important; }
+  .mobile_keyboard  .placeholder::-moz-placeholder {font-size: 2.4vw !important; }
+  .mobile_keyboard  .placeholder:-moz-placeholder {font-size: 2.4vw !important; }
+  .mobile_keyboard  .placeholder:-ms-input-placeholder {font-size: 2.4vw !important; }
+
+  .mobile_keyboard .bl_request_youtube{
+    padding: 1.6vw 3.6vw 1.6vw 1.6vw !important;
+  }
+
+  .mobile_keyboard .bl_request_youtube input{
+    height: 3.6vw !important;
+    padding: 0 1vw !important;
+    font-size: 2.4vw !important;
+    /* line-height: 1.4 !important; */
+  }
+
+  .mobile_keyboard .bl_request_youtube a.btn_enter {
+    width: 3.6vw !important;
+    height: 3.6vw !important;
+    top: 1.6vw !important;
+  }
+
+  .mobile_keyboard .bl_request_youtube .status_web{
+    width: 1vw !important;
+    height: 1vw !important;
+    margin: 0 0 0 -1vw !important;
+    vertical-align: middle;
+  }
+  
+  .mobile_keyboard .bl_request_youtube .status_web_bl > span{
+    padding: 1.4vw 0 !important;
+    font-size: 2.4vw !important;
+  }
+
+  .mobile_keyboard .bl_request_youtube .status_web_bl > span:last-child{
+    height: 3.6vw !important;
+    line-height: 3.2vw !important;
+    padding: 0 !important;
+  }
+
+}
+/*-- /landscape --*/

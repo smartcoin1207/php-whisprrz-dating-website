@@ -1,0 +1,152 @@
+{header}
+
+
+    <script type="text/javascript">
+    function music_main_search_on_submit()
+    {
+        value = $("#places_main_search input[name='query']").val();
+
+        if(value != '')
+            return true;
+
+        alert('{l_music_please_enter_what_you_search}');
+
+        return false;
+    }
+
+    function music_top_search_on_submit()
+    {
+        value = $("#places_top_search input[name='query']").val();
+
+        if(value != '')
+            return true;
+
+        alert('{l_music_please_enter_what_you_search}');
+
+        return false;
+    }
+
+    function music_top_add_on_submit()
+    {
+        value = $("#places_top_add input[name='musician_name']").val();
+
+        if(value != '')
+            return true;
+
+        alert('{l_music_please_enter_musician_name}');
+
+        return false;
+    }
+    </script>
+
+    <div class="music_new">
+
+		{music_header}
+
+        <table class="tb_music_new">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    <div class="music_new_decor">
+
+                        <div class="music_new_frm_search" >
+                            <h1 class="txt_color">{l_find_the_musician}</h1>
+
+                            <form id="places_top_search" action="{url_top}music_search_and_upload.php" method="get" onsubmit="return music_top_search_on_submit();">
+                                <div class="music_input_text3"><input class="no_abk"  type="text" name="query" value=""/></div>
+<!--                                 <div class="music_input8 fl_right" style="margin-right:30px;"><input type="submit" value="{l_search}"/></div> -->
+<div class="fl_right" style="margin: 0 30px 0 0;" >
+<input class="btn lower_header_color round big" type="submit" value="{l_search}"/>
+</div>
+
+                            </form>
+                        </div>
+
+                        <div class="pl_top pl_right">
+                            <h1 class="txt_color"> {l_or_add_one}: </h1>
+
+                            <form id="places_top_add" action="{url_top}music_musician_edit.php" method="get" onsubmit="return music_top_add_on_submit();">
+                           <div class="music_input_text4 fl_right"><input class="no_abk" type="text" name="musician_name" value=""/></div>
+                                <!-- <div class="music_input8 fl_right"><input  type="submit" value="{l_music_add}"/></div> -->
+                                <input class="btn lower_header_color round big" type="submit" value="{l_music_add}"/>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="music_new_shadow"></div>
+
+                    <div class="music_new_p pl_top_m">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+                                  <td><h1 class="txt_lower_header_color">{l_music_just_added}</h1></td>
+                                  <td>
+                                     <div class="main_pl bg">
+                                            <div class="cont darkgrey">
+                                                <div class="pic">
+                                                    <img class="png" src="{url_tmpl_main}images/music/ico_browse.png" width="34" height="34" alt=""/>
+                                                </div>
+                                                <ul class="list">
+                                                    <li><a href="{url_main}music_song_list_just_added.php">{l_music_browse_all}</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="bg darkgrey">
+                                                <div class="bl_search">
+                                      <form id="places_main_search" action="{url_main}music_search.php" method="get" onsubmit="return music_main_search_on_submit();">
+                                <div class="music_input_text1 fl_left"><input class="no_abk" type="text" name="query" value=""/></div>
+<!--                                           <div class="music_input8 fl_right" style="margin-right:10px;"><input  type="submit" value="{l_search}"/></div> -->
+                                             <input class="btn lower_header_color round big" type="submit" value="{l_search}"/>
+                                      </form>
+
+                                                </div>
+                                            </div>
+                                      </div>
+                                  </td>
+                                </tr>
+                              </table>
+                          </div>
+                          <!-- /bl_main_pl -->
+
+                        <!-- begin_no_search_header -->
+
+                        <div class="cl"></div>
+
+                        {music_song_list}
+                        <!-- end_no_search_header -->
+                        <!-- begin_search_header -->
+                        <h1 class="pink">{l_music_is_this_musician_among_these}</h1>
+
+                        <div class="cl"></div>
+
+                        {music_song_list}
+                        <!-- end_search_header -->
+                        <!-- begin_search_no_results_header -->
+                        <h1 class="pink">{l_music_seems_you_have_to_add_this_musician}</h1>
+
+                        <div class="cl"></div>
+                        <!-- end_search_no_results_header -->
+                    </div>
+                    <div class="music_new_empty"></div>
+                </td>
+                <!-- /td_main -->
+
+				{music_sidebar}
+
+            </tr>
+        </table>
+
+        <div class="foot_left"></div>
+		<div class="foot_right"></div>
+
+
+    </div>
+
+
+{footer}

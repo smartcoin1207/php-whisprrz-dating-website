@@ -1,0 +1,23 @@
+* html .png , .partyhouz_new_pl_violet_img img , .partyhouz_new_pl_violet2 , .partyhouz_new_delete img , .list_bg_violet , .partyhouz_new_shadow img ,.div.new_mode_bl_dpink_delete img,div.decor_l img,div.decor_r img,.partyhouz_new h1.bg span a img, .partyhouz_new_popup_c ,div.pl_violet,.partyhouz_new td .partyhouz_new_tb_sub td.first .new_mode_bl_dpink_delete_foto img { _behavior: url("./_frameworks/main/oryx/css/iepngfix.htc");}
+.partyhouz_new td .partyhouz_new_tb_sub td.first img{ width: 40px !important; }
+.partyhouz_new td .partyhouz_new_tb_sub_r td{ height: 22px; padding: 3px 0 0; vertical-align: top; }
+.partyhouz_new td .partyhouz_new_tb_sub_r td{ height: 19px; }
+.partyhouz_new td .partyhouz_new_tb_sub th.th_t_c{ height: 16px; padding: 4px 0 0; }
+.partyhouz_new_foto ul{ _padding: 0 0 0 95px; }
+.partyhouz_new_w3{ _margin: 0 -10px 20px 5px; }
+* html .partyhouz_new_head td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz/head_l.png', sizingMethod='crop'); }* html .partyhouz_new_head td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz/head_r.png', sizingMethod='crop'); }* html .partyhouz_new td .partyhouz_new_tb_sub th.th_t_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/tb_sub_head_l.png', sizingMethod='crop'); }* html .partyhouz_new td .partyhouz_new_tb_sub th.th_t_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/tb_sub_head_r.png', sizingMethod='crop'); }* html .partyhouz_new td .partyhouz_new_tb_sub th.th_b_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/tb_sub_foot_l.png', sizingMethod='crop'); }* html .partyhouz_new td .partyhouz_new_tb_sub th.th_b_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/tb_sub_foot_r.png', sizingMethod='crop'); }* html .partyhouz_new_foot td.td_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/foot_l.png', sizingMethod='crop'); }* html .partyhouz_new_foot td.td_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/foot_r.png', sizingMethod='crop'); }* html .partyhouz_new h1.bg span {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/pl_violet_title.png', sizingMethod='crop'); }* html .partyhouz_new_pl_violet_l {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/pl_violet_l.png', sizingMethod='crop'); }* html .partyhouz_new_pl_violet_r {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/pl_violet_r.png', sizingMethod='crop'); }* html .list_bg_violet2  {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/list_bg_violet2.png', sizingMethod='crop'); }* html .new_mode_bl_dpink_top {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/bl_dpink_top.png', sizingMethod='crop'); }* html .new_mode_bl_dpink_bot {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/bl_dpink_bot.png', sizingMethod='crop'); }* html .partyhouz_new_come_decor {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/foto_decor.png', sizingMethod='crop'); }* html .partyhouz_new_popup_top {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/popup_top.png', sizingMethod='crop'); }* html .partyhouz_new_popup_bot {background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./_frameworks/main/oryx/images/partyhouz
+/popup_bot.png', sizingMethod='crop'); }* html .partyhouz_new_popup_c {zoom:1;left:11px;}* html .partyhouz_new_popup_frm {position:relative;left:-11px;}

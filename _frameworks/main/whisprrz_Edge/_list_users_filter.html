@@ -1,0 +1,424 @@
+<div class="more bl_filter">
+    <input type="hidden" id="filter_offset" name="offset" value="{offset}">
+
+    <span id="filter_open" data-target="#filter_results" class="dropdown-toggle link" data-toggle="collapse" role="button" aria-haspopup="true">
+        <i class="fa fa-filter"></i>{l_filter}<span class="caret"></span>
+    </span>
+    <ul id="filter_results" class="col-lg-6 collapse">
+
+        <li>
+            <div class="bl_forms">
+                <div class="section fields">
+                    <!-- begin_filter_location_show -->
+                    <input type="hidden" id="radius" name="radius" value="{radius}">
+                    <input type="hidden" id="people_nearby" name="people_nearby" value="{people_nearby}">
+
+                    <div class="col-lg-12 col-md-12 field">
+                        <select id="filter_country" class="selectpicker show-tick geo location" data-location="geo_states" name="country" data-live-search="true">
+                            <option value="people_nearby">{l_filter_people_nearby}</option>
+                            <option value="0">{l_all_countries}</option>
+                            {country_options}
+                        </select>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 field">
+                        <select id="filter_state" class="selectpicker show-tick geo location" data-location="geo_cities" name="state" data-live-search="true">
+                            <option value="0">{l_all_regions}</option>
+                            {state_options}
+                        </select>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 field">
+                        <select id="filter_city" class="selectpicker show-tick location" name="city" data-live-search="true">
+                            <option value="0">{l_all_cities}</option>
+                            {city_options}
+                        </select>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 field height_auto radius_slider">
+                        <input id="radius_slider" data-slider-id="search_radius" type="text" data-slider-min="0"  data-slider-step="1"/>
+                    </div>
+                    <!-- end_filter_location_show -->
+                    <!-- begin_filter_location_default -->
+                    <input type="hidden" id="filter_country" name="country" value="{filter_country_id}">
+                    <input type="hidden" id="filter_state" name="state" value="{filter_state_id}">
+                    <input type="hidden" id="filter_city" name="city" value="{filter_city_id}">
+                    <input type="hidden" name="radius" value="0">
+                    <!-- end_filter_location_default -->
+
+					<!-- begin_i_am_here_to -->
+					<div class="col-lg-12 col-md-12 field field_i_am_here_to height_auto">
+						<h4>{l_i_m_here_to}:</h4>
+
+						<!-- begin_i_am_here_to_item -->
+						<div class="rb custom_radio {i_am_here_to_class}" style="margin: 0 0 5px;">
+							<input class="rb styler_looking" id="rb_{id}" name="{name}" value="{id}" type="radio" {checked} />
+							<label for="rb_{id}"><span></span>{title}</label>
+						</div>
+						<!-- end_i_am_here_to_item -->
+
+					</div>
+					<!-- end_i_am_here_to -->
+
+                    <!-- begin_p_orientations -->
+                    <div class="col-lg-12 col-md-12 field height_auto">
+                        <div class="field_checkbox custom_checkbox orientation" <!-- begin_p_orientations_hide -->style="display:none;"<!-- end_p_orientations_hide -->>
+                            <!-- begin_p_orientation -->
+                            <input id="p_orientation_{id}" name="p_orientation[]" value="{id}" type="checkbox" {checked} />
+                            <label for="p_orientation_{id}"><span></span>{title}</label>
+                        <!-- end_p_orientation -->
+                        </div>
+                    </div>
+                    <!-- end_p_orientations -->
+
+                    <!-- begin_age_range -->
+                    <div class="col-lg-6 col-md-12 field">
+                        <select id="p_age_from" name="p_age_from" class="selectpicker show-tick" data-live-search="false">
+                        {p_age_from_options}
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-12 field dash">
+                        <select name="p_age_to" class="selectpicker show-tick" data-live-search="false">
+                        {p_age_to_options}
+                        </select>
+                    </div>
+                    <!-- end_age_range -->
+
+                    <div class="col-lg-12 col-md-12 field">
+                        <select id="search_status" class="selectpicker show-tick" data-live-search="false">
+                            <option value="0" <!-- begin_module_search_status_all -->selected="selected"<!-- end_module_search_status_all -->>{l_search_show_all_impact}</option>
+                            <option value="new" <!-- begin_module_search_status_new -->selected="selected"<!-- end_module_search_status_new -->>{l_search_show_new_impact}</option>
+                            <option value="online" <!-- begin_module_search_status_online -->selected="selected"<!-- end_module_search_status_online -->>{l_search_show_online_impact}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 field height_auto">
+                        <div class="field_checkbox custom_checkbox with_photo">
+                            <input id="module_search_with_photo" type="checkbox" <!-- begin_module_search_with_photo -->checked<!-- end_module_search_with_photo -->>
+                            <label for="module_search_with_photo"><span></span>{l_only_with_photos}</label>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 field">
+                        <input id="global_search_by_username" type="text" class="form-control placeholder" name="global_search_by_username" placeholder="{a_search_by_username_small}">
+                    </div>
+
+					<div class="col-lg-12 col-md-12 field field_btn_filter_extended">
+						<button id="link_filter_extended" class="btn btn-block btn-success btn_save disabled btn_filter_extended">
+							<span>{l_extended_search}</span>
+						</button>
+					</div>
+
+					<div class="filter_extended">
+						<div class="col-lg-12 col-md-12 field height_auto filter_extended_select">
+							<div class="bl l filter_module_1">
+								<select id="filter_module_1" class="selectpicker show-tick" data-live-search="false">
+									<option value="0">{l_the_1st_filter}</option>
+									{filter_options}
+								</select>
+							</div>
+						</div>
+
+						<div class="col-lg-12 col-md-12 field height_auto filter_extended_select filter_extended_select_2">
+							<div class="bl c filter_module_2">
+								<select id="filter_module_2" class="selectpicker show-tick" data-live-search="false">
+									<option value="0">{l_the_2nd_filter}</option>
+									{filter_options}
+								</select>
+							</div>
+						</div>
+
+						<div class="col-lg-12 col-md-12 field height_auto filter_extended_select filter_extended_select_3">
+							<div class="bl r filter_module_3">
+								<select id="filter_module_3" class="selectpicker show-tick" data-live-search="false">
+									<option value="0">{l_the_3d_filter}</option>
+									{filter_options}
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="filter_fields_set hide">
+						<!-- begin_fields_checks -->
+						<div class="filter_field height_auto" id="filter_field_{name}">
+							<!-- begin_checks -->
+							<div class="col-lg-12 col-md-12 field height_auto ch_rb_list">
+								<!-- begin_check -->
+								<div class="custom_checkbox">
+									<input class="fieldItem" disabled name="{name}[]" {checked} type="checkbox" id="{name}_{id}" value="{id}"/>
+									<label for="{name}_{id}"><span></span>{title}</label>
+								</div>
+								<!-- end_check -->
+							</div>
+							<!-- end_checks -->
+
+							<!-- begin_int -->
+							<div class="col-lg-12 col-md-12 field height_auto ch_rb_list">
+								<!-- begin_int -->
+								<div>
+									<input class="fieldItem" disabled name="{name}[]" {checked} type="checkbox" id="{name}_{id}" value="{id}"/>
+									<label for="{name}_{id}">{title}</label>
+								</div>
+								<!-- end_int -->
+							</div>
+							<!-- end_int -->
+
+							<!-- begin_checkbox -->
+							<div class="col-lg-12 col-md-12 field height_auto">
+								<!-- begin_checkbox_item -->
+									<div class="section fields field_checkbox_value" id="field_checkbox_{name}_{num}">
+										<select class="fieldItem" disabled style="margin-bottom: 8px;" id="chk_{name}_{num}" data-checkbox="{name}" name="{name}[]">
+											<option selected value="0">{l_please_choose}</option>
+											{options}
+										</select>
+									</div>
+								<!-- end_checkbox_item -->
+								<a id="link_add_{name}" data-type-add="{name}" class="link_add" style="display:{display_add}; clear: both;" href="#">{l_add_value_field}</a>
+							</div>
+							<!-- end_checkbox -->
+
+							<!-- begin_p_from_to -->
+							<div class="col-lg-6 col-md-12 field">
+								<select name="{name_from}" disabled class="selectpicker show-tick fieldItem" data-live-search="false">
+									<option value="">{l_choose_a_value}</option>
+									{from_options}
+								</select>
+							</div>
+							<div class="col-lg-6 col-md-12 field dash">
+								<select name="{name_to}" disabled class="selectpicker show-tick fieldItem" data-live-search="false">
+									<option value="">{l_choose_a_value}</option>
+									{to_options}
+								</select>
+							</div>
+							<!-- end_p_from_to -->
+						</div>
+						<!-- end_fields_checks -->
+					</div>
+
+                    <div class="col-lg-12 col-md-12 field foot">
+                        <button id="search_submit" class="btn btn-block btn-info">
+                            <span>{l_apply_filter}</span>
+                        </button>
+                    </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<script>
+    var currentRadius='{radius}'*1;
+    var maxRadius = parseInt('{radius_max}');
+    var isMaxFilterDistanceCountry = '{max_filter_distance_country}'*1;
+
+    var sliderTitles = {
+        city : '{j_slider_in_the_whole_city}',
+        radius : '{slider_within}',
+        country : '{j_slider_in_the_whole_country}'
+    };
+    clSearch.setData({
+        offset:'{offset}'
+    });
+    clSearch.initList();
+
+	$('.filter_extended').hide();
+
+	$('#link_filter_extended').click(function(){
+        if(!userAllowedFeature['extended_search']){
+            window.location.href = urlPageUpgrade;
+            return false;
+        }
+		$('.filter_extended').slideToggle(200);
+	});
+
+	var moduleFilterActiveFields = {};
+
+	$('#filter_module_1, #filter_module_2, #filter_module_3').change(function(){
+		var filterModule = $(this).attr('id');
+		var filterModuleField = '.' + filterModule + '_field';
+
+		$(filterModuleField + ' .fieldItem').prop('disabled', 'disabled');
+		$(filterModuleField).appendTo('.filter_fields_set');
+		$(filterModuleField).removeClass(filterModuleField);
+
+		var filterField = $(this).val();
+		//console.log('show', '#filter_field_p_' + filterField);
+
+		var filterFieldPrevValue = '';
+		if(filterModule in moduleFilterActiveFields) {
+			filterFieldPrevValue = moduleFilterActiveFields[filterModule];
+		}
+
+		//console.log('filter field value', typeof filterField, filterField);
+
+		var filterIndex;
+
+		for(filterIndex = 1; filterIndex <= 3; filterIndex++) {
+			if('filter_module_' + filterIndex != filterModule) {
+				if(filterField !== '0') {
+					fieldOptionDisable('#filter_module_' + filterIndex, filterField);
+				}
+				if(filterFieldPrevValue) {
+					fieldOptionEnable('#filter_module_' + filterIndex, filterFieldPrevValue);
+				}
+			}
+		}
+
+		if(filterField) {
+			console.log('filterField move to main hidden list', filterField);
+			$('#filter_field_p_' + filterField + ' .fieldItem, ' + '#filter_field_p_' + filterField + '_from .fieldItem')
+            .prop('disabled', '').selectpicker('refresh');
+			$('#filter_field_p_' + filterField + ', ' + '#filter_field_p_' + filterField + '_from').addClass(filterModule + '_field').insertAfter($('.' + filterModule).parent());
+			console.log('add field');
+		}
+
+        setLabelExtendedSearch();
+		// active value in current filter
+		moduleFilterActiveFields[filterModule] = filterField;
+	});
+
+	$('.filter_extended').change(function(e){
+		if(!isFilterOnchangeActive) {
+			return;
+		}
+        setLabelExtendedSearch();
+	});
+
+	// activate filters
+	disableExtendedSearchFilters();
+	isFilterOnchangeActive = false;
+    var isFilterInit = false;
+	<!-- begin_filter_init -->
+    isFilterInit = true;
+	$('#filter_module_{filter_number}').val('{filter_value}').change();
+	<!-- end_filter_init -->
+	isFilterOnchangeActive = true;
+    if(isFilterInit){
+		setLabelExtendedSearch(true);
+    }
+
+	function fieldOptionDisable(selector, values)
+	{
+		fieldChangeOptionDisabledStatus(selector, values, 'disabled');
+	}
+
+	function fieldOptionEnable(selector, values)
+	{
+		fieldChangeOptionDisabledStatus(selector, values, '');
+	}
+
+	function fieldChangeOptionDisabledStatus(selector, values, status)
+	{
+		$(selector + ' option').each(function() {
+			var option = $(this);
+			if(typeof values !== 'object') {
+				//console.log('not array');
+				valuesKey = values;
+				values = [];
+				values[valuesKey] = true;
+			}
+
+			var isDisabled = false;
+			for(key in values) {
+				//console.log(key, values[key]);
+				if(option.val() == key) {
+					option.prop('disabled', status);
+					isDisabled = true;
+				}
+			}
+		})
+		setTimeout(function(){$(selector).selectpicker('refresh')},1);
+	}
+
+	function setLabelExtendedSearch(isActive)
+	{
+		var isActive = isActive || false;
+		var $extendedSearchHref = $('#link_filter_extended');
+
+		if(!isActive) {
+
+			var params = $('.filter_field')
+						.find('input[name],select[name],textarea[name]')
+						.not('.field_filter_disabled').map(function () {
+							return $(this).val().trim() == '' ? null : this;
+						}).serialize();
+			//console.log('setLabelExtendedSearch', params);
+			if (params !== '') {
+				isActive = true;
+			}
+
+		}
+
+		if(isActive) {
+			$extendedSearchHref.removeClass('disabled');
+		} else {
+			$extendedSearchHref.addClass('disabled');
+		}
+
+	}
+
+	function disableExtendedSearchFilters()
+	{
+		$('.filter_fields_set #filter_field_p_orientation').remove();
+		var fieldsCount = $('.filter_fields_set .col-lg-6.dash').length + $('.filter_fields_set .col-lg-12').length;
+		var filtersCount = 3;
+
+		if(fieldsCount == 0) {
+			$('.field_btn_filter_extended').hide();
+		} else if (fieldsCount < 3) {
+			for(var index = filtersCount; index > fieldsCount; index--) {
+				$('.filter_extended_select_' + index).hide();
+			}
+		}
+	}
+
+    var lastValueCheckbox;
+    $('body').on('click', 'select[data-checkbox]', function(e){
+        lastValueCheckbox=$(this).val();
+    })
+
+	var selectCheckboxPreviousValue = 0;
+
+	$('body').on('shown.bs.select', 'select[data-checkbox]', function(e){
+		selectCheckboxPreviousValue = $(this).val();
+	});
+
+	$('body').on('changed.bs.select', 'select[data-checkbox]', function(e, clickedIndex, isSelected, previousValue){
+		var el = $(this),
+		type = el.data('checkbox'),
+		id = el.attr('id'),
+        val = el.val();
+        if (val != 0) {
+            $('[id != "' + id + '"][data-checkbox=' + type + ']').each(function(){
+                if ($(this).val() == val) {
+					alertCustom('{j_you_have_already_chosen_this_option}');
+                    $('#' + id).selectpicker('val', selectCheckboxPreviousValue);
+					return false;
+                }
+            })
+        }
+	});
+
+	$('.filter_field .link_add').click(function(){
+		console.log('link add click');
+        var el = $(this),
+            type = el.data('typeAdd'),
+			previousFieldBlock = el.closest('.field_checkbox_value'),
+            baseFieldBlock = $('#field_checkbox_' + type + '_0'),
+            baseSelect = $('#chk_' + type + '_0'),
+            countOptions = baseSelect.find('option').length,
+            countSelects = $('[data-checkbox=' + type + ']').length;
+
+		if (countOptions <= (countSelects + 2)) {
+			el.hide();
+		}
+		if (countOptions > (countSelects + 1)) {
+			var newFieldSuffix = '_' + type + '_' + (countSelects + 1);
+			var newSelect = baseSelect.clone(false).attr({id: 'chk' + newFieldSuffix});
+
+			var newFieldBlock = baseFieldBlock.clone(false).attr({id: 'field_checkbox' + newFieldSuffix}).html('').append(newSelect);
+			newFieldBlock.find('option').removeAttr('selected').eq(0).attr({selected: 'selected'}).end().end().find('select').selectpicker();
+			newFieldBlock.insertBefore(el);
+        }
+        return false;
+    });
+
+</script>

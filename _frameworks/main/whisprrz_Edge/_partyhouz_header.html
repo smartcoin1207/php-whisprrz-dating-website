@@ -1,0 +1,130 @@
+<div class="partyhouz_new_head">
+    <!-- <script type="text/javascript"
+                    src="{url_tmpl_main}js/jquery.autocomplete.js{cache_version_param}"></script> -->
+    <script type="text/javascript">
+        function partyhouz_header_search_on_submit() {
+            query = $("#partyhouz_header_search input[name='query']").val();
+
+            if ((query != '') && (query != '{l_partyhouz_default_search_query}')) {
+                return true;
+            }
+
+            alert('{l_blogs_please_enter_what_you_search}');
+
+            return false;
+        }
+
+        $(document).ready(function() {
+            // search_type search box start
+            var search_type_items = document.getElementsByName('search_type_item');
+            var search_type_selectedItem = document.getElementById('search_type_selected_item');
+            var search_type_dropdown = document.getElementById('search_type_dropdown');
+
+            search_type_items.forEach(item => {
+                item.addEventListener('change', () => {
+                    if (item.checked) {
+                        search_type_selectedItem.innerHTML = item.getAttribute('data-title');
+                        search_type_dropdown.open = false;
+                    }
+                });
+            });
+
+            var search_type_item = '{search_type_item}';
+            search_type_selectedItem.innerHTML = $('input[name="search_type_item"][value="' + search_type_item + '"]').attr('data-title') || "Pick";
+
+            $('input[name="query"]').autocomplete({
+                source: function (request, response) {
+                    var request_data = {
+                        q: request.term,
+                        type: $('input[name="search_type_item"]:checked').val() || 1,
+                    };
+                    $.ajax({
+                        url: "https://whisprrz.com/partyhouz_search_autocomplete_ajax.php",
+                        dataType: "json",
+                        data: request_data,
+                        type: "POST",
+                        beforeSend: function () {
+                        },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+            });
+        });
+
+    </script>
+
+    <div class="partyhouz_head_bl" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;">
+        <div class="partyhouz_new_head_txt txt_upper_header_color">
+            <strong><a href="{url_main}partyhouz.php" style="text-decoration:none">{l_partyhouz_partyhouz}</a></strong>
+            <!-- begin_partyhou_header_location --> <span class="dot4">::</span> {l_you_are_in} <span
+                title="{location_full}">{location}</span><!-- end_partyhou_header_location -->
+        </div>
+        <div style="display: flex; justify-content: start; gap: 10px; align-items: centers;">
+            <form id="partyhouz_header_search" autocomplete="off" action="{url_main}partyhouz_search.php" method="get"
+                onsubmit="return partyhouz_header_search_on_submit();"
+                style="display: flex; justify-content: start; align-items: center; gap: 10px;">
+                <div class="search-box">
+                    <input class="party-name-input" type="text" name="query" value="{query}"
+                        placeholder="">
+                    <details id="search_type_dropdown" class="dropdown">
+                        <summary class="dropdown-button">
+                            <span id="search_type_selected_item" class="selected-item">Pick</span>
+                        </summary>
+                        <details-menu class="dropdown-menu">
+                            <div class="dropdown-menu-list">
+                                <label class="dropdown-menu-item">
+                                    <input type="radio" name="search_type_item" value="1" data-title="Hosts">
+                                    <span>Hosts</span>
+                                </label>
+                                <label class="dropdown-menu-item">
+                                    <input type="radio" name="search_type_item" value="2" data-title="Party">
+                                    <span>Party</span>
+                                </label>
+                            </div>
+                        </details-menu>
+                    </details>
+                </div>
+                <input style="margin: 0 15px 0 0;" class="btn round blue big" type="submit"
+                    value="{l_partyhouz_search}" />
+            </form>
+            <form
+                action="{url_main}partyhouz_partyhou_edit.php<!--begin_partyhou_date -->?date={partyhou_date}<!--end_partyhou_date -->"
+                method="post" style="display: flex; align-items:center;">
+
+                <a href="{url_main}partyhouz_partyhou_edit.php<!--begin_partyhou_date -->?date={partyhou_date}<!--end_partyhou_date -->"
+                    class="btn round blue"
+                    style="display: flex; justify-content:space-between; gap: 10px; align-items:center;">
+                    <img class="btn_arrows_top" src="{url_tmpl_main}images/btn_arrows_top.png" width="9" height="8"
+                        alt="" />
+                    <span>{l_partyhouz_create_partyhou}&nbsp;</span>
+                    <img class="btn_arrows_right" src="{url_tmpl_main}images/btn_arrows_right.png" width="10" height="5"
+                        alt="" />
+                </a>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="partyhouz_new_menu_bg">
+        <ul class="partyhouz_new_menu fl_left">
+            <!-- begin_categories_item -->
+            <!-- begin_categories_item_active -->
+            <span class="txt_upper_header_color">{category_title}</span>
+            <!-- end_categories_item_active -->
+            <!-- begin_categories_item_not_active -->
+            <class="last"><a
+                    href="{url_main}partyhouz_settings_change.php?category_id={category_id}">{category_title}</a>
+                <!-- end_categories_item_not_active -->
+                <!-- end_categories_item -->
+        </ul>
+        <ul class="partyhouz_new_menu fl_right"style=" padding-right: 40px; font-size: 19px; font-weight:500 ;"></a>
+            <a href="{url_main}partyhouz_calendar.php">{l_partyhouz_my_calendar}</a>
+            <a href="{url_main}partyhouz_open_list.php">{l_partyhouz_open_partyhouz}</a>
+            <a href="{url_main}partyhouz_partyhou_list_upcoming.php">{l_partyhouz_upcoming_partyhouz}</a>
+            <a href="{url_main}partyhouz_my.php">{l_partyhouz_my_partyhouz}</a>
+        </ul>
+        <div class="justify"></div>
+    </div>
+</div>

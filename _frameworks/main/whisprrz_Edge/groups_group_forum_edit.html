@@ -1,0 +1,122 @@
+{header}
+
+
+    <div class="groups">
+
+        {groups_header}
+
+        <table class="tb_groups">
+            <tr>
+                <!-- td_main -->
+                <td class="td_main">
+
+                    {groups_group_show}
+
+<script Language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    $("#forum_edit_form").validate({
+        rules: {
+            forum_title: "required",
+            forum_description: "required",
+        },
+        messages: {
+            forum_title: "",
+            forum_description: "",
+        }
+    })
+});
+
+function on_form_submit()
+{
+    if($('input[name="forum_title"]').val() == "{l_groups_default_title}")
+        $('input[name="forum_title"]').val('');
+    if($('textarea[name="forum_description"]').val() == "{l_groups_default_description}")
+        $('textarea[name="forum_description"]').val('');
+    
+    if(!$("#forum_edit_form").valid())
+        alert('{l_please_fill_in_all_the_fields}');
+    
+    return true;
+}
+
+</script>
+
+                    <div class="groups_shadow"></div>
+
+                    <form id="forum_edit_form" method="POST" action="{url_main}groups_group_forum_edit.php?cmd=save&group_id={group_id}&forum_id={forum_id}" enctype="multipart/form-data" onsubmit="return on_form_submit()">
+
+                    <div class="groups_p pl_top_m">
+                        <!-- begin_create_title --><h1>{l_groups_forums_create_new_forum}</h1><!-- end_create_title -->
+                        <!-- begin_edit_title --><h1>{l_groups_edit_forum}</h1><!-- end_edit_title -->
+
+                        <table class="groups_tb_sub">
+                            <col width="7px"/>
+                            <col width="431px"/>
+                            <tr>
+                                <th class="th_t_l nb first">&nbsp;</th>
+                                <th class="th_t_c nb">&nbsp;</th>
+                                <th class="th_t_r nb first">&nbsp;</th>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" class="nb nobg_img">
+                                <div class="bl_groups_frm_color">
+                                    <!-- frm -->
+                                    <table class="tb_groups_frm">
+                                        <col width="100%"/>
+                                        <tr>
+                                            <td ><div class="groups_input_text2"><input class="no_abk" type="text" name="forum_title" value="{forum_title}" onblur="javascript:if(this.value=='')this.value='{l_groups_default_title}'" onFocus="if(this.value=='{l_groups_default_title}') this.value='';"/></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td ><div class="groups_textarea1" style="margin:0 0 10px 0;"><textarea class="no_abk" name="forum_description"  onblur="javascript:if(this.value=='')this.value='{l_groups_default_description}'" onFocus="if(this.value=='{l_groups_default_description}') this.value='';">{forum_description}</textarea></div></td>
+                                        </tr>
+                                        
+                                    </table>
+                                    <!-- /frm -->
+
+                                    <div class="fl_right">
+                                        <img style="visibility:hidden;" id="load_animation_submit" src="{url_tmpl_main}images/load_animation.gif">
+                                        <!-- begin_edit_button --><div class="groups_input2 fl_right"><input type="submit" value="{l_groups_save}"/></div><!-- end_edit_button -->
+                                        <!-- begin_create_button --><a href="#" onclick="$('#forum_edit_form').submit(); return false;" class="btn round blue fl_right"  style="text-decoration: none;">{l_groups_create}</a><!-- end_create_button -->
+                                    </div>
+
+                                    <div class="groups_empty">&nbsp;</div>
+                                </div>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <th class="th_b_l nb">&nbsp;</th>
+                                <th class="th_b_c nb">&nbsp;</th>
+                                <th class="th_b_r nb">&nbsp;</th>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                    </form>
+                    <div class="groups_empty"></div>
+                </td>
+                <!-- /td_main -->
+                
+                <td class="td_narrow">
+
+				{groups_group_member_list}
+				{groups_group_comment_list_sidebar}
+
+            </tr>
+
+        </table>
+
+        <div class="foot_left"></div><div class="foot_right"></div>
+
+
+    <div class="decor_top"></div>
+    </div>
+
+
+
+{footer}

@@ -1,0 +1,269 @@
+<style>
+	tr.row1 {background-color:#fff;margin-top:2px;border-top:1px solid #c0c0c0;border-bottom:1px solid #c0c0c0;}
+	tr.row2 {background-color:#fff;margin-top:2px;border-top:1px solid #c0c0c0;border-bottom:1px solid #c0c0c0;}
+</style>
+<div class="column_main frame_content">
+	{mail_menu}
+	<div class="cl"></div>
+	<script type="text/javascript">
+		function submitListMailForm(action) {
+			var form = document.forms['MailForm'];
+			if(action == "move")
+			{
+				if (form['to_folder'][0].selectedIndex == 0 && form['to_folder'][1].selectedIndex == 0) {
+					alert("{l_select_folder}");
+						return;
+				}
+				form.cmd.value = "move";
+				form.folder.value = form.to_folder.value;
+				form.action = "{url_main}mail.php";
+				form.to_folder.value = "";
+				form.to_folder2.value = "";
+			}
+			else if(action == "delete")
+			{
+				if (!isChecked(form['id[]'])) {
+					alert("{l_nothing}");
+					return;
+				}
+				form.cmd.value = "delete";
+				form.action = "{url_main}mail.php";
+				form.to_folder.value = "";
+				form.to_folder2.value = "";
+			}
+			else if(action == "empty_trash")
+			{
+				if (!confirm("{l_to_trash}")) {
+					return;
+				}
+				form.cmd.value = "empty_trash";
+				form.action = "{url_main}mail.php";
+				form.to_folder.value = "";
+				form.to_folder2.value = "";
+			}
+			form.submit();
+		}
+
+		$(function(){
+			<!-- begin_info_message_js -->
+			$('#massage_info').delay(2000).fadeOut(600, function() {
+				$('.bl_search_email').fadeIn(300);
+			});
+			<!-- end_info_message_js -->
+			$('#button_search').click(function() {
+				to_search();
+				return false;
+			})
+			$('#search_text').keypress(function(e) {
+				if (isKeyPressed(e, 13)) {
+					to_search();
+					return false;
+				}
+			});
+
+			function to_search() {
+				var value = $.trim($('#search_text').val());
+					window.location.href='{url_main}mail.php?folder={mail_folder_id}&search=' + value;
+			}
+		});
+	</script>
+
+	<h2 class="txt_lower_header_color">{folder}</h2>
+	<form class="" id="mail_form" name="MailForm" method="get" action="{url_main}mail.php" style="padding: 0px; margin: 0px;">
+		<input type="hidden" name="cmd" value="">
+		<input type="hidden" name="folder" value="{mail_folder_id}">
+		<input type="hidden" name="action" value="1">
+		<div style="padding: 6px 0;">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td >
+					<input type="button" value="{l_delete}" onclick="submitListMailForm('delete'); return false;" class="btn blue active_btn" title="{l_delete}" onmouseover="window.status='{l_delete}'; return true;" onmouseout="window.status=''; return true;"></td>
+					<td align="right" style="padding-left:10px;">
+						<select name="to_folder" onchange="MailForm.to_folder2.value = this.value" style="margin: 0 5px 0 6px;">
+						<option>{l_select_folder}</option>
+						{folder_options}
+						</select>
+					</td>
+					<td>
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td>
+									<div class="button_border_2"><input type="button" value="{l_move}" onclick="submitListMailForm('move'); return false;" class="btn blue active_btn" title="{l_move}" onmouseover="window.status='{l_move}'; return true;" onmouseout="window.status=''; return true;"></div>
+								</td>
+
+								<td>
+								<!-- begin_info_message -->
+									<div id="massage_info" style="padding:0px 5px 0px 18px; margin-left: 5px; color:#00000; width: 130px; background: url({url_tmpl_main}images/send_message.png) left no-repeat;">
+										<b>{info_message}</b>
+									</div>
+								<!-- end_info_message -->
+								</td>
+							</tr>
+					</table>
+					</td>
+					<td>
+						<div class="bl_search_email" style="display: {display_search_email}">
+							<input id="search_text" name="search_text"  type="text" value="{search_text}" />
+							<a id="button_search" class="icon_search_email" href=""></a>
+						</div>
+					</td>
+					<td align="right" class="little" width="100%">
+
+					<!-- begin_users_list_pages_top -->
+					<!-- begin_users_list_prev_page_top -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&#60;&#60;{l_prev}</a> |
+					<!-- end_users_list_prev_page_top -->
+					<!-- begin_users_list_prev_page_off_top -->
+					&#60;&#60;{l_prev} |
+					<!-- end_users_list_prev_page_off_top -->
+					<!-- begin_users_list_next_page_top -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}&#62;&#62;</a>
+					<!-- end_users_list_next_page_top -->
+					<!-- begin_users_list_next_page_off_top -->
+					{l_next}&#62;&#62;
+					<!-- end_users_list_next_page_off_top -->
+					<!-- end_users_list_pages_top -->
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div>
+			<table cellpadding="0" cellspacing="0" border="0" class="light" style="margin-bottom:15px;"width="100%">
+				<thead>
+					<tr height="30" style="background-color: #F0F0F0;">
+					<th valign="middle" align="center" class="" width="25" style="text-align:center;"	  >
+						<!-- begin_table_header_checkbox -->
+						<input type="checkbox" class="nostyle" style="{width=20px;}" onclick="
+							if (this.checked)
+							{
+								for(i=0; i<document.MailForm.length; i++)
+								{
+									if (document.MailForm.elements[i].type=='checkbox')
+									{
+										document.MailForm.elements[i].checked = true;
+									}
+								}
+							}
+							else
+								{
+								for(i=0; i<document.MailForm.length; i++)
+								{
+									if (document.MailForm.elements[i].type=='checkbox')
+									{
+										document.MailForm.elements[i].checked = false;
+									}
+								}
+							}
+						">
+						<!-- end_table_header_checkbox -->
+					</th>
+					<th width="28" class="body_little" align="center"></th>
+					<th valign="middle" align="left" width="85" style="padding-left: 4px;" >
+						<!-- begin_params_none_name --><a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_asc}">{from_to}</a><!-- end_params_none_name -->
+						<!-- begin_params_asc_name --> &darr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_asc}">{from_to}</a><!-- end_params_asc_name -->
+						<!-- begin_params_desc_name -->&uarr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_desc}">{from_to}</a><!-- end_params_desc_name -->
+					</th>
+					<th valign="middle" align="left" width="231" style="padding-left: 4px;" >
+						<!-- begin_params_none_subject --><a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_asc}">{l_subject}</a><!-- end_params_none_subject -->
+						<!-- begin_params_asc_subject -->&darr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_asc}">{l_subject}</a><!-- end_params_asc_subject -->
+						<!-- begin_params_desc_subject -->&uarr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_desc}">{l_subject}</a><!-- end_params_desc_subject -->
+					</th>
+					<th valign="middle" align="left" width="93" style="padding-left: 4px;" >
+						<!-- begin_params_none_last_visit --><a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_asc}">{l_last_activity}</a><!-- end_params_none_last_visit -->
+						<!-- begin_params_asc_last_visit -->&darr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_asc}">{l_last_activity}</a><!-- end_params_asc_last_visit -->
+						<!-- begin_params_desc_last_visit -->&uarr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_desc}">{l_last_activity}</a><!-- end_params_desc_last_visit -->
+					</th>
+					<th valign="middle" align="left" width="52" style="padding-left: 4px;" >
+						<!-- begin_params_none_date_sent --><a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_asc}">{l_date}</a><!-- end_params_none_date_sent -->
+						<!-- begin_params_asc_date_sent -->&darr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" style="color: #000;" title="{l_sort_asc}">{l_date}</a><!-- end_params_asc_date_sent -->
+						<!-- begin_params_desc_date_sent -->&uarr;&nbsp;&nbsp;<a href="{url_main}{url_page}?offset={offset}{params_current}" class="sec_text_bold" title="{l_sort_desc}">{l_date}</a><!-- end_params_desc_date_sent -->
+					</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- begin_users_list_item -->
+					<tr id="row0" class="list_view1 row{row}">
+						<td width="25" class="body_little" align="center" style="padding: 8px 0; " ><input name="id[]" type="checkbox" class="nostyle"  style="{width=20px;}" value="{id}"></td>
+						<td width="17" class="body_little" align="center">
+						<!-- begin_mail_new -->
+						<span title="Read Mail"><img src="{url_tmpl_main}img/new.png" width="22" height="17" border="0"></span>
+						<!-- end_mail_new -->
+						<!-- begin_mail_old -->
+						<span title="Read Mail"><img src="{url_tmpl_main}img/ico_asnw_mail.png" width="22" height="17" border="0"></span>
+						<!-- end_mail_old -->
+						</td>
+						<td width="85" align="left" style="padding-left: 4px;" class="body_little">
+							<!-- begin_from -->
+							<a href="search_results.php?display=profile&name={name}" class="body_little" title="{name}">
+								<span title="{name}">{name}</span>
+							</a>
+							<!-- end_from -->
+						</td>
+						<!-- begin_from_admin -->
+						<a href="contact.php" class="body_little" title="{l_website_administration}"><span title="{l_website_administration}">{l_website_administration_short}</span></a></td>
+						<!-- end_from_admin -->
+						<td width="228" class="body_little" align="left" style="padding: 8px 0 8px 4px;"><a href="{url_main}{url_page}?display=text{params}&offset={offset}&folder={mail_folder_id}" class="body_little" title="{name}">{subject}</a></td>
+						<td width="93" class="body_little" align="left" style="padding-left: 4px;">{last_visit}</td>
+						<td width="52" class="body_little" align="left" style="padding-left: 4px;"><span title="{date_sent}">{date_sent}</span></td>
+					</tr>
+					<!-- end_users_list_item -->
+					<!-- begin_users_list_noitems -->
+					<tr id="row0" class="list_view1">
+						<td width="504" height="30" class="body_little" align="left">
+							{l_no_messages}
+						</td>
+					</tr>
+					<!-- end_users_list_noitems -->
+					<!-- begin_search_users_list_noitems -->
+					<tr id="row0" class="list_view1">
+						<td width="504" height="30" class="body_little" align="left">
+							{l_nothing_found}
+						</td>
+					</tr>
+					<!-- end_search_users_list_noitems -->
+				</tbody>
+			</table>
+		</div>
+		<div style="padding-top: 8px; padding-bottom: 18px;">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2">
+					<input type="button" value="{l_delete}" onclick="submitListMailForm('delete'); return false;" class="btn blue active_btn" title="{l_delete}" onmouseover="window.status='{l_delete}'; return true;" onmouseout="window.status=''; return true;"></div></td></tr></table></td>
+					<td align="right" style="padding-left:10px;">
+						<select name="to_folder2" onchange="MailForm.to_folder.value = this.value" style="margin: 0 5px 0 6px;">
+						<option>{l_select_folder}</option>
+						{folder_options}
+						</select>
+					</td>
+					<td><table border="0" cellpadding="0" cellspacing="0"><tr><td><div class="button_border_2"><input type="button" value="{l_move}" onclick="submitListMailForm('move'); return false;" class="btn blue active_btn" title="{l_move}" onmouseover="window.status='{l_move}'; return true;" onmouseout="window.status=''; return true;"></div></td></tr></table></td>
+					<td align="right" class="little" width="100%">
+					<!-- begin_users_list_pages -->
+
+					<!-- begin_users_list_first_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_first}</a> |
+					<!-- end_users_list_first_page -->
+					<!-- begin_users_list_prev_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&#60;&#60;{l_prev}</a> |
+					<!-- end_users_list_prev_page -->
+					<!-- begin_users_list_prev_page_off -->
+					&#60;&#60;{l_prev} |
+					<!-- end_users_list_prev_page_off -->
+					<!-- begin_users_list_next_page -->
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}&#62;&#62;</a>
+					<!-- end_users_list_next_page -->
+					<!-- begin_users_list_next_page_off -->
+					{l_next}&#62;&#62;
+					<!-- end_users_list_next_page_off -->
+					<!-- begin_users_list_last_page -->
+						| <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_last}</a>
+					<!-- end_users_list_last_page -->
+
+					<!-- end_users_list_pages -->
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</div>
+<div class="userinfo-links">

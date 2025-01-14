@@ -1,0 +1,702 @@
+<form id="frm_profile_edit_main" name="frm_profile_edit_main"  method="post" action="{url_main}ajax.php">
+<input type="hidden" name="cmd" value="profile_edit_save_all" class="ajax"/>
+<input type="hidden" name="errors_separat" value="1" class="ajax"/>
+<input type="hidden" name="ajax" value="1" class="ajax"/>
+<div class="item">
+    <div class="col-md-12">
+        <h3 class="cham-heading">{l_basic_information}</h3>
+        <div class="clearfix"></div>
+        <hr>
+    </div>
+    <div class="wrap_fields">
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_name_or_nickname}</span>
+                    </div>
+                    <div class="col-lg-6 field">
+                        <!-- begin_name_edit_on -->
+                        <input id="profile_edit_main_nickname" data-toggle="tooltip" class="form-control" name="nickname" type="text" value="{nickname}"/>
+                        <!-- end_name_edit_on -->
+                        <!-- begin_name_edit_off -->
+                        <span class="edit_off">{nickname}</span>
+                        <!-- end_name_edit_off -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- begin_field_orientation_edit_bl -->
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_i_am}</span>
+                    </div>
+                    <div class="col-lg-6 field">
+                        <!-- begin_field_orientation_edit_on -->
+                        <select id="profile_edit_main_orientation" name="orientation" class="selectpicker show-tick" data-live-search="false">
+                            {orientation_options}
+                        </select>
+                        <!-- end_field_orientation_edit_on -->
+                        <!-- begin_field_orientation_edit_off -->
+                        <span class="edit_off">{field_orientation_value}</span>
+                        <!-- end_field_orientation_edit_off -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end_field_orientation_edit_bl -->
+
+
+        <!-- begin_field_birthday_bl -->
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_birthday}</span>
+                    </div>
+                    <div class="col-lg-6 field">
+                        <select id="profile_edit_main_day" name="day" class="selectpicker show-tick day birthday" data-live-search="true">
+                        {day_options}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span></span>
+                    </div>
+                    <div class="col-lg-6 field">
+                        <select id="profile_edit_main_month" name="month" class="selectpicker show-tick month birthday" data-live-search="true" onChange="updateDay('month','frm_profile_edit_main','year','month','day', refreshSelectBirthdayEditMain)">
+                        {month_options}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span></span>
+                    </div>
+                    <div class="col-lg-6 field">
+                        <select id="profile_edit_main_year" name="year" class="selectpicker show-tick year birthday" data-live-search="true"  onChange="updateDay('year','frm_profile_edit_main','year','month','day', refreshSelectBirthdayEditMain)">
+                        {year_options}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end_field_birthday_bl -->
+
+        <!-- begin_location -->
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_i_am_from}</span>
+                    </div>
+                    <div class="col-lg-6 field field_geo">
+                        <select id="country" name="country" data-location="geo_states" class="geo selectpicker show-tick" data-live-search="true">
+                        {country_options}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span></span>
+                    </div>
+                    <div class="col-lg-6 field field_geo" data-cl-loader="loader_settings_location" data-no-fade-in="true">
+                        <select id="state" name="state" data-location="geo_cities" class="geo_btn geo selectpicker show-tick" data-live-search="true">
+                        {state_options}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span></span>
+                    </div>
+                    <div class="col-lg-6 field field_geo" data-cl-loader="loader_settings_location" data-no-fade-in="true">
+                        <select id="city" name="city" class="geo_btn selectpicker show-tick" data-live-search="true">
+                        {city_options}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end_location -->
+
+<script>
+function ppPrMainSetDisabledSave() {
+	console.log('ppPrMainSetDisabledSave');
+	if (isModifiedBasicInfo() && !is_error_ppPrMain){
+		ppPrMain_btn_save.prop('disabled',false);
+	} else {
+		ppPrMain_btn_save.prop('disabled', true);
+	}
+}
+</script>
+
+        <!-- begin_p_orientations -->
+		<div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_im_looking_for}</span>
+                    </div>
+                    <div class="col-lg-6 field field_special_checkbox">
+						<!-- begin_p_orientation -->
+						<div class="one_checkbox s">
+							<label>
+							<input id="p_orientation_{id}" class="niceCheck p_sexuality" name="{name}[]" value="{id}" {checked} type="checkbox">
+							{title}
+							</label>
+						</div>
+						<!-- end_p_orientation -->
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- end_p_orientations -->
+
+		<!-- begin_looking_your_orientation -->
+		<div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_im_looking_for}</span>
+                    </div>
+                    <div class="col-lg-6 field field_special_checkbox">
+						{name}
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- end_looking_your_orientation -->
+
+		<!-- begin_age_range -->
+		<div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_field_ages}</span>
+                    </div>
+                    <div class="col-lg-6 field field_looking_for_age">
+						<select id="pp_edit_looking_p_age_from" name="p_age_from" class="select_main select_age selectpicker show-tick" data-live-search="false" style="width: auto;">
+							{p_age_from_options}
+						</select>
+						<span class="mdash">&mdash;</span>
+						<select id="pp_edit_looking_p_age_to" name="p_age_to" class="select_main select_age selectpicker show-tick" data-live-search="false">
+							{p_age_to_options}
+						</select>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- end_age_range -->
+
+		<!-- begin_field_near_me -->
+		<div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_field_location}</span>
+                    </div>
+                    <div class="col-lg-6 field field_special_checkbox">
+						<div class="one_checkbox s">
+							<label>
+							<input id="search_near_me" class="niceCheck" <!-- begin_field_near_me_checked -->checked<!-- end_field_near_me_checked --> name="search_near_me" type="checkbox">
+							{l_near_me}
+							</label>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- end_field_near_me -->
+
+        <!-- begin_i_am_here_to -->
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 text-right field">
+                        <span>{l_i_am_here_to}</span>
+                    </div>
+                    <div class="col-lg-6 field">
+						<select id="pp_edit_looking_i_am_here_to" name="{name}" class="selectpicker show-tick" data-live-search="false">
+							<!-- begin_i_am_here_to_item -->
+							<option value="{id}" <!-- begin_i_am_here_to_selected -->selected<!-- end_i_am_here_to_selected -->>{title}</option>
+							<!-- end_i_am_here_to_item -->
+						</select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end_i_am_here_to -->
+
+<script>
+function disableAgeOptions() {
+	var pp_edit_looking_age_from=$('#pp_edit_looking_p_age_from'),
+		pp_edit_looking_age_to=$('#pp_edit_looking_p_age_to');
+
+	pp_edit_looking_age_from.find('option').disableOptionsByLimit(pp_edit_looking_age_to.val() * 1, true);
+	pp_edit_looking_age_to.find('option').disableOptionsByLimit(pp_edit_looking_age_from.val() * 1, false);
+	setTimeout(function(){
+		pp_edit_looking_age_from.selectpicker('refresh');
+		pp_edit_looking_age_to.selectpicker('refresh');
+	}, 1);
+}
+
+$.fn.disableOptionsByLimit = function(limit, greater) {
+	return this.each(function(){
+		if(greater) {
+			if(this.value > limit) {
+				this.disabled = true;
+			} else {
+				this.disabled = false;
+			}
+		} else {
+			if(this.value < limit) {
+				this.disabled = true;
+			} else {
+				this.disabled = false;
+			}
+		}
+	});
+};
+
+setTimeout(disableAgeOptions, 200);
+
+
+$('select.select_age').on('change', function(){
+	disableAgeOptions();
+	ppPrMainSetDisabledSave();
+})
+</script>
+
+    <div class="section fields field_about">
+        <div class="container">
+
+			<!-- begin_fields_text -->
+			<div class="row">
+                <div class="col-lg-5 text-right field">
+                    <span>{field}</span>
+                </div>
+                <div class="col-lg-6 field">
+                    <input type="hidden" name="name" value="{name}" class="ajax"/>
+                    <!-- begin_textarea -->
+                    <textarea id="profile_about_{name}" name="{name}" maxlength="{maxlen}" placeholder="{field_description}" class="form-control field_profile_text">{value_input}</textarea>
+                    <script>
+						$('#profile_about_{name}').autosize({isSetScrollHeight:false,callback:function(){}})
+					</script>
+					<!-- end_textarea -->
+                    <!-- begin_text -->
+                    <input id="profile_about_{name}" name="{name}" type="text" maxlength="{maxlen}" value="{value_input}" placeholder="{field_description}" class="form-control field_profile_text"/>
+                    <!-- end_text -->
+                </div>
+            </div>
+			<!-- end_fields_text -->
+        </div>
+    </div>
+
+
+    <!-- begin_personal_fields -->
+    <!-- begin_field -->
+
+    <!-- begin_field_item -->
+
+		<!-- begin_field_item_group_decor_start -->
+		<!-- end_field_item_group_decor_start -->
+
+
+		<!-- begin_int -->
+		<div class="section fields">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 text-right field">
+						<span>{field}</span>
+					</div>
+					<div class="col-lg-6 field">
+						<select id="pp_4_{name}" name="{name}" class="selectpicker show-tick" data-live-search="false">
+								<option selected value="0">{l_please_choose}</option>
+								{options}
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end_int -->
+
+		<!-- begin_checkbox -->
+		<!-- begin_checkbox_item -->
+		<div class="section fields field_checkbox_value" id="field_checkbox_{name}_{num}">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 text-right field">
+						<span>{field}</span>
+					</div>
+					<div class="col-lg-6 field">
+						<select id="pp_4_{name}_{num}" data-checkbox="{name}" name="{name}[]" class="selectpicker show-tick" data-live-search="false">
+							<option selected value="0">{l_please_choose}</option>
+							{options}
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end_checkbox_item -->
+
+		<div class="section fields">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 text-right field">
+					</div>
+					<div class="col-lg-6 field">
+						<div id="link_add_{name}" class="field link_add" style="display:{display_add};" >
+							<div class="add_field"><span data-type-add="{name}">{l_add_value_field}</span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end_checkbox -->
+
+		<!-- begin_field_item_group_decor_end -->
+		<!-- end_field_item_group_decor_end -->
+
+    <!-- end_field_item -->
+
+    <!-- end_field -->
+<!-- end_personal_fields -->
+
+<script>
+
+	var selectCheckboxPreviousValue = 0;
+
+	$('body').on('shown.bs.select', 'select[data-checkbox]', function(e){
+		selectCheckboxPreviousValue = $(this).val();
+	});
+
+	$('body').on('changed.bs.select', 'select[data-checkbox]', function(e, clickedIndex, isSelected, previousValue){
+		var el = $(this),
+		type = el.data('checkbox'),
+		id = el.attr('id'),
+        val = el.val();
+        if (val != 0) {
+            $('[id != "' + id + '"][data-checkbox=' + type + ']').each(function(){
+                if ($(this).val() == val) {
+                    alertCustom('{j_you_have_already_chosen_this_option}');
+                    el.val(selectCheckboxPreviousValue).selectpicker('refresh');
+                    return false;
+                }
+            })
+        }
+		ppPrMainSetDisabledSave();
+	});
+
+	$('.link_add span').click(function(){
+        var el = $(this),
+            type = el.data('typeAdd'),
+			previousFieldBlock = el.closest('.section.fields').prev('.field_checkbox_value'),
+            baseFieldBlock = $('#field_checkbox_' + type + '_0'),
+            baseSelect = $('#pp_4_' + type + '_0'),
+            countOptions = baseSelect.find('option').length,
+            countSelects = $('[data-checkbox=' + type + ']').length;
+
+		if (countOptions <= (countSelects + 2)) {
+			el.hide();
+		}
+		if (countOptions > (countSelects + 1)) {
+			var newFieldSuffix = '_' + type + '_' + (countSelects + 1);
+			var newSelect = baseSelect.clone(false).attr({id: 'pp_4_' + type + '_' + newFieldSuffix});
+
+			var newFieldBlock = baseFieldBlock.clone(false).attr({id: 'field_checkbox' + newFieldSuffix}).find('.col-lg-6.field').html('').append(newSelect).end().find('.col-lg-5').html('').end();
+			newFieldBlock.find('option').removeAttr('selected').eq(0).attr({selected: 'selected'}).end().end().find('select').selectpicker();
+			newFieldBlock.insertAfter(previousFieldBlock);
+        }
+        return false;
+    });
+
+	function removeEmptyCheckbox(){
+        var typeArr={};
+		$('select[data-checkbox]').each(function(){
+			var el=$(this), type=el.data('checkbox');
+			var countSelect = $('select[data-checkbox='+type+']').length;
+            if (countSelect > 1&&this.value==0&&typeArr[type]) {
+                el.closest('.jq-selectbox').remove();
+				delete ppPersonalInfo[this.id];
+            }
+            typeArr[type]=1;
+            $('#link_add_'+type).show();
+		})
+	}
+
+</script>
+
+        <div class="section fields">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-11 field height_fix">
+                        <button class="btn btn-block btn-success btn_save" disabled>
+                            <span>{l_save}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script>
+    var ppPrMain=$jq('#frm_profile_edit_main'),
+        ppPrMain_frm=ppPrMain,
+        ppPrMain_nick=$('#profile_edit_main_nickname', ppPrMain),
+        ppPrMain_btn_save=$('button.btn_save', ppPrMain),
+        ppPrMain_select=$('.birthday',ppPrMain).on('change', function(){
+            hideError($jq('#profile_edit_main_day', ppPrMain_frm));
+            ppPrMainSetDisabledSave();
+        }),
+
+        ppPrMain_day=$('#profile_edit_main_day'),
+        ppPrMain_month=$('#profile_edit_main_month'),
+
+        ppPrMain_state=$('#state', ppPrMain_frm),
+        ppPrMain_city=$('#city', ppPrMain_frm),
+
+        basic_info = {}, last_exists_username='#', is_error_ppPrMain = false,
+        is_submit_ppPrMain = false,
+
+		formFieldsSelector = 'input:not(.ajax), select, textarea';
+
+
+    ppPrMain_btn_save.click(function(){
+        ppPrMain_frm.submit();
+    })
+
+    $('#profile_edit_main_orientation',ppPrMain).on('change', function(){
+        ppPrMainSetDisabledSave();
+    })
+
+    $('textarea.field_profile_text',ppPrMain).on('change propertychange input', function(){
+        ppPrMainSetDisabledSave();
+    })
+
+    ppPrMain_frm.submit(function(){
+        ppPrMain_nick.val($.trim(ppPrMain_nick.val()));
+        if (!isModifiedBasicInfo()||ppPrMain_frm.data('submit')) return false;
+
+        ppPrMain_frm.data('submit', true);
+        ppPrMain_btn_save.addChildrenLoader();
+
+        $.fn.ajaxSubmit.textEmoji = true;
+        $.fn.ajaxSubmit.textEmojiNoInput = '#profile_edit_main_nickname';
+        $(this).ajaxSubmit({success: ppPrMain_response});
+        $.fn.ajaxSubmit.textEmoji = false;
+        $.fn.ajaxSubmit.textEmojiNoInput = '';
+
+        disabledControlsProfileSettingsFrm(ppPrMain,true);
+        return false;
+    })
+
+    function ppPrMain_response(data) {
+		var data=checkDataAjax(data);
+		disabledControlsProfileSettingsFrm(ppPrMain);
+        if(data!==false){
+            var $data=$(data);
+            $('.field_profile_text').each(function(){
+                if (typeof data[this.name] != 'undefined' && this.name == 'about_me') {
+                    var val=data[this.name],dur=300;
+                    this.value=val;
+                    if (val) {
+                        $jq('#right_column_about_me').text(val);
+                        $jq('#right_column_about_me_bl').delay(100).slideDown(dur);
+                    } else {
+                        $jq('#right_column_about_me_bl').delay(100).slideUp(dur,function(){
+                            $jq('#right_column_about_me').text('');
+                        })
+                    }
+                }
+            })
+            if ($data.is('error')) {
+                var nick=ppPrMain_nick.val(),noFocus=false;
+                $('span',$data).each(function(){
+                    if(this.id=='location')return;
+                    var id=this.id;
+                    if(id=='nickname')id='profile_edit_main_'+id;
+                    if(id=='birthday')id='profile_edit_main_day';
+                    var msg=$(this).text(),$el=$('#'+id);
+                    showError($el, msg, false, true);
+                    if(this.id=='nickname'&&msg=='{j_exists_username}'&&last_exists_username.search('#'+nick+'#')<0){
+                        last_exists_username+=nick+'#';
+                    }
+                    if(!noFocus)
+                    setTimeout(function(){
+                        clMediaTools.scrollToEl($el,function(){
+                            $el.focusEl();
+                        },70)
+                    },50)
+                    noFocus=true;
+                })
+                is_error_ppPrMain=true;
+
+            } else {
+                updateSiteSeo(data.seo);
+
+                setBasicInfo();
+
+				$('.right_column_profile_info').html($(data.profileInfoModule).find('.right_column_profile_info').html());
+
+                if ($jq('#right_column_birth')[0]&&data.birthday) {
+                    $jq('#right_column_birth').html(data.birthday);
+                }
+                if ($jq('#right_column_city')[0]&&data.city) {
+                    $jq('#right_column_city').html(data.city);
+                    $jq('#right_column_city').closest('li').removeClass('hide');
+                }
+                if ($jq('#right_column_gender')[0]&&data.orientation) {
+                    $jq('#right_column_gender').html(data.orientation);
+                }
+                if ($jq('#header_user_name')[0]&&data.user_name) {
+                    $jq('#header_user_name').html(data.user_name);
+                    if (data.name_seo&&$jq('#header_user_name').is('a')) {
+                        $jq('#header_user_name').attr('href',url_main+data.name_seo);
+                    }
+                }
+                alertCustomIcon(l('changes_saved'),l('alert_success'),'success');
+            }
+        }
+        ppPrMain_frm.data('submit', false);
+        ppPrMain_btn_save.removeChildrenLoader();
+
+        ppPrMainSetDisabledSave();
+        is_submit_ppPrMain=true;
+    }
+
+    function setBasicInfo() {
+        $(formFieldsSelector, ppPrMain_frm).each(function(){
+            if(this.id) {
+				basic_info[this.id] = profileSettingsGetFieldValue(this);
+			}
+        })
+    }
+
+    function isModifiedBasicInfo() {
+        var isModified = 0;
+        $(formFieldsSelector, ppPrMain_frm).each(function(){
+			if(this.id) {
+				isModified |= (profileSettingsGetFieldValue(this) != basic_info[this.id]);
+			}
+        })
+		//console.log('isModifiedBasicInfo', isModified);
+        return isModified;
+    }
+
+    function refreshSelectBirthdayEditMain(){
+        ppPrMain_day.selectpicker('refresh');
+    }
+
+
+	setBasicInfo();
+
+	$(formFieldsSelector, ppPrMain_frm).on('change', function(){
+		ppPrMainSetDisabledSave();
+    })
+
+    ppPrMain_nick.on('change propertychange input', function(){
+        var val=this.value, l=$.trim(val).length;
+        if (!is_submit_ppPrMain){
+            ppPrMainSetDisabledSave();
+            return;
+        }
+        is_error_ppPrMain = true;
+        if (/[#&'"\/\\<]/.test(val)){
+            showError(ppPrMain_nick, '{j_invalid_username}')
+        }else if (l<'{minLength}'*1||l>'{maxLength}'*1){
+            showError(ppPrMain_nick, '{nickname_title}');
+        }else if (last_exists_username.search('#'+val+'#')+1){
+            showError(ppPrMain_nick, '{j_exists_username}');
+        }else {
+            hideError(ppPrMain_nick);
+            is_error_ppPrMain = false;
+        }
+        ppPrMainSetDisabledSave();
+    })
+
+    $jq('.geo, #city', ppPrMain_frm).change(function() {
+        hideError($jq('.geo, #city', ppPrMain_frm));
+		is_error_ppPrMain = false;
+        ppPrMainSetDisabledSave();
+    })
+
+	function profileSettingsGetFieldValue(element)
+	{
+		var fieldValue = element.value;
+		if(element.type === 'checkbox' && !element.checked) {
+			fieldValue = null;
+		}
+
+		return fieldValue;
+	}
+
+    var ppPrMain_geo=$jq('.geo, #city', ppPrMain_frm),
+        ppPrMain_geo_field=$jq('.field_geo', ppPrMain_frm)
+    $('.geo', ppPrMain_frm).change(function() {
+        var type=$(this).data('location'),
+            $elLoader=[],$field=[],$btn;
+
+        ppPrMain_geo.prop('disabled', true)
+        $field=ppPrMain_geo_field.find('button.dropdown-toggle').addClass('disabled');
+        if (type == 'geo_states') {
+            $elLoader=ppPrMain_state.closest('.field').addChildrenLoader();
+            $btn=$('button.dropdown-toggle[data-id="state"]').addClass('trans');
+        } else {
+            $elLoader=ppPrMain_city.closest('.field').addChildrenLoader();
+            $btn=$('button.dropdown-toggle[data-id="city"]').addClass('trans');
+        }
+
+        $.ajax({type: 'POST',
+                url: '{url_main}ajax.php',
+                data: { cmd:type,
+                        select_id:this.value,
+                        filter:'1',
+                        list: 0},
+                        beforeSend: function(){
+                        },
+                        success: function(res){
+                            ppPrMain_geo.prop('disabled', false);
+                            $elLoader.removeChildrenLoader();
+                            $btn.removeClass('trans');
+                            $field.removeClass('disabled');
+                            var data=checkDataAjax(res);
+                            if (data) {
+                                var option='<option value="0">{j_choose_a_city_location}</option>';
+                                switch (type) {
+                                    case 'geo_states':
+                                        ppPrMain_state.html('<option value="0">{j_choose_a_state}</option>' + data.list).selectpicker('refresh');
+                                        ppPrMain_city.html(option).selectpicker('refresh');
+                                        break
+                                    case 'geo_cities':
+                                        ppPrMain_city.html(option + data.list).selectpicker('refresh');
+                                        break
+                                }
+                            }
+
+                        }
+                    });
+        return false;
+    })
+</script>

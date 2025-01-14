@@ -1,0 +1,90 @@
+{header}
+<script>
+$(function() {
+    $('#sortable tbody').sortable({
+        containment: 'parent',
+        tolerance: 'pointer',
+        opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'move',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set collection_item');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+        }
+    })
+})
+
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+</script>
+
+<div class="block_narrow">
+    {menu_page}
+</div>
+
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <div class="bl_form stickers_collection">
+        <!-- begin_collections -->
+        <form action="{url_page}" method="POST">
+        <input type="hidden" name="cmd" value="update_collection">
+        <table class="tb_fields" id="sortable">
+        <thead>
+            <tr id="no_sortable" >
+                <th class="decor_l">&nbsp;</th>
+                <th class="collection_item_id_w">{l_id}</th>
+                <th>{l_image}</th>
+				<th class="center">{l_number_stickers}</th>
+				<th class="last">{l_active}</th>
+                <th class="decor_r">&nbsp;</th>
+            </tr>
+        </thead>
+        <!-- begin_collection_item -->
+        <tr class="color collection_item">
+            <td class="decor_l">&nbsp;</td>
+            <td class="collection_item_id">
+                {num}
+            </td>
+            <td class="collection_item_thumb">
+                <input type="hidden" name="order[]" value="{id}">
+                <img src="{img}">
+            </td>
+            <td class="collection_item_count">
+                {count}
+            </td>
+            <td class="right collection_item_check">
+                <input name="active[{id}]" value="1" {checked} type="checkbox">
+            </td>
+            <td class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_collection_item -->
+        </table>
+
+        <div class="wrap_button fl_right">
+            <button class="button submit" type="submit">{l_save}</button>
+            <div class="button_submit_instruction">{l_or_use_ctrl_s}</div>
+        </div>
+
+        </form>
+		<!-- end_collections -->
+
+        <!-- begin_no_collections -->
+        <div align="center">{l_no_collections_available}</div>
+        <!-- end_no_collections -->
+    </div>
+    <div class="empty"></div>
+</div>
+{footer}

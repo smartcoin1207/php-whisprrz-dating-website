@@ -1,0 +1,84 @@
+<!-- begin_list_songs_item_default -->
+<div class="col-md-{list_songs_item_number_row} col-sm-6 songs_list_item <!-- begin_list_songs_item_default_hide -->to_hide<!-- end_list_songs_item_default_hide -->">
+    <div class="cham-post">
+        <div  id="list_songs_item_wrap_{list_songs_item_song_id}" class="cham-post-link list_songs_item_wrap" onclick="playSong('{list_songs_item_song_id}', this, event); return false;">
+            <div  class="cham-post-image list_songs_item_photo_{list_songs_item_song_id} to_hide">
+                <div id="list_song_layer_action_{list_songs_item_song_id}" data-cl-loader="layer_action_list_loader" class="layer_action_list"></div>
+
+                <button class="play_button" type="button" aria-live="polite"></button>
+
+                <div id="list_media_description_bl_{list_songs_item_song_id}" class="cham-category descripton <!-- begin_list_songs_item_default_description -->to_show<!-- end_list_songs_item_default_description -->">
+                    <span class="subject" title="{list_songs_item_description_attr}">
+                        <span class="overflow">{list_songs_item_description_short}</span>
+                    </span>
+                </div>
+
+                <div class="pic square hover-brightness" style="background-image: url({list_songs_item_image});"></div>
+                <script>
+                    setPlayListSong('{list_songs_item_song_id}', '{list_songs_item_mp3}', '{list_songs_item_mp3_title}');
+                    onLoadImgFromList($('.list_songs_item_photo_{list_songs_item_song_id}.to_hide'), '{list_songs_item_image}');
+                </script>
+
+                <!-- <button class="play_button" type="button" aria-live="polite"></button> -->
+
+                <!-- begin_list_songs_item_default_not_checked_1 -->
+                <div class="icon_time"></div>
+                <!-- end_list_songs_item_default_not_checked_1 -->
+            </div>
+        </div>
+        <div class="cham-post-meta">
+            <div class="info">
+                <!--<span class="info_item comments">
+                    <i class="fa fa-comments" aria-hidden="true"></i><span class="song_comments_count_{list_songs_item_song_id}">{list_songs_item_count_comments}</span>
+                </span>-->
+                <span class="info_item time">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>{list_songs_item_time_ago}
+                </span>
+            </div>
+            <div class="info">
+                <!-- begin_list_songs_item_default_name -->
+                <span class="info_item user_name">
+                    <a href="{url_main}{list_songs_item_user_url}" class="name">
+                        <!-- begin_list_songs_item_default_status_online -->
+                        <span class="icon_status <!-- begin_list_songs_item_default_online -->online<!-- end_list_songs_item_default_online-->"></span>
+                        <!-- end_list_songs_item_default_status_online -->
+                        {list_songs_item_user_name}
+                    </a>
+                </span>
+                <!-- end_list_songs_item_default_name -->
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- begin_list_songs_item_default_menu -->
+        <div class="item_settings">
+            <span data-no-fade-in="true" class="icon_settings">
+                <span class="" data-toggle="collapse" data-target="#list_song_menu_{list_songs_item_song_id}">
+                </span>
+            </span>
+            <ul id="list_song_menu_{list_songs_item_song_id}" class="more_menu_collapse more_menu_right collapse list_song_menu">
+
+                <li>
+                    <a href="#" onclick="clProfileSongs.confirmDeleteFromList('{list_songs_item_song_id}'); return false;">
+                        <span class="icon_fa" data-no-fade-in="true" data-cl-loader="icon_list_media_menu_loader">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
+                        <span>{l_delete}</span>
+                    </a>
+                </li>
+
+                <!-- begin_list_songs_item_default_link_download -->
+                <li>
+                    <a target="_blank" download href="{list_songs_item_mp3}">
+                        <span class="icon_fa"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+                        <span>{l_gallery_file_download}</span>
+                    </a>
+                </li>
+                <!-- end_list_songs_item_default_link_download -->
+            </ul>
+        </div>
+        <!-- end_list_songs_item_default_menu -->
+
+    </div>
+</div>
+<!-- end_list_songs_item_default -->

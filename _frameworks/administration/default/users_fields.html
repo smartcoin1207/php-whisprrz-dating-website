@@ -1,0 +1,732 @@
+{header}
+<!-- begin_fields_social_style -->
+<style>
+    .fileds_no_social{
+        display: none;
+    }
+</style>
+<!-- end_fields_social_style -->
+<script>
+function visible(fields)
+{
+    var element = $('#td_'+fields).find('.status'),
+        urlParams = location.href.split('?'),
+        status, is=$.trim(element.text()) == '{j_show}';
+
+    if (is) {
+        status = '{j_hide}';
+        //$('#td_'+fields).find('.bl_status').css('display','inline-block');
+    } else {
+        status = '{j_show}';
+        $('#td_'+fields).find('.bl_status').hide();
+    }
+    element.width(element.width()).html('<img src="{url_tmpl_administration}images/loader1.gif">');
+
+    $.ajax({
+            type: 'POST',
+            url: urlParams[0],
+            data: {'cmd':'visible',
+                   'fields': fields},
+            success: function(){
+                    /*if ('{field_type}' == 'checks') {
+                        //window.location.href='users_fields.php?table={field_table}&fields={field_name}#{field_table}';
+                        window.location.reload();
+                    }*/
+                    element.css('width','').html('<a href="" onclick="visible(\'' + fields + '\'); return false;">' + status + '</a>');
+                    if (is) {
+                        $('#td_'+fields).find('.bl_status').css('display','inline-block');
+                    }
+                    setWidthFields()
+            }
+    });
+}
+
+function set_status_join(fields)
+{
+    var element = $('#td_'+fields).find('.join_status'),
+        urlParams = location.href.split('?'),
+        status;
+    if ($.trim(element.text()) == '{j_join_show}') {
+        status = '{j_join_hide}';
+    } else {
+        status = '{j_join_show}';
+    }
+    element.width(element.width()).html('<img src="{url_tmpl_administration}images/loader1.gif">');
+
+    $.ajax({
+            type: 'POST',
+            url: urlParams[0],
+            data: {'cmd':'set_status_join',
+                   'fields': fields},
+            success: function(){
+                    element.css('width','').html('<a href="" onclick="set_status_join(\'' + fields + '\'); return false;">' + status + '</a>');
+                    setWidthFields();
+                    //window.location.href='users_fields.php?action=saved';
+            }
+    });
+}
+
+function getPosition()
+{
+    var urlParams = location.href.split('?'),
+        fieldsBasic = $('#basic_sort tbody').sortable('toArray'),
+        fieldsPersonal = $('#sort_1 tbody').sortable('toArray'),
+        fieldsPhysical = $('#sort_2 tbody').sortable('toArray'),
+        fieldsOther = $('#sort_3 tbody').sortable('toArray');
+
+    if(!fieldsOther[0])fieldsOther = [];
+    $.ajax({
+            type: 'POST',
+            url: urlParams[0],
+            data: {'cmd':'saveposition',
+                   'fields': [fieldsBasic, fieldsPersonal, fieldsPhysical, fieldsOther]},
+            success: function(){
+                  window.location.href='users_fields.php?action=saved';
+            }
+    });
+}
+$(function() {
+<!-- begin_action_save -->
+var activFields = $('#{id_save}').addClass('color_a');
+activFields.children('.decor_l').addClass('decor_l_a');
+activFields.children('.decor_r').addClass('decor_r_a');
+<!-- end_action_save -->
+<!-- begin_sort_table_js_urban -->
+    var setClass;
+
+    function setColorClass(tr)
+    {
+        tr.attr('class', 'color_set');
+        tr.children('#decor_l').attr('class', 'decor_set_l');
+        tr.children('#decor_r').attr('class', 'decor_set_r');
+    }
+
+    function setSelColorClass(tr)
+    {
+        if (setClass) {
+            tr.attr('class', 'color');
+            tr.children('#decor_l').attr('class', 'decor_l');
+            tr.children('#decor_r').attr('class', 'decor_r');
+        }
+    }
+
+    $('#sort_1 tbody').sortable( {
+        connectWith : '[id ^= sort] tbody, #basic_sort tbody',
+        //containment: '#c_fields',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'pointer',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            setColorClass(ui.item)
+        },
+        start: function(event, ui) {
+            setClass = (ui.item.attr('class') == 'color') ? true : false;
+        },
+        stop: function(event, ui) {
+            var tr = ui.item,
+                module = tr.parent().attr('data-module'),
+                type = tr.attr('data-type'),
+                cancel = false;
+            if ((type == 'textarea' || type == 'text')  && module == 'appearance') cancel = true;
+            if (type == 'int' && (module == 'basic' || module == 'empty')) cancel = true;
+            if ((type == 'checkbox' || type == 'group')&& module != 'personal') cancel = true;
+
+            if (cancel) {
+                $(this).sortable('cancel');
+                setSelColorClass(tr);
+            }
+        }
+    });
+
+    $('#sort_2 tbody').sortable( {
+        connectWith : '#sort_1 tbody',
+        //containment: '#c_fields',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'pointer',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            setColorClass(ui.item)
+        },
+        start: function(event, ui) {
+            setClass = (ui.item.attr('class') == 'color') ? true : false;
+        },
+        stop: function(event, ui) {
+            var tr = ui.item,
+                module = tr.parent().attr('data-module'),
+                type = tr.attr('data-type'),
+                cancel = false;
+            //if (type == 'map') {
+                //cancel = true;
+            //}
+            if (cancel) {
+                $(this).sortable('cancel');
+                setSelColorClass(tr);
+            }
+        }
+    });
+
+    $('#sort_3 tbody').sortable({
+        connectWith : '#sort_1 tbody, #basic_sort tbody',
+        //containment: '#c_fields',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'pointer',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            setColorClass(ui.item)
+        },
+        start: function(event, ui) {
+            setClass = (ui.item.attr('class') == 'color') ? true : false;
+        },
+        stop: function(event, ui) {
+            var tr = ui.item,
+                module = tr.parent().attr('data-module'),
+                type = tr.attr('data-type'),
+                cancel = false;
+            if ((type == 'textarea' || type == 'text') && module == 'appearance') cancel = true;
+            if ((module != 'basic' && module != 'empty') && (type == 'map' || type == 'private_note' || type == 'interests' || type == 'location')) cancel = true;
+            if (type == 'int' && module != 'personal') cancel = true;
+            if (cancel) {
+                $(this).sortable('cancel');
+                setSelColorClass(tr);
+            }
+        }
+    });
+
+    $('#basic_sort tbody').sortable( {
+        connectWith : '#sort_1 tbody, #sort_3 tbody',
+        //containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'pointer',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            setColorClass(ui.item)
+        },
+        start: function(event, ui) {
+            setClass = (ui.item.attr('class') == 'color') ? true : false;
+        },
+        stop: function(event, ui) {
+            var tr = ui.item,
+                module = tr.parent().attr('data-module'),
+                type = tr.attr('data-type'),
+                cancel = false;
+            if (type == 'textarea' && module == 'personal') cancel = true;
+            if ((type == 'textarea' || type == 'text') && module == 'appearance') cancel = true;
+            if ((type == 'interests' || type == 'map' || type == 'private_note' || type == 'location') && module != 'basic' && module != 'empty') cancel = true;
+            if (type == 'int') cancel = true;
+            if (cancel) {
+                $(this).sortable('cancel');
+                setSelColorClass(tr);
+            }
+        }
+    });
+<!-- end_sort_table_js_urban -->
+<!-- begin_sort_table_js -->
+    $('[id ^= sort] tbody').sortable( {
+        connectWith : '[id ^= sort] tbody',
+        containment: '#c_fields',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'pointer',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+        }
+    });
+    $('#basic_sort tbody').sortable( {
+        connectWith : '[id ^= sort] tbody',
+        containment: 'parent',
+	    tolerance: 'pointer',
+	    opacity: 0.5,
+        axis: 'y',
+        cancel: '#no_sortable',
+        cursor: 'pointer',
+        items: 'tr[id != no_sortable]',
+        helper: fixHelperModified,
+        update: function(e, ui){
+            ui.item.attr('class', 'color_set');
+            ui.item.children('.decor_l').attr('class', 'decor_set_l');
+            ui.item.children('.decor_r').attr('class', 'decor_set_r');
+        }
+    });
+<!-- end_sort_table_js -->
+    $('#translit').change(function(){
+        var lang = $(this).val();
+        if (lang != 'edit_mode') {
+            window.location.href='users_fields_localization.php?mode=fields&table={table_lang}&fields={table_fields}&lang='+lang;
+        }
+    });
+    $('#translit_question').change(function(){
+        var lang = $(this).val();
+        if (lang != 'edit_mode') {
+            window.location.href='users_fields_localization.php?mode=question&table={table_lang}&fields={table_fields}&lang='+lang;
+        }
+    });
+    <!-- begin_scroll_save -->
+    $('html, body').scrollTop($('.edit_field').offset().top);
+    <!-- end_scroll_save -->
+});
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width());
+      $(this).parent().css({'border-collapse' : 'collapse'});
+    });
+    return $helper;
+};
+function setWidthFields(){
+    var wLast=0;
+    $('.td_action').css('min-width','').each(function(){
+        var w=$(this).width();
+        if(w>wLast)wLast=w;
+    }).css('min-width',wLast);
+}
+</script>
+<div class="block_narrow">
+	{menu_page}
+</div>
+<div class="block_main">
+    <h2>{l_title_current} - {table_title}</h2>
+
+    <div class="bl_form">
+
+        <h2>{fields_section_0}</h2>
+        <table id="basic_sort" class="tb_fields" cellspacing="10">
+            <thead>
+                <tr>
+                    <th class="decor_l">&nbsp;</th>
+                    <th class="right" >{l_field}</th>
+                    <th class="td_action" style="text-align: center;">{l_action}</th>
+                    <th class="last">{l_type}</th>
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody data-module="basic">
+                <tr id="no_sortable"><td></td><td></td><td></td><td></td><tr>
+                <!-- begin_table_4 -->
+                <tr id="no_sortable" class="color">
+                    <td id ="decor_l" class="decor_l">&nbsp;</td>
+                    <td class="right" style="width:44%">
+                        <!-- begin_ba_4 -->
+                        <a href="{url_page}?table={table_this_4}&fields={table_status_4}#{table_this_4}">
+                        <!-- begin_bb_4 --><b><!-- end_bb_4 -->{table_title_this_4}<!-- begin_be_4 --></b><!-- end_be_4 -->
+                        </a>
+                        <!-- end_ba_4 -->
+                        <!-- begin_bn_4 -->
+                        {table_title_this_4}
+                        <!-- end_bn_4 -->
+                    </td>
+                    <td id="td_{table_status_4}" style="text-align: center;" class="td_action">
+                        <div class="status" style="display:inline-block;">
+                            <a href="" onclick="visible('{table_status_4}'); return false;">{status_4}</a>
+                        </div>
+                        <!-- begin_table_4_join -->
+                        <div class="bl_status" style="display:inline-block; <!-- begin_table_4_join_hide -->display:none;<!-- end_table_4_join_hide -->">
+                            |
+                            <div class="join_status" style="display:inline-block; ">
+                                <a href="" onclick="set_status_join('{table_status_4}'); return false;">{status_join_4}</a>
+                            </div>
+                        </div>
+                        <!-- end_table_4_join -->
+                    </td>
+                    <td class="last" style="width:40%">{type_4}</td>
+                    <td id ="decor_r" class="decor_r">&nbsp;</td>
+                </tr>
+                <!-- end_table_4 -->
+                <tr id="no_sortable" style="height: 14px;"><td style="border: none;"></td><td style="border: none;"></td><td style="border: none;"></td><td style="border: none;"></td><tr>
+                <!-- begin_table_0 -->
+                <tr id="{table_fields_position}" data-type="{type_fields_0}" class="color">
+                    <td id ="decor_l" class="decor_l">&nbsp;</td>
+                    <td class="right" style="width:44%">
+                        <a href="{url_page}?table={table_this_0}&fields={table_status_0}#{table_this_0}">
+                        <!-- begin_bb_0 --><b><!-- end_bb_0 -->{table_title_this_0}<!-- begin_be_0 --></b><!-- end_be_0 -->
+                        </a>
+                    </td>
+                    <td id="td_{table_status_0}"  class="td_action" style="text-align: center;">
+                        <div class="status" style="display:inline-block;">
+                            <a href="" onclick="visible('{table_status_0}'); return false;">{status_0}</a>
+                        </div>
+                        <!-- begin_table_0_join -->
+                        <div class="bl_status" style="display:inline-block; <!-- begin_table_0_join_hide -->display:none;<!-- end_table_0_join_hide -->">
+                            |
+                            <div class="join_status" style="display:inline-block;  ">
+                                <a href="" onclick="set_status_join('{table_status_0}'); return false;">{status_join_0}</a>
+                            </div>
+                        </div>
+                        <!-- end_table_0_join -->
+                    </td>
+                    <td class="last" style="width:40%">{type_0}</td>
+                    <td id ="decor_r" class="decor_r">&nbsp;</td>
+                </tr>
+                <!-- end_table_0 -->
+            <tbody>
+        </table>
+        <h2 class="fileds_no_social">{fields_section_1}</h2>
+        <div id="c_fields" class="fileds_no_social">
+        <table id="sort_1" class="tb_fields">
+            <thead>
+                <tr>
+                    <th class="decor_l">&nbsp;</th>
+                    <th class="right" >{l_field}</th>
+                    <th class="td_action" style="text-align: center;">{l_status}</th>
+                    <th class="last">{l_type}</th>
+                    <th class="decor_r">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody data-module="personal">
+                <tr id="no"><td></td><td></td><td></td><td></td><tr>
+                <!-- begin_table_1 -->
+                <tr id="{table_fields_position}" data-type="{type_fields_1}" class="color">
+                    <td id ="decor_l" class="decor_l">&nbsp;</td>
+                    <td class="right" style="width:44%">
+                        <a href="{url_page}?table={table_this_1}&fields={table_status_1}#{table_this_1}">
+                        <!-- begin_bb_1 --><b><!-- end_bb_1 -->{table_title_this_1}<!-- begin_be_1 --></b><!-- end_be_1 -->
+                        </a>
+                    </td>
+                    <td id="td_{table_status_1}" class="td_action" style="text-align: center;">
+                        <div class="status" style="display:inline-block;">
+                            <a href="" onclick="visible('{table_status_1}'); return false;">{status_1}</a>
+                        </div>
+                        <!-- begin_table_1_join -->
+                        <div class="bl_status" style="display:inline-block; <!-- begin_table_1_join_hide -->display:none;<!-- end_table_1_join_hide -->">
+                            |
+                            <div class="join_status" style="display:inline-block; ">
+                                <a href="" onclick="set_status_join('{table_status_1}'); return false;">{status_join_1}</a>
+                            </div>
+                        </div>
+                        <!-- end_table_1_join -->
+                    </td>
+                    <td class="last"  style="width:40%">{type_1}</td>
+                    <td id ="decor_r" class="decor_r">&nbsp;</td>
+                </tr>
+                <!-- end_table_1 -->
+            <tbody>
+        </table>
+
+        <h2>{fields_section_2}</h2>
+        <table id="sort_2" class="tb_fields">
+        <thead>
+        <tr>
+            <th class="decor_l">&nbsp;</th>
+            <th class="right" >{l_field}</th>
+            <th class="td_action" style="text-align: center;">{l_status}</th>
+            <th class="last">{l_type}</th>
+            <th class="decor_r">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody data-module="appearance">
+        <tr id="no"><td></td><td></td><td></td><td></td><tr>
+        <!-- begin_table_2 -->
+        <tr id="{table_fields_position}" data-type="{type_fields_2}" class="color">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+            <td class="right" style="width:44%">
+                <a href="{url_page}?table={table_this_2}&fields={table_status_2}#{table_this_2}">
+                <!-- begin_bb_2 --><b><!-- end_bb_2 -->{table_title_this_2}<!-- begin_be_2 --></b><!-- end_be_2 -->
+                </a>
+            </td>
+            <td id="td_{table_status_2}" class="td_action" style="text-align: center;">
+                <div class="status" style="display:inline-block;">
+                    <a href="" onclick="visible('{table_status_2}'); return false;">{status_2}</a>
+                </div>
+                <!-- begin_table_2_join -->
+                    <div class="bl_status" style="display:inline-block; <!-- begin_table_2_join_hide -->display:none;<!-- end_table_2_join_hide -->">
+                        |
+                        <div class="join_status" style="display:inline-block; ">
+                            <a href="" onclick="set_status_join('{table_status_2}'); return false;">{status_join_2}</a>
+                        </div>
+                    </div>
+                <!-- end_table_2_join -->
+
+            </td>
+            <td class="last" style="width:40%">{type_2}</td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_table_2 -->
+        <tbody>
+        </table>
+        <!-- begin_table_3_fields -->
+        <h2>{fields_section_3}</h2>
+        <table id="sort_3" class="tb_fields">
+        <thead>
+        <tr>
+            <th class="decor_l">&nbsp;</th>
+            <th class="right" >{l_field}</th>
+            <th class="td_action"  style="text-align: center;">{l_status}</th>
+            <th class="last">{l_type}</th>
+            <th class="decor_r">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody data-module="empty">
+            <tr id="no"><td></td><td></td><td></td><td></td><tr>
+        <!-- begin_table_3 -->
+        <tr id="{table_fields_position}" data-type="{type_fields_3}" class="color">
+            <td id ="decor_l" class="decor_l">&nbsp;</td>
+            <td class="right" style="width:44%">
+                <a href="{url_page}?table={table_this_3}&fields={table_status_3}#{table_this_3}">
+                <!-- begin_bb_3 --><b><!-- end_bb_3 -->{table_title_this_3}<!-- begin_be_3 --></b><!-- end_be_3 -->
+                </a>
+            </td>
+            <td id="td_{table_status_3}" class="td_action" style="text-align: center;">
+                <div class="status" style="display:inline-block;">
+                    <a href="" onclick="visible('{table_status_3}'); return false;">{status_3}</a>
+                </div>
+                <!-- begin_table_3_join -->
+                    <div class="bl_status" style="display:inline-block; <!-- begin_table_3_join_hide -->display:none;<!-- end_table_3_join_hide -->">
+                        |
+                        <div class="join_status" style="display:inline-block; ">
+                            <a href="" onclick="set_status_join('{table_status_3}'); return false;">{status_join_3}</a>
+                        </div>
+                    </div>
+                <!-- end_table_3_join -->
+            </td>
+            <td class="last" style="width:40%">{type_3}</td>
+            <td id ="decor_r" class="decor_r">&nbsp;</td>
+        </tr>
+        <!-- end_table_3 -->
+        <tbody>
+        </table>
+        <!-- end_table_3_fields -->
+        </div>
+        <script>
+            setWidthFields();
+        </script>
+
+            <div class="btn fl_right fileds_no_social">
+                <a href="" onclick="getPosition(); return false;">{l_save}</a>
+            </div>
+            <div style="clear: both;"></div>
+
+		<form name="users_fields" enctype="multipart/form-data" action="{url_page}?table={table}&fields={table_fields}" method="POST">
+		<input type="hidden" name="cmd" value="update">
+        <input type="hidden" name="fields" value="{table_fields}">
+
+        <h2 class="edit_field" id="{table_title_id}">{table_title}</h2>
+        <!-- begin_language -->
+        <p style="font-size: 11px; padding-bottom: 0px;"><b>{l_translation}:</b>
+            <select id="translit" style="margin:0px 0px 14px 6px;" name="language">
+                <option value="edit_mode">{l_please_choose}</option>
+                {select_options_language}
+            </select>
+        </p>
+        <!-- end_language -->
+        <!-- begin_chart -->
+        <p style="font-size: 11px; padding-bottom: 0px;"><b>{l_graph_in_the_profile}: </b>
+            <select style="margin:0px 0px 14px 5px;" name="chart">
+                {select_options_chart}
+            </select>
+        </p>
+        <!-- end_chart -->
+        <!-- begin_question_title -->
+        <label style="margin-bottom: 5px;">{l_question_title}:</label>
+        <div style="border:1px solid #b7b4b4; padding: 14px 0px 0px 12px; border-radius:4px;">
+            <p style="font-size: 11px; padding-bottom: 0px;"><strong style="font-weight: normal;">{l_translation}:</strong>
+                <select id="translit_question" style="margin:0px 0px 14px 6px;" <!-- begin_question_title_translit_disabled -->disabled<!-- end_question_title_translit_disabled -->  name="translit_language">
+                    <option value="edit_mode">{l_please_choose}</option>
+                    {select_options_language}
+                </select>
+            </p>
+        <input id="question_title" type="text" name="question_title" value="{question_title_value}">
+        </div>
+        <script>
+            $(function() {
+                var $qt=$('#question_title'),$ql=$('#translit_question');
+                $qt.on('change propertychange input',function(){
+                    //$ql.prop('disabled',!trim($qt.val()));
+                }).change();
+            })
+        </script>
+        <!-- end_question_title -->
+        <!-- begin_field_answer_checks -->
+        <label style="margin-bottom: 10px; margin-top:10px;">{l_answer_type}:</label>
+        <div style="border:1px solid #b7b4b4; padding: 14px 0px 0px 12px; border-radius:4px;">
+        <!-- begin_field_answer_checks_item -->
+        <label style="margin-top: -5px; margin-bottom: 5px;">{answer_orientation}</label>
+        <div style="float:left;">
+            <label style="margin-top: -5px; margin-bottom: 5px; display:inline-block;">{l_yes}: </label>
+            <div style="display:inline-block; padding:0px 4px;">{l_from}</div>
+            <select name="answer_yes_from[{answer_orientation_id}]" style="display:inline; width: 161px;">
+                <option selected value="">&nbsp;</option>
+                {answer_yes_options_from}
+            </select>
+            <div style="display:inline-block; padding:0px 4px;">{l_to}</div>
+            <select name="answer_yes_to[{answer_orientation_id}]" style="display:inline; width: 161px;">
+                <option selected value="">&nbsp;</option>
+                {answer_yes_options_to}
+            </select>
+        </div>
+        <div style="float:left; margin-left: 20px;">
+            <label style="margin-top: -5px; margin-bottom: 5px; display:inline-block;">{l_no}: </label>
+            <div style="display:inline-block; padding:0px 4px;">{l_from}</div>
+            <select name="answer_no_from[{answer_orientation_id}]" style="display:inline; width: 161px;">
+                <option selected value="">&nbsp;</option>
+                {answer_no_options_from}
+            </select>
+            <div style="display:inline-block; padding:0px 4px;">{l_to}</div>
+            <select name="answer_no_to[{answer_orientation_id}]" style="display:inline; width: 161px;">
+                <option selected value="">&nbsp;</option>
+                {answer_no_options_to}
+            </select>
+        </div>
+        <div class="cl" style="margin-bottom: 10px;"></div>
+        <!-- end_field_answer_checks_item -->
+        </div>
+        <!-- end_field_answer_checks -->
+        <!-- begin_no_variables -->
+        <p>{message_fields}</p>
+        <p>{l_no_variables}</p>
+        <!-- end_no_variables -->
+        <p>{message_fields}</p>
+        <!-- begin_fields -->
+        <!-- begin_field -->
+        <label>{l_title_field}:</label>
+        <input type="text" name="id[{id}]" value="{value}" {field_input_disabled}>
+        <!-- begin_field_answer_selection -->
+        <label style="margin-top: -5px; margin-bottom: 5px;">{l_answer_type}:</label>
+        <input type="checkbox" class="radio" name="answer_yes[{id}]" {answer_yes_checked}> {l_yes}
+        <input type="checkbox" class="radio" name="answer_no[{id}]" {answer_no_checked}> {l_no}
+        <!-- end_field_answer_selection -->
+        <!-- begin_field_answer_radio -->
+        <label style="margin-top: -5px; margin-bottom: 5px;">{l_answer_type}:</label>
+        <input type="radio" class="radio answer_radio answer_radio_yes" data-type="yes" name="answer_yes" value="{id}" {answer_yes_checked}> {l_yes}
+        <input type="radio" class="radio answer_radio answer_radio_no" data-type="no" name="answer_no" value="{id}" {answer_no_checked}> {l_no}
+        <div class="cl" style="margin-bottom: 20px;"></div>
+        <script>
+            $(function() {
+                $('.answer_radio').change(function(e){
+                    var $el=$(this);
+                    var t=$el.data('type')=='yes'?'no':'yes';
+                    $(".answer_radio_"+$el.data('type')).each(function(){
+                        var $el=$(this);
+                        $(".answer_radio_"+t+"[value='"+$el.val()+"']").prop('disabled',$el.prop('checked'));
+                    })
+                    return false;
+                }).change();
+            })
+        </script>
+        <!-- end_field_answer_radio -->
+        <div style="height:15px"></div>
+        <!-- begin_field_upload_ico -->
+        <label style="margin-top: -25px; margin-bottom: -6px;">{field_upload_ico_title}:</label>
+        <div style="margin-top: 10px; margin-bottom:10px;">
+            <div class="block_logo_ico" style="float:left; margin-right: 10px; <!-- begin_field_upload_ico_dark -->background-color:#B2B2B2;<!-- end_field_upload_ico_dark -->">
+                <img width="16" src="{url_ico}?rand={rand}" alt=""/>
+            </div>
+            <div style="margin-top:-4px;  float:left;">
+                <input style="height: 21px; margin-top:0px;"  class="upload" type="file" name={field_upload_ico_type}[{id}]>
+            </div>
+        </div>
+        <div style="height:28px" class="cl"></div>
+        <!-- end_field_upload_ico -->
+
+		<!-- begin_default_value -->
+		<label style="margin-top: -23px; margin-bottom:3px;">{l_default}:</label>
+        <div class="radio_block">
+            <input type="radio" class = "radio" onMouseDown="this.isChecked=this.checked;" onClick="this.checked=!this.isChecked;" name="default" value="{id}" {default_checked}>
+        </div>
+        <div style="height:7px;" class="cl"></div>
+		<!-- end_default_value -->
+        <!-- end_field -->
+
+        <!-- begin_field_o -->
+        <label>{l_title_field}:</label>
+
+        <input type="text" name="id[{id}]" value="{value}">
+        <label style="padding-bottom:3px;">{l_search}:</label>
+        <!--<select name="search[{id}]" class="input">
+            <option selected value="0">{l_please_choose}</option>
+            {search_options}
+        </select>-->
+
+        <!-- begin_field_o_search_item -->
+        <label style="margin-bottom: 3px; font-weight: normal; cursor:pointer;">
+            <input type="checkbox" class="radio" name="search_o[{id}][{search_id}]" {search_checked} value="{search_id}"> {search_title}
+        </label>
+        <!-- end_field_o_search_item -->
+
+        <label style="padding-bottom:3px;">{l_gender}:</label>
+
+        <div class="radio_block">
+            <input type="radio" class = "radio" name="gender[{id}]" value="M" {gender_m}> {l_male}
+            <input type="radio" class = "radio" name="gender[{id}]" value="F" {gender_f}> {l_female}
+			<input type="radio" class = "radio" name="gender[{id}]" value="C" {gender_c}> {l_couples}
+        </div>
+        <div style="height:7px;" class="cl"></div>
+
+        <label>{l_free_access}:</label>
+        <select name="free[{id}]" class="input">
+			{select_free_access}
+        </select>
+        <div class="radio_block">
+            <label>
+            <input type="radio" class = "radio" onMouseDown="this.isChecked=this.checked;" onClick="this.checked=!this.isChecked;" name="default" value="{id}" {default_checked}>
+            {l_default_registration_gender}</label>
+        </div>
+        <div style="height:15px;" class="cl"></div>
+        <!-- begin_field_upload_ico_o -->
+        <br>
+        <label style="margin-top: -15px; margin-bottom: -6px;">{field_upload_ico_o_title}:</label>
+        <div style="margin-top: 10px; margin-bottom:10px;">
+            <div class="block_logo_ico" style="float:left; margin-right: 10px; <!-- begin_field_upload_ico_o_dark -->background-color:#B2B2B2;<!-- end_field_upload_ico_o_dark -->">
+                <img width="16" src="{url_ico}?rand={rand}" alt=""/>
+            </div>
+            <div style="margin-top:-4px;  float:left;">
+                <input style="height: 21px; margin-top:0px;"  class="upload" type="file" name={field_upload_ico_o_type}[{id}]>
+            </div>
+        </div>
+        <div style="height:28px" class="cl"></div>
+        <!-- end_field_upload_ico_o -->
+        <!-- end_field_o -->
+        <!-- begin_block_add -->
+        <label>{l_add}:</label>
+        <input type="text" name="id[-1]" value="">
+        <!-- begin_block_add_upload_ico -->
+        <label style="margin-top: -5px; margin-bottom: -6px;">{block_add_upload_ico_title}:</label>
+        <div style="margin-top: 10px; margin-bottom:10px;">
+            <div style="margin-top:-4px;  float:left;">
+                <input style="height: 21px; margin-top:0px; width: 370px;" class="upload" type="file" name={block_add_upload_ico_type}[-1]>
+            </div>
+        </div>
+        <div style="height:10px" class="cl"></div>
+        <!-- end_block_add_upload_ico -->
+
+        <div class="btn fl_right"><a href="" class="submit">{l_save}</a></div>
+        <!-- end_block_add -->
+        <!-- begin_block_btn_add -->
+        <div class="btn fl_right"><a href="" class="submit">{l_save}</a></div>
+        <!-- end_block_btn_add -->
+        <!-- end_fields -->
+        <!-- begin_button_delete -->
+		<div class="btn fl_right"><a href="#" onclick="if (confirm('{l_are_you_sure}')) { document.forms.users_fields.cmd.value='delete'; document.forms.users_fields.submit(); return true;} else return false;">{l_delete_this}</a></div>
+		<!-- end_button_delete -->
+
+    </div>
+    <div class="empty"></div>
+</div>
+{footer}
+
+
+
+
+

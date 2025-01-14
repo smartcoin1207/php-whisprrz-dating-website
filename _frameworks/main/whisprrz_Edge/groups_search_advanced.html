@@ -1,0 +1,227 @@
+{header}
+
+<script>
+	clGroups.initAddPage('{init_is_page}', '{group_photo_id}');
+</script>
+<style>
+	.panel-heading {
+		padding: 5px 10px;
+	}
+
+	.list-group-item {
+		padding: 5px 10px;
+	}
+
+
+
+	.search-section .container {
+		width: 100%;
+	}
+
+	.search-section .dropdown-toggle {
+		height: 43px;
+	}
+
+	.search-section .section {
+		margin-bottom: 10px;
+	}
+
+	.group-section {
+		width: 180px;
+	}
+
+	#filter_results .row{
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.bl_filter .bl_forms {
+	    padding: 0;
+	}
+
+	.bl_forms .fields .field {
+		height: auto;
+		margin: 0 0 13px;
+	}
+
+	.search_result {
+		width: 250px;
+	}
+
+	.wall .people_wrap.page_list, .wall .blogs_wrap.page_list {
+		padding: 0;
+	}
+</style>
+
+<div class="frame_content">
+	<div class="group_search_advanced_header">
+		{list}
+	</div>
+	<div style="display: flex; justify-content: space-between;">
+		<div style="float: left;">
+			<div class="my-group">
+				<!-- begin_group_own -->
+				<!-- begin_group_items -->
+				<div class="panel panel-primary group-section">
+					<div class="panel-heading" style="font-size: 15px;">{group_topic_title}</div>
+					<div class="panel-body" style="padding: 0;">
+						<ul class="list-group" style="margin-bottom: 0;">
+							<!-- begin_group_item -->
+							<li class="list-group-item">
+								<a href="{group_url}" style="text-decoration: underline;">{group_title}</a>
+							</li>
+							<!-- end_group_item -->
+						</ul>
+					</div>
+				</div>
+				<!-- end_group_items -->
+				<!-- end_group_own -->
+			</div>
+
+			<div class="group-belong">
+				<!-- begin_group_belong -->
+				<!-- begin_group_belong_items -->
+				<div class="panel panel-primary group-section">
+					<div class="panel-heading" style="font-size: 15px;">{group_topic_title}</div>
+					<div class="panel-body" style="padding: 0;">
+						<ul class="list-group" style="margin-bottom: 0;">
+							<!-- begin_group_belong_item -->
+							<li class="list-group-item">
+								<a href="{group_url}" style="text-decoration: underline;">{group_title}</a>
+							</li>
+							<!-- end_group_belong_item -->
+						</ul>
+					</div>
+				</div>
+				<!-- end_group_belong_items -->
+				<!-- end_group_belong -->
+			</div>
+		</div>
+
+		<div >
+			<div class="searh_result">
+				<!-- begin_group_search_result -->
+					<!-- begin_no_empty -->
+					<div class="panel panel-primary group-section search_result">
+						<div class="panel-heading" style="font-size: 15px;">{group_topic_title}</div>
+						<div class="panel-body" style="padding: 0; text-align: center;">
+							{l_group_search_empty}
+						</div>
+					</div>
+					<!-- end_no_empty -->
+
+					<!-- begin_group_search_items -->
+					<div class="panel panel-primary group-section search_result">
+						<div class="panel-heading" style="font-size: 15px;">{group_topic_title}</div>
+						<div class="panel-body" style="padding: 0;">
+							<ul class="list-group" style="margin-bottom: 0;">
+								<!-- begin_group_search_item -->
+								<li class="list-group-item">
+									<a href="{group_url}" style="text-decoration: underline;">{group_title}</a>
+								</li>
+								<!-- end_group_search_item -->
+							</ul>
+						</div>
+					</div>
+					<!-- end_group_search_items -->
+				<!-- end_group_search_result -->
+			</div>
+
+		</div>
+
+		<div style="float: right;">
+			<div class="group-newest">
+				<!-- begin_group_newest -->
+				<!-- begin_group_newest_items -->
+				<div class="panel panel-primary group-section">
+					<div class="panel-heading" style="font-size: 15px;">{group_topic_title}</div>
+					<div class="panel-body" style="padding: 0;">
+						<ul class="list-group" style="margin-bottom: 0;">
+							<!-- begin_group_newest_item -->
+							<li class="list-group-item">
+								<a href="{group_url}" style="text-decoration: underline;">{group_title}</a>
+							</li>
+							<!-- end_group_newest_item -->
+						</ul>
+					</div>
+				</div>
+				<!-- end_group_newest_items -->
+				<!-- end_group_newest -->
+			</div>
+
+			<div class="group-popular">
+				<!-- begin_group_popular -->
+				<!-- begin_group_popular_items -->
+				<div class="panel panel-primary group-section">
+					<div class="panel-heading" style="font-size: 15px;">{group_topic_title}</div>
+					<div class="panel-body" style="padding: 0;">
+						<ul class="list-group" style="margin-bottom: 0;">
+							<!-- begin_group_popular_item -->
+							<li class="list-group-item">
+								<a href="{group_url}" style="text-decoration: underline;">{group_title}</a>
+							</li>
+							<!-- end_group_popular_item -->
+						</ul>
+					</div>
+				</div>
+				<!-- end_group_popular_items -->
+				<!-- end_group_popular -->
+			</div>
+
+			<div class="group-closet">
+				<!-- begin_group_closet -->
+				<!-- begin_group_closet_items -->
+				<div class="panel panel-primary group-section">
+					<div class="panel-heading" style="font-size: 15px;">{group_topic_title}</div>
+					<div class="panel-body" style="padding: 0;">
+						<ul class="list-group" style="margin-bottom: 0;">
+							<!-- begin_group_closet_item -->
+							<li class="list-group-item">
+								<a href="{group_url}" style="text-decoration: underline;">{group_title}</a>
+							</li>
+							<!-- end_group_closet_item -->
+						</ul>
+					</div>
+				</div>
+				<!-- end_group_closet_items -->
+				<!-- end_group_closet -->
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+<script>
+	var checkBox = document.getElementById("location_enabled");
+
+
+	checkBox.addEventListener('change', function() {
+
+		var country_select = document.getElementById("country");
+		var state_select = document.getElementById("state");
+		var city_select = document.getElementById("city");
+		var country_button = document.querySelector('button[data-id="country"]');
+		var state_button = document.querySelector('button[data-id="state"]');
+		var city_button = document.querySelector('button[data-id="city"]');
+
+	    if (this.checked) {
+			country_select.removeAttribute("disabled"); 
+			state_select.removeAttribute("disabled"); 
+			city_select.removeAttribute("disabled"); 
+			country_button.classList.remove('disabled');
+			state_button.classList.remove('disabled');
+			city_button.classList.remove('disabled');
+
+	    } else {
+			country_select.setAttribute("disabled", "disabled"); 
+			state_select.setAttribute("disabled", "disabled"); 
+			city_select.setAttribute("disabled", "disabled"); 
+		    country_button.classList.add('disabled');
+		    state_button.classList.add('disabled');
+		    city_button.classList.add('disabled');
+	    }
+	});
+</script>
+
+{footer}

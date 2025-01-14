@@ -1,0 +1,197 @@
+{header}
+<style>
+select{height: 22px;}
+</style>
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li><a href="{url_main}administration/ipblock.php">{l_menu_ipblock}</a></li>
+        <li><a href="{url_main}administration/ban_users.php">{l_menu_users_ban_mails}</a></li>
+        <li><a href="{url_main}administration/users_reports.php">{l_menu_report}</a></li>
+        <li><a href="{url_main}administration/support_tickets.php">{l_menu_ticket}</a></li>
+        <li><a href="{url_main}administration/users_results.php">{l_menu_users}</a></li>
+        <li><a href="{url_main}administration/users_approval.php?view=activate">{l_menu_users_activate}</a></li>
+        <li><a href="{url_main}administration/users_approval.php">{l_menu_users_approval}</a></li>
+        <li  class="active"><a href="{url_main}administration/users_search.php">{l_menu_search}</a></li>
+        <li><a href="{url_main}administration/users_photo.php">{l_menu_photos}</a></li>
+        <li><a href="{url_main}administration/users_video.php">{l_menu_videos}</a></li>
+        <li><a href="{url_main}administration/users_text.php">{l_menu_texts}</a></li>
+        <li><a href="{url_main}administration/users_events.php">{l_moderator_event_title}</a></li>
+        <li><a href="{url_main}administration/users_hotdates.php">{l_moderator_hotdate_title}</a></li>
+        <li><a href="{url_main}administration/users_partyhouz.php">{l_moderator_partyhouz_title}</a></li>
+        <li><a href="{url_main}administration/users_craigs.php">{l_moderator_craigs_title}</a></li>
+        <li><a href="{url_main}administration/users_wowslider.php">{l_moderator_wowslider_title}</a></li>
+        <li><a href="{url_main}administration/users_filter.php">{l_menu_filter}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_title_current}</h2>
+
+    <script Language="JavaScript" type="text/javascript">
+        var blockSubmission = false;
+        function removeSubmissionBlock() {
+        blockSubmission = false;
+        }
+        function isSubmissionAllowed() {
+        if(blockSubmission){
+           return false;
+        }
+        return;
+        }
+        document.onclick = isSubmissionAllowed;
+        document.onkeydown = isSubmissionAllowed;
+
+        function onValidateadvsearch() {
+        var form = document.forms['advsearch'];
+        // "country" field validation.
+        //if (!(validateRequiredSelect(form['country'],'Country','-1'))) {
+        //  removeSubmissionBlock();
+        //  return false;
+        //}
+        // "state" field validation.
+        if (!(validateRequiredSelect(form['state'],'{l_state_province}','-1'))) {
+          removeSubmissionBlock();
+          return false;
+        }
+        // "city" field validation.
+        if (!(validateRequiredSelect(form['city'],'{l_city}','-1'))) {
+          removeSubmissionBlock();
+          return false;
+        }
+        return true;
+        }
+        function validateadvsearch() {
+        blockSubmission = true;
+         if (typeof beforeadvsearchValidation != 'undefined') {
+           beforeadvsearchValidation();
+        }
+        var validated = onValidateadvsearch();
+        if (validated && (typeof uponSuccessfuladvsearchValidation != 'undefined')) {
+          validated = uponSuccessfuladvsearchValidation();
+        }
+        else if (!validated && (typeof uponUnsuccessfuladvsearchValidation != 'undefined')) {
+          uponUnsuccessfuladvsearchValidation();
+        }
+        if (!validated) {
+          removeSubmissionBlock();
+        }
+        return validated;
+        }
+        function submitadvsearch() {
+        if (validateadvsearch()) document.advsearch.submit();
+        }
+    </script>
+
+    <div class="bl_form">
+    	<form name="advsearch" method="GET" action="{url_main}administration/users_results.php" onSubmit="return validateadvsearch();">
+
+        <label>{l_name}:</label>
+        <input type="text" type="text" name="name" maxlength="200"/>
+        <label>{l_email}:</label>
+        <input type="text" type="text" name="mail" maxlength="200"/>
+
+        <div class="bl_label">
+            <label class="fl_left">{l_gold}</label>
+            <div class="fl_right"><input class="check" type="radio" name="gold" value="1"></div>
+            <div class="justify"></div>
+        </div>
+        <div class="bl_label">
+            <label class="fl_left">{l_free}</label>
+            <div class="fl_right"><input class="check" type="radio" name="gold" value="0"></div>
+            <div class="justify"></div>
+        </div>
+
+        <div class="bl_inline">
+            <label class="inline">{l_date_register}:</label>
+            <input type="date" name="r_from" value="0000-00-00" maxlength="10" style="margin-top: -3px;">
+            <label class="inline">{l_to}:</label>
+            <input type="date" name="r_to" value="{r_to}" maxlength="10" style="margin-top: -3px;">
+        </div>
+
+
+        <label class="inline">{l_from}:</label> <select name="p_age_from" style="width: 60px;">{p_age_from_options}</select>
+        <label class="inline">{l_to}:</label> <select name="p_age_to" style="width: 60px;">{p_age_to_options}</select> {l_years_old}
+
+        <!-- begin_p_orientations -->
+        <label style="margin-top: 13px;">{field_title}:</label>
+		<table style="margin-bottom: 13px;">
+            <!-- begin_p_orientation -->
+            <tr>
+                <td style="padding-right: 10px;"><input class="check" name="p_orientation[]" type="checkbox" value="{id}" {checked}></td>
+                <td style="width:100%">{title}</td>
+            </tr>
+            <!-- end_p_orientation -->
+		</table>
+        <!-- end_p_orientations -->
+
+        <!-- begin_p_relations -->
+        <label>{field_title}:</label>
+		<table style="margin-bottom: 13px;">
+            <!-- begin_p_relation -->
+            <tr>
+                <td style="padding-right: 10px;"><input class="check" name="p_relation[]" type="checkbox" value="{id}" {checked}></td>
+                <td style="width:100%">{title}</td>
+            </tr>
+            <!-- end_p_relation -->
+		</table>
+        <!-- end_p_relations -->
+
+        <!-- begin_i_am_here_tos -->
+        <label>{field_title}:</label>
+		<table style="margin-bottom: 13px;">
+            <!-- begin_i_am_here_to -->
+            <tr>
+                <td style="padding-right: 10px;"><input class="check" name="i_am_here_to[]" type="checkbox" value="{id}" {checked}></td>
+                <td style="width:100%">{title}</td>
+            </tr>
+            <!-- end_i_am_here_to -->
+		</table>
+        <!-- end_i_am_here_tos -->
+
+        <script language="JavaScript" type="text/javascript">
+            function locationredirect() {
+                try {
+                blockSubmission = true;
+            } catch(e) { }
+                locationReplaceForm(document.advsearch, '{url_main}administration/users_search.php');
+            }
+            function resetLocation(){
+                document.advsearch.city.disabled = 'true';
+                document.advsearch.state.disabled = 'true';
+                document.advsearch.country.disabled = 'true';
+                locationReplaceForm(document.advsearch, '{url_main}administration/users_search.php');
+            }
+        </script>
+        <div class="bl_inline" style="margin-bottom: 13px;">
+        <label>{location}:</label>
+        <select style="width: 100px;" name="country" onChange="locationredirect();submitForm(document.advsearch, '{url_main}administration/users_search.php')">
+        <option value="" selected>{l_select_all}</option>
+        {country_options}
+        </select>
+        <select name="state" onChange="locationredirect()" style="width: 100px;">
+        <option value="0">{l_select_all}</option>
+        {state_options}
+        </select>
+        <select name="city" style="width: 100px;">
+        <option value="0">{l_select_all}</option>
+        {city_options}
+        </select>
+        </div>
+
+        <label>{l_keyword}:</label>
+        <input type="text" name="keyword" maxlength="200">
+
+        <div class="bl_label">
+            <label class="fl_left" for="use_as_online" style="cursor: pointer;">{l_use_as_online}</label>
+            <div class="fl_right"><input class="check" type="checkbox" id="use_as_online" name="use_as_online" value="1"></div>
+            <div class="cl"></div>
+        </div>
+
+        <div class="btn fl_right"><a href="#" class="submit">{l_search}</a>
+									<input type="submit" style="visibility:hidden;position:absolute;">
+		</div>
+	    </form>
+    </div>
+
+    <div class="empty"></div>
+</div>
+{footer}

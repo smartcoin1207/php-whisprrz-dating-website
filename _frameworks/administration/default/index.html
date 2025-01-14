@@ -1,0 +1,84 @@
+{header}
+
+<!-- begin_admin_page -->
+
+<div class="block_narrow">
+    <ul class="lmenu_lgreen">
+        <li class="active" ><a href="{url_main}administration/index.php">{l_login_to_admin}</a></li>
+        <li><a href="{url_main}" target="_blank" >{l_view_site}</a></li>
+    </ul>
+</div>
+<div class="block_main">
+    <h2>{l_enter_password}</h2>
+
+    <div class="bl_form">
+        <form action="{url_main}administration/index.php?cmd=login" method="POST" name="Admin">
+            <label>{l_your_login}:</label>
+            <input type="text" id="login" name="login"/>
+
+            <label>{l_your_password}:</label>
+            <input type="password" id="password" name="password"/>
+
+            <a href="{url_main}administration/forget_password.php?">{l_forgot_password}</a>
+
+            <div class="btn fl_right"><a href="#" id="do_login" class="submit2">{l_login}</a>
+			<input type="submit" style="visibility:hidden;position:relative;" id="do_login">
+
+			</div>
+        </form>
+
+<span id="do_login_results"></span>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		$('#do_login').click(function() {
+		    
+		   var psw = $('#password').val();
+         var encodedString = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(psw));
+        localStorage.setItem('crypta', encodedString);
+        
+
+			$('#do_login_results').load("index.php", {
+					cmd: "login",
+					cmd_ajax: "1",
+					login: $('#login').val(),
+					password: $('#password').val()
+
+			});
+
+			return false;
+
+		});
+
+		<!-- begin_demo -->
+		$(document).ready(function() {
+			$('#login').val('admin');
+			$('#password').val('test');
+		});
+		<!-- end_demo -->
+
+	});
+
+</script>
+
+    </div>
+</div>
+
+<!-- end_admin_page -->
+
+<!-- begin_admin_page_auth -->
+<script type='text/javascript'>document.location.href = '{url}';</script>
+<!-- end_admin_page_auth -->
+<!-- begin_admin_page_auth_time_error -->
+<script type='text/javascript'>alert("{l_time_incorrect}");</script>
+<!-- end_admin_page_auth_time_error -->
+
+<!-- begin_admin_page_auth_error -->
+<script type='text/javascript'>alert("{l_login_incorrect}"); i={prevent_cache};</script>
+<!-- end_admin_page_auth_error -->
+
+{footer}

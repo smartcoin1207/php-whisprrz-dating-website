@@ -1,0 +1,122 @@
+{header}
+<div id="wide" class="box"><div class="bbt"><div class="bbb"><div class="bbl"><div class="bbr"><div class="bbtl"><div class="bbtr"><div class="bbbl"><div class="bbbr">
+<input style="width: 150px;" type="button" value="{l_all_groups}" class="button" onclick="location='{url_main}groups.php';" title="{l_all_groups}">
+<input style="width: 150px;" type="button" value="{l_my_groups}" class="button" onclick="location='{url_main}groups_my.php';" title="{l_my_groups}">
+<input style="width: 150px;" type="button" value="{l_create_group}" class="button" onclick="location='{url_main}groups_add.php?cat_id={cat_id}';" title="{l_create_group}">
+<br><br>
+				<!-- begin_group_member -->
+				<h2>{l_members}</h2>
+						<!-- begin_group_member_item -->
+<div style="float: left;width:100px; text-align:center;"><a href="search_results.php?display=profile&name={user_name}"><img src="{url_files}{member_photo}" class=img_border /></a><br>
+<b><a href="search_results.php?display=profile&name={user_name}">{user_name}</a></b>
+<br>
+
+		
+		<!-- begin_admin_ban -->
+		<a href="groups_members.php?gid={gid}&user_id={user_id}&action={ban_action}">{ban_name}</a>
+		<!-- end_admin_ban -->
+
+		<!-- begin_admin_del -->
+		<a href="groups_members.php?gid={gid}&user_id={user_id}&action=del_user">{l_delete}</a>
+		<!-- end_admin_del -->
+		
+		
+
+
+
+</div>
+						<!-- end_group_member_item -->
+				<br style="clear:both"><br /><hr class=line><br />
+				<!-- end_group_member -->
+
+
+
+
+	    <!-- begin_group_member_pages -->
+
+			<div class="body_text" style="padding-bottom: 16px; text-align:center;">
+
+				<!-- begin_group_member_prev_page -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_prev}</a>&nbsp; | &nbsp;
+
+				<!-- end_group_member_prev_page -->
+
+				<!-- begin_group_member_prev_page_off -->
+
+				<b>{l_prev}</b>&nbsp; | &nbsp;
+
+				<!-- end_group_member_prev_page_off -->
+
+
+
+				<!-- begin_group_member_first_page -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_page_1}</a>&nbsp;
+
+				<!-- end_group_member_first_page -->
+
+
+
+				<!-- begin_group_member_prev_pages -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&lt;&lt;</a>&nbsp;
+
+				<!-- end_group_member_prev_pages -->
+
+
+
+				<!-- begin_group_member_page -->
+
+					<!-- begin_group_member_link_page -->
+
+					<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{page}</a>&nbsp;
+
+					<!-- end_group_member_link_page -->
+
+					<!-- begin_group_member_this_page -->
+
+					<b>{page}</b>
+
+					<!-- end_group_member_this_page -->
+
+				<!-- end_group_member_page -->
+
+
+
+				<!-- begin_group_member_next_pages -->
+
+				<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">&gt;&gt;</a>&nbsp;
+
+				<!-- end_group_member_next_pages -->
+
+
+
+				<!-- begin_group_member_last_page -->
+
+				<b>{l_of}</b> <a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{num_pages}</a>&nbsp;
+
+				<!-- end_group_member_last_page -->
+
+
+
+				<!-- begin_group_member_next_page -->
+
+				&nbsp; | &nbsp;<a href="{url_main}{url_page}?offset={offset}{params}" class="pri_text_bold">{l_next}</a>
+
+				<!-- end_group_member_next_page -->
+
+				<!-- begin_group_member_next_page_off -->
+
+				&nbsp; | &nbsp;<b>{l_next}</b>
+
+				<!-- end_group_member_next_page_off -->
+
+			</div>
+
+
+
+            <!-- end_group_member_pages -->
+
+</div></div></div></div></div></div></div></div></div>
+{footer}

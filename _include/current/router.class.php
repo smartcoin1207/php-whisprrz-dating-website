@@ -444,8 +444,8 @@ class Router {
             'songs'                => 'songs_list',
             'events_guest_users' => 'events_guest_users',
             'hotdates_guest_users' => 'hotdates_guest_users',
-            'partyhouz_guest_users' => 'partyhouz_guest_users'
-
+            'partyhouz_guest_users' => 'partyhouz_guest_users',
+            'forum' => 'forum',
         );
 
         return $pages;

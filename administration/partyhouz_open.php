@@ -45,8 +45,13 @@ class Opartyhousz extends CHtmlList
 
 		$this->m_sql_count = "SELECT COUNT(m.open_partyhouz_id) FROM partyhouz_open AS m " . $this->m_sql_from_add . "";
 		
-        $this->m_sql_from_add = "LEFT JOIN partyhouz_partyhou ON partyhouz_partyhou.partyhou_id in ( m.partyhou_ids ) LEFT JOIN partyhouz_category ON partyhouz_partyhou.category_id = partyhouz_category.category_id ";
-        
+        $this->m_sql_from_add = "
+            LEFT JOIN partyhouz_partyhou 
+                ON FIND_IN_SET(partyhouz_partyhou.partyhou_id, m.partyhou_ids) 
+                AND partyhouz_partyhou.partyhou_id = TRIM(TRAILING ',' FROM SUBSTRING_INDEX(m.partyhou_ids, ',', -1))
+            LEFT JOIN partyhouz_category 
+                ON partyhouz_partyhou.category_id = partyhouz_category.category_id
+        ";
         $this->m_sql = "
 			SELECT *
 			FROM partyhouz_open AS m

@@ -390,7 +390,7 @@ var CEvents = function(guid) {
                 }
 
                 if( type == 'partyhouz_partyhou_guest') {
-                    var url  = "" + "partyhouz_wall.php?partyhou_id=" + eventId;
+                    var url  = "" + "partyhou_wall.php?partyhou_id=" + eventId;
                     redirectUrl(url);
                     return;
                 }

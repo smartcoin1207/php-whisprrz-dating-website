@@ -271,6 +271,7 @@ $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
 
 $mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
+$mail_templates_list->template_type = 'GROUP_MAIL';
 $page->add($mail_templates_list);
 
 include './_include/core/main_close.php';

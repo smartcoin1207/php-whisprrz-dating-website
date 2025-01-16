@@ -893,7 +893,7 @@ class CpartyhouzTools
             {
                 self::delete_partyhou_comment($comment['comment_id'], $admin);
             }
-            DB::execute("DELETE FROM partyhouz_partyhou_guest WHERE partyhou_id=".$partyhou['partyhou_id']);//. " LIMIT 1"
+            self::delete_partyhou_guest($partyhou['partyhou_id'], false);
             DB::execute("DELETE FROM partyhouz_partyhou WHERE partyhou_id=".$partyhou['partyhou_id']. " LIMIT 1");
 
             Wall::removeBySiteSection('partyhou', $partyhou['partyhou_id']);

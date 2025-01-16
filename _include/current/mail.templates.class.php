@@ -3,10 +3,13 @@
 
 class CMailTemplates extends CHtmlBlock
 {
+    public $template_type = '';
+
     function action()
     {
         $cmd = get_param('cmd', '');
         $id = get_param('id', '');
+        $template_type = get_param('template_type', '');
         
         if($cmd == 'get_template') {
             try {
@@ -35,6 +38,7 @@ class CMailTemplates extends CHtmlBlock
                          'title' => $title,
                          'subject' => $subject,
                          'text' => $text,
+                         'type' => $template_type,
                 );
                 DB::insert('mail_templates', $row);
                 $id = DB::insert_id();
@@ -47,7 +51,9 @@ class CMailTemplates extends CHtmlBlock
     
     function parseBlock(&$html)
     {
-        $html->setvar('mail_templates_list', Common::listMailTemplates('', false, true));
+        $html->setvar('mail_templates_list', Common::listMailTemplates('', false, $this->template_type));
+        
+        $html->setvar('template_type', $this->template_type);
         parent::parseBlock($html);
     }
 }

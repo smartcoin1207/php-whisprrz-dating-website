@@ -42,7 +42,7 @@ class CForm extends CHtmlBlock
                 
                 DB::query("SELECT m.*, partyhouz_partyhou.* ".
                     "FROM partyhouz_open as m ".
-                    " LEFT JOIN partyhouz_partyhou ON partyhouz_partyhou.partyhou_id in ( m.partyhou_ids ) WHERE m.open_partyhouz_id=" . $open_partyhouz_id );
+                    " LEFT JOIN partyhouz_partyhou ON  FIND_IN_SET(partyhouz_partyhou.partyhou_id, m.partyhou_ids) WHERE m.open_partyhouz_id=" . $open_partyhouz_id );
 
                 if ($partyhou = DB::fetch_row())
                 {
@@ -77,7 +77,7 @@ class CForm extends CHtmlBlock
                         ', signin_transgender='.to_sql($signin_transgender).
                         ', signin_nonbinary='.to_sql($signin_nonbinary).
                         ', signin_everyone='.to_sql($signin_everyone).
-                        ', updated_at=NOW() WHERE partyhou_id=' . $partyhou['partyhou_id']);
+                        ', updated_at=NOW() WHERE partyhou_id=' . to_sql($partyhou['partyhou_id'], 'Number'));
                 }
 	        }
 			
@@ -89,9 +89,9 @@ class CForm extends CHtmlBlock
 		global $g;
 
         $open_partyhouz_id = get_param('open_partyhouz_id');
-        DB::query("SELECT * ".
+        DB::query("SELECT m.*, partyhouz_partyhou.*, partyhouz_category.category_title as category_title ".
             "FROM partyhouz_open as m ".
-            "LEFT JOIN partyhouz_partyhou ON partyhouz_partyhou.partyhou_id in ( m.partyhou_ids ) LEFT JOIN partyhouz_category ON partyhouz_partyhou.category_id = partyhouz_category.category_id WHERE m.open_partyhouz_id=" . to_sql($open_partyhouz_id, 'Number') . " LIMIT 1");
+            "LEFT JOIN partyhouz_partyhou ON FIND_IN_SET(partyhouz_partyhou.partyhou_id, m.partyhou_ids) LEFT JOIN partyhouz_category ON partyhouz_partyhou.category_id = partyhouz_category.category_id WHERE m.open_partyhouz_id=" . to_sql($open_partyhouz_id, 'Number') . " LIMIT 1");
         if($open_partyhouz = DB::fetch_row())
         {
         	$html->setvar('open_partyhouz_id', $open_partyhouz['open_partyhouz_id']);

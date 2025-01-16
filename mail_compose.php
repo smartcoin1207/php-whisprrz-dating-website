@@ -320,6 +320,7 @@ $mailMenu->setActive('compose');
 $page->add($mailMenu);
 
 $mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
+$mail_templates_list->template_type = 'MAIL_COMPOSE';
 $page->add($mail_templates_list);
 
 include("./_include/core/main_close.php");

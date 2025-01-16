@@ -427,8 +427,9 @@ if ($min % 1 == 0) {
         $current_time = date('Y-m-d H:i:s');
     
         $delete_partyhou_sql = "
-            SELECT m.*
+            SELECT m.*, po.*
             FROM partyhouz_partyhou AS m 
+            LEFT JOIN partyhouz_open AS po ON FIND_IN_SET(m.partyhou_id, po.partyhou_ids)
             WHERE m.is_open_partyhouz = 1 
             AND TIMESTAMPDIFF(MINUTE, m.partyhou_datetime, '$current_time') >= $delete_open_partyhou_time
         ";
@@ -436,7 +437,17 @@ if ($min % 1 == 0) {
         $delete_partyhou_rows = DB::rows($delete_partyhou_sql);
         foreach ($delete_partyhou_rows as $row) {
             $partyhou_id = $row['partyhou_id'];
-            CpartyhouzTools::delete_partyhou($partyhou_id, true);
+            $partyhou_ids = $row['partyhou_ids'];
+            $partyhou_ids_array = explode(',', $partyhou_ids);
+            if (end($partyhou_ids_array) != $partyhou_id) {
+                CpartyhouzTools::delete_partyhou($partyhou_id, true);
+                
+                $update_ids_sql = "UPDATE partyhouz_open SET partyhou_ids = 
+                TRIM(BOTH ',' FROM REPLACE(CONCAT(',', partyhou_ids, ','), CONCAT(',', '$partyhou_id', ','), ','))
+                WHERE FIND_IN_SET('$partyhou_id', partyhou_ids)";
+
+                DB::execute($update_ids_sql);
+            }
         }
     }
 }

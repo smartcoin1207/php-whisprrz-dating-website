@@ -40,8 +40,7 @@
     }
 
     function saveTemplate(subject, text) {
-        console.log(subject, text);
-
+        var template_type = '{template_type}';
         return Swal.fire({
             title: 'Enter Template Title',
             input: 'text',
@@ -58,7 +57,7 @@
             if (result.value && result.isConfirmed) {
                 return $.ajax({
                     url: "{url_main}mail_templates_ajax.php",
-                    data: { cmd: "save_template", title: result.value, subject: subject, text: text },
+                    data: { cmd: "save_template", title: result.value, subject: subject, text: text, template_type: template_type },
                     type: "post",
                     dataType: "json",
                     success: function (data) {

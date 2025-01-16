@@ -874,9 +874,9 @@ Class Common {
         return $cities;
     }
 
-    static function listMailTemplates($selected = '', $list = false)
+    static function listMailTemplates($selected = '', $list = false, $type='')
     {
-        $sql = "SELECT id, title FROM mail_templates WHERE user_id = " . to_sql(guid(), 'Number');
+        $sql = "SELECT id, title FROM mail_templates WHERE user_id = " . to_sql(guid(), 'Number') . " AND type=" . to_sql($type, 'Text');
         
         $mail_templates = ($list) ? DB::db_options_ul($sql, $selected, 0, true) : DB::db_options($sql, '', 0, true, true);
         return $mail_templates;

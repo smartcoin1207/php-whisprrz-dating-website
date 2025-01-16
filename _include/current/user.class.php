@@ -7398,7 +7398,7 @@ class User
                     $title_event = $hotdate['hotdate_title'];
                     $urlTitle = "hotdates_hotdate_show.php?hotdate_id=" . $hotdate_id;
                 }
-            } else if ($item['type'] == 'partyhouz_partyhou_gest') {
+            } else if ($item['type'] == 'partyhouz_partyhou_guest') {
                 $partyhou_id = $item['event_id'];
                 $partyhou = CpartyhouzTools::retrieve_partyhou_by_id($partyhou_id);
 

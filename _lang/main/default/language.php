@@ -4179,6 +4179,7 @@ $l['all']['hotdate_approval_title'] = "Hotdate Approval";
 $l['all']['partyhou_approval_title'] = "Partyhou Approval";
 $l['all']['approval_text'] = "Require Host Approval To Join Guests";
 $l['all']['mail_templates'] = "Mail Templates";
+$l['all']['invite_templates'] = "Invite Templates";
 $l['all']['show_templates'] = "Show Templates";
 $l['all']['saved_user_list'] = "Saved User List";
 $l['all']['select_group_users'] = "Select Users";

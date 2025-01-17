@@ -256,6 +256,7 @@ $l['all']['active_text'] = "Active Page";
 $l['all']['activities'] = "Activities";
 $l['all']['actually_met'] = "if You have actually physically met them in person ( If it is a Couple, BOTH of them. ) <br>Please Type remarks about this user. These remarks will be reviewed by";
 $l['all']['add'] = "Add";
+$l['all']['update'] = "Update";
 $l['all']['add_a_message_for_the_administrator'] = "Add a message for the administrator";
 $l['all']['add_a_new_interest'] = "Add a new interest";
 $l['all']['add_a_new_interest_btn'] = "Add \"{name}\" as a new interest";
@@ -6327,4 +6328,7 @@ $l['partyhou_mail.php']['text_mail'] = "Mail Text";
 $l['partyhou_mail.php']['sent_message'] = "Send Message";
 $l['partyhou_mail.php']['select_users'] = "Select Members";
 $l['partyhou_mail.php']['title_current'] = "Partyhou Mail";
+
+$l['all']['template_list'] = "Template List";
+$l['all']['template_delete_confirm'] = "Are you sure you want to delete entire template?";
 ?>

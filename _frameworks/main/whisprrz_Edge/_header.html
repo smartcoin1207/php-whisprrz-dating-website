@@ -2337,6 +2337,14 @@
                                         }
                                     });
                                 },
+                                open: function () {
+                                    const inputWidth = $(this).outerWidth();
+
+                                    $(".ui-autocomplete").css({
+                                        minWidth: inputWidth + "px",
+                                        overflowY: "auto",
+                                    });
+                                }
                             });
                         </script>
                     </div>

@@ -2037,6 +2037,7 @@ class ListBlocksOrder extends CHtmlBlock
             $html->clean($blockItemStatus);
         }
 
+
         $isActive = Common::isPage(isset($data['url']) && $data['url']);
         if ($k == 'menu_inner_wall_posts_edge') {
             $isActive = Common::isPage('profile');
@@ -2109,7 +2110,8 @@ class ListBlocksOrder extends CHtmlBlock
             $title = $data['tooltip'];
         }
         $html->setvar("{$blockItem}_tooltip", $title);
-        $html->subcond($isActive, $blockItemActive);
+
+        // $html->subcond($isActive, $blockItemActive);
 
         if (isset($data['cmd'])) {
             $html->setvar("{$blockItem}_cmd", $data['cmd']);

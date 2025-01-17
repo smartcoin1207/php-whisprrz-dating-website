@@ -1,21 +1,338 @@
 <div class="fields">
-    <div class="field" id="mail_templates_list">
+    <div class="field" style="display: flex; align-items: center;" id="mail_templates_list">
         <select id="mail_templates" name="mail_templates" class="inp selectpicker show-tick" data-live-search="true">
             {mail_templates_list}
         </select>
+        <span style="font-size: 18px; padding: 10px;" data-toggle="modal" data-target="#templateListModal" data-whatever="@mdo">
+            <i class="fa fa-edit"></i>
+        </span>
     </div>
     <style>
         #mail_templates_list * {
             box-sizing: border-box;
         }
-    </style>
-</div>
 
+        .modal-backdrop.fade {
+            display: none;
+        }
+        .icon_fa {
+            font-size: 18px;
+        }
+
+        .edit-template-form label {
+            font-size: 14px;
+        }
+
+        .template_edit_button {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .template_delete_button {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .table.table-condensed th {
+            font-size: 12px;
+        }
+
+        .table.table-condensed td {
+            font-size: 11px;
+        }
+
+        .table.table-condensed td.td_title{
+            font-size: 12px;
+        }
+    </style>
+
+    <div class="modal fade" id="templateListModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                        <div>
+                            <a onclick="closeEditTemplateForm(); return false;" class="arrows template_modal_prev_p" id="template_go_back_button" href="#" title="go back"></a>
+                            <h4 class="modal-title" style="text-align: center;" id="templateListModalLabel">
+                                {l_template_list}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="overflow-y: auto; height: 500px;">
+                        <div id="template-list-table">
+                            <button onclick="showAddTemplateForm(); return false;" class="btn btn-primary" style="float: right;">Add</button>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>{l_title}</th>
+                                    <th>{l_subject}</th>
+                                    <th>{l_text}</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody id="template_list_body">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="edit-template-form" id="edit-template-form" style="display: none; position: relative;">
+                            <div class="form">
+                                <input type="hidden" class="form-control" id="template_id" value="">
+
+                                <div class="form-group">
+                                  <label for="template_title">{l_title}:</label>
+                                  <input type="text" class="form-control" id="template_title">
+                                </div>
+                                <div class="form-group">
+                                  <label for="template_subject">{l_subject}:</label>
+                                  <input type="text" class="form-control" id="template_subject">
+                                </div>
+                                <div class="form-group">
+                                    <label for="template_text">{l_text}:</label>
+                                    <textarea rows="2" class="form-control" style="height: 150px;" id="template_text"></textarea>
+                                  </div>
+                                
+                                <button onclick="updateTemplate(); return false;" id="updateTemplateSubmitButton" class="btn btn-primary" style="float: right;">{l_update}</button>
+                                <button onclick="addNewTemplate(); return false;" id="addTemplateSubmitButton" class="btn btn-primary" style="float: right;">{l_add}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <script>
+    var template_type = '{template_type}';
+
+    function displayTable(data) {
+        $('#template_list_body').empty();
+        const templates = data?.templates;
+        templates.forEach(template => {
+            const template_title = template?.title;
+            const template_subject = template?.subject;
+            const template_text = template?.text;
+            const template_id = template?.id;
+
+            const row = `
+                <tr>
+                    <td class="td_title">${template_title || ''}</td>
+                    <td>${template_subject || 'No Subject'}</td>
+                    <td>${template_text || 'No Text'}</td>
+                    <td>
+                        <div class="">
+                            <a class="template_edit_button" onClick="editTemplate(${template_id || ''})">
+                                <span class="icon_fa">
+                                    <i class="fa fa-edit"></i>
+                                </span>
+                            </a>
+                            <a class="template_delete_button" onClick="deleteTemplate(${template_id || ''})">
+                                <span class="icon_fa">
+                                    <i class="fa fa-trash"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>`;
+
+            $('#template_list_body').append(row);
+        });
+    }
+
+    function updateSelectTemplateUI(data) {
+        $('#mail_templates').empty();
+        $('#mail_templates').append(data?.mail_templates_list);
+        $('#mail_templates').selectpicker('refresh');
+    }
+
+    $('#templateListModal').on('shown.bs.modal', function () {
+        getTemplates();
+
+        $('#template-list-table').show();
+        $('#edit-template-form').hide();
+        $('#template_go_back_button').hide();
+    });
+
+    function closeEditTemplateForm() {
+        $('#template-list-table').show();
+        $('#edit-template-form').hide();
+        $('#template_go_back_button').hide();
+    }
+
+    //API requests
+    function getTemplates() {
+        $.ajax({
+            url: "{url_main}mail_templates_ajax.php",
+            data: { cmd: "get_templates", template_type: template_type },
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    displayTable(data);
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+    }
+
+    function showAddTemplateForm(template_id) {
+        $('#template-list-table').hide();
+        $('#edit-template-form').show();
+        $('#template_go_back_button').show();
+        $('#updateTemplateSubmitButton').hide();
+        $('#addTemplateSubmitButton').show();
+
+        $('#template_id').val('');
+        $('#template_title').val('');
+        $('#template_subject').val('');
+        $('#template_text').val('');
+    }
+
+    function editTemplate(template_id) {
+        console.log(template_id);
+
+        $('#template-list-table').hide();
+        $('#edit-template-form').show();
+        $('#template_go_back_button').show();
+        $('#updateTemplateSubmitButton').show();
+        $('#addTemplateSubmitButton').hide();
+
+        $.ajax({
+            url: "{url_main}mail_templates_ajax.php",
+            data: { cmd: "get_template_detail", id: template_id},
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    $('#template_id').val(data?.template?.id);
+                    $('#template_title').val(data?.template?.title);
+                    $('#template_subject').val(data?.template?.subject);
+                    $('#template_text').val(data?.template?.text);
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+
+        return false;
+    }
+
+function addNewTemplate() {
+        const template_title = $('#template_title').val();
+        const template_subject = $('#template_subject').val();
+        const template_text = $('#template_text').val();
+
+        $.ajax({
+            url: "{url_main}mail_templates_ajax.php",
+            data: { cmd: "add_template", title: template_title, subject: template_subject, text: template_text, template_type: template_type },
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    const templates = data?.templates;
+                    displayTable(data);
+                    updateSelectTemplateUI(data);
+                    $('#template-list-table').show();
+                    $('#edit-template-form').hide();
+                    $('#template_go_back_button').hide();
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+        
+    }
+
+    function updateTemplate() {
+        const template_id = $('#template_id').val();
+        const template_title = $('#template_title').val();
+        const template_subject = $('#template_subject').val();
+        const template_text = $('#template_text').val();
+        
+        $.ajax({
+            url: "{url_main}mail_templates_ajax.php",
+            data: { cmd: "update_template", id: template_id, title: template_title, subject: template_subject, text: template_text, template_type: template_type },
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    const templates = data?.templates;
+                    displayTable(data);
+                    updateSelectTemplateUI(data);
+                    $('#template-list-table').show();
+                    $('#edit-template-form').hide();
+                    $('#template_go_back_button').hide();
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+    }
+
+    function deleteTemplate(template_id) {
+        if (confirm('{l_template_delete_confirm}')) {
+            $.ajax({
+                url: "{url_main}mail_templates_ajax.php",
+                data: { cmd: "delete_template", id: template_id, template_type: template_type },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status === "success") {
+                        displayTable(data);
+                        updateSelectTemplateUI(data);
+
+                        return true;
+                    } else {
+                        console.log("Failed");
+                        return false;
+                    }
+                },
+                error: function () {
+                    alert('error');
+                    return false;
+                }
+            });
+        }
+    }
+
     function handleSelectChange(selectedValue, formName, subject, text) {
         $.ajax({
             url: "{url_main}mail_templates_ajax.php",
-            data: { cmd: "get_template", id: selectedValue},
+            data: { cmd: "get_template_detail", id: selectedValue},
             type: "post",
             dataType: "json",
             success: function (data) {
@@ -40,7 +357,6 @@
     }
 
     function saveTemplate(subject, text) {
-        var template_type = '{template_type}';
         return Swal.fire({
             title: 'Enter Template Title',
             input: 'text',
@@ -57,7 +373,7 @@
             if (result.value && result.isConfirmed) {
                 return $.ajax({
                     url: "{url_main}mail_templates_ajax.php",
-                    data: { cmd: "save_template", title: result.value, subject: subject, text: text, template_type: template_type },
+                    data: { cmd: "add_template", title: result.value, subject: subject, text: text, template_type: template_type },
                     type: "post",
                     dataType: "json",
                     success: function (data) {

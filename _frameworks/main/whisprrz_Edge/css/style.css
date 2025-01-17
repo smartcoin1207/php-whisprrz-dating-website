@@ -13976,6 +13976,22 @@ button.ls_send:hover{
   left: -36px;
 }
 
+a.arrows.template_modal_prev_p {
+  background-image: url(../images/icon_arrow_left_circle.svg);
+  left: 0px;
+  top: 0px;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  transition: opacity .4s linear, visibility 0s, background-position 0s;
+  visibility: visible;
+  z-index: 3;
+  opacity: 0.7;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 80% auto;
+}
+
 /* ie */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   .wrap_one_item .cham-post.photo_one .one_item a.arrows.prev_p{

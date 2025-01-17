@@ -151,7 +151,7 @@
 			}
 		</script>
 
-		<form class="" name="AddContactForm" method="POST" action="{url_main}mail_compose.php?cmd=sent" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
+		<form class="" name="AddContactForm" id="AddContactForm" method="POST" action="{url_main}mail_compose.php?cmd=sent" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
 			<input type="hidden" name="page_from" value="{page_from}">
 			<table cellpadding="0" cellspacing="0" border="0" class="mail_compose">
 				<col width="100px" />
@@ -206,6 +206,36 @@
 				<tr>
 					<td class="body_text" align="right"><b>{l_username}:</b></td>
 					<td><input id="to_name" type="text" class="inp " name="name" value="{name}"  tabindex="1"></td>
+					<script>
+						$('#AddContactForm input[name="name"]').autocomplete({
+							source: function (request, response) {
+								var request_data = {
+									q: request.term,
+									type: 1,
+									user_id: user_id
+								};
+								$.ajax({
+									url: "{url_main}users_autocomplete_ajax.php",
+									dataType: "json",
+									data: request_data,
+									type: "POST",
+									beforeSend: function () {
+									},
+									success: function (data) {
+										response(data);
+									}
+								});
+							},
+							open: function () {
+                                    const inputWidth = $(this).outerWidth();
+
+                                    $(".ui-autocomplete").css({
+                                        minWidth: inputWidth + "px",
+                                        overflowY: "auto",
+                                    });
+                                }
+						});
+					</script>
 				</tr>
 				<!-- end_add_name -->
 				<tr>

@@ -87,6 +87,7 @@
             return message;
         } 
     }
+
 </script>
 
 <table style="width: 100%; margin-bottom: 15px; border-bottom: 1px solid #000;">
@@ -99,7 +100,7 @@
     </tr>
 </table>
 
-<form class="" name="AddContactForm" method="POST" action="{request_post_url}" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
+<form class="" name="AddContactForm" id="AddContactForm" method="POST" action="{request_post_url}" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
     <input type="hidden" name="page_from" value="{page_from}">
     <input type="hidden" name="cmd" value="sent">
 
@@ -128,6 +129,37 @@
         <tr>
             <td class="body_text" align="right"><b>{l_username}:</b></td>
             <td><input id="to_name" type="text" class="inp" name="name" style="width: 100%;" value="{name}"  tabindex="1"></td>
+            <script>
+                $('#AddContactForm input[name="name"]').autocomplete({
+                    source: function (request, response) {
+                        var request_data = {
+                            q: request.term,
+                            type: 1,
+                            user_id: user_id
+                        };
+                        $.ajax({
+                            url: "{url_main}users_autocomplete_ajax.php",
+                            dataType: "json",
+                            data: request_data,
+                            type: "POST",
+                            beforeSend: function () {
+                            },
+                            success: function (data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    open: function () {
+                        // Dynamically set the dropdown width and height to match the input
+                        const inputWidth = $(this).outerWidth();
+
+                        $(".ui-autocomplete").css({
+                            minWidth: inputWidth + "px",
+                            overflowY: "auto", // Allow scrolling if items exceed max-height
+                        });
+                    }
+                });
+            </script>
         </tr>
         <!-- end_invite_user_name_text -->
 

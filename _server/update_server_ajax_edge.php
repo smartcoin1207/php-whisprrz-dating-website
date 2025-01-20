@@ -199,7 +199,7 @@ if ($cmd == 'read_msg') {
         addJsScript($scriptJs, "clCityStreetChat.request(" . json_encode($chatData) . ");");
     }
 
-    addJsScript($scriptJs, "clProfile.updateServerMyData(" . User::accessСheckFeatureSuperPowersGetList() . ");");
+    addJsScript($scriptJs, "clProfile.updateServerMyData(" . User::accessCheckFeatureSuperPowersGetList() . ");");
     addJsScript($scriptJs, "setGUserOptions(" . Common::getGUserJs() . ");");
 
     /* Live */

@@ -4197,7 +4197,7 @@ class User
         return $result;
     }
 
-    static function accessСheckFeatureSuperPowersGetList($json = true)
+    static function accessCheckFeatureSuperPowersGetList($json = true)
     {
         $result = array();
         if (guid()) {

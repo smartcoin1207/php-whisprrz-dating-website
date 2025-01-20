@@ -223,7 +223,7 @@ if ($cmd == 'read_msg') {
             $responseData .= '<script>setGeoPointData(' . $geoPointData . ');</script>';
         }
 
-        $responseData .= "<script>Profile.updateServerMyData(" . User::accessСheckFeatureSuperPowersGetList() . ");</script>";
+        $responseData .= "<script>Profile.updateServerMyData(" . User::accessCheckFeatureSuperPowersGetList() . ");</script>";
         /* Update */
 
 		/* Live */

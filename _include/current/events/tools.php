@@ -30,6 +30,12 @@ class CEventsTools
             'file_postfix' => 'th',
             ),
         );
+    
+    static public function getParamEventId() {
+        $eventId = get_param('event_id', '');
+        $eventId = strtok($eventId, '?');
+        return $eventId;
+    }
 
     static public function stags($str)
     {

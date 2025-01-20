@@ -7,6 +7,7 @@ It can be found at http://www.chameleonsocial.com/license.doc
 
 This notice may not be removed from the source code. */
 
+use function PHPSTORM_META\type;
 
 class CSelectUserList extends CHtmlBlock
 {
@@ -50,14 +51,59 @@ class CSelectUserList extends CHtmlBlock
         }
 
         if ($cmd == 'get_one_userlist_edit') {
-            $all_users = self::getAllUsers();
-
             $id = get_param('id', '');
-            $sql = "SELECT * FROM  "  . $this->table_name . " WHERE id=" . to_sql($id, 'Number') . " LIMIT 1";
-            $row = DB::row($sql);
-
-            $detail = self::getListDetail($row);
             
+            if (!is_numeric($id)) {
+                if ($id == 'saved_all') {
+                    $users = self::getAllUsers('');
+                    $detail['id'] = $id;
+                    $detail['title'] = l('all_saved_members');
+                } elseif ($id == 'saved_male') {
+                    $users = self::getAllUsers(1);
+                    $detail['id'] = $id;
+                    $detail['title'] = l('male_saved_members');
+                } elseif ($id == 'saved_female') {
+                    $detail['id'] = $id;
+                    $detail['title'] = l('female_saved_members');
+                    $users = self::getAllUsers(2);
+                } elseif ($id == 'saved_couple') {
+                    $detail['id'] = $id;
+                    $detail['title'] = l('couple_saved_members');
+                    $users = self::getAllUsers(5);
+                } elseif ($id == 'saved_transgender') {
+                    $detail['id'] = $id;
+                    $detail['title'] = l('transgender_saved_members');
+                    $users = self::getAllUsers(6);
+                }
+                
+                $detail['event_id'] = $this->event_id;
+                $detail['userlist_type'] = $this->userlist_type;
+                $detail['user_id'] = guid();
+                
+                $users_count = count($users);
+                $user_names = array_map(function($user) {
+                    return $user['name'];
+                }, $users);
+                $user_names_string = implode(',', $user_names);
+        
+                $user_id_array = array_map(function($user) {
+                    return $user['user_id'];
+                }, $users);
+                $user_ids_string = implode(',', $user_id_array);
+                
+                $detail['user_names_string'] = $user_names_string;
+                $detail['user_ids_string'] = $user_ids_string;
+                $detail['users'] = $users;
+                $detail['count'] = $users_count;
+                $detail['is_default_user_group'] = 1;
+            } else {
+                $sql = "SELECT * FROM  "  . $this->table_name . " WHERE id=" . to_sql($id, 'Number') . " LIMIT 1";
+                $row = DB::row($sql);
+    
+                $detail = self::getListDetail($row);
+            }
+            
+            $all_users = self::getAllUsers();
             $detail['all_users'] = $all_users;
             echo json_encode(array("detail" => $detail, "status" => "success"));
         }
@@ -73,6 +119,8 @@ class CSelectUserList extends CHtmlBlock
                     $detail = self::getListDetail($row);
                     $all_list[] = $detail;
                 }
+
+                $all_list = array_merge(self::getDefaultUserGroups(), $all_list);
                 echo json_encode(array("all_userlist" => $all_list, "status" => "success"));
             } catch (\Throwable $th) {
                 echo json_encode(array("status" => "error"));
@@ -155,7 +203,9 @@ class CSelectUserList extends CHtmlBlock
                     $all_list[] = $detail;
                 }
 
+                $all_list = array_merge(self::getDefaultUserGroups(), $all_list);
                 $saved_user_list = self::getSavedUserList($this->event_id, $this->userlist_type);
+
                 echo json_encode(array("all_userlist" => $all_list, "saved_user_list" => $saved_user_list, "status" => "success", "message" => 'Successfully Deleted'));
             } catch (\Throwable $th) {
                 echo json_encode(array("status" => "error"));
@@ -163,7 +213,7 @@ class CSelectUserList extends CHtmlBlock
         }
     }
     
-    function getListDetail($row) {
+    function getListDetail($row, $is_default = false) {
         if (!$row) {
             return null;
         }
@@ -206,18 +256,80 @@ class CSelectUserList extends CHtmlBlock
 
         return $detail;
     }
+    
+    function getDefaultUserGroups() {
+        $orientation_array = array(
+            array(
+                'id' => 'saved_all',
+                'title' => l('all_saved_members'),
+                'orientation' => ''
+            ),
+            array(
+                'id' => 'saved_male',
+                'title' => l('male_saved_members'),
+                'orientation' => '1'
+            ),
+            array(
+                'id' => 'saved_female',
+                'title' => l('female_saved_members'),
+                'orientation' => '2'
+            ),
+            array(
+                'id' => 'saved_couple',
+                'title' => l('couple_saved_members'),
+                'orientation' => '5'
+            ),
+            array(
+                'id' => 'saved_transgender',
+                'title' => l('transgender_saved_members'),
+                'orientation' => '6'
+            ),
+        );
 
-    function getAllUsers() {
+        $defaultUserGroups = [];
+
+        foreach ($orientation_array as $orientation) {
+            $all_users = self::getAllUsers($orientation['orientation']);
+            $users_count = count($all_users);
+            $user_names = array_map(function($user) {
+                return $user['name'];
+            }, $all_users);
+            $user_names_string = implode(',', $user_names);
+
+            $user_id_array = array_map(function($user) {
+                return $user['user_id'];
+            }, $all_users);
+            $user_ids_string = implode(',', $user_id_array);
+
+            $detail = array(
+                'id' => $orientation['id'],
+                'user_id' => guid(),
+                'event_id' => $this->event_id,
+                'title' => $orientation['title'],
+                'type' => $this->userlist_type,
+                'count' => $users_count,
+                'user_names_string' => $user_names_string,
+                'user_ids_string' => $user_ids_string,
+                'users' => $all_users,
+                'is_default_user_group' => 1,
+            );
+            $defaultUserGroups[] = $detail;
+        }
+
+        return $defaultUserGroups;
+    }
+
+    function getAllUsers($orientation = '') {
         if ($this->userlist_type == 'group') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($this->event_id, 'Number');
+            $all_users_sql = "SELECT u.user_id, u.name FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($this->event_id, 'Number') . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
         } elseif ($this->userlist_type == 'event') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM events_event_guest AS eg LEFT JOIN user AS u ON eg.user_id = u.user_id WHERE eg.event_id = " . to_sql($this->event_id, 'Number');
+            $all_users_sql = "SELECT u.user_id, u.name FROM events_event_guest AS eg LEFT JOIN user AS u ON eg.user_id = u.user_id WHERE eg.event_id = " . to_sql($this->event_id, 'Number') . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
         } elseif ($this->userlist_type == 'hotdate') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM hotdates_hotdate_guest AS hg LEFT JOIN user AS u ON hg.user_id = u.user_id WHERE eg.hotdate_id = " . to_sql($this->event_id, 'Number');
+            $all_users_sql = "SELECT u.user_id, u.name FROM hotdates_hotdate_guest AS hg LEFT JOIN user AS u ON hg.user_id = u.user_id WHERE eg.hotdate_id = " . to_sql($this->event_id, 'Number') . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
         } elseif ($this->userlist_type == 'partyhou') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM partyhouz_partyhou_guest AS pg LEFT JOIN user AS u ON pg.user_id = u.user_id WHERE pg.partyhou_id = " . to_sql($this->event_id, 'Number');
+            $all_users_sql = "SELECT u.user_id, u.name FROM partyhouz_partyhou_guest AS pg LEFT JOIN user AS u ON pg.user_id = u.user_id WHERE pg.partyhou_id = " . to_sql($this->event_id, 'Number') . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
         } elseif ($this->userlist_type == 'user') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM user WHERE hide_time != 0 ";
+            $all_users_sql = "SELECT u.user_id, u.name FROM user WHERE hide_time != 0 " . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
         }
 
         $all_users = DB::rows($all_users_sql);

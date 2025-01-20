@@ -197,7 +197,7 @@ if ($cmd == 'activate_im') {
             $scriptJs .=  "cityStreetChat.request(" . json_encode($chatData) . ");";
         }
         /* Chat */
-        $scriptJs .= "Profile.updateServerMyData(" . User::accessСheckFeatureSuperPowersGetList() . ");";
+        $scriptJs .= "Profile.updateServerMyData(" . User::accessCheckFeatureSuperPowersGetList() . ");";
 
         if (Common::isOptionActive('credits_enabled')) {
             $scriptJs .= 'updateCounterText("#credits_balans_header", "' . lSetVars('credit_balance', array('credit' => $g_user['credits'])) . '");';

@@ -665,7 +665,7 @@ class CHeader extends CHtmlBlock
         }
 
         if ($html->varExists('user_allowed_feature')) {
-            $html->setvar('user_allowed_feature', User::accessСheckFeatureSuperPowersGetList());
+            $html->setvar('user_allowed_feature', User::accessCheckFeatureSuperPowersGetList());
         }
 
         $profileBgVideoPlayDisabled = 0;
@@ -941,7 +941,7 @@ class CHeader extends CHtmlBlock
         $html->setvar('tmpl_active', Common::getOption('tmpl_active', 'tmpl'));
 
         if ($html->varExists('user_allowed_feature')) {
-            $html->setvar('user_allowed_feature', User::accessСheckFeatureSuperPowersGetList());
+            $html->setvar('user_allowed_feature', User::accessCheckFeatureSuperPowersGetList());
         }
 
         $html->setvar('sending_messages_per_day', Common::getOption('sp_sending_messages_per_day_urban'));
@@ -994,7 +994,7 @@ class CHeader extends CHtmlBlock
         /* Edge profile cover bg */
 
         if ($html->varExists('user_allowed_feature') && ($this->name == 'urban' || $this->name == 'urban_mobile')) {
-            $html->setvar('user_allowed_feature', User::accessСheckFeatureSuperPowersGetList());
+            $html->setvar('user_allowed_feature', User::accessCheckFeatureSuperPowersGetList());
         }
 
         /* Send image to chat */

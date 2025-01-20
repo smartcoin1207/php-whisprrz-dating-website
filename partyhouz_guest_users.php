@@ -38,7 +38,7 @@ class CPage extends CHtmlBlock
 
         $data_cmd = get_param('data-cmd', '');
         $removeUid = get_param('removeUid', '');
-        $partyhou_id = get_param('partyhou_id', '');
+        $partyhou_id = CpartyhouzTools::getParamPartyhouId();
 
         if($data_cmd == 'guest_remove' && $ajax) {
             if($removeUid) {
@@ -62,7 +62,7 @@ class CPage extends CHtmlBlock
         $page = get_param_int('page');
         $page = $page < 1 ? 1 : $page;
 
-        $partyhou_id = get_param('partyhou_id', '');
+        $partyhou_id = CpartyhouzTools::getParamPartyhouId();
         if(!$partyhou_id) {
             Common::toLoginPage();
         }

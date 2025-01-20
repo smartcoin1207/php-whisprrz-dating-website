@@ -73,13 +73,39 @@ class CEventMail extends CHtmlBlock
             }
             $text = trim(strip_tags($text));
 
-            $sql = "SELECT * FROM " . $table . " WHERE  event_id = " . to_sql($event_id) . " AND type = 'event'";
-            $saved_users_list = DB::row($sql);
-            if($saved_users_list) {
-                $user_list = $saved_users_list['user_ids'];
-                $selected_members = json_decode($user_list, true);
+            $saved_user_list_id = get_param('saved_user_list', 0);
+            $event_id = get_param('event_id', '');
+
+            if ($saved_user_list_id == 'saved_all') {
+                $user_sql = "SELECT user_id FROM events_event_guest WHERE event_id = " . to_sql($event_id, 'Number');
+            } elseif($saved_user_list_id == 'saved_male') {
+                $user_sql = "SELECT gs.user_id FROM events_event_guest AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.event_id = " . to_sql($event_id, 'Number') . " AND u.orientation=1";
+            } elseif ($saved_user_list_id == 'saved_female') {
+                $user_sql = "SELECT gs.user_id FROM events_event_guest AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.event_id = " . to_sql($event_id, 'Number') . " AND u.orientation=2";
+            } elseif ($saved_user_list_id == 'saved_couple') {
+                $user_sql = "SELECT gs.user_id FROM events_event_guest AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.event_id = " . to_sql($event_id, 'Number') . " AND u.orientation=5";
+            } elseif ($saved_user_list_id == 'saved_transgender') {
+                $user_sql = "SELECT gs.user_id FROM events_event_guest AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.event_id = " . to_sql($event_id, 'Number') . " AND u.orientation=6";
+            }
+
+            if (in_array($saved_user_list_id, ['saved_all', 'saved_male', 'saved_female', 'saved_couple', 'saved_transgender'])) {
+                $users_rows = DB::rows($user_sql);
+                $user_ids = [];
+                foreach ($users_rows as $row) {
+                    $user_id = $row['user_id'];
+                    $user_ids[] = $user_id;
+                }
+
+                $selected_members = $user_ids;
             } else {
-                $selected_members = [];
+                $sql = "SELECT * FROM " . $table . " WHERE `id` = " . to_sql($saved_user_list_id) . " AND type = 'event'";
+                $saved_users_list = DB::row($sql);
+                if($saved_users_list) {
+                    $user_list = $saved_users_list['user_ids'];
+                    $selected_members = json_decode($user_list, true);
+                } else {
+                    $selected_members = [];
+                }
             }
 
             if ($selected_members && $subject != '' && $text != '') {

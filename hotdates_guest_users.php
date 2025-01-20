@@ -38,7 +38,7 @@ class CPage extends CHtmlBlock
 
         $data_cmd = get_param('data-cmd', '');
         $removeUid = get_param('removeUid', '');
-        $hotdate_id = get_param('hotdate_id', '');
+        $hotdate_id = ChotdatesTools::getParamHotdateId();
 
         if($data_cmd == 'guest_remove' && $ajax) {
             if($removeUid) {
@@ -62,7 +62,7 @@ class CPage extends CHtmlBlock
         $page = get_param_int('page');
         $page = $page < 1 ? 1 : $page;
 
-        $hotdate_id = get_param('hotdate_id', '');
+        $hotdate_id = ChotdatesTools::getParamHotdateId();
         if(!$hotdate_id) {
             Common::toLoginPage();
         }

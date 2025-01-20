@@ -93,7 +93,7 @@
                             <input type="hidden" name="form_cmd" value="">
 
                             <div style="display: flex; justify-content: flex-end;">
-                                <button type="button" class="btn blue" style="width: 100px;" onclick="updateSavedUserList();">{l_save}</button>
+                                <button type="button" id="saved-user-list-update-btn" class="btn blue" style="width: 100px;" onclick="updateSavedUserList();">{l_save}</button>
                             </div>
                             <div class="form-group">
                                 <label for="userlist_title" style="font-size: 14px;">{l_title}:</label>
@@ -156,7 +156,8 @@
             const savedUserListCount = userListItem?.count;
             const savedUserListString = userListItem?.user_names_string;
             const id = userListItem?.id;
-
+            is_default_user_group = userListItem?.is_default_user_group;
+            
             const row = `
                 <tr>
                     <td class="td_title">${savedUserListTitle || ''}</td>
@@ -164,16 +165,20 @@
                     <td>${savedUserListString || 'No Text'}</td>
                     <td>
                         <div class="">
-                            <a class="edit_button" onClick="editSavedUserList(${id || ''})">
+                            <a class="edit_button" onClick="editSavedUserList('${id || ''}')">
                                 <span class="icon_fa">
                                     <i class="fa fa-edit"></i>
                                 </span>
                             </a>
-                            <a class="delete_button" onClick="deleteSavedUserList(${id || ''})">
-                                <span class="icon_fa">
-                                    <i class="fa fa-trash"></i>
-                                </span>
-                            </a>
+                            ${
+                                is_default_user_group !== 1
+                                    ? `<a class="delete_button" onClick="deleteSavedUserList('${id || ''}')">
+                                        <span class="icon_fa">
+                                            <i class="fa fa-trash"></i>
+                                        </span>
+                                    </a>`
+                                    : ''
+                            }
                         </div>
                     </td>
                 </tr>`;
@@ -188,10 +193,23 @@
         var user_ids_list = user_ids_string ? user_ids_string.split(',') : [];
         var userlist_title = detail?.title;
         var userlist_id = detail?.id;
+        var is_default_user_group = detail?.is_default_user_group;
+        
+        disabled = is_default_user_group == 1 ? 'disabled' : '';
         
         $('#userlist_title').val(userlist_title);
-        $('#userlist_id').val(userlist_id);
         $('#all').prop('checked', false);
+        if (is_default_user_group == 1) {
+            $('#userlist_title').prop('disabled', true);
+            $('#all').prop('disabled', true);
+            $('#saved-user-list-update-btn').prop('disabled', true);
+        } else {
+            $('#userlist_title').prop('disabled', false);
+            $('#all').prop('disabled', false);
+            $('#saved-user-list-update-btn').prop('disabled', false);
+        }
+
+        $('#userlist_id').val(userlist_id);
         $('#userlist-checkboxgroup').empty();
 
         all_users.forEach(user => {
@@ -201,7 +219,7 @@
             checked = user_ids_list.includes(user_id) ? 'checked' : '';
 
             x = `<div class="form-group field_checkbox custom_checkbox">
-                    <input id="chk_${user_id || ''}" name="users[${user_id || ''}]" type="checkbox"  value="1" ${checked || ''}>
+                    <input id="chk_${user_id || ''}" name="users[${user_id || ''}]" type="checkbox"  value="1" ${checked || ''} ${disabled || ''}>
                     <label for="chk_${user_id || ''}"><span></span>${name || ''}</label>
                 </div>`;
 

@@ -18,7 +18,7 @@ class CComplite extends UserFields {
 		CBanner::getBlock($html, 'right_column');
 		//nnsscc-diamond 20200227 start-nnsscc_diamond
 			if($html->varExists('user_allowed_feature')) {
-				$html->setvar('user_allowed_feature', User::accessСheckFeatureSuperPowersGetList());
+				$html->setvar('user_allowed_feature', User::accessCheckFeatureSuperPowersGetList());
 			}
 
 			$profileBgVideoPlayDisabled = 0;

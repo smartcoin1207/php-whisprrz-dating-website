@@ -404,7 +404,7 @@ Class TemplateEdge {
                 $html->parse('app_ios_style', false);
             }
 
-            $varsHeader['user_allowed_feature'] = User::accessСheckFeatureSuperPowersGetList();
+            $varsHeader['user_allowed_feature'] = User::accessCheckFeatureSuperPowersGetList();
 
             $isPlayerNative = $isCheckMobileDevice || Common::getOption('video_player_type') == 'player_native';
             $varsHeader['is_player_native_site'] = intval($isPlayerNative);
@@ -2451,7 +2451,7 @@ Class TemplateEdge {
                 $blockItemMenu = "{$blockItemDisplay}_menu";
                 $isParseMenu = false;
                 if($p == 'events_guest_users.php') {
-                    $event_id = get_param('event_id', '');
+                    $event_id = CEventsTools::getParamEventId();
                     if($event_id) {
                         $sql = "SELECT * FROM events_event_guest WHERE event_id=" . $event_id . " AND user_id=" . to_sql($row['user_id']) . " LIMIT 1";
                         $guest_user = DB::row($sql);
@@ -2474,7 +2474,7 @@ Class TemplateEdge {
                     }
                 }
                 elseif($p == 'hotdates_guest_users.php') {
-                    $hotdate_id = get_param('hotdate_id', '');
+                    $hotdate_id = ChotdatesTools::getParamHotdateId();
                     if($hotdate_id) {
                         $hotdate_sql = "SELECT * FROM hotdates_hotdate WHERE hotdate_id=" . to_sql($hotdate_id);
                         $hotdate = DB::row($hotdate_sql);
@@ -2489,7 +2489,7 @@ Class TemplateEdge {
                     }
                 }
                 elseif($p == 'partyhouz_guest_users.php') {
-                    $partyhou_id = get_param('partyhou_id', '');
+                    $partyhou_id = CpartyhouzTools::getParamPartyhouId();
                     if($partyhou_id) {
                         $partyhou_sql = "SELECT * FROM partyhouz_partyhou WHERE partyhou_id=" . to_sql($partyhou_id);
                         $partyhou = DB::row($partyhou_sql);

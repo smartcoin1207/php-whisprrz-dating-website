@@ -349,7 +349,7 @@ Class Templateoyrx {
                 $html->parse('app_ios_style', false);
             }
 
-            $varsHeader['user_allowed_feature'] = User::accessСheckFeatureSuperPowersGetList();
+            $varsHeader['user_allowed_feature'] = User::accessCheckFeatureSuperPowersGetList();
 
             $isPlayerNative = $isCheckMobileDevice || Common::getOption('video_player_type') == 'player_native';
             $varsHeader['is_player_native_site'] = intval($isPlayerNative);

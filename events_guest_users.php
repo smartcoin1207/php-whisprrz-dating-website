@@ -40,7 +40,7 @@ class CPage extends CHtmlBlock
 
         $cmd = get_param('cmd', '');
         $guest_user_id = get_param('guest_user_id', '');
-        $event_id = get_param('event_id', '');
+        $event_id = CEventsTools::getParamEventId();
 
         CEventsTools::guestHandle($event_id, $cmd);
         
@@ -70,7 +70,7 @@ class CPage extends CHtmlBlock
         $page = get_param_int('page');
         $page = $page < 1 ? 1 : $page;
 
-        $event_id = get_param('event_id', '');
+        $event_id = CEventsTools::getParamEventId();
         if(!$event_id) {
             Common::toLoginPage();
         }

@@ -28,8 +28,14 @@ class CpartyhouzTools
             'height' => 292,
             'allow_smaller' => true,
             'file_postfix' => 'th',
-            ),
-        );
+        ),
+    );
+
+    static public function getParamPartyhouId() {
+        $partyhouId = get_param('partyhou_id', '');
+        $partyhouId = strtok($partyhouId, '?');
+        return $partyhouId;
+    }
 
     static public function stags($str)
     {

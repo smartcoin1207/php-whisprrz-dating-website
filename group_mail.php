@@ -75,10 +75,35 @@ class CGroupMail extends CHtmlBlock
             $text = trim(strip_tags($text));
 
             $saved_user_list_id = get_param('saved_user_list', 0);
-            $sql = "SELECT user_ids FROM saved_user_list WHERE id = " . to_sql($saved_user_list_id, 'Number');
-            $saved_row = DB::row($sql);
+            $groupId = Groups::getParamId();
 
-            $selected_members = json_decode($saved_row['user_ids'], true);
+            if ($saved_user_list_id == 'saved_all') {
+                $user_sql = "SELECT user_id FROM groups_social_subscribers WHERE group_id = " . to_sql($groupId, 'Number');
+            } elseif($saved_user_list_id == 'saved_male') {
+                $user_sql = "SELECT gs.user_id FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($groupId, 'Number') . " AND gs.group_user_id=" . to_sql(guid(), 'Number') . " AND u.orientation=1";
+            } elseif ($saved_user_list_id == 'saved_female') {
+                $user_sql = "SELECT gs.user_id FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($groupId, 'Number') . " AND gs.group_user_id=" . to_sql(guid(), 'Number') . " AND u.orientation=2";
+            } elseif ($saved_user_list_id == 'saved_couple') {
+                $user_sql = "SELECT gs.user_id FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($groupId, 'Number') . " AND gs.group_user_id=" . to_sql(guid(), 'Number') . " AND u.orientation=5";
+            } elseif ($saved_user_list_id == 'saved_transgender') {
+                $user_sql = "SELECT gs.user_id FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($groupId, 'Number') . " AND gs.group_user_id=" . to_sql(guid(), 'Number') . " AND u.orientation=6";
+            }
+
+            if (in_array($saved_user_list_id, ['saved_all', 'saved_male', 'saved_female', 'saved_couple', 'saved_transgender'])) {
+                $users_rows = DB::rows($user_sql);
+                $user_ids = [];
+                foreach ($users_rows as $row) {
+                    $user_id = $row['user_id'];
+                    $user_ids[] = $user_id;
+                }
+
+                $selected_members = $user_ids;
+            } else {
+                $sql = "SELECT user_ids FROM saved_user_list WHERE id = " . to_sql($saved_user_list_id, 'Number');
+                $saved_row = DB::row($sql);
+    
+                $selected_members = json_decode($saved_row['user_ids'], true);
+            }
 
             if ($selected_members && $subject != '' && $text != '') {
                 $textHash = md5(mb_strtolower($text, 'UTF-8'));

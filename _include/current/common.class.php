@@ -884,7 +884,40 @@ Class Common {
 
     static function getSavedUserList($sql, $selected = '', $list = false)
     {
-        $saved_user_list = ($list) ? DB::db_options_ul($sql, $selected, 0, false) : DB::db_options($sql, '', 0, false, true);
+        $orientation_array = array(
+            array(
+                'id' => 'saved_all',
+                'title' => l('all_saved_members'),
+            ),
+            array(
+                'id' => 'saved_male',
+                'title' => l('male_saved_members'),
+            ),
+            array(
+                'id' => 'saved_female',
+                'title' => l('female_saved_members'),
+            ),
+            array(
+                'id' => 'saved_couple',
+                'title' => l('couple_saved_members'),
+            ),
+            array(
+                'id' => 'saved_transgender',
+                'title' => l('transgender_saved_members'),
+            ),
+        );
+        $lPleaseChoose = Common::getPleaseChoose();
+
+        $ret = "<option value=\"0\" " . ((!$selected) ? " selected=\"selected\"" : "") . ">" . $lPleaseChoose . "</option>\n";
+        foreach ($orientation_array as $orientation) {
+            $id = '';
+            
+            $ret .= "<option " . $id . " value=\"" . $orientation['id'] . "\" >" . $orientation['title'] . "</option>\n";
+        }
+
+        $saved_user_list = ($list) ? DB::db_options_ul($sql, $selected, 0, false) : DB::db_options($sql, '', 0, false, false);
+        $saved_user_list = $ret . $saved_user_list;
+
         return $saved_user_list;
     }
 

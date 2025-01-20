@@ -31,6 +31,12 @@ class ChotdatesTools
             ),
         );
 
+    static public function getParamHotdateId() {
+        $hotdateId = get_param('hotdate_id', '');
+        $hotdateId = strtok($hotdateId, '?');
+        return $hotdateId;
+    }
+
     static public function stags($str)
     {
         return strip_tags_attributes($str, self::ALLOWTAGS);

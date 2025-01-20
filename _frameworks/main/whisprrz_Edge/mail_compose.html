@@ -4,10 +4,28 @@
 	{folders}
 
 	<style type="text/css">
-	#complite{float: right;  margin-bottom:5px; text-align:left;}
-	#searchn{float: right;  margin-bottom:5px;}
-	.bbbr{background: url(../img/bbr.gif) no-repeat 100% 100%; padding: 15px 20px;}
-	#profile{float: left;  background: #FAFAFA; color: #000; margin-bottom: 5px;}
+		#complite {
+			float: right;
+			margin-bottom: 5px;
+			text-align: left;
+		}
+	
+		#searchn {
+			float: right;
+			margin-bottom: 5px;
+		}
+	
+		.bbbr {
+			background: url(../img/bbr.gif) no-repeat 100% 100%;
+			padding: 15px 20px;
+		}
+	
+		#profile {
+			float: left;
+			background: #FAFAFA;
+			color: #000;
+			margin-bottom: 5px;
+		}
 	</style>
 
 	<div class="column_main frame_content">
@@ -22,8 +40,8 @@
 				blockSubmission = false;
 			}
 			function isSubmissionAllowed() {
-				if(blockSubmission){
-				return false;
+				if (blockSubmission) {
+					return false;
 				}
 				return;
 			}
@@ -34,121 +52,115 @@
 				var form = document.forms['AddContactForm'];
 				// "otherhandle" field validation.
 				if (!(validateRequiredField(form['name'], '{l_username}'))) {
-				removeSubmissionBlock();
-				return false;
+					removeSubmissionBlock();
+					return false;
 				}
 				return true;
 			}
 			function validateAddContactForm() {
 				blockSubmission = true;
 				if (typeof beforeAddContactFormValidation != 'undefined') {
-				beforeAddContactFormValidation();
+					beforeAddContactFormValidation();
 				}
 				var validated = onValidateAddContactForm();
 				if (validated && (typeof uponSuccessfulAddContactFormValidation != 'undefined')) {
-				validated = uponSuccessfulAddContactFormValidation();
+					validated = uponSuccessfulAddContactFormValidation();
 				}
 				else if (!validated && (typeof uponUnsuccessfulAddContactFormValidation != 'undefined')) {
-				uponUnsuccessfulAddContactFormValidation();
+					uponUnsuccessfulAddContactFormValidation();
 				}
 				if (!validated) {
-				removeSubmissionBlock();
+					removeSubmissionBlock();
 				}
 				return validated;
 			}
 			function submitAddContactForm() {
-				if (validateAddContactForm()) 
-				isPost = true;
+				if (validateAddContactForm())
+					isPost = true;
 
 				var subject = document.AddContactForm.subject.value;
 				var text = document.AddContactForm.text.value;
 
 				saveTemplate(subject, text).then((response) => {
 					if (response) {
-							document.AddContactForm.submit();
-						} else {
-							console.log('Template not saved, form not submitted.');
-						}
+						document.AddContactForm.submit();
+					} else {
+						console.log('Template not saved, form not submitted.');
+					}
 				});
 			}
 
-			function setname(name)
-			{
+			function setname(name) {
 				document.AddContactForm.name.value = name;
 			}
 
-			function switchdiv(div1_id, div2_id, form)
-			{
-				if (document.getElementById)	{
-					if(!document.getElementById(div1_id)) return ;
-					if(!(document.getElementById(div1_id).style)) return ;
-					if(!(document.getElementById(div1_id).style.display)) return ;
+			function switchdiv(div1_id, div2_id, form) {
+				if (document.getElementById) {
+					if (!document.getElementById(div1_id)) return;
+					if (!(document.getElementById(div1_id).style)) return;
+					if (!(document.getElementById(div1_id).style.display)) return;
 
 					var state1 = document.getElementById(div1_id).style.display;
-					if(state1=="none") {
-							document.getElementById(div1_id).style.display="block";
-							document.getElementById(div2_id).style.display="none";
-							if (form != null)
-							{
-							form[div1_id].value='true';
-							form[div2_id].value='false';
-							}
+					if (state1 == "none") {
+						document.getElementById(div1_id).style.display = "block";
+						document.getElementById(div2_id).style.display = "none";
+						if (form != null) {
+							form[div1_id].value = 'true';
+							form[div2_id].value = 'false';
+						}
 					}
-					if(state1=="block") {
-							document.getElementById(div2_id).style.display="block";
-							document.getElementById(div1_id).style.display="none";
-							if (form != null)
-							{
-							form[div1_id].value='false';
-							form[div2_id].value='true';
-							}
+					if (state1 == "block") {
+						document.getElementById(div2_id).style.display = "block";
+						document.getElementById(div1_id).style.display = "none";
+						if (form != null) {
+							form[div1_id].value = 'false';
+							form[div2_id].value = 'true';
+						}
 					}
 				}
-				else if (document.all)	{
-					if(!document.all[div1_id]) return ;
-					if(!(document.all[div1_id].style)) return ;
-					if(!(document.all[div1_id].style.display)) return ;
+				else if (document.all) {
+					if (!document.all[div1_id]) return;
+					if (!(document.all[div1_id].style)) return;
+					if (!(document.all[div1_id].style.display)) return;
 
 					var state1 = document.all[div1_id].style.display;
-					if(state1=="none") {
-							document.all[div1_id].style.display = "block";
-							document.all[div2_id].style.display = "none";
-							if (form != null)
-							{
-							form[div1_id].value='true';
-							form[div2_id].value='false';
-							}
+					if (state1 == "none") {
+						document.all[div1_id].style.display = "block";
+						document.all[div2_id].style.display = "none";
+						if (form != null) {
+							form[div1_id].value = 'true';
+							form[div2_id].value = 'false';
+						}
 					}
-					if(state1=="block") {
-							document.getElementById(div1_id).style.display="none";
-							document.getElementById(div2_id).style.display="block";
-							if (form != null)
-							{
-							form[div1_id].value='false';
-							form[div2_id].value='true';
-							}
+					if (state1 == "block") {
+						document.getElementById(div1_id).style.display = "none";
+						document.getElementById(div2_id).style.display = "block";
+						if (form != null) {
+							form[div1_id].value = 'false';
+							form[div2_id].value = 'true';
+						}
 					}
 				}
 			}
 
 			<!-- begin_reply_js -->
 			$(function () {
-				reply_text = $.trim($('#text').val()); 
+				reply_text = $.trim($('#text').val());
 			})
-			<!-- end_reply_js -->
-			window.onbeforeunload = function (evt) {
-				var text = $.trim($('#text').val());
-				if (text != '' && isPost == false <!-- begin_reply_compare_js -->&& text != reply_text<!-- end_reply_compare_js -->) {
-					var message = '{l_leave_this_page}';
-					if (typeof evt == "undefined") {
-						evt = window.event;
+				<!--end_reply_js -->
+					window.onbeforeunload = function (evt) {
+						var text = $.trim($('#text').val());
+						if (text != '' && isPost == false <!--begin_reply_compare_js -->&& text != reply_text <!--end_reply_compare_js -->) {
+							var message = '{l_leave_this_page}';
+							if (typeof evt == "undefined") {
+								evt = window.event;
+							}
+							if (evt) {
+								evt.returnValue = message;
+							}
+							return message;
+						}
 					}
-					if (evt) {
-						evt.returnValue = message;
-					}        
-					return message;
-				} 
-			}
 		</script>
 
 		<form class="" name="AddContactForm" id="AddContactForm" method="POST" action="{url_main}mail_compose.php?cmd=sent" onSubmit="return validateAddContactForm();" style="padding: 0px; margin: 0px;">
@@ -227,13 +239,13 @@
 								});
 							},
 							open: function () {
-                                    const inputWidth = $(this).outerWidth();
+								const inputWidth = $(this).outerWidth();
 
-                                    $(".ui-autocomplete").css({
-                                        minWidth: inputWidth + "px",
-                                        overflowY: "auto",
-                                    });
-                                }
+								$(".ui-autocomplete").css({
+									minWidth: inputWidth + "px",
+									overflowY: "auto",
+								});
+							}
 						});
 					</script>
 				</tr>

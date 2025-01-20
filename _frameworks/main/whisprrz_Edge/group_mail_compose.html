@@ -176,15 +176,12 @@ window.onbeforeunload = function (evt) {
 			<td>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div class="field" style="width: 50%; margin: 0 5px 0 0; ">
-              <div class="text-left body_text" style="display: flex; justify-content: space-between;">
+              <div class="text-left body_text">
                 <b>{l_saved_user_list}</b>
-                <a href="{select_group_user_url}" class="body_text select_user_label_text" >{l_select_group_users}</a>
               </div>
-              <select id="saved_user_list" name="saved_user_list" class="inp selectpicker show-tick" data-live-search="true">
-                  {saved_user_list}
-              </select>
+              {saved_user_list}
           </div>
-          <div style="width: 50%; margin: 0 0 0 5px;">
+          <div class="field" style="width: 50%; margin: 0 0 0 5px;">
             <div class="text-left body_text">
                 <b>{l_mail_templates}</b>
             </div>
@@ -193,12 +190,6 @@ window.onbeforeunload = function (evt) {
         </div>
       </td>
     </tr>
-    <!-- <tr>
-        <td></td>
-        <td>
-            {mail_templates_list}
-        </td>
-    </tr> -->
 		<tr>
 			<td class="body_text" align="right"><b>{l_subject}:</b></td>
 			<td><input class="inp" type="text" name="subject" style="width:100%" value="{subject}"  tabindex="2" required></td>

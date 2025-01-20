@@ -174,14 +174,11 @@ window.onbeforeunload = function (evt) {
 			<td>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div class="field" style="width: 50%; margin: 0 5px 0 0; ">
-              <div class="text-left body_text" style="display: flex; justify-content: space-between;">
-                <b>{l_saved_user_list}</b>
-                <a href="{select_event_user_url}" class="body_text select_user_label_text" >{l_select_event_users}</a>
-              </div>
-              <select id="saved_user_list" name="saved_user_list" class="inp selectpicker show-tick" data-live-search="true">
-                  {saved_user_list}
-              </select>
-          </div>
+            <div class="text-left body_text">
+              <b>{l_saved_user_list}</b>
+            </div>
+            {saved_user_list}
+        </div>
           <div style="width: 50%; margin: 0 0 0 5px;">
             <div class="text-left body_text">
                 <b>{l_mail_templates}</b>

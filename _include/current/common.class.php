@@ -884,7 +884,7 @@ Class Common {
 
     static function getSavedUserList($sql, $selected = '', $list = false)
     {
-        $saved_user_list = ($list) ? DB::db_options_ul($sql, $selected, 0, true) : DB::db_options($sql, '', 0, true, true);
+        $saved_user_list = ($list) ? DB::db_options_ul($sql, $selected, 0, false) : DB::db_options($sql, '', 0, false, true);
         return $saved_user_list;
     }
 

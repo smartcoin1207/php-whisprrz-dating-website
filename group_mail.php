@@ -9,6 +9,7 @@ This notice may not be removed from the source code. */
 
 include './_include/core/main_start.php';
 include("./_include/current/mail.templates.class.php");
+include("./_include/current/select.userlist.class.php");
 
 $optionTmplName = Common::getTmplName();
 if ($optionTmplName != 'edge') {
@@ -214,8 +215,8 @@ class CGroupMail extends CHtmlBlock
         $select_url = $g['path']['url_main'] . $group_nameseo . "/select_group_users";
         $html->setvar('url_select_page', $select_url);
 
-        $saved_user_list = self::getSavedUserList($groupId);
-        $html->setvar('saved_user_list', $saved_user_list);
+        // $saved_user_list = self::getSavedUserList($groupId);
+        // $html->setvar('saved_user_list', $saved_user_list);
 
         $select_group_user_url = $g['path']['url_main'] . $group_nameseo . "/select_group_users";
         $html->setvar('select_group_user_url', $select_group_user_url);
@@ -269,6 +270,11 @@ $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
+
+$saved_user_list = new CSelectUserList('saved_user_list', $g['tmpl']['dir_tmpl_main'] . "select_user_list.html");
+$saved_user_list->event_id = $groupId;
+$saved_user_list->userlist_type = 'group';
+$page->add($saved_user_list);
 
 $mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
 $mail_templates_list->template_type = 'GROUP_MAIL';

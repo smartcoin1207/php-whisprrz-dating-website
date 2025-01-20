@@ -1,0 +1,412 @@
+<div class="fields">
+    <div class="field" style="display: flex; align-items: center;" id="saved_user_list_field">
+        <select id="saved_user_list" name="saved_user_list" class="inp selectpicker show-tick" data-live-search="true">
+            {saved_user_list}
+        </select>
+        <span style="font-size: 18px; padding: 10px;" data-toggle="modal" data-target="#selectUserListModal" data-whatever="@mdo">
+            <i class="fa fa-edit"></i>
+        </span>
+    </div>
+    <style>
+        #saved_user_list_field * {
+            box-sizing: border-box;
+        }
+        .modal-backdrop.fade {
+            display: none;
+        }
+        .icon_fa {
+            font-size: 18px;
+        }
+
+        .edit-form label {
+            font-size: 14px;
+        }
+
+        .edit_button {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .delete_button {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .table.table-condensed th {
+            font-size: 12px;
+        }
+
+        .table.table-condensed td {
+            font-size: 11px;
+        }
+
+        .table.table-condensed td.td_title{
+            font-size: 12px;
+        }
+
+        .show-message-container {
+            border-radius: 5px;
+            font-size: 12px;
+            background-color: darkgrey;
+            color: white;
+            padding: 5px 10px;
+        }
+    </style>
+
+    <div class="modal fade" id="selectUserListModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <div>
+                        <a onclick="closeEditUserListForm(); return false;" class="arrows template_modal_prev_p" id="go_back_button" href="#" title="go back"></a>
+                        <h4 class="modal-title" style="text-align: center;" id="userListModalLabel">
+                            {l_saved_user_list}
+                        </h4>
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow-y: auto; height: 500px;">
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 5px;">
+                        <div class="show-message-container" style="display: none;" id="show-message-container" onclick="this.style.display='none';"></div>
+                    </div>
+                    <div id="user-list-table">
+                        <button onclick="showAddUserListForm(); return false;" class="btn btn-primary" style="float: right;">Add</button>
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th>{l_title}</th>
+                                <th>{l_count}</th>
+                                <th>{l_text}</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="userlist_table_body">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="edit-userlist-form" id="edit-userlist-form" style="display: none; position: relative;">
+                        <div style="width: 100%; margin-bottom: 15px;">
+                            <input type="hidden" name="userlist_id" id="userlist_id" value="">
+                            <input type="hidden" name="form_cmd" value="">
+
+                            <div style="display: flex; justify-content: flex-end;">
+                                <button type="button" class="btn blue" style="width: 100px;" onclick="updateSavedUserList();">{l_save}</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="userlist_title" style="font-size: 14px;">{l_title}:</label>
+                                <input type="text" class="form-control" id="userlist_title" name="userlist_title">
+                            </div>
+                        </div>
+                    
+                        <div class="flex-header">
+                            <div class="field_checkbox custom_checkbox">
+                                <input id="all" type="checkbox">
+                                <label id="checkall_label" for="all"><span></span>{l_check_all}</label>
+                            </div>
+                        </div>
+                    
+                        <div id="user_lists" style="border-top: 1px black solid; margin-top: 5px;">
+                            <div id="userlist-checkboxgroup" class="userlist-column" style="margin-top: 10px;">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var userlist_type = '{userlist_type}';
+    var event_id = '{event_id}';
+
+    $('#selectUserListModal').on('shown.bs.modal', function () {
+        getSavedUserListAll();
+
+        $('#user-list-table').show();
+        $('#edit-userlist-form').hide();
+        $('#go_back_button').hide();
+    });
+
+    var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true);
+            } else{
+                chkbox.prop("checked", false);
+            }
+        }
+
+    $('#all').change(function(){
+        CBoxNote($(this), $('[id ^= chk_]'));
+        var isAllChecked = $(this).prop('checked');
+    });
+
+    function displayUserListTable(data) {
+        $('#userlist_table_body').empty();
+
+        const allUserList = data?.all_userlist;
+        allUserList.forEach(userListItem => {
+            const savedUserListTitle = userListItem?.title;
+            const savedUserListCount = userListItem?.count;
+            const savedUserListString = userListItem?.user_names_string;
+            const id = userListItem?.id;
+
+            const row = `
+                <tr>
+                    <td class="td_title">${savedUserListTitle || ''}</td>
+                    <td>${savedUserListCount || 'No Subject'}</td>
+                    <td>${savedUserListString || 'No Text'}</td>
+                    <td>
+                        <div class="">
+                            <a class="edit_button" onClick="editSavedUserList(${id || ''})">
+                                <span class="icon_fa">
+                                    <i class="fa fa-edit"></i>
+                                </span>
+                            </a>
+                            <a class="delete_button" onClick="deleteSavedUserList(${id || ''})">
+                                <span class="icon_fa">
+                                    <i class="fa fa-trash"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>`;
+
+            $('#userlist_table_body').append(row);
+        });
+    }
+
+    function displayUserListEditForm(detail) {
+        var all_users = detail?.all_users;
+        var user_ids_string = detail?.user_ids_string;
+        var user_ids_list = user_ids_string ? user_ids_string.split(',') : [];
+        var userlist_title = detail?.title;
+        var userlist_id = detail?.id;
+        
+        $('#userlist_title').val(userlist_title);
+        $('#userlist_id').val(userlist_id);
+        $('#all').prop('checked', false);
+        $('#userlist-checkboxgroup').empty();
+
+        all_users.forEach(user => {
+            user_id = user?.user_id;
+            name = user?.name;
+
+            checked = user_ids_list.includes(user_id) ? 'checked' : '';
+
+            x = `<div class="form-group field_checkbox custom_checkbox">
+                    <input id="chk_${user_id || ''}" name="users[${user_id || ''}]" type="checkbox"  value="1" ${checked || ''}>
+                    <label for="chk_${user_id || ''}"><span></span>${name || ''}</label>
+                </div>`;
+
+            $('#userlist-checkboxgroup').append(x);
+        });
+    }
+
+    function showMessageContainer(message) {
+        $('#show-message-container').html(message);
+        $('#show-message-container').css('display', 'block');
+
+        setTimeout(() => {
+            $('#show-message-container').css('display', 'none');
+        }, 3000);
+    }
+
+    function getCheckedUserIds() {
+        const checkedUsersIds = [];
+        const checkboxes = document.querySelectorAll('#userlist-checkboxgroup input[type="checkbox"]:checked');
+        
+        checkboxes.forEach(function(checkbox) {
+            const userId = checkbox.name.match(/\d+/)[0]; // Extract numeric ID from name attribute
+            checkedUsersIds.push(userId);
+        });
+
+        return checkedUsersIds;
+    }
+
+    function updateUserListSelectUI(data) {
+        $('#saved_user_list').empty();
+        $('#saved_user_list').append(data?.saved_user_list);
+        $('#saved_user_list').selectpicker('refresh');
+    }
+
+    function closeEditUserListForm() {
+        $('#user-list-table').show();
+        $('#edit-userlist-form').hide();
+        $('#go_back_button').hide();
+
+        getSavedUserListAll();
+    }
+
+    //API requests
+    function getSavedUserListAll() {
+        $.ajax({
+            url: "{url_main}saved_userlist_ajax.php",
+            data: { cmd: "get_all_saved_userlist", userlist_type: userlist_type, event_id: event_id },
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    displayUserListTable(data);
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+    }
+
+    function showAddUserListForm() {
+        $('input[name="form_cmd"]').val('add');
+        $.ajax({
+            url: "{url_main}saved_userlist_ajax.php",
+            data: { cmd: "get_all_users", event_id: event_id, userlist_type: userlist_type},
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    displayUserListEditForm(data?.detail);
+
+                    $('#user-list-table').hide();
+                    $('#edit-userlist-form').show();
+                    $('#go_back_button').show();
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+    }
+
+    function editSavedUserList(id) {
+        $('input[name="form_cmd"]').val('edit');
+
+        $.ajax({
+            url: "{url_main}saved_userlist_ajax.php",
+            data: { cmd: "get_one_userlist_edit", id: id, event_id: event_id, userlist_type: userlist_type},
+            type: "get",
+            dataType: "json",
+            success: function (data) { 
+                if (data.status === "success") {
+                    console.log(data?.userlist_detail);
+                    displayUserListEditForm(data?.detail);
+
+                    $('#user-list-table').hide();
+                    $('#edit-userlist-form').show();
+                    $('#go_back_button').show();
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+
+        return false;
+    }
+
+    function addSavedUserList() {
+        $.ajax({
+            url: "{url_main}saved_userlist_ajax.php",
+            data: { cmd: "add_saved_userlist", title: '', users: 'users', event_id: event_id, userlist_type: userlist_type },
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+        
+    }
+
+    function updateSavedUserList() {
+        var checkedUserIds = getCheckedUserIds();
+        var userlist_title = $("#userlist_title").val();
+        var userlist_id = $('#userlist_id').val();
+        var is_edit = $('input[name="form_cmd"]').val();
+        
+        $.ajax({
+            url: "{url_main}saved_userlist_ajax.php",
+            data: { cmd: "update_saved_userlist", is_edit: is_edit, id:userlist_id, title: userlist_title, users: checkedUserIds, event_id: event_id, userlist_type: userlist_type },
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    updateUserListSelectUI(data);
+                    if(is_edit == 'edit') {
+                        showMessageContainer("{l_successfully_saved_user_updated}");
+                    } else {
+                        showMessageContainer("{l_successfully_saved_user_created}");
+                    }
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });
+    }
+
+    function deleteSavedUserList(id) {
+        if (confirm('{l_saved_userlist_delete_confirm}')) {
+            $.ajax({
+                url: "{url_main}saved_userlist_ajax.php",
+                data: { cmd: "delete_saved_userlist", id: id, event_id: event_id, userlist_type: userlist_type },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status === "success") {
+                        displayUserListTable(data);
+                        updateUserListSelectUI(data);
+                        showMessageContainer("{l_successfully_deleted}");
+                        return true;
+                    } else {
+                        console.log("Failed");
+                        return false;
+                    }
+                },
+                error: function () {
+                    alert('error');
+                    return false;
+                }
+            });
+        }
+    }
+</script>

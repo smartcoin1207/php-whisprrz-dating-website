@@ -9,6 +9,7 @@ This notice may not be removed from the source code. */
 
 include './_include/core/main_start.php';
 include("./_include/current/mail.templates.class.php");
+include("./_include/current/select.userlist.class.php");
 
 $optionTmplName = Common::getTmplName();
 if ($optionTmplName != 'edge') {
@@ -212,11 +213,11 @@ class CHotdateMail extends CHtmlBlock
         $urlpage = $g['path']['url_main'] . "hotdate_mail.php?hotdate_id=" . $hotdate_id;
         $html->setvar('url_page', $urlpage);
 
-        $saved_user_list = self::getSavedUserList($hotdate_id);
-        $html->setvar('saved_user_list', $saved_user_list);
+        // $saved_user_list = self::getSavedUserList($hotdate_id);
+        // $html->setvar('saved_user_list', $saved_user_list);
 
-        $select_hotdate_user_url = $g['path']['url_main'] . "select_hotdate_users.php?hotdate_id=" . $hotdate_id;
-        $html->setvar('select_event_user_url', $select_hotdate_user_url);
+        // $select_hotdate_user_url = $g['path']['url_main'] . "select_hotdate_users.php?hotdate_id=" . $hotdate_id;
+        // $html->setvar('select_event_user_url', $select_hotdate_user_url);
 
         parent::parseBlock($html);
     }
@@ -234,6 +235,11 @@ $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");
 $page->add($footer);
+
+$saved_user_list = new CSelectUserList('saved_user_list', $g['tmpl']['dir_tmpl_main'] . "select_user_list.html");
+$saved_user_list->event_id = $hotdate_id;
+$saved_user_list->userlist_type = 'hotdate';
+$page->add($saved_user_list);
 
 $mail_templates_list = new CMailTemplates('mail_templates_list', $g['tmpl']['dir_tmpl_main'] . "mail_templates.html");
 $mail_templates_list->template_type = 'HOTDATE_MAIL';

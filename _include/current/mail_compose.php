@@ -216,6 +216,7 @@ class CCompose extends CHtmlBlock
 			}
 		}
 	}
+	
 	function parseBlock(&$html)
 	{
             global $g_user;

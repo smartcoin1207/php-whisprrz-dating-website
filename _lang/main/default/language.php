@@ -6331,4 +6331,14 @@ $l['partyhou_mail.php']['title_current'] = "Partyhou Mail";
 
 $l['all']['template_list'] = "Template List";
 $l['all']['template_delete_confirm'] = "Are you sure you want to delete entire template?";
+$l['all']['count'] = "Count";
+$l['all']['successfully_deleted'] = "Successfully Deleted";
+$l['all']['successfully_saved_user_updated'] = "Successfully Updated";
+$l['all']['successfully_saved_user_created'] = "Successfully Created";
+
+$l['all']['all_saved_members'] = "All Members";
+$l['all']['male_saved_members'] = "Male Members";
+$l['all']['female_saved_members'] = "Female Members";
+$l['all']['couple_saved_members'] = "Couple Members";
+$l['all']['transgender_saved_members'] = "Transgender Members";
 ?>

@@ -72,7 +72,7 @@
                         <div class="show-message-container" style="display: none;" id="show-message-container" onclick="this.style.display='none';"></div>
                     </div>
                     <div id="user-list-table">
-                        <button onclick="showAddUserListForm(); return false;" class="btn btn-primary" style="float: right;">Add</button>
+                        <button onclick="addUserListButtonClick(); return false;" class="btn btn-primary" style="float: right;">Add</button>
                         <table class="table table-condensed">
                             <thead>
                             <tr>
@@ -95,6 +95,11 @@
                             <div style="display: flex; justify-content: flex-end;">
                                 <button type="button" id="saved-user-list-update-btn" class="btn blue" style="width: 100px;" onclick="updateSavedUserList();">{l_save}</button>
                             </div>
+
+                            <div id="pick-orientation-boxes">
+                                
+                            </div>
+
                             <div class="form-group">
                                 <label for="userlist_title" style="font-size: 14px;">{l_title}:</label>
                                 <input type="text" class="form-control" id="userlist_title" name="userlist_title">
@@ -147,6 +152,72 @@
         var isAllChecked = $(this).prop('checked');
     });
 
+    function showMessageContainer(message) {
+        $('#show-message-container').html(message);
+        $('#show-message-container').css('display', 'block');
+
+        setTimeout(() => {
+            $('#show-message-container').css('display', 'none');
+        }, 3000);
+    }
+    
+    function updateUserListSelectUI(data) {
+        $('#saved_user_list').empty();
+        $('#saved_user_list').append(data?.saved_user_list);
+        $('#saved_user_list').selectpicker('refresh');
+    }
+
+    function closeEditUserListForm() {
+        $('#user-list-table').show();
+        $('#edit-userlist-form').hide();
+        $('#go_back_button').hide();
+        getSavedUserListAll();
+    }
+
+    $('#pick-orientation-boxes').on('change', 'input[type="checkbox"]', function() {
+        console.log("Changed ==== ")
+        const checkedOrientationIds = $('#pick-orientation-boxes input[type="checkbox"]:checked')
+        .map(function() {
+            const match = $(this).attr('name').match(/\[(.+?)\]/);
+            console.log(match);
+            return match ? match[1] : null;
+        })
+        .get();
+
+        $.ajax({
+            url: "{url_main}saved_userlist_ajax.php",
+            data: { cmd: "get_orientation_users", orientation_checked_ids: checkedOrientationIds, event_id: event_id, userlist_type: userlist_type},
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === "success") {
+                    displayUserListCheckBoxes(data?.detail);
+
+                    return true;
+                } else {
+                    console.log("Failed");
+                    return false;
+                }
+            },
+            error: function () {
+                alert('error');
+                return false;
+            }
+        });  
+    });
+
+    function getCheckedUserIds() {
+        const checkedUsersIds = [];
+        const checkboxes = document.querySelectorAll('#userlist-checkboxgroup input[type="checkbox"]:checked');
+        
+        checkboxes.forEach(function(checkbox) {
+            const userId = checkbox.name.match(/\d+/)[0]; // Extract numeric ID from name attribute
+            checkedUsersIds.push(userId);
+        });
+
+        return checkedUsersIds;
+    }
+
     function displayUserListTable(data) {
         $('#userlist_table_body').empty();
 
@@ -165,14 +236,14 @@
                     <td>${savedUserListString || 'No Text'}</td>
                     <td>
                         <div class="">
-                            <a class="edit_button" onClick="editSavedUserList('${id || ''}')">
+                            <a class="edit_button" onClick="editUserListButtonClick('${id || ''}')">
                                 <span class="icon_fa">
                                     <i class="fa fa-edit"></i>
                                 </span>
                             </a>
                             ${
                                 is_default_user_group !== 1
-                                    ? `<a class="delete_button" onClick="deleteSavedUserList('${id || ''}')">
+                                    ? `<a class="delete_button" onClick="deleteUserListButtonClick('${id || ''}')">
                                         <span class="icon_fa">
                                             <i class="fa fa-trash"></i>
                                         </span>
@@ -187,31 +258,38 @@
         });
     }
 
+    function displayOrientationCheckboxes(data) {
+        orientation_boxes = data?.orientation_boxes;
+
+        $('#pick-orientation-boxes').empty();
+        orientation_boxes.forEach(orientation_box => {
+            x = `<div class="form-group field_checkbox custom_checkbox">
+                    <input id="chkori_${orientation_box?.orientation_id || ''}" name="boxes[${orientation_box?.orientation_id || ''}]" type="checkbox" value="1">
+                    <label for="chkori_${orientation_box?.orientation_id || ''}"><span></span>${orientation_box?.title || ''}(${orientation_box?.count})</label>
+                </div>`;
+
+            $('#pick-orientation-boxes').append(x);
+        });
+    }
+
     function displayUserListEditForm(detail) {
+        var userlist_title = detail?.title;
+        var userlist_id = detail?.id;
+
+        $('#userlist_title').val(userlist_title);
+        $('#all').prop('checked', false);
+
+        $('#userlist_id').val(userlist_id);
+
+        displayUserListCheckBoxes(detail);
+    }
+
+    function displayUserListCheckBoxes(detail) {
         var all_users = detail?.all_users;
         var user_ids_string = detail?.user_ids_string;
         var user_ids_list = user_ids_string ? user_ids_string.split(',') : [];
-        var userlist_title = detail?.title;
-        var userlist_id = detail?.id;
-        var is_default_user_group = detail?.is_default_user_group;
-        
-        disabled = is_default_user_group == 1 ? 'disabled' : '';
-        
-        $('#userlist_title').val(userlist_title);
-        $('#all').prop('checked', false);
-        if (is_default_user_group == 1) {
-            $('#userlist_title').prop('disabled', true);
-            $('#all').prop('disabled', true);
-            $('#saved-user-list-update-btn').prop('disabled', true);
-        } else {
-            $('#userlist_title').prop('disabled', false);
-            $('#all').prop('disabled', false);
-            $('#saved-user-list-update-btn').prop('disabled', false);
-        }
 
-        $('#userlist_id').val(userlist_id);
         $('#userlist-checkboxgroup').empty();
-
         all_users.forEach(user => {
             user_id = user?.user_id;
             name = user?.name;
@@ -219,47 +297,12 @@
             checked = user_ids_list.includes(user_id) ? 'checked' : '';
 
             x = `<div class="form-group field_checkbox custom_checkbox">
-                    <input id="chk_${user_id || ''}" name="users[${user_id || ''}]" type="checkbox"  value="1" ${checked || ''} ${disabled || ''}>
+                    <input id="chk_${user_id || ''}" name="users[${user_id || ''}]" type="checkbox"  value="1" ${checked || ''}>
                     <label for="chk_${user_id || ''}"><span></span>${name || ''}</label>
                 </div>`;
 
             $('#userlist-checkboxgroup').append(x);
         });
-    }
-
-    function showMessageContainer(message) {
-        $('#show-message-container').html(message);
-        $('#show-message-container').css('display', 'block');
-
-        setTimeout(() => {
-            $('#show-message-container').css('display', 'none');
-        }, 3000);
-    }
-
-    function getCheckedUserIds() {
-        const checkedUsersIds = [];
-        const checkboxes = document.querySelectorAll('#userlist-checkboxgroup input[type="checkbox"]:checked');
-        
-        checkboxes.forEach(function(checkbox) {
-            const userId = checkbox.name.match(/\d+/)[0]; // Extract numeric ID from name attribute
-            checkedUsersIds.push(userId);
-        });
-
-        return checkedUsersIds;
-    }
-
-    function updateUserListSelectUI(data) {
-        $('#saved_user_list').empty();
-        $('#saved_user_list').append(data?.saved_user_list);
-        $('#saved_user_list').selectpicker('refresh');
-    }
-
-    function closeEditUserListForm() {
-        $('#user-list-table').show();
-        $('#edit-userlist-form').hide();
-        $('#go_back_button').hide();
-
-        getSavedUserListAll();
     }
 
     //API requests
@@ -286,16 +329,17 @@
         });
     }
 
-    function showAddUserListForm() {
+    function addUserListButtonClick() {
         $('input[name="form_cmd"]').val('add');
         $.ajax({
             url: "{url_main}saved_userlist_ajax.php",
-            data: { cmd: "get_all_users", event_id: event_id, userlist_type: userlist_type},
+            data: { cmd: "get_one_userlist_add", event_id: event_id, userlist_type: userlist_type},
             type: "get",
             dataType: "json",
             success: function (data) {
                 if (data.status === "success") {
                     displayUserListEditForm(data?.detail);
+                    displayOrientationCheckboxes(data);
 
                     $('#user-list-table').hide();
                     $('#edit-userlist-form').show();
@@ -314,7 +358,7 @@
         });
     }
 
-    function editSavedUserList(id) {
+    function editUserListButtonClick(id) {
         $('input[name="form_cmd"]').val('edit');
 
         $.ajax({
@@ -326,6 +370,7 @@
                 if (data.status === "success") {
                     console.log(data?.userlist_detail);
                     displayUserListEditForm(data?.detail);
+                    displayOrientationCheckboxes(data);
 
                     $('#user-list-table').hide();
                     $('#edit-userlist-form').show();
@@ -344,29 +389,6 @@
         });
 
         return false;
-    }
-
-    function addSavedUserList() {
-        $.ajax({
-            url: "{url_main}saved_userlist_ajax.php",
-            data: { cmd: "add_saved_userlist", title: '', users: 'users', event_id: event_id, userlist_type: userlist_type },
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                if (data.status === "success") {
-
-                    return true;
-                } else {
-                    console.log("Failed");
-                    return false;
-                }
-            },
-            error: function () {
-                alert('error');
-                return false;
-            }
-        });
-        
     }
 
     function updateSavedUserList() {
@@ -402,7 +424,7 @@
         });
     }
 
-    function deleteSavedUserList(id) {
+    function deleteUserListButtonClick(id) {
         if (confirm('{l_saved_userlist_delete_confirm}')) {
             $.ajax({
                 url: "{url_main}saved_userlist_ajax.php",

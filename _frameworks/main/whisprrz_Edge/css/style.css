@@ -3276,6 +3276,11 @@ body.modal-open.to_check{
   cursor: pointer;
 }
 
+.users_list_item i.fa.fa-commenting.item-with-chat {
+  right: 50px;
+  top: 15px;
+}
+
 .users_list_item.users_list_item_live_now i.fa.fa-commenting{
   /* top: 35px; */
   top: 40px;

@@ -20,6 +20,7 @@ class CPhotoList extends CHtmlBlock
 
     function parseBlock(&$html)
     {
+        global $g_user;
         $guid = guid();
         $uid = User::getParamUid(0);
         $ajax = get_param('ajax');
@@ -73,16 +74,25 @@ class CPhotoList extends CHtmlBlock
             $pageTitle = $isPagesPhotosList ? l('page_title_pages') : l('page_title_groups');
         }
 
+
         $pageUrl = Common::pageUrl('photos_list');
         if ($uid) {
             if ($groupsPhotoList) {
-                $pageUrl = $isPagesPhotosList ? Common::pageUrl('user_my_pages_photos_list', $guid) : Common::pageUrl('user_my_groups_photos_list', $guid);
+                if ($isPagesPhotosList) {
+                    $pageUrl = Common::pageUrl('user_my_pages_photos_list', $guid);
+                } else {
+                    if ($uid == $guid) {
+                        $pageUrl = Common::pageUrl('user_my_groups_photos_list', $guid);
+                    } else {
+                        $pageUrl = Common::pageUrl('groups_photos_list', $uid);
+                    }
+                }
             } elseif ($groupId) {
                 $pageUrl = Common::pageUrl('group_photos_list', $groupId);
             } else {
                 $pageUrl = Common::pageUrl('user_photos_list', $uid);
             }
-        } elseif ($groupsPhotoList) {
+        } elseif ($groupsPhotoList) {            
             $pageUrl = $isPagesPhotosList ? Common::pageUrl('pages_photos_list') : Common::pageUrl('groups_photos_list');
         }
 
@@ -165,12 +175,13 @@ class CPhotoList extends CHtmlBlock
                 $html->setvar('active_tab_public', $active_tab_public);
                 $html->setvar('active_tab_private', $active_tab_private);
                 $html->setvar('active_tab_personal', $active_tab_personal);
-
                 if($profile_photo == 1) {
                     $html->setvar('url_page_user_photos_list', $pageUrl);
                 } else if($profile_photo_nsc_couple == 1) {
                     $html->setvar('url_page_user_photos_list', $pageUrl);
                 }
+
+                $html->setvar('url_page_user_photos_list', $pageUrl);
                 
                 if ($is_private_photo_access || $uid == $g_user['user_id'] || $uid == $g_user['nsc_couple_id'])
                     $html->parse('show_private_tab', false);    

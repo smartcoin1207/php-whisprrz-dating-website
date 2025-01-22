@@ -28,7 +28,7 @@ class CGroupsInvite extends CHtmlBlock
         global $g;
 
         $cmd = get_param('cmd', '');
-        if ($cmd == 'sent' && self::isOwner()) {
+        if ($cmd == 'sent' && self::isOwnerOrModerator()) {
 
             $group_id = Groups::getParamId();
             if (!$group_id) {
@@ -48,6 +48,7 @@ class CGroupsInvite extends CHtmlBlock
                 $block = User::isBlocked('mail', $invite_user_id, guid());
                 //$block = 0;
                 if ($invite_user_id != 0 and $block == 0) {
+
                     // GENERATE KEY - WILL BE USED FOR AUTHORIZATION
 
                     $key = generate_group_key($group_id);
@@ -97,9 +98,7 @@ class CGroupsInvite extends CHtmlBlock
                         }
                     }
                 }
-
             }
-
         }
     }
 
@@ -117,11 +116,7 @@ class CGroupsInvite extends CHtmlBlock
 
         $group_nameseo = self::getNameSeo();
 
-        $sql = "SELECT  * FROM groups_social_subscribers WHERE group_id = " . to_sql($group_id, 'Text') . "AND user_id = " . to_sql(guid(), 'Text'); 
-        $my_subscriber  = DB::row($sql);
-        $moderator_options = json_decode($my_subscriber['moderator_options'], true);
-
-        if (!self::isOwner() && !$moderator_options['group_invite']) {
+        if (!self::isOwnerOrModerator()) {
             $group_url = $g['path']['url_main'] . $group_nameseo;
             redirect($group_url);
         }
@@ -165,7 +160,7 @@ class CGroupsInvite extends CHtmlBlock
         return $group_nameseo;
     }
 
-    public function isOwner()
+    public function isOwnerOrModerator()
     {
         global $g_user, $g;
 
@@ -176,7 +171,11 @@ class CGroupsInvite extends CHtmlBlock
             Common::toHomePage();
         }
 
-        if ($g_user['user_id'] != $group['user_id']) {
+        $sql = "SELECT  * FROM groups_social_subscribers WHERE group_id = " . to_sql($groupId, 'Text') . "AND user_id = " . to_sql(guid(), 'Text'); 
+        $my_subscriber  = DB::row($sql);
+        $moderator_options = json_decode($my_subscriber['moderator_options'], true);
+
+        if ($g_user['user_id'] != $group['user_id'] && !$moderator_options['group_invite']) {
             return false;
         } else {
             return true;

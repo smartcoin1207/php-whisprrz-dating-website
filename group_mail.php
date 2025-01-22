@@ -87,9 +87,11 @@ class CGroupMail extends CHtmlBlock
                 $user_sql = "SELECT gs.user_id FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($groupId, 'Number') . " AND gs.group_user_id=" . to_sql(guid(), 'Number') . " AND u.orientation=5";
             } elseif ($saved_user_list_id == 'saved_transgender') {
                 $user_sql = "SELECT gs.user_id FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($groupId, 'Number') . " AND gs.group_user_id=" . to_sql(guid(), 'Number') . " AND u.orientation=6";
+            } elseif ($saved_user_list_id == 'saved_nonbinary') {
+                $user_sql = "SELECT gs.user_id FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($groupId, 'Number') . " AND gs.group_user_id=" . to_sql(guid(), 'Number') . " AND u.orientation=7";
             }
 
-            if (in_array($saved_user_list_id, ['saved_all', 'saved_male', 'saved_female', 'saved_couple', 'saved_transgender'])) {
+            if (in_array($saved_user_list_id, ['saved_all', 'saved_male', 'saved_female', 'saved_couple', 'saved_transgender', 'saved_nonbinary'])) {
                 $users_rows = DB::rows($user_sql);
                 $user_ids = [];
                 foreach ($users_rows as $row) {

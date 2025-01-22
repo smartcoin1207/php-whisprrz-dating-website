@@ -38,6 +38,16 @@ class CSelectUserList extends CHtmlBlock
                 echo json_encode(array("status" => "error"));
             }
         }
+        
+        if ($cmd == 'get_orientation_users') {
+            $orientation_checked_ids = get_param_array('orientation_checked_ids');
+            
+            $all_users = self::getAllUsers($orientation_checked_ids);
+            $detail = array(
+                'all_users' => $all_users,
+            );
+            echo json_encode(array("detail" => $detail, "status" => "success"));
+        }
 
         if ($cmd == 'get_all_users') {
             $all_users = self::getAllUsers();
@@ -50,6 +60,19 @@ class CSelectUserList extends CHtmlBlock
             echo json_encode(array("detail" => $detail, "status" => "success"));
         }
 
+        if ($cmd == 'get_one_userlist_add') {
+            $orientation_boxes = self::getOrientationCheckboxes();
+            $all_users = [];
+            $title = '';
+            
+            $detail = array(
+                'title' => $title,
+                'all_users' => $all_users,
+            );
+
+            echo json_encode(array("detail" => $detail, "orientation_boxes" => $orientation_boxes, "status" => "success"));
+        }
+
         if ($cmd == 'get_one_userlist_edit') {
             $id = get_param('id', '');
             
@@ -58,22 +81,32 @@ class CSelectUserList extends CHtmlBlock
                     $users = self::getAllUsers('');
                     $detail['id'] = $id;
                     $detail['title'] = l('all_saved_members');
+                    $all_users = self::getAllUsers();
                 } elseif ($id == 'saved_male') {
                     $users = self::getAllUsers(1);
                     $detail['id'] = $id;
                     $detail['title'] = l('male_saved_members');
+                    $all_users = self::getAllUsers('1');
                 } elseif ($id == 'saved_female') {
                     $detail['id'] = $id;
                     $detail['title'] = l('female_saved_members');
                     $users = self::getAllUsers(2);
+                    $all_users = self::getAllUsers('2');
                 } elseif ($id == 'saved_couple') {
                     $detail['id'] = $id;
                     $detail['title'] = l('couple_saved_members');
                     $users = self::getAllUsers(5);
+                    $all_users = self::getAllUsers('5');
                 } elseif ($id == 'saved_transgender') {
                     $detail['id'] = $id;
                     $detail['title'] = l('transgender_saved_members');
                     $users = self::getAllUsers(6);
+                    $all_users = self::getAllUsers('6');
+                }  elseif ($id == 'saved_nonbinary') {
+                    $detail['id'] = $id;
+                    $detail['title'] = l('nonbinary_saved_members');
+                    $users = self::getAllUsers(7);
+                    $all_users = self::getAllUsers('7');
                 }
                 
                 $detail['event_id'] = $this->event_id;
@@ -101,11 +134,13 @@ class CSelectUserList extends CHtmlBlock
                 $row = DB::row($sql);
     
                 $detail = self::getListDetail($row);
+                $all_users = self::getAllUsers();
             }
             
-            $all_users = self::getAllUsers();
             $detail['all_users'] = $all_users;
-            echo json_encode(array("detail" => $detail, "status" => "success"));
+            $orientation_boxes = self::getOrientationCheckboxes();
+
+            echo json_encode(array("detail" => $detail, "orientation_boxes" => $orientation_boxes, "status" => "success"));
         }
 
         if ($cmd == 'get_all_saved_userlist') {
@@ -120,7 +155,7 @@ class CSelectUserList extends CHtmlBlock
                     $all_list[] = $detail;
                 }
 
-                $all_list = array_merge(self::getDefaultUserGroups(), $all_list);
+                // $all_list = array_merge(self::getDefaultUserGroups(), $all_list);
                 echo json_encode(array("all_userlist" => $all_list, "status" => "success"));
             } catch (\Throwable $th) {
                 echo json_encode(array("status" => "error"));
@@ -203,7 +238,7 @@ class CSelectUserList extends CHtmlBlock
                     $all_list[] = $detail;
                 }
 
-                $all_list = array_merge(self::getDefaultUserGroups(), $all_list);
+                // $all_list = array_merge(self::getDefaultUserGroups(), $all_list);
                 $saved_user_list = self::getSavedUserList($this->event_id, $this->userlist_type);
 
                 echo json_encode(array("all_userlist" => $all_list, "saved_user_list" => $saved_user_list, "status" => "success", "message" => 'Successfully Deleted'));
@@ -211,6 +246,56 @@ class CSelectUserList extends CHtmlBlock
                 echo json_encode(array("status" => "error"));
             }
         }
+    }
+
+    function getOrientationCheckboxes() {
+        $orientation_array = array(
+            array(
+                'id' => 'saved_all',
+                'title' => l('all_saved_members'),
+                'orientation' => 'all'
+            ),
+            array(
+                'id' => 'saved_male',
+                'title' => l('male_saved_members'),
+                'orientation' => '1'
+            ),
+            array(
+                'id' => 'saved_female',
+                'title' => l('female_saved_members'),
+                'orientation' => '2'
+            ),
+            array(
+                'id' => 'saved_couple',
+                'title' => l('couple_saved_members'),
+                'orientation' => '5'
+            ),
+            array(
+                'id' => 'saved_transgender',
+                'title' => l('transgender_saved_members'),
+                'orientation' => '6'
+            ),
+            array(
+                'id' => 'saved_nonbinary',
+                'title' => l('nonbinary_saved_members'),
+                'orientation' => '7'
+            ),
+        );
+
+        $orientation_boxes = [];
+        foreach ($orientation_array as $orientation) {
+            $all_users = self::getAllUsers($orientation['orientation']);
+            $users_count = count($all_users);
+            
+            $data = array(
+                'count' => $users_count,
+                'title' => $orientation['title'],
+                'orientation_id' => $orientation['orientation'],
+            );
+            $orientation_boxes[] = $data;
+        }
+
+        return $orientation_boxes;
     }
     
     function getListDetail($row, $is_default = false) {
@@ -284,6 +369,11 @@ class CSelectUserList extends CHtmlBlock
                 'title' => l('transgender_saved_members'),
                 'orientation' => '6'
             ),
+            array(
+                'id' => 'saved_nonbinary',
+                'title' => l('nonbinary_saved_members'),
+                'orientation' => '7'
+            ),
         );
 
         $defaultUserGroups = [];
@@ -320,16 +410,35 @@ class CSelectUserList extends CHtmlBlock
     }
 
     function getAllUsers($orientation = '') {
+        $orientation_where = '';
+        if (is_array($orientation)) {
+            if (count($orientation) > 0) {
+                $orientation_ids_string = implode(',', $orientation);
+                $orientation_where = " AND u.orientation IN(" . $orientation_ids_string . ")";    
+            } else {
+                $orientation_where = " AND 1=0";      
+            }
+            
+            if (in_array('all', $orientation)) {
+                $orientation_where = '';
+            }
+        } else {
+            if ($orientation == 'all') {
+                $orientation = '';
+            }
+           $orientation_where = $orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "";
+        }
+
         if ($this->userlist_type == 'group') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($this->event_id, 'Number') . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
+            $all_users_sql = "SELECT u.user_id, u.name FROM groups_social_subscribers AS gs LEFT JOIN user AS u ON gs.user_id = u.user_id WHERE gs.group_id = " . to_sql($this->event_id, 'Number') . $orientation_where;
         } elseif ($this->userlist_type == 'event') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM events_event_guest AS eg LEFT JOIN user AS u ON eg.user_id = u.user_id WHERE eg.event_id = " . to_sql($this->event_id, 'Number') . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
+            $all_users_sql = "SELECT u.user_id, u.name FROM events_event_guest AS eg LEFT JOIN user AS u ON eg.user_id = u.user_id WHERE eg.event_id = " . to_sql($this->event_id, 'Number') . $orientation_where;
         } elseif ($this->userlist_type == 'hotdate') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM hotdates_hotdate_guest AS hg LEFT JOIN user AS u ON hg.user_id = u.user_id WHERE eg.hotdate_id = " . to_sql($this->event_id, 'Number') . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
+            $all_users_sql = "SELECT u.user_id, u.name FROM hotdates_hotdate_guest AS hg LEFT JOIN user AS u ON hg.user_id = u.user_id WHERE eg.hotdate_id = " . to_sql($this->event_id, 'Number') . $orientation_where;
         } elseif ($this->userlist_type == 'partyhou') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM partyhouz_partyhou_guest AS pg LEFT JOIN user AS u ON pg.user_id = u.user_id WHERE pg.partyhou_id = " . to_sql($this->event_id, 'Number') . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
+            $all_users_sql = "SELECT u.user_id, u.name FROM partyhouz_partyhou_guest AS pg LEFT JOIN user AS u ON pg.user_id = u.user_id WHERE pg.partyhou_id = " . to_sql($this->event_id, 'Number') . $orientation_where;
         } elseif ($this->userlist_type == 'user') {
-            $all_users_sql = "SELECT u.user_id, u.name FROM user WHERE hide_time != 0 " . ($orientation ? (" AND u.orientation=" . to_sql($orientation, 'Text')) : "");
+            $all_users_sql = "SELECT u.user_id, u.name FROM user WHERE hide_time != 0 " . $orientation_where;
         }
 
         $all_users = DB::rows($all_users_sql);

@@ -884,39 +884,43 @@ Class Common {
 
     static function getSavedUserList($sql, $selected = '', $list = false)
     {
-        $orientation_array = array(
-            array(
-                'id' => 'saved_all',
-                'title' => l('all_saved_members'),
-            ),
-            array(
-                'id' => 'saved_male',
-                'title' => l('male_saved_members'),
-            ),
-            array(
-                'id' => 'saved_female',
-                'title' => l('female_saved_members'),
-            ),
-            array(
-                'id' => 'saved_couple',
-                'title' => l('couple_saved_members'),
-            ),
-            array(
-                'id' => 'saved_transgender',
-                'title' => l('transgender_saved_members'),
-            ),
-        );
-        $lPleaseChoose = Common::getPleaseChoose();
+        // $orientation_array = array(
+        //     array(
+        //         'id' => 'saved_all',
+        //         'title' => l('all_saved_members'),
+        //     ),
+        //     array(
+        //         'id' => 'saved_male',
+        //         'title' => l('male_saved_members'),
+        //     ),
+        //     array(
+        //         'id' => 'saved_female',
+        //         'title' => l('female_saved_members'),
+        //     ),
+        //     array(
+        //         'id' => 'saved_couple',
+        //         'title' => l('couple_saved_members'),
+        //     ),
+        //     array(
+        //         'id' => 'saved_transgender',
+        //         'title' => l('transgender_saved_members'),
+        //     ),
+        //     array(
+        //         'id' => 'saved_nonbinary',
+        //         'title' => l('nonbinary_saved_members'),
+        //     ),
+        // );
+        // $lPleaseChoose = Common::getPleaseChoose();
 
-        $ret = "<option value=\"0\" " . ((!$selected) ? " selected=\"selected\"" : "") . ">" . $lPleaseChoose . "</option>\n";
-        foreach ($orientation_array as $orientation) {
-            $id = '';
+        // $ret = "<option value=\"0\" " . ((!$selected) ? " selected=\"selected\"" : "") . ">" . $lPleaseChoose . "</option>\n";
+        // foreach ($orientation_array as $orientation) {
+        //     $id = '';
             
-            $ret .= "<option " . $id . " value=\"" . $orientation['id'] . "\" >" . $orientation['title'] . "</option>\n";
-        }
+        //     $ret .= "<option " . $id . " value=\"" . $orientation['id'] . "\" >" . $orientation['title'] . "</option>\n";
+        // }
 
-        $saved_user_list = ($list) ? DB::db_options_ul($sql, $selected, 0, false) : DB::db_options($sql, '', 0, false, false);
-        $saved_user_list = $ret . $saved_user_list;
+        $saved_user_list = ($list) ? DB::db_options_ul($sql, $selected, 0, false) : DB::db_options($sql, '', 0, false, true);
+        // $saved_user_list = $ret . $saved_user_list;
 
         return $saved_user_list;
     }
@@ -5061,50 +5065,59 @@ JS;
                             $urlSeo = User::url($uid, null, null, true, true);
                         }
                     }
-                    $assignProfilePage = array('user_photos_list',
-                                               'user_vids_list',
-                                               'user_songs_list',
-                                               'user_blogs_list',
-                                               'user_pages_list',
-                                               'user_friends_list',
-                                               'my_friends_online',
 
-                                               'user_groups_list',
-                                               'group_photos_list',
-                                               'group_vids_list',
-                                               'group_songs_list',
-                                               'group_page_liked',
-                                               'group_subscribers',
-                                               'group_moderator_settings',
-                                               'group_block_list',
-                                               'group_mail',
-                                               'group_invite',
-                                               'group_owner',
-                                               'photos_my_pages',
-                                               'user_my_pages_photos_list',
-                                               'user_my_groups_photos_list',
-                                               'user_my_pages_songs_list',
-                                               'user_my_groups_songs_list',
-                                               'user_my_pages_vids_list',
-                                               'user_my_groups_vids_list',
-                                               'user_calendar',
-                                               'user_my_calendar',
-                                               'task_create',
-                                               'task_my_create',
-                                               'user_event_calendar',
-                                               'user_my_event_calendar',
-                                               'user_hotdate_calendar',
-                                               'user_my_hotdate_calendar',
-                                               'task_hotdate_create',
-                                               'task_my_hotdate_create',
-                                               'user_partyhou_calendar',
-                                               'user_my_partyhou_calendar',
-                                               'task_partyhou_create',
-                                               'task_my_partyhou_create',
-                                               'live',
-                                               'live_',
-                                               'live_id'
-                                        );
+                    $assignProfilePage = array(
+                        'user_photos_list',
+                        'user_vids_list',
+                        'user_songs_list',
+                        'user_blogs_list',
+                        'user_pages_list',
+                        'user_friends_list',
+                        'my_friends_online',
+                        'user_groups_list',
+                        'group_photos_list',
+                        'groups_photos_list',
+                        'group_vids_list',
+                        'group_songs_list',
+                        'group_page_liked',
+                        'group_subscribers',
+                        'group_moderator_settings',
+                        'group_block_list',
+                        'group_mail',
+                        'group_invite',
+                        'group_owner',
+                        'photos_my_pages',
+                        'user_my_pages_photos_list',
+                        'user_my_groups_photos_list',
+                        'user_my_pages_songs_list',
+                        'user_my_groups_songs_list',
+                        'user_my_pages_vids_list',
+                        'user_my_groups_vids_list',
+                        'user_calendar',
+                        'user_my_calendar',
+                        'task_create',
+                        'task_my_create',
+                        'user_event_calendar',
+                        'user_my_event_calendar',
+                        'user_hotdate_calendar',
+                        'user_my_hotdate_calendar',
+                        'task_hotdate_create',
+                        'task_my_hotdate_create',
+                        'user_partyhou_calendar',
+                        'user_my_partyhou_calendar',
+                        'task_partyhou_create',
+                        'task_my_partyhou_create',
+                        'live',
+                        'live_',
+                        'live_id'
+                    );
+                    if ($uid != User::getParamUid(0)) {
+                        $key = array_search('groups_photos_list', $assignProfilePage);
+                        if ($key !== false) {
+                            unset($assignProfilePage[$key]);
+                        }
+                    }
+
                     if (in_array($page, $assignProfilePage)) {
                         $page = $urlSeo . '/' . $customUrls[$page];
                     } else {

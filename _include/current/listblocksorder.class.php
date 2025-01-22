@@ -991,18 +991,18 @@ class ListBlocksOrder extends CHtmlBlock
                     ),
                     'menu_group_mail_edge' => array(
                         'url' => Common::pageUrl('group_mail', $groupId),
-                        'icon' => 'fa-file-video-o',
+                        'icon' => 'fa-envelope-open',
                         'tooltip' => l('tooltip_group_mail'),
                     ),
                     'menu_group_invite_edge' => array(
                         'url' => Common::pageUrl('group_invite', $groupId),
-                        'icon' => 'fa-file-video-o',
+                        'icon' => 'fa-user-plus',
                         'tooltip' => l('tooltip_group_invite'),
                     ),
                     'menu_group_edit_edge' => array(
                         'url' => Common::pageUrl('group_edit', $groupId),
                         'icon' => 'fa fa-edit',
-                        'tooltip' => l('tooltip_group_invite'),
+                        'tooltip' => l('tooltip_group_edit'),
                     ),
                     'menu_groups_like_edge' => $menuGroupLike,
                     'menu_groups_subscribers_edge' => $menuGroupsSubscribers,
@@ -1504,21 +1504,18 @@ class ListBlocksOrder extends CHtmlBlock
                     ),
                     'menu_user_group_mail' => array(
                         'url' => Common::pageUrl('group_mail', $groupId),
-                        'icon' => 'fa-exclamation-triangle',
-                        'icon_svg' => 'exclamation_triangle',
+                        'icon' => 'fa-envelope-open',
                         'tooltip' => l('tooltip_user_group_mail'),
                     ),
                     'menu_user_group_invite' => array(
                         'url' => Common::pageUrl('group_invite', $groupId),
-                        'icon' => 'fa-exclamation-triangle',
-                        'icon_svg' => 'exclamation_triangle',
+                        'icon' => 'fa-user-plus',
                         'tooltip' => l('tooltip_user_group_invite'),
                     ),
                     'menu_user_group_owner' => array(
                         'url' => Common::pageUrl('group_owner', $groupId),
                         'owner_name' => $username,
-                        'icon' => 'fa-exclamation-triangle',
-                        'icon_svg' => 'exclamation_triangle',
+                        'icon' => 'fa-user-circle',
                         'tooltip' => l('tooltip_user_group_invite'),
                     ),
                 );

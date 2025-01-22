@@ -2429,23 +2429,26 @@ Class TemplateEdge {
                         if(isset($row['group_user_id']) && $row['group_user_id'] == guid() || $moderator_options['group_moderator']) {
                             if($row['group_moderator'] != 'Y') {
                                 $html->parse("{$blockItemMenu}_groups_moderator", false);
+                                $html->clean("{$blockItemMenu}_groups_unmoderator");
+                                $html->clean("{$blockItemMenu}_groups_moderator_settings");
+            
                             } else {
                                 $html->parse("{$blockItemMenu}_groups_unmoderator", false);
                                 $html->setvar('moderator_user_id', $row['user_id']);
                                 $html->parse("{$blockItemMenu}_groups_moderator_settings", false);
+                                $html->clean("{$blockItemMenu}_groups_moderator");
                             }
                         }
                     }
                 }
                 if ($isParseMenu) {
                     $html->parse($blockItemMenu, false);
-                    $html->clean("{$blockItemMenu}_groups_unmoderator");
-                    $html->clean("{$blockItemMenu}_groups_moderator");
-                    $html->clean("{$blockItemMenu}_groups_moderator_settings");
-
+                    $html->setvar('item_settings_with_class', 'item-with-chat');
                 } else {
                     $html->clean($blockItemMenu);
                 }
+                $blockItemChat = "{$blockItemDisplay}_chat";
+                $html->subcond($guid != $row['user_id'], $blockItemChat);
             } elseif($p != 'user_block_list.php') {
                 //popcorn modified 2024-05-24
                 $blockItemMenu = "{$blockItemDisplay}_menu";
@@ -2507,10 +2510,8 @@ Class TemplateEdge {
                 if($isParseMenu) {
                     $html->parse($blockItemMenu, false);
                     $html->clean("{$blockItemMenu}_remove_guest");
+                    $html->setvar('item_settings_with_class', 'item-with-chat');
                 } else {
-                    $blockItemChat = "{$blockItemDisplay}_chat";
-                    $html->subcond($guid != $row['user_id'], $blockItemChat);
-
                     if (!isset($row['group_user_id']) || !$row['group_user_id']) {
                         $blockItemLive = "{$blockItemDisplay}_live_now";
                         $userLiveNowId = LiveStreaming::getUserLiveNowId($row['user_id']);
@@ -2526,8 +2527,10 @@ Class TemplateEdge {
                     }
                 }
 
+                $blockItemChat = "{$blockItemDisplay}_chat";
+                $html->subcond($guid != $row['user_id'], $blockItemChat);
             }
-
+            
             $html->parse($blockItemDisplay, false);
             $html->clean($blockItemMenu);
             $html->clean("{$blockItem}_approved_mark");

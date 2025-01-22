@@ -56,7 +56,6 @@ class CEventMail extends CHtmlBlock
         $table = "saved_user_list";
         $cmd = get_param('cmd', '');
         if ($cmd == "sent") {
-
             $type = get_param('type');
             $name = get_param('name');
 

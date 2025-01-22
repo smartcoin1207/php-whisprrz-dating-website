@@ -42,8 +42,6 @@ class CProfileVideo
             $count = DB::result($sql);
             return $count;
         }
-
-
     }
 
     static function getWhereList($table = '', $uid = 0, $groupId = 0, $showAllMyVideo = false, $tab = 'public') // Divyesh - Added on 11-04-2024
@@ -54,7 +52,6 @@ class CProfileVideo
         if($groupId) {
             $uid = 0;
         }
-
 
         $whereGroup = " AND {$table}group_id = " . to_sql($groupId);
         $groupsPhotoList = Groups::getTypeContentList();
@@ -95,8 +92,8 @@ class CProfileVideo
         //$vis .= " AND {$table}private = 0 ";//so far, only public albums
         $where = " {$table}is_uploaded = 1 AND {$table}active != '2' " . $vis ;
 
-        /* Divyesh - Added on 11-04-2024 */
-        if ($tab == 'private'){
+        /* Divyesh - Added on 11-04-2024 */ //Popcorn modified 2025-01-23
+        if ($tab == 'private' || $tab == '2'){
             $where .= " AND {$table}`private` = 'Y' ";
         }else if($tab == true || $tab == 'public'){
             $where .= " AND {$table}`private` = 'N' ";
@@ -230,6 +227,14 @@ class CProfileVideo
         return $whereSql;
     }
 
+    static public function getFromAddForAccess($access) {
+        $sql_from_add = " ";
+        if ($access == 'private' || $access = '2') {
+           $sql_from_add .= " LEFT JOIN invited_private_vids AS ip ON V.user_id=ip.friend_id"; 
+        }
+        
+        return $sql_from_add;
+    }
 
     static function getVideosList($typeOrder = '', $limit = '', $uid = null, $getOffset = false, $cache = true, $vid = 0, $whereSql = '', $groupId = 0, $showAllMyVideo = false)
     {
@@ -248,12 +253,10 @@ class CProfileVideo
             $limit = ' LIMIT ' . $limit;
         }
 
+        $access_video_tab = get_param('offset', '');
+
         $key = 'CProfileVideo_getVideosList_' . $uid . '_' . $vid . '_' . $typeOrder . str_replace(' ', '_', $limit) . '_' . intval($getOffset);
         if ($cache) {
-            /*$videos = Cache::get($key);
-            if ($videos !== null) {
-                return $videos;
-            }*/
         }
 
         $whereTags = '';
@@ -272,8 +275,7 @@ class CProfileVideo
         $guid = guid();
         $photoIds = array();
 
-        $where = self::getWhereList('V.', $uid, $groupId, $showAllMyVideo);
-        //var_dump_pre($where);
+        $where = self::getWhereList('V.', $uid, $groupId, $showAllMyVideo, $access_video_tab);
         if ($whereSql) {
             $where .= $whereSql;
         }
@@ -295,8 +297,8 @@ class CProfileVideo
             $sql = 'SELECT V.*, U.name, U.name_seo, U.country, U.city, U.gender
                       FROM `vids_tags_relations` AS TR
                       JOIN `vids_video` AS V  ON V.id = TR.video_id
-                      JOIN `user` AS U ON U.user_id = V.user_id
-                     WHERE ' . $where
+                      JOIN `user` AS U ON U.user_id = V.user_id' . self::getFromAddForAccess($access_video_tab) .
+                     ' WHERE ' . $where
                              . $whereTags
                              . ' GROUP BY V.id '
                              . $order
@@ -304,14 +306,11 @@ class CProfileVideo
         } else {
             $sql = 'SELECT V.*, U.name, U.name_seo, U.country, U.city
                       FROM `vids_video` AS V
-                      JOIN `user` AS U ON U.user_id = V.user_id
-                      WHERE ' . $where
+                      JOIN `user` AS U ON U.user_id = V.user_id' . self::getFromAddForAccess($access_video_tab) .
+                     ' WHERE ' . $where
                               . $order
                               . $limit;
         }
-
-
-
 
         $videos = DB::rows($sql);
 
@@ -448,8 +447,6 @@ class CProfileVideo
     static function getAccessVideosList ($typeOrder = '', $tab = '', $limit = '', $uid = null, $getOffset = false, $cache = true, $vid = 0, $whereSql = '', $groupId = 0, $showAllMyVideo = false){
         global $g;
 
-
-
         $result = array();
         if ($uid === null) {
             $uid = User::getParamUid(0);
@@ -465,10 +462,10 @@ class CProfileVideo
 
         $key = 'CProfileVideo_getVideosList_' . $uid . '_' . $vid . '_' . $typeOrder . str_replace(' ', '_', $limit) . '_' . intval($getOffset);
         if ($cache) {
-            /*$videos = Cache::get($key);
+            $videos = Cache::get($key);
             if ($videos !== null) {
                 return $videos;
-            }*/
+            }
         }
 
         $whereTags = '';
@@ -488,7 +485,6 @@ class CProfileVideo
         $photoIds = array();
 
         $where = self::getWhereList('V.', $uid, $groupId, $showAllMyVideo, $tab);
-        //var_dump_pre($where);
         if ($whereSql) {
             $where .= $whereSql;
         }
@@ -510,8 +506,8 @@ class CProfileVideo
             $sql = 'SELECT V.*, U.name, U.name_seo, U.country, U.city, U.gender
                       FROM `vids_tags_relations` AS TR
                       JOIN `vids_video` AS V  ON V.id = TR.video_id
-                      JOIN `user` AS U ON U.user_id = V.user_id
-                     WHERE ' . $where
+                      JOIN `user` AS U ON U.user_id = V.user_id' . self::getFromAddForAccess($tab) .
+                     ' WHERE ' . $where
                              . $whereTags
                              . ' GROUP BY V.id '
                              . $order
@@ -519,14 +515,11 @@ class CProfileVideo
         } else {
             $sql = 'SELECT V.*, U.name, U.name_seo, U.country, U.city
                       FROM `vids_video` AS V
-                      JOIN `user` AS U ON U.user_id = V.user_id
-                      WHERE ' . $where
+                      JOIN `user` AS U ON U.user_id = V.user_id' . self::getFromAddForAccess($tab) .
+                     ' WHERE ' . $where
                               . $order
                               . $limit;
         }
-
-
-
 
         $videos = DB::rows($sql);
 

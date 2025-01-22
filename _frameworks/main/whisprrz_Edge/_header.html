@@ -399,14 +399,10 @@
 
 
         var bgLast = [0, 0, 0];
-        
-        var bgLast=(name+',0,0').split(','),
-            bg='url('+bgLast[0]+') center/'+bgLast[1]+'px auto fixed';
+        var name = '{name}';
 
-        // if (!bgLast[2]) document.documentElement.style.background=bg
-        // else if (bgLast[0]){} 
-        //     document.documentElement.style.background='url({url_tmpl_main}images/patterns/'+bgLast[0]+') '+
-        // (-bgLast[1])+'px '+(-bgLast[2])+'px repeat';
+        var bgLast = [name, 0, 0];
+            bg='url('+bgLast[0]+') center/'+bgLast[1]+'px auto fixed';
     </script>
 
 

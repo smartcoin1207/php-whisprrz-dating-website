@@ -209,45 +209,46 @@ var CProfilePhoto = function(guid,uid, nsc_couple_id=0) {
         }
 
         // data[]
-        $.ajax({url:url_ajax,
-                type:'POST',
-                data:data,
-                beforeSend: function(){
-                },
-                success: function(res){
-                    $this.$ppUpload[type]['upload_count']=0;
-                    var data=checkDataAjax(res);
-                    if (data!==false){
-                        $this.clearUploadFileData(type);
+        $.ajax({
+            url: url_ajax,
+            type: 'POST',
+            data: data,
+            beforeSend: function () {
+            },
+            success: function (res) {
+                $this.$ppUpload[type]['upload_count'] = 0;
+                var data = checkDataAjax(res);
+                if (data !== false) {
+                    $this.clearUploadFileData(type);
 
-                        $this.$ppUpload[type]['pp'].one('hidden.bs.modal', function(){
-                            $this.$ppUpload[type]['btn_cancel'].prop('disabled', false);
-                            $this.$ppUpload[type]['btn_publish'].removeChildrenLoader();
-                            $this.removeUploadFile(type);
-                        }).modal('hide');
+                    $this.$ppUpload[type]['pp'].one('hidden.bs.modal', function () {
+                        $this.$ppUpload[type]['btn_cancel'].prop('disabled', false);
+                        $this.$ppUpload[type]['btn_publish'].removeChildrenLoader();
+                        $this.removeUploadFile(type);
+                    }).modal('hide');
 
-                        if(!clPages.myPageReload(sel,false,toMyMedia,groupId, photo_upload_offset)){
-                            wallUpdater();
+                    if (!clPages.myPageReload(sel, false, toMyMedia, groupId, photo_upload_offset)) {
+                        wallUpdater();
 
-                            if (type != 'song') {
-                                updateGridPhotoFromPublish();
-                            }
-                            $this.updaterCounterPage(sel,data.data.count_title, data.data.count);
-                            if (type == 'photo') {
-                                $this.isImageEditorEnabled = data.data.isImageEditorEnabled;
-                                $this.replacePhotoDefaultCheck(data.data.photo_default, photoDefaultId, data);
-                            }
-                            delete data.data;
+                        if (type != 'song') {
+                            updateGridPhotoFromPublish();
                         }
-                    }else{
-                        showError()
+                        $this.updaterCounterPage(sel, data.data.count_title, data.data.count);
+                        if (type == 'photo') {
+                            $this.isImageEditorEnabled = data.data.isImageEditorEnabled;
+                            $this.replacePhotoDefaultCheck(data.data.photo_default, photoDefaultId, data);
+                        }
+                        delete data.data;
                     }
-                },
-                error: function(){
+                } else {
                     showError()
-                },
-                complete: function(){
                 }
+            },
+            error: function () {
+                showError()
+            },
+            complete: function () {
+            }
         })
     }
     /* Divyesh - Added on 11-04-2024 */
@@ -2909,11 +2910,12 @@ var CProfilePhoto = function(guid,uid, nsc_couple_id=0) {
             dataRes['activity_id'] = partyhouId;
         }
         //popcorn modified 2024-08-05 end
-    
+
         /* Divyesh - added on 23042024 */
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        var offset = urlParams.get('offset')
+        var offset = urlParams.get('offset');
+
         var offset_str = 'public';
         if (offset === 'private') {
             offset_str = 'private';
@@ -2921,6 +2923,8 @@ var CProfilePhoto = function(guid,uid, nsc_couple_id=0) {
             offset_str = 'personal';
         } else if (!isNaN(offset) && offset > 0) {  // Check if offset is a number
             offset_str = offset;
+        } else if (offset == 'custom_folders') {
+            offset_str = 'folder';
         }
 
         if(!is_access_offset_all) {

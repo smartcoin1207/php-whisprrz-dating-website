@@ -122,7 +122,6 @@ class CPage extends CHtmlBlock
         $pageDescription = '';
         $pageClass = 'videos_list';
 
-
         if ($uid) {
             if ($groupId) {
                 $pageTitle = lSetVars('page_title_someones', array('name' => $groupInfo['title']));
@@ -135,14 +134,13 @@ class CPage extends CHtmlBlock
             } else {
                 $name = User::getInfoBasic($uid, 'name');
                 $name = User::nameShort($name);
-                $pageTitle = lSetVars('page_title_someones', array('name' => $name));
+                $pageTitle = lSetVars('group_page_title_someones', array('name' => $name));
                 $pageDescription = l('here_you_can_browse_the_users_videos');
             }
             $pageClass .= ' videos_list_user';
         } elseif($groupsPhotoList) {
             $pageTitle = $isPagesPhotosList ? l('page_title_pages') : l('page_title_groups');
         }
-
 
 		if ($isPageLiveFinished) {
 			$pageUrl = Common::pageUrl('live_list_finished');
@@ -151,7 +149,7 @@ class CPage extends CHtmlBlock
 		}
         if ($uid) {
             if ($groupsPhotoList){
-                $pageUrl = $isPagesPhotosList ? Common::pageUrl('user_my_pages_vids_list', $guid) : Common::pageUrl('user_my_groups_vids_list', $guid);
+                $pageUrl = $isPagesPhotosList ? Common::pageUrl('user_my_pages_vids_list', $guid) : Common::pageUrl('user_my_groups_vids_list', $uid);
             } elseif ($groupId) {
                 $pageUrl = Common::pageUrl('group_vids_list', $groupId);
             } else {
@@ -215,10 +213,10 @@ class CPage extends CHtmlBlock
             }
         }
 
+        $html->setvar('url_page_user_videos_list', $pageUrl);
         /* Divyesh - Added on 11-04-2024 */
         if ($uid === $g_user['user_id'] || User::isFriend($uid, $g_user['user_id'])) {
-            
-            $html->setvar('url_page_user_videos_list', $pageUrl);
+
             $html->setvar('active_tab_1', $active_tab_1);
             $html->setvar('active_tab_2', $active_tab_2);
             
@@ -310,7 +308,6 @@ class CPage extends CHtmlBlock
         CProfileVideo::$isGetDataWithFilter = true;
 
         $rows = $class::parseListTabVideos($html, $typeOrder, $tab, $limit, $block, $groupId, true); // Divyesh - Added on 11-04-2024
-
 
         CProfileVideo::$isGetDataWithFilter = false;
         if ($rows) {

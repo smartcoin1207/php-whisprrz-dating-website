@@ -6199,6 +6199,7 @@ $l['vids_list.php']['page_title'] = "Browse videos";
 $l['vids_list.php']['page_title_groups'] = "Browse videos from groups";
 $l['vids_list.php']['page_title_pages'] = "Browser videos from pages";
 $l['vids_list.php']['page_title_someones'] = "{name}&#39;s videos";
+$l['vids_list.php']['group_page_title_someones'] = "{name}&#39;s group videos";
 $l['vids_list.php']['search'] = "Search";
 $l['vids_list.php']['your_videos'] = "Your videos";
 

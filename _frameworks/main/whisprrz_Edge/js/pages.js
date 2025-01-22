@@ -91,6 +91,7 @@ var CPages = function(guid) {
         })
     }
 
+    //Popcorn modified 2025-01-22
     this.replaceUrl = function(page){
         var param = '';
         if (page && page!=1) {
@@ -115,6 +116,19 @@ var CPages = function(guid) {
         var queryString = window.location.search;
         var queryStringWithoutQuestionMark = window.location.search.substring(1);
         var replaceUrlPre = $this.urlPage + param + (queryStringWithoutQuestionMark ?  "?" + queryStringWithoutQuestionMark : "");
+
+        if ($this.urlPage.includes(queryStringWithoutQuestionMark)) {
+            replaceUrlPre = $this.urlPage + param;
+        } else {
+            if ($this.urlPage.includes("?")) {
+                // Use "&" if "?" is already present 
+                replaceUrlPre += param + (queryStringWithoutQuestionMark ? "&" + queryStringWithoutQuestionMark : "");
+            } else {
+                // Use "?" if no "?" is present
+                replaceUrlPre += param + (queryStringWithoutQuestionMark ? "?" + queryStringWithoutQuestionMark : "");
+            }
+        }
+
         replaceUrl(replaceUrlPre);
     }
 
@@ -286,7 +300,6 @@ var CPages = function(guid) {
 
 
         $this.setDisabledLink(page);
-
         if(!noScroll){
             $this.replaceUrl(data[$this.param]);
             clMediaTools.scrollTop();

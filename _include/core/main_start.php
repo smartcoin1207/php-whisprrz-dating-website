@@ -16,9 +16,9 @@ if (!$routerLoadCore && $p != 'updater.php') {
     include(__DIR__ . '/main_auth.php');
 }
 
-global $p;
+global $p, $g;
 
-if($p) {
+if($p && !(isset($g['is_router_page']) && $g['is_router_page'] == 1)) {
     $file_code = str_replace(".php", "", $p);
 
     $code_match = array(

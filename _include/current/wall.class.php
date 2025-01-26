@@ -1241,7 +1241,6 @@ class Wall {
         $rows = DB::rows($sql, $dbIndex);
         if(Common::isValidArray($rows)) {
             foreach($rows as $row) {
-                echo $row['id'];
                 self::removeComment($row['id'], false);
             }
         }
@@ -3664,12 +3663,14 @@ AND created_at = ' . to_sql($row['params'], 'Date') . ' ORDER BY image_id DESC';
 
         require_once(self::includePath() . "_include/current/partyhouz/tools.php");
         $partyhou = CPartyhouzTools::retrieve_partyhou_by_id($row['item_id']);
+        if (!$partyhou) return;
 
         $partyhou['partyhou_description'] = hard_trim($partyhou['partyhou_description'], 185);
 
         foreach ($partyhou as $key => $value) {
             $vars[$key] = $value;
         }
+
         $vars['partyhou_datetime'] = Common::dateFormat($partyhou['partyhou_datetime'], 'wall_partyhou_datetime');
 
         $sql = 'SELECT * FROM partyhouz_partyhou_image

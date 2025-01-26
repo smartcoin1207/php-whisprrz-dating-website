@@ -1,30 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glass Gallery</title>
-    <link rel="stylesheet" href="css/main.css">
-</head>
-<body>
-    <div id="wrapper">
-        <div class="frame_content">
-            <div class="eca_glass_grid">
-                <!-- Items will be dynamically inserted by PHP -->
-                <div class="eca_glass_item">
-                    <div class="eca_glass_thumbnail">
-                        <img src="thumbnail.jpg" alt="Title">
-                        <span class="eca_glass_duration">5:27</span>
-                    </div>
-                    <div class="eca_glass_info">
-                        <h3 class="eca_glass_title">Title</h3>
-                        <div class="eca_glass_meta">
-                            <span class="eca_glass_date">1/8/2025</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+{header}
+{vids_header}
+
+
+<div class="vids_new_decor_violet">
+    <div class="pl_top" style="display:none;">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+
+                              <td><h1 class="txt_upper_header_color">{l_top_plays}</h1></td>
+                              <td>
+                              <div class="main_pl">
+                                    <div class="cont">
+                                        <div class="pic">
+                                            <img  src="{url_tmpl_main}images/vids/ico_browse.png" width="34" height="34" alt=""/>
+                                        </div>
+                                        <ul class="list">
+                                            <li><a href="{url_main}vids_collect.php?m=views">{l_browse_all}</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="bg">
+                                        <ul class="lists">
+                        <li>
+                            <!-- begin_my_vids -->
+                            <a href="{url_main}vids_collect.php?m=my">{l_my_videos}</a>
+                            <!-- end_my_vids -->
+                            <!-- begin_my_subscriptions -->
+                            &nbsp;|&nbsp;
+                            <a href="{url_main}vids_collect.php?m=subscripts">{l_subscriptions}</a>
+                            <!-- end_my_subscriptions -->
+                        </li>
+                                                                </ul>
+                                    </div>
+                              </div>
+                              </td>
+                            </tr>
+                          </table>
+                            </div>
+                            <!-- /bl_main_pl -->
+
+
+          <div class="cl"></div>
+
+          <!-- begin_itemv -->
+          <div class="vids_new_top_pl <!-- begin_itemv_last -->last_top_pl<!-- end_itemv_last -->">
+              <div class="vids_new_img_green">
+                  <a href="{url_main}vids_watch.php?id={itemv_id}"><img class="video_type_{itemv_video_type}" src="{itemv_image}" height="120" alt=""/></a>
+                  <div class="vids_new_star">
+                      <img src="{url_tmpl_main}images/vids/ico_{itemv_rating_1}.png" width="16" height="16" alt=""/>
+                      <img src="{url_tmpl_main}images/vids/ico_{itemv_rating_2}.png" width="16" height="16" alt=""/>
+                      <img  src="{url_tmpl_main}images/vids/ico_{itemv_rating_3}.png" width="16" height="16" alt=""/>
+                      <img  src="{url_tmpl_main}images/vids/ico_{itemv_rating_4}.png" width="16" height="16" alt=""/>
+                      <img  src="{url_tmpl_main}images/vids/ico_{itemv_rating_5}.png" width="16" height="16" alt=""/>                                      </div>
+              </div>
+              <div class="vids_new_img_txt">
+                  <strong><a href="{url_main}vids_watch.php?id={itemv_id}">{itemv_subject}</a></strong>
+                  <span>{l_plays} {itemv_count_views} | {l_comments} {itemv_count_comments}</span>
+              </div>
+          </div>
+          <!-- end_itemv -->
     </div>
-</body>
-</html>
+<div class="cl"></div>
+</div>
+
+<div class="vids_new_shadow"></div>
+
+<div class="vids_new_p pl_top_m">
+
+                            <!-- bl_main_pl -->
+                            <div class="bl_main_pl">
+
+                              <table>
+                                <col width="10%;" >
+                                <col width="90%;" >
+                                <tr>
+                                  <td><h1 class="txt_lower_header_color">{l_menu_lookingglass}</h1></td>
+                                  <td>
+                                     <div class="main_pl ">
+                                            <div class="cont" style="display:none;">
+                                                <div class="pic">
+                                                    <img src="{url_tmpl_main}images/vids/ico_browse.png" width="34" height="34" alt=""/>
+                                                </div>
+                                                <ul class="list">
+                                                    <li><a href="{url_main}vids_collect.php?m=new">{l_browse_all}</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="bg">
+                                                <div class="bl_search" style="display:none;">
+
+                                                <form action="{url_main}vids_collect.php">
+                                                    <input type="hidden" name="m" value="search" />
+                                                   <div class="vids_input_text1 fl_left" style="width: 130px;" > <input class="no_abk" type="text" name="id" value="" onFocus="this.value=''"/></div>
+<!--                                                     <div class="vids_input2 fl_left"><input type="submit" value="{l_search}"/></div> -->
+                            <input class="btn upper_header_color round big " type="submit" value="{l_search}" />
+                                                </form>
+
+                                                </div>
+                                            </div>
+                                      </div>
+                                  </td>
+                                </tr>
+                              </table>
+                          </div>
+                          <!-- /bl_main_pl -->
+
+    <div class="cl"></div>
+    <!-- begin_item -->
+	<div class="fl_left" style="margin-right:20px;">
+        <div class="vids_new_img" >            
+			<a href="{url_main}VideoCall?id={item_id}">
+			<video width="160" height="120" controls>
+				<source src="{url_main}/VideoCall/videos/{item_name}" type="video/mp4">
+			</video>
+			</a>
+        </div>
+    </div>    
+    <!-- end_item -->
+</div>
+
+<div class="gray_box"></div>
+
+{vids_side}
+{vids_footer}
+{footer}

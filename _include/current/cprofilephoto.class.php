@@ -802,7 +802,9 @@ class CProfilePhoto extends CHtmlBlock
         $result = array();
 
         if ($uid === null) {
-            $uid = guid();
+            $uid =
+            
+            guid();
         }
 
         $display = get_param('display');
@@ -834,9 +836,7 @@ class CProfilePhoto extends CHtmlBlock
                 $where .= $whereSql;
             }
 
-            if (in_array($onlyPublic, ['private', 'personal', 'folder'])) {
-                $where .= " AND ((ip.user_id=PH.user_id AND ip.friend_id={$guid}) OR PH.user_id={$guid}) ";
-            }
+            $where .= self::getPhotoAccessSqlWhereAdd($onlyPublic, $guid);
 
             if (!$guid) {
                 $where .= ($where ? " AND " : " ") . " U.set_who_view_profile != 'members'";
@@ -1434,11 +1434,7 @@ class CProfilePhoto extends CHtmlBlock
                $where .= $whereSql;
             }
 
-            if (in_array($onlyPublic, ['private', 'personal', 'folder'])) {
-                $where .= " AND ((ip.user_id=PH.user_id AND ip.friend_id={$guid}) OR PH.user_id={$guid}) ";
-            }
-
-            // var_dump($where); die();
+            $where .= self::getPhotoAccessSqlWhereAdd($onlyPublic, $guid);
             
             if (!$guid) {
                 $where .= ($where ? " AND " : " ") . " U.set_who_view_profile != 'members'";
@@ -3402,11 +3398,11 @@ class CProfilePhoto extends CHtmlBlock
                 $photo_private = 'N';
                 $photo_personal = 'N';
                 
-                if($photo_upload_offset == 'public') {
+                if($photo_upload_offset === 'public') {
                     
-                } elseif($photo_upload_offset == 'private') {
+                } elseif($photo_upload_offset === 'private') {
                     $photo_private = 'Y';
-                } elseif($photo_upload_offset == 'personal') {
+                } elseif($photo_upload_offset === 'personal') {
                     $photo_personal = 'Y';
                 } elseif(is_numeric($photo_upload_offset) && $photo_upload_offset > 0) {
                     $in_custom_folder = 'Y';
@@ -7426,15 +7422,31 @@ class CProfilePhoto extends CHtmlBlock
 
     public static function getPhotoAccessSqlFromAdd($access) {
         $sql_from_add = ' ';
-        if ($access == 'private'){
+
+        if ($access === 'private'){
             $sql_from_add = ' LEFT JOIN invited_private ip ON ip.user_id=PH.user_id ';
-        }else if($access == 'personal'){
+        }else if($access === 'personal'){
             $sql_from_add = ' LEFT JOIN invited_personal ip ON ip.user_id=PH.user_id ';
-        }else if($access == 'folder'){
+        }else if($access === 'folder'){
             $sql_from_add = ' LEFT JOIN invited_folder ip ON ip.user_id=PH.user_id ';
         }
 
         return $sql_from_add;
+    }
+
+    public static function getPhotoAccessSqlWhereAdd($access, $guid) {
+        $where_add = ' ';
+        if (in_array($access, ['private', 'personal', 'folder'], true)) {
+            $where_folder_add = '';
+
+            if ($access === 'folder') {
+                $where_folder_add = ' AND PH.custom_folder_id=ip.folder_id';
+            }
+
+            $where_add = " AND ((ip.user_id=PH.user_id AND ip.friend_id={$guid} $where_folder_add) OR PH.user_id={$guid}) ";
+        }
+
+        return $where_add;
     }
 
     public static function getAndUpdatePhotoSize($photoInfo, $photoMain, $defaultWidth)
@@ -7514,9 +7526,7 @@ class CProfilePhoto extends CHtmlBlock
             $sql = 'SELECT COUNT(DISTINCT PH.photo_id) FROM `photo` AS PH JOIN `user` AS U ON PH.user_id=U.user_id ';
             $sql .= self::getPhotoAccessSqlFromAdd($onlyPublic);
 
-            if (in_array($onlyPublic, ['private', 'personal', 'folder'])) {
-                $where .= " AND ((ip.user_id=PH.user_id AND ip.friend_id={$guid}) OR PH.user_id={$guid}) ";
-            }
+            $where .= self::getPhotoAccessSqlWhereAdd($onlyPublic, $guid);
             
             $sql .= 'where ' . $where;
         }
@@ -7572,18 +7582,18 @@ class CProfilePhoto extends CHtmlBlock
         $photoId = get_param('photo_id', '');
         /* Popcorn - Modified on 23-10-2024 */ 
         if(get_param('is_access_offset_all', '')) {
-        } else if ($access == 'private') {
+        } else if ($access === 'private') {
             $where .= " AND ({$table}private = 'Y' OR {$table}photo_id = '{$photoId}') ";
-        } else if ($access == 'personal') {
+        } else if ($access === 'personal') {
             $where .= " AND ({$table}personal = 'Y' OR {$table}photo_id = '{$photoId}')";
-        } else if ($access == 'folder') {
+        } else if ($access === 'folder') {
             $custom_folder_id = get_param('offset', 0);
             if (is_numeric($custom_folder_id)) {
                 $where .= " AND (({$table}in_custom_folder = 'Y' AND {$table}custom_folder_id = ". to_sql($custom_folder_id, 'Number') .") OR {$table}photo_id = '{$photoId}')";
             } elseif ($custom_folder_id == 'custom_folders' || $custom_folder_id == 'folder') {
                 $where .= " AND (({$table}in_custom_folder = 'Y') OR {$table}photo_id = '{$photoId}')";
             }
-        } else if ((($access == true || $access == 'public') && !$noPrivatePhoto) || self::isHidePrivatePhoto()) {
+        } else if ((($access === true || $access === 'public') && !$noPrivatePhoto) || self::isHidePrivatePhoto()) {
             $where .= " AND ({$table}private = 'N' AND {$table}personal = 'N' AND {$table}in_custom_folder = 'N' OR {$table}photo_id = '{$photoId}') " ;
         }
 

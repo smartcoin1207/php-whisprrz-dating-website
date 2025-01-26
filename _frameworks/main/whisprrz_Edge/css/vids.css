@@ -253,7 +253,7 @@ ul.vids_new_list li a:hover{ text-decoration: underline; }
 .bl_main_pl ul.list li{ margin: 0; padding: 0; display: inline; font-size: 11px; }
 .bl_main_pl ul.list li a{ color: #D4B1E9; text-decoration: none; }
 .bl_main_pl ul.list li a:hover{ text-decoration: underline; }
-.bl_main_pl .bg{ height: 26px; margin: 0 -10px 10px 0; padding: 0; z-index: 2; border-radius: 15px 0 0 15px; -moz-border-radius: 15px 0 0 15px; background: url(../images/music/pl_violet_bg.png) 0 0 repeat; }
+.bl_main_pl .bg{ height: 26px; margin: 0 0 10px 0; padding: 0; z-index: 2; border-radius: 15px 0 0 15px; -moz-border-radius: 15px 0 0 15px; background: url(../images/music/pl_violet_bg.png) 0 0 repeat; }
 .bl_main_pl .bg .bl_search{ padding: 14px 0 0; }
 
 .bl_main_pl .bg ul.lists{ margin: 0; padding: 0; }

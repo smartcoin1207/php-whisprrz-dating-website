@@ -804,14 +804,15 @@ class Moderator {
                 case 'wowslider':
                     DB::query("SELECT * FROM wowslider WHERE approved = 0", 2);
                     $num = DB::num_rows(2);
-                break;  
+                break;
                 case 'users_reports':
                     DB::query("SELECT * FROM users_reports", 2);
                     $num = DB::num_rows(2);
-                    break;  
-                    case 'support_tickets':
-                        DB::query("SELECT * FROM support_tickets where assign_to={$g_user['user_id']}", 2);
-                        $num = DB::num_rows(2);                break;  
+                    break;
+                case 'support_tickets':
+                    DB::query("SELECT * FROM support_tickets where assign_to={$g_user['user_id']}  AND status='1'", 2);
+                    $num = DB::num_rows(2);
+                    break;
                 default:
                     # code...
                     break;

@@ -452,7 +452,7 @@ include_once($g['path']['dir_main'] . "_include/current/ajax.php");
 
 include_once($g['path']['dir_main'] . "_pay/pay_start.php");
 
-include_once($g['to_root'] . "_include/lib/s3.php");
+include_once($g['path']['dir_main'] . "_include/lib/s3.php");
 
 //include_once($g['to_root'] . "_include/lib/html.php");
 //include_once($g['to_root'] . "_include/lib/block.php");
@@ -464,7 +464,7 @@ include_once($g['path']['dir_main'] . "_include/current/common.php");
 
 //include_once($g['to_root'] . "_include/current/user_fields.class.php");
 //include_once($g['to_root'] . "_include/current/settings_field.class.php");
-include_once($g['to_root'] . "_include/current/banner.class.php");
+include_once($g['path']['dir_main'] . "_include/current/banner.class.php");
 //include_once($g['to_root'] . "_include/current/gallery.class.php");
 
 $g['sql']['photo_vis'] = '';

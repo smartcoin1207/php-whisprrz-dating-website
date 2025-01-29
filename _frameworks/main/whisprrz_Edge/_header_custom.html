@@ -93,80 +93,78 @@
 
     <div class="pl_grid_count none_select">
         <!-- begin_profile_menu_inner_big -->
-
         <div class="bl_count left" style="float: left;">
+            <!-- begin_profile_menu_inner_go_live_item -->
+                <a href="{profile_menu_inner_go_live_item_url}" id="{profile_menu_inner_go_live_item_key}" class="header_navbar_item_menu item {profile_menu_inner_go_live_item_key} <!-- begin_profile_menu_inner_go_live_item_active -->active<!-- end_profile_menu_inner_go_live_item_active -->" style="margin-top: 10px; margin-left: 5px;" >
+                    <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_go_live_item_tooltip}">
+                        <div style="font-size: 12px;">{profile_menu_inner_go_live_item_title}</div>
+                    </div>
+                </a>
+            <!-- end_profile_menu_inner_go_live_item -->
 
-        <!-- begin_profile_menu_inner_go_live_item -->
-            <a href="{profile_menu_inner_go_live_item_url}" id="{profile_menu_inner_go_live_item_key}" class="header_navbar_item_menu item {profile_menu_inner_go_live_item_key} <!-- begin_profile_menu_inner_go_live_item_active -->active<!-- end_profile_menu_inner_go_live_item_active -->" style="margin-top: 10px; margin-left: 5px;" >
-                <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_go_live_item_tooltip}">
-                    <div style="font-size: 12px;">{profile_menu_inner_go_live_item_title}</div>
-                </div>
-            </a>
-        <!-- end_profile_menu_inner_go_live_item -->
+            <!-- begin_profile_menu_inner_description_item -->
+                <script type="text/javascript">
+                    function printElement(elementId) {
+                        var printContents = document.getElementById(elementId).innerHTML;
+                        var originalContents = document.body.innerHTML;
 
-        <!-- begin_profile_menu_inner_description_item -->
-            <script type="text/javascript">
-                  function printElement(elementId) {
-                    var printContents = document.getElementById(elementId).innerHTML;
-                    var originalContents = document.body.innerHTML;
+                        document.body.innerHTML = printContents;
 
-                    document.body.innerHTML = printContents;
+                        window.print();
 
-                    window.print();
-
-                    document.body.innerHTML = originalContents;
-                  }
-            </script>
-            <div class="dropdown" style="margin-top: 9px; position: absolute; z-index: 10;">
-                <button class="dropdown-toggle cover_button_inner" type="button" data-toggle="dropdown" style="height: auto; border: 0px; padding: 6px 12px; margin-left: 5px;">{l_description}<span class="caret"></span></button>
-                <style>
-                    .ehp-description {
-                        padding: 5px 10px;
-                        border-bottom: 1px solid #80808054;
+                        document.body.innerHTML = originalContents;
                     }
-                </style>
-                <ul class="dropdown-menu" id="full_description" style="top: auto; max-width: 350px; min-width: 250px; max-height: 500px; color: black;">
-                    <li><div class="ehp-description btn" style="color: black; margin-right: 5px; padding: 5px; border: 1px solid; float: right;" onclick="printElement('full_description')">{l_print}</div></li>
-                    <li><div class="ehp-description" style="margin-top: 10px;"><b>{l_date}</b>: {date} </div></li>
-                    <li><div class="ehp-description"><b>{l_place}</b>:{place}</div></li>
-                    <li><div class="ehp-description"><b>{l_website}</b>:{site}</div></li>
-                    <li><div class="ehp-description"><b>{l_phone}</b>:{phone}</div></li>
-                    <li><div class="ehp-description"><b>{l_address}</b>: <a href="{address}">{l_address}</a></div></li>
-                    <li><div class="ehp-description"><b>{l_description}</b>:<div style="text-wrap: wrap; max-height: 300px; overflow: auto;">{description}</div></div></li>
-                </ul>
-            </div>
-        <!-- end_profile_menu_inner_description_item -->
+                </script>
+                <div class="dropdown" style="margin-top: 9px; position: absolute; z-index: 10;">
+                    <button class="dropdown-toggle cover_button_inner" type="button" data-toggle="dropdown" style="height: auto; border: 0px; padding: 6px 12px; margin-left: 5px;">{l_description}<span class="caret"></span></button>
+                    <style>
+                        .ehp-description {
+                            padding: 5px 10px;
+                            border-bottom: 1px solid #80808054;
+                        }
+                    </style>
+                    <ul class="dropdown-menu" id="full_description" style="top: auto; max-width: 350px; min-width: 250px; max-height: 500px; color: black;">
+                        <li><div class="ehp-description btn" style="color: black; margin-right: 5px; padding: 5px; border: 1px solid; float: right;" onclick="printElement('full_description')">{l_print}</div></li>
+                        <li><div class="ehp-description" style="margin-top: 10px;"><b>{l_date}</b>: {date} </div></li>
+                        <li><div class="ehp-description"><b>{l_place}</b>:{place}</div></li>
+                        <li><div class="ehp-description"><b>{l_website}</b>:{site}</div></li>
+                        <li><div class="ehp-description"><b>{l_phone}</b>:{phone}</div></li>
+                        <li><div class="ehp-description"><b>{l_address}</b>: <a href="{address}">{l_address}</a></div></li>
+                        <li><div class="ehp-description"><b>{l_description}</b>:<div style="text-wrap: wrap; max-height: 300px; overflow: auto;">{description}</div></div></li>
+                    </ul>
+                </div>
+            <!-- end_profile_menu_inner_description_item -->
         </div>
 
         <!-- begin_profile_menu_inner_big_left -->
-        <div class="bl_count left">
             <!-- begin_profile_menu_inner_big_left_item -->
-            <a id="{profile_menu_inner_big_left_item_key}" class="header_navbar_item_menu item {profile_menu_inner_big_left_item_key} <!-- begin_profile_menu_inner_big_left_item_active -->active<!-- end_profile_menu_inner_big_left_item_active -->" href="{profile_menu_inner_big_left_item_url}">
-                <span class="bl<!-- begin_profile_menu_inner_big_left_item_wall_show_post_input --> show_post_input<!-- end_profile_menu_inner_big_left_item_wall_show_post_input -->" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_big_left_item_tooltip}">
-                    <span class="count">
-                        <span class="wrapper_number">
-                            <span class="number">{profile_menu_inner_big_left_item_count}</span>
+            <div class="bl_count left">
+                <a id="{profile_menu_inner_big_left_item_key}" class="header_navbar_item_menu item {profile_menu_inner_big_left_item_key} <!-- begin_profile_menu_inner_big_left_item_active -->active<!-- end_profile_menu_inner_big_left_item_active -->" href="{profile_menu_inner_big_left_item_url}">
+                    <span class="bl<!-- begin_profile_menu_inner_big_left_item_wall_show_post_input --> show_post_input<!-- end_profile_menu_inner_big_left_item_wall_show_post_input -->" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_big_left_item_tooltip}">
+                        <span class="count">
+                            <span class="wrapper_number">
+                                <span class="number">{profile_menu_inner_big_left_item_count}</span>
 
-                            <!-- begin_profile_menu_inner_big_left_item_upload_file -->
-                            <div data-tooltip="true" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_big_left_item_upload_file_title}" class="icon_upload_file hidden-xs {profile_menu_inner_big_left_item_upload_file_type}_upload">
-                                <svg viewBox="0 0 48 48">
-                                    <path d="M8 12H4v28c0 2.21 1.79 4 4 4h28v-4H8V12zm32-8H16c-2.21 0-4 1.79-4 4v24c0 2.21 1.79 4 4 4h24c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4zm-2 18h-8v8h-4v-8h-8v-4h8v-8h4v8h8v4z"/>
-                                </svg>
-                            </div>
-                            <!-- end_profile_menu_inner_big_left_item_upload_file -->
+                                <!-- begin_profile_menu_inner_big_left_item_upload_file -->
+                                <div data-tooltip="true" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_big_left_item_upload_file_title}" class="icon_upload_file hidden-xs {profile_menu_inner_big_left_item_upload_file_type}_upload">
+                                    <svg viewBox="0 0 48 48">
+                                        <path d="M8 12H4v28c0 2.21 1.79 4 4 4h28v-4H8V12zm32-8H16c-2.21 0-4 1.79-4 4v24c0 2.21 1.79 4 4 4h24c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4zm-2 18h-8v8h-4v-8h-8v-4h8v-8h4v8h8v4z"/>
+                                    </svg>
+                                </div>
+                                <!-- end_profile_menu_inner_big_left_item_upload_file -->
 
+                            </span>
                         </span>
+                        <span class="name">{profile_menu_inner_big_left_item_title}</span>
                     </span>
-                    <span class="name">{profile_menu_inner_big_left_item_title}</span>
-                </span>
-            </a>
+                </a>
+            </div>
             <!-- end_profile_menu_inner_big_left_item -->
-        </div>
         <!-- end_profile_menu_inner_big_left -->
 
-        <!-- begin_profile_menu_inner_big_left_item_empty -->
+        <!-- begin_profile_menu_inner_big_left_item_empty1 -->
         <div class="bl_count left" style="min-width: 0px;"></div>
-        <!-- end_profile_menu_inner_big_left_item_empty -->
+        <!-- end_profile_menu_inner_big_left_item_empty1 -->
 
         <div id="header_user_name" data-title="{header_custom_user_name_title}" data-tooltip1="true" data-toggle="tooltip" data-placement="bottom" data-short="{header_custom_visible_name_short}" class="user_name_inner_big header_user_name_tooltip">
             {header_custom_name}
@@ -198,44 +196,43 @@
         </div>
         <!-- end_profile_menu_inner_big_right -->
 
-        <!-- begin_profile_menu_inner_big_right_empty -->
+        <!-- begin_profile_menu_inner_big_right_empty1 -->
         <div class="bl_count right"></div>
-        <!-- end_profile_menu_inner_big_right_empty -->
+        <!-- end_profile_menu_inner_big_right_empty1 -->
 
         <div class="bl_count right" style="position: absolute; right: 10px; max-width: none;">
-        <!-- begin_profile_menu_inner_address_item -->
-            <a id="{profile_menu_inner_address_item_key}" class="header_navbar_item_menu item menu_groups_like_edge<!-- begin_profile_menu_inner_address_item_active -->active<!-- end_profile_menu_inner_address_item_active -->" style="margin-top: 10px;" href="{profile_menu_inner_address_item_url}" data-cmd="{profile_menu_inner_address_item_cmd}" target="_blank">
-                <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_address_item_tooltip}">
-                    <div style="font-size: 12px;">{profile_menu_inner_address_item_title}</div>
-                </div>
-            </a>
-        <!-- end_profile_menu_inner_address_item -->
+            <!-- begin_profile_menu_inner_address_item -->
+                <a id="{profile_menu_inner_address_item_key}" class="header_navbar_item_menu item menu_groups_like_edge<!-- begin_profile_menu_inner_address_item_active -->active<!-- end_profile_menu_inner_address_item_active -->" style="margin-top: 10px;" href="{profile_menu_inner_address_item_url}" data-cmd="{profile_menu_inner_address_item_cmd}" target="_blank">
+                    <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_address_item_tooltip}">
+                        <div style="font-size: 12px;">{profile_menu_inner_address_item_title}</div>
+                    </div>
+                </a>
+            <!-- end_profile_menu_inner_address_item -->
 
-        <!-- begin_profile_menu_inner_partyhou_join_item -->
-            <a id="{profile_menu_inner_partyhou_join_item_key}" class="header_navbar_item_menu item menu_groups_like_edge<!-- begin_profile_menu_inner_partyhou_join_item_active -->active<!-- end_profile_menu_inner_partyhou_join_item_active -->" style="margin-top: 10px;" href="{profile_menu_inner_partyhou_join_item_url}" data-cmd="{profile_menu_inner_partyhou_join_item_cmd}" target="_blank">
-                <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_partyhou_join_item_tooltip}">
-                    <div style="font-size: 12px;">{profile_menu_inner_partyhou_join_item_title}</div>
-                </div>
-            </a>
-        <!-- end_profile_menu_inner_partyhou_join_item -->
+            <!-- begin_profile_menu_inner_partyhou_join_item -->
+                <a id="{profile_menu_inner_partyhou_join_item_key}" class="header_navbar_item_menu item menu_groups_like_edge<!-- begin_profile_menu_inner_partyhou_join_item_active -->active<!-- end_profile_menu_inner_partyhou_join_item_active -->" style="margin-top: 10px;" href="{profile_menu_inner_partyhou_join_item_url}" data-cmd="{profile_menu_inner_partyhou_join_item_cmd}" target="_blank">
+                    <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_partyhou_join_item_tooltip}">
+                        <div style="font-size: 12px;">{profile_menu_inner_partyhou_join_item_title}</div>
+                    </div>
+                </a>
+            <!-- end_profile_menu_inner_partyhou_join_item -->
 
-        <!-- begin_profile_menu_inner_sign_item -->
-            <a id="{profile_menu_inner_sign_item_key}" class="header_navbar_item_menu item <!-- begin_profile_menu_inner_sign_item_active -->active<!-- end_profile_menu_inner_sign_item_active -->" style="margin-top: 10px;"  data-cmd="{profile_menu_inner_sign_item_cmd}" onclick="'{profile_menu_inner_sign_item_url}'">
-                <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_sign_item_tooltip}">
-                    <div style="font-size: 12px;">{profile_menu_inner_sign_item_title}</div>
-                </div>
-            </a>
-        <!-- end_profile_menu_inner_sign_item -->
+            <!-- begin_profile_menu_inner_sign_item -->
+                <a id="{profile_menu_inner_sign_item_key}" class="header_navbar_item_menu item <!-- begin_profile_menu_inner_sign_item_active -->active<!-- end_profile_menu_inner_sign_item_active -->" style="margin-top: 10px;"  data-cmd="{profile_menu_inner_sign_item_cmd}" onclick="'{profile_menu_inner_sign_item_url}'">
+                    <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_sign_item_tooltip}">
+                        <div style="font-size: 12px;">{profile_menu_inner_sign_item_title}</div>
+                    </div>
+                </a>
+            <!-- end_profile_menu_inner_sign_item -->
 
-        <!-- begin_profile_menu_inner_join_item -->
-            <a id="{profile_menu_inner_join_item_key}" class="header_navbar_item_menu item menu_groups_like_edge<!-- begin_profile_menu_inner_join_item_active -->active<!-- end_profile_menu_inner_join_item_active -->" style="margin-top: 10px;" href="{profile_menu_inner_join_item_url}" data-cmd="{profile_menu_inner_join_item_cmd}">
-                <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_join_item_tooltip}">
-                    <div style="font-size: 12px;">{profile_menu_inner_join_item_title}</div>
-                </div>
-            </a>
-        <!-- end_profile_menu_inner_join_item -->
+            <!-- begin_profile_menu_inner_join_item -->
+                <a id="{profile_menu_inner_join_item_key}" class="header_navbar_item_menu item menu_groups_like_edge<!-- begin_profile_menu_inner_join_item_active -->active<!-- end_profile_menu_inner_join_item_active -->" style="margin-top: 10px;" href="{profile_menu_inner_join_item_url}" data-cmd="{profile_menu_inner_join_item_cmd}">
+                    <div class="cover_button_inner" data-toggle="tooltip" data-placement="left" title="{profile_menu_inner_join_item_tooltip}">
+                        <div style="font-size: 12px;">{profile_menu_inner_join_item_title}</div>
+                    </div>
+                </a>
+            <!-- end_profile_menu_inner_join_item -->
         </div>
-
         <!-- end_profile_menu_inner_big -->
     </div>
 

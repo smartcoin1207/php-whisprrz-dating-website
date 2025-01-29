@@ -3285,6 +3285,7 @@ $l['all']['tooltip_browse_photos_group'] = "Browse photos group";
 $l['all']['tooltip_browse_photos_groups'] = "Browse photos groups";
 $l['all']['tooltip_browse_photos_page'] = "Browse photos page";
 $l['all']['tooltip_browse_photos_pages'] = "Browse photos pages";
+$l['all']['tooltip_browse_go_live'] = "Live Streaming";
 $l['all']['tooltip_browse_posts'] = "Read posts";
 $l['all']['tooltip_browse_songs'] = "Browse music";
 $l['all']['tooltip_browse_subscribers_group'] = "Browse members";

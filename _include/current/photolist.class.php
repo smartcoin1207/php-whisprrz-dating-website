@@ -74,7 +74,6 @@ class CPhotoList extends CHtmlBlock
             $pageTitle = $isPagesPhotosList ? l('page_title_pages') : l('page_title_groups');
         }
 
-
         $pageUrl = Common::pageUrl('photos_list');
         if ($uid) {
             if ($groupsPhotoList) {

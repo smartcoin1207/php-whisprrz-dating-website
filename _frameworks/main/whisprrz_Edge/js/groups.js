@@ -543,7 +543,6 @@ var CGroups = function(guid, uid, groupId) {
                 btnIcon='fa-user-times';
             cmd='remove';
             if(action=='remove_request'){
-
                 btnIcon='fa-user-times';
                 btnName=l('remove_request');
                 cmd='remove_request';
@@ -564,8 +563,6 @@ var CGroups = function(guid, uid, groupId) {
 
             }
         }
-
-
 
         $('.menu_groups_like_edge, #bl_group_no_access').each(function(){
             var $el=$(this).data('cmd', cmd).attr('data-cmd',cmd);

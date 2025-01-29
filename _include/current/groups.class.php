@@ -742,9 +742,7 @@ class Groups {
             Common::sendGroupAutomail($userInfo['lang'], $userInfo['mail'], $typeMail, $vars, $groupInfo);
         }
 
-
         return DB::update(self::$tableSubscribers, $data, $where);
-
     }
 
     static function subscribeRequestAdd($uid, $groupId, $accepted = false, $isSendMail = true) {

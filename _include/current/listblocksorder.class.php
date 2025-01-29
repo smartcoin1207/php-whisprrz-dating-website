@@ -1129,7 +1129,7 @@ class ListBlocksOrder extends CHtmlBlock
                 $itemsList = array(
                     'menu_inner_go_live_edge' => array('url' => '',
                         'url_real' => 'live_streaming.php?group_id=' . $groupId,
-                        'tooltip' => l('tooltip_browse_posts')),
+                        'tooltip' => l('tooltip_browse_go_live')),
                     'menu_inner_wall_posts_edge' => array('url' => '',
                         'url_real' => Groups::url($groupId, null, null, true, true),
                         'tooltip' => l('tooltip_browse_posts')),
@@ -1740,6 +1740,7 @@ class ListBlocksOrder extends CHtmlBlock
         self::$itemsList = $itemsList;
 
         $orderItems = Common::getOption($module, $tmpl);
+        // var_dump($module, $tmpl); die();
         if ($orderItems) {
             $orderItems = json_decode($orderItems, true);
             if (!is_array($orderItems)) {
@@ -1915,7 +1916,6 @@ class ListBlocksOrder extends CHtmlBlock
 
     public static function parseMenuItem(&$html, $data, $block, $k, $prf = '', $checkCounter = false, $j = 0)
     {
-
         if (!is_array($data)) {
             return;
         }
@@ -2034,7 +2034,6 @@ class ListBlocksOrder extends CHtmlBlock
             $html->clean($blockItemStatus);
         }
 
-
         $isActive = Common::isPage(isset($data['url']) && $data['url']);
         if ($k == 'menu_inner_wall_posts_edge') {
             $isActive = Common::isPage('profile');
@@ -2123,7 +2122,6 @@ class ListBlocksOrder extends CHtmlBlock
         } else {
             $html->setvar("{$blockItem}_param", '');
         }
-
         $html->parse($blockItem);
 
         return true;
@@ -2142,9 +2140,9 @@ class ListBlocksOrder extends CHtmlBlock
         $uid = User::getParamUid();
 
         if ($module == 'member_header_menu') {
-            // $html->clean("{$block}_item");
-            //$html->clean("{$block}_more");
-            //$html->clean($block);
+            $html->clean("{$block}_item");
+            $html->clean("{$block}_more");
+            $html->clean($block);
         }
 
         $isProfileMenuInner = $block == 'profile_menu_inner_big';
@@ -2155,6 +2153,7 @@ class ListBlocksOrder extends CHtmlBlock
             $checkCounter = true;
 
             $countItemsList = count($orderItemsList);
+
             if (!$isProfileMenuInner) {
                 $i = 0;
                 $orderItemsListLeft = array();
@@ -2172,8 +2171,8 @@ class ListBlocksOrder extends CHtmlBlock
                 && ($uid != $guid
                     || $countItemsList < self::$minNumberItemProfileMenuBig
                     || $countItemsList == 5)) {
-                if ($uid != $guid) {
 
+                if ($uid != $guid) {
                     foreach ($orderItemsList as $k => $item) {
                         $count = self::getCountMenuItem($k);
                         $orderItemsList[$k]['count'] = $count;
@@ -2223,11 +2222,8 @@ class ListBlocksOrder extends CHtmlBlock
 
         if ($uid == $guid) {
             unset($orderItemsList['menu_groups_like_1_edge']);
-
         }
-
         foreach ($orderItemsList as $k => $v) {
-
             $blockItem = $block;
             if ($isProfileMenuInner) {
                 $html->clean($blockItem);
@@ -2235,12 +2231,12 @@ class ListBlocksOrder extends CHtmlBlock
                     $html->clean($blockClean);
                 }
                 $blockItem .= $i % 2 == 0 ? '_left' : '_right';
+                // $blockItem .= '_left';
             }
 
             $is_abailable_go_live = true;
 
             if ($uid != $guid) {
-
                 if (!($k == 'menu_inner_go_live_edge' && $orderItemsList['menu_groups_like_1_edge']['cmd'] == 'remove')) {
 
                     $is_abailable_go_live = false;
@@ -2248,8 +2244,8 @@ class ListBlocksOrder extends CHtmlBlock
             }
 
             if ($isProfileMenuInner && isset($v['count']) && !$v['count'] && !self::isMenuItemProfileTab($k) && $k != 'menu_groups_like_1_edge' && !$is_abailable_go_live) {
-                $html->parse($blockClean, true);
                 $isParseItem = true;
+                continue;
             } else {
                 if ($alias) {
                     $html->setvar("{$blockItem}_item_alias", $alias);

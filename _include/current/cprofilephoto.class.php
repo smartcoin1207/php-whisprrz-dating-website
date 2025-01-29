@@ -1114,7 +1114,7 @@ class CProfilePhoto extends CHtmlBlock
                     $isUserReport = User::isReportUser($uid);
                 }
                 $pid = $item['photo_id'];
-                $photoInfo = array('description' => $item['description'], 'version' => $item['version'], 'visible' => $item['visible'], 'gif' => $item['gif'], 'hash' => $item['hash']);
+                $photoInfo = array('description' => $item['description'], 'private' => $item['private'], 'version' => $item['version'], 'visible' => $item['visible'], 'gif' => $item['gif'], 'hash' => $item['hash']);
                 if ($item['private'] == 'Y') {
                     $photoInfo['private'] = 'Y';
                     self::$privatePhoto[$pid] = $photoInfo;

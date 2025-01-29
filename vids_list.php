@@ -124,7 +124,7 @@ class CPage extends CHtmlBlock
 
         if ($uid) {
             if ($groupId) {
-                $pageTitle = lSetVars('page_title_someones', array('name' => $groupInfo['title']));
+                $pageTitle = lSetVars('group_page_title_someones', array('name' => $groupInfo['title']));
             } elseif ($uid == $guid) {
                 if ($groupsPhotoList){
                     $pageTitle = $isPagesPhotosList ? l('videos_your_pages') : l('videos_your_groups');
@@ -134,7 +134,11 @@ class CPage extends CHtmlBlock
             } else {
                 $name = User::getInfoBasic($uid, 'name');
                 $name = User::nameShort($name);
-                $pageTitle = lSetVars('group_page_title_someones', array('name' => $name));
+                if ($groupsPhotoList) {
+                    $pageTitle = lSetVars('group_page_title_someones', array('name' => $name));
+                } else {
+                    $pageTitle = lSetVars('page_title_someones', array('name' => $name));
+                }
                 $pageDescription = l('here_you_can_browse_the_users_videos');
             }
             $pageClass .= ' videos_list_user';

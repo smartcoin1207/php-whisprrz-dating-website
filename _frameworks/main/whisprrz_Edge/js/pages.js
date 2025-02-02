@@ -137,7 +137,7 @@ var CPages = function(guid) {
     }
 
     this.resizeList = function(){
-        $('.module_filter_result').height(Math.max(200, $('.filter_result:last').height()))
+        // $('.module_filter_result').height(Math.max(200, $('.filter_result:last').height()))
     }
 
     this.initLoadList= function(){

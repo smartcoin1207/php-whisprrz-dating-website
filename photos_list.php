@@ -81,13 +81,13 @@ if ($isAjaxRequest) {
     $tmplList['profile_column_left'] = $dirTmpl . '_profile_column_left.html';
     $tmplList['profile_column_right'] = $dirTmpl . '_profile_column_right.html';
 }
+
 $page = new CPhotoList("", $tmplList);
 
 if ($isAjaxRequest) {
     getResponsePageAjaxByAuthStop($page, $hideFromGuests ? guid() : 1);
 }
-$complite = new CComplite("complite", $g['tmpl']['dir_tmpl_main'] . "_complite.html");
-$page->add($complite);
+
 $header = new CHeader("header", $g['tmpl']['dir_tmpl_main'] . "_header.html");
 $page->add($header);
 $footer = new CFooter("footer", $g['tmpl']['dir_tmpl_main'] . "_footer.html");

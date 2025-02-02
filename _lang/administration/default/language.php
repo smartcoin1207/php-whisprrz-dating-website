@@ -828,6 +828,14 @@ $l['site_options.php']['field_delete_open_partyhouz_everytime_desc'] = "Open Par
 $l['site_options.php']['field_normal_partyhouz_delay_time'] = "PARTYHOUZ RESET TIME";
 $l['site_options.php']['field_normal_partyhouz_delay_time_desc'] = "PARTYHOUZ - Specify Resets in \"min\" Duration 01:00 = 1hr  / 0:30 = 30 Min";
 $l['site_options.php']['field_openpartyhouz_settings'] = "PartyHouZ / OPEN PARTY Common Settings";
+
+$l['site_options.php']['field_looking_glass_settings'] = "Looking Glass Settings";
+$l['site_options.php']['field_looking_glass_display_photo_count'] = "Photos Count";
+$l['site_options.php']['field_looking_glass_display_video_count'] = "Videos Count";
+$l['site_options.php']['field_looking_glass_display_live_streaming_count'] = "Live Streaming Count";
+$l['site_options.php']['field_looking_glass_display_live_streaming_finished_count'] = "Live Streaming Finished Count";
+$l['site_options.php']['field_looking_glass_display_partyhouz_stream_count'] = "Partyhouz Streams Count";
+
 $l['site_options.php']['field_main_users'] = "Featured users on main page";
 $l['site_options.php']['field_main_users_number_oryx'] = "Number of photos on main page";
 $l['site_options.php']['field_main_users_number_mixer'] = "Number of photos on main page";

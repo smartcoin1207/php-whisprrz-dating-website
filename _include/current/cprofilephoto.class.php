@@ -854,8 +854,8 @@ class CProfilePhoto extends CHtmlBlock
                           JOIN `photo` AS PH  ON PH.photo_id = PTR.photo_id
                           JOIN `user` AS U ON U.user_id = PH.user_id
                           LEFT JOIN `friends_requests` AS f ON f.user_id=PH.user_id ' 
-                          . self::getPhotoAccessSqlFromAdd($onlyPublic) 
                     . ' WHERE ' . $where
+                    . self::getPhotoAccessSqlFromAdd($onlyPublic) 
                     . $whereTags
                     . ' GROUP BY PH.photo_id '
                     . $order;
@@ -7516,7 +7516,7 @@ class CProfilePhoto extends CHtmlBlock
     {
         global $g_user;
 
-       $guid = guid();
+        $guid = guid();
        
         $where = self::getWherePhotosList('PH.', $onlyPublic, $uid);
 

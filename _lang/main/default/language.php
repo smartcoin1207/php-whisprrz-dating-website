@@ -6344,4 +6344,6 @@ $l['all']['female_saved_members'] = "Female Members";
 $l['all']['couple_saved_members'] = "Couple Members";
 $l['all']['transgender_saved_members'] = "Transgender Members";
 $l['all']['nonbinary_saved_members'] = "Nonbinary Members";
+
+$l['LookingGlass.php']['looking_glass_photos'] = "Photos";
 ?>

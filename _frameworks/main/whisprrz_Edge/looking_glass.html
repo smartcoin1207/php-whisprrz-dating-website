@@ -1,0 +1,98 @@
+{header}
+{search}
+
+<div class="frame_content">
+    <script>
+        clPages.setData({
+            urlPage:'{url_main}{url_pages}',
+            pageType:'{page_type}',
+            page:'{page_number}'*1,
+            type_order:'{type_order}',
+            tags:'{tags}',
+            only_friends:'{only_friends}'*1,
+            only_live:'{only_live}'*1,
+            uid:'{page_user_id}'*1,
+            guid:'{page_guid}'*1,
+            param:'{page_param}'?'{page_param}':'page',
+            filter:'{page_filter}'*1,
+            isMyFriend:'{page_my_friends}'*1,
+            groupId:'{group_id}'*1,
+            groupType:'{group_type}'
+        });
+        clPages.initList();
+    </script>
+    
+    <style>
+        .sub-group-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .blogs_wrap.page_list {
+            padding: 0;
+        }
+        .main-page-link-icon{
+            font-size: 16px;
+            margin-left: 10px;
+        }
+    </style>
+
+    <!-- begin_looking_glass_group -->
+    <div class="looking-glass-container">
+        <div style="display: flex; justify-content: flex-start; align-items: center;" >
+            <h5 class="sub-group-title" style="margin: 0;">
+                {looking_glass_group_title}
+            </h5>
+            <a href="{media_page_link}">
+                <span class="main-page-link-icon">
+                    <i class="fa fa-long-arrow-right"></i>
+                </span>
+            </a>
+        </div>
+
+        <div>
+            <hr>
+        </div>
+        <div class="blogs_wrap page_list {page_class} <!-- begin_list_people_info -->cham-blog-style-1<!-- end_list_people_info --> <!-- begin_list_people_default -->cham-project-style-3<!-- end_list_people_default --> <!-- begin_list_video_info -->cham-blog-style-1<!-- end_list_video_info --> <!-- begin_list_blogs_info -->cham-blog-style-1<!-- end_list_blogs_info --> <!-- begin_list_blogs_info_big -->cham-content-style-5<!-- end_list_blogs_info_big --> <!-- begin_list_blogs_info_plain -->cham-blog-style-2<!-- end_list_blogs_info_plain --> <!-- begin_list_blogs_info_small -->cham-features-style-4<!-- end_list_blogs_info_small --> <!-- begin_list_photos_default -->cham-blog-style-1<!-- end_list_photos_default -->     <!-- begin_list_groups_info -->cham-blog-style-1<!-- end_list_groups_info --> <!-- begin_list_live_info -->cham-blog-style-1<!-- end_list_live_info --> <!-- begin_list_songs_default -->cham-blog-style-1<!-- end_list_songs_default -->">
+            <div style="position: relative;">
+                <div class="module_filter_result" style="height: auto;">
+                    <div class="row filter_result">
+                        <!-- begin_photo_items -->
+                            {photo_item}
+                        <!-- end_photo_items -->
+
+                        <!-- begin_video_items -->
+                            {video_item}
+                        <!-- end_video_items -->
+                        <!-- begin_list_noitems -->
+                        <div class="wrapper_center">
+                            <div class="bl_no_one">
+                                <div class="icon circle_neutral_face"></div>
+                                <div class="txt">{l_page_nothing_here_yet}</div>
+                                <div class="txt blogs_bl_no_one">
+                                    {l_page_nothing_here_yet}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <!-- end_list_noitems -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end_looking_glass_group -->
+
+    <script>clPages.initLoadList();</script>
+    <script>
+        $(function(){
+            <!-- begin_show_gallery_js -->
+            clProfilemedia.openGallery(false,'{show_media_id}', false, false, '{show_comment_id}');
+            <!-- end_show_gallery_js -->
+            <!-- begin_show_video_gallery_js -->
+            clProfilemedia.openGallery(false,'v_{show_media_id}', true, false, '{show_comment_id}');
+            <!-- end_show_video_gallery_js -->
+        })
+    </script>
+</div>
+
+{footer}

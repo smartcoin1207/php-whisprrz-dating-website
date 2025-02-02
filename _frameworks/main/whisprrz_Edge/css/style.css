@@ -4978,6 +4978,10 @@ opacity: 0;
   overflow: hidden;
 }
 
+.looking-glass-container .cham-blog-style-1 .cham-post .cham-post-meta {
+  display: none;
+}
+
 .cham-blog-style-1 .cham-post .cham-post-meta a,
 .cham-blog-style-1 .cham-post .cham-post-meta span.time,
 .cham-blog-style-1 .cham-post .cham-post-meta span.info_item{
@@ -15995,6 +15999,22 @@ a.arrows.template_modal_prev_p {
   /* height: 200px; */
 }
 
+.looking-glass-container .blogs_wrap .pic{
+  height: 100px;
+}
+
+@media (max-width: 991px){
+  .looking-glass-container .blogs_wrap .pic{
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .looking-glass-container .blogs_wrap .pic{
+    height: auto;
+  }
+}
+
 .blogs_wrap h3{
   /* white-space: nowrap;
   overflow: hidden;
@@ -16055,6 +16075,10 @@ a.arrows.template_modal_prev_p {
 
 .blogs_wrap.photos_list .col-md-2 .cham-post-image .pic{
   height: 160px;
+}
+
+.looking-glass-container .blogs_wrap.photos_list .col-md-2 .cham-post-image .pic{
+  height: auto;
 }
 
 .wall .blogs_wrap.photos_list .col-md-2 .time{

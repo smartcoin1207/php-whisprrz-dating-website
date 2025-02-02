@@ -2164,8 +2164,6 @@ Class TemplateEdge {
     /* Divyesh - Added on 11-04-2024 */
     static function parseListTabVideos(&$html, $typeOrder, $tab, $limit, $blockItems, $groupId = 0, $showAllMyVideo = false)
     {
-        global $p;
-
         $postDisplayType = 'info';
 
         // $_GET['tags'] = '';
@@ -2188,7 +2186,12 @@ Class TemplateEdge {
 
     static function parseVideo(&$html, $row, $numberRow, $postDisplayType)
     {
+        global $p;
 
+        if ($p == 'LookingGlass.php') {
+            $numberRow = 2;
+        }
+    
         $blockItem = 'list_video_item';
         $blockItemType = "{$blockItem}_{$postDisplayType}";
         if ($html->blockExists($blockItemType)) {
@@ -2650,7 +2653,7 @@ Class TemplateEdge {
 
     static function parsePhoto(&$html, $row, $numberRow, $layoutType)
     {
-        global $g, $g_user;
+        global $g, $g_user, $p;
 
         $blockItem = 'list_photos_item';
         $blockItemType = "{$blockItem}_{$layoutType}";
@@ -2659,6 +2662,10 @@ Class TemplateEdge {
             $guid = guid();
             $nsc_couple_id = $g_user['nsc_couple_id'];
             $uidParam = User::getParamUid(0);
+
+            if ($p == 'LookingGlass.php') {
+                $numberRow = 2;
+            }
 
             $info = array('number_row' => $numberRow,
                           'photo_id'   => $row['photo_id'],
@@ -2674,7 +2681,7 @@ Class TemplateEdge {
                           'description_attr'  => toAttr($row['description']),
                           'description_short' => neat_trim($row['description'], 100, ''),
                           'hide_header'     => $row['hide_header'] ? l('picture_add_in_header') : l('picture_remove_from_header'),
-                          'hide_header_icon'=> $row['hide_header'] ? 'fa-plus-square' : 'fa-minus-square'
+                          'hide_header_icon'=> $row['hide_header'] ? 'fa-plus-square' : 'fa-minus-square',
                     );
             $html->assign($blockItem, $info);
             if (guid()) {
@@ -2930,7 +2937,6 @@ Class TemplateEdge {
         return $blockItems;
     }
 
-
     static function parseLive(&$html, $row, $numberRow, $postDisplayType, $online = true)
     {
         $blockItem = 'list_live_item';
@@ -2940,21 +2946,21 @@ Class TemplateEdge {
             $uidParam = User::getParamUid(0);
             $uid = $row['user_id'];
             $guid = guid();
-            $info = array('number_row'     => $numberRow,
-                          'id'             => $row['id'],
-                          'url'            => $row['url'],
-                          'user_id'        => $row['user_id'],
-                          'user_name'      => User::nameOneLetterFull($row['name']),
-                          'user_url'       => $row['user_url'],
-                          'user_city'      => $row['city'] ? l($row['city']) : l($row['country']),
-
-                          'count_comments' => $row['count_comments'],
-                          'time_ago'       => $row['time_ago'],
-                          'image'          => custom_getFileDirectUrl($g['path']['url_files'] . $row['src_bm']),
-                          'tags'           => $row['tags_html'],
-                          'subject'        => $row['subject'],
-                          'subject_attr'   => toAttr($row['subject']),
-                    );
+            $info = array(
+                'number_row'     => $numberRow,
+                'id'             => $row['id'],
+                'url'            => $row['url'],
+                'user_id'        => $row['user_id'],
+                'user_name'      => User::nameOneLetterFull($row['name']),
+                'user_url'       => $row['user_url'],
+                'user_city'      => $row['city'] ? l($row['city']) : l($row['country']),
+                'count_comments' => $row['count_comments'],
+                'time_ago'       => $row['time_ago'],
+                'image'          => custom_getFileDirectUrl($g['path']['url_files'] . $row['src_bm']),
+                'tags'           => $row['tags_html'],
+                'subject'        => $row['subject'],
+                'subject_attr'   => toAttr($row['subject']),
+            );
             $html->assign($blockItem, $info);
 
             $html->subcond($row['subject'], "{$blockItemType}_description");

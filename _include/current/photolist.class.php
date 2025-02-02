@@ -345,6 +345,7 @@ class CPhotoList extends CHtmlBlock
         if ($guid && $ajax && !$uid) {
             User::updateUserFilter($filter);
         }
+        
         parent::parseBlock($html);
     }
 }
